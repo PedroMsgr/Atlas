@@ -120,14 +120,15 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.UsuarioScalarFieldEnum = {
+exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
-  rol: 'rol',
+  password: 'password',
+  role: 'role',
   firstName: 'firstName',
   lastName: 'lastName',
-  telefono: 'telefono',
-  direccion: 'direccion',
+  phone: 'phone',
+  address: 'address',
   avatarUrl: 'avatarUrl',
   isActive: 'isActive',
   createdAt: 'createdAt',
@@ -135,32 +136,23 @@ exports.Prisma.UsuarioScalarFieldEnum = {
   lastLoginAt: 'lastLoginAt'
 };
 
-exports.Prisma.ServidorUnitarioScalarFieldEnum = {
+exports.Prisma.ClientScalarFieldEnum = {
   id: 'id',
-  dominio: 'dominio',
-  nombre: 'nombre',
-  apiToken: 'apiToken',
-  requiereActualizacion: 'requiereActualizacion',
-  constelacionId: 'constelacionId'
+  userId: 'userId',
+  serverId: 'serverId'
 };
 
-exports.Prisma.ClienteScalarFieldEnum = {
+exports.Prisma.ProfessionalScalarFieldEnum = {
   id: 'id',
-  usuarioId: 'usuarioId',
-  servidorId: 'servidorId'
+  userId: 'userId',
+  serverId: 'serverId'
 };
 
-exports.Prisma.ProfesionalScalarFieldEnum = {
+exports.Prisma.CaseScalarFieldEnum = {
   id: 'id',
-  usuarioId: 'usuarioId',
-  servidorId: 'servidorId'
-};
-
-exports.Prisma.CasoScalarFieldEnum = {
-  id: 'id',
-  clienteId: 'clienteId',
-  profesionalId: 'profesionalId',
-  servidorId: 'servidorId',
+  clientId: 'clientId',
+  professionalId: 'professionalId',
+  serverId: 'serverId',
   status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -168,77 +160,113 @@ exports.Prisma.CasoScalarFieldEnum = {
 
 exports.Prisma.ChatScalarFieldEnum = {
   id: 'id',
-  casoId: 'casoId'
+  caseId: 'caseId'
 };
 
-exports.Prisma.MensajeScalarFieldEnum = {
+exports.Prisma.MessageScalarFieldEnum = {
   id: 'id',
   chatId: 'chatId',
-  remitente: 'remitente',
-  contenido: 'contenido',
-  fecha: 'fecha'
+  sender: 'sender',
+  content: 'content',
+  date: 'date'
 };
 
-exports.Prisma.NoticiasConfigScalarFieldEnum = {
+exports.Prisma.FileScalarFieldEnum = {
   id: 'id',
-  servidorId: 'servidorId',
-  palabraClave: 'palabraClave',
-  limite: 'limite'
-};
-
-exports.Prisma.FuenteAutomaticaScalarFieldEnum = {
-  id: 'id',
-  servidorId: 'servidorId',
-  nombre: 'nombre',
+  caseId: 'caseId',
+  clientId: 'clientId',
+  professionalId: 'professionalId',
+  name: 'name',
   url: 'url',
-  tipo: 'tipo'
+  type: 'type',
+  date: 'date'
+};
+
+exports.Prisma.ReportScalarFieldEnum = {
+  id: 'id',
+  caseId: 'caseId',
+  clientId: 'clientId',
+  reason: 'reason',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.ConstellationScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description'
+};
+
+exports.Prisma.SectionScalarFieldEnum = {
+  id: 'id',
+  configId: 'configId',
+  serverId: 'serverId',
+  type: 'type',
+  title: 'title',
+  content: 'content',
+  order: 'order'
 };
 
 exports.Prisma.ManualArticleScalarFieldEnum = {
   id: 'id',
-  servidorId: 'servidorId',
-  titulo: 'titulo',
-  contenido: 'contenido',
+  configId: 'configId',
+  serverId: 'serverId',
+  title: 'title',
+  content: 'content',
   publishedAt: 'publishedAt'
 };
 
-exports.Prisma.ArchivoScalarFieldEnum = {
+exports.Prisma.AutoSourceScalarFieldEnum = {
   id: 'id',
-  casoId: 'casoId',
-  clienteId: 'clienteId',
-  profesionalId: 'profesionalId',
-  nombre: 'nombre',
+  configId: 'configId',
+  serverId: 'serverId',
+  name: 'name',
   url: 'url',
-  tipo: 'tipo',
-  fecha: 'fecha'
-};
-
-exports.Prisma.ReporteScalarFieldEnum = {
-  id: 'id',
-  casoId: 'casoId',
-  clienteId: 'clienteId',
-  razon: 'razon',
+  type: 'type',
   createdAt: 'createdAt'
 };
 
-exports.Prisma.ConstelacionScalarFieldEnum = {
+exports.Prisma.ImageScalarFieldEnum = {
   id: 'id',
-  nombre: 'nombre',
-  descripcion: 'descripcion'
+  configId: 'configId',
+  url: 'url',
+  altText: 'altText',
+  type: 'type',
+  order: 'order'
 };
 
-exports.Prisma.SeccionScalarFieldEnum = {
+exports.Prisma.UnitServerScalarFieldEnum = {
   id: 'id',
-  servidorId: 'servidorId',
-  tipo: 'tipo',
-  titulo: 'titulo',
-  contenido: 'contenido',
-  orden: 'orden'
+  domain: 'domain',
+  name: 'name',
+  orchestratorToken: 'orchestratorToken',
+  unitToken: 'unitToken',
+  requiresUpdate: 'requiresUpdate',
+  constellationId: 'constellationId',
+  activeConfigId: 'activeConfigId'
+};
+
+exports.Prisma.UnitConfigScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  pageTitle: 'pageTitle',
+  footerInfo: 'footerInfo',
+  legalStepsCount: 'legalStepsCount',
+  pageType: 'pageType',
+  externalLinks: 'externalLinks',
+  newsParams: 'newsParams',
+  selectedNews: 'selectedNews',
+  infoSections: 'infoSections',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -250,46 +278,53 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-exports.Rol = exports.$Enums.Rol = {
-  cliente: 'cliente',
-  profesional: 'profesional',
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
+};
+exports.Role = exports.$Enums.Role = {
+  client: 'client',
+  professional: 'professional',
   admin: 'admin'
 };
 
-exports.CasoStatus = exports.$Enums.CasoStatus = {
-  abierto: 'abierto',
-  enProceso: 'enProceso',
-  enEspera: 'enEspera',
-  cerrado: 'cerrado'
+exports.CaseStatus = exports.$Enums.CaseStatus = {
+  open: 'open',
+  inProgress: 'inProgress',
+  pending: 'pending',
+  closed: 'closed'
 };
 
-exports.Remitente = exports.$Enums.Remitente = {
-  cliente: 'cliente',
-  profesional: 'profesional'
+exports.Sender = exports.$Enums.Sender = {
+  client: 'client',
+  professional: 'professional'
 };
 
-exports.SeccionTipo = exports.$Enums.SeccionTipo = {
-  texto: 'texto',
-  guiaLegal: 'guiaLegal',
+exports.SectionType = exports.$Enums.SectionType = {
+  text: 'text',
+  legalGuide: 'legalGuide',
   manual: 'manual',
-  noticiasConfig: 'noticiasConfig'
+  newsConfig: 'newsConfig'
 };
 
 exports.Prisma.ModelName = {
-  Usuario: 'Usuario',
-  ServidorUnitario: 'ServidorUnitario',
-  Cliente: 'Cliente',
-  Profesional: 'Profesional',
-  Caso: 'Caso',
+  User: 'User',
+  Client: 'Client',
+  Professional: 'Professional',
+  Case: 'Case',
   Chat: 'Chat',
-  Mensaje: 'Mensaje',
-  NoticiasConfig: 'NoticiasConfig',
-  FuenteAutomatica: 'FuenteAutomatica',
+  Message: 'Message',
+  File: 'File',
+  Report: 'Report',
+  Constellation: 'Constellation',
+  Section: 'Section',
   ManualArticle: 'ManualArticle',
-  Archivo: 'Archivo',
-  Reporte: 'Reporte',
-  Constelacion: 'Constelacion',
-  Seccion: 'Seccion'
+  AutoSource: 'AutoSource',
+  Image: 'Image',
+  UnitServer: 'UnitServer',
+  UnitConfig: 'UnitConfig'
 };
 
 /**

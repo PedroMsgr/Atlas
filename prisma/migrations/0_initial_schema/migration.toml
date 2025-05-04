@@ -1,0 +1,6 @@
+# This file marks the 0_initial_schema migration as applied
+# It is manually created as part of our custom migration approach
+# Learn more about Prisma migrations: https://pris.ly/d/prisma-migrate
+
+migration_name = "0_initial_schema"
+checksum = "09b2e964cb5faecebef3507abbd1ca2a55e504db9e1a37a4614d44b9d02c44bf"

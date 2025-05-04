@@ -14,200 +14,239 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Rol {
-  cliente
-  profesional
+// ---------- Enums ----------
+enum Role {
+  client
+  professional
   admin
 }
 
-enum Remitente {
-  cliente
-  profesional
+enum Sender {
+  client
+  professional
 }
 
-enum SeccionTipo {
-  texto
-  guiaLegal
-  manual
-  noticiasConfig
+enum CaseStatus {
+  open
+  inProgress
+  pending
+  closed
 }
 
-enum CasoStatus {
-  abierto
-  enProceso
-  enEspera
-  cerrado
+/// Tipos de sección mostrados en la landing del servidor unitario
+enum SectionType {
+  text // párrafo o bloque HTML
+  legalGuide // listado de pasos/FAQ legales
+  manual // contenido curado manualmente
+  newsConfig // bloque de noticias automáticas
 }
 
-model Usuario {
-  id    String @id @default(uuid())
-  email String @unique
-  rol   Rol
-
+// ---------- Modelos de identidad ----------
+model User {
+  id          String    @id @default(uuid())
+  email       String    @unique
+  password    String
+  role        Role
   firstName   String
   lastName    String
-  telefono    String?
-  direccion   String?
+  phone       String?
+  address     String?
   avatarUrl   String?
   isActive    Boolean   @default(true)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   lastLoginAt DateTime?
 
-  Clientes      Cliente[]
-  Profesionales Profesional[]
+  clients       Client[]
+  professionals Professional[]
 }
 
-model ServidorUnitario {
-  id                    String  @id @default(uuid())
-  dominio               String  @unique
-  nombre                String
-  apiToken              String  @unique
-  requiereActualizacion Boolean @default(false)
+model Client {
+  id       String @id @default(uuid())
+  userId   String
+  serverId String
 
-  constelacion   Constelacion @relation(fields: [constelacionId], references: [id])
-  constelacionId String
+  user   User       @relation(fields: [userId], references: [id])
+  server UnitServer @relation(fields: [serverId], references: [id])
 
-  secciones          Seccion[]
-  noticiasConfig     NoticiasConfig?
-  fuentesAutomaticas FuenteAutomatica[]
-  manualArticles     ManualArticle[]
-  clientes           Cliente[]
-  profesionales      Profesional[]
-  casos              Caso[]
+  cases   Case[]
+  files   File[]
+  reports Report[]
 }
 
-model Cliente {
-  id         String @id @default(uuid())
-  usuarioId  String
-  servidorId String
+model Professional {
+  id       String @id @default(uuid())
+  userId   String
+  serverId String
 
-  usuario  Usuario          @relation(fields: [usuarioId], references: [id])
-  servidor ServidorUnitario @relation(fields: [servidorId], references: [id])
+  user   User       @relation(fields: [userId], references: [id])
+  server UnitServer @relation(fields: [serverId], references: [id])
 
-  casos    Caso[]
-  archivos Archivo[]
-  reportes Reporte[]
+  cases Case[]
+  files File[]
 }
 
-model Profesional {
-  id         String @id @default(uuid())
-  usuarioId  String
-  servidorId String
+// ---------- Casos y comunicación ----------
+model Case {
+  id             String     @id @default(uuid())
+  clientId       String
+  professionalId String
+  serverId       String
+  status         CaseStatus @default(open)
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
 
-  usuario  Usuario          @relation(fields: [usuarioId], references: [id])
-  servidor ServidorUnitario @relation(fields: [servidorId], references: [id])
+  client       Client       @relation(fields: [clientId], references: [id])
+  professional Professional @relation(fields: [professionalId], references: [id])
+  server       UnitServer   @relation(fields: [serverId], references: [id])
 
-  casos    Caso[]
-  archivos Archivo[]
-}
-
-model Caso {
-  id            String @id @default(uuid())
-  clienteId     String
-  profesionalId String
-  servidorId    String
-
-  cliente     Cliente          @relation(fields: [clienteId], references: [id])
-  profesional Profesional      @relation(fields: [profesionalId], references: [id])
-  servidor    ServidorUnitario @relation(fields: [servidorId], references: [id])
-
-  status    CasoStatus @default(abierto)
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-
-  chat     Chat?
-  archivos Archivo[]
-  reportes Reporte[]
+  chat    Chat?
+  files   File[]
+  reports Report[]
 }
 
 model Chat {
   id     String @id @default(uuid())
-  casoId String @unique
-  caso   Caso   @relation(fields: [casoId], references: [id])
+  caseId String @unique
 
-  mensajes Mensaje[]
+  case     Case      @relation(fields: [caseId], references: [id])
+  messages Message[]
 }
 
-model Mensaje {
-  id        String    @id @default(uuid())
-  chatId    String
-  remitente Remitente
-  contenido String
-  fecha     DateTime  @default(now())
+model Message {
+  id      String   @id @default(uuid())
+  chatId  String
+  sender  Sender
+  content String
+  date    DateTime @default(now())
 
   chat Chat @relation(fields: [chatId], references: [id])
 }
 
-model NoticiasConfig {
-  id           String @id @default(uuid())
-  servidorId   String @unique
-  palabraClave String
-  limite       Int    @default(10)
+model File {
+  id             String   @id @default(uuid())
+  caseId         String
+  clientId       String?
+  professionalId String?
+  name           String
+  url            String
+  type           String
+  date           DateTime @default(now())
 
-  servidor ServidorUnitario @relation(fields: [servidorId], references: [id])
+  case         Case          @relation(fields: [caseId], references: [id])
+  client       Client?       @relation(fields: [clientId], references: [id])
+  professional Professional? @relation(fields: [professionalId], references: [id])
 }
 
-model FuenteAutomatica {
-  id         String @id @default(uuid())
-  servidorId String
-  nombre     String
-  url        String
-  tipo       String
+model Report {
+  id        String   @id @default(uuid())
+  caseId    String
+  clientId  String
+  reason    String
+  createdAt DateTime @default(now())
 
-  servidor ServidorUnitario @relation(fields: [servidorId], references: [id])
+  case   Case   @relation(fields: [caseId], references: [id])
+  client Client @relation(fields: [clientId], references: [id])
+}
+
+// ---------- Estructura de servidores ----------
+model Constellation {
+  id          String  @id @default(uuid())
+  name        String  @unique
+  description String?
+
+  servers UnitServer[]
+}
+
+// ---------- Contenido de las landings ----------
+model Section {
+  id       String      @id @default(uuid())
+  configId String
+  serverId String?
+  type     SectionType
+  title    String
+  content  String
+  order    Int
+
+  config UnitConfig  @relation(fields: [configId], references: [id])
+  server UnitServer? @relation(fields: [serverId], references: [id])
 }
 
 model ManualArticle {
   id          String   @id @default(uuid())
-  servidorId  String
-  titulo      String
-  contenido   String
-  publishedAt DateTime
+  configId    String
+  serverId    String?
+  title       String
+  content     String
+  publishedAt DateTime @default(now())
 
-  servidor ServidorUnitario @relation(fields: [servidorId], references: [id])
+  config UnitConfig  @relation(fields: [configId], references: [id])
+  server UnitServer? @relation(fields: [serverId], references: [id])
 }
 
-model Archivo {
-  id            String   @id @default(uuid())
-  casoId        String
-  clienteId     String?
-  profesionalId String?
-  nombre        String
-  url           String
-  tipo          String
-  fecha         DateTime @default(now())
-
-  caso        Caso         @relation(fields: [casoId], references: [id])
-  cliente     Cliente?     @relation(fields: [clienteId], references: [id])
-  profesional Profesional? @relation(fields: [profesionalId], references: [id])
-}
-
-model Reporte {
+model AutoSource {
   id        String   @id @default(uuid())
-  casoId    String
-  clienteId String
-  razon     String
+  configId  String
+  serverId  String?
+  name      String
+  url       String
+  type      String // RSS, Sitemap, HTML, etc.
   createdAt DateTime @default(now())
 
-  caso    Caso    @relation(fields: [casoId], references: [id])
-  cliente Cliente @relation(fields: [clienteId], references: [id])
+  config UnitConfig  @relation(fields: [configId], references: [id])
+  server UnitServer? @relation(fields: [serverId], references: [id])
 }
 
-model Constelacion {
-  id          String             @id @default(uuid())
-  nombre      String
-  descripcion String?
-  servidores  ServidorUnitario[]
+model Image {
+  id       String @id @default(uuid())
+  configId String
+  url      String
+  altText  String
+  type     String // hero, gallery, icon…
+  order    Int?
+
+  config UnitConfig @relation(fields: [configId], references: [id])
 }
 
-model Seccion {
-  id         String      @id @default(uuid())
-  servidorId String
-  tipo       SeccionTipo
-  titulo     String
-  contenido  String
-  orden      Int
+model UnitServer {
+  id                String  @id @default(uuid())
+  domain            String  @unique
+  name              String
+  orchestratorToken String  @unique
+  unitToken         String  @unique
+  requiresUpdate    Boolean @default(false)
+  constellationId   String
+  activeConfigId    String?
 
-  servidor ServidorUnitario @relation(fields: [servidorId], references: [id])
+  constellation Constellation @relation(fields: [constellationId], references: [id])
+  activeConfig  UnitConfig?   @relation(fields: [activeConfigId], references: [id], name: "ConfigInServers")
+
+  clients        Client[]
+  professionals  Professional[]
+  cases          Case[]
+  sections       Section[]
+  manualArticles ManualArticle[]
+  autoSources    AutoSource[]
+}
+
+model UnitConfig {
+  id              String   @id @default(uuid())
+  name            String   @unique
+  pageTitle       String
+  footerInfo      String
+  legalStepsCount Int
+  pageType        String // landing, wiget, etc.
+  externalLinks   Json // { facebook, twitter, … }
+  newsParams      Json // { keyword, limit }
+  selectedNews    Json // [{ title, url }]
+  infoSections    Json // textos estáticos (FAQ, cómo trabajamos…)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relaciones
+  servers        UnitServer[]    @relation("ConfigInServers")
+  sections       Section[]
+  manualArticles ManualArticle[]
+  autoSources    AutoSource[]
+  images         Image[]
 }
