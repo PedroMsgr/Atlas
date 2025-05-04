@@ -136,6 +136,16 @@ exports.Prisma.UserScalarFieldEnum = {
   lastLoginAt: 'lastLoginAt'
 };
 
+exports.Prisma.SessionScalarFieldEnum = {
+  id: 'id',
+  token: 'token',
+  userId: 'userId',
+  serverId: 'serverId',
+  createdAt: 'createdAt',
+  expiresAt: 'expiresAt',
+  isActive: 'isActive'
+};
+
 exports.Prisma.ClientScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -311,6 +321,7 @@ exports.SectionType = exports.$Enums.SectionType = {
 
 exports.Prisma.ModelName = {
   User: 'User',
+  Session: 'Session',
   Client: 'Client',
   Professional: 'Professional',
   Case: 'Case',

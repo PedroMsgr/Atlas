@@ -19,6 +19,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model Session
+ * 
+ */
+export type Session = $Result.DefaultSelection<Prisma.$SessionPayload>
+/**
  * Model Client
  * 
  */
@@ -281,6 +286,16 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.session`: Exposes CRUD operations for the **Session** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Sessions
+    * const sessions = await prisma.session.findMany()
+    * ```
+    */
+  get session(): Prisma.SessionDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.client`: Exposes CRUD operations for the **Client** model.
@@ -862,6 +877,7 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
+    Session: 'Session',
     Client: 'Client',
     Professional: 'Professional',
     Case: 'Case',
@@ -894,7 +910,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "client" | "professional" | "case" | "chat" | "message" | "file" | "report" | "constellation" | "section" | "manualArticle" | "autoSource" | "image" | "unitServer" | "unitConfig"
+      modelProps: "user" | "session" | "client" | "professional" | "case" | "chat" | "message" | "file" | "report" | "constellation" | "section" | "manualArticle" | "autoSource" | "image" | "unitServer" | "unitConfig"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -969,6 +985,80 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      Session: {
+        payload: Prisma.$SessionPayload<ExtArgs>
+        fields: Prisma.SessionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SessionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SessionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionPayload>
+          }
+          findFirst: {
+            args: Prisma.SessionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SessionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionPayload>
+          }
+          findMany: {
+            args: Prisma.SessionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionPayload>[]
+          }
+          create: {
+            args: Prisma.SessionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionPayload>
+          }
+          createMany: {
+            args: Prisma.SessionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SessionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionPayload>[]
+          }
+          delete: {
+            args: Prisma.SessionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionPayload>
+          }
+          update: {
+            args: Prisma.SessionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionPayload>
+          }
+          deleteMany: {
+            args: Prisma.SessionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SessionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SessionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionPayload>[]
+          }
+          upsert: {
+            args: Prisma.SessionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SessionPayload>
+          }
+          aggregate: {
+            args: Prisma.SessionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSession>
+          }
+          groupBy: {
+            args: Prisma.SessionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SessionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SessionCountArgs<ExtArgs>
+            result: $Utils.Optional<SessionCountAggregateOutputType> | number
           }
         }
       }
@@ -2093,6 +2183,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
+    session?: SessionOmit
     client?: ClientOmit
     professional?: ProfessionalOmit
     case?: CaseOmit
@@ -2203,11 +2294,13 @@ export namespace Prisma {
   export type UserCountOutputType = {
     clients: number
     professionals: number
+    sessions: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     clients?: boolean | UserCountOutputTypeCountClientsArgs
     professionals?: boolean | UserCountOutputTypeCountProfessionalsArgs
+    sessions?: boolean | UserCountOutputTypeCountSessionsArgs
   }
 
   // Custom InputTypes
@@ -2233,6 +2326,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountProfessionalsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ProfessionalWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SessionWhereInput
   }
 
 
@@ -2438,6 +2538,7 @@ export namespace Prisma {
     sections: number
     manualArticles: number
     autoSources: number
+    sessions: number
   }
 
   export type UnitServerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2447,6 +2548,7 @@ export namespace Prisma {
     sections?: boolean | UnitServerCountOutputTypeCountSectionsArgs
     manualArticles?: boolean | UnitServerCountOutputTypeCountManualArticlesArgs
     autoSources?: boolean | UnitServerCountOutputTypeCountAutoSourcesArgs
+    sessions?: boolean | UnitServerCountOutputTypeCountSessionsArgs
   }
 
   // Custom InputTypes
@@ -2500,6 +2602,13 @@ export namespace Prisma {
    */
   export type UnitServerCountOutputTypeCountAutoSourcesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AutoSourceWhereInput
+  }
+
+  /**
+   * UnitServerCountOutputType without action
+   */
+  export type UnitServerCountOutputTypeCountSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SessionWhereInput
   }
 
 
@@ -2804,6 +2913,7 @@ export namespace Prisma {
     lastLoginAt?: boolean
     clients?: boolean | User$clientsArgs<ExtArgs>
     professionals?: boolean | User$professionalsArgs<ExtArgs>
+    sessions?: boolean | User$sessionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2859,6 +2969,7 @@ export namespace Prisma {
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     clients?: boolean | User$clientsArgs<ExtArgs>
     professionals?: boolean | User$professionalsArgs<ExtArgs>
+    sessions?: boolean | User$sessionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2869,6 +2980,7 @@ export namespace Prisma {
     objects: {
       clients: Prisma.$ClientPayload<ExtArgs>[]
       professionals: Prisma.$ProfessionalPayload<ExtArgs>[]
+      sessions: Prisma.$SessionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3280,6 +3392,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     clients<T extends User$clientsArgs<ExtArgs> = {}>(args?: Subset<T, User$clientsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClientPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     professionals<T extends User$professionalsArgs<ExtArgs> = {}>(args?: Subset<T, User$professionalsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProfessionalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    sessions<T extends User$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3758,6 +3871,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.sessions
+   */
+  export type User$sessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Session
+     */
+    select?: SessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Session
+     */
+    omit?: SessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionInclude<ExtArgs> | null
+    where?: SessionWhereInput
+    orderBy?: SessionOrderByWithRelationInput | SessionOrderByWithRelationInput[]
+    cursor?: SessionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SessionScalarFieldEnum | SessionScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3773,6 +3910,1117 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Session
+   */
+
+  export type AggregateSession = {
+    _count: SessionCountAggregateOutputType | null
+    _min: SessionMinAggregateOutputType | null
+    _max: SessionMaxAggregateOutputType | null
+  }
+
+  export type SessionMinAggregateOutputType = {
+    id: string | null
+    token: string | null
+    userId: string | null
+    serverId: string | null
+    createdAt: Date | null
+    expiresAt: Date | null
+    isActive: boolean | null
+  }
+
+  export type SessionMaxAggregateOutputType = {
+    id: string | null
+    token: string | null
+    userId: string | null
+    serverId: string | null
+    createdAt: Date | null
+    expiresAt: Date | null
+    isActive: boolean | null
+  }
+
+  export type SessionCountAggregateOutputType = {
+    id: number
+    token: number
+    userId: number
+    serverId: number
+    createdAt: number
+    expiresAt: number
+    isActive: number
+    _all: number
+  }
+
+
+  export type SessionMinAggregateInputType = {
+    id?: true
+    token?: true
+    userId?: true
+    serverId?: true
+    createdAt?: true
+    expiresAt?: true
+    isActive?: true
+  }
+
+  export type SessionMaxAggregateInputType = {
+    id?: true
+    token?: true
+    userId?: true
+    serverId?: true
+    createdAt?: true
+    expiresAt?: true
+    isActive?: true
+  }
+
+  export type SessionCountAggregateInputType = {
+    id?: true
+    token?: true
+    userId?: true
+    serverId?: true
+    createdAt?: true
+    expiresAt?: true
+    isActive?: true
+    _all?: true
+  }
+
+  export type SessionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Session to aggregate.
+     */
+    where?: SessionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Sessions to fetch.
+     */
+    orderBy?: SessionOrderByWithRelationInput | SessionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SessionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Sessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Sessions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Sessions
+    **/
+    _count?: true | SessionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SessionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SessionMaxAggregateInputType
+  }
+
+  export type GetSessionAggregateType<T extends SessionAggregateArgs> = {
+        [P in keyof T & keyof AggregateSession]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSession[P]>
+      : GetScalarType<T[P], AggregateSession[P]>
+  }
+
+
+
+
+  export type SessionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SessionWhereInput
+    orderBy?: SessionOrderByWithAggregationInput | SessionOrderByWithAggregationInput[]
+    by: SessionScalarFieldEnum[] | SessionScalarFieldEnum
+    having?: SessionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SessionCountAggregateInputType | true
+    _min?: SessionMinAggregateInputType
+    _max?: SessionMaxAggregateInputType
+  }
+
+  export type SessionGroupByOutputType = {
+    id: string
+    token: string
+    userId: string
+    serverId: string | null
+    createdAt: Date
+    expiresAt: Date
+    isActive: boolean
+    _count: SessionCountAggregateOutputType | null
+    _min: SessionMinAggregateOutputType | null
+    _max: SessionMaxAggregateOutputType | null
+  }
+
+  type GetSessionGroupByPayload<T extends SessionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SessionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SessionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SessionGroupByOutputType[P]>
+            : GetScalarType<T[P], SessionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SessionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    token?: boolean
+    userId?: boolean
+    serverId?: boolean
+    createdAt?: boolean
+    expiresAt?: boolean
+    isActive?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    server?: boolean | Session$serverArgs<ExtArgs>
+  }, ExtArgs["result"]["session"]>
+
+  export type SessionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    token?: boolean
+    userId?: boolean
+    serverId?: boolean
+    createdAt?: boolean
+    expiresAt?: boolean
+    isActive?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    server?: boolean | Session$serverArgs<ExtArgs>
+  }, ExtArgs["result"]["session"]>
+
+  export type SessionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    token?: boolean
+    userId?: boolean
+    serverId?: boolean
+    createdAt?: boolean
+    expiresAt?: boolean
+    isActive?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    server?: boolean | Session$serverArgs<ExtArgs>
+  }, ExtArgs["result"]["session"]>
+
+  export type SessionSelectScalar = {
+    id?: boolean
+    token?: boolean
+    userId?: boolean
+    serverId?: boolean
+    createdAt?: boolean
+    expiresAt?: boolean
+    isActive?: boolean
+  }
+
+  export type SessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "token" | "userId" | "serverId" | "createdAt" | "expiresAt" | "isActive", ExtArgs["result"]["session"]>
+  export type SessionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    server?: boolean | Session$serverArgs<ExtArgs>
+  }
+  export type SessionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    server?: boolean | Session$serverArgs<ExtArgs>
+  }
+  export type SessionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    server?: boolean | Session$serverArgs<ExtArgs>
+  }
+
+  export type $SessionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Session"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      server: Prisma.$UnitServerPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      token: string
+      userId: string
+      serverId: string | null
+      createdAt: Date
+      expiresAt: Date
+      isActive: boolean
+    }, ExtArgs["result"]["session"]>
+    composites: {}
+  }
+
+  type SessionGetPayload<S extends boolean | null | undefined | SessionDefaultArgs> = $Result.GetResult<Prisma.$SessionPayload, S>
+
+  type SessionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SessionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SessionCountAggregateInputType | true
+    }
+
+  export interface SessionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Session'], meta: { name: 'Session' } }
+    /**
+     * Find zero or one Session that matches the filter.
+     * @param {SessionFindUniqueArgs} args - Arguments to find a Session
+     * @example
+     * // Get one Session
+     * const session = await prisma.session.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SessionFindUniqueArgs>(args: SelectSubset<T, SessionFindUniqueArgs<ExtArgs>>): Prisma__SessionClient<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Session that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SessionFindUniqueOrThrowArgs} args - Arguments to find a Session
+     * @example
+     * // Get one Session
+     * const session = await prisma.session.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SessionFindUniqueOrThrowArgs>(args: SelectSubset<T, SessionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SessionClient<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Session that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SessionFindFirstArgs} args - Arguments to find a Session
+     * @example
+     * // Get one Session
+     * const session = await prisma.session.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SessionFindFirstArgs>(args?: SelectSubset<T, SessionFindFirstArgs<ExtArgs>>): Prisma__SessionClient<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Session that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SessionFindFirstOrThrowArgs} args - Arguments to find a Session
+     * @example
+     * // Get one Session
+     * const session = await prisma.session.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SessionFindFirstOrThrowArgs>(args?: SelectSubset<T, SessionFindFirstOrThrowArgs<ExtArgs>>): Prisma__SessionClient<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Sessions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SessionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Sessions
+     * const sessions = await prisma.session.findMany()
+     * 
+     * // Get first 10 Sessions
+     * const sessions = await prisma.session.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const sessionWithIdOnly = await prisma.session.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SessionFindManyArgs>(args?: SelectSubset<T, SessionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Session.
+     * @param {SessionCreateArgs} args - Arguments to create a Session.
+     * @example
+     * // Create one Session
+     * const Session = await prisma.session.create({
+     *   data: {
+     *     // ... data to create a Session
+     *   }
+     * })
+     * 
+     */
+    create<T extends SessionCreateArgs>(args: SelectSubset<T, SessionCreateArgs<ExtArgs>>): Prisma__SessionClient<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Sessions.
+     * @param {SessionCreateManyArgs} args - Arguments to create many Sessions.
+     * @example
+     * // Create many Sessions
+     * const session = await prisma.session.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SessionCreateManyArgs>(args?: SelectSubset<T, SessionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Sessions and returns the data saved in the database.
+     * @param {SessionCreateManyAndReturnArgs} args - Arguments to create many Sessions.
+     * @example
+     * // Create many Sessions
+     * const session = await prisma.session.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Sessions and only return the `id`
+     * const sessionWithIdOnly = await prisma.session.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SessionCreateManyAndReturnArgs>(args?: SelectSubset<T, SessionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Session.
+     * @param {SessionDeleteArgs} args - Arguments to delete one Session.
+     * @example
+     * // Delete one Session
+     * const Session = await prisma.session.delete({
+     *   where: {
+     *     // ... filter to delete one Session
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SessionDeleteArgs>(args: SelectSubset<T, SessionDeleteArgs<ExtArgs>>): Prisma__SessionClient<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Session.
+     * @param {SessionUpdateArgs} args - Arguments to update one Session.
+     * @example
+     * // Update one Session
+     * const session = await prisma.session.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SessionUpdateArgs>(args: SelectSubset<T, SessionUpdateArgs<ExtArgs>>): Prisma__SessionClient<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Sessions.
+     * @param {SessionDeleteManyArgs} args - Arguments to filter Sessions to delete.
+     * @example
+     * // Delete a few Sessions
+     * const { count } = await prisma.session.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SessionDeleteManyArgs>(args?: SelectSubset<T, SessionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Sessions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SessionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Sessions
+     * const session = await prisma.session.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SessionUpdateManyArgs>(args: SelectSubset<T, SessionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Sessions and returns the data updated in the database.
+     * @param {SessionUpdateManyAndReturnArgs} args - Arguments to update many Sessions.
+     * @example
+     * // Update many Sessions
+     * const session = await prisma.session.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Sessions and only return the `id`
+     * const sessionWithIdOnly = await prisma.session.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SessionUpdateManyAndReturnArgs>(args: SelectSubset<T, SessionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Session.
+     * @param {SessionUpsertArgs} args - Arguments to update or create a Session.
+     * @example
+     * // Update or create a Session
+     * const session = await prisma.session.upsert({
+     *   create: {
+     *     // ... data to create a Session
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Session we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SessionUpsertArgs>(args: SelectSubset<T, SessionUpsertArgs<ExtArgs>>): Prisma__SessionClient<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Sessions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SessionCountArgs} args - Arguments to filter Sessions to count.
+     * @example
+     * // Count the number of Sessions
+     * const count = await prisma.session.count({
+     *   where: {
+     *     // ... the filter for the Sessions we want to count
+     *   }
+     * })
+    **/
+    count<T extends SessionCountArgs>(
+      args?: Subset<T, SessionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SessionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Session.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SessionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SessionAggregateArgs>(args: Subset<T, SessionAggregateArgs>): Prisma.PrismaPromise<GetSessionAggregateType<T>>
+
+    /**
+     * Group by Session.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SessionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SessionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SessionGroupByArgs['orderBy'] }
+        : { orderBy?: SessionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SessionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSessionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Session model
+   */
+  readonly fields: SessionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Session.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SessionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    server<T extends Session$serverArgs<ExtArgs> = {}>(args?: Subset<T, Session$serverArgs<ExtArgs>>): Prisma__UnitServerClient<$Result.GetResult<Prisma.$UnitServerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Session model
+   */
+  interface SessionFieldRefs {
+    readonly id: FieldRef<"Session", 'String'>
+    readonly token: FieldRef<"Session", 'String'>
+    readonly userId: FieldRef<"Session", 'String'>
+    readonly serverId: FieldRef<"Session", 'String'>
+    readonly createdAt: FieldRef<"Session", 'DateTime'>
+    readonly expiresAt: FieldRef<"Session", 'DateTime'>
+    readonly isActive: FieldRef<"Session", 'Boolean'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Session findUnique
+   */
+  export type SessionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Session
+     */
+    select?: SessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Session
+     */
+    omit?: SessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionInclude<ExtArgs> | null
+    /**
+     * Filter, which Session to fetch.
+     */
+    where: SessionWhereUniqueInput
+  }
+
+  /**
+   * Session findUniqueOrThrow
+   */
+  export type SessionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Session
+     */
+    select?: SessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Session
+     */
+    omit?: SessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionInclude<ExtArgs> | null
+    /**
+     * Filter, which Session to fetch.
+     */
+    where: SessionWhereUniqueInput
+  }
+
+  /**
+   * Session findFirst
+   */
+  export type SessionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Session
+     */
+    select?: SessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Session
+     */
+    omit?: SessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionInclude<ExtArgs> | null
+    /**
+     * Filter, which Session to fetch.
+     */
+    where?: SessionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Sessions to fetch.
+     */
+    orderBy?: SessionOrderByWithRelationInput | SessionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Sessions.
+     */
+    cursor?: SessionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Sessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Sessions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Sessions.
+     */
+    distinct?: SessionScalarFieldEnum | SessionScalarFieldEnum[]
+  }
+
+  /**
+   * Session findFirstOrThrow
+   */
+  export type SessionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Session
+     */
+    select?: SessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Session
+     */
+    omit?: SessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionInclude<ExtArgs> | null
+    /**
+     * Filter, which Session to fetch.
+     */
+    where?: SessionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Sessions to fetch.
+     */
+    orderBy?: SessionOrderByWithRelationInput | SessionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Sessions.
+     */
+    cursor?: SessionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Sessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Sessions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Sessions.
+     */
+    distinct?: SessionScalarFieldEnum | SessionScalarFieldEnum[]
+  }
+
+  /**
+   * Session findMany
+   */
+  export type SessionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Session
+     */
+    select?: SessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Session
+     */
+    omit?: SessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionInclude<ExtArgs> | null
+    /**
+     * Filter, which Sessions to fetch.
+     */
+    where?: SessionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Sessions to fetch.
+     */
+    orderBy?: SessionOrderByWithRelationInput | SessionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Sessions.
+     */
+    cursor?: SessionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Sessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Sessions.
+     */
+    skip?: number
+    distinct?: SessionScalarFieldEnum | SessionScalarFieldEnum[]
+  }
+
+  /**
+   * Session create
+   */
+  export type SessionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Session
+     */
+    select?: SessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Session
+     */
+    omit?: SessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Session.
+     */
+    data: XOR<SessionCreateInput, SessionUncheckedCreateInput>
+  }
+
+  /**
+   * Session createMany
+   */
+  export type SessionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Sessions.
+     */
+    data: SessionCreateManyInput | SessionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Session createManyAndReturn
+   */
+  export type SessionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Session
+     */
+    select?: SessionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Session
+     */
+    omit?: SessionOmit<ExtArgs> | null
+    /**
+     * The data used to create many Sessions.
+     */
+    data: SessionCreateManyInput | SessionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Session update
+   */
+  export type SessionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Session
+     */
+    select?: SessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Session
+     */
+    omit?: SessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Session.
+     */
+    data: XOR<SessionUpdateInput, SessionUncheckedUpdateInput>
+    /**
+     * Choose, which Session to update.
+     */
+    where: SessionWhereUniqueInput
+  }
+
+  /**
+   * Session updateMany
+   */
+  export type SessionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Sessions.
+     */
+    data: XOR<SessionUpdateManyMutationInput, SessionUncheckedUpdateManyInput>
+    /**
+     * Filter which Sessions to update
+     */
+    where?: SessionWhereInput
+    /**
+     * Limit how many Sessions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Session updateManyAndReturn
+   */
+  export type SessionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Session
+     */
+    select?: SessionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Session
+     */
+    omit?: SessionOmit<ExtArgs> | null
+    /**
+     * The data used to update Sessions.
+     */
+    data: XOR<SessionUpdateManyMutationInput, SessionUncheckedUpdateManyInput>
+    /**
+     * Filter which Sessions to update
+     */
+    where?: SessionWhereInput
+    /**
+     * Limit how many Sessions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Session upsert
+   */
+  export type SessionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Session
+     */
+    select?: SessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Session
+     */
+    omit?: SessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Session to update in case it exists.
+     */
+    where: SessionWhereUniqueInput
+    /**
+     * In case the Session found by the `where` argument doesn't exist, create a new Session with this data.
+     */
+    create: XOR<SessionCreateInput, SessionUncheckedCreateInput>
+    /**
+     * In case the Session was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SessionUpdateInput, SessionUncheckedUpdateInput>
+  }
+
+  /**
+   * Session delete
+   */
+  export type SessionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Session
+     */
+    select?: SessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Session
+     */
+    omit?: SessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionInclude<ExtArgs> | null
+    /**
+     * Filter which Session to delete.
+     */
+    where: SessionWhereUniqueInput
+  }
+
+  /**
+   * Session deleteMany
+   */
+  export type SessionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Sessions to delete
+     */
+    where?: SessionWhereInput
+    /**
+     * Limit how many Sessions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Session.server
+   */
+  export type Session$serverArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnitServer
+     */
+    select?: UnitServerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnitServer
+     */
+    omit?: UnitServerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnitServerInclude<ExtArgs> | null
+    where?: UnitServerWhereInput
+  }
+
+  /**
+   * Session without action
+   */
+  export type SessionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Session
+     */
+    select?: SessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Session
+     */
+    omit?: SessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionInclude<ExtArgs> | null
   }
 
 
@@ -17204,6 +18452,7 @@ export namespace Prisma {
     sections?: boolean | UnitServer$sectionsArgs<ExtArgs>
     manualArticles?: boolean | UnitServer$manualArticlesArgs<ExtArgs>
     autoSources?: boolean | UnitServer$autoSourcesArgs<ExtArgs>
+    sessions?: boolean | UnitServer$sessionsArgs<ExtArgs>
     _count?: boolean | UnitServerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["unitServer"]>
 
@@ -17254,6 +18503,7 @@ export namespace Prisma {
     sections?: boolean | UnitServer$sectionsArgs<ExtArgs>
     manualArticles?: boolean | UnitServer$manualArticlesArgs<ExtArgs>
     autoSources?: boolean | UnitServer$autoSourcesArgs<ExtArgs>
+    sessions?: boolean | UnitServer$sessionsArgs<ExtArgs>
     _count?: boolean | UnitServerCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UnitServerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -17276,6 +18526,7 @@ export namespace Prisma {
       sections: Prisma.$SectionPayload<ExtArgs>[]
       manualArticles: Prisma.$ManualArticlePayload<ExtArgs>[]
       autoSources: Prisma.$AutoSourcePayload<ExtArgs>[]
+      sessions: Prisma.$SessionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -17688,6 +18939,7 @@ export namespace Prisma {
     sections<T extends UnitServer$sectionsArgs<ExtArgs> = {}>(args?: Subset<T, UnitServer$sectionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     manualArticles<T extends UnitServer$manualArticlesArgs<ExtArgs> = {}>(args?: Subset<T, UnitServer$manualArticlesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ManualArticlePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     autoSources<T extends UnitServer$autoSourcesArgs<ExtArgs> = {}>(args?: Subset<T, UnitServer$autoSourcesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AutoSourcePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    sessions<T extends UnitServer$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, UnitServer$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -18281,6 +19533,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: AutoSourceScalarFieldEnum | AutoSourceScalarFieldEnum[]
+  }
+
+  /**
+   * UnitServer.sessions
+   */
+  export type UnitServer$sessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Session
+     */
+    select?: SessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Session
+     */
+    omit?: SessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionInclude<ExtArgs> | null
+    where?: SessionWhereInput
+    orderBy?: SessionOrderByWithRelationInput | SessionOrderByWithRelationInput[]
+    cursor?: SessionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SessionScalarFieldEnum | SessionScalarFieldEnum[]
   }
 
   /**
@@ -19626,6 +20902,19 @@ export namespace Prisma {
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
+  export const SessionScalarFieldEnum: {
+    id: 'id',
+    token: 'token',
+    userId: 'userId',
+    serverId: 'serverId',
+    createdAt: 'createdAt',
+    expiresAt: 'expiresAt',
+    isActive: 'isActive'
+  };
+
+  export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeof SessionScalarFieldEnum]
+
+
   export const ClientScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
@@ -19992,6 +21281,7 @@ export namespace Prisma {
     lastLoginAt?: DateTimeNullableFilter<"User"> | Date | string | null
     clients?: ClientListRelationFilter
     professionals?: ProfessionalListRelationFilter
+    sessions?: SessionListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -20010,6 +21300,7 @@ export namespace Prisma {
     lastLoginAt?: SortOrderInput | SortOrder
     clients?: ClientOrderByRelationAggregateInput
     professionals?: ProfessionalOrderByRelationAggregateInput
+    sessions?: SessionOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -20031,6 +21322,7 @@ export namespace Prisma {
     lastLoginAt?: DateTimeNullableFilter<"User"> | Date | string | null
     clients?: ClientListRelationFilter
     professionals?: ProfessionalListRelationFilter
+    sessions?: SessionListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -20069,6 +21361,74 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     lastLoginAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  }
+
+  export type SessionWhereInput = {
+    AND?: SessionWhereInput | SessionWhereInput[]
+    OR?: SessionWhereInput[]
+    NOT?: SessionWhereInput | SessionWhereInput[]
+    id?: StringFilter<"Session"> | string
+    token?: StringFilter<"Session"> | string
+    userId?: StringFilter<"Session"> | string
+    serverId?: StringNullableFilter<"Session"> | string | null
+    createdAt?: DateTimeFilter<"Session"> | Date | string
+    expiresAt?: DateTimeFilter<"Session"> | Date | string
+    isActive?: BoolFilter<"Session"> | boolean
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    server?: XOR<UnitServerNullableScalarRelationFilter, UnitServerWhereInput> | null
+  }
+
+  export type SessionOrderByWithRelationInput = {
+    id?: SortOrder
+    token?: SortOrder
+    userId?: SortOrder
+    serverId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    expiresAt?: SortOrder
+    isActive?: SortOrder
+    user?: UserOrderByWithRelationInput
+    server?: UnitServerOrderByWithRelationInput
+  }
+
+  export type SessionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    token?: string
+    AND?: SessionWhereInput | SessionWhereInput[]
+    OR?: SessionWhereInput[]
+    NOT?: SessionWhereInput | SessionWhereInput[]
+    userId?: StringFilter<"Session"> | string
+    serverId?: StringNullableFilter<"Session"> | string | null
+    createdAt?: DateTimeFilter<"Session"> | Date | string
+    expiresAt?: DateTimeFilter<"Session"> | Date | string
+    isActive?: BoolFilter<"Session"> | boolean
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    server?: XOR<UnitServerNullableScalarRelationFilter, UnitServerWhereInput> | null
+  }, "id" | "token">
+
+  export type SessionOrderByWithAggregationInput = {
+    id?: SortOrder
+    token?: SortOrder
+    userId?: SortOrder
+    serverId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    expiresAt?: SortOrder
+    isActive?: SortOrder
+    _count?: SessionCountOrderByAggregateInput
+    _max?: SessionMaxOrderByAggregateInput
+    _min?: SessionMinOrderByAggregateInput
+  }
+
+  export type SessionScalarWhereWithAggregatesInput = {
+    AND?: SessionScalarWhereWithAggregatesInput | SessionScalarWhereWithAggregatesInput[]
+    OR?: SessionScalarWhereWithAggregatesInput[]
+    NOT?: SessionScalarWhereWithAggregatesInput | SessionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Session"> | string
+    token?: StringWithAggregatesFilter<"Session"> | string
+    userId?: StringWithAggregatesFilter<"Session"> | string
+    serverId?: StringNullableWithAggregatesFilter<"Session"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Session"> | Date | string
+    expiresAt?: DateTimeWithAggregatesFilter<"Session"> | Date | string
+    isActive?: BoolWithAggregatesFilter<"Session"> | boolean
   }
 
   export type ClientWhereInput = {
@@ -20822,6 +22182,7 @@ export namespace Prisma {
     sections?: SectionListRelationFilter
     manualArticles?: ManualArticleListRelationFilter
     autoSources?: AutoSourceListRelationFilter
+    sessions?: SessionListRelationFilter
   }
 
   export type UnitServerOrderByWithRelationInput = {
@@ -20841,6 +22202,7 @@ export namespace Prisma {
     sections?: SectionOrderByRelationAggregateInput
     manualArticles?: ManualArticleOrderByRelationAggregateInput
     autoSources?: AutoSourceOrderByRelationAggregateInput
+    sessions?: SessionOrderByRelationAggregateInput
   }
 
   export type UnitServerWhereUniqueInput = Prisma.AtLeast<{
@@ -20863,6 +22225,7 @@ export namespace Prisma {
     sections?: SectionListRelationFilter
     manualArticles?: ManualArticleListRelationFilter
     autoSources?: AutoSourceListRelationFilter
+    sessions?: SessionListRelationFilter
   }, "id" | "domain" | "orchestratorToken" | "unitToken">
 
   export type UnitServerOrderByWithAggregationInput = {
@@ -21013,6 +22376,7 @@ export namespace Prisma {
     lastLoginAt?: Date | string | null
     clients?: ClientCreateNestedManyWithoutUserInput
     professionals?: ProfessionalCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -21031,6 +22395,7 @@ export namespace Prisma {
     lastLoginAt?: Date | string | null
     clients?: ClientUncheckedCreateNestedManyWithoutUserInput
     professionals?: ProfessionalUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -21049,6 +22414,7 @@ export namespace Prisma {
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     clients?: ClientUpdateManyWithoutUserNestedInput
     professionals?: ProfessionalUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -21067,6 +22433,7 @@ export namespace Prisma {
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     clients?: ClientUncheckedUpdateManyWithoutUserNestedInput
     professionals?: ProfessionalUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -21115,6 +22482,74 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type SessionCreateInput = {
+    id?: string
+    token: string
+    createdAt?: Date | string
+    expiresAt: Date | string
+    isActive?: boolean
+    user: UserCreateNestedOneWithoutSessionsInput
+    server?: UnitServerCreateNestedOneWithoutSessionsInput
+  }
+
+  export type SessionUncheckedCreateInput = {
+    id?: string
+    token: string
+    userId: string
+    serverId?: string | null
+    createdAt?: Date | string
+    expiresAt: Date | string
+    isActive?: boolean
+  }
+
+  export type SessionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    user?: UserUpdateOneRequiredWithoutSessionsNestedInput
+    server?: UnitServerUpdateOneWithoutSessionsNestedInput
+  }
+
+  export type SessionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    serverId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type SessionCreateManyInput = {
+    id?: string
+    token: string
+    userId: string
+    serverId?: string | null
+    createdAt?: Date | string
+    expiresAt: Date | string
+    isActive?: boolean
+  }
+
+  export type SessionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type SessionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    serverId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type ClientCreateInput = {
@@ -21837,6 +23272,7 @@ export namespace Prisma {
     sections?: SectionCreateNestedManyWithoutServerInput
     manualArticles?: ManualArticleCreateNestedManyWithoutServerInput
     autoSources?: AutoSourceCreateNestedManyWithoutServerInput
+    sessions?: SessionCreateNestedManyWithoutServerInput
   }
 
   export type UnitServerUncheckedCreateInput = {
@@ -21854,6 +23290,7 @@ export namespace Prisma {
     sections?: SectionUncheckedCreateNestedManyWithoutServerInput
     manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutServerInput
     autoSources?: AutoSourceUncheckedCreateNestedManyWithoutServerInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutServerInput
   }
 
   export type UnitServerUpdateInput = {
@@ -21871,6 +23308,7 @@ export namespace Prisma {
     sections?: SectionUpdateManyWithoutServerNestedInput
     manualArticles?: ManualArticleUpdateManyWithoutServerNestedInput
     autoSources?: AutoSourceUpdateManyWithoutServerNestedInput
+    sessions?: SessionUpdateManyWithoutServerNestedInput
   }
 
   export type UnitServerUncheckedUpdateInput = {
@@ -21888,6 +23326,7 @@ export namespace Prisma {
     sections?: SectionUncheckedUpdateManyWithoutServerNestedInput
     manualArticles?: ManualArticleUncheckedUpdateManyWithoutServerNestedInput
     autoSources?: AutoSourceUncheckedUpdateManyWithoutServerNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutServerNestedInput
   }
 
   export type UnitServerCreateManyInput = {
@@ -22122,6 +23561,12 @@ export namespace Prisma {
     none?: ProfessionalWhereInput
   }
 
+  export type SessionListRelationFilter = {
+    every?: SessionWhereInput
+    some?: SessionWhereInput
+    none?: SessionWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -22132,6 +23577,10 @@ export namespace Prisma {
   }
 
   export type ProfessionalOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SessionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -22268,6 +23717,41 @@ export namespace Prisma {
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
+  }
+
+  export type UnitServerNullableScalarRelationFilter = {
+    is?: UnitServerWhereInput | null
+    isNot?: UnitServerWhereInput | null
+  }
+
+  export type SessionCountOrderByAggregateInput = {
+    id?: SortOrder
+    token?: SortOrder
+    userId?: SortOrder
+    serverId?: SortOrder
+    createdAt?: SortOrder
+    expiresAt?: SortOrder
+    isActive?: SortOrder
+  }
+
+  export type SessionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    token?: SortOrder
+    userId?: SortOrder
+    serverId?: SortOrder
+    createdAt?: SortOrder
+    expiresAt?: SortOrder
+    isActive?: SortOrder
+  }
+
+  export type SessionMinOrderByAggregateInput = {
+    id?: SortOrder
+    token?: SortOrder
+    userId?: SortOrder
+    serverId?: SortOrder
+    createdAt?: SortOrder
+    expiresAt?: SortOrder
+    isActive?: SortOrder
   }
 
   export type UnitServerScalarRelationFilter = {
@@ -22595,11 +24079,6 @@ export namespace Prisma {
   export type UnitConfigScalarRelationFilter = {
     is?: UnitConfigWhereInput
     isNot?: UnitConfigWhereInput
-  }
-
-  export type UnitServerNullableScalarRelationFilter = {
-    is?: UnitServerWhereInput | null
-    isNot?: UnitServerWhereInput | null
   }
 
   export type SectionCountOrderByAggregateInput = {
@@ -22976,6 +24455,13 @@ export namespace Prisma {
     connect?: ProfessionalWhereUniqueInput | ProfessionalWhereUniqueInput[]
   }
 
+  export type SessionCreateNestedManyWithoutUserInput = {
+    create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
+    createMany?: SessionCreateManyUserInputEnvelope
+    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+  }
+
   export type ClientUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<ClientCreateWithoutUserInput, ClientUncheckedCreateWithoutUserInput> | ClientCreateWithoutUserInput[] | ClientUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ClientCreateOrConnectWithoutUserInput | ClientCreateOrConnectWithoutUserInput[]
@@ -22988,6 +24474,13 @@ export namespace Prisma {
     connectOrCreate?: ProfessionalCreateOrConnectWithoutUserInput | ProfessionalCreateOrConnectWithoutUserInput[]
     createMany?: ProfessionalCreateManyUserInputEnvelope
     connect?: ProfessionalWhereUniqueInput | ProfessionalWhereUniqueInput[]
+  }
+
+  export type SessionUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
+    createMany?: SessionCreateManyUserInputEnvelope
+    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -23042,6 +24535,20 @@ export namespace Prisma {
     deleteMany?: ProfessionalScalarWhereInput | ProfessionalScalarWhereInput[]
   }
 
+  export type SessionUpdateManyWithoutUserNestedInput = {
+    create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
+    upsert?: SessionUpsertWithWhereUniqueWithoutUserInput | SessionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: SessionCreateManyUserInputEnvelope
+    set?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    disconnect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    delete?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    update?: SessionUpdateWithWhereUniqueWithoutUserInput | SessionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: SessionUpdateManyWithWhereWithoutUserInput | SessionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
+  }
+
   export type ClientUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<ClientCreateWithoutUserInput, ClientUncheckedCreateWithoutUserInput> | ClientCreateWithoutUserInput[] | ClientUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ClientCreateOrConnectWithoutUserInput | ClientCreateOrConnectWithoutUserInput[]
@@ -23068,6 +24575,50 @@ export namespace Prisma {
     update?: ProfessionalUpdateWithWhereUniqueWithoutUserInput | ProfessionalUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: ProfessionalUpdateManyWithWhereWithoutUserInput | ProfessionalUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: ProfessionalScalarWhereInput | ProfessionalScalarWhereInput[]
+  }
+
+  export type SessionUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
+    upsert?: SessionUpsertWithWhereUniqueWithoutUserInput | SessionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: SessionCreateManyUserInputEnvelope
+    set?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    disconnect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    delete?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    update?: SessionUpdateWithWhereUniqueWithoutUserInput | SessionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: SessionUpdateManyWithWhereWithoutUserInput | SessionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutSessionsInput = {
+    create?: XOR<UserCreateWithoutSessionsInput, UserUncheckedCreateWithoutSessionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSessionsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UnitServerCreateNestedOneWithoutSessionsInput = {
+    create?: XOR<UnitServerCreateWithoutSessionsInput, UnitServerUncheckedCreateWithoutSessionsInput>
+    connectOrCreate?: UnitServerCreateOrConnectWithoutSessionsInput
+    connect?: UnitServerWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutSessionsNestedInput = {
+    create?: XOR<UserCreateWithoutSessionsInput, UserUncheckedCreateWithoutSessionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSessionsInput
+    upsert?: UserUpsertWithoutSessionsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSessionsInput, UserUpdateWithoutSessionsInput>, UserUncheckedUpdateWithoutSessionsInput>
+  }
+
+  export type UnitServerUpdateOneWithoutSessionsNestedInput = {
+    create?: XOR<UnitServerCreateWithoutSessionsInput, UnitServerUncheckedCreateWithoutSessionsInput>
+    connectOrCreate?: UnitServerCreateOrConnectWithoutSessionsInput
+    upsert?: UnitServerUpsertWithoutSessionsInput
+    disconnect?: UnitServerWhereInput | boolean
+    delete?: UnitServerWhereInput | boolean
+    connect?: UnitServerWhereUniqueInput
+    update?: XOR<XOR<UnitServerUpdateToOneWithWhereWithoutSessionsInput, UnitServerUpdateWithoutSessionsInput>, UnitServerUncheckedUpdateWithoutSessionsInput>
   }
 
   export type UserCreateNestedOneWithoutClientsInput = {
@@ -23866,6 +25417,13 @@ export namespace Prisma {
     connect?: AutoSourceWhereUniqueInput | AutoSourceWhereUniqueInput[]
   }
 
+  export type SessionCreateNestedManyWithoutServerInput = {
+    create?: XOR<SessionCreateWithoutServerInput, SessionUncheckedCreateWithoutServerInput> | SessionCreateWithoutServerInput[] | SessionUncheckedCreateWithoutServerInput[]
+    connectOrCreate?: SessionCreateOrConnectWithoutServerInput | SessionCreateOrConnectWithoutServerInput[]
+    createMany?: SessionCreateManyServerInputEnvelope
+    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+  }
+
   export type ClientUncheckedCreateNestedManyWithoutServerInput = {
     create?: XOR<ClientCreateWithoutServerInput, ClientUncheckedCreateWithoutServerInput> | ClientCreateWithoutServerInput[] | ClientUncheckedCreateWithoutServerInput[]
     connectOrCreate?: ClientCreateOrConnectWithoutServerInput | ClientCreateOrConnectWithoutServerInput[]
@@ -23906,6 +25464,13 @@ export namespace Prisma {
     connectOrCreate?: AutoSourceCreateOrConnectWithoutServerInput | AutoSourceCreateOrConnectWithoutServerInput[]
     createMany?: AutoSourceCreateManyServerInputEnvelope
     connect?: AutoSourceWhereUniqueInput | AutoSourceWhereUniqueInput[]
+  }
+
+  export type SessionUncheckedCreateNestedManyWithoutServerInput = {
+    create?: XOR<SessionCreateWithoutServerInput, SessionUncheckedCreateWithoutServerInput> | SessionCreateWithoutServerInput[] | SessionUncheckedCreateWithoutServerInput[]
+    connectOrCreate?: SessionCreateOrConnectWithoutServerInput | SessionCreateOrConnectWithoutServerInput[]
+    createMany?: SessionCreateManyServerInputEnvelope
+    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
   }
 
   export type ConstellationUpdateOneRequiredWithoutServersNestedInput = {
@@ -24010,6 +25575,20 @@ export namespace Prisma {
     deleteMany?: AutoSourceScalarWhereInput | AutoSourceScalarWhereInput[]
   }
 
+  export type SessionUpdateManyWithoutServerNestedInput = {
+    create?: XOR<SessionCreateWithoutServerInput, SessionUncheckedCreateWithoutServerInput> | SessionCreateWithoutServerInput[] | SessionUncheckedCreateWithoutServerInput[]
+    connectOrCreate?: SessionCreateOrConnectWithoutServerInput | SessionCreateOrConnectWithoutServerInput[]
+    upsert?: SessionUpsertWithWhereUniqueWithoutServerInput | SessionUpsertWithWhereUniqueWithoutServerInput[]
+    createMany?: SessionCreateManyServerInputEnvelope
+    set?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    disconnect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    delete?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    update?: SessionUpdateWithWhereUniqueWithoutServerInput | SessionUpdateWithWhereUniqueWithoutServerInput[]
+    updateMany?: SessionUpdateManyWithWhereWithoutServerInput | SessionUpdateManyWithWhereWithoutServerInput[]
+    deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
+  }
+
   export type ClientUncheckedUpdateManyWithoutServerNestedInput = {
     create?: XOR<ClientCreateWithoutServerInput, ClientUncheckedCreateWithoutServerInput> | ClientCreateWithoutServerInput[] | ClientUncheckedCreateWithoutServerInput[]
     connectOrCreate?: ClientCreateOrConnectWithoutServerInput | ClientCreateOrConnectWithoutServerInput[]
@@ -24092,6 +25671,20 @@ export namespace Prisma {
     update?: AutoSourceUpdateWithWhereUniqueWithoutServerInput | AutoSourceUpdateWithWhereUniqueWithoutServerInput[]
     updateMany?: AutoSourceUpdateManyWithWhereWithoutServerInput | AutoSourceUpdateManyWithWhereWithoutServerInput[]
     deleteMany?: AutoSourceScalarWhereInput | AutoSourceScalarWhereInput[]
+  }
+
+  export type SessionUncheckedUpdateManyWithoutServerNestedInput = {
+    create?: XOR<SessionCreateWithoutServerInput, SessionUncheckedCreateWithoutServerInput> | SessionCreateWithoutServerInput[] | SessionUncheckedCreateWithoutServerInput[]
+    connectOrCreate?: SessionCreateOrConnectWithoutServerInput | SessionCreateOrConnectWithoutServerInput[]
+    upsert?: SessionUpsertWithWhereUniqueWithoutServerInput | SessionUpsertWithWhereUniqueWithoutServerInput[]
+    createMany?: SessionCreateManyServerInputEnvelope
+    set?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    disconnect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    delete?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    update?: SessionUpdateWithWhereUniqueWithoutServerInput | SessionUpdateWithWhereUniqueWithoutServerInput[]
+    updateMany?: SessionUpdateManyWithWhereWithoutServerInput | SessionUpdateManyWithWhereWithoutServerInput[]
+    deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
   }
 
   export type UnitServerCreateNestedManyWithoutActiveConfigInput = {
@@ -24646,6 +26239,34 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type SessionCreateWithoutUserInput = {
+    id?: string
+    token: string
+    createdAt?: Date | string
+    expiresAt: Date | string
+    isActive?: boolean
+    server?: UnitServerCreateNestedOneWithoutSessionsInput
+  }
+
+  export type SessionUncheckedCreateWithoutUserInput = {
+    id?: string
+    token: string
+    serverId?: string | null
+    createdAt?: Date | string
+    expiresAt: Date | string
+    isActive?: boolean
+  }
+
+  export type SessionCreateOrConnectWithoutUserInput = {
+    where: SessionWhereUniqueInput
+    create: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput>
+  }
+
+  export type SessionCreateManyUserInputEnvelope = {
+    data: SessionCreateManyUserInput | SessionCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ClientUpsertWithWhereUniqueWithoutUserInput = {
     where: ClientWhereUniqueInput
     update: XOR<ClientUpdateWithoutUserInput, ClientUncheckedUpdateWithoutUserInput>
@@ -24696,6 +26317,207 @@ export namespace Prisma {
     serverId?: StringFilter<"Professional"> | string
   }
 
+  export type SessionUpsertWithWhereUniqueWithoutUserInput = {
+    where: SessionWhereUniqueInput
+    update: XOR<SessionUpdateWithoutUserInput, SessionUncheckedUpdateWithoutUserInput>
+    create: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput>
+  }
+
+  export type SessionUpdateWithWhereUniqueWithoutUserInput = {
+    where: SessionWhereUniqueInput
+    data: XOR<SessionUpdateWithoutUserInput, SessionUncheckedUpdateWithoutUserInput>
+  }
+
+  export type SessionUpdateManyWithWhereWithoutUserInput = {
+    where: SessionScalarWhereInput
+    data: XOR<SessionUpdateManyMutationInput, SessionUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type SessionScalarWhereInput = {
+    AND?: SessionScalarWhereInput | SessionScalarWhereInput[]
+    OR?: SessionScalarWhereInput[]
+    NOT?: SessionScalarWhereInput | SessionScalarWhereInput[]
+    id?: StringFilter<"Session"> | string
+    token?: StringFilter<"Session"> | string
+    userId?: StringFilter<"Session"> | string
+    serverId?: StringNullableFilter<"Session"> | string | null
+    createdAt?: DateTimeFilter<"Session"> | Date | string
+    expiresAt?: DateTimeFilter<"Session"> | Date | string
+    isActive?: BoolFilter<"Session"> | boolean
+  }
+
+  export type UserCreateWithoutSessionsInput = {
+    id?: string
+    email: string
+    password: string
+    role: $Enums.Role
+    firstName: string
+    lastName: string
+    phone?: string | null
+    address?: string | null
+    avatarUrl?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastLoginAt?: Date | string | null
+    clients?: ClientCreateNestedManyWithoutUserInput
+    professionals?: ProfessionalCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutSessionsInput = {
+    id?: string
+    email: string
+    password: string
+    role: $Enums.Role
+    firstName: string
+    lastName: string
+    phone?: string | null
+    address?: string | null
+    avatarUrl?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastLoginAt?: Date | string | null
+    clients?: ClientUncheckedCreateNestedManyWithoutUserInput
+    professionals?: ProfessionalUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutSessionsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSessionsInput, UserUncheckedCreateWithoutSessionsInput>
+  }
+
+  export type UnitServerCreateWithoutSessionsInput = {
+    id?: string
+    domain: string
+    name: string
+    orchestratorToken: string
+    unitToken: string
+    requiresUpdate?: boolean
+    constellation: ConstellationCreateNestedOneWithoutServersInput
+    activeConfig?: UnitConfigCreateNestedOneWithoutServersInput
+    clients?: ClientCreateNestedManyWithoutServerInput
+    professionals?: ProfessionalCreateNestedManyWithoutServerInput
+    cases?: CaseCreateNestedManyWithoutServerInput
+    sections?: SectionCreateNestedManyWithoutServerInput
+    manualArticles?: ManualArticleCreateNestedManyWithoutServerInput
+    autoSources?: AutoSourceCreateNestedManyWithoutServerInput
+  }
+
+  export type UnitServerUncheckedCreateWithoutSessionsInput = {
+    id?: string
+    domain: string
+    name: string
+    orchestratorToken: string
+    unitToken: string
+    requiresUpdate?: boolean
+    constellationId: string
+    activeConfigId?: string | null
+    clients?: ClientUncheckedCreateNestedManyWithoutServerInput
+    professionals?: ProfessionalUncheckedCreateNestedManyWithoutServerInput
+    cases?: CaseUncheckedCreateNestedManyWithoutServerInput
+    sections?: SectionUncheckedCreateNestedManyWithoutServerInput
+    manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutServerInput
+    autoSources?: AutoSourceUncheckedCreateNestedManyWithoutServerInput
+  }
+
+  export type UnitServerCreateOrConnectWithoutSessionsInput = {
+    where: UnitServerWhereUniqueInput
+    create: XOR<UnitServerCreateWithoutSessionsInput, UnitServerUncheckedCreateWithoutSessionsInput>
+  }
+
+  export type UserUpsertWithoutSessionsInput = {
+    update: XOR<UserUpdateWithoutSessionsInput, UserUncheckedUpdateWithoutSessionsInput>
+    create: XOR<UserCreateWithoutSessionsInput, UserUncheckedCreateWithoutSessionsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutSessionsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutSessionsInput, UserUncheckedUpdateWithoutSessionsInput>
+  }
+
+  export type UserUpdateWithoutSessionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    clients?: ClientUpdateManyWithoutUserNestedInput
+    professionals?: ProfessionalUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutSessionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    clients?: ClientUncheckedUpdateManyWithoutUserNestedInput
+    professionals?: ProfessionalUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UnitServerUpsertWithoutSessionsInput = {
+    update: XOR<UnitServerUpdateWithoutSessionsInput, UnitServerUncheckedUpdateWithoutSessionsInput>
+    create: XOR<UnitServerCreateWithoutSessionsInput, UnitServerUncheckedCreateWithoutSessionsInput>
+    where?: UnitServerWhereInput
+  }
+
+  export type UnitServerUpdateToOneWithWhereWithoutSessionsInput = {
+    where?: UnitServerWhereInput
+    data: XOR<UnitServerUpdateWithoutSessionsInput, UnitServerUncheckedUpdateWithoutSessionsInput>
+  }
+
+  export type UnitServerUpdateWithoutSessionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    domain?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    orchestratorToken?: StringFieldUpdateOperationsInput | string
+    unitToken?: StringFieldUpdateOperationsInput | string
+    requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
+    constellation?: ConstellationUpdateOneRequiredWithoutServersNestedInput
+    activeConfig?: UnitConfigUpdateOneWithoutServersNestedInput
+    clients?: ClientUpdateManyWithoutServerNestedInput
+    professionals?: ProfessionalUpdateManyWithoutServerNestedInput
+    cases?: CaseUpdateManyWithoutServerNestedInput
+    sections?: SectionUpdateManyWithoutServerNestedInput
+    manualArticles?: ManualArticleUpdateManyWithoutServerNestedInput
+    autoSources?: AutoSourceUpdateManyWithoutServerNestedInput
+  }
+
+  export type UnitServerUncheckedUpdateWithoutSessionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    domain?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    orchestratorToken?: StringFieldUpdateOperationsInput | string
+    unitToken?: StringFieldUpdateOperationsInput | string
+    requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
+    constellationId?: StringFieldUpdateOperationsInput | string
+    activeConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    clients?: ClientUncheckedUpdateManyWithoutServerNestedInput
+    professionals?: ProfessionalUncheckedUpdateManyWithoutServerNestedInput
+    cases?: CaseUncheckedUpdateManyWithoutServerNestedInput
+    sections?: SectionUncheckedUpdateManyWithoutServerNestedInput
+    manualArticles?: ManualArticleUncheckedUpdateManyWithoutServerNestedInput
+    autoSources?: AutoSourceUncheckedUpdateManyWithoutServerNestedInput
+  }
+
   export type UserCreateWithoutClientsInput = {
     id?: string
     email: string
@@ -24711,6 +26533,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     lastLoginAt?: Date | string | null
     professionals?: ProfessionalCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutClientsInput = {
@@ -24728,6 +26551,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     lastLoginAt?: Date | string | null
     professionals?: ProfessionalUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutClientsInput = {
@@ -24749,6 +26573,7 @@ export namespace Prisma {
     sections?: SectionCreateNestedManyWithoutServerInput
     manualArticles?: ManualArticleCreateNestedManyWithoutServerInput
     autoSources?: AutoSourceCreateNestedManyWithoutServerInput
+    sessions?: SessionCreateNestedManyWithoutServerInput
   }
 
   export type UnitServerUncheckedCreateWithoutClientsInput = {
@@ -24765,6 +26590,7 @@ export namespace Prisma {
     sections?: SectionUncheckedCreateNestedManyWithoutServerInput
     manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutServerInput
     autoSources?: AutoSourceUncheckedCreateNestedManyWithoutServerInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutServerInput
   }
 
   export type UnitServerCreateOrConnectWithoutClientsInput = {
@@ -24886,6 +26712,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     professionals?: ProfessionalUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutClientsInput = {
@@ -24903,6 +26730,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     professionals?: ProfessionalUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UnitServerUpsertWithoutClientsInput = {
@@ -24930,6 +26758,7 @@ export namespace Prisma {
     sections?: SectionUpdateManyWithoutServerNestedInput
     manualArticles?: ManualArticleUpdateManyWithoutServerNestedInput
     autoSources?: AutoSourceUpdateManyWithoutServerNestedInput
+    sessions?: SessionUpdateManyWithoutServerNestedInput
   }
 
   export type UnitServerUncheckedUpdateWithoutClientsInput = {
@@ -24946,6 +26775,7 @@ export namespace Prisma {
     sections?: SectionUncheckedUpdateManyWithoutServerNestedInput
     manualArticles?: ManualArticleUncheckedUpdateManyWithoutServerNestedInput
     autoSources?: AutoSourceUncheckedUpdateManyWithoutServerNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutServerNestedInput
   }
 
   export type CaseUpsertWithWhereUniqueWithoutClientInput = {
@@ -25049,6 +26879,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     lastLoginAt?: Date | string | null
     clients?: ClientCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutProfessionalsInput = {
@@ -25066,6 +26897,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     lastLoginAt?: Date | string | null
     clients?: ClientUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutProfessionalsInput = {
@@ -25087,6 +26919,7 @@ export namespace Prisma {
     sections?: SectionCreateNestedManyWithoutServerInput
     manualArticles?: ManualArticleCreateNestedManyWithoutServerInput
     autoSources?: AutoSourceCreateNestedManyWithoutServerInput
+    sessions?: SessionCreateNestedManyWithoutServerInput
   }
 
   export type UnitServerUncheckedCreateWithoutProfessionalsInput = {
@@ -25103,6 +26936,7 @@ export namespace Prisma {
     sections?: SectionUncheckedCreateNestedManyWithoutServerInput
     manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutServerInput
     autoSources?: AutoSourceUncheckedCreateNestedManyWithoutServerInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutServerInput
   }
 
   export type UnitServerCreateOrConnectWithoutProfessionalsInput = {
@@ -25200,6 +27034,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     clients?: ClientUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProfessionalsInput = {
@@ -25217,6 +27052,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     clients?: ClientUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UnitServerUpsertWithoutProfessionalsInput = {
@@ -25244,6 +27080,7 @@ export namespace Prisma {
     sections?: SectionUpdateManyWithoutServerNestedInput
     manualArticles?: ManualArticleUpdateManyWithoutServerNestedInput
     autoSources?: AutoSourceUpdateManyWithoutServerNestedInput
+    sessions?: SessionUpdateManyWithoutServerNestedInput
   }
 
   export type UnitServerUncheckedUpdateWithoutProfessionalsInput = {
@@ -25260,6 +27097,7 @@ export namespace Prisma {
     sections?: SectionUncheckedUpdateManyWithoutServerNestedInput
     manualArticles?: ManualArticleUncheckedUpdateManyWithoutServerNestedInput
     autoSources?: AutoSourceUncheckedUpdateManyWithoutServerNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutServerNestedInput
   }
 
   export type CaseUpsertWithWhereUniqueWithoutProfessionalInput = {
@@ -25348,6 +27186,7 @@ export namespace Prisma {
     sections?: SectionCreateNestedManyWithoutServerInput
     manualArticles?: ManualArticleCreateNestedManyWithoutServerInput
     autoSources?: AutoSourceCreateNestedManyWithoutServerInput
+    sessions?: SessionCreateNestedManyWithoutServerInput
   }
 
   export type UnitServerUncheckedCreateWithoutCasesInput = {
@@ -25364,6 +27203,7 @@ export namespace Prisma {
     sections?: SectionUncheckedCreateNestedManyWithoutServerInput
     manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutServerInput
     autoSources?: AutoSourceUncheckedCreateNestedManyWithoutServerInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutServerInput
   }
 
   export type UnitServerCreateOrConnectWithoutCasesInput = {
@@ -25517,6 +27357,7 @@ export namespace Prisma {
     sections?: SectionUpdateManyWithoutServerNestedInput
     manualArticles?: ManualArticleUpdateManyWithoutServerNestedInput
     autoSources?: AutoSourceUpdateManyWithoutServerNestedInput
+    sessions?: SessionUpdateManyWithoutServerNestedInput
   }
 
   export type UnitServerUncheckedUpdateWithoutCasesInput = {
@@ -25533,6 +27374,7 @@ export namespace Prisma {
     sections?: SectionUncheckedUpdateManyWithoutServerNestedInput
     manualArticles?: ManualArticleUncheckedUpdateManyWithoutServerNestedInput
     autoSources?: AutoSourceUncheckedUpdateManyWithoutServerNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutServerNestedInput
   }
 
   export type ChatUpsertWithoutCaseInput = {
@@ -26021,6 +27863,7 @@ export namespace Prisma {
     sections?: SectionCreateNestedManyWithoutServerInput
     manualArticles?: ManualArticleCreateNestedManyWithoutServerInput
     autoSources?: AutoSourceCreateNestedManyWithoutServerInput
+    sessions?: SessionCreateNestedManyWithoutServerInput
   }
 
   export type UnitServerUncheckedCreateWithoutConstellationInput = {
@@ -26037,6 +27880,7 @@ export namespace Prisma {
     sections?: SectionUncheckedCreateNestedManyWithoutServerInput
     manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutServerInput
     autoSources?: AutoSourceUncheckedCreateNestedManyWithoutServerInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutServerInput
   }
 
   export type UnitServerCreateOrConnectWithoutConstellationInput = {
@@ -26136,6 +27980,7 @@ export namespace Prisma {
     cases?: CaseCreateNestedManyWithoutServerInput
     manualArticles?: ManualArticleCreateNestedManyWithoutServerInput
     autoSources?: AutoSourceCreateNestedManyWithoutServerInput
+    sessions?: SessionCreateNestedManyWithoutServerInput
   }
 
   export type UnitServerUncheckedCreateWithoutSectionsInput = {
@@ -26152,6 +27997,7 @@ export namespace Prisma {
     cases?: CaseUncheckedCreateNestedManyWithoutServerInput
     manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutServerInput
     autoSources?: AutoSourceUncheckedCreateNestedManyWithoutServerInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutServerInput
   }
 
   export type UnitServerCreateOrConnectWithoutSectionsInput = {
@@ -26233,6 +28079,7 @@ export namespace Prisma {
     cases?: CaseUpdateManyWithoutServerNestedInput
     manualArticles?: ManualArticleUpdateManyWithoutServerNestedInput
     autoSources?: AutoSourceUpdateManyWithoutServerNestedInput
+    sessions?: SessionUpdateManyWithoutServerNestedInput
   }
 
   export type UnitServerUncheckedUpdateWithoutSectionsInput = {
@@ -26249,6 +28096,7 @@ export namespace Prisma {
     cases?: CaseUncheckedUpdateManyWithoutServerNestedInput
     manualArticles?: ManualArticleUncheckedUpdateManyWithoutServerNestedInput
     autoSources?: AutoSourceUncheckedUpdateManyWithoutServerNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutServerNestedInput
   }
 
   export type UnitConfigCreateWithoutManualArticlesInput = {
@@ -26308,6 +28156,7 @@ export namespace Prisma {
     cases?: CaseCreateNestedManyWithoutServerInput
     sections?: SectionCreateNestedManyWithoutServerInput
     autoSources?: AutoSourceCreateNestedManyWithoutServerInput
+    sessions?: SessionCreateNestedManyWithoutServerInput
   }
 
   export type UnitServerUncheckedCreateWithoutManualArticlesInput = {
@@ -26324,6 +28173,7 @@ export namespace Prisma {
     cases?: CaseUncheckedCreateNestedManyWithoutServerInput
     sections?: SectionUncheckedCreateNestedManyWithoutServerInput
     autoSources?: AutoSourceUncheckedCreateNestedManyWithoutServerInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutServerInput
   }
 
   export type UnitServerCreateOrConnectWithoutManualArticlesInput = {
@@ -26405,6 +28255,7 @@ export namespace Prisma {
     cases?: CaseUpdateManyWithoutServerNestedInput
     sections?: SectionUpdateManyWithoutServerNestedInput
     autoSources?: AutoSourceUpdateManyWithoutServerNestedInput
+    sessions?: SessionUpdateManyWithoutServerNestedInput
   }
 
   export type UnitServerUncheckedUpdateWithoutManualArticlesInput = {
@@ -26421,6 +28272,7 @@ export namespace Prisma {
     cases?: CaseUncheckedUpdateManyWithoutServerNestedInput
     sections?: SectionUncheckedUpdateManyWithoutServerNestedInput
     autoSources?: AutoSourceUncheckedUpdateManyWithoutServerNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutServerNestedInput
   }
 
   export type UnitConfigCreateWithoutAutoSourcesInput = {
@@ -26480,6 +28332,7 @@ export namespace Prisma {
     cases?: CaseCreateNestedManyWithoutServerInput
     sections?: SectionCreateNestedManyWithoutServerInput
     manualArticles?: ManualArticleCreateNestedManyWithoutServerInput
+    sessions?: SessionCreateNestedManyWithoutServerInput
   }
 
   export type UnitServerUncheckedCreateWithoutAutoSourcesInput = {
@@ -26496,6 +28349,7 @@ export namespace Prisma {
     cases?: CaseUncheckedCreateNestedManyWithoutServerInput
     sections?: SectionUncheckedCreateNestedManyWithoutServerInput
     manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutServerInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutServerInput
   }
 
   export type UnitServerCreateOrConnectWithoutAutoSourcesInput = {
@@ -26577,6 +28431,7 @@ export namespace Prisma {
     cases?: CaseUpdateManyWithoutServerNestedInput
     sections?: SectionUpdateManyWithoutServerNestedInput
     manualArticles?: ManualArticleUpdateManyWithoutServerNestedInput
+    sessions?: SessionUpdateManyWithoutServerNestedInput
   }
 
   export type UnitServerUncheckedUpdateWithoutAutoSourcesInput = {
@@ -26593,6 +28448,7 @@ export namespace Prisma {
     cases?: CaseUncheckedUpdateManyWithoutServerNestedInput
     sections?: SectionUncheckedUpdateManyWithoutServerNestedInput
     manualArticles?: ManualArticleUncheckedUpdateManyWithoutServerNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutServerNestedInput
   }
 
   export type UnitConfigCreateWithoutImagesInput = {
@@ -26913,6 +28769,34 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type SessionCreateWithoutServerInput = {
+    id?: string
+    token: string
+    createdAt?: Date | string
+    expiresAt: Date | string
+    isActive?: boolean
+    user: UserCreateNestedOneWithoutSessionsInput
+  }
+
+  export type SessionUncheckedCreateWithoutServerInput = {
+    id?: string
+    token: string
+    userId: string
+    createdAt?: Date | string
+    expiresAt: Date | string
+    isActive?: boolean
+  }
+
+  export type SessionCreateOrConnectWithoutServerInput = {
+    where: SessionWhereUniqueInput
+    create: XOR<SessionCreateWithoutServerInput, SessionUncheckedCreateWithoutServerInput>
+  }
+
+  export type SessionCreateManyServerInputEnvelope = {
+    data: SessionCreateManyServerInput | SessionCreateManyServerInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ConstellationUpsertWithoutServersInput = {
     update: XOR<ConstellationUpdateWithoutServersInput, ConstellationUncheckedUpdateWithoutServersInput>
     create: XOR<ConstellationCreateWithoutServersInput, ConstellationUncheckedCreateWithoutServersInput>
@@ -27119,6 +29003,22 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"AutoSource"> | Date | string
   }
 
+  export type SessionUpsertWithWhereUniqueWithoutServerInput = {
+    where: SessionWhereUniqueInput
+    update: XOR<SessionUpdateWithoutServerInput, SessionUncheckedUpdateWithoutServerInput>
+    create: XOR<SessionCreateWithoutServerInput, SessionUncheckedCreateWithoutServerInput>
+  }
+
+  export type SessionUpdateWithWhereUniqueWithoutServerInput = {
+    where: SessionWhereUniqueInput
+    data: XOR<SessionUpdateWithoutServerInput, SessionUncheckedUpdateWithoutServerInput>
+  }
+
+  export type SessionUpdateManyWithWhereWithoutServerInput = {
+    where: SessionScalarWhereInput
+    data: XOR<SessionUpdateManyMutationInput, SessionUncheckedUpdateManyWithoutServerInput>
+  }
+
   export type UnitServerCreateWithoutActiveConfigInput = {
     id?: string
     domain: string
@@ -27133,6 +29033,7 @@ export namespace Prisma {
     sections?: SectionCreateNestedManyWithoutServerInput
     manualArticles?: ManualArticleCreateNestedManyWithoutServerInput
     autoSources?: AutoSourceCreateNestedManyWithoutServerInput
+    sessions?: SessionCreateNestedManyWithoutServerInput
   }
 
   export type UnitServerUncheckedCreateWithoutActiveConfigInput = {
@@ -27149,6 +29050,7 @@ export namespace Prisma {
     sections?: SectionUncheckedCreateNestedManyWithoutServerInput
     manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutServerInput
     autoSources?: AutoSourceUncheckedCreateNestedManyWithoutServerInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutServerInput
   }
 
   export type UnitServerCreateOrConnectWithoutActiveConfigInput = {
@@ -27371,6 +29273,15 @@ export namespace Prisma {
     serverId: string
   }
 
+  export type SessionCreateManyUserInput = {
+    id?: string
+    token: string
+    serverId?: string | null
+    createdAt?: Date | string
+    expiresAt: Date | string
+    isActive?: boolean
+  }
+
   export type ClientUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     server?: UnitServerUpdateOneRequiredWithoutClientsNestedInput
@@ -27409,6 +29320,33 @@ export namespace Prisma {
   export type ProfessionalUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     serverId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SessionUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    server?: UnitServerUpdateOneWithoutSessionsNestedInput
+  }
+
+  export type SessionUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    serverId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type SessionUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    serverId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type CaseCreateManyClientInput = {
@@ -27723,6 +29661,7 @@ export namespace Prisma {
     sections?: SectionUpdateManyWithoutServerNestedInput
     manualArticles?: ManualArticleUpdateManyWithoutServerNestedInput
     autoSources?: AutoSourceUpdateManyWithoutServerNestedInput
+    sessions?: SessionUpdateManyWithoutServerNestedInput
   }
 
   export type UnitServerUncheckedUpdateWithoutConstellationInput = {
@@ -27739,6 +29678,7 @@ export namespace Prisma {
     sections?: SectionUncheckedUpdateManyWithoutServerNestedInput
     manualArticles?: ManualArticleUncheckedUpdateManyWithoutServerNestedInput
     autoSources?: AutoSourceUncheckedUpdateManyWithoutServerNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutServerNestedInput
   }
 
   export type UnitServerUncheckedUpdateManyWithoutConstellationInput = {
@@ -27794,6 +29734,15 @@ export namespace Prisma {
     url: string
     type: string
     createdAt?: Date | string
+  }
+
+  export type SessionCreateManyServerInput = {
+    id?: string
+    token: string
+    userId: string
+    createdAt?: Date | string
+    expiresAt: Date | string
+    isActive?: boolean
   }
 
   export type ClientUpdateWithoutServerInput = {
@@ -27947,6 +29896,33 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type SessionUpdateWithoutServerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    user?: UserUpdateOneRequiredWithoutSessionsNestedInput
+  }
+
+  export type SessionUncheckedUpdateWithoutServerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type SessionUncheckedUpdateManyWithoutServerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+  }
+
   export type UnitServerCreateManyActiveConfigInput = {
     id?: string
     domain: string
@@ -28005,6 +29981,7 @@ export namespace Prisma {
     sections?: SectionUpdateManyWithoutServerNestedInput
     manualArticles?: ManualArticleUpdateManyWithoutServerNestedInput
     autoSources?: AutoSourceUpdateManyWithoutServerNestedInput
+    sessions?: SessionUpdateManyWithoutServerNestedInput
   }
 
   export type UnitServerUncheckedUpdateWithoutActiveConfigInput = {
@@ -28021,6 +29998,7 @@ export namespace Prisma {
     sections?: SectionUncheckedUpdateManyWithoutServerNestedInput
     manualArticles?: ManualArticleUncheckedUpdateManyWithoutServerNestedInput
     autoSources?: AutoSourceUncheckedUpdateManyWithoutServerNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutServerNestedInput
   }
 
   export type UnitServerUncheckedUpdateManyWithoutActiveConfigInput = {

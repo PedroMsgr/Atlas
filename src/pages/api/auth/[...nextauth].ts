@@ -1,11 +1,25 @@
 import { NextApiHandler } from 'next';
-import NextAuth from 'next-auth';
-import { PrismaAdapter } from '@next-auth/prisma-adapter';
+import NextAuth, { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import prisma from '@/lib/prisma';
+import bcrypt from 'bcryptjs';
 
-const authHandler: NextApiHandler = NextAuth({
-  adapter: PrismaAdapter(prisma),
+// Ampliación de los tipos para incluir el rol en el usuario
+declare module "next-auth" {
+  interface Session {
+    user: {
+      id: string;
+      name?: string | null;
+      email?: string | null;
+      role?: string;
+      image?: string | null;
+    }
+  }
+}
+
+export const authOptions: NextAuthOptions = {
+  // Removemos el adaptador de Prisma ya que estamos usando credenciales y JWT
+  // El adaptador es para proveedores OAuth principalmente
   providers: [
     CredentialsProvider({
       name: 'Credentials',
@@ -14,24 +28,54 @@ const authHandler: NextApiHandler = NextAuth({
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
-        if (!credentials) return null;
+        if (!credentials?.email || !credentials?.password) {
+          return null;
+        }
         
-        // Aquí implementarás la lógica de autenticación
-        // Por ahora retornamos null
-        return null;
+        const user = await prisma.user.findUnique({
+          where: { email: credentials.email }
+        });
+        
+        if (!user || !user.isActive) {
+          return null;
+        }
+        
+        const passwordMatch = await bcrypt.compare(credentials.password, user.password);
+        
+        if (!passwordMatch) {
+          return null;
+        }
+        
+        // Actualizamos la última fecha de inicio de sesión
+        await prisma.user.update({
+          where: { id: user.id },
+          data: { lastLoginAt: new Date() }
+        });
+        
+        return {
+          id: user.id,
+          email: user.email,
+          role: user.role,
+          name: `${user.firstName} ${user.lastName}`,
+          image: user.avatarUrl
+        };
       }
     })
   ],
   session: {
-    strategy: 'jwt'
+    strategy: 'jwt',
+    maxAge: 7 * 24 * 60 * 60, // 7 días
   },
   pages: {
     signIn: '/auth/signin',
-    signOut: '/auth/signout',
     error: '/auth/error',
   },
   callbacks: {
     async session({ session, token }) {
+      if (token && session.user) {
+        session.user.id = token.sub!;
+        session.user.role = token.role as string;
+      }
       return session;
     },
     async jwt({ token, user }) {
@@ -41,6 +85,7 @@ const authHandler: NextApiHandler = NextAuth({
       return token;
     }
   }
-});
+};
 
-export default authHandler; 
+const authHandler: NextApiHandler = NextAuth(authOptions);
+export default authHandler;

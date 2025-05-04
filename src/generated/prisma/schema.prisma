@@ -59,6 +59,24 @@ model User {
 
   clients       Client[]
   professionals Professional[]
+  sessions      Session[]
+}
+
+model Session {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  userId    String
+  serverId  String?
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+  isActive  Boolean  @default(true)
+
+  user   User        @relation(fields: [userId], references: [id])
+  server UnitServer? @relation(fields: [serverId], references: [id])
+
+  @@index([token])
+  @@index([userId])
+  @@index([serverId])
 }
 
 model Client {
@@ -227,6 +245,7 @@ model UnitServer {
   sections       Section[]
   manualArticles ManualArticle[]
   autoSources    AutoSource[]
+  sessions       Session[]
 }
 
 model UnitConfig {
