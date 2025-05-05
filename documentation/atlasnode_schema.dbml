@@ -1,0 +1,169 @@
+Table User {
+  id uuid [pk]
+  email varchar
+  password varchar
+  role varchar
+  firstName varchar
+  lastName varchar
+  phone varchar
+  address varchar
+  avatarUrl varchar
+  isActive boolean
+  createdAt timestamp
+  updatedAt timestamp
+  lastLoginAt timestamp
+}
+
+Table Session {
+  id uuid [pk]
+  token varchar [unique]
+  userId uuid [ref: > User.id]
+  serverId uuid [ref: > UnitServer.id]
+  createdAt timestamp
+  expiresAt timestamp
+  isActive boolean
+}
+
+Table Client {
+  id uuid [pk]
+  userId uuid [ref: > User.id]
+  serverId uuid [ref: > UnitServer.id]
+}
+
+Table Professional {
+  id uuid [pk]
+  userId uuid [ref: > User.id]
+  serverId uuid [ref: > UnitServer.id]
+}
+
+Table Case {
+  id uuid [pk]
+  clientId uuid [ref: > Client.id]
+  professionalId uuid [ref: > Professional.id]
+  serverId uuid [ref: > UnitServer.id]
+  status varchar
+  createdAt timestamp
+  updatedAt timestamp
+}
+
+Table Chat {
+  id uuid [pk]
+  caseId uuid [unique, ref: > Case.id]
+}
+
+Table Message {
+  id uuid [pk]
+  chatId uuid [ref: > Chat.id]
+  sender varchar
+  content text
+  date timestamp
+}
+
+Table File {
+  id uuid [pk]
+  caseId uuid [ref: > Case.id]
+  clientId uuid [ref: > Client.id]
+  professionalId uuid [ref: > Professional.id]
+  name varchar
+  url varchar
+  type varchar
+  date timestamp
+}
+
+Table Report {
+  id uuid [pk]
+  caseId uuid [ref: > Case.id]
+  clientId uuid [ref: > Client.id]
+  reason text
+  createdAt timestamp
+}
+
+Table UnitServer {
+  id uuid [pk]
+  domain varchar [unique]
+  name varchar
+  orchestratorToken varchar [unique]
+  unitToken varchar [unique]
+  requiresUpdate boolean
+  constellationId uuid [ref: > Constellation.id]
+  activeConfigId uuid [ref: > UnitConfig.id]
+}
+
+Table Constellation {
+  id uuid [pk]
+  name varchar [unique]
+  description text
+}
+
+Table UnitConfig {
+  id uuid [pk]
+  name varchar [unique]
+  pageTitle varchar
+  footerInfo text
+  legalStepsCount int
+  pageType varchar
+  externalLinks json
+  newsParams json
+  selectedNews json
+  infoSections json
+  createdAt timestamp
+  updatedAt timestamp
+}
+
+Table Section {
+  id uuid [pk]
+  configId uuid [ref: > UnitConfig.id]
+  serverId uuid [ref: > UnitServer.id]
+  type varchar
+  title varchar
+  content text
+  order int
+}
+
+Table ManualArticle {
+  id uuid [pk]
+  configId uuid [ref: > UnitConfig.id]
+  serverId uuid [ref: > UnitServer.id]
+  title varchar
+  content text
+  publishedAt timestamp
+}
+
+Table AutoSource {
+  id uuid [pk]
+  configId uuid [ref: > UnitConfig.id]
+  serverId uuid [ref: > UnitServer.id]
+  name varchar
+  url varchar
+  type varchar
+  createdAt timestamp
+}
+
+Table Image {
+  id uuid [pk]
+  configId uuid [ref: > UnitConfig.id]
+  url varchar
+  altText varchar
+  type varchar
+  order int
+}
+
+Table UpdateLog {
+  id uuid [pk]
+  serverId uuid [ref: > UnitServer.id]
+  configId uuid [ref: > UnitConfig.id]
+  sentAt timestamp
+  success boolean
+  errorMessage text
+}
+
+Table UserNotification {
+  id uuid [pk]
+  userId uuid [ref: > User.id]
+  serverId uuid [ref: > UnitServer.id]
+  type varchar
+  content text
+  isRead boolean
+  createdAt timestamp
+}
+ 

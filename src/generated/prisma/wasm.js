@@ -270,6 +270,32 @@ exports.Prisma.UnitConfigScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.UpdateLogScalarFieldEnum = {
+  id: 'id',
+  serverId: 'serverId',
+  configId: 'configId',
+  previousConfigId: 'previousConfigId',
+  status: 'status',
+  initiatorId: 'initiatorId',
+  description: 'description',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt',
+  errorDetails: 'errorDetails'
+};
+
+exports.Prisma.UserNotificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  title: 'title',
+  message: 'message',
+  type: 'type',
+  relatedEntityId: 'relatedEntityId',
+  relatedEntityType: 'relatedEntityType',
+  isRead: 'isRead',
+  createdAt: 'createdAt',
+  serverId: 'serverId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -335,7 +361,9 @@ exports.Prisma.ModelName = {
   AutoSource: 'AutoSource',
   Image: 'Image',
   UnitServer: 'UnitServer',
-  UnitConfig: 'UnitConfig'
+  UnitConfig: 'UnitConfig',
+  UpdateLog: 'UpdateLog',
+  UserNotification: 'UserNotification'
 };
 
 /**

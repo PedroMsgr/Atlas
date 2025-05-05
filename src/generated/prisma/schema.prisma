@@ -57,9 +57,11 @@ model User {
   updatedAt   DateTime  @updatedAt
   lastLoginAt DateTime?
 
-  clients       Client[]
-  professionals Professional[]
-  sessions      Session[]
+  clients          Client[]
+  professionals    Professional[]
+  sessions         Session[]
+  notifications    UserNotification[]
+  initiatedUpdates UpdateLog[]
 }
 
 model Session {
@@ -246,6 +248,8 @@ model UnitServer {
   manualArticles ManualArticle[]
   autoSources    AutoSource[]
   sessions       Session[]
+  updateLogs     UpdateLog[]
+  notifications  UserNotification[]
 }
 
 model UnitConfig {
@@ -263,9 +267,50 @@ model UnitConfig {
   updatedAt       DateTime @updatedAt
 
   // Relaciones
-  servers        UnitServer[]    @relation("ConfigInServers")
-  sections       Section[]
-  manualArticles ManualArticle[]
-  autoSources    AutoSource[]
-  images         Image[]
+  servers         UnitServer[]    @relation("ConfigInServers")
+  sections        Section[]
+  manualArticles  ManualArticle[]
+  autoSources     AutoSource[]
+  images          Image[]
+  updates         UpdateLog[]     @relation("ConfigInUpdates")
+  previousUpdates UpdateLog[]     @relation("PreviousConfig")
+}
+
+// ---------- Logs y notificaciones ----------
+model UpdateLog {
+  id               String    @id @default(uuid())
+  serverId         String
+  configId         String
+  previousConfigId String?
+  status           String
+  initiatorId      String
+  description      String?
+  startedAt        DateTime  @default(now())
+  completedAt      DateTime?
+  errorDetails     String?
+
+  server         UnitServer  @relation(fields: [serverId], references: [id])
+  config         UnitConfig  @relation("ConfigInUpdates", fields: [configId], references: [id])
+  previousConfig UnitConfig? @relation("PreviousConfig", fields: [previousConfigId], references: [id])
+  initiator      User        @relation(fields: [initiatorId], references: [id])
+}
+
+model UserNotification {
+  id                String   @id @default(uuid())
+  userId            String
+  title             String
+  message           String
+  type              String // info, warning, error, success
+  relatedEntityId   String?
+  relatedEntityType String? // Case, Chat, Message, etc.
+  isRead            Boolean  @default(false)
+  createdAt         DateTime @default(now())
+  serverId          String?
+
+  user   User        @relation(fields: [userId], references: [id])
+  server UnitServer? @relation(fields: [serverId], references: [id])
+
+  @@index([userId])
+  @@index([isRead])
+  @@index([serverId])
 }

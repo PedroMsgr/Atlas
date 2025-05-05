@@ -1,3 +1,5 @@
+'use client';
+
 import { Theme } from '@radix-ui/themes';
 import Header from './Header';
 import Footer from './Footer';
@@ -18,4 +20,4 @@ export default function Layout({ children }: LayoutProps) {
       </div>
     </Theme>
   );
-} 
+}

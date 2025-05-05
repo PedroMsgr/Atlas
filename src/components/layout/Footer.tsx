@@ -1,3 +1,5 @@
+'use client';
+
 import { Theme } from '@radix-ui/themes';
 
 export default function Footer() {
@@ -22,4 +24,4 @@ export default function Footer() {
       </footer>
     </Theme>
   );
-} 
+}
