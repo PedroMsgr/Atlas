@@ -50,7 +50,11 @@ export default function SignIn() {
       });
       
       if (result?.error) {
-        setError('Credenciales incorrectas');
+        if (result.error === 'Los clientes no pueden acceder al orquestador') {
+          setError('Los clientes no pueden acceder al orquestador. Por favor, accede a través de tu portal específico.');
+        } else {
+          setError('Credenciales incorrectas');
+        }
         setLoading(false);
       } else if (result?.ok) {
         // Obtenemos la información del usuario para determinar su rol

@@ -33,6 +33,20 @@ enum CaseStatus {
   closed
 }
 
+enum ClientStatus {
+  new
+  reviewing
+  active
+  inactive
+  suspended
+}
+
+/// Tipos de sesión: local para el orquestador, api para servidores unitarios
+enum SessionType {
+  local       // sesión en el orquestador (administrador)
+  api         // sesión en un servidor unitario (cliente/profesional)
+}
+
 /// Tipos de sección mostrados en la landing del servidor unitario
 enum SectionType {
   text         // párrafo o bloque HTML
@@ -65,33 +79,40 @@ model User {
 }
 
 model Session {
-  id        String    @id @default(uuid())
-  token     String    @unique
-  userId    String
-  serverId  String?
-  createdAt DateTime  @default(now())
-  expiresAt DateTime
-  isActive  Boolean   @default(true)
+  id          String      @id @default(uuid())
+  token       String      @unique
+  userId      String
+  serverId    String?
+  sessionType SessionType @default(local)
+  userAgent   String?     // Información del navegador/dispositivo
+  ip          String?     // Dirección IP desde donde se conecta
+  createdAt   DateTime    @default(now())
+  expiresAt   DateTime
+  isActive    Boolean     @default(true)
+  lastUsedAt  DateTime    @default(now()) // Última vez que se usó el token
 
-  user      User       @relation(fields: [userId], references: [id])
-  server    UnitServer? @relation(fields: [serverId], references: [id])
+  user        User        @relation(fields: [userId], references: [id])
+  server      UnitServer? @relation(fields: [serverId], references: [id])
 
   @@index([token])
   @@index([userId])
   @@index([serverId])
+  @@index([sessionType])
+  @@index([isActive])
 }
 
 model Client {
-  id          String      @id @default(uuid())
-  userId      String
-  serverId    String
+  id       String       @id @default(uuid())
+  userId   String
+  serverId String
+  status   ClientStatus @default(new)
 
-  user        User        @relation(fields: [userId], references: [id])
-  server      UnitServer  @relation(fields: [serverId], references: [id])
+  user   User       @relation(fields: [userId], references: [id])
+  server UnitServer @relation(fields: [serverId], references: [id])
 
-  cases       Case[]
-  files       File[]
-  reports     Report[]
+  cases   Case[]
+  files   File[]
+  reports Report[]
 }
 
 model Professional {

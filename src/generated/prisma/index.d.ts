@@ -135,6 +135,25 @@ export const CaseStatus: {
 export type CaseStatus = (typeof CaseStatus)[keyof typeof CaseStatus]
 
 
+export const ClientStatus: {
+  new: 'new',
+  reviewing: 'reviewing',
+  active: 'active',
+  inactive: 'inactive',
+  suspended: 'suspended'
+};
+
+export type ClientStatus = (typeof ClientStatus)[keyof typeof ClientStatus]
+
+
+export const SessionType: {
+  local: 'local',
+  api: 'api'
+};
+
+export type SessionType = (typeof SessionType)[keyof typeof SessionType]
+
+
 export const SectionType: {
   text: 'text',
   legalGuide: 'legalGuide',
@@ -157,6 +176,14 @@ export const Sender: typeof $Enums.Sender
 export type CaseStatus = $Enums.CaseStatus
 
 export const CaseStatus: typeof $Enums.CaseStatus
+
+export type ClientStatus = $Enums.ClientStatus
+
+export const ClientStatus: typeof $Enums.ClientStatus
+
+export type SessionType = $Enums.SessionType
+
+export const SessionType: typeof $Enums.SessionType
 
 export type SectionType = $Enums.SectionType
 
@@ -4220,9 +4247,13 @@ export namespace Prisma {
     token: string | null
     userId: string | null
     serverId: string | null
+    sessionType: $Enums.SessionType | null
+    userAgent: string | null
+    ip: string | null
     createdAt: Date | null
     expiresAt: Date | null
     isActive: boolean | null
+    lastUsedAt: Date | null
   }
 
   export type SessionMaxAggregateOutputType = {
@@ -4230,9 +4261,13 @@ export namespace Prisma {
     token: string | null
     userId: string | null
     serverId: string | null
+    sessionType: $Enums.SessionType | null
+    userAgent: string | null
+    ip: string | null
     createdAt: Date | null
     expiresAt: Date | null
     isActive: boolean | null
+    lastUsedAt: Date | null
   }
 
   export type SessionCountAggregateOutputType = {
@@ -4240,9 +4275,13 @@ export namespace Prisma {
     token: number
     userId: number
     serverId: number
+    sessionType: number
+    userAgent: number
+    ip: number
     createdAt: number
     expiresAt: number
     isActive: number
+    lastUsedAt: number
     _all: number
   }
 
@@ -4252,9 +4291,13 @@ export namespace Prisma {
     token?: true
     userId?: true
     serverId?: true
+    sessionType?: true
+    userAgent?: true
+    ip?: true
     createdAt?: true
     expiresAt?: true
     isActive?: true
+    lastUsedAt?: true
   }
 
   export type SessionMaxAggregateInputType = {
@@ -4262,9 +4305,13 @@ export namespace Prisma {
     token?: true
     userId?: true
     serverId?: true
+    sessionType?: true
+    userAgent?: true
+    ip?: true
     createdAt?: true
     expiresAt?: true
     isActive?: true
+    lastUsedAt?: true
   }
 
   export type SessionCountAggregateInputType = {
@@ -4272,9 +4319,13 @@ export namespace Prisma {
     token?: true
     userId?: true
     serverId?: true
+    sessionType?: true
+    userAgent?: true
+    ip?: true
     createdAt?: true
     expiresAt?: true
     isActive?: true
+    lastUsedAt?: true
     _all?: true
   }
 
@@ -4355,9 +4406,13 @@ export namespace Prisma {
     token: string
     userId: string
     serverId: string | null
+    sessionType: $Enums.SessionType
+    userAgent: string | null
+    ip: string | null
     createdAt: Date
     expiresAt: Date
     isActive: boolean
+    lastUsedAt: Date
     _count: SessionCountAggregateOutputType | null
     _min: SessionMinAggregateOutputType | null
     _max: SessionMaxAggregateOutputType | null
@@ -4382,9 +4437,13 @@ export namespace Prisma {
     token?: boolean
     userId?: boolean
     serverId?: boolean
+    sessionType?: boolean
+    userAgent?: boolean
+    ip?: boolean
     createdAt?: boolean
     expiresAt?: boolean
     isActive?: boolean
+    lastUsedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     server?: boolean | Session$serverArgs<ExtArgs>
   }, ExtArgs["result"]["session"]>
@@ -4394,9 +4453,13 @@ export namespace Prisma {
     token?: boolean
     userId?: boolean
     serverId?: boolean
+    sessionType?: boolean
+    userAgent?: boolean
+    ip?: boolean
     createdAt?: boolean
     expiresAt?: boolean
     isActive?: boolean
+    lastUsedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     server?: boolean | Session$serverArgs<ExtArgs>
   }, ExtArgs["result"]["session"]>
@@ -4406,9 +4469,13 @@ export namespace Prisma {
     token?: boolean
     userId?: boolean
     serverId?: boolean
+    sessionType?: boolean
+    userAgent?: boolean
+    ip?: boolean
     createdAt?: boolean
     expiresAt?: boolean
     isActive?: boolean
+    lastUsedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     server?: boolean | Session$serverArgs<ExtArgs>
   }, ExtArgs["result"]["session"]>
@@ -4418,12 +4485,16 @@ export namespace Prisma {
     token?: boolean
     userId?: boolean
     serverId?: boolean
+    sessionType?: boolean
+    userAgent?: boolean
+    ip?: boolean
     createdAt?: boolean
     expiresAt?: boolean
     isActive?: boolean
+    lastUsedAt?: boolean
   }
 
-  export type SessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "token" | "userId" | "serverId" | "createdAt" | "expiresAt" | "isActive", ExtArgs["result"]["session"]>
+  export type SessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "token" | "userId" | "serverId" | "sessionType" | "userAgent" | "ip" | "createdAt" | "expiresAt" | "isActive" | "lastUsedAt", ExtArgs["result"]["session"]>
   export type SessionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     server?: boolean | Session$serverArgs<ExtArgs>
@@ -4448,9 +4519,13 @@ export namespace Prisma {
       token: string
       userId: string
       serverId: string | null
+      sessionType: $Enums.SessionType
+      userAgent: string | null
+      ip: string | null
       createdAt: Date
       expiresAt: Date
       isActive: boolean
+      lastUsedAt: Date
     }, ExtArgs["result"]["session"]>
     composites: {}
   }
@@ -4880,9 +4955,13 @@ export namespace Prisma {
     readonly token: FieldRef<"Session", 'String'>
     readonly userId: FieldRef<"Session", 'String'>
     readonly serverId: FieldRef<"Session", 'String'>
+    readonly sessionType: FieldRef<"Session", 'SessionType'>
+    readonly userAgent: FieldRef<"Session", 'String'>
+    readonly ip: FieldRef<"Session", 'String'>
     readonly createdAt: FieldRef<"Session", 'DateTime'>
     readonly expiresAt: FieldRef<"Session", 'DateTime'>
     readonly isActive: FieldRef<"Session", 'Boolean'>
+    readonly lastUsedAt: FieldRef<"Session", 'DateTime'>
   }
     
 
@@ -5330,18 +5409,21 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     serverId: string | null
+    status: $Enums.ClientStatus | null
   }
 
   export type ClientMaxAggregateOutputType = {
     id: string | null
     userId: string | null
     serverId: string | null
+    status: $Enums.ClientStatus | null
   }
 
   export type ClientCountAggregateOutputType = {
     id: number
     userId: number
     serverId: number
+    status: number
     _all: number
   }
 
@@ -5350,18 +5432,21 @@ export namespace Prisma {
     id?: true
     userId?: true
     serverId?: true
+    status?: true
   }
 
   export type ClientMaxAggregateInputType = {
     id?: true
     userId?: true
     serverId?: true
+    status?: true
   }
 
   export type ClientCountAggregateInputType = {
     id?: true
     userId?: true
     serverId?: true
+    status?: true
     _all?: true
   }
 
@@ -5441,6 +5526,7 @@ export namespace Prisma {
     id: string
     userId: string
     serverId: string
+    status: $Enums.ClientStatus
     _count: ClientCountAggregateOutputType | null
     _min: ClientMinAggregateOutputType | null
     _max: ClientMaxAggregateOutputType | null
@@ -5464,6 +5550,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     serverId?: boolean
+    status?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     server?: boolean | UnitServerDefaultArgs<ExtArgs>
     cases?: boolean | Client$casesArgs<ExtArgs>
@@ -5476,6 +5563,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     serverId?: boolean
+    status?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     server?: boolean | UnitServerDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["client"]>
@@ -5484,6 +5572,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     serverId?: boolean
+    status?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     server?: boolean | UnitServerDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["client"]>
@@ -5492,9 +5581,10 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     serverId?: boolean
+    status?: boolean
   }
 
-  export type ClientOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "serverId", ExtArgs["result"]["client"]>
+  export type ClientOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "serverId" | "status", ExtArgs["result"]["client"]>
   export type ClientInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     server?: boolean | UnitServerDefaultArgs<ExtArgs>
@@ -5525,6 +5615,7 @@ export namespace Prisma {
       id: string
       userId: string
       serverId: string
+      status: $Enums.ClientStatus
     }, ExtArgs["result"]["client"]>
     composites: {}
   }
@@ -5956,6 +6047,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Client", 'String'>
     readonly userId: FieldRef<"Client", 'String'>
     readonly serverId: FieldRef<"Client", 'String'>
+    readonly status: FieldRef<"Client", 'ClientStatus'>
   }
     
 
@@ -23627,9 +23719,13 @@ export namespace Prisma {
     token: 'token',
     userId: 'userId',
     serverId: 'serverId',
+    sessionType: 'sessionType',
+    userAgent: 'userAgent',
+    ip: 'ip',
     createdAt: 'createdAt',
     expiresAt: 'expiresAt',
-    isActive: 'isActive'
+    isActive: 'isActive',
+    lastUsedAt: 'lastUsedAt'
   };
 
   export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeof SessionScalarFieldEnum]
@@ -23638,7 +23734,8 @@ export namespace Prisma {
   export const ClientScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
-    serverId: 'serverId'
+    serverId: 'serverId',
+    status: 'status'
   };
 
   export type ClientScalarFieldEnum = (typeof ClientScalarFieldEnum)[keyof typeof ClientScalarFieldEnum]
@@ -23928,6 +24025,34 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'SessionType'
+   */
+  export type EnumSessionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SessionType'>
+    
+
+
+  /**
+   * Reference to a field of type 'SessionType[]'
+   */
+  export type ListEnumSessionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SessionType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ClientStatus'
+   */
+  export type EnumClientStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ClientStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'ClientStatus[]'
+   */
+  export type ListEnumClientStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ClientStatus[]'>
+    
+
+
+  /**
    * Reference to a field of type 'CaseStatus'
    */
   export type EnumCaseStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CaseStatus'>
@@ -24129,9 +24254,13 @@ export namespace Prisma {
     token?: StringFilter<"Session"> | string
     userId?: StringFilter<"Session"> | string
     serverId?: StringNullableFilter<"Session"> | string | null
+    sessionType?: EnumSessionTypeFilter<"Session"> | $Enums.SessionType
+    userAgent?: StringNullableFilter<"Session"> | string | null
+    ip?: StringNullableFilter<"Session"> | string | null
     createdAt?: DateTimeFilter<"Session"> | Date | string
     expiresAt?: DateTimeFilter<"Session"> | Date | string
     isActive?: BoolFilter<"Session"> | boolean
+    lastUsedAt?: DateTimeFilter<"Session"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     server?: XOR<UnitServerNullableScalarRelationFilter, UnitServerWhereInput> | null
   }
@@ -24141,9 +24270,13 @@ export namespace Prisma {
     token?: SortOrder
     userId?: SortOrder
     serverId?: SortOrderInput | SortOrder
+    sessionType?: SortOrder
+    userAgent?: SortOrderInput | SortOrder
+    ip?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     expiresAt?: SortOrder
     isActive?: SortOrder
+    lastUsedAt?: SortOrder
     user?: UserOrderByWithRelationInput
     server?: UnitServerOrderByWithRelationInput
   }
@@ -24156,9 +24289,13 @@ export namespace Prisma {
     NOT?: SessionWhereInput | SessionWhereInput[]
     userId?: StringFilter<"Session"> | string
     serverId?: StringNullableFilter<"Session"> | string | null
+    sessionType?: EnumSessionTypeFilter<"Session"> | $Enums.SessionType
+    userAgent?: StringNullableFilter<"Session"> | string | null
+    ip?: StringNullableFilter<"Session"> | string | null
     createdAt?: DateTimeFilter<"Session"> | Date | string
     expiresAt?: DateTimeFilter<"Session"> | Date | string
     isActive?: BoolFilter<"Session"> | boolean
+    lastUsedAt?: DateTimeFilter<"Session"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     server?: XOR<UnitServerNullableScalarRelationFilter, UnitServerWhereInput> | null
   }, "id" | "token">
@@ -24168,9 +24305,13 @@ export namespace Prisma {
     token?: SortOrder
     userId?: SortOrder
     serverId?: SortOrderInput | SortOrder
+    sessionType?: SortOrder
+    userAgent?: SortOrderInput | SortOrder
+    ip?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     expiresAt?: SortOrder
     isActive?: SortOrder
+    lastUsedAt?: SortOrder
     _count?: SessionCountOrderByAggregateInput
     _max?: SessionMaxOrderByAggregateInput
     _min?: SessionMinOrderByAggregateInput
@@ -24184,9 +24325,13 @@ export namespace Prisma {
     token?: StringWithAggregatesFilter<"Session"> | string
     userId?: StringWithAggregatesFilter<"Session"> | string
     serverId?: StringNullableWithAggregatesFilter<"Session"> | string | null
+    sessionType?: EnumSessionTypeWithAggregatesFilter<"Session"> | $Enums.SessionType
+    userAgent?: StringNullableWithAggregatesFilter<"Session"> | string | null
+    ip?: StringNullableWithAggregatesFilter<"Session"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Session"> | Date | string
     expiresAt?: DateTimeWithAggregatesFilter<"Session"> | Date | string
     isActive?: BoolWithAggregatesFilter<"Session"> | boolean
+    lastUsedAt?: DateTimeWithAggregatesFilter<"Session"> | Date | string
   }
 
   export type ClientWhereInput = {
@@ -24196,6 +24341,7 @@ export namespace Prisma {
     id?: StringFilter<"Client"> | string
     userId?: StringFilter<"Client"> | string
     serverId?: StringFilter<"Client"> | string
+    status?: EnumClientStatusFilter<"Client"> | $Enums.ClientStatus
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     server?: XOR<UnitServerScalarRelationFilter, UnitServerWhereInput>
     cases?: CaseListRelationFilter
@@ -24207,6 +24353,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     serverId?: SortOrder
+    status?: SortOrder
     user?: UserOrderByWithRelationInput
     server?: UnitServerOrderByWithRelationInput
     cases?: CaseOrderByRelationAggregateInput
@@ -24221,6 +24368,7 @@ export namespace Prisma {
     NOT?: ClientWhereInput | ClientWhereInput[]
     userId?: StringFilter<"Client"> | string
     serverId?: StringFilter<"Client"> | string
+    status?: EnumClientStatusFilter<"Client"> | $Enums.ClientStatus
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     server?: XOR<UnitServerScalarRelationFilter, UnitServerWhereInput>
     cases?: CaseListRelationFilter
@@ -24232,6 +24380,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     serverId?: SortOrder
+    status?: SortOrder
     _count?: ClientCountOrderByAggregateInput
     _max?: ClientMaxOrderByAggregateInput
     _min?: ClientMinOrderByAggregateInput
@@ -24244,6 +24393,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Client"> | string
     userId?: StringWithAggregatesFilter<"Client"> | string
     serverId?: StringWithAggregatesFilter<"Client"> | string
+    status?: EnumClientStatusWithAggregatesFilter<"Client"> | $Enums.ClientStatus
   }
 
   export type ProfessionalWhereInput = {
@@ -25437,9 +25587,13 @@ export namespace Prisma {
   export type SessionCreateInput = {
     id?: string
     token: string
+    sessionType?: $Enums.SessionType
+    userAgent?: string | null
+    ip?: string | null
     createdAt?: Date | string
     expiresAt: Date | string
     isActive?: boolean
+    lastUsedAt?: Date | string
     user: UserCreateNestedOneWithoutSessionsInput
     server?: UnitServerCreateNestedOneWithoutSessionsInput
   }
@@ -25449,17 +25603,25 @@ export namespace Prisma {
     token: string
     userId: string
     serverId?: string | null
+    sessionType?: $Enums.SessionType
+    userAgent?: string | null
+    ip?: string | null
     createdAt?: Date | string
     expiresAt: Date | string
     isActive?: boolean
+    lastUsedAt?: Date | string
   }
 
   export type SessionUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
+    sessionType?: EnumSessionTypeFieldUpdateOperationsInput | $Enums.SessionType
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastUsedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutSessionsNestedInput
     server?: UnitServerUpdateOneWithoutSessionsNestedInput
   }
@@ -25469,9 +25631,13 @@ export namespace Prisma {
     token?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     serverId?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionType?: EnumSessionTypeFieldUpdateOperationsInput | $Enums.SessionType
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastUsedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SessionCreateManyInput = {
@@ -25479,17 +25645,25 @@ export namespace Prisma {
     token: string
     userId: string
     serverId?: string | null
+    sessionType?: $Enums.SessionType
+    userAgent?: string | null
+    ip?: string | null
     createdAt?: Date | string
     expiresAt: Date | string
     isActive?: boolean
+    lastUsedAt?: Date | string
   }
 
   export type SessionUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
+    sessionType?: EnumSessionTypeFieldUpdateOperationsInput | $Enums.SessionType
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastUsedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SessionUncheckedUpdateManyInput = {
@@ -25497,13 +25671,18 @@ export namespace Prisma {
     token?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     serverId?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionType?: EnumSessionTypeFieldUpdateOperationsInput | $Enums.SessionType
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastUsedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ClientCreateInput = {
     id?: string
+    status?: $Enums.ClientStatus
     user: UserCreateNestedOneWithoutClientsInput
     server: UnitServerCreateNestedOneWithoutClientsInput
     cases?: CaseCreateNestedManyWithoutClientInput
@@ -25515,6 +25694,7 @@ export namespace Prisma {
     id?: string
     userId: string
     serverId: string
+    status?: $Enums.ClientStatus
     cases?: CaseUncheckedCreateNestedManyWithoutClientInput
     files?: FileUncheckedCreateNestedManyWithoutClientInput
     reports?: ReportUncheckedCreateNestedManyWithoutClientInput
@@ -25522,6 +25702,7 @@ export namespace Prisma {
 
   export type ClientUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    status?: EnumClientStatusFieldUpdateOperationsInput | $Enums.ClientStatus
     user?: UserUpdateOneRequiredWithoutClientsNestedInput
     server?: UnitServerUpdateOneRequiredWithoutClientsNestedInput
     cases?: CaseUpdateManyWithoutClientNestedInput
@@ -25533,6 +25714,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     serverId?: StringFieldUpdateOperationsInput | string
+    status?: EnumClientStatusFieldUpdateOperationsInput | $Enums.ClientStatus
     cases?: CaseUncheckedUpdateManyWithoutClientNestedInput
     files?: FileUncheckedUpdateManyWithoutClientNestedInput
     reports?: ReportUncheckedUpdateManyWithoutClientNestedInput
@@ -25542,16 +25724,19 @@ export namespace Prisma {
     id?: string
     userId: string
     serverId: string
+    status?: $Enums.ClientStatus
   }
 
   export type ClientUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    status?: EnumClientStatusFieldUpdateOperationsInput | $Enums.ClientStatus
   }
 
   export type ClientUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     serverId?: StringFieldUpdateOperationsInput | string
+    status?: EnumClientStatusFieldUpdateOperationsInput | $Enums.ClientStatus
   }
 
   export type ProfessionalCreateInput = {
@@ -26876,6 +27061,13 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
+  export type EnumSessionTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.SessionType | EnumSessionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.SessionType[] | ListEnumSessionTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SessionType[] | ListEnumSessionTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumSessionTypeFilter<$PrismaModel> | $Enums.SessionType
+  }
+
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
@@ -26891,9 +27083,13 @@ export namespace Prisma {
     token?: SortOrder
     userId?: SortOrder
     serverId?: SortOrder
+    sessionType?: SortOrder
+    userAgent?: SortOrder
+    ip?: SortOrder
     createdAt?: SortOrder
     expiresAt?: SortOrder
     isActive?: SortOrder
+    lastUsedAt?: SortOrder
   }
 
   export type SessionMaxOrderByAggregateInput = {
@@ -26901,9 +27097,13 @@ export namespace Prisma {
     token?: SortOrder
     userId?: SortOrder
     serverId?: SortOrder
+    sessionType?: SortOrder
+    userAgent?: SortOrder
+    ip?: SortOrder
     createdAt?: SortOrder
     expiresAt?: SortOrder
     isActive?: SortOrder
+    lastUsedAt?: SortOrder
   }
 
   export type SessionMinOrderByAggregateInput = {
@@ -26911,9 +27111,30 @@ export namespace Prisma {
     token?: SortOrder
     userId?: SortOrder
     serverId?: SortOrder
+    sessionType?: SortOrder
+    userAgent?: SortOrder
+    ip?: SortOrder
     createdAt?: SortOrder
     expiresAt?: SortOrder
     isActive?: SortOrder
+    lastUsedAt?: SortOrder
+  }
+
+  export type EnumSessionTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SessionType | EnumSessionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.SessionType[] | ListEnumSessionTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SessionType[] | ListEnumSessionTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumSessionTypeWithAggregatesFilter<$PrismaModel> | $Enums.SessionType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSessionTypeFilter<$PrismaModel>
+    _max?: NestedEnumSessionTypeFilter<$PrismaModel>
+  }
+
+  export type EnumClientStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ClientStatus | EnumClientStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ClientStatus[] | ListEnumClientStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ClientStatus[] | ListEnumClientStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumClientStatusFilter<$PrismaModel> | $Enums.ClientStatus
   }
 
   export type UnitServerScalarRelationFilter = {
@@ -26955,18 +27176,31 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     serverId?: SortOrder
+    status?: SortOrder
   }
 
   export type ClientMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     serverId?: SortOrder
+    status?: SortOrder
   }
 
   export type ClientMinOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     serverId?: SortOrder
+    status?: SortOrder
+  }
+
+  export type EnumClientStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ClientStatus | EnumClientStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ClientStatus[] | ListEnumClientStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ClientStatus[] | ListEnumClientStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumClientStatusWithAggregatesFilter<$PrismaModel> | $Enums.ClientStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumClientStatusFilter<$PrismaModel>
+    _max?: NestedEnumClientStatusFilter<$PrismaModel>
   }
 
   export type ProfessionalCountOrderByAggregateInput = {
@@ -27927,6 +28161,10 @@ export namespace Prisma {
     connect?: UnitServerWhereUniqueInput
   }
 
+  export type EnumSessionTypeFieldUpdateOperationsInput = {
+    set?: $Enums.SessionType
+  }
+
   export type UserUpdateOneRequiredWithoutSessionsNestedInput = {
     create?: XOR<UserCreateWithoutSessionsInput, UserUncheckedCreateWithoutSessionsInput>
     connectOrCreate?: UserCreateOrConnectWithoutSessionsInput
@@ -27997,6 +28235,10 @@ export namespace Prisma {
     connectOrCreate?: ReportCreateOrConnectWithoutClientInput | ReportCreateOrConnectWithoutClientInput[]
     createMany?: ReportCreateManyClientInputEnvelope
     connect?: ReportWhereUniqueInput | ReportWhereUniqueInput[]
+  }
+
+  export type EnumClientStatusFieldUpdateOperationsInput = {
+    set?: $Enums.ClientStatus
   }
 
   export type UserUpdateOneRequiredWithoutClientsNestedInput = {
@@ -29641,6 +29883,40 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
+  export type NestedEnumSessionTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.SessionType | EnumSessionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.SessionType[] | ListEnumSessionTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SessionType[] | ListEnumSessionTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumSessionTypeFilter<$PrismaModel> | $Enums.SessionType
+  }
+
+  export type NestedEnumSessionTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SessionType | EnumSessionTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.SessionType[] | ListEnumSessionTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SessionType[] | ListEnumSessionTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumSessionTypeWithAggregatesFilter<$PrismaModel> | $Enums.SessionType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSessionTypeFilter<$PrismaModel>
+    _max?: NestedEnumSessionTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumClientStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ClientStatus | EnumClientStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ClientStatus[] | ListEnumClientStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ClientStatus[] | ListEnumClientStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumClientStatusFilter<$PrismaModel> | $Enums.ClientStatus
+  }
+
+  export type NestedEnumClientStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ClientStatus | EnumClientStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ClientStatus[] | ListEnumClientStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ClientStatus[] | ListEnumClientStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumClientStatusWithAggregatesFilter<$PrismaModel> | $Enums.ClientStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumClientStatusFilter<$PrismaModel>
+    _max?: NestedEnumClientStatusFilter<$PrismaModel>
+  }
+
   export type NestedEnumCaseStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.CaseStatus | EnumCaseStatusFieldRefInput<$PrismaModel>
     in?: $Enums.CaseStatus[] | ListEnumCaseStatusFieldRefInput<$PrismaModel>
@@ -29771,6 +30047,7 @@ export namespace Prisma {
 
   export type ClientCreateWithoutUserInput = {
     id?: string
+    status?: $Enums.ClientStatus
     server: UnitServerCreateNestedOneWithoutClientsInput
     cases?: CaseCreateNestedManyWithoutClientInput
     files?: FileCreateNestedManyWithoutClientInput
@@ -29780,6 +30057,7 @@ export namespace Prisma {
   export type ClientUncheckedCreateWithoutUserInput = {
     id?: string
     serverId: string
+    status?: $Enums.ClientStatus
     cases?: CaseUncheckedCreateNestedManyWithoutClientInput
     files?: FileUncheckedCreateNestedManyWithoutClientInput
     reports?: ReportUncheckedCreateNestedManyWithoutClientInput
@@ -29822,9 +30100,13 @@ export namespace Prisma {
   export type SessionCreateWithoutUserInput = {
     id?: string
     token: string
+    sessionType?: $Enums.SessionType
+    userAgent?: string | null
+    ip?: string | null
     createdAt?: Date | string
     expiresAt: Date | string
     isActive?: boolean
+    lastUsedAt?: Date | string
     server?: UnitServerCreateNestedOneWithoutSessionsInput
   }
 
@@ -29832,9 +30114,13 @@ export namespace Prisma {
     id?: string
     token: string
     serverId?: string | null
+    sessionType?: $Enums.SessionType
+    userAgent?: string | null
+    ip?: string | null
     createdAt?: Date | string
     expiresAt: Date | string
     isActive?: boolean
+    lastUsedAt?: Date | string
   }
 
   export type SessionCreateOrConnectWithoutUserInput = {
@@ -29938,6 +30224,7 @@ export namespace Prisma {
     id?: StringFilter<"Client"> | string
     userId?: StringFilter<"Client"> | string
     serverId?: StringFilter<"Client"> | string
+    status?: EnumClientStatusFilter<"Client"> | $Enums.ClientStatus
   }
 
   export type ProfessionalUpsertWithWhereUniqueWithoutUserInput = {
@@ -29989,9 +30276,13 @@ export namespace Prisma {
     token?: StringFilter<"Session"> | string
     userId?: StringFilter<"Session"> | string
     serverId?: StringNullableFilter<"Session"> | string | null
+    sessionType?: EnumSessionTypeFilter<"Session"> | $Enums.SessionType
+    userAgent?: StringNullableFilter<"Session"> | string | null
+    ip?: StringNullableFilter<"Session"> | string | null
     createdAt?: DateTimeFilter<"Session"> | Date | string
     expiresAt?: DateTimeFilter<"Session"> | Date | string
     isActive?: BoolFilter<"Session"> | boolean
+    lastUsedAt?: DateTimeFilter<"Session"> | Date | string
   }
 
   export type UserNotificationUpsertWithWhereUniqueWithoutUserInput = {
@@ -30894,6 +31185,7 @@ export namespace Prisma {
 
   export type ClientCreateWithoutCasesInput = {
     id?: string
+    status?: $Enums.ClientStatus
     user: UserCreateNestedOneWithoutClientsInput
     server: UnitServerCreateNestedOneWithoutClientsInput
     files?: FileCreateNestedManyWithoutClientInput
@@ -30904,6 +31196,7 @@ export namespace Prisma {
     id?: string
     userId: string
     serverId: string
+    status?: $Enums.ClientStatus
     files?: FileUncheckedCreateNestedManyWithoutClientInput
     reports?: ReportUncheckedCreateNestedManyWithoutClientInput
   }
@@ -31057,6 +31350,7 @@ export namespace Prisma {
 
   export type ClientUpdateWithoutCasesInput = {
     id?: StringFieldUpdateOperationsInput | string
+    status?: EnumClientStatusFieldUpdateOperationsInput | $Enums.ClientStatus
     user?: UserUpdateOneRequiredWithoutClientsNestedInput
     server?: UnitServerUpdateOneRequiredWithoutClientsNestedInput
     files?: FileUpdateManyWithoutClientNestedInput
@@ -31067,6 +31361,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     serverId?: StringFieldUpdateOperationsInput | string
+    status?: EnumClientStatusFieldUpdateOperationsInput | $Enums.ClientStatus
     files?: FileUncheckedUpdateManyWithoutClientNestedInput
     reports?: ReportUncheckedUpdateManyWithoutClientNestedInput
   }
@@ -31380,6 +31675,7 @@ export namespace Prisma {
 
   export type ClientCreateWithoutFilesInput = {
     id?: string
+    status?: $Enums.ClientStatus
     user: UserCreateNestedOneWithoutClientsInput
     server: UnitServerCreateNestedOneWithoutClientsInput
     cases?: CaseCreateNestedManyWithoutClientInput
@@ -31390,6 +31686,7 @@ export namespace Prisma {
     id?: string
     userId: string
     serverId: string
+    status?: $Enums.ClientStatus
     cases?: CaseUncheckedCreateNestedManyWithoutClientInput
     reports?: ReportUncheckedCreateNestedManyWithoutClientInput
   }
@@ -31466,6 +31763,7 @@ export namespace Prisma {
 
   export type ClientUpdateWithoutFilesInput = {
     id?: StringFieldUpdateOperationsInput | string
+    status?: EnumClientStatusFieldUpdateOperationsInput | $Enums.ClientStatus
     user?: UserUpdateOneRequiredWithoutClientsNestedInput
     server?: UnitServerUpdateOneRequiredWithoutClientsNestedInput
     cases?: CaseUpdateManyWithoutClientNestedInput
@@ -31476,6 +31774,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     serverId?: StringFieldUpdateOperationsInput | string
+    status?: EnumClientStatusFieldUpdateOperationsInput | $Enums.ClientStatus
     cases?: CaseUncheckedUpdateManyWithoutClientNestedInput
     reports?: ReportUncheckedUpdateManyWithoutClientNestedInput
   }
@@ -31536,6 +31835,7 @@ export namespace Prisma {
 
   export type ClientCreateWithoutReportsInput = {
     id?: string
+    status?: $Enums.ClientStatus
     user: UserCreateNestedOneWithoutClientsInput
     server: UnitServerCreateNestedOneWithoutClientsInput
     cases?: CaseCreateNestedManyWithoutClientInput
@@ -31546,6 +31846,7 @@ export namespace Prisma {
     id?: string
     userId: string
     serverId: string
+    status?: $Enums.ClientStatus
     cases?: CaseUncheckedCreateNestedManyWithoutClientInput
     files?: FileUncheckedCreateNestedManyWithoutClientInput
   }
@@ -31603,6 +31904,7 @@ export namespace Prisma {
 
   export type ClientUpdateWithoutReportsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    status?: EnumClientStatusFieldUpdateOperationsInput | $Enums.ClientStatus
     user?: UserUpdateOneRequiredWithoutClientsNestedInput
     server?: UnitServerUpdateOneRequiredWithoutClientsNestedInput
     cases?: CaseUpdateManyWithoutClientNestedInput
@@ -31613,6 +31915,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     serverId?: StringFieldUpdateOperationsInput | string
+    status?: EnumClientStatusFieldUpdateOperationsInput | $Enums.ClientStatus
     cases?: CaseUncheckedUpdateManyWithoutClientNestedInput
     files?: FileUncheckedUpdateManyWithoutClientNestedInput
   }
@@ -32437,6 +32740,7 @@ export namespace Prisma {
 
   export type ClientCreateWithoutServerInput = {
     id?: string
+    status?: $Enums.ClientStatus
     user: UserCreateNestedOneWithoutClientsInput
     cases?: CaseCreateNestedManyWithoutClientInput
     files?: FileCreateNestedManyWithoutClientInput
@@ -32446,6 +32750,7 @@ export namespace Prisma {
   export type ClientUncheckedCreateWithoutServerInput = {
     id?: string
     userId: string
+    status?: $Enums.ClientStatus
     cases?: CaseUncheckedCreateNestedManyWithoutClientInput
     files?: FileUncheckedCreateNestedManyWithoutClientInput
     reports?: ReportUncheckedCreateNestedManyWithoutClientInput
@@ -32604,9 +32909,13 @@ export namespace Prisma {
   export type SessionCreateWithoutServerInput = {
     id?: string
     token: string
+    sessionType?: $Enums.SessionType
+    userAgent?: string | null
+    ip?: string | null
     createdAt?: Date | string
     expiresAt: Date | string
     isActive?: boolean
+    lastUsedAt?: Date | string
     user: UserCreateNestedOneWithoutSessionsInput
   }
 
@@ -32614,9 +32923,13 @@ export namespace Prisma {
     id?: string
     token: string
     userId: string
+    sessionType?: $Enums.SessionType
+    userAgent?: string | null
+    ip?: string | null
     createdAt?: Date | string
     expiresAt: Date | string
     isActive?: boolean
+    lastUsedAt?: Date | string
   }
 
   export type SessionCreateOrConnectWithoutServerInput = {
@@ -33882,6 +34195,7 @@ export namespace Prisma {
   export type ClientCreateManyUserInput = {
     id?: string
     serverId: string
+    status?: $Enums.ClientStatus
   }
 
   export type ProfessionalCreateManyUserInput = {
@@ -33893,9 +34207,13 @@ export namespace Prisma {
     id?: string
     token: string
     serverId?: string | null
+    sessionType?: $Enums.SessionType
+    userAgent?: string | null
+    ip?: string | null
     createdAt?: Date | string
     expiresAt: Date | string
     isActive?: boolean
+    lastUsedAt?: Date | string
   }
 
   export type UserNotificationCreateManyUserInput = {
@@ -33924,6 +34242,7 @@ export namespace Prisma {
 
   export type ClientUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    status?: EnumClientStatusFieldUpdateOperationsInput | $Enums.ClientStatus
     server?: UnitServerUpdateOneRequiredWithoutClientsNestedInput
     cases?: CaseUpdateManyWithoutClientNestedInput
     files?: FileUpdateManyWithoutClientNestedInput
@@ -33933,6 +34252,7 @@ export namespace Prisma {
   export type ClientUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     serverId?: StringFieldUpdateOperationsInput | string
+    status?: EnumClientStatusFieldUpdateOperationsInput | $Enums.ClientStatus
     cases?: CaseUncheckedUpdateManyWithoutClientNestedInput
     files?: FileUncheckedUpdateManyWithoutClientNestedInput
     reports?: ReportUncheckedUpdateManyWithoutClientNestedInput
@@ -33941,6 +34261,7 @@ export namespace Prisma {
   export type ClientUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     serverId?: StringFieldUpdateOperationsInput | string
+    status?: EnumClientStatusFieldUpdateOperationsInput | $Enums.ClientStatus
   }
 
   export type ProfessionalUpdateWithoutUserInput = {
@@ -33965,9 +34286,13 @@ export namespace Prisma {
   export type SessionUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
+    sessionType?: EnumSessionTypeFieldUpdateOperationsInput | $Enums.SessionType
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastUsedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     server?: UnitServerUpdateOneWithoutSessionsNestedInput
   }
 
@@ -33975,18 +34300,26 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
     serverId?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionType?: EnumSessionTypeFieldUpdateOperationsInput | $Enums.SessionType
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastUsedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SessionUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
     serverId?: NullableStringFieldUpdateOperationsInput | string | null
+    sessionType?: EnumSessionTypeFieldUpdateOperationsInput | $Enums.SessionType
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastUsedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserNotificationUpdateWithoutUserInput = {
@@ -34410,6 +34743,7 @@ export namespace Prisma {
   export type ClientCreateManyServerInput = {
     id?: string
     userId: string
+    status?: $Enums.ClientStatus
   }
 
   export type ProfessionalCreateManyServerInput = {
@@ -34456,9 +34790,13 @@ export namespace Prisma {
     id?: string
     token: string
     userId: string
+    sessionType?: $Enums.SessionType
+    userAgent?: string | null
+    ip?: string | null
     createdAt?: Date | string
     expiresAt: Date | string
     isActive?: boolean
+    lastUsedAt?: Date | string
   }
 
   export type UpdateLogCreateManyServerInput = {
@@ -34487,6 +34825,7 @@ export namespace Prisma {
 
   export type ClientUpdateWithoutServerInput = {
     id?: StringFieldUpdateOperationsInput | string
+    status?: EnumClientStatusFieldUpdateOperationsInput | $Enums.ClientStatus
     user?: UserUpdateOneRequiredWithoutClientsNestedInput
     cases?: CaseUpdateManyWithoutClientNestedInput
     files?: FileUpdateManyWithoutClientNestedInput
@@ -34496,6 +34835,7 @@ export namespace Prisma {
   export type ClientUncheckedUpdateWithoutServerInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    status?: EnumClientStatusFieldUpdateOperationsInput | $Enums.ClientStatus
     cases?: CaseUncheckedUpdateManyWithoutClientNestedInput
     files?: FileUncheckedUpdateManyWithoutClientNestedInput
     reports?: ReportUncheckedUpdateManyWithoutClientNestedInput
@@ -34504,6 +34844,7 @@ export namespace Prisma {
   export type ClientUncheckedUpdateManyWithoutServerInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    status?: EnumClientStatusFieldUpdateOperationsInput | $Enums.ClientStatus
   }
 
   export type ProfessionalUpdateWithoutServerInput = {
@@ -34639,9 +34980,13 @@ export namespace Prisma {
   export type SessionUpdateWithoutServerInput = {
     id?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
+    sessionType?: EnumSessionTypeFieldUpdateOperationsInput | $Enums.SessionType
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastUsedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutSessionsNestedInput
   }
 
@@ -34649,18 +34994,26 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    sessionType?: EnumSessionTypeFieldUpdateOperationsInput | $Enums.SessionType
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastUsedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SessionUncheckedUpdateManyWithoutServerInput = {
     id?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    sessionType?: EnumSessionTypeFieldUpdateOperationsInput | $Enums.SessionType
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastUsedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UpdateLogUpdateWithoutServerInput = {

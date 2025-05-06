@@ -1,169 +1,263 @@
-Table User {
-  id uuid [pk]
-  email varchar
-  password varchar
-  role varchar
-  firstName varchar
-  lastName varchar
-  phone varchar
-  address varchar
-  avatarUrl varchar
-  isActive boolean
-  createdAt timestamp
-  updatedAt timestamp
-  lastLoginAt timestamp
+Project AtlasNode {
+database_type: 'PostgreSQL'
+Note: '''
+
+# Sistema AtlasNode
+
+Plataforma centralizada para la gestión de microsites legales especializados. 
+Permite administrar usuarios (clientes, profesionales y administradores), 
+casos jurídicos, comunicaciones, archivos, reportes e integraciones automáticas de contenido.
+'''
 }
 
-Table Session {
-  id uuid [pk]
-  token varchar [unique]
-  userId uuid [ref: > User.id]
-  serverId uuid [ref: > UnitServer.id]
-  createdAt timestamp
-  expiresAt timestamp
-  isActive boolean
+// ---------- Enums ----------
+enum Role {
+  client [note: 'Cliente o usuario final de los servicios legales']
+  professional [note: 'Profesional legal que presta servicios']
+  admin [note: 'Administrador con acceso total al sistema']
 }
 
-Table Client {
-  id uuid [pk]
-  userId uuid [ref: > User.id]
-  serverId uuid [ref: > UnitServer.id]
+enum Sender {
+  client [note: 'Mensaje enviado por un cliente']
+  professional [note: 'Mensaje enviado por un profesional']
 }
 
-Table Professional {
-  id uuid [pk]
-  userId uuid [ref: > User.id]
-  serverId uuid [ref: > UnitServer.id]
+enum CaseStatus {
+  open [note: 'Caso recién creado, pendiente de inicio']
+  inProgress [note: 'Caso actualmente en trámite']
+  pending [note: 'Caso en espera de alguna acción o respuesta']
+  closed [note: 'Caso finalizado']
 }
 
-Table Case {
-  id uuid [pk]
-  clientId uuid [ref: > Client.id]
-  professionalId uuid [ref: > Professional.id]
-  serverId uuid [ref: > UnitServer.id]
-  status varchar
-  createdAt timestamp
-  updatedAt timestamp
+enum SectionType {
+  text [note: 'Párrafo o bloque HTML']
+  legalGuide [note: 'Listado de pasos/FAQ legales']
+  manual [note: 'Contenido curado manualmente']
+  newsConfig [note: 'Bloque de noticias automáticas']
 }
 
-Table Chat {
-  id uuid [pk]
-  caseId uuid [unique, ref: > Case.id]
+enum ClientStatus {
+  new [note: 'Cliente recién registrado, pendiente de revisión']
+  reviewing [note: 'Cliente en proceso de revisión por un administrador']
+  active [note: 'Cliente verificado y activo en el sistema']
+  inactive [note: 'Cliente temporalmente inactivo']
+  suspended [note: 'Cliente suspendido por incumplimiento o a petición']
 }
 
-Table Message {
-  id uuid [pk]
-  chatId uuid [ref: > Chat.id]
-  sender varchar
-  content text
-  date timestamp
+enum SessionType {
+  local [note: 'Sesión en el orquestador para administradores']
+  api [note: 'Sesión en un servidor unitario para clientes y profesionales']
 }
 
-Table File {
-  id uuid [pk]
-  caseId uuid [ref: > Case.id]
-  clientId uuid [ref: > Client.id]
-  professionalId uuid [ref: > Professional.id]
-  name varchar
-  url varchar
-  type varchar
-  date timestamp
+// Tabla central de usuarios
+table User [note: 'Tabla de usuarios del sistema, almacena credenciales e información personal y de acceso.'] {
+id           uuid    [pk, note: 'Identificador único del usuario']
+email        varchar [unique, note: 'Correo electrónico único para autenticación']
+password     varchar [note: 'Contraseña encriptada mediante bcrypt']
+role         Role    [note: 'Rol del usuario: client, professional o admin']
+firstName    varchar [note: 'Nombre de pila del usuario']
+lastName     varchar [note: 'Apellido del usuario']
+phone        varchar [note: 'Teléfono de contacto (opcional)']
+address      varchar [note: 'Dirección postal del usuario (opcional)']
+avatarUrl    varchar [note: 'URL de la imagen de avatar (opcional)']
+isActive     boolean [note: 'Indicador de cuenta activa']
+createdAt    timestamp [note: 'Fecha y hora de creación de la cuenta']
+updatedAt    timestamp [note: 'Fecha y hora de la última modificación']
+lastLoginAt  timestamp [note: 'Marca de tiempo del último inicio de sesión (opcional)']
 }
 
-Table Report {
-  id uuid [pk]
-  caseId uuid [ref: > Case.id]
-  clientId uuid [ref: > Client.id]
-  reason text
-  createdAt timestamp
+// Gestión de sesiones activas
+table Session [note: 'Control de sesiones de usuario y tokens de acceso.'] {
+id         uuid    [pk, note: 'Identificador único de la sesión']
+token      varchar [unique, note: 'Token JWT único asociado a la sesión']
+userId     uuid    [ref: > User.id, note: 'Usuario propietario de la sesión']
+serverId   uuid    [ref: > UnitServer.id, note: 'Servidor unitario donde se origina la sesión (opcional para sesiones de orquestador)']
+sessionType SessionType [note: 'Tipo de sesión: local (orquestador) o api (servidor unitario)', default: 'local']
+userAgent  varchar [note: 'Información del navegador o dispositivo del usuario']
+ip         varchar [note: 'Dirección IP desde donde se conecta el usuario']
+createdAt  timestamp [note: 'Fecha y hora de inicio de la sesión']
+expiresAt  timestamp [note: 'Fecha y hora de expiración del token']
+isActive   boolean [note: 'Indicador de sesión activa']
+lastUsedAt timestamp [note: 'Última vez que se usó el token', default: 'now()']
+
+indexes {
+  (token) [name: 'session_token_idx']
+  (userId) [name: 'session_user_idx']
+  (serverId) [name: 'session_server_idx']
+  (sessionType) [name: 'session_type_idx']
+  (isActive) [name: 'session_active_idx']
+}
 }
 
-Table UnitServer {
-  id uuid [pk]
-  domain varchar [unique]
-  name varchar
-  orchestratorToken varchar [unique]
-  unitToken varchar [unique]
-  requiresUpdate boolean
-  constellationId uuid [ref: > Constellation.id]
-  activeConfigId uuid [ref: > UnitConfig.id]
+// Extensión de usuarios para clientes
+table Client [note: 'Datos adicionales para usuarios con rol de cliente.'] {
+id       uuid [pk, note: 'Identificador único de la entidad cliente']
+userId    uuid [ref: > User.id, note: 'Referencia al usuario']
+serverId  uuid [ref: > UnitServer.id, note: 'Servidor unitario asignado al cliente']
+status    ClientStatus [note: 'Estado actual del cliente: new, reviewing, active, inactive, suspended', default: 'new']
 }
 
-Table Constellation {
-  id uuid [pk]
-  name varchar [unique]
-  description text
+// Extensión de usuarios para profesionales
+table Professional [note: 'Datos adicionales para usuarios con rol de profesional.'] {
+id        uuid [pk, note: 'Identificador único de la entidad profesional']
+userId    uuid [ref: > User.id, note: 'Referencia al usuario']
+serverId  uuid [ref: > UnitServer.id, note: 'Servidor unitario asignado al profesional']
 }
 
-Table UnitConfig {
-  id uuid [pk]
-  name varchar [unique]
-  pageTitle varchar
-  footerInfo text
-  legalStepsCount int
-  pageType varchar
-  externalLinks json
-  newsParams json
-  selectedNews json
-  infoSections json
-  createdAt timestamp
-  updatedAt timestamp
+// Gestión de casos legales
+table Case [note: 'Registro de expedientes legales entre clientes y profesionales.'] {
+id             uuid       [pk, note: 'Identificador único del caso']
+clientId       uuid       [ref: > Client.id, note: 'Cliente asociado al caso']
+professionalId uuid       [ref: > Professional.id, note: 'Profesional responsable']
+serverId       uuid       [ref: > UnitServer.id, note: 'Servidor unitario donde se aloja el caso']
+status         CaseStatus [note: 'Estado actual del caso: open, inProgress, pending, closed']
+createdAt      timestamp  [note: 'Fecha y hora de creación del caso']
+updatedAt      timestamp  [note: 'Fecha y hora de la última actualización']
 }
 
-Table Section {
-  id uuid [pk]
-  configId uuid [ref: > UnitConfig.id]
-  serverId uuid [ref: > UnitServer.id]
-  type varchar
-  title varchar
-  content text
-  order int
+// Sistema de chat por caso
+table Chat [note: 'Canal de comunicación vinculado a cada caso legal.'] {
+id      uuid [pk, note: 'Identificador único del chat']
+caseId  uuid [unique, ref: > Case.id, note: 'Caso asociado al chat']
 }
 
-Table ManualArticle {
-  id uuid [pk]
-  configId uuid [ref: > UnitConfig.id]
-  serverId uuid [ref: > UnitServer.id]
-  title varchar
-  content text
-  publishedAt timestamp
+// Mensajes del sistema de chat
+table Message [note: 'Historial de mensajes intercambiados en el chat.'] {
+id      uuid    [pk, note: 'Identificador único del mensaje']
+chatId  uuid    [ref: > Chat.id, note: 'Chat al que pertenece el mensaje']
+sender  Sender  [note: 'Remitente: client o professional']
+content text    [note: 'Contenido textual del mensaje']
+date    timestamp [note: 'Fecha y hora de envío del mensaje']
 }
 
-Table AutoSource {
-  id uuid [pk]
-  configId uuid [ref: > UnitConfig.id]
-  serverId uuid [ref: > UnitServer.id]
-  name varchar
-  url varchar
-  type varchar
-  createdAt timestamp
+// Gestión de archivos
+table File [note: 'Almacenamiento de archivos y documentos por caso.'] {
+id             uuid    [pk, note: 'Identificador único del archivo']
+caseId         uuid    [ref: > Case.id, note: 'Caso asociado al archivo']
+clientId       uuid    [ref: > Client.id, note: 'Cliente que subió el archivo (opcional)']
+professionalId uuid    [ref: > Professional.id, note: 'Profesional que subió el archivo (opcional)']
+name           varchar [note: 'Nombre descriptivo del archivo']
+url            varchar [note: 'Enlace de acceso al recurso almacenado']
+type           varchar [note: 'Tipo o extensión del archivo']
+date           timestamp [note: 'Fecha y hora de subida']
 }
 
-Table Image {
-  id uuid [pk]
-  configId uuid [ref: > UnitConfig.id]
-  url varchar
-  altText varchar
-  type varchar
-  order int
+// Sistema de reportes
+table Report [note: 'Registro de incidencias y reportes generados por clientes.'] {
+id        uuid    [pk, note: 'Identificador único del reporte']
+caseId    uuid    [ref: > Case.id, note: 'Caso relacionado al reporte']
+clientId  uuid    [ref: > Client.id, note: 'Cliente que generó el reporte']
+reason    text    [note: 'Descripción de la razón del reporte']
+createdAt timestamp [note: 'Fecha y hora de creación del reporte']
 }
 
-Table UpdateLog {
-  id uuid [pk]
-  serverId uuid [ref: > UnitServer.id]
-  configId uuid [ref: > UnitConfig.id]
-  sentAt timestamp
-  success boolean
-  errorMessage text
+// Nodo central de configuración
+table UnitServer [note: 'Definición de cada servidor unitario gestionado por el orquestador.'] {
+id               uuid    [pk, note: 'Identificador único del servidor']
+domain           varchar [unique, note: 'Dominio DNS asociado']
+name             varchar [note: 'Nombre descriptivo del servidor']
+orchestratorToken varchar [unique, note: 'Token para autenticación con el orquestador']
+unitToken        varchar [unique, note: 'Token para autenticación inversa']
+requiresUpdate   boolean [note: 'Indicador de actualización pendiente']
+constellationId  uuid    [ref: > Constellation.id, note: 'Constelación organizativa']
+activeConfigId   uuid    [ref: > UnitConfig.id, note: 'Configuración actualmente activa']
 }
 
-Table UserNotification {
-  id uuid [pk]
-  userId uuid [ref: > User.id]
-  serverId uuid [ref: > UnitServer.id]
-  type varchar
-  content text
-  isRead boolean
-  createdAt timestamp
+// Gestión de constelaciones
+table Constellation [note: 'Agrupación interna de servidores por temática.'] {
+id          uuid   [pk, note: 'Identificador único de la constelación']
+name        varchar [unique, note: 'Nombre de la agrupación']
+description text    [note: 'Descripción de la finalidad o temática']
 }
- 
+
+// Configuración de unidades
+table UnitConfig [note: 'Plantillas de configuración para microsites unitarios.'] {
+id               uuid      [pk, note: 'Identificador único de la configuración']
+name             varchar   [unique, note: 'Etiqueta descriptiva de la plantilla']
+pageTitle        varchar   [note: 'Título que mostrará la página']
+footerInfo       text      [note: 'Información legal o pie de página']
+legalStepsCount  int       [note: 'Número de pasos del proceso legal']
+pageType         varchar   [note: 'Tipo de layout o diseño de página']
+externalLinks    json      [note: 'Enlaces externos referenciados']
+newsParams       json      [note: 'Parámetros para scraping de noticias']
+selectedNews     json      [note: 'Noticias seleccionadas manualmente']
+infoSections     json      [note: 'Secciones informativas adicionales']
+createdAt        timestamp [note: 'Fecha de creación de la plantilla']
+updatedAt        timestamp [note: 'Fecha de última modificación']
+}
+
+// Secciones configurables
+table Section [note: 'Bloques de contenido dentro de una configuración.'] {
+id       uuid        [pk, note: 'Identificador único de la sección']
+configId uuid        [ref: > UnitConfig.id, note: 'Plantilla asociada']
+serverId uuid        [ref: > UnitServer.id, note: 'Servidor que usa la sección']
+type     SectionType [note: 'Tipo de sección: text, legalGuide, manual, newsConfig']
+title    varchar     [note: 'Encabezado o título de la sección']
+content  text        [note: 'Contenido HTML o Markdown de la sección']
+order    int         [note: 'Posición de la sección en la página']
+}
+
+// Artículos del manual
+table ManualArticle [note: 'Entradas de contenido manual para documentación legal.'] {
+id          uuid      [pk, note: 'Identificador único del artículo']
+configId    uuid      [ref: > UnitConfig.id, note: 'Plantilla asociada']
+serverId    uuid      [ref: > UnitServer.id, note: 'Servidor de destino']
+title       varchar   [note: 'Título del artículo']
+content     text      [note: 'Texto completo del manual']
+publishedAt timestamp [note: 'Fecha de publicación visible en front']
+}
+
+// Fuentes automáticas
+table AutoSource [note: 'Configuración de orígenes automáticos de noticias y artículos.'] {
+id        uuid      [pk, note: 'Identificador único de la fuente']
+configId  uuid      [ref: > UnitConfig.id, note: 'Plantilla asociada']
+serverId  uuid      [ref: > UnitServer.id, note: 'Servidor de destino']
+name      varchar   [note: 'Nombre descriptivo de la fuente']
+url       varchar   [note: 'URL para obtención de contenido']
+type      varchar   [note: 'Método de extracción (RSS, Scraping, API)']
+createdAt timestamp [note: 'Fecha de creación de la fuente']
+}
+
+// Gestión de imágenes
+table Image [note: 'Recursos gráficos asociados a cada plantilla.'] {
+id       uuid    [pk, note: 'Identificador único de la imagen']
+configId uuid    [ref: > UnitConfig.id, note: 'Plantilla que utiliza la imagen']
+url      varchar [note: 'Ruta o URL del archivo']
+altText  varchar [note: 'Texto alternativo para accesibilidad']
+type     varchar [note: 'Categoría de la imagen (banner, icono, galería)']
+order    int     [note: 'Orden de presentación en la galería']
+}
+
+// Registro de actualizaciones
+table UpdateLog [note: 'Historial de intentos de sincronización de configuraciones.'] {
+id              uuid      [pk, note: 'Identificador único del registro']
+serverId        uuid      [ref: > UnitServer.id, note: 'Servidor que procesó la actualización']
+configId        uuid      [ref: > UnitConfig.id, note: 'Plantilla aplicada']
+previousConfigId uuid      [ref: > UnitConfig.id, note: 'Configuración anterior']
+status          varchar   [note: 'Estado del proceso (pending, success, error)']
+initiatorId     uuid      [ref: > User.id, note: 'Usuario que inició la actualización']
+description     text      [note: 'Descripción de la actualización']
+startedAt       timestamp [note: 'Fecha y hora de inicio del proceso']
+completedAt     timestamp [note: 'Fecha y hora de finalización (si completado)']
+errorDetails    text      [note: 'Detalles de error en caso de fallo']
+}
+
+// Sistema de notificaciones
+table UserNotification [note: 'Alertas y notificaciones pendientes para usuarios.'] {
+id                uuid      [pk, note: 'Identificador único de la notificación']
+userId            uuid      [ref: > User.id, note: 'Usuario receptor de la notificación']
+serverId          uuid      [ref: > UnitServer.id, note: 'Servidor emisor de la notificación (opcional para orquestador)']
+title             varchar   [note: 'Título corto de la notificación']
+message           text      [note: 'Mensaje descriptivo de la notificación']
+type              varchar   [note: 'Tipo de notificación (info, warning, error, success)']
+relatedEntityId   varchar   [note: 'ID de la entidad relacionada (caso, chat, etc.)']
+relatedEntityType varchar   [note: 'Tipo de entidad relacionada (Case, Chat, Message, etc.)']
+isRead            boolean   [note: 'Indicador de lectura']
+createdAt         timestamp [note: 'Fecha de creación de la notificación']
+
+indexes {
+  (userId) [name: 'notification_user_idx']
+  (isRead) [name: 'notification_read_idx']
+  (serverId) [name: 'notification_server_idx']
+}
+}

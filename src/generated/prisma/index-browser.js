@@ -141,15 +141,20 @@ exports.Prisma.SessionScalarFieldEnum = {
   token: 'token',
   userId: 'userId',
   serverId: 'serverId',
+  sessionType: 'sessionType',
+  userAgent: 'userAgent',
+  ip: 'ip',
   createdAt: 'createdAt',
   expiresAt: 'expiresAt',
-  isActive: 'isActive'
+  isActive: 'isActive',
+  lastUsedAt: 'lastUsedAt'
 };
 
 exports.Prisma.ClientScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  serverId: 'serverId'
+  serverId: 'serverId',
+  status: 'status'
 };
 
 exports.Prisma.ProfessionalScalarFieldEnum = {
@@ -324,6 +329,19 @@ exports.Role = exports.$Enums.Role = {
   client: 'client',
   professional: 'professional',
   admin: 'admin'
+};
+
+exports.SessionType = exports.$Enums.SessionType = {
+  local: 'local',
+  api: 'api'
+};
+
+exports.ClientStatus = exports.$Enums.ClientStatus = {
+  new: 'new',
+  reviewing: 'reviewing',
+  active: 'active',
+  inactive: 'inactive',
+  suspended: 'suspended'
 };
 
 exports.CaseStatus = exports.$Enums.CaseStatus = {
