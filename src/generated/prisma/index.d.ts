@@ -19,11 +19,6 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
- * Model Session
- * 
- */
-export type Session = $Result.DefaultSelection<Prisma.$SessionPayload>
-/**
  * Model Client
  * 
  */
@@ -323,16 +318,6 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.session`: Exposes CRUD operations for the **Session** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Sessions
-    * const sessions = await prisma.session.findMany()
-    * ```
-    */
-  get session(): Prisma.SessionDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.client`: Exposes CRUD operations for the **Client** model.
@@ -934,7 +919,6 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
-    Session: 'Session',
     Client: 'Client',
     Professional: 'Professional',
     Case: 'Case',
@@ -969,7 +953,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "session" | "client" | "professional" | "case" | "chat" | "message" | "file" | "report" | "constellation" | "section" | "manualArticle" | "autoSource" | "image" | "unitServer" | "unitConfig" | "updateLog" | "userNotification"
+      modelProps: "user" | "client" | "professional" | "case" | "chat" | "message" | "file" | "report" | "constellation" | "section" | "manualArticle" | "autoSource" | "image" | "unitServer" | "unitConfig" | "updateLog" | "userNotification"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1044,80 +1028,6 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
-          }
-        }
-      }
-      Session: {
-        payload: Prisma.$SessionPayload<ExtArgs>
-        fields: Prisma.SessionFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.SessionFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SessionPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.SessionFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SessionPayload>
-          }
-          findFirst: {
-            args: Prisma.SessionFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SessionPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.SessionFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SessionPayload>
-          }
-          findMany: {
-            args: Prisma.SessionFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SessionPayload>[]
-          }
-          create: {
-            args: Prisma.SessionCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SessionPayload>
-          }
-          createMany: {
-            args: Prisma.SessionCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.SessionCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SessionPayload>[]
-          }
-          delete: {
-            args: Prisma.SessionDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SessionPayload>
-          }
-          update: {
-            args: Prisma.SessionUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SessionPayload>
-          }
-          deleteMany: {
-            args: Prisma.SessionDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.SessionUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.SessionUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SessionPayload>[]
-          }
-          upsert: {
-            args: Prisma.SessionUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SessionPayload>
-          }
-          aggregate: {
-            args: Prisma.SessionAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateSession>
-          }
-          groupBy: {
-            args: Prisma.SessionGroupByArgs<ExtArgs>
-            result: $Utils.Optional<SessionGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.SessionCountArgs<ExtArgs>
-            result: $Utils.Optional<SessionCountAggregateOutputType> | number
           }
         }
       }
@@ -2390,7 +2300,6 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
-    session?: SessionOmit
     client?: ClientOmit
     professional?: ProfessionalOmit
     case?: CaseOmit
@@ -2503,7 +2412,6 @@ export namespace Prisma {
   export type UserCountOutputType = {
     clients: number
     professionals: number
-    sessions: number
     notifications: number
     initiatedUpdates: number
   }
@@ -2511,7 +2419,6 @@ export namespace Prisma {
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     clients?: boolean | UserCountOutputTypeCountClientsArgs
     professionals?: boolean | UserCountOutputTypeCountProfessionalsArgs
-    sessions?: boolean | UserCountOutputTypeCountSessionsArgs
     notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
     initiatedUpdates?: boolean | UserCountOutputTypeCountInitiatedUpdatesArgs
   }
@@ -2539,13 +2446,6 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountProfessionalsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ProfessionalWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: SessionWhereInput
   }
 
   /**
@@ -2765,7 +2665,6 @@ export namespace Prisma {
     sections: number
     manualArticles: number
     autoSources: number
-    sessions: number
     updateLogs: number
     notifications: number
   }
@@ -2777,7 +2676,6 @@ export namespace Prisma {
     sections?: boolean | UnitServerCountOutputTypeCountSectionsArgs
     manualArticles?: boolean | UnitServerCountOutputTypeCountManualArticlesArgs
     autoSources?: boolean | UnitServerCountOutputTypeCountAutoSourcesArgs
-    sessions?: boolean | UnitServerCountOutputTypeCountSessionsArgs
     updateLogs?: boolean | UnitServerCountOutputTypeCountUpdateLogsArgs
     notifications?: boolean | UnitServerCountOutputTypeCountNotificationsArgs
   }
@@ -2838,13 +2736,6 @@ export namespace Prisma {
   /**
    * UnitServerCountOutputType without action
    */
-  export type UnitServerCountOutputTypeCountSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: SessionWhereInput
-  }
-
-  /**
-   * UnitServerCountOutputType without action
-   */
   export type UnitServerCountOutputTypeCountUpdateLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: UpdateLogWhereInput
   }
@@ -2862,21 +2753,21 @@ export namespace Prisma {
    */
 
   export type UnitConfigCountOutputType = {
-    servers: number
     sections: number
     manualArticles: number
     autoSources: number
     images: number
+    activeInServers: number
     updates: number
     previousUpdates: number
   }
 
   export type UnitConfigCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    servers?: boolean | UnitConfigCountOutputTypeCountServersArgs
     sections?: boolean | UnitConfigCountOutputTypeCountSectionsArgs
     manualArticles?: boolean | UnitConfigCountOutputTypeCountManualArticlesArgs
     autoSources?: boolean | UnitConfigCountOutputTypeCountAutoSourcesArgs
     images?: boolean | UnitConfigCountOutputTypeCountImagesArgs
+    activeInServers?: boolean | UnitConfigCountOutputTypeCountActiveInServersArgs
     updates?: boolean | UnitConfigCountOutputTypeCountUpdatesArgs
     previousUpdates?: boolean | UnitConfigCountOutputTypeCountPreviousUpdatesArgs
   }
@@ -2890,13 +2781,6 @@ export namespace Prisma {
      * Select specific fields to fetch from the UnitConfigCountOutputType
      */
     select?: UnitConfigCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * UnitConfigCountOutputType without action
-   */
-  export type UnitConfigCountOutputTypeCountServersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UnitServerWhereInput
   }
 
   /**
@@ -2925,6 +2809,13 @@ export namespace Prisma {
    */
   export type UnitConfigCountOutputTypeCountImagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ImageWhereInput
+  }
+
+  /**
+   * UnitConfigCountOutputType without action
+   */
+  export type UnitConfigCountOutputTypeCountActiveInServersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UnitServerWhereInput
   }
 
   /**
@@ -3176,7 +3067,6 @@ export namespace Prisma {
     lastLoginAt?: boolean
     clients?: boolean | User$clientsArgs<ExtArgs>
     professionals?: boolean | User$professionalsArgs<ExtArgs>
-    sessions?: boolean | User$sessionsArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
     initiatedUpdates?: boolean | User$initiatedUpdatesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -3234,7 +3124,6 @@ export namespace Prisma {
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     clients?: boolean | User$clientsArgs<ExtArgs>
     professionals?: boolean | User$professionalsArgs<ExtArgs>
-    sessions?: boolean | User$sessionsArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
     initiatedUpdates?: boolean | User$initiatedUpdatesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -3247,7 +3136,6 @@ export namespace Prisma {
     objects: {
       clients: Prisma.$ClientPayload<ExtArgs>[]
       professionals: Prisma.$ProfessionalPayload<ExtArgs>[]
-      sessions: Prisma.$SessionPayload<ExtArgs>[]
       notifications: Prisma.$UserNotificationPayload<ExtArgs>[]
       initiatedUpdates: Prisma.$UpdateLogPayload<ExtArgs>[]
     }
@@ -3661,7 +3549,6 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     clients<T extends User$clientsArgs<ExtArgs> = {}>(args?: Subset<T, User$clientsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClientPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     professionals<T extends User$professionalsArgs<ExtArgs> = {}>(args?: Subset<T, User$professionalsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProfessionalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    sessions<T extends User$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     notifications<T extends User$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserNotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     initiatedUpdates<T extends User$initiatedUpdatesArgs<ExtArgs> = {}>(args?: Subset<T, User$initiatedUpdatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UpdateLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -4142,30 +4029,6 @@ export namespace Prisma {
   }
 
   /**
-   * User.sessions
-   */
-  export type User$sessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Session
-     */
-    select?: SessionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Session
-     */
-    omit?: SessionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SessionInclude<ExtArgs> | null
-    where?: SessionWhereInput
-    orderBy?: SessionOrderByWithRelationInput | SessionOrderByWithRelationInput[]
-    cursor?: SessionWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: SessionScalarFieldEnum | SessionScalarFieldEnum[]
-  }
-
-  /**
    * User.notifications
    */
   export type User$notificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4229,1169 +4092,6 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model Session
-   */
-
-  export type AggregateSession = {
-    _count: SessionCountAggregateOutputType | null
-    _min: SessionMinAggregateOutputType | null
-    _max: SessionMaxAggregateOutputType | null
-  }
-
-  export type SessionMinAggregateOutputType = {
-    id: string | null
-    token: string | null
-    userId: string | null
-    serverId: string | null
-    sessionType: $Enums.SessionType | null
-    userAgent: string | null
-    ip: string | null
-    createdAt: Date | null
-    expiresAt: Date | null
-    isActive: boolean | null
-    lastUsedAt: Date | null
-  }
-
-  export type SessionMaxAggregateOutputType = {
-    id: string | null
-    token: string | null
-    userId: string | null
-    serverId: string | null
-    sessionType: $Enums.SessionType | null
-    userAgent: string | null
-    ip: string | null
-    createdAt: Date | null
-    expiresAt: Date | null
-    isActive: boolean | null
-    lastUsedAt: Date | null
-  }
-
-  export type SessionCountAggregateOutputType = {
-    id: number
-    token: number
-    userId: number
-    serverId: number
-    sessionType: number
-    userAgent: number
-    ip: number
-    createdAt: number
-    expiresAt: number
-    isActive: number
-    lastUsedAt: number
-    _all: number
-  }
-
-
-  export type SessionMinAggregateInputType = {
-    id?: true
-    token?: true
-    userId?: true
-    serverId?: true
-    sessionType?: true
-    userAgent?: true
-    ip?: true
-    createdAt?: true
-    expiresAt?: true
-    isActive?: true
-    lastUsedAt?: true
-  }
-
-  export type SessionMaxAggregateInputType = {
-    id?: true
-    token?: true
-    userId?: true
-    serverId?: true
-    sessionType?: true
-    userAgent?: true
-    ip?: true
-    createdAt?: true
-    expiresAt?: true
-    isActive?: true
-    lastUsedAt?: true
-  }
-
-  export type SessionCountAggregateInputType = {
-    id?: true
-    token?: true
-    userId?: true
-    serverId?: true
-    sessionType?: true
-    userAgent?: true
-    ip?: true
-    createdAt?: true
-    expiresAt?: true
-    isActive?: true
-    lastUsedAt?: true
-    _all?: true
-  }
-
-  export type SessionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Session to aggregate.
-     */
-    where?: SessionWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Sessions to fetch.
-     */
-    orderBy?: SessionOrderByWithRelationInput | SessionOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: SessionWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Sessions from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Sessions.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned Sessions
-    **/
-    _count?: true | SessionCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: SessionMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: SessionMaxAggregateInputType
-  }
-
-  export type GetSessionAggregateType<T extends SessionAggregateArgs> = {
-        [P in keyof T & keyof AggregateSession]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateSession[P]>
-      : GetScalarType<T[P], AggregateSession[P]>
-  }
-
-
-
-
-  export type SessionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: SessionWhereInput
-    orderBy?: SessionOrderByWithAggregationInput | SessionOrderByWithAggregationInput[]
-    by: SessionScalarFieldEnum[] | SessionScalarFieldEnum
-    having?: SessionScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: SessionCountAggregateInputType | true
-    _min?: SessionMinAggregateInputType
-    _max?: SessionMaxAggregateInputType
-  }
-
-  export type SessionGroupByOutputType = {
-    id: string
-    token: string
-    userId: string
-    serverId: string | null
-    sessionType: $Enums.SessionType
-    userAgent: string | null
-    ip: string | null
-    createdAt: Date
-    expiresAt: Date
-    isActive: boolean
-    lastUsedAt: Date
-    _count: SessionCountAggregateOutputType | null
-    _min: SessionMinAggregateOutputType | null
-    _max: SessionMaxAggregateOutputType | null
-  }
-
-  type GetSessionGroupByPayload<T extends SessionGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<SessionGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof SessionGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], SessionGroupByOutputType[P]>
-            : GetScalarType<T[P], SessionGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type SessionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    token?: boolean
-    userId?: boolean
-    serverId?: boolean
-    sessionType?: boolean
-    userAgent?: boolean
-    ip?: boolean
-    createdAt?: boolean
-    expiresAt?: boolean
-    isActive?: boolean
-    lastUsedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    server?: boolean | Session$serverArgs<ExtArgs>
-  }, ExtArgs["result"]["session"]>
-
-  export type SessionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    token?: boolean
-    userId?: boolean
-    serverId?: boolean
-    sessionType?: boolean
-    userAgent?: boolean
-    ip?: boolean
-    createdAt?: boolean
-    expiresAt?: boolean
-    isActive?: boolean
-    lastUsedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    server?: boolean | Session$serverArgs<ExtArgs>
-  }, ExtArgs["result"]["session"]>
-
-  export type SessionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    token?: boolean
-    userId?: boolean
-    serverId?: boolean
-    sessionType?: boolean
-    userAgent?: boolean
-    ip?: boolean
-    createdAt?: boolean
-    expiresAt?: boolean
-    isActive?: boolean
-    lastUsedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    server?: boolean | Session$serverArgs<ExtArgs>
-  }, ExtArgs["result"]["session"]>
-
-  export type SessionSelectScalar = {
-    id?: boolean
-    token?: boolean
-    userId?: boolean
-    serverId?: boolean
-    sessionType?: boolean
-    userAgent?: boolean
-    ip?: boolean
-    createdAt?: boolean
-    expiresAt?: boolean
-    isActive?: boolean
-    lastUsedAt?: boolean
-  }
-
-  export type SessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "token" | "userId" | "serverId" | "sessionType" | "userAgent" | "ip" | "createdAt" | "expiresAt" | "isActive" | "lastUsedAt", ExtArgs["result"]["session"]>
-  export type SessionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    server?: boolean | Session$serverArgs<ExtArgs>
-  }
-  export type SessionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    server?: boolean | Session$serverArgs<ExtArgs>
-  }
-  export type SessionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    server?: boolean | Session$serverArgs<ExtArgs>
-  }
-
-  export type $SessionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Session"
-    objects: {
-      user: Prisma.$UserPayload<ExtArgs>
-      server: Prisma.$UnitServerPayload<ExtArgs> | null
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      token: string
-      userId: string
-      serverId: string | null
-      sessionType: $Enums.SessionType
-      userAgent: string | null
-      ip: string | null
-      createdAt: Date
-      expiresAt: Date
-      isActive: boolean
-      lastUsedAt: Date
-    }, ExtArgs["result"]["session"]>
-    composites: {}
-  }
-
-  type SessionGetPayload<S extends boolean | null | undefined | SessionDefaultArgs> = $Result.GetResult<Prisma.$SessionPayload, S>
-
-  type SessionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<SessionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: SessionCountAggregateInputType | true
-    }
-
-  export interface SessionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Session'], meta: { name: 'Session' } }
-    /**
-     * Find zero or one Session that matches the filter.
-     * @param {SessionFindUniqueArgs} args - Arguments to find a Session
-     * @example
-     * // Get one Session
-     * const session = await prisma.session.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends SessionFindUniqueArgs>(args: SelectSubset<T, SessionFindUniqueArgs<ExtArgs>>): Prisma__SessionClient<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Session that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {SessionFindUniqueOrThrowArgs} args - Arguments to find a Session
-     * @example
-     * // Get one Session
-     * const session = await prisma.session.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends SessionFindUniqueOrThrowArgs>(args: SelectSubset<T, SessionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SessionClient<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Session that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SessionFindFirstArgs} args - Arguments to find a Session
-     * @example
-     * // Get one Session
-     * const session = await prisma.session.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends SessionFindFirstArgs>(args?: SelectSubset<T, SessionFindFirstArgs<ExtArgs>>): Prisma__SessionClient<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Session that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SessionFindFirstOrThrowArgs} args - Arguments to find a Session
-     * @example
-     * // Get one Session
-     * const session = await prisma.session.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends SessionFindFirstOrThrowArgs>(args?: SelectSubset<T, SessionFindFirstOrThrowArgs<ExtArgs>>): Prisma__SessionClient<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Sessions that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SessionFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Sessions
-     * const sessions = await prisma.session.findMany()
-     * 
-     * // Get first 10 Sessions
-     * const sessions = await prisma.session.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const sessionWithIdOnly = await prisma.session.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends SessionFindManyArgs>(args?: SelectSubset<T, SessionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Session.
-     * @param {SessionCreateArgs} args - Arguments to create a Session.
-     * @example
-     * // Create one Session
-     * const Session = await prisma.session.create({
-     *   data: {
-     *     // ... data to create a Session
-     *   }
-     * })
-     * 
-     */
-    create<T extends SessionCreateArgs>(args: SelectSubset<T, SessionCreateArgs<ExtArgs>>): Prisma__SessionClient<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Sessions.
-     * @param {SessionCreateManyArgs} args - Arguments to create many Sessions.
-     * @example
-     * // Create many Sessions
-     * const session = await prisma.session.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends SessionCreateManyArgs>(args?: SelectSubset<T, SessionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many Sessions and returns the data saved in the database.
-     * @param {SessionCreateManyAndReturnArgs} args - Arguments to create many Sessions.
-     * @example
-     * // Create many Sessions
-     * const session = await prisma.session.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Sessions and only return the `id`
-     * const sessionWithIdOnly = await prisma.session.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends SessionCreateManyAndReturnArgs>(args?: SelectSubset<T, SessionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a Session.
-     * @param {SessionDeleteArgs} args - Arguments to delete one Session.
-     * @example
-     * // Delete one Session
-     * const Session = await prisma.session.delete({
-     *   where: {
-     *     // ... filter to delete one Session
-     *   }
-     * })
-     * 
-     */
-    delete<T extends SessionDeleteArgs>(args: SelectSubset<T, SessionDeleteArgs<ExtArgs>>): Prisma__SessionClient<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Session.
-     * @param {SessionUpdateArgs} args - Arguments to update one Session.
-     * @example
-     * // Update one Session
-     * const session = await prisma.session.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends SessionUpdateArgs>(args: SelectSubset<T, SessionUpdateArgs<ExtArgs>>): Prisma__SessionClient<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Sessions.
-     * @param {SessionDeleteManyArgs} args - Arguments to filter Sessions to delete.
-     * @example
-     * // Delete a few Sessions
-     * const { count } = await prisma.session.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends SessionDeleteManyArgs>(args?: SelectSubset<T, SessionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Sessions.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SessionUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Sessions
-     * const session = await prisma.session.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends SessionUpdateManyArgs>(args: SelectSubset<T, SessionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Sessions and returns the data updated in the database.
-     * @param {SessionUpdateManyAndReturnArgs} args - Arguments to update many Sessions.
-     * @example
-     * // Update many Sessions
-     * const session = await prisma.session.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Sessions and only return the `id`
-     * const sessionWithIdOnly = await prisma.session.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends SessionUpdateManyAndReturnArgs>(args: SelectSubset<T, SessionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one Session.
-     * @param {SessionUpsertArgs} args - Arguments to update or create a Session.
-     * @example
-     * // Update or create a Session
-     * const session = await prisma.session.upsert({
-     *   create: {
-     *     // ... data to create a Session
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Session we want to update
-     *   }
-     * })
-     */
-    upsert<T extends SessionUpsertArgs>(args: SelectSubset<T, SessionUpsertArgs<ExtArgs>>): Prisma__SessionClient<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Sessions.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SessionCountArgs} args - Arguments to filter Sessions to count.
-     * @example
-     * // Count the number of Sessions
-     * const count = await prisma.session.count({
-     *   where: {
-     *     // ... the filter for the Sessions we want to count
-     *   }
-     * })
-    **/
-    count<T extends SessionCountArgs>(
-      args?: Subset<T, SessionCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], SessionCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Session.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SessionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends SessionAggregateArgs>(args: Subset<T, SessionAggregateArgs>): Prisma.PrismaPromise<GetSessionAggregateType<T>>
-
-    /**
-     * Group by Session.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SessionGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends SessionGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: SessionGroupByArgs['orderBy'] }
-        : { orderBy?: SessionGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, SessionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSessionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the Session model
-   */
-  readonly fields: SessionFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for Session.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__SessionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    server<T extends Session$serverArgs<ExtArgs> = {}>(args?: Subset<T, Session$serverArgs<ExtArgs>>): Prisma__UnitServerClient<$Result.GetResult<Prisma.$UnitServerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the Session model
-   */
-  interface SessionFieldRefs {
-    readonly id: FieldRef<"Session", 'String'>
-    readonly token: FieldRef<"Session", 'String'>
-    readonly userId: FieldRef<"Session", 'String'>
-    readonly serverId: FieldRef<"Session", 'String'>
-    readonly sessionType: FieldRef<"Session", 'SessionType'>
-    readonly userAgent: FieldRef<"Session", 'String'>
-    readonly ip: FieldRef<"Session", 'String'>
-    readonly createdAt: FieldRef<"Session", 'DateTime'>
-    readonly expiresAt: FieldRef<"Session", 'DateTime'>
-    readonly isActive: FieldRef<"Session", 'Boolean'>
-    readonly lastUsedAt: FieldRef<"Session", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * Session findUnique
-   */
-  export type SessionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Session
-     */
-    select?: SessionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Session
-     */
-    omit?: SessionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SessionInclude<ExtArgs> | null
-    /**
-     * Filter, which Session to fetch.
-     */
-    where: SessionWhereUniqueInput
-  }
-
-  /**
-   * Session findUniqueOrThrow
-   */
-  export type SessionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Session
-     */
-    select?: SessionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Session
-     */
-    omit?: SessionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SessionInclude<ExtArgs> | null
-    /**
-     * Filter, which Session to fetch.
-     */
-    where: SessionWhereUniqueInput
-  }
-
-  /**
-   * Session findFirst
-   */
-  export type SessionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Session
-     */
-    select?: SessionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Session
-     */
-    omit?: SessionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SessionInclude<ExtArgs> | null
-    /**
-     * Filter, which Session to fetch.
-     */
-    where?: SessionWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Sessions to fetch.
-     */
-    orderBy?: SessionOrderByWithRelationInput | SessionOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Sessions.
-     */
-    cursor?: SessionWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Sessions from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Sessions.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Sessions.
-     */
-    distinct?: SessionScalarFieldEnum | SessionScalarFieldEnum[]
-  }
-
-  /**
-   * Session findFirstOrThrow
-   */
-  export type SessionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Session
-     */
-    select?: SessionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Session
-     */
-    omit?: SessionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SessionInclude<ExtArgs> | null
-    /**
-     * Filter, which Session to fetch.
-     */
-    where?: SessionWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Sessions to fetch.
-     */
-    orderBy?: SessionOrderByWithRelationInput | SessionOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Sessions.
-     */
-    cursor?: SessionWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Sessions from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Sessions.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Sessions.
-     */
-    distinct?: SessionScalarFieldEnum | SessionScalarFieldEnum[]
-  }
-
-  /**
-   * Session findMany
-   */
-  export type SessionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Session
-     */
-    select?: SessionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Session
-     */
-    omit?: SessionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SessionInclude<ExtArgs> | null
-    /**
-     * Filter, which Sessions to fetch.
-     */
-    where?: SessionWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Sessions to fetch.
-     */
-    orderBy?: SessionOrderByWithRelationInput | SessionOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing Sessions.
-     */
-    cursor?: SessionWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Sessions from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Sessions.
-     */
-    skip?: number
-    distinct?: SessionScalarFieldEnum | SessionScalarFieldEnum[]
-  }
-
-  /**
-   * Session create
-   */
-  export type SessionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Session
-     */
-    select?: SessionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Session
-     */
-    omit?: SessionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SessionInclude<ExtArgs> | null
-    /**
-     * The data needed to create a Session.
-     */
-    data: XOR<SessionCreateInput, SessionUncheckedCreateInput>
-  }
-
-  /**
-   * Session createMany
-   */
-  export type SessionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many Sessions.
-     */
-    data: SessionCreateManyInput | SessionCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * Session createManyAndReturn
-   */
-  export type SessionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Session
-     */
-    select?: SessionSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Session
-     */
-    omit?: SessionOmit<ExtArgs> | null
-    /**
-     * The data used to create many Sessions.
-     */
-    data: SessionCreateManyInput | SessionCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SessionIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * Session update
-   */
-  export type SessionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Session
-     */
-    select?: SessionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Session
-     */
-    omit?: SessionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SessionInclude<ExtArgs> | null
-    /**
-     * The data needed to update a Session.
-     */
-    data: XOR<SessionUpdateInput, SessionUncheckedUpdateInput>
-    /**
-     * Choose, which Session to update.
-     */
-    where: SessionWhereUniqueInput
-  }
-
-  /**
-   * Session updateMany
-   */
-  export type SessionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Sessions.
-     */
-    data: XOR<SessionUpdateManyMutationInput, SessionUncheckedUpdateManyInput>
-    /**
-     * Filter which Sessions to update
-     */
-    where?: SessionWhereInput
-    /**
-     * Limit how many Sessions to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * Session updateManyAndReturn
-   */
-  export type SessionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Session
-     */
-    select?: SessionSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Session
-     */
-    omit?: SessionOmit<ExtArgs> | null
-    /**
-     * The data used to update Sessions.
-     */
-    data: XOR<SessionUpdateManyMutationInput, SessionUncheckedUpdateManyInput>
-    /**
-     * Filter which Sessions to update
-     */
-    where?: SessionWhereInput
-    /**
-     * Limit how many Sessions to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SessionIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * Session upsert
-   */
-  export type SessionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Session
-     */
-    select?: SessionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Session
-     */
-    omit?: SessionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SessionInclude<ExtArgs> | null
-    /**
-     * The filter to search for the Session to update in case it exists.
-     */
-    where: SessionWhereUniqueInput
-    /**
-     * In case the Session found by the `where` argument doesn't exist, create a new Session with this data.
-     */
-    create: XOR<SessionCreateInput, SessionUncheckedCreateInput>
-    /**
-     * In case the Session was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<SessionUpdateInput, SessionUncheckedUpdateInput>
-  }
-
-  /**
-   * Session delete
-   */
-  export type SessionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Session
-     */
-    select?: SessionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Session
-     */
-    omit?: SessionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SessionInclude<ExtArgs> | null
-    /**
-     * Filter which Session to delete.
-     */
-    where: SessionWhereUniqueInput
-  }
-
-  /**
-   * Session deleteMany
-   */
-  export type SessionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Sessions to delete
-     */
-    where?: SessionWhereInput
-    /**
-     * Limit how many Sessions to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * Session.server
-   */
-  export type Session$serverArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the UnitServer
-     */
-    select?: UnitServerSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the UnitServer
-     */
-    omit?: UnitServerOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UnitServerInclude<ExtArgs> | null
-    where?: UnitServerWhereInput
-  }
-
-  /**
-   * Session without action
-   */
-  export type SessionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Session
-     */
-    select?: SessionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Session
-     */
-    omit?: SessionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SessionInclude<ExtArgs> | null
   }
 
 
@@ -18836,7 +17536,6 @@ export namespace Prisma {
     sections?: boolean | UnitServer$sectionsArgs<ExtArgs>
     manualArticles?: boolean | UnitServer$manualArticlesArgs<ExtArgs>
     autoSources?: boolean | UnitServer$autoSourcesArgs<ExtArgs>
-    sessions?: boolean | UnitServer$sessionsArgs<ExtArgs>
     updateLogs?: boolean | UnitServer$updateLogsArgs<ExtArgs>
     notifications?: boolean | UnitServer$notificationsArgs<ExtArgs>
     _count?: boolean | UnitServerCountOutputTypeDefaultArgs<ExtArgs>
@@ -18889,7 +17588,6 @@ export namespace Prisma {
     sections?: boolean | UnitServer$sectionsArgs<ExtArgs>
     manualArticles?: boolean | UnitServer$manualArticlesArgs<ExtArgs>
     autoSources?: boolean | UnitServer$autoSourcesArgs<ExtArgs>
-    sessions?: boolean | UnitServer$sessionsArgs<ExtArgs>
     updateLogs?: boolean | UnitServer$updateLogsArgs<ExtArgs>
     notifications?: boolean | UnitServer$notificationsArgs<ExtArgs>
     _count?: boolean | UnitServerCountOutputTypeDefaultArgs<ExtArgs>
@@ -18914,7 +17612,6 @@ export namespace Prisma {
       sections: Prisma.$SectionPayload<ExtArgs>[]
       manualArticles: Prisma.$ManualArticlePayload<ExtArgs>[]
       autoSources: Prisma.$AutoSourcePayload<ExtArgs>[]
-      sessions: Prisma.$SessionPayload<ExtArgs>[]
       updateLogs: Prisma.$UpdateLogPayload<ExtArgs>[]
       notifications: Prisma.$UserNotificationPayload<ExtArgs>[]
     }
@@ -19329,7 +18026,6 @@ export namespace Prisma {
     sections<T extends UnitServer$sectionsArgs<ExtArgs> = {}>(args?: Subset<T, UnitServer$sectionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     manualArticles<T extends UnitServer$manualArticlesArgs<ExtArgs> = {}>(args?: Subset<T, UnitServer$manualArticlesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ManualArticlePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     autoSources<T extends UnitServer$autoSourcesArgs<ExtArgs> = {}>(args?: Subset<T, UnitServer$autoSourcesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AutoSourcePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    sessions<T extends UnitServer$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, UnitServer$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     updateLogs<T extends UnitServer$updateLogsArgs<ExtArgs> = {}>(args?: Subset<T, UnitServer$updateLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UpdateLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     notifications<T extends UnitServer$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, UnitServer$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserNotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -19928,30 +18624,6 @@ export namespace Prisma {
   }
 
   /**
-   * UnitServer.sessions
-   */
-  export type UnitServer$sessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Session
-     */
-    select?: SessionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Session
-     */
-    omit?: SessionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SessionInclude<ExtArgs> | null
-    where?: SessionWhereInput
-    orderBy?: SessionOrderByWithRelationInput | SessionOrderByWithRelationInput[]
-    cursor?: SessionWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: SessionScalarFieldEnum | SessionScalarFieldEnum[]
-  }
-
-  /**
    * UnitServer.updateLogs
    */
   export type UnitServer$updateLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -20213,13 +18885,13 @@ export namespace Prisma {
     id: string
     name: string
     pageTitle: string
-    footerInfo: string
+    footerInfo: string | null
     legalStepsCount: number
     pageType: string
-    externalLinks: JsonValue
-    newsParams: JsonValue
-    selectedNews: JsonValue
-    infoSections: JsonValue
+    externalLinks: JsonValue | null
+    newsParams: JsonValue | null
+    selectedNews: JsonValue | null
+    infoSections: JsonValue | null
     createdAt: Date
     updatedAt: Date
     _count: UnitConfigCountAggregateOutputType | null
@@ -20256,11 +18928,11 @@ export namespace Prisma {
     infoSections?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    servers?: boolean | UnitConfig$serversArgs<ExtArgs>
     sections?: boolean | UnitConfig$sectionsArgs<ExtArgs>
     manualArticles?: boolean | UnitConfig$manualArticlesArgs<ExtArgs>
     autoSources?: boolean | UnitConfig$autoSourcesArgs<ExtArgs>
     images?: boolean | UnitConfig$imagesArgs<ExtArgs>
+    activeInServers?: boolean | UnitConfig$activeInServersArgs<ExtArgs>
     updates?: boolean | UnitConfig$updatesArgs<ExtArgs>
     previousUpdates?: boolean | UnitConfig$previousUpdatesArgs<ExtArgs>
     _count?: boolean | UnitConfigCountOutputTypeDefaultArgs<ExtArgs>
@@ -20313,11 +18985,11 @@ export namespace Prisma {
 
   export type UnitConfigOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "pageTitle" | "footerInfo" | "legalStepsCount" | "pageType" | "externalLinks" | "newsParams" | "selectedNews" | "infoSections" | "createdAt" | "updatedAt", ExtArgs["result"]["unitConfig"]>
   export type UnitConfigInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    servers?: boolean | UnitConfig$serversArgs<ExtArgs>
     sections?: boolean | UnitConfig$sectionsArgs<ExtArgs>
     manualArticles?: boolean | UnitConfig$manualArticlesArgs<ExtArgs>
     autoSources?: boolean | UnitConfig$autoSourcesArgs<ExtArgs>
     images?: boolean | UnitConfig$imagesArgs<ExtArgs>
+    activeInServers?: boolean | UnitConfig$activeInServersArgs<ExtArgs>
     updates?: boolean | UnitConfig$updatesArgs<ExtArgs>
     previousUpdates?: boolean | UnitConfig$previousUpdatesArgs<ExtArgs>
     _count?: boolean | UnitConfigCountOutputTypeDefaultArgs<ExtArgs>
@@ -20328,11 +19000,11 @@ export namespace Prisma {
   export type $UnitConfigPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "UnitConfig"
     objects: {
-      servers: Prisma.$UnitServerPayload<ExtArgs>[]
       sections: Prisma.$SectionPayload<ExtArgs>[]
       manualArticles: Prisma.$ManualArticlePayload<ExtArgs>[]
       autoSources: Prisma.$AutoSourcePayload<ExtArgs>[]
       images: Prisma.$ImagePayload<ExtArgs>[]
+      activeInServers: Prisma.$UnitServerPayload<ExtArgs>[]
       updates: Prisma.$UpdateLogPayload<ExtArgs>[]
       previousUpdates: Prisma.$UpdateLogPayload<ExtArgs>[]
     }
@@ -20340,13 +19012,13 @@ export namespace Prisma {
       id: string
       name: string
       pageTitle: string
-      footerInfo: string
+      footerInfo: string | null
       legalStepsCount: number
       pageType: string
-      externalLinks: Prisma.JsonValue
-      newsParams: Prisma.JsonValue
-      selectedNews: Prisma.JsonValue
-      infoSections: Prisma.JsonValue
+      externalLinks: Prisma.JsonValue | null
+      newsParams: Prisma.JsonValue | null
+      selectedNews: Prisma.JsonValue | null
+      infoSections: Prisma.JsonValue | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["unitConfig"]>
@@ -20743,11 +19415,11 @@ export namespace Prisma {
    */
   export interface Prisma__UnitConfigClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    servers<T extends UnitConfig$serversArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfig$serversArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UnitServerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     sections<T extends UnitConfig$sectionsArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfig$sectionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     manualArticles<T extends UnitConfig$manualArticlesArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfig$manualArticlesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ManualArticlePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     autoSources<T extends UnitConfig$autoSourcesArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfig$autoSourcesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AutoSourcePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     images<T extends UnitConfig$imagesArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfig$imagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    activeInServers<T extends UnitConfig$activeInServersArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfig$activeInServersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UnitServerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     updates<T extends UnitConfig$updatesArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfig$updatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UpdateLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     previousUpdates<T extends UnitConfig$previousUpdatesArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfig$previousUpdatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UpdateLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -21179,30 +19851,6 @@ export namespace Prisma {
   }
 
   /**
-   * UnitConfig.servers
-   */
-  export type UnitConfig$serversArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the UnitServer
-     */
-    select?: UnitServerSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the UnitServer
-     */
-    omit?: UnitServerOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UnitServerInclude<ExtArgs> | null
-    where?: UnitServerWhereInput
-    orderBy?: UnitServerOrderByWithRelationInput | UnitServerOrderByWithRelationInput[]
-    cursor?: UnitServerWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: UnitServerScalarFieldEnum | UnitServerScalarFieldEnum[]
-  }
-
-  /**
    * UnitConfig.sections
    */
   export type UnitConfig$sectionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -21296,6 +19944,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ImageScalarFieldEnum | ImageScalarFieldEnum[]
+  }
+
+  /**
+   * UnitConfig.activeInServers
+   */
+  export type UnitConfig$activeInServersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnitServer
+     */
+    select?: UnitServerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnitServer
+     */
+    omit?: UnitServerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnitServerInclude<ExtArgs> | null
+    where?: UnitServerWhereInput
+    orderBy?: UnitServerOrderByWithRelationInput | UnitServerOrderByWithRelationInput[]
+    cursor?: UnitServerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UnitServerScalarFieldEnum | UnitServerScalarFieldEnum[]
   }
 
   /**
@@ -23714,23 +22386,6 @@ export namespace Prisma {
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
-  export const SessionScalarFieldEnum: {
-    id: 'id',
-    token: 'token',
-    userId: 'userId',
-    serverId: 'serverId',
-    sessionType: 'sessionType',
-    userAgent: 'userAgent',
-    ip: 'ip',
-    createdAt: 'createdAt',
-    expiresAt: 'expiresAt',
-    isActive: 'isActive',
-    lastUsedAt: 'lastUsedAt'
-  };
-
-  export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeof SessionScalarFieldEnum]
-
-
   export const ClientScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
@@ -23938,11 +22593,12 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
-  export const JsonNullValueInput: {
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
     JsonNull: typeof JsonNull
   };
 
-  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
   export const QueryMode: {
@@ -24021,20 +22677,6 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'SessionType'
-   */
-  export type EnumSessionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SessionType'>
-    
-
-
-  /**
-   * Reference to a field of type 'SessionType[]'
-   */
-  export type ListEnumSessionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SessionType[]'>
     
 
 
@@ -24158,7 +22800,6 @@ export namespace Prisma {
     lastLoginAt?: DateTimeNullableFilter<"User"> | Date | string | null
     clients?: ClientListRelationFilter
     professionals?: ProfessionalListRelationFilter
-    sessions?: SessionListRelationFilter
     notifications?: UserNotificationListRelationFilter
     initiatedUpdates?: UpdateLogListRelationFilter
   }
@@ -24179,7 +22820,6 @@ export namespace Prisma {
     lastLoginAt?: SortOrderInput | SortOrder
     clients?: ClientOrderByRelationAggregateInput
     professionals?: ProfessionalOrderByRelationAggregateInput
-    sessions?: SessionOrderByRelationAggregateInput
     notifications?: UserNotificationOrderByRelationAggregateInput
     initiatedUpdates?: UpdateLogOrderByRelationAggregateInput
   }
@@ -24203,7 +22843,6 @@ export namespace Prisma {
     lastLoginAt?: DateTimeNullableFilter<"User"> | Date | string | null
     clients?: ClientListRelationFilter
     professionals?: ProfessionalListRelationFilter
-    sessions?: SessionListRelationFilter
     notifications?: UserNotificationListRelationFilter
     initiatedUpdates?: UpdateLogListRelationFilter
   }, "id" | "email">
@@ -24244,94 +22883,6 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     lastLoginAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
-  }
-
-  export type SessionWhereInput = {
-    AND?: SessionWhereInput | SessionWhereInput[]
-    OR?: SessionWhereInput[]
-    NOT?: SessionWhereInput | SessionWhereInput[]
-    id?: StringFilter<"Session"> | string
-    token?: StringFilter<"Session"> | string
-    userId?: StringFilter<"Session"> | string
-    serverId?: StringNullableFilter<"Session"> | string | null
-    sessionType?: EnumSessionTypeFilter<"Session"> | $Enums.SessionType
-    userAgent?: StringNullableFilter<"Session"> | string | null
-    ip?: StringNullableFilter<"Session"> | string | null
-    createdAt?: DateTimeFilter<"Session"> | Date | string
-    expiresAt?: DateTimeFilter<"Session"> | Date | string
-    isActive?: BoolFilter<"Session"> | boolean
-    lastUsedAt?: DateTimeFilter<"Session"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    server?: XOR<UnitServerNullableScalarRelationFilter, UnitServerWhereInput> | null
-  }
-
-  export type SessionOrderByWithRelationInput = {
-    id?: SortOrder
-    token?: SortOrder
-    userId?: SortOrder
-    serverId?: SortOrderInput | SortOrder
-    sessionType?: SortOrder
-    userAgent?: SortOrderInput | SortOrder
-    ip?: SortOrderInput | SortOrder
-    createdAt?: SortOrder
-    expiresAt?: SortOrder
-    isActive?: SortOrder
-    lastUsedAt?: SortOrder
-    user?: UserOrderByWithRelationInput
-    server?: UnitServerOrderByWithRelationInput
-  }
-
-  export type SessionWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    token?: string
-    AND?: SessionWhereInput | SessionWhereInput[]
-    OR?: SessionWhereInput[]
-    NOT?: SessionWhereInput | SessionWhereInput[]
-    userId?: StringFilter<"Session"> | string
-    serverId?: StringNullableFilter<"Session"> | string | null
-    sessionType?: EnumSessionTypeFilter<"Session"> | $Enums.SessionType
-    userAgent?: StringNullableFilter<"Session"> | string | null
-    ip?: StringNullableFilter<"Session"> | string | null
-    createdAt?: DateTimeFilter<"Session"> | Date | string
-    expiresAt?: DateTimeFilter<"Session"> | Date | string
-    isActive?: BoolFilter<"Session"> | boolean
-    lastUsedAt?: DateTimeFilter<"Session"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    server?: XOR<UnitServerNullableScalarRelationFilter, UnitServerWhereInput> | null
-  }, "id" | "token">
-
-  export type SessionOrderByWithAggregationInput = {
-    id?: SortOrder
-    token?: SortOrder
-    userId?: SortOrder
-    serverId?: SortOrderInput | SortOrder
-    sessionType?: SortOrder
-    userAgent?: SortOrderInput | SortOrder
-    ip?: SortOrderInput | SortOrder
-    createdAt?: SortOrder
-    expiresAt?: SortOrder
-    isActive?: SortOrder
-    lastUsedAt?: SortOrder
-    _count?: SessionCountOrderByAggregateInput
-    _max?: SessionMaxOrderByAggregateInput
-    _min?: SessionMinOrderByAggregateInput
-  }
-
-  export type SessionScalarWhereWithAggregatesInput = {
-    AND?: SessionScalarWhereWithAggregatesInput | SessionScalarWhereWithAggregatesInput[]
-    OR?: SessionScalarWhereWithAggregatesInput[]
-    NOT?: SessionScalarWhereWithAggregatesInput | SessionScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"Session"> | string
-    token?: StringWithAggregatesFilter<"Session"> | string
-    userId?: StringWithAggregatesFilter<"Session"> | string
-    serverId?: StringNullableWithAggregatesFilter<"Session"> | string | null
-    sessionType?: EnumSessionTypeWithAggregatesFilter<"Session"> | $Enums.SessionType
-    userAgent?: StringNullableWithAggregatesFilter<"Session"> | string | null
-    ip?: StringNullableWithAggregatesFilter<"Session"> | string | null
-    createdAt?: DateTimeWithAggregatesFilter<"Session"> | Date | string
-    expiresAt?: DateTimeWithAggregatesFilter<"Session"> | Date | string
-    isActive?: BoolWithAggregatesFilter<"Session"> | boolean
-    lastUsedAt?: DateTimeWithAggregatesFilter<"Session"> | Date | string
   }
 
   export type ClientWhereInput = {
@@ -25090,7 +23641,6 @@ export namespace Prisma {
     sections?: SectionListRelationFilter
     manualArticles?: ManualArticleListRelationFilter
     autoSources?: AutoSourceListRelationFilter
-    sessions?: SessionListRelationFilter
     updateLogs?: UpdateLogListRelationFilter
     notifications?: UserNotificationListRelationFilter
   }
@@ -25112,7 +23662,6 @@ export namespace Prisma {
     sections?: SectionOrderByRelationAggregateInput
     manualArticles?: ManualArticleOrderByRelationAggregateInput
     autoSources?: AutoSourceOrderByRelationAggregateInput
-    sessions?: SessionOrderByRelationAggregateInput
     updateLogs?: UpdateLogOrderByRelationAggregateInput
     notifications?: UserNotificationOrderByRelationAggregateInput
   }
@@ -25137,7 +23686,6 @@ export namespace Prisma {
     sections?: SectionListRelationFilter
     manualArticles?: ManualArticleListRelationFilter
     autoSources?: AutoSourceListRelationFilter
-    sessions?: SessionListRelationFilter
     updateLogs?: UpdateLogListRelationFilter
     notifications?: UserNotificationListRelationFilter
   }, "id" | "domain" | "orchestratorToken" | "unitToken">
@@ -25177,20 +23725,20 @@ export namespace Prisma {
     id?: StringFilter<"UnitConfig"> | string
     name?: StringFilter<"UnitConfig"> | string
     pageTitle?: StringFilter<"UnitConfig"> | string
-    footerInfo?: StringFilter<"UnitConfig"> | string
+    footerInfo?: StringNullableFilter<"UnitConfig"> | string | null
     legalStepsCount?: IntFilter<"UnitConfig"> | number
     pageType?: StringFilter<"UnitConfig"> | string
-    externalLinks?: JsonFilter<"UnitConfig">
-    newsParams?: JsonFilter<"UnitConfig">
-    selectedNews?: JsonFilter<"UnitConfig">
-    infoSections?: JsonFilter<"UnitConfig">
+    externalLinks?: JsonNullableFilter<"UnitConfig">
+    newsParams?: JsonNullableFilter<"UnitConfig">
+    selectedNews?: JsonNullableFilter<"UnitConfig">
+    infoSections?: JsonNullableFilter<"UnitConfig">
     createdAt?: DateTimeFilter<"UnitConfig"> | Date | string
     updatedAt?: DateTimeFilter<"UnitConfig"> | Date | string
-    servers?: UnitServerListRelationFilter
     sections?: SectionListRelationFilter
     manualArticles?: ManualArticleListRelationFilter
     autoSources?: AutoSourceListRelationFilter
     images?: ImageListRelationFilter
+    activeInServers?: UnitServerListRelationFilter
     updates?: UpdateLogListRelationFilter
     previousUpdates?: UpdateLogListRelationFilter
   }
@@ -25199,20 +23747,20 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     pageTitle?: SortOrder
-    footerInfo?: SortOrder
+    footerInfo?: SortOrderInput | SortOrder
     legalStepsCount?: SortOrder
     pageType?: SortOrder
-    externalLinks?: SortOrder
-    newsParams?: SortOrder
-    selectedNews?: SortOrder
-    infoSections?: SortOrder
+    externalLinks?: SortOrderInput | SortOrder
+    newsParams?: SortOrderInput | SortOrder
+    selectedNews?: SortOrderInput | SortOrder
+    infoSections?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    servers?: UnitServerOrderByRelationAggregateInput
     sections?: SectionOrderByRelationAggregateInput
     manualArticles?: ManualArticleOrderByRelationAggregateInput
     autoSources?: AutoSourceOrderByRelationAggregateInput
     images?: ImageOrderByRelationAggregateInput
+    activeInServers?: UnitServerOrderByRelationAggregateInput
     updates?: UpdateLogOrderByRelationAggregateInput
     previousUpdates?: UpdateLogOrderByRelationAggregateInput
   }
@@ -25224,20 +23772,20 @@ export namespace Prisma {
     OR?: UnitConfigWhereInput[]
     NOT?: UnitConfigWhereInput | UnitConfigWhereInput[]
     pageTitle?: StringFilter<"UnitConfig"> | string
-    footerInfo?: StringFilter<"UnitConfig"> | string
+    footerInfo?: StringNullableFilter<"UnitConfig"> | string | null
     legalStepsCount?: IntFilter<"UnitConfig"> | number
     pageType?: StringFilter<"UnitConfig"> | string
-    externalLinks?: JsonFilter<"UnitConfig">
-    newsParams?: JsonFilter<"UnitConfig">
-    selectedNews?: JsonFilter<"UnitConfig">
-    infoSections?: JsonFilter<"UnitConfig">
+    externalLinks?: JsonNullableFilter<"UnitConfig">
+    newsParams?: JsonNullableFilter<"UnitConfig">
+    selectedNews?: JsonNullableFilter<"UnitConfig">
+    infoSections?: JsonNullableFilter<"UnitConfig">
     createdAt?: DateTimeFilter<"UnitConfig"> | Date | string
     updatedAt?: DateTimeFilter<"UnitConfig"> | Date | string
-    servers?: UnitServerListRelationFilter
     sections?: SectionListRelationFilter
     manualArticles?: ManualArticleListRelationFilter
     autoSources?: AutoSourceListRelationFilter
     images?: ImageListRelationFilter
+    activeInServers?: UnitServerListRelationFilter
     updates?: UpdateLogListRelationFilter
     previousUpdates?: UpdateLogListRelationFilter
   }, "id" | "name">
@@ -25246,13 +23794,13 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     pageTitle?: SortOrder
-    footerInfo?: SortOrder
+    footerInfo?: SortOrderInput | SortOrder
     legalStepsCount?: SortOrder
     pageType?: SortOrder
-    externalLinks?: SortOrder
-    newsParams?: SortOrder
-    selectedNews?: SortOrder
-    infoSections?: SortOrder
+    externalLinks?: SortOrderInput | SortOrder
+    newsParams?: SortOrderInput | SortOrder
+    selectedNews?: SortOrderInput | SortOrder
+    infoSections?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UnitConfigCountOrderByAggregateInput
@@ -25269,13 +23817,13 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"UnitConfig"> | string
     name?: StringWithAggregatesFilter<"UnitConfig"> | string
     pageTitle?: StringWithAggregatesFilter<"UnitConfig"> | string
-    footerInfo?: StringWithAggregatesFilter<"UnitConfig"> | string
+    footerInfo?: StringNullableWithAggregatesFilter<"UnitConfig"> | string | null
     legalStepsCount?: IntWithAggregatesFilter<"UnitConfig"> | number
     pageType?: StringWithAggregatesFilter<"UnitConfig"> | string
-    externalLinks?: JsonWithAggregatesFilter<"UnitConfig">
-    newsParams?: JsonWithAggregatesFilter<"UnitConfig">
-    selectedNews?: JsonWithAggregatesFilter<"UnitConfig">
-    infoSections?: JsonWithAggregatesFilter<"UnitConfig">
+    externalLinks?: JsonNullableWithAggregatesFilter<"UnitConfig">
+    newsParams?: JsonNullableWithAggregatesFilter<"UnitConfig">
+    selectedNews?: JsonNullableWithAggregatesFilter<"UnitConfig">
+    infoSections?: JsonNullableWithAggregatesFilter<"UnitConfig">
     createdAt?: DateTimeWithAggregatesFilter<"UnitConfig"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"UnitConfig"> | Date | string
   }
@@ -25468,7 +24016,6 @@ export namespace Prisma {
     lastLoginAt?: Date | string | null
     clients?: ClientCreateNestedManyWithoutUserInput
     professionals?: ProfessionalCreateNestedManyWithoutUserInput
-    sessions?: SessionCreateNestedManyWithoutUserInput
     notifications?: UserNotificationCreateNestedManyWithoutUserInput
     initiatedUpdates?: UpdateLogCreateNestedManyWithoutInitiatorInput
   }
@@ -25489,7 +24036,6 @@ export namespace Prisma {
     lastLoginAt?: Date | string | null
     clients?: ClientUncheckedCreateNestedManyWithoutUserInput
     professionals?: ProfessionalUncheckedCreateNestedManyWithoutUserInput
-    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     notifications?: UserNotificationUncheckedCreateNestedManyWithoutUserInput
     initiatedUpdates?: UpdateLogUncheckedCreateNestedManyWithoutInitiatorInput
   }
@@ -25510,7 +24056,6 @@ export namespace Prisma {
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     clients?: ClientUpdateManyWithoutUserNestedInput
     professionals?: ProfessionalUpdateManyWithoutUserNestedInput
-    sessions?: SessionUpdateManyWithoutUserNestedInput
     notifications?: UserNotificationUpdateManyWithoutUserNestedInput
     initiatedUpdates?: UpdateLogUpdateManyWithoutInitiatorNestedInput
   }
@@ -25531,7 +24076,6 @@ export namespace Prisma {
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     clients?: ClientUncheckedUpdateManyWithoutUserNestedInput
     professionals?: ProfessionalUncheckedUpdateManyWithoutUserNestedInput
-    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     notifications?: UserNotificationUncheckedUpdateManyWithoutUserNestedInput
     initiatedUpdates?: UpdateLogUncheckedUpdateManyWithoutInitiatorNestedInput
   }
@@ -25582,102 +24126,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type SessionCreateInput = {
-    id?: string
-    token: string
-    sessionType?: $Enums.SessionType
-    userAgent?: string | null
-    ip?: string | null
-    createdAt?: Date | string
-    expiresAt: Date | string
-    isActive?: boolean
-    lastUsedAt?: Date | string
-    user: UserCreateNestedOneWithoutSessionsInput
-    server?: UnitServerCreateNestedOneWithoutSessionsInput
-  }
-
-  export type SessionUncheckedCreateInput = {
-    id?: string
-    token: string
-    userId: string
-    serverId?: string | null
-    sessionType?: $Enums.SessionType
-    userAgent?: string | null
-    ip?: string | null
-    createdAt?: Date | string
-    expiresAt: Date | string
-    isActive?: boolean
-    lastUsedAt?: Date | string
-  }
-
-  export type SessionUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    token?: StringFieldUpdateOperationsInput | string
-    sessionType?: EnumSessionTypeFieldUpdateOperationsInput | $Enums.SessionType
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    ip?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    lastUsedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutSessionsNestedInput
-    server?: UnitServerUpdateOneWithoutSessionsNestedInput
-  }
-
-  export type SessionUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    token?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    serverId?: NullableStringFieldUpdateOperationsInput | string | null
-    sessionType?: EnumSessionTypeFieldUpdateOperationsInput | $Enums.SessionType
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    ip?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    lastUsedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type SessionCreateManyInput = {
-    id?: string
-    token: string
-    userId: string
-    serverId?: string | null
-    sessionType?: $Enums.SessionType
-    userAgent?: string | null
-    ip?: string | null
-    createdAt?: Date | string
-    expiresAt: Date | string
-    isActive?: boolean
-    lastUsedAt?: Date | string
-  }
-
-  export type SessionUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    token?: StringFieldUpdateOperationsInput | string
-    sessionType?: EnumSessionTypeFieldUpdateOperationsInput | $Enums.SessionType
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    ip?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    lastUsedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type SessionUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    token?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    serverId?: NullableStringFieldUpdateOperationsInput | string | null
-    sessionType?: EnumSessionTypeFieldUpdateOperationsInput | $Enums.SessionType
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    ip?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    lastUsedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ClientCreateInput = {
@@ -26400,14 +24848,13 @@ export namespace Prisma {
     unitToken: string
     requiresUpdate?: boolean
     constellation: ConstellationCreateNestedOneWithoutServersInput
-    activeConfig?: UnitConfigCreateNestedOneWithoutServersInput
+    activeConfig?: UnitConfigCreateNestedOneWithoutActiveInServersInput
     clients?: ClientCreateNestedManyWithoutServerInput
     professionals?: ProfessionalCreateNestedManyWithoutServerInput
     cases?: CaseCreateNestedManyWithoutServerInput
     sections?: SectionCreateNestedManyWithoutServerInput
     manualArticles?: ManualArticleCreateNestedManyWithoutServerInput
     autoSources?: AutoSourceCreateNestedManyWithoutServerInput
-    sessions?: SessionCreateNestedManyWithoutServerInput
     updateLogs?: UpdateLogCreateNestedManyWithoutServerInput
     notifications?: UserNotificationCreateNestedManyWithoutServerInput
   }
@@ -26427,7 +24874,6 @@ export namespace Prisma {
     sections?: SectionUncheckedCreateNestedManyWithoutServerInput
     manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutServerInput
     autoSources?: AutoSourceUncheckedCreateNestedManyWithoutServerInput
-    sessions?: SessionUncheckedCreateNestedManyWithoutServerInput
     updateLogs?: UpdateLogUncheckedCreateNestedManyWithoutServerInput
     notifications?: UserNotificationUncheckedCreateNestedManyWithoutServerInput
   }
@@ -26440,14 +24886,13 @@ export namespace Prisma {
     unitToken?: StringFieldUpdateOperationsInput | string
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
     constellation?: ConstellationUpdateOneRequiredWithoutServersNestedInput
-    activeConfig?: UnitConfigUpdateOneWithoutServersNestedInput
+    activeConfig?: UnitConfigUpdateOneWithoutActiveInServersNestedInput
     clients?: ClientUpdateManyWithoutServerNestedInput
     professionals?: ProfessionalUpdateManyWithoutServerNestedInput
     cases?: CaseUpdateManyWithoutServerNestedInput
     sections?: SectionUpdateManyWithoutServerNestedInput
     manualArticles?: ManualArticleUpdateManyWithoutServerNestedInput
     autoSources?: AutoSourceUpdateManyWithoutServerNestedInput
-    sessions?: SessionUpdateManyWithoutServerNestedInput
     updateLogs?: UpdateLogUpdateManyWithoutServerNestedInput
     notifications?: UserNotificationUpdateManyWithoutServerNestedInput
   }
@@ -26467,7 +24912,6 @@ export namespace Prisma {
     sections?: SectionUncheckedUpdateManyWithoutServerNestedInput
     manualArticles?: ManualArticleUncheckedUpdateManyWithoutServerNestedInput
     autoSources?: AutoSourceUncheckedUpdateManyWithoutServerNestedInput
-    sessions?: SessionUncheckedUpdateManyWithoutServerNestedInput
     updateLogs?: UpdateLogUncheckedUpdateManyWithoutServerNestedInput
     notifications?: UserNotificationUncheckedUpdateManyWithoutServerNestedInput
   }
@@ -26507,20 +24951,20 @@ export namespace Prisma {
     id?: string
     name: string
     pageTitle: string
-    footerInfo: string
-    legalStepsCount: number
+    footerInfo?: string | null
+    legalStepsCount?: number
     pageType: string
-    externalLinks: JsonNullValueInput | InputJsonValue
-    newsParams: JsonNullValueInput | InputJsonValue
-    selectedNews: JsonNullValueInput | InputJsonValue
-    infoSections: JsonNullValueInput | InputJsonValue
+    externalLinks?: NullableJsonNullValueInput | InputJsonValue
+    newsParams?: NullableJsonNullValueInput | InputJsonValue
+    selectedNews?: NullableJsonNullValueInput | InputJsonValue
+    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
-    servers?: UnitServerCreateNestedManyWithoutActiveConfigInput
     sections?: SectionCreateNestedManyWithoutConfigInput
     manualArticles?: ManualArticleCreateNestedManyWithoutConfigInput
     autoSources?: AutoSourceCreateNestedManyWithoutConfigInput
     images?: ImageCreateNestedManyWithoutConfigInput
+    activeInServers?: UnitServerCreateNestedManyWithoutActiveConfigInput
     updates?: UpdateLogCreateNestedManyWithoutConfigInput
     previousUpdates?: UpdateLogCreateNestedManyWithoutPreviousConfigInput
   }
@@ -26529,20 +24973,20 @@ export namespace Prisma {
     id?: string
     name: string
     pageTitle: string
-    footerInfo: string
-    legalStepsCount: number
+    footerInfo?: string | null
+    legalStepsCount?: number
     pageType: string
-    externalLinks: JsonNullValueInput | InputJsonValue
-    newsParams: JsonNullValueInput | InputJsonValue
-    selectedNews: JsonNullValueInput | InputJsonValue
-    infoSections: JsonNullValueInput | InputJsonValue
+    externalLinks?: NullableJsonNullValueInput | InputJsonValue
+    newsParams?: NullableJsonNullValueInput | InputJsonValue
+    selectedNews?: NullableJsonNullValueInput | InputJsonValue
+    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
-    servers?: UnitServerUncheckedCreateNestedManyWithoutActiveConfigInput
     sections?: SectionUncheckedCreateNestedManyWithoutConfigInput
     manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutConfigInput
     autoSources?: AutoSourceUncheckedCreateNestedManyWithoutConfigInput
     images?: ImageUncheckedCreateNestedManyWithoutConfigInput
+    activeInServers?: UnitServerUncheckedCreateNestedManyWithoutActiveConfigInput
     updates?: UpdateLogUncheckedCreateNestedManyWithoutConfigInput
     previousUpdates?: UpdateLogUncheckedCreateNestedManyWithoutPreviousConfigInput
   }
@@ -26551,20 +24995,20 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     pageTitle?: StringFieldUpdateOperationsInput | string
-    footerInfo?: StringFieldUpdateOperationsInput | string
+    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
     legalStepsCount?: IntFieldUpdateOperationsInput | number
     pageType?: StringFieldUpdateOperationsInput | string
-    externalLinks?: JsonNullValueInput | InputJsonValue
-    newsParams?: JsonNullValueInput | InputJsonValue
-    selectedNews?: JsonNullValueInput | InputJsonValue
-    infoSections?: JsonNullValueInput | InputJsonValue
+    externalLinks?: NullableJsonNullValueInput | InputJsonValue
+    newsParams?: NullableJsonNullValueInput | InputJsonValue
+    selectedNews?: NullableJsonNullValueInput | InputJsonValue
+    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    servers?: UnitServerUpdateManyWithoutActiveConfigNestedInput
     sections?: SectionUpdateManyWithoutConfigNestedInput
     manualArticles?: ManualArticleUpdateManyWithoutConfigNestedInput
     autoSources?: AutoSourceUpdateManyWithoutConfigNestedInput
     images?: ImageUpdateManyWithoutConfigNestedInput
+    activeInServers?: UnitServerUpdateManyWithoutActiveConfigNestedInput
     updates?: UpdateLogUpdateManyWithoutConfigNestedInput
     previousUpdates?: UpdateLogUpdateManyWithoutPreviousConfigNestedInput
   }
@@ -26573,20 +25017,20 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     pageTitle?: StringFieldUpdateOperationsInput | string
-    footerInfo?: StringFieldUpdateOperationsInput | string
+    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
     legalStepsCount?: IntFieldUpdateOperationsInput | number
     pageType?: StringFieldUpdateOperationsInput | string
-    externalLinks?: JsonNullValueInput | InputJsonValue
-    newsParams?: JsonNullValueInput | InputJsonValue
-    selectedNews?: JsonNullValueInput | InputJsonValue
-    infoSections?: JsonNullValueInput | InputJsonValue
+    externalLinks?: NullableJsonNullValueInput | InputJsonValue
+    newsParams?: NullableJsonNullValueInput | InputJsonValue
+    selectedNews?: NullableJsonNullValueInput | InputJsonValue
+    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    servers?: UnitServerUncheckedUpdateManyWithoutActiveConfigNestedInput
     sections?: SectionUncheckedUpdateManyWithoutConfigNestedInput
     manualArticles?: ManualArticleUncheckedUpdateManyWithoutConfigNestedInput
     autoSources?: AutoSourceUncheckedUpdateManyWithoutConfigNestedInput
     images?: ImageUncheckedUpdateManyWithoutConfigNestedInput
+    activeInServers?: UnitServerUncheckedUpdateManyWithoutActiveConfigNestedInput
     updates?: UpdateLogUncheckedUpdateManyWithoutConfigNestedInput
     previousUpdates?: UpdateLogUncheckedUpdateManyWithoutPreviousConfigNestedInput
   }
@@ -26595,13 +25039,13 @@ export namespace Prisma {
     id?: string
     name: string
     pageTitle: string
-    footerInfo: string
-    legalStepsCount: number
+    footerInfo?: string | null
+    legalStepsCount?: number
     pageType: string
-    externalLinks: JsonNullValueInput | InputJsonValue
-    newsParams: JsonNullValueInput | InputJsonValue
-    selectedNews: JsonNullValueInput | InputJsonValue
-    infoSections: JsonNullValueInput | InputJsonValue
+    externalLinks?: NullableJsonNullValueInput | InputJsonValue
+    newsParams?: NullableJsonNullValueInput | InputJsonValue
+    selectedNews?: NullableJsonNullValueInput | InputJsonValue
+    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -26610,13 +25054,13 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     pageTitle?: StringFieldUpdateOperationsInput | string
-    footerInfo?: StringFieldUpdateOperationsInput | string
+    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
     legalStepsCount?: IntFieldUpdateOperationsInput | number
     pageType?: StringFieldUpdateOperationsInput | string
-    externalLinks?: JsonNullValueInput | InputJsonValue
-    newsParams?: JsonNullValueInput | InputJsonValue
-    selectedNews?: JsonNullValueInput | InputJsonValue
-    infoSections?: JsonNullValueInput | InputJsonValue
+    externalLinks?: NullableJsonNullValueInput | InputJsonValue
+    newsParams?: NullableJsonNullValueInput | InputJsonValue
+    selectedNews?: NullableJsonNullValueInput | InputJsonValue
+    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -26625,13 +25069,13 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     pageTitle?: StringFieldUpdateOperationsInput | string
-    footerInfo?: StringFieldUpdateOperationsInput | string
+    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
     legalStepsCount?: IntFieldUpdateOperationsInput | number
     pageType?: StringFieldUpdateOperationsInput | string
-    externalLinks?: JsonNullValueInput | InputJsonValue
-    newsParams?: JsonNullValueInput | InputJsonValue
-    selectedNews?: JsonNullValueInput | InputJsonValue
-    infoSections?: JsonNullValueInput | InputJsonValue
+    externalLinks?: NullableJsonNullValueInput | InputJsonValue
+    newsParams?: NullableJsonNullValueInput | InputJsonValue
+    selectedNews?: NullableJsonNullValueInput | InputJsonValue
+    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -26888,12 +25332,6 @@ export namespace Prisma {
     none?: ProfessionalWhereInput
   }
 
-  export type SessionListRelationFilter = {
-    every?: SessionWhereInput
-    some?: SessionWhereInput
-    none?: SessionWhereInput
-  }
-
   export type UserNotificationListRelationFilter = {
     every?: UserNotificationWhereInput
     some?: UserNotificationWhereInput
@@ -26916,10 +25354,6 @@ export namespace Prisma {
   }
 
   export type ProfessionalOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type SessionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -27061,80 +25495,16 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type EnumSessionTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.SessionType | EnumSessionTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.SessionType[] | ListEnumSessionTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.SessionType[] | ListEnumSessionTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumSessionTypeFilter<$PrismaModel> | $Enums.SessionType
-  }
-
-  export type UserScalarRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
-  }
-
-  export type UnitServerNullableScalarRelationFilter = {
-    is?: UnitServerWhereInput | null
-    isNot?: UnitServerWhereInput | null
-  }
-
-  export type SessionCountOrderByAggregateInput = {
-    id?: SortOrder
-    token?: SortOrder
-    userId?: SortOrder
-    serverId?: SortOrder
-    sessionType?: SortOrder
-    userAgent?: SortOrder
-    ip?: SortOrder
-    createdAt?: SortOrder
-    expiresAt?: SortOrder
-    isActive?: SortOrder
-    lastUsedAt?: SortOrder
-  }
-
-  export type SessionMaxOrderByAggregateInput = {
-    id?: SortOrder
-    token?: SortOrder
-    userId?: SortOrder
-    serverId?: SortOrder
-    sessionType?: SortOrder
-    userAgent?: SortOrder
-    ip?: SortOrder
-    createdAt?: SortOrder
-    expiresAt?: SortOrder
-    isActive?: SortOrder
-    lastUsedAt?: SortOrder
-  }
-
-  export type SessionMinOrderByAggregateInput = {
-    id?: SortOrder
-    token?: SortOrder
-    userId?: SortOrder
-    serverId?: SortOrder
-    sessionType?: SortOrder
-    userAgent?: SortOrder
-    ip?: SortOrder
-    createdAt?: SortOrder
-    expiresAt?: SortOrder
-    isActive?: SortOrder
-    lastUsedAt?: SortOrder
-  }
-
-  export type EnumSessionTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.SessionType | EnumSessionTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.SessionType[] | ListEnumSessionTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.SessionType[] | ListEnumSessionTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumSessionTypeWithAggregatesFilter<$PrismaModel> | $Enums.SessionType
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumSessionTypeFilter<$PrismaModel>
-    _max?: NestedEnumSessionTypeFilter<$PrismaModel>
-  }
-
   export type EnumClientStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.ClientStatus | EnumClientStatusFieldRefInput<$PrismaModel>
     in?: $Enums.ClientStatus[] | ListEnumClientStatusFieldRefInput<$PrismaModel>
     notIn?: $Enums.ClientStatus[] | ListEnumClientStatusFieldRefInput<$PrismaModel>
     not?: NestedEnumClientStatusFilter<$PrismaModel> | $Enums.ClientStatus
+  }
+
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
   }
 
   export type UnitServerScalarRelationFilter = {
@@ -27477,6 +25847,11 @@ export namespace Prisma {
     isNot?: UnitConfigWhereInput
   }
 
+  export type UnitServerNullableScalarRelationFilter = {
+    is?: UnitServerWhereInput | null
+    isNot?: UnitServerWhereInput | null
+  }
+
   export type SectionCountOrderByAggregateInput = {
     id?: SortOrder
     configId?: SortOrder
@@ -27732,14 +26107,14 @@ export namespace Prisma {
     constellationId?: SortOrder
     activeConfigId?: SortOrder
   }
-  export type JsonFilter<$PrismaModel = never> =
+  export type JsonNullableFilter<$PrismaModel = never> =
     | PatchUndefined<
-        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonFilterBase<$PrismaModel>>
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
       >
-    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
 
-  export type JsonFilterBase<$PrismaModel = never> = {
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
     equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
     path?: string[]
     mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
@@ -27810,14 +26185,14 @@ export namespace Prisma {
   export type UnitConfigSumOrderByAggregateInput = {
     legalStepsCount?: SortOrder
   }
-  export type JsonWithAggregatesFilter<$PrismaModel = never> =
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
     | PatchUndefined<
-        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
       >
-    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
 
-  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
     equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
     path?: string[]
     mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
@@ -27832,9 +26207,9 @@ export namespace Prisma {
     gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedJsonFilter<$PrismaModel>
-    _max?: NestedJsonFilter<$PrismaModel>
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
   export type UpdateLogCountOrderByAggregateInput = {
@@ -27929,13 +26304,6 @@ export namespace Prisma {
     connect?: ProfessionalWhereUniqueInput | ProfessionalWhereUniqueInput[]
   }
 
-  export type SessionCreateNestedManyWithoutUserInput = {
-    create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
-    createMany?: SessionCreateManyUserInputEnvelope
-    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
-  }
-
   export type UserNotificationCreateNestedManyWithoutUserInput = {
     create?: XOR<UserNotificationCreateWithoutUserInput, UserNotificationUncheckedCreateWithoutUserInput> | UserNotificationCreateWithoutUserInput[] | UserNotificationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserNotificationCreateOrConnectWithoutUserInput | UserNotificationCreateOrConnectWithoutUserInput[]
@@ -27962,13 +26330,6 @@ export namespace Prisma {
     connectOrCreate?: ProfessionalCreateOrConnectWithoutUserInput | ProfessionalCreateOrConnectWithoutUserInput[]
     createMany?: ProfessionalCreateManyUserInputEnvelope
     connect?: ProfessionalWhereUniqueInput | ProfessionalWhereUniqueInput[]
-  }
-
-  export type SessionUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
-    createMany?: SessionCreateManyUserInputEnvelope
-    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
   }
 
   export type UserNotificationUncheckedCreateNestedManyWithoutUserInput = {
@@ -28037,20 +26398,6 @@ export namespace Prisma {
     deleteMany?: ProfessionalScalarWhereInput | ProfessionalScalarWhereInput[]
   }
 
-  export type SessionUpdateManyWithoutUserNestedInput = {
-    create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
-    upsert?: SessionUpsertWithWhereUniqueWithoutUserInput | SessionUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: SessionCreateManyUserInputEnvelope
-    set?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
-    disconnect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
-    delete?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
-    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
-    update?: SessionUpdateWithWhereUniqueWithoutUserInput | SessionUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: SessionUpdateManyWithWhereWithoutUserInput | SessionUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
-  }
-
   export type UserNotificationUpdateManyWithoutUserNestedInput = {
     create?: XOR<UserNotificationCreateWithoutUserInput, UserNotificationUncheckedCreateWithoutUserInput> | UserNotificationCreateWithoutUserInput[] | UserNotificationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserNotificationCreateOrConnectWithoutUserInput | UserNotificationCreateOrConnectWithoutUserInput[]
@@ -28107,20 +26454,6 @@ export namespace Prisma {
     deleteMany?: ProfessionalScalarWhereInput | ProfessionalScalarWhereInput[]
   }
 
-  export type SessionUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
-    upsert?: SessionUpsertWithWhereUniqueWithoutUserInput | SessionUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: SessionCreateManyUserInputEnvelope
-    set?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
-    disconnect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
-    delete?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
-    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
-    update?: SessionUpdateWithWhereUniqueWithoutUserInput | SessionUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: SessionUpdateManyWithWhereWithoutUserInput | SessionUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
-  }
-
   export type UserNotificationUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<UserNotificationCreateWithoutUserInput, UserNotificationUncheckedCreateWithoutUserInput> | UserNotificationCreateWithoutUserInput[] | UserNotificationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserNotificationCreateOrConnectWithoutUserInput | UserNotificationCreateOrConnectWithoutUserInput[]
@@ -28147,40 +26480,6 @@ export namespace Prisma {
     update?: UpdateLogUpdateWithWhereUniqueWithoutInitiatorInput | UpdateLogUpdateWithWhereUniqueWithoutInitiatorInput[]
     updateMany?: UpdateLogUpdateManyWithWhereWithoutInitiatorInput | UpdateLogUpdateManyWithWhereWithoutInitiatorInput[]
     deleteMany?: UpdateLogScalarWhereInput | UpdateLogScalarWhereInput[]
-  }
-
-  export type UserCreateNestedOneWithoutSessionsInput = {
-    create?: XOR<UserCreateWithoutSessionsInput, UserUncheckedCreateWithoutSessionsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutSessionsInput
-    connect?: UserWhereUniqueInput
-  }
-
-  export type UnitServerCreateNestedOneWithoutSessionsInput = {
-    create?: XOR<UnitServerCreateWithoutSessionsInput, UnitServerUncheckedCreateWithoutSessionsInput>
-    connectOrCreate?: UnitServerCreateOrConnectWithoutSessionsInput
-    connect?: UnitServerWhereUniqueInput
-  }
-
-  export type EnumSessionTypeFieldUpdateOperationsInput = {
-    set?: $Enums.SessionType
-  }
-
-  export type UserUpdateOneRequiredWithoutSessionsNestedInput = {
-    create?: XOR<UserCreateWithoutSessionsInput, UserUncheckedCreateWithoutSessionsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutSessionsInput
-    upsert?: UserUpsertWithoutSessionsInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSessionsInput, UserUpdateWithoutSessionsInput>, UserUncheckedUpdateWithoutSessionsInput>
-  }
-
-  export type UnitServerUpdateOneWithoutSessionsNestedInput = {
-    create?: XOR<UnitServerCreateWithoutSessionsInput, UnitServerUncheckedCreateWithoutSessionsInput>
-    connectOrCreate?: UnitServerCreateOrConnectWithoutSessionsInput
-    upsert?: UnitServerUpsertWithoutSessionsInput
-    disconnect?: UnitServerWhereInput | boolean
-    delete?: UnitServerWhereInput | boolean
-    connect?: UnitServerWhereUniqueInput
-    update?: XOR<XOR<UnitServerUpdateToOneWithWhereWithoutSessionsInput, UnitServerUpdateWithoutSessionsInput>, UnitServerUncheckedUpdateWithoutSessionsInput>
   }
 
   export type UserCreateNestedOneWithoutClientsInput = {
@@ -28935,9 +27234,9 @@ export namespace Prisma {
     connect?: ConstellationWhereUniqueInput
   }
 
-  export type UnitConfigCreateNestedOneWithoutServersInput = {
-    create?: XOR<UnitConfigCreateWithoutServersInput, UnitConfigUncheckedCreateWithoutServersInput>
-    connectOrCreate?: UnitConfigCreateOrConnectWithoutServersInput
+  export type UnitConfigCreateNestedOneWithoutActiveInServersInput = {
+    create?: XOR<UnitConfigCreateWithoutActiveInServersInput, UnitConfigUncheckedCreateWithoutActiveInServersInput>
+    connectOrCreate?: UnitConfigCreateOrConnectWithoutActiveInServersInput
     connect?: UnitConfigWhereUniqueInput
   }
 
@@ -28981,13 +27280,6 @@ export namespace Prisma {
     connectOrCreate?: AutoSourceCreateOrConnectWithoutServerInput | AutoSourceCreateOrConnectWithoutServerInput[]
     createMany?: AutoSourceCreateManyServerInputEnvelope
     connect?: AutoSourceWhereUniqueInput | AutoSourceWhereUniqueInput[]
-  }
-
-  export type SessionCreateNestedManyWithoutServerInput = {
-    create?: XOR<SessionCreateWithoutServerInput, SessionUncheckedCreateWithoutServerInput> | SessionCreateWithoutServerInput[] | SessionUncheckedCreateWithoutServerInput[]
-    connectOrCreate?: SessionCreateOrConnectWithoutServerInput | SessionCreateOrConnectWithoutServerInput[]
-    createMany?: SessionCreateManyServerInputEnvelope
-    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
   }
 
   export type UpdateLogCreateNestedManyWithoutServerInput = {
@@ -29046,13 +27338,6 @@ export namespace Prisma {
     connect?: AutoSourceWhereUniqueInput | AutoSourceWhereUniqueInput[]
   }
 
-  export type SessionUncheckedCreateNestedManyWithoutServerInput = {
-    create?: XOR<SessionCreateWithoutServerInput, SessionUncheckedCreateWithoutServerInput> | SessionCreateWithoutServerInput[] | SessionUncheckedCreateWithoutServerInput[]
-    connectOrCreate?: SessionCreateOrConnectWithoutServerInput | SessionCreateOrConnectWithoutServerInput[]
-    createMany?: SessionCreateManyServerInputEnvelope
-    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
-  }
-
   export type UpdateLogUncheckedCreateNestedManyWithoutServerInput = {
     create?: XOR<UpdateLogCreateWithoutServerInput, UpdateLogUncheckedCreateWithoutServerInput> | UpdateLogCreateWithoutServerInput[] | UpdateLogUncheckedCreateWithoutServerInput[]
     connectOrCreate?: UpdateLogCreateOrConnectWithoutServerInput | UpdateLogCreateOrConnectWithoutServerInput[]
@@ -29075,14 +27360,14 @@ export namespace Prisma {
     update?: XOR<XOR<ConstellationUpdateToOneWithWhereWithoutServersInput, ConstellationUpdateWithoutServersInput>, ConstellationUncheckedUpdateWithoutServersInput>
   }
 
-  export type UnitConfigUpdateOneWithoutServersNestedInput = {
-    create?: XOR<UnitConfigCreateWithoutServersInput, UnitConfigUncheckedCreateWithoutServersInput>
-    connectOrCreate?: UnitConfigCreateOrConnectWithoutServersInput
-    upsert?: UnitConfigUpsertWithoutServersInput
+  export type UnitConfigUpdateOneWithoutActiveInServersNestedInput = {
+    create?: XOR<UnitConfigCreateWithoutActiveInServersInput, UnitConfigUncheckedCreateWithoutActiveInServersInput>
+    connectOrCreate?: UnitConfigCreateOrConnectWithoutActiveInServersInput
+    upsert?: UnitConfigUpsertWithoutActiveInServersInput
     disconnect?: UnitConfigWhereInput | boolean
     delete?: UnitConfigWhereInput | boolean
     connect?: UnitConfigWhereUniqueInput
-    update?: XOR<XOR<UnitConfigUpdateToOneWithWhereWithoutServersInput, UnitConfigUpdateWithoutServersInput>, UnitConfigUncheckedUpdateWithoutServersInput>
+    update?: XOR<XOR<UnitConfigUpdateToOneWithWhereWithoutActiveInServersInput, UnitConfigUpdateWithoutActiveInServersInput>, UnitConfigUncheckedUpdateWithoutActiveInServersInput>
   }
 
   export type ClientUpdateManyWithoutServerNestedInput = {
@@ -29167,20 +27452,6 @@ export namespace Prisma {
     update?: AutoSourceUpdateWithWhereUniqueWithoutServerInput | AutoSourceUpdateWithWhereUniqueWithoutServerInput[]
     updateMany?: AutoSourceUpdateManyWithWhereWithoutServerInput | AutoSourceUpdateManyWithWhereWithoutServerInput[]
     deleteMany?: AutoSourceScalarWhereInput | AutoSourceScalarWhereInput[]
-  }
-
-  export type SessionUpdateManyWithoutServerNestedInput = {
-    create?: XOR<SessionCreateWithoutServerInput, SessionUncheckedCreateWithoutServerInput> | SessionCreateWithoutServerInput[] | SessionUncheckedCreateWithoutServerInput[]
-    connectOrCreate?: SessionCreateOrConnectWithoutServerInput | SessionCreateOrConnectWithoutServerInput[]
-    upsert?: SessionUpsertWithWhereUniqueWithoutServerInput | SessionUpsertWithWhereUniqueWithoutServerInput[]
-    createMany?: SessionCreateManyServerInputEnvelope
-    set?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
-    disconnect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
-    delete?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
-    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
-    update?: SessionUpdateWithWhereUniqueWithoutServerInput | SessionUpdateWithWhereUniqueWithoutServerInput[]
-    updateMany?: SessionUpdateManyWithWhereWithoutServerInput | SessionUpdateManyWithWhereWithoutServerInput[]
-    deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
   }
 
   export type UpdateLogUpdateManyWithoutServerNestedInput = {
@@ -29295,20 +27566,6 @@ export namespace Prisma {
     deleteMany?: AutoSourceScalarWhereInput | AutoSourceScalarWhereInput[]
   }
 
-  export type SessionUncheckedUpdateManyWithoutServerNestedInput = {
-    create?: XOR<SessionCreateWithoutServerInput, SessionUncheckedCreateWithoutServerInput> | SessionCreateWithoutServerInput[] | SessionUncheckedCreateWithoutServerInput[]
-    connectOrCreate?: SessionCreateOrConnectWithoutServerInput | SessionCreateOrConnectWithoutServerInput[]
-    upsert?: SessionUpsertWithWhereUniqueWithoutServerInput | SessionUpsertWithWhereUniqueWithoutServerInput[]
-    createMany?: SessionCreateManyServerInputEnvelope
-    set?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
-    disconnect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
-    delete?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
-    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
-    update?: SessionUpdateWithWhereUniqueWithoutServerInput | SessionUpdateWithWhereUniqueWithoutServerInput[]
-    updateMany?: SessionUpdateManyWithWhereWithoutServerInput | SessionUpdateManyWithWhereWithoutServerInput[]
-    deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
-  }
-
   export type UpdateLogUncheckedUpdateManyWithoutServerNestedInput = {
     create?: XOR<UpdateLogCreateWithoutServerInput, UpdateLogUncheckedCreateWithoutServerInput> | UpdateLogCreateWithoutServerInput[] | UpdateLogUncheckedCreateWithoutServerInput[]
     connectOrCreate?: UpdateLogCreateOrConnectWithoutServerInput | UpdateLogCreateOrConnectWithoutServerInput[]
@@ -29335,13 +27592,6 @@ export namespace Prisma {
     update?: UserNotificationUpdateWithWhereUniqueWithoutServerInput | UserNotificationUpdateWithWhereUniqueWithoutServerInput[]
     updateMany?: UserNotificationUpdateManyWithWhereWithoutServerInput | UserNotificationUpdateManyWithWhereWithoutServerInput[]
     deleteMany?: UserNotificationScalarWhereInput | UserNotificationScalarWhereInput[]
-  }
-
-  export type UnitServerCreateNestedManyWithoutActiveConfigInput = {
-    create?: XOR<UnitServerCreateWithoutActiveConfigInput, UnitServerUncheckedCreateWithoutActiveConfigInput> | UnitServerCreateWithoutActiveConfigInput[] | UnitServerUncheckedCreateWithoutActiveConfigInput[]
-    connectOrCreate?: UnitServerCreateOrConnectWithoutActiveConfigInput | UnitServerCreateOrConnectWithoutActiveConfigInput[]
-    createMany?: UnitServerCreateManyActiveConfigInputEnvelope
-    connect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
   }
 
   export type SectionCreateNestedManyWithoutConfigInput = {
@@ -29372,6 +27622,13 @@ export namespace Prisma {
     connect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
   }
 
+  export type UnitServerCreateNestedManyWithoutActiveConfigInput = {
+    create?: XOR<UnitServerCreateWithoutActiveConfigInput, UnitServerUncheckedCreateWithoutActiveConfigInput> | UnitServerCreateWithoutActiveConfigInput[] | UnitServerUncheckedCreateWithoutActiveConfigInput[]
+    connectOrCreate?: UnitServerCreateOrConnectWithoutActiveConfigInput | UnitServerCreateOrConnectWithoutActiveConfigInput[]
+    createMany?: UnitServerCreateManyActiveConfigInputEnvelope
+    connect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
+  }
+
   export type UpdateLogCreateNestedManyWithoutConfigInput = {
     create?: XOR<UpdateLogCreateWithoutConfigInput, UpdateLogUncheckedCreateWithoutConfigInput> | UpdateLogCreateWithoutConfigInput[] | UpdateLogUncheckedCreateWithoutConfigInput[]
     connectOrCreate?: UpdateLogCreateOrConnectWithoutConfigInput | UpdateLogCreateOrConnectWithoutConfigInput[]
@@ -29384,13 +27641,6 @@ export namespace Prisma {
     connectOrCreate?: UpdateLogCreateOrConnectWithoutPreviousConfigInput | UpdateLogCreateOrConnectWithoutPreviousConfigInput[]
     createMany?: UpdateLogCreateManyPreviousConfigInputEnvelope
     connect?: UpdateLogWhereUniqueInput | UpdateLogWhereUniqueInput[]
-  }
-
-  export type UnitServerUncheckedCreateNestedManyWithoutActiveConfigInput = {
-    create?: XOR<UnitServerCreateWithoutActiveConfigInput, UnitServerUncheckedCreateWithoutActiveConfigInput> | UnitServerCreateWithoutActiveConfigInput[] | UnitServerUncheckedCreateWithoutActiveConfigInput[]
-    connectOrCreate?: UnitServerCreateOrConnectWithoutActiveConfigInput | UnitServerCreateOrConnectWithoutActiveConfigInput[]
-    createMany?: UnitServerCreateManyActiveConfigInputEnvelope
-    connect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
   }
 
   export type SectionUncheckedCreateNestedManyWithoutConfigInput = {
@@ -29421,6 +27671,13 @@ export namespace Prisma {
     connect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
   }
 
+  export type UnitServerUncheckedCreateNestedManyWithoutActiveConfigInput = {
+    create?: XOR<UnitServerCreateWithoutActiveConfigInput, UnitServerUncheckedCreateWithoutActiveConfigInput> | UnitServerCreateWithoutActiveConfigInput[] | UnitServerUncheckedCreateWithoutActiveConfigInput[]
+    connectOrCreate?: UnitServerCreateOrConnectWithoutActiveConfigInput | UnitServerCreateOrConnectWithoutActiveConfigInput[]
+    createMany?: UnitServerCreateManyActiveConfigInputEnvelope
+    connect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
+  }
+
   export type UpdateLogUncheckedCreateNestedManyWithoutConfigInput = {
     create?: XOR<UpdateLogCreateWithoutConfigInput, UpdateLogUncheckedCreateWithoutConfigInput> | UpdateLogCreateWithoutConfigInput[] | UpdateLogUncheckedCreateWithoutConfigInput[]
     connectOrCreate?: UpdateLogCreateOrConnectWithoutConfigInput | UpdateLogCreateOrConnectWithoutConfigInput[]
@@ -29433,20 +27690,6 @@ export namespace Prisma {
     connectOrCreate?: UpdateLogCreateOrConnectWithoutPreviousConfigInput | UpdateLogCreateOrConnectWithoutPreviousConfigInput[]
     createMany?: UpdateLogCreateManyPreviousConfigInputEnvelope
     connect?: UpdateLogWhereUniqueInput | UpdateLogWhereUniqueInput[]
-  }
-
-  export type UnitServerUpdateManyWithoutActiveConfigNestedInput = {
-    create?: XOR<UnitServerCreateWithoutActiveConfigInput, UnitServerUncheckedCreateWithoutActiveConfigInput> | UnitServerCreateWithoutActiveConfigInput[] | UnitServerUncheckedCreateWithoutActiveConfigInput[]
-    connectOrCreate?: UnitServerCreateOrConnectWithoutActiveConfigInput | UnitServerCreateOrConnectWithoutActiveConfigInput[]
-    upsert?: UnitServerUpsertWithWhereUniqueWithoutActiveConfigInput | UnitServerUpsertWithWhereUniqueWithoutActiveConfigInput[]
-    createMany?: UnitServerCreateManyActiveConfigInputEnvelope
-    set?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
-    disconnect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
-    delete?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
-    connect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
-    update?: UnitServerUpdateWithWhereUniqueWithoutActiveConfigInput | UnitServerUpdateWithWhereUniqueWithoutActiveConfigInput[]
-    updateMany?: UnitServerUpdateManyWithWhereWithoutActiveConfigInput | UnitServerUpdateManyWithWhereWithoutActiveConfigInput[]
-    deleteMany?: UnitServerScalarWhereInput | UnitServerScalarWhereInput[]
   }
 
   export type SectionUpdateManyWithoutConfigNestedInput = {
@@ -29505,6 +27748,20 @@ export namespace Prisma {
     deleteMany?: ImageScalarWhereInput | ImageScalarWhereInput[]
   }
 
+  export type UnitServerUpdateManyWithoutActiveConfigNestedInput = {
+    create?: XOR<UnitServerCreateWithoutActiveConfigInput, UnitServerUncheckedCreateWithoutActiveConfigInput> | UnitServerCreateWithoutActiveConfigInput[] | UnitServerUncheckedCreateWithoutActiveConfigInput[]
+    connectOrCreate?: UnitServerCreateOrConnectWithoutActiveConfigInput | UnitServerCreateOrConnectWithoutActiveConfigInput[]
+    upsert?: UnitServerUpsertWithWhereUniqueWithoutActiveConfigInput | UnitServerUpsertWithWhereUniqueWithoutActiveConfigInput[]
+    createMany?: UnitServerCreateManyActiveConfigInputEnvelope
+    set?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
+    disconnect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
+    delete?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
+    connect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
+    update?: UnitServerUpdateWithWhereUniqueWithoutActiveConfigInput | UnitServerUpdateWithWhereUniqueWithoutActiveConfigInput[]
+    updateMany?: UnitServerUpdateManyWithWhereWithoutActiveConfigInput | UnitServerUpdateManyWithWhereWithoutActiveConfigInput[]
+    deleteMany?: UnitServerScalarWhereInput | UnitServerScalarWhereInput[]
+  }
+
   export type UpdateLogUpdateManyWithoutConfigNestedInput = {
     create?: XOR<UpdateLogCreateWithoutConfigInput, UpdateLogUncheckedCreateWithoutConfigInput> | UpdateLogCreateWithoutConfigInput[] | UpdateLogUncheckedCreateWithoutConfigInput[]
     connectOrCreate?: UpdateLogCreateOrConnectWithoutConfigInput | UpdateLogCreateOrConnectWithoutConfigInput[]
@@ -29531,20 +27788,6 @@ export namespace Prisma {
     update?: UpdateLogUpdateWithWhereUniqueWithoutPreviousConfigInput | UpdateLogUpdateWithWhereUniqueWithoutPreviousConfigInput[]
     updateMany?: UpdateLogUpdateManyWithWhereWithoutPreviousConfigInput | UpdateLogUpdateManyWithWhereWithoutPreviousConfigInput[]
     deleteMany?: UpdateLogScalarWhereInput | UpdateLogScalarWhereInput[]
-  }
-
-  export type UnitServerUncheckedUpdateManyWithoutActiveConfigNestedInput = {
-    create?: XOR<UnitServerCreateWithoutActiveConfigInput, UnitServerUncheckedCreateWithoutActiveConfigInput> | UnitServerCreateWithoutActiveConfigInput[] | UnitServerUncheckedCreateWithoutActiveConfigInput[]
-    connectOrCreate?: UnitServerCreateOrConnectWithoutActiveConfigInput | UnitServerCreateOrConnectWithoutActiveConfigInput[]
-    upsert?: UnitServerUpsertWithWhereUniqueWithoutActiveConfigInput | UnitServerUpsertWithWhereUniqueWithoutActiveConfigInput[]
-    createMany?: UnitServerCreateManyActiveConfigInputEnvelope
-    set?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
-    disconnect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
-    delete?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
-    connect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
-    update?: UnitServerUpdateWithWhereUniqueWithoutActiveConfigInput | UnitServerUpdateWithWhereUniqueWithoutActiveConfigInput[]
-    updateMany?: UnitServerUpdateManyWithWhereWithoutActiveConfigInput | UnitServerUpdateManyWithWhereWithoutActiveConfigInput[]
-    deleteMany?: UnitServerScalarWhereInput | UnitServerScalarWhereInput[]
   }
 
   export type SectionUncheckedUpdateManyWithoutConfigNestedInput = {
@@ -29601,6 +27844,20 @@ export namespace Prisma {
     update?: ImageUpdateWithWhereUniqueWithoutConfigInput | ImageUpdateWithWhereUniqueWithoutConfigInput[]
     updateMany?: ImageUpdateManyWithWhereWithoutConfigInput | ImageUpdateManyWithWhereWithoutConfigInput[]
     deleteMany?: ImageScalarWhereInput | ImageScalarWhereInput[]
+  }
+
+  export type UnitServerUncheckedUpdateManyWithoutActiveConfigNestedInput = {
+    create?: XOR<UnitServerCreateWithoutActiveConfigInput, UnitServerUncheckedCreateWithoutActiveConfigInput> | UnitServerCreateWithoutActiveConfigInput[] | UnitServerUncheckedCreateWithoutActiveConfigInput[]
+    connectOrCreate?: UnitServerCreateOrConnectWithoutActiveConfigInput | UnitServerCreateOrConnectWithoutActiveConfigInput[]
+    upsert?: UnitServerUpsertWithWhereUniqueWithoutActiveConfigInput | UnitServerUpsertWithWhereUniqueWithoutActiveConfigInput[]
+    createMany?: UnitServerCreateManyActiveConfigInputEnvelope
+    set?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
+    disconnect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
+    delete?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
+    connect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
+    update?: UnitServerUpdateWithWhereUniqueWithoutActiveConfigInput | UnitServerUpdateWithWhereUniqueWithoutActiveConfigInput[]
+    updateMany?: UnitServerUpdateManyWithWhereWithoutActiveConfigInput | UnitServerUpdateManyWithWhereWithoutActiveConfigInput[]
+    deleteMany?: UnitServerScalarWhereInput | UnitServerScalarWhereInput[]
   }
 
   export type UpdateLogUncheckedUpdateManyWithoutConfigNestedInput = {
@@ -29883,23 +28140,6 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type NestedEnumSessionTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.SessionType | EnumSessionTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.SessionType[] | ListEnumSessionTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.SessionType[] | ListEnumSessionTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumSessionTypeFilter<$PrismaModel> | $Enums.SessionType
-  }
-
-  export type NestedEnumSessionTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.SessionType | EnumSessionTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.SessionType[] | ListEnumSessionTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.SessionType[] | ListEnumSessionTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumSessionTypeWithAggregatesFilter<$PrismaModel> | $Enums.SessionType
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumSessionTypeFilter<$PrismaModel>
-    _max?: NestedEnumSessionTypeFilter<$PrismaModel>
-  }
-
   export type NestedEnumClientStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.ClientStatus | EnumClientStatusFieldRefInput<$PrismaModel>
     in?: $Enums.ClientStatus[] | ListEnumClientStatusFieldRefInput<$PrismaModel>
@@ -30021,14 +28261,14 @@ export namespace Prisma {
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
-  export type NestedJsonFilter<$PrismaModel = never> =
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
     | PatchUndefined<
-        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
-        Required<NestedJsonFilterBase<$PrismaModel>>
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
       >
-    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
 
-  export type NestedJsonFilterBase<$PrismaModel = never> = {
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
     equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
     path?: string[]
     mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
@@ -30094,42 +28334,6 @@ export namespace Prisma {
 
   export type ProfessionalCreateManyUserInputEnvelope = {
     data: ProfessionalCreateManyUserInput | ProfessionalCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type SessionCreateWithoutUserInput = {
-    id?: string
-    token: string
-    sessionType?: $Enums.SessionType
-    userAgent?: string | null
-    ip?: string | null
-    createdAt?: Date | string
-    expiresAt: Date | string
-    isActive?: boolean
-    lastUsedAt?: Date | string
-    server?: UnitServerCreateNestedOneWithoutSessionsInput
-  }
-
-  export type SessionUncheckedCreateWithoutUserInput = {
-    id?: string
-    token: string
-    serverId?: string | null
-    sessionType?: $Enums.SessionType
-    userAgent?: string | null
-    ip?: string | null
-    createdAt?: Date | string
-    expiresAt: Date | string
-    isActive?: boolean
-    lastUsedAt?: Date | string
-  }
-
-  export type SessionCreateOrConnectWithoutUserInput = {
-    where: SessionWhereUniqueInput
-    create: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput>
-  }
-
-  export type SessionCreateManyUserInputEnvelope = {
-    data: SessionCreateManyUserInput | SessionCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -30252,39 +28456,6 @@ export namespace Prisma {
     serverId?: StringFilter<"Professional"> | string
   }
 
-  export type SessionUpsertWithWhereUniqueWithoutUserInput = {
-    where: SessionWhereUniqueInput
-    update: XOR<SessionUpdateWithoutUserInput, SessionUncheckedUpdateWithoutUserInput>
-    create: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput>
-  }
-
-  export type SessionUpdateWithWhereUniqueWithoutUserInput = {
-    where: SessionWhereUniqueInput
-    data: XOR<SessionUpdateWithoutUserInput, SessionUncheckedUpdateWithoutUserInput>
-  }
-
-  export type SessionUpdateManyWithWhereWithoutUserInput = {
-    where: SessionScalarWhereInput
-    data: XOR<SessionUpdateManyMutationInput, SessionUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type SessionScalarWhereInput = {
-    AND?: SessionScalarWhereInput | SessionScalarWhereInput[]
-    OR?: SessionScalarWhereInput[]
-    NOT?: SessionScalarWhereInput | SessionScalarWhereInput[]
-    id?: StringFilter<"Session"> | string
-    token?: StringFilter<"Session"> | string
-    userId?: StringFilter<"Session"> | string
-    serverId?: StringNullableFilter<"Session"> | string | null
-    sessionType?: EnumSessionTypeFilter<"Session"> | $Enums.SessionType
-    userAgent?: StringNullableFilter<"Session"> | string | null
-    ip?: StringNullableFilter<"Session"> | string | null
-    createdAt?: DateTimeFilter<"Session"> | Date | string
-    expiresAt?: DateTimeFilter<"Session"> | Date | string
-    isActive?: BoolFilter<"Session"> | boolean
-    lastUsedAt?: DateTimeFilter<"Session"> | Date | string
-  }
-
   export type UserNotificationUpsertWithWhereUniqueWithoutUserInput = {
     where: UserNotificationWhereUniqueInput
     update: XOR<UserNotificationUpdateWithoutUserInput, UserNotificationUncheckedUpdateWithoutUserInput>
@@ -30349,194 +28520,6 @@ export namespace Prisma {
     errorDetails?: StringNullableFilter<"UpdateLog"> | string | null
   }
 
-  export type UserCreateWithoutSessionsInput = {
-    id?: string
-    email: string
-    password: string
-    role: $Enums.Role
-    firstName: string
-    lastName: string
-    phone?: string | null
-    address?: string | null
-    avatarUrl?: string | null
-    isActive?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    lastLoginAt?: Date | string | null
-    clients?: ClientCreateNestedManyWithoutUserInput
-    professionals?: ProfessionalCreateNestedManyWithoutUserInput
-    notifications?: UserNotificationCreateNestedManyWithoutUserInput
-    initiatedUpdates?: UpdateLogCreateNestedManyWithoutInitiatorInput
-  }
-
-  export type UserUncheckedCreateWithoutSessionsInput = {
-    id?: string
-    email: string
-    password: string
-    role: $Enums.Role
-    firstName: string
-    lastName: string
-    phone?: string | null
-    address?: string | null
-    avatarUrl?: string | null
-    isActive?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    lastLoginAt?: Date | string | null
-    clients?: ClientUncheckedCreateNestedManyWithoutUserInput
-    professionals?: ProfessionalUncheckedCreateNestedManyWithoutUserInput
-    notifications?: UserNotificationUncheckedCreateNestedManyWithoutUserInput
-    initiatedUpdates?: UpdateLogUncheckedCreateNestedManyWithoutInitiatorInput
-  }
-
-  export type UserCreateOrConnectWithoutSessionsInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutSessionsInput, UserUncheckedCreateWithoutSessionsInput>
-  }
-
-  export type UnitServerCreateWithoutSessionsInput = {
-    id?: string
-    domain: string
-    name: string
-    orchestratorToken: string
-    unitToken: string
-    requiresUpdate?: boolean
-    constellation: ConstellationCreateNestedOneWithoutServersInput
-    activeConfig?: UnitConfigCreateNestedOneWithoutServersInput
-    clients?: ClientCreateNestedManyWithoutServerInput
-    professionals?: ProfessionalCreateNestedManyWithoutServerInput
-    cases?: CaseCreateNestedManyWithoutServerInput
-    sections?: SectionCreateNestedManyWithoutServerInput
-    manualArticles?: ManualArticleCreateNestedManyWithoutServerInput
-    autoSources?: AutoSourceCreateNestedManyWithoutServerInput
-    updateLogs?: UpdateLogCreateNestedManyWithoutServerInput
-    notifications?: UserNotificationCreateNestedManyWithoutServerInput
-  }
-
-  export type UnitServerUncheckedCreateWithoutSessionsInput = {
-    id?: string
-    domain: string
-    name: string
-    orchestratorToken: string
-    unitToken: string
-    requiresUpdate?: boolean
-    constellationId: string
-    activeConfigId?: string | null
-    clients?: ClientUncheckedCreateNestedManyWithoutServerInput
-    professionals?: ProfessionalUncheckedCreateNestedManyWithoutServerInput
-    cases?: CaseUncheckedCreateNestedManyWithoutServerInput
-    sections?: SectionUncheckedCreateNestedManyWithoutServerInput
-    manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutServerInput
-    autoSources?: AutoSourceUncheckedCreateNestedManyWithoutServerInput
-    updateLogs?: UpdateLogUncheckedCreateNestedManyWithoutServerInput
-    notifications?: UserNotificationUncheckedCreateNestedManyWithoutServerInput
-  }
-
-  export type UnitServerCreateOrConnectWithoutSessionsInput = {
-    where: UnitServerWhereUniqueInput
-    create: XOR<UnitServerCreateWithoutSessionsInput, UnitServerUncheckedCreateWithoutSessionsInput>
-  }
-
-  export type UserUpsertWithoutSessionsInput = {
-    update: XOR<UserUpdateWithoutSessionsInput, UserUncheckedUpdateWithoutSessionsInput>
-    create: XOR<UserCreateWithoutSessionsInput, UserUncheckedCreateWithoutSessionsInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutSessionsInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutSessionsInput, UserUncheckedUpdateWithoutSessionsInput>
-  }
-
-  export type UserUpdateWithoutSessionsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    clients?: ClientUpdateManyWithoutUserNestedInput
-    professionals?: ProfessionalUpdateManyWithoutUserNestedInput
-    notifications?: UserNotificationUpdateManyWithoutUserNestedInput
-    initiatedUpdates?: UpdateLogUpdateManyWithoutInitiatorNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutSessionsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    clients?: ClientUncheckedUpdateManyWithoutUserNestedInput
-    professionals?: ProfessionalUncheckedUpdateManyWithoutUserNestedInput
-    notifications?: UserNotificationUncheckedUpdateManyWithoutUserNestedInput
-    initiatedUpdates?: UpdateLogUncheckedUpdateManyWithoutInitiatorNestedInput
-  }
-
-  export type UnitServerUpsertWithoutSessionsInput = {
-    update: XOR<UnitServerUpdateWithoutSessionsInput, UnitServerUncheckedUpdateWithoutSessionsInput>
-    create: XOR<UnitServerCreateWithoutSessionsInput, UnitServerUncheckedCreateWithoutSessionsInput>
-    where?: UnitServerWhereInput
-  }
-
-  export type UnitServerUpdateToOneWithWhereWithoutSessionsInput = {
-    where?: UnitServerWhereInput
-    data: XOR<UnitServerUpdateWithoutSessionsInput, UnitServerUncheckedUpdateWithoutSessionsInput>
-  }
-
-  export type UnitServerUpdateWithoutSessionsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    domain?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    orchestratorToken?: StringFieldUpdateOperationsInput | string
-    unitToken?: StringFieldUpdateOperationsInput | string
-    requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
-    constellation?: ConstellationUpdateOneRequiredWithoutServersNestedInput
-    activeConfig?: UnitConfigUpdateOneWithoutServersNestedInput
-    clients?: ClientUpdateManyWithoutServerNestedInput
-    professionals?: ProfessionalUpdateManyWithoutServerNestedInput
-    cases?: CaseUpdateManyWithoutServerNestedInput
-    sections?: SectionUpdateManyWithoutServerNestedInput
-    manualArticles?: ManualArticleUpdateManyWithoutServerNestedInput
-    autoSources?: AutoSourceUpdateManyWithoutServerNestedInput
-    updateLogs?: UpdateLogUpdateManyWithoutServerNestedInput
-    notifications?: UserNotificationUpdateManyWithoutServerNestedInput
-  }
-
-  export type UnitServerUncheckedUpdateWithoutSessionsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    domain?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    orchestratorToken?: StringFieldUpdateOperationsInput | string
-    unitToken?: StringFieldUpdateOperationsInput | string
-    requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
-    constellationId?: StringFieldUpdateOperationsInput | string
-    activeConfigId?: NullableStringFieldUpdateOperationsInput | string | null
-    clients?: ClientUncheckedUpdateManyWithoutServerNestedInput
-    professionals?: ProfessionalUncheckedUpdateManyWithoutServerNestedInput
-    cases?: CaseUncheckedUpdateManyWithoutServerNestedInput
-    sections?: SectionUncheckedUpdateManyWithoutServerNestedInput
-    manualArticles?: ManualArticleUncheckedUpdateManyWithoutServerNestedInput
-    autoSources?: AutoSourceUncheckedUpdateManyWithoutServerNestedInput
-    updateLogs?: UpdateLogUncheckedUpdateManyWithoutServerNestedInput
-    notifications?: UserNotificationUncheckedUpdateManyWithoutServerNestedInput
-  }
-
   export type UserCreateWithoutClientsInput = {
     id?: string
     email: string
@@ -30552,7 +28535,6 @@ export namespace Prisma {
     updatedAt?: Date | string
     lastLoginAt?: Date | string | null
     professionals?: ProfessionalCreateNestedManyWithoutUserInput
-    sessions?: SessionCreateNestedManyWithoutUserInput
     notifications?: UserNotificationCreateNestedManyWithoutUserInput
     initiatedUpdates?: UpdateLogCreateNestedManyWithoutInitiatorInput
   }
@@ -30572,7 +28554,6 @@ export namespace Prisma {
     updatedAt?: Date | string
     lastLoginAt?: Date | string | null
     professionals?: ProfessionalUncheckedCreateNestedManyWithoutUserInput
-    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     notifications?: UserNotificationUncheckedCreateNestedManyWithoutUserInput
     initiatedUpdates?: UpdateLogUncheckedCreateNestedManyWithoutInitiatorInput
   }
@@ -30590,13 +28571,12 @@ export namespace Prisma {
     unitToken: string
     requiresUpdate?: boolean
     constellation: ConstellationCreateNestedOneWithoutServersInput
-    activeConfig?: UnitConfigCreateNestedOneWithoutServersInput
+    activeConfig?: UnitConfigCreateNestedOneWithoutActiveInServersInput
     professionals?: ProfessionalCreateNestedManyWithoutServerInput
     cases?: CaseCreateNestedManyWithoutServerInput
     sections?: SectionCreateNestedManyWithoutServerInput
     manualArticles?: ManualArticleCreateNestedManyWithoutServerInput
     autoSources?: AutoSourceCreateNestedManyWithoutServerInput
-    sessions?: SessionCreateNestedManyWithoutServerInput
     updateLogs?: UpdateLogCreateNestedManyWithoutServerInput
     notifications?: UserNotificationCreateNestedManyWithoutServerInput
   }
@@ -30615,7 +28595,6 @@ export namespace Prisma {
     sections?: SectionUncheckedCreateNestedManyWithoutServerInput
     manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutServerInput
     autoSources?: AutoSourceUncheckedCreateNestedManyWithoutServerInput
-    sessions?: SessionUncheckedCreateNestedManyWithoutServerInput
     updateLogs?: UpdateLogUncheckedCreateNestedManyWithoutServerInput
     notifications?: UserNotificationUncheckedCreateNestedManyWithoutServerInput
   }
@@ -30739,7 +28718,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     professionals?: ProfessionalUpdateManyWithoutUserNestedInput
-    sessions?: SessionUpdateManyWithoutUserNestedInput
     notifications?: UserNotificationUpdateManyWithoutUserNestedInput
     initiatedUpdates?: UpdateLogUpdateManyWithoutInitiatorNestedInput
   }
@@ -30759,7 +28737,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     professionals?: ProfessionalUncheckedUpdateManyWithoutUserNestedInput
-    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     notifications?: UserNotificationUncheckedUpdateManyWithoutUserNestedInput
     initiatedUpdates?: UpdateLogUncheckedUpdateManyWithoutInitiatorNestedInput
   }
@@ -30783,13 +28760,12 @@ export namespace Prisma {
     unitToken?: StringFieldUpdateOperationsInput | string
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
     constellation?: ConstellationUpdateOneRequiredWithoutServersNestedInput
-    activeConfig?: UnitConfigUpdateOneWithoutServersNestedInput
+    activeConfig?: UnitConfigUpdateOneWithoutActiveInServersNestedInput
     professionals?: ProfessionalUpdateManyWithoutServerNestedInput
     cases?: CaseUpdateManyWithoutServerNestedInput
     sections?: SectionUpdateManyWithoutServerNestedInput
     manualArticles?: ManualArticleUpdateManyWithoutServerNestedInput
     autoSources?: AutoSourceUpdateManyWithoutServerNestedInput
-    sessions?: SessionUpdateManyWithoutServerNestedInput
     updateLogs?: UpdateLogUpdateManyWithoutServerNestedInput
     notifications?: UserNotificationUpdateManyWithoutServerNestedInput
   }
@@ -30808,7 +28784,6 @@ export namespace Prisma {
     sections?: SectionUncheckedUpdateManyWithoutServerNestedInput
     manualArticles?: ManualArticleUncheckedUpdateManyWithoutServerNestedInput
     autoSources?: AutoSourceUncheckedUpdateManyWithoutServerNestedInput
-    sessions?: SessionUncheckedUpdateManyWithoutServerNestedInput
     updateLogs?: UpdateLogUncheckedUpdateManyWithoutServerNestedInput
     notifications?: UserNotificationUncheckedUpdateManyWithoutServerNestedInput
   }
@@ -30914,7 +28889,6 @@ export namespace Prisma {
     updatedAt?: Date | string
     lastLoginAt?: Date | string | null
     clients?: ClientCreateNestedManyWithoutUserInput
-    sessions?: SessionCreateNestedManyWithoutUserInput
     notifications?: UserNotificationCreateNestedManyWithoutUserInput
     initiatedUpdates?: UpdateLogCreateNestedManyWithoutInitiatorInput
   }
@@ -30934,7 +28908,6 @@ export namespace Prisma {
     updatedAt?: Date | string
     lastLoginAt?: Date | string | null
     clients?: ClientUncheckedCreateNestedManyWithoutUserInput
-    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     notifications?: UserNotificationUncheckedCreateNestedManyWithoutUserInput
     initiatedUpdates?: UpdateLogUncheckedCreateNestedManyWithoutInitiatorInput
   }
@@ -30952,13 +28925,12 @@ export namespace Prisma {
     unitToken: string
     requiresUpdate?: boolean
     constellation: ConstellationCreateNestedOneWithoutServersInput
-    activeConfig?: UnitConfigCreateNestedOneWithoutServersInput
+    activeConfig?: UnitConfigCreateNestedOneWithoutActiveInServersInput
     clients?: ClientCreateNestedManyWithoutServerInput
     cases?: CaseCreateNestedManyWithoutServerInput
     sections?: SectionCreateNestedManyWithoutServerInput
     manualArticles?: ManualArticleCreateNestedManyWithoutServerInput
     autoSources?: AutoSourceCreateNestedManyWithoutServerInput
-    sessions?: SessionCreateNestedManyWithoutServerInput
     updateLogs?: UpdateLogCreateNestedManyWithoutServerInput
     notifications?: UserNotificationCreateNestedManyWithoutServerInput
   }
@@ -30977,7 +28949,6 @@ export namespace Prisma {
     sections?: SectionUncheckedCreateNestedManyWithoutServerInput
     manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutServerInput
     autoSources?: AutoSourceUncheckedCreateNestedManyWithoutServerInput
-    sessions?: SessionUncheckedCreateNestedManyWithoutServerInput
     updateLogs?: UpdateLogUncheckedCreateNestedManyWithoutServerInput
     notifications?: UserNotificationUncheckedCreateNestedManyWithoutServerInput
   }
@@ -31077,7 +29048,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     clients?: ClientUpdateManyWithoutUserNestedInput
-    sessions?: SessionUpdateManyWithoutUserNestedInput
     notifications?: UserNotificationUpdateManyWithoutUserNestedInput
     initiatedUpdates?: UpdateLogUpdateManyWithoutInitiatorNestedInput
   }
@@ -31097,7 +29067,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     clients?: ClientUncheckedUpdateManyWithoutUserNestedInput
-    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     notifications?: UserNotificationUncheckedUpdateManyWithoutUserNestedInput
     initiatedUpdates?: UpdateLogUncheckedUpdateManyWithoutInitiatorNestedInput
   }
@@ -31121,13 +29090,12 @@ export namespace Prisma {
     unitToken?: StringFieldUpdateOperationsInput | string
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
     constellation?: ConstellationUpdateOneRequiredWithoutServersNestedInput
-    activeConfig?: UnitConfigUpdateOneWithoutServersNestedInput
+    activeConfig?: UnitConfigUpdateOneWithoutActiveInServersNestedInput
     clients?: ClientUpdateManyWithoutServerNestedInput
     cases?: CaseUpdateManyWithoutServerNestedInput
     sections?: SectionUpdateManyWithoutServerNestedInput
     manualArticles?: ManualArticleUpdateManyWithoutServerNestedInput
     autoSources?: AutoSourceUpdateManyWithoutServerNestedInput
-    sessions?: SessionUpdateManyWithoutServerNestedInput
     updateLogs?: UpdateLogUpdateManyWithoutServerNestedInput
     notifications?: UserNotificationUpdateManyWithoutServerNestedInput
   }
@@ -31146,7 +29114,6 @@ export namespace Prisma {
     sections?: SectionUncheckedUpdateManyWithoutServerNestedInput
     manualArticles?: ManualArticleUncheckedUpdateManyWithoutServerNestedInput
     autoSources?: AutoSourceUncheckedUpdateManyWithoutServerNestedInput
-    sessions?: SessionUncheckedUpdateManyWithoutServerNestedInput
     updateLogs?: UpdateLogUncheckedUpdateManyWithoutServerNestedInput
     notifications?: UserNotificationUncheckedUpdateManyWithoutServerNestedInput
   }
@@ -31233,13 +29200,12 @@ export namespace Prisma {
     unitToken: string
     requiresUpdate?: boolean
     constellation: ConstellationCreateNestedOneWithoutServersInput
-    activeConfig?: UnitConfigCreateNestedOneWithoutServersInput
+    activeConfig?: UnitConfigCreateNestedOneWithoutActiveInServersInput
     clients?: ClientCreateNestedManyWithoutServerInput
     professionals?: ProfessionalCreateNestedManyWithoutServerInput
     sections?: SectionCreateNestedManyWithoutServerInput
     manualArticles?: ManualArticleCreateNestedManyWithoutServerInput
     autoSources?: AutoSourceCreateNestedManyWithoutServerInput
-    sessions?: SessionCreateNestedManyWithoutServerInput
     updateLogs?: UpdateLogCreateNestedManyWithoutServerInput
     notifications?: UserNotificationCreateNestedManyWithoutServerInput
   }
@@ -31258,7 +29224,6 @@ export namespace Prisma {
     sections?: SectionUncheckedCreateNestedManyWithoutServerInput
     manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutServerInput
     autoSources?: AutoSourceUncheckedCreateNestedManyWithoutServerInput
-    sessions?: SessionUncheckedCreateNestedManyWithoutServerInput
     updateLogs?: UpdateLogUncheckedCreateNestedManyWithoutServerInput
     notifications?: UserNotificationUncheckedCreateNestedManyWithoutServerInput
   }
@@ -31410,13 +29375,12 @@ export namespace Prisma {
     unitToken?: StringFieldUpdateOperationsInput | string
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
     constellation?: ConstellationUpdateOneRequiredWithoutServersNestedInput
-    activeConfig?: UnitConfigUpdateOneWithoutServersNestedInput
+    activeConfig?: UnitConfigUpdateOneWithoutActiveInServersNestedInput
     clients?: ClientUpdateManyWithoutServerNestedInput
     professionals?: ProfessionalUpdateManyWithoutServerNestedInput
     sections?: SectionUpdateManyWithoutServerNestedInput
     manualArticles?: ManualArticleUpdateManyWithoutServerNestedInput
     autoSources?: AutoSourceUpdateManyWithoutServerNestedInput
-    sessions?: SessionUpdateManyWithoutServerNestedInput
     updateLogs?: UpdateLogUpdateManyWithoutServerNestedInput
     notifications?: UserNotificationUpdateManyWithoutServerNestedInput
   }
@@ -31435,7 +29399,6 @@ export namespace Prisma {
     sections?: SectionUncheckedUpdateManyWithoutServerNestedInput
     manualArticles?: ManualArticleUncheckedUpdateManyWithoutServerNestedInput
     autoSources?: AutoSourceUncheckedUpdateManyWithoutServerNestedInput
-    sessions?: SessionUncheckedUpdateManyWithoutServerNestedInput
     updateLogs?: UpdateLogUncheckedUpdateManyWithoutServerNestedInput
     notifications?: UserNotificationUncheckedUpdateManyWithoutServerNestedInput
   }
@@ -31927,14 +29890,13 @@ export namespace Prisma {
     orchestratorToken: string
     unitToken: string
     requiresUpdate?: boolean
-    activeConfig?: UnitConfigCreateNestedOneWithoutServersInput
+    activeConfig?: UnitConfigCreateNestedOneWithoutActiveInServersInput
     clients?: ClientCreateNestedManyWithoutServerInput
     professionals?: ProfessionalCreateNestedManyWithoutServerInput
     cases?: CaseCreateNestedManyWithoutServerInput
     sections?: SectionCreateNestedManyWithoutServerInput
     manualArticles?: ManualArticleCreateNestedManyWithoutServerInput
     autoSources?: AutoSourceCreateNestedManyWithoutServerInput
-    sessions?: SessionCreateNestedManyWithoutServerInput
     updateLogs?: UpdateLogCreateNestedManyWithoutServerInput
     notifications?: UserNotificationCreateNestedManyWithoutServerInput
   }
@@ -31953,7 +29915,6 @@ export namespace Prisma {
     sections?: SectionUncheckedCreateNestedManyWithoutServerInput
     manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutServerInput
     autoSources?: AutoSourceUncheckedCreateNestedManyWithoutServerInput
-    sessions?: SessionUncheckedCreateNestedManyWithoutServerInput
     updateLogs?: UpdateLogUncheckedCreateNestedManyWithoutServerInput
     notifications?: UserNotificationUncheckedCreateNestedManyWithoutServerInput
   }
@@ -32002,19 +29963,19 @@ export namespace Prisma {
     id?: string
     name: string
     pageTitle: string
-    footerInfo: string
-    legalStepsCount: number
+    footerInfo?: string | null
+    legalStepsCount?: number
     pageType: string
-    externalLinks: JsonNullValueInput | InputJsonValue
-    newsParams: JsonNullValueInput | InputJsonValue
-    selectedNews: JsonNullValueInput | InputJsonValue
-    infoSections: JsonNullValueInput | InputJsonValue
+    externalLinks?: NullableJsonNullValueInput | InputJsonValue
+    newsParams?: NullableJsonNullValueInput | InputJsonValue
+    selectedNews?: NullableJsonNullValueInput | InputJsonValue
+    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
-    servers?: UnitServerCreateNestedManyWithoutActiveConfigInput
     manualArticles?: ManualArticleCreateNestedManyWithoutConfigInput
     autoSources?: AutoSourceCreateNestedManyWithoutConfigInput
     images?: ImageCreateNestedManyWithoutConfigInput
+    activeInServers?: UnitServerCreateNestedManyWithoutActiveConfigInput
     updates?: UpdateLogCreateNestedManyWithoutConfigInput
     previousUpdates?: UpdateLogCreateNestedManyWithoutPreviousConfigInput
   }
@@ -32023,19 +29984,19 @@ export namespace Prisma {
     id?: string
     name: string
     pageTitle: string
-    footerInfo: string
-    legalStepsCount: number
+    footerInfo?: string | null
+    legalStepsCount?: number
     pageType: string
-    externalLinks: JsonNullValueInput | InputJsonValue
-    newsParams: JsonNullValueInput | InputJsonValue
-    selectedNews: JsonNullValueInput | InputJsonValue
-    infoSections: JsonNullValueInput | InputJsonValue
+    externalLinks?: NullableJsonNullValueInput | InputJsonValue
+    newsParams?: NullableJsonNullValueInput | InputJsonValue
+    selectedNews?: NullableJsonNullValueInput | InputJsonValue
+    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
-    servers?: UnitServerUncheckedCreateNestedManyWithoutActiveConfigInput
     manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutConfigInput
     autoSources?: AutoSourceUncheckedCreateNestedManyWithoutConfigInput
     images?: ImageUncheckedCreateNestedManyWithoutConfigInput
+    activeInServers?: UnitServerUncheckedCreateNestedManyWithoutActiveConfigInput
     updates?: UpdateLogUncheckedCreateNestedManyWithoutConfigInput
     previousUpdates?: UpdateLogUncheckedCreateNestedManyWithoutPreviousConfigInput
   }
@@ -32053,13 +30014,12 @@ export namespace Prisma {
     unitToken: string
     requiresUpdate?: boolean
     constellation: ConstellationCreateNestedOneWithoutServersInput
-    activeConfig?: UnitConfigCreateNestedOneWithoutServersInput
+    activeConfig?: UnitConfigCreateNestedOneWithoutActiveInServersInput
     clients?: ClientCreateNestedManyWithoutServerInput
     professionals?: ProfessionalCreateNestedManyWithoutServerInput
     cases?: CaseCreateNestedManyWithoutServerInput
     manualArticles?: ManualArticleCreateNestedManyWithoutServerInput
     autoSources?: AutoSourceCreateNestedManyWithoutServerInput
-    sessions?: SessionCreateNestedManyWithoutServerInput
     updateLogs?: UpdateLogCreateNestedManyWithoutServerInput
     notifications?: UserNotificationCreateNestedManyWithoutServerInput
   }
@@ -32078,7 +30038,6 @@ export namespace Prisma {
     cases?: CaseUncheckedCreateNestedManyWithoutServerInput
     manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutServerInput
     autoSources?: AutoSourceUncheckedCreateNestedManyWithoutServerInput
-    sessions?: SessionUncheckedCreateNestedManyWithoutServerInput
     updateLogs?: UpdateLogUncheckedCreateNestedManyWithoutServerInput
     notifications?: UserNotificationUncheckedCreateNestedManyWithoutServerInput
   }
@@ -32103,19 +30062,19 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     pageTitle?: StringFieldUpdateOperationsInput | string
-    footerInfo?: StringFieldUpdateOperationsInput | string
+    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
     legalStepsCount?: IntFieldUpdateOperationsInput | number
     pageType?: StringFieldUpdateOperationsInput | string
-    externalLinks?: JsonNullValueInput | InputJsonValue
-    newsParams?: JsonNullValueInput | InputJsonValue
-    selectedNews?: JsonNullValueInput | InputJsonValue
-    infoSections?: JsonNullValueInput | InputJsonValue
+    externalLinks?: NullableJsonNullValueInput | InputJsonValue
+    newsParams?: NullableJsonNullValueInput | InputJsonValue
+    selectedNews?: NullableJsonNullValueInput | InputJsonValue
+    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    servers?: UnitServerUpdateManyWithoutActiveConfigNestedInput
     manualArticles?: ManualArticleUpdateManyWithoutConfigNestedInput
     autoSources?: AutoSourceUpdateManyWithoutConfigNestedInput
     images?: ImageUpdateManyWithoutConfigNestedInput
+    activeInServers?: UnitServerUpdateManyWithoutActiveConfigNestedInput
     updates?: UpdateLogUpdateManyWithoutConfigNestedInput
     previousUpdates?: UpdateLogUpdateManyWithoutPreviousConfigNestedInput
   }
@@ -32124,19 +30083,19 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     pageTitle?: StringFieldUpdateOperationsInput | string
-    footerInfo?: StringFieldUpdateOperationsInput | string
+    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
     legalStepsCount?: IntFieldUpdateOperationsInput | number
     pageType?: StringFieldUpdateOperationsInput | string
-    externalLinks?: JsonNullValueInput | InputJsonValue
-    newsParams?: JsonNullValueInput | InputJsonValue
-    selectedNews?: JsonNullValueInput | InputJsonValue
-    infoSections?: JsonNullValueInput | InputJsonValue
+    externalLinks?: NullableJsonNullValueInput | InputJsonValue
+    newsParams?: NullableJsonNullValueInput | InputJsonValue
+    selectedNews?: NullableJsonNullValueInput | InputJsonValue
+    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    servers?: UnitServerUncheckedUpdateManyWithoutActiveConfigNestedInput
     manualArticles?: ManualArticleUncheckedUpdateManyWithoutConfigNestedInput
     autoSources?: AutoSourceUncheckedUpdateManyWithoutConfigNestedInput
     images?: ImageUncheckedUpdateManyWithoutConfigNestedInput
+    activeInServers?: UnitServerUncheckedUpdateManyWithoutActiveConfigNestedInput
     updates?: UpdateLogUncheckedUpdateManyWithoutConfigNestedInput
     previousUpdates?: UpdateLogUncheckedUpdateManyWithoutPreviousConfigNestedInput
   }
@@ -32160,13 +30119,12 @@ export namespace Prisma {
     unitToken?: StringFieldUpdateOperationsInput | string
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
     constellation?: ConstellationUpdateOneRequiredWithoutServersNestedInput
-    activeConfig?: UnitConfigUpdateOneWithoutServersNestedInput
+    activeConfig?: UnitConfigUpdateOneWithoutActiveInServersNestedInput
     clients?: ClientUpdateManyWithoutServerNestedInput
     professionals?: ProfessionalUpdateManyWithoutServerNestedInput
     cases?: CaseUpdateManyWithoutServerNestedInput
     manualArticles?: ManualArticleUpdateManyWithoutServerNestedInput
     autoSources?: AutoSourceUpdateManyWithoutServerNestedInput
-    sessions?: SessionUpdateManyWithoutServerNestedInput
     updateLogs?: UpdateLogUpdateManyWithoutServerNestedInput
     notifications?: UserNotificationUpdateManyWithoutServerNestedInput
   }
@@ -32185,7 +30143,6 @@ export namespace Prisma {
     cases?: CaseUncheckedUpdateManyWithoutServerNestedInput
     manualArticles?: ManualArticleUncheckedUpdateManyWithoutServerNestedInput
     autoSources?: AutoSourceUncheckedUpdateManyWithoutServerNestedInput
-    sessions?: SessionUncheckedUpdateManyWithoutServerNestedInput
     updateLogs?: UpdateLogUncheckedUpdateManyWithoutServerNestedInput
     notifications?: UserNotificationUncheckedUpdateManyWithoutServerNestedInput
   }
@@ -32194,19 +30151,19 @@ export namespace Prisma {
     id?: string
     name: string
     pageTitle: string
-    footerInfo: string
-    legalStepsCount: number
+    footerInfo?: string | null
+    legalStepsCount?: number
     pageType: string
-    externalLinks: JsonNullValueInput | InputJsonValue
-    newsParams: JsonNullValueInput | InputJsonValue
-    selectedNews: JsonNullValueInput | InputJsonValue
-    infoSections: JsonNullValueInput | InputJsonValue
+    externalLinks?: NullableJsonNullValueInput | InputJsonValue
+    newsParams?: NullableJsonNullValueInput | InputJsonValue
+    selectedNews?: NullableJsonNullValueInput | InputJsonValue
+    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
-    servers?: UnitServerCreateNestedManyWithoutActiveConfigInput
     sections?: SectionCreateNestedManyWithoutConfigInput
     autoSources?: AutoSourceCreateNestedManyWithoutConfigInput
     images?: ImageCreateNestedManyWithoutConfigInput
+    activeInServers?: UnitServerCreateNestedManyWithoutActiveConfigInput
     updates?: UpdateLogCreateNestedManyWithoutConfigInput
     previousUpdates?: UpdateLogCreateNestedManyWithoutPreviousConfigInput
   }
@@ -32215,19 +30172,19 @@ export namespace Prisma {
     id?: string
     name: string
     pageTitle: string
-    footerInfo: string
-    legalStepsCount: number
+    footerInfo?: string | null
+    legalStepsCount?: number
     pageType: string
-    externalLinks: JsonNullValueInput | InputJsonValue
-    newsParams: JsonNullValueInput | InputJsonValue
-    selectedNews: JsonNullValueInput | InputJsonValue
-    infoSections: JsonNullValueInput | InputJsonValue
+    externalLinks?: NullableJsonNullValueInput | InputJsonValue
+    newsParams?: NullableJsonNullValueInput | InputJsonValue
+    selectedNews?: NullableJsonNullValueInput | InputJsonValue
+    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
-    servers?: UnitServerUncheckedCreateNestedManyWithoutActiveConfigInput
     sections?: SectionUncheckedCreateNestedManyWithoutConfigInput
     autoSources?: AutoSourceUncheckedCreateNestedManyWithoutConfigInput
     images?: ImageUncheckedCreateNestedManyWithoutConfigInput
+    activeInServers?: UnitServerUncheckedCreateNestedManyWithoutActiveConfigInput
     updates?: UpdateLogUncheckedCreateNestedManyWithoutConfigInput
     previousUpdates?: UpdateLogUncheckedCreateNestedManyWithoutPreviousConfigInput
   }
@@ -32245,13 +30202,12 @@ export namespace Prisma {
     unitToken: string
     requiresUpdate?: boolean
     constellation: ConstellationCreateNestedOneWithoutServersInput
-    activeConfig?: UnitConfigCreateNestedOneWithoutServersInput
+    activeConfig?: UnitConfigCreateNestedOneWithoutActiveInServersInput
     clients?: ClientCreateNestedManyWithoutServerInput
     professionals?: ProfessionalCreateNestedManyWithoutServerInput
     cases?: CaseCreateNestedManyWithoutServerInput
     sections?: SectionCreateNestedManyWithoutServerInput
     autoSources?: AutoSourceCreateNestedManyWithoutServerInput
-    sessions?: SessionCreateNestedManyWithoutServerInput
     updateLogs?: UpdateLogCreateNestedManyWithoutServerInput
     notifications?: UserNotificationCreateNestedManyWithoutServerInput
   }
@@ -32270,7 +30226,6 @@ export namespace Prisma {
     cases?: CaseUncheckedCreateNestedManyWithoutServerInput
     sections?: SectionUncheckedCreateNestedManyWithoutServerInput
     autoSources?: AutoSourceUncheckedCreateNestedManyWithoutServerInput
-    sessions?: SessionUncheckedCreateNestedManyWithoutServerInput
     updateLogs?: UpdateLogUncheckedCreateNestedManyWithoutServerInput
     notifications?: UserNotificationUncheckedCreateNestedManyWithoutServerInput
   }
@@ -32295,19 +30250,19 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     pageTitle?: StringFieldUpdateOperationsInput | string
-    footerInfo?: StringFieldUpdateOperationsInput | string
+    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
     legalStepsCount?: IntFieldUpdateOperationsInput | number
     pageType?: StringFieldUpdateOperationsInput | string
-    externalLinks?: JsonNullValueInput | InputJsonValue
-    newsParams?: JsonNullValueInput | InputJsonValue
-    selectedNews?: JsonNullValueInput | InputJsonValue
-    infoSections?: JsonNullValueInput | InputJsonValue
+    externalLinks?: NullableJsonNullValueInput | InputJsonValue
+    newsParams?: NullableJsonNullValueInput | InputJsonValue
+    selectedNews?: NullableJsonNullValueInput | InputJsonValue
+    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    servers?: UnitServerUpdateManyWithoutActiveConfigNestedInput
     sections?: SectionUpdateManyWithoutConfigNestedInput
     autoSources?: AutoSourceUpdateManyWithoutConfigNestedInput
     images?: ImageUpdateManyWithoutConfigNestedInput
+    activeInServers?: UnitServerUpdateManyWithoutActiveConfigNestedInput
     updates?: UpdateLogUpdateManyWithoutConfigNestedInput
     previousUpdates?: UpdateLogUpdateManyWithoutPreviousConfigNestedInput
   }
@@ -32316,19 +30271,19 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     pageTitle?: StringFieldUpdateOperationsInput | string
-    footerInfo?: StringFieldUpdateOperationsInput | string
+    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
     legalStepsCount?: IntFieldUpdateOperationsInput | number
     pageType?: StringFieldUpdateOperationsInput | string
-    externalLinks?: JsonNullValueInput | InputJsonValue
-    newsParams?: JsonNullValueInput | InputJsonValue
-    selectedNews?: JsonNullValueInput | InputJsonValue
-    infoSections?: JsonNullValueInput | InputJsonValue
+    externalLinks?: NullableJsonNullValueInput | InputJsonValue
+    newsParams?: NullableJsonNullValueInput | InputJsonValue
+    selectedNews?: NullableJsonNullValueInput | InputJsonValue
+    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    servers?: UnitServerUncheckedUpdateManyWithoutActiveConfigNestedInput
     sections?: SectionUncheckedUpdateManyWithoutConfigNestedInput
     autoSources?: AutoSourceUncheckedUpdateManyWithoutConfigNestedInput
     images?: ImageUncheckedUpdateManyWithoutConfigNestedInput
+    activeInServers?: UnitServerUncheckedUpdateManyWithoutActiveConfigNestedInput
     updates?: UpdateLogUncheckedUpdateManyWithoutConfigNestedInput
     previousUpdates?: UpdateLogUncheckedUpdateManyWithoutPreviousConfigNestedInput
   }
@@ -32352,13 +30307,12 @@ export namespace Prisma {
     unitToken?: StringFieldUpdateOperationsInput | string
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
     constellation?: ConstellationUpdateOneRequiredWithoutServersNestedInput
-    activeConfig?: UnitConfigUpdateOneWithoutServersNestedInput
+    activeConfig?: UnitConfigUpdateOneWithoutActiveInServersNestedInput
     clients?: ClientUpdateManyWithoutServerNestedInput
     professionals?: ProfessionalUpdateManyWithoutServerNestedInput
     cases?: CaseUpdateManyWithoutServerNestedInput
     sections?: SectionUpdateManyWithoutServerNestedInput
     autoSources?: AutoSourceUpdateManyWithoutServerNestedInput
-    sessions?: SessionUpdateManyWithoutServerNestedInput
     updateLogs?: UpdateLogUpdateManyWithoutServerNestedInput
     notifications?: UserNotificationUpdateManyWithoutServerNestedInput
   }
@@ -32377,7 +30331,6 @@ export namespace Prisma {
     cases?: CaseUncheckedUpdateManyWithoutServerNestedInput
     sections?: SectionUncheckedUpdateManyWithoutServerNestedInput
     autoSources?: AutoSourceUncheckedUpdateManyWithoutServerNestedInput
-    sessions?: SessionUncheckedUpdateManyWithoutServerNestedInput
     updateLogs?: UpdateLogUncheckedUpdateManyWithoutServerNestedInput
     notifications?: UserNotificationUncheckedUpdateManyWithoutServerNestedInput
   }
@@ -32386,19 +30339,19 @@ export namespace Prisma {
     id?: string
     name: string
     pageTitle: string
-    footerInfo: string
-    legalStepsCount: number
+    footerInfo?: string | null
+    legalStepsCount?: number
     pageType: string
-    externalLinks: JsonNullValueInput | InputJsonValue
-    newsParams: JsonNullValueInput | InputJsonValue
-    selectedNews: JsonNullValueInput | InputJsonValue
-    infoSections: JsonNullValueInput | InputJsonValue
+    externalLinks?: NullableJsonNullValueInput | InputJsonValue
+    newsParams?: NullableJsonNullValueInput | InputJsonValue
+    selectedNews?: NullableJsonNullValueInput | InputJsonValue
+    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
-    servers?: UnitServerCreateNestedManyWithoutActiveConfigInput
     sections?: SectionCreateNestedManyWithoutConfigInput
     manualArticles?: ManualArticleCreateNestedManyWithoutConfigInput
     images?: ImageCreateNestedManyWithoutConfigInput
+    activeInServers?: UnitServerCreateNestedManyWithoutActiveConfigInput
     updates?: UpdateLogCreateNestedManyWithoutConfigInput
     previousUpdates?: UpdateLogCreateNestedManyWithoutPreviousConfigInput
   }
@@ -32407,19 +30360,19 @@ export namespace Prisma {
     id?: string
     name: string
     pageTitle: string
-    footerInfo: string
-    legalStepsCount: number
+    footerInfo?: string | null
+    legalStepsCount?: number
     pageType: string
-    externalLinks: JsonNullValueInput | InputJsonValue
-    newsParams: JsonNullValueInput | InputJsonValue
-    selectedNews: JsonNullValueInput | InputJsonValue
-    infoSections: JsonNullValueInput | InputJsonValue
+    externalLinks?: NullableJsonNullValueInput | InputJsonValue
+    newsParams?: NullableJsonNullValueInput | InputJsonValue
+    selectedNews?: NullableJsonNullValueInput | InputJsonValue
+    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
-    servers?: UnitServerUncheckedCreateNestedManyWithoutActiveConfigInput
     sections?: SectionUncheckedCreateNestedManyWithoutConfigInput
     manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutConfigInput
     images?: ImageUncheckedCreateNestedManyWithoutConfigInput
+    activeInServers?: UnitServerUncheckedCreateNestedManyWithoutActiveConfigInput
     updates?: UpdateLogUncheckedCreateNestedManyWithoutConfigInput
     previousUpdates?: UpdateLogUncheckedCreateNestedManyWithoutPreviousConfigInput
   }
@@ -32437,13 +30390,12 @@ export namespace Prisma {
     unitToken: string
     requiresUpdate?: boolean
     constellation: ConstellationCreateNestedOneWithoutServersInput
-    activeConfig?: UnitConfigCreateNestedOneWithoutServersInput
+    activeConfig?: UnitConfigCreateNestedOneWithoutActiveInServersInput
     clients?: ClientCreateNestedManyWithoutServerInput
     professionals?: ProfessionalCreateNestedManyWithoutServerInput
     cases?: CaseCreateNestedManyWithoutServerInput
     sections?: SectionCreateNestedManyWithoutServerInput
     manualArticles?: ManualArticleCreateNestedManyWithoutServerInput
-    sessions?: SessionCreateNestedManyWithoutServerInput
     updateLogs?: UpdateLogCreateNestedManyWithoutServerInput
     notifications?: UserNotificationCreateNestedManyWithoutServerInput
   }
@@ -32462,7 +30414,6 @@ export namespace Prisma {
     cases?: CaseUncheckedCreateNestedManyWithoutServerInput
     sections?: SectionUncheckedCreateNestedManyWithoutServerInput
     manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutServerInput
-    sessions?: SessionUncheckedCreateNestedManyWithoutServerInput
     updateLogs?: UpdateLogUncheckedCreateNestedManyWithoutServerInput
     notifications?: UserNotificationUncheckedCreateNestedManyWithoutServerInput
   }
@@ -32487,19 +30438,19 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     pageTitle?: StringFieldUpdateOperationsInput | string
-    footerInfo?: StringFieldUpdateOperationsInput | string
+    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
     legalStepsCount?: IntFieldUpdateOperationsInput | number
     pageType?: StringFieldUpdateOperationsInput | string
-    externalLinks?: JsonNullValueInput | InputJsonValue
-    newsParams?: JsonNullValueInput | InputJsonValue
-    selectedNews?: JsonNullValueInput | InputJsonValue
-    infoSections?: JsonNullValueInput | InputJsonValue
+    externalLinks?: NullableJsonNullValueInput | InputJsonValue
+    newsParams?: NullableJsonNullValueInput | InputJsonValue
+    selectedNews?: NullableJsonNullValueInput | InputJsonValue
+    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    servers?: UnitServerUpdateManyWithoutActiveConfigNestedInput
     sections?: SectionUpdateManyWithoutConfigNestedInput
     manualArticles?: ManualArticleUpdateManyWithoutConfigNestedInput
     images?: ImageUpdateManyWithoutConfigNestedInput
+    activeInServers?: UnitServerUpdateManyWithoutActiveConfigNestedInput
     updates?: UpdateLogUpdateManyWithoutConfigNestedInput
     previousUpdates?: UpdateLogUpdateManyWithoutPreviousConfigNestedInput
   }
@@ -32508,19 +30459,19 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     pageTitle?: StringFieldUpdateOperationsInput | string
-    footerInfo?: StringFieldUpdateOperationsInput | string
+    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
     legalStepsCount?: IntFieldUpdateOperationsInput | number
     pageType?: StringFieldUpdateOperationsInput | string
-    externalLinks?: JsonNullValueInput | InputJsonValue
-    newsParams?: JsonNullValueInput | InputJsonValue
-    selectedNews?: JsonNullValueInput | InputJsonValue
-    infoSections?: JsonNullValueInput | InputJsonValue
+    externalLinks?: NullableJsonNullValueInput | InputJsonValue
+    newsParams?: NullableJsonNullValueInput | InputJsonValue
+    selectedNews?: NullableJsonNullValueInput | InputJsonValue
+    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    servers?: UnitServerUncheckedUpdateManyWithoutActiveConfigNestedInput
     sections?: SectionUncheckedUpdateManyWithoutConfigNestedInput
     manualArticles?: ManualArticleUncheckedUpdateManyWithoutConfigNestedInput
     images?: ImageUncheckedUpdateManyWithoutConfigNestedInput
+    activeInServers?: UnitServerUncheckedUpdateManyWithoutActiveConfigNestedInput
     updates?: UpdateLogUncheckedUpdateManyWithoutConfigNestedInput
     previousUpdates?: UpdateLogUncheckedUpdateManyWithoutPreviousConfigNestedInput
   }
@@ -32544,13 +30495,12 @@ export namespace Prisma {
     unitToken?: StringFieldUpdateOperationsInput | string
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
     constellation?: ConstellationUpdateOneRequiredWithoutServersNestedInput
-    activeConfig?: UnitConfigUpdateOneWithoutServersNestedInput
+    activeConfig?: UnitConfigUpdateOneWithoutActiveInServersNestedInput
     clients?: ClientUpdateManyWithoutServerNestedInput
     professionals?: ProfessionalUpdateManyWithoutServerNestedInput
     cases?: CaseUpdateManyWithoutServerNestedInput
     sections?: SectionUpdateManyWithoutServerNestedInput
     manualArticles?: ManualArticleUpdateManyWithoutServerNestedInput
-    sessions?: SessionUpdateManyWithoutServerNestedInput
     updateLogs?: UpdateLogUpdateManyWithoutServerNestedInput
     notifications?: UserNotificationUpdateManyWithoutServerNestedInput
   }
@@ -32569,7 +30519,6 @@ export namespace Prisma {
     cases?: CaseUncheckedUpdateManyWithoutServerNestedInput
     sections?: SectionUncheckedUpdateManyWithoutServerNestedInput
     manualArticles?: ManualArticleUncheckedUpdateManyWithoutServerNestedInput
-    sessions?: SessionUncheckedUpdateManyWithoutServerNestedInput
     updateLogs?: UpdateLogUncheckedUpdateManyWithoutServerNestedInput
     notifications?: UserNotificationUncheckedUpdateManyWithoutServerNestedInput
   }
@@ -32578,19 +30527,19 @@ export namespace Prisma {
     id?: string
     name: string
     pageTitle: string
-    footerInfo: string
-    legalStepsCount: number
+    footerInfo?: string | null
+    legalStepsCount?: number
     pageType: string
-    externalLinks: JsonNullValueInput | InputJsonValue
-    newsParams: JsonNullValueInput | InputJsonValue
-    selectedNews: JsonNullValueInput | InputJsonValue
-    infoSections: JsonNullValueInput | InputJsonValue
+    externalLinks?: NullableJsonNullValueInput | InputJsonValue
+    newsParams?: NullableJsonNullValueInput | InputJsonValue
+    selectedNews?: NullableJsonNullValueInput | InputJsonValue
+    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
-    servers?: UnitServerCreateNestedManyWithoutActiveConfigInput
     sections?: SectionCreateNestedManyWithoutConfigInput
     manualArticles?: ManualArticleCreateNestedManyWithoutConfigInput
     autoSources?: AutoSourceCreateNestedManyWithoutConfigInput
+    activeInServers?: UnitServerCreateNestedManyWithoutActiveConfigInput
     updates?: UpdateLogCreateNestedManyWithoutConfigInput
     previousUpdates?: UpdateLogCreateNestedManyWithoutPreviousConfigInput
   }
@@ -32599,19 +30548,19 @@ export namespace Prisma {
     id?: string
     name: string
     pageTitle: string
-    footerInfo: string
-    legalStepsCount: number
+    footerInfo?: string | null
+    legalStepsCount?: number
     pageType: string
-    externalLinks: JsonNullValueInput | InputJsonValue
-    newsParams: JsonNullValueInput | InputJsonValue
-    selectedNews: JsonNullValueInput | InputJsonValue
-    infoSections: JsonNullValueInput | InputJsonValue
+    externalLinks?: NullableJsonNullValueInput | InputJsonValue
+    newsParams?: NullableJsonNullValueInput | InputJsonValue
+    selectedNews?: NullableJsonNullValueInput | InputJsonValue
+    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
-    servers?: UnitServerUncheckedCreateNestedManyWithoutActiveConfigInput
     sections?: SectionUncheckedCreateNestedManyWithoutConfigInput
     manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutConfigInput
     autoSources?: AutoSourceUncheckedCreateNestedManyWithoutConfigInput
+    activeInServers?: UnitServerUncheckedCreateNestedManyWithoutActiveConfigInput
     updates?: UpdateLogUncheckedCreateNestedManyWithoutConfigInput
     previousUpdates?: UpdateLogUncheckedCreateNestedManyWithoutPreviousConfigInput
   }
@@ -32636,19 +30585,19 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     pageTitle?: StringFieldUpdateOperationsInput | string
-    footerInfo?: StringFieldUpdateOperationsInput | string
+    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
     legalStepsCount?: IntFieldUpdateOperationsInput | number
     pageType?: StringFieldUpdateOperationsInput | string
-    externalLinks?: JsonNullValueInput | InputJsonValue
-    newsParams?: JsonNullValueInput | InputJsonValue
-    selectedNews?: JsonNullValueInput | InputJsonValue
-    infoSections?: JsonNullValueInput | InputJsonValue
+    externalLinks?: NullableJsonNullValueInput | InputJsonValue
+    newsParams?: NullableJsonNullValueInput | InputJsonValue
+    selectedNews?: NullableJsonNullValueInput | InputJsonValue
+    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    servers?: UnitServerUpdateManyWithoutActiveConfigNestedInput
     sections?: SectionUpdateManyWithoutConfigNestedInput
     manualArticles?: ManualArticleUpdateManyWithoutConfigNestedInput
     autoSources?: AutoSourceUpdateManyWithoutConfigNestedInput
+    activeInServers?: UnitServerUpdateManyWithoutActiveConfigNestedInput
     updates?: UpdateLogUpdateManyWithoutConfigNestedInput
     previousUpdates?: UpdateLogUpdateManyWithoutPreviousConfigNestedInput
   }
@@ -32657,19 +30606,19 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     pageTitle?: StringFieldUpdateOperationsInput | string
-    footerInfo?: StringFieldUpdateOperationsInput | string
+    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
     legalStepsCount?: IntFieldUpdateOperationsInput | number
     pageType?: StringFieldUpdateOperationsInput | string
-    externalLinks?: JsonNullValueInput | InputJsonValue
-    newsParams?: JsonNullValueInput | InputJsonValue
-    selectedNews?: JsonNullValueInput | InputJsonValue
-    infoSections?: JsonNullValueInput | InputJsonValue
+    externalLinks?: NullableJsonNullValueInput | InputJsonValue
+    newsParams?: NullableJsonNullValueInput | InputJsonValue
+    selectedNews?: NullableJsonNullValueInput | InputJsonValue
+    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    servers?: UnitServerUncheckedUpdateManyWithoutActiveConfigNestedInput
     sections?: SectionUncheckedUpdateManyWithoutConfigNestedInput
     manualArticles?: ManualArticleUncheckedUpdateManyWithoutConfigNestedInput
     autoSources?: AutoSourceUncheckedUpdateManyWithoutConfigNestedInput
+    activeInServers?: UnitServerUncheckedUpdateManyWithoutActiveConfigNestedInput
     updates?: UpdateLogUncheckedUpdateManyWithoutConfigNestedInput
     previousUpdates?: UpdateLogUncheckedUpdateManyWithoutPreviousConfigNestedInput
   }
@@ -32691,17 +30640,17 @@ export namespace Prisma {
     create: XOR<ConstellationCreateWithoutServersInput, ConstellationUncheckedCreateWithoutServersInput>
   }
 
-  export type UnitConfigCreateWithoutServersInput = {
+  export type UnitConfigCreateWithoutActiveInServersInput = {
     id?: string
     name: string
     pageTitle: string
-    footerInfo: string
-    legalStepsCount: number
+    footerInfo?: string | null
+    legalStepsCount?: number
     pageType: string
-    externalLinks: JsonNullValueInput | InputJsonValue
-    newsParams: JsonNullValueInput | InputJsonValue
-    selectedNews: JsonNullValueInput | InputJsonValue
-    infoSections: JsonNullValueInput | InputJsonValue
+    externalLinks?: NullableJsonNullValueInput | InputJsonValue
+    newsParams?: NullableJsonNullValueInput | InputJsonValue
+    selectedNews?: NullableJsonNullValueInput | InputJsonValue
+    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     sections?: SectionCreateNestedManyWithoutConfigInput
@@ -32712,17 +30661,17 @@ export namespace Prisma {
     previousUpdates?: UpdateLogCreateNestedManyWithoutPreviousConfigInput
   }
 
-  export type UnitConfigUncheckedCreateWithoutServersInput = {
+  export type UnitConfigUncheckedCreateWithoutActiveInServersInput = {
     id?: string
     name: string
     pageTitle: string
-    footerInfo: string
-    legalStepsCount: number
+    footerInfo?: string | null
+    legalStepsCount?: number
     pageType: string
-    externalLinks: JsonNullValueInput | InputJsonValue
-    newsParams: JsonNullValueInput | InputJsonValue
-    selectedNews: JsonNullValueInput | InputJsonValue
-    infoSections: JsonNullValueInput | InputJsonValue
+    externalLinks?: NullableJsonNullValueInput | InputJsonValue
+    newsParams?: NullableJsonNullValueInput | InputJsonValue
+    selectedNews?: NullableJsonNullValueInput | InputJsonValue
+    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     sections?: SectionUncheckedCreateNestedManyWithoutConfigInput
@@ -32733,9 +30682,9 @@ export namespace Prisma {
     previousUpdates?: UpdateLogUncheckedCreateNestedManyWithoutPreviousConfigInput
   }
 
-  export type UnitConfigCreateOrConnectWithoutServersInput = {
+  export type UnitConfigCreateOrConnectWithoutActiveInServersInput = {
     where: UnitConfigWhereUniqueInput
-    create: XOR<UnitConfigCreateWithoutServersInput, UnitConfigUncheckedCreateWithoutServersInput>
+    create: XOR<UnitConfigCreateWithoutActiveInServersInput, UnitConfigUncheckedCreateWithoutActiveInServersInput>
   }
 
   export type ClientCreateWithoutServerInput = {
@@ -32906,42 +30855,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type SessionCreateWithoutServerInput = {
-    id?: string
-    token: string
-    sessionType?: $Enums.SessionType
-    userAgent?: string | null
-    ip?: string | null
-    createdAt?: Date | string
-    expiresAt: Date | string
-    isActive?: boolean
-    lastUsedAt?: Date | string
-    user: UserCreateNestedOneWithoutSessionsInput
-  }
-
-  export type SessionUncheckedCreateWithoutServerInput = {
-    id?: string
-    token: string
-    userId: string
-    sessionType?: $Enums.SessionType
-    userAgent?: string | null
-    ip?: string | null
-    createdAt?: Date | string
-    expiresAt: Date | string
-    isActive?: boolean
-    lastUsedAt?: Date | string
-  }
-
-  export type SessionCreateOrConnectWithoutServerInput = {
-    where: SessionWhereUniqueInput
-    create: XOR<SessionCreateWithoutServerInput, SessionUncheckedCreateWithoutServerInput>
-  }
-
-  export type SessionCreateManyServerInputEnvelope = {
-    data: SessionCreateManyServerInput | SessionCreateManyServerInput[]
-    skipDuplicates?: boolean
-  }
-
   export type UpdateLogCreateWithoutServerInput = {
     id?: string
     status: string
@@ -33033,28 +30946,28 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type UnitConfigUpsertWithoutServersInput = {
-    update: XOR<UnitConfigUpdateWithoutServersInput, UnitConfigUncheckedUpdateWithoutServersInput>
-    create: XOR<UnitConfigCreateWithoutServersInput, UnitConfigUncheckedCreateWithoutServersInput>
+  export type UnitConfigUpsertWithoutActiveInServersInput = {
+    update: XOR<UnitConfigUpdateWithoutActiveInServersInput, UnitConfigUncheckedUpdateWithoutActiveInServersInput>
+    create: XOR<UnitConfigCreateWithoutActiveInServersInput, UnitConfigUncheckedCreateWithoutActiveInServersInput>
     where?: UnitConfigWhereInput
   }
 
-  export type UnitConfigUpdateToOneWithWhereWithoutServersInput = {
+  export type UnitConfigUpdateToOneWithWhereWithoutActiveInServersInput = {
     where?: UnitConfigWhereInput
-    data: XOR<UnitConfigUpdateWithoutServersInput, UnitConfigUncheckedUpdateWithoutServersInput>
+    data: XOR<UnitConfigUpdateWithoutActiveInServersInput, UnitConfigUncheckedUpdateWithoutActiveInServersInput>
   }
 
-  export type UnitConfigUpdateWithoutServersInput = {
+  export type UnitConfigUpdateWithoutActiveInServersInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     pageTitle?: StringFieldUpdateOperationsInput | string
-    footerInfo?: StringFieldUpdateOperationsInput | string
+    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
     legalStepsCount?: IntFieldUpdateOperationsInput | number
     pageType?: StringFieldUpdateOperationsInput | string
-    externalLinks?: JsonNullValueInput | InputJsonValue
-    newsParams?: JsonNullValueInput | InputJsonValue
-    selectedNews?: JsonNullValueInput | InputJsonValue
-    infoSections?: JsonNullValueInput | InputJsonValue
+    externalLinks?: NullableJsonNullValueInput | InputJsonValue
+    newsParams?: NullableJsonNullValueInput | InputJsonValue
+    selectedNews?: NullableJsonNullValueInput | InputJsonValue
+    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sections?: SectionUpdateManyWithoutConfigNestedInput
@@ -33065,17 +30978,17 @@ export namespace Prisma {
     previousUpdates?: UpdateLogUpdateManyWithoutPreviousConfigNestedInput
   }
 
-  export type UnitConfigUncheckedUpdateWithoutServersInput = {
+  export type UnitConfigUncheckedUpdateWithoutActiveInServersInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     pageTitle?: StringFieldUpdateOperationsInput | string
-    footerInfo?: StringFieldUpdateOperationsInput | string
+    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
     legalStepsCount?: IntFieldUpdateOperationsInput | number
     pageType?: StringFieldUpdateOperationsInput | string
-    externalLinks?: JsonNullValueInput | InputJsonValue
-    newsParams?: JsonNullValueInput | InputJsonValue
-    selectedNews?: JsonNullValueInput | InputJsonValue
-    infoSections?: JsonNullValueInput | InputJsonValue
+    externalLinks?: NullableJsonNullValueInput | InputJsonValue
+    newsParams?: NullableJsonNullValueInput | InputJsonValue
+    selectedNews?: NullableJsonNullValueInput | InputJsonValue
+    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sections?: SectionUncheckedUpdateManyWithoutConfigNestedInput
@@ -33220,22 +31133,6 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"AutoSource"> | Date | string
   }
 
-  export type SessionUpsertWithWhereUniqueWithoutServerInput = {
-    where: SessionWhereUniqueInput
-    update: XOR<SessionUpdateWithoutServerInput, SessionUncheckedUpdateWithoutServerInput>
-    create: XOR<SessionCreateWithoutServerInput, SessionUncheckedCreateWithoutServerInput>
-  }
-
-  export type SessionUpdateWithWhereUniqueWithoutServerInput = {
-    where: SessionWhereUniqueInput
-    data: XOR<SessionUpdateWithoutServerInput, SessionUncheckedUpdateWithoutServerInput>
-  }
-
-  export type SessionUpdateManyWithWhereWithoutServerInput = {
-    where: SessionScalarWhereInput
-    data: XOR<SessionUpdateManyMutationInput, SessionUncheckedUpdateManyWithoutServerInput>
-  }
-
   export type UpdateLogUpsertWithWhereUniqueWithoutServerInput = {
     where: UpdateLogWhereUniqueInput
     update: XOR<UpdateLogUpdateWithoutServerInput, UpdateLogUncheckedUpdateWithoutServerInput>
@@ -33266,54 +31163,6 @@ export namespace Prisma {
   export type UserNotificationUpdateManyWithWhereWithoutServerInput = {
     where: UserNotificationScalarWhereInput
     data: XOR<UserNotificationUpdateManyMutationInput, UserNotificationUncheckedUpdateManyWithoutServerInput>
-  }
-
-  export type UnitServerCreateWithoutActiveConfigInput = {
-    id?: string
-    domain: string
-    name: string
-    orchestratorToken: string
-    unitToken: string
-    requiresUpdate?: boolean
-    constellation: ConstellationCreateNestedOneWithoutServersInput
-    clients?: ClientCreateNestedManyWithoutServerInput
-    professionals?: ProfessionalCreateNestedManyWithoutServerInput
-    cases?: CaseCreateNestedManyWithoutServerInput
-    sections?: SectionCreateNestedManyWithoutServerInput
-    manualArticles?: ManualArticleCreateNestedManyWithoutServerInput
-    autoSources?: AutoSourceCreateNestedManyWithoutServerInput
-    sessions?: SessionCreateNestedManyWithoutServerInput
-    updateLogs?: UpdateLogCreateNestedManyWithoutServerInput
-    notifications?: UserNotificationCreateNestedManyWithoutServerInput
-  }
-
-  export type UnitServerUncheckedCreateWithoutActiveConfigInput = {
-    id?: string
-    domain: string
-    name: string
-    orchestratorToken: string
-    unitToken: string
-    requiresUpdate?: boolean
-    constellationId: string
-    clients?: ClientUncheckedCreateNestedManyWithoutServerInput
-    professionals?: ProfessionalUncheckedCreateNestedManyWithoutServerInput
-    cases?: CaseUncheckedCreateNestedManyWithoutServerInput
-    sections?: SectionUncheckedCreateNestedManyWithoutServerInput
-    manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutServerInput
-    autoSources?: AutoSourceUncheckedCreateNestedManyWithoutServerInput
-    sessions?: SessionUncheckedCreateNestedManyWithoutServerInput
-    updateLogs?: UpdateLogUncheckedCreateNestedManyWithoutServerInput
-    notifications?: UserNotificationUncheckedCreateNestedManyWithoutServerInput
-  }
-
-  export type UnitServerCreateOrConnectWithoutActiveConfigInput = {
-    where: UnitServerWhereUniqueInput
-    create: XOR<UnitServerCreateWithoutActiveConfigInput, UnitServerUncheckedCreateWithoutActiveConfigInput>
-  }
-
-  export type UnitServerCreateManyActiveConfigInputEnvelope = {
-    data: UnitServerCreateManyActiveConfigInput | UnitServerCreateManyActiveConfigInput[]
-    skipDuplicates?: boolean
   }
 
   export type SectionCreateWithoutConfigInput = {
@@ -33424,6 +31273,52 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type UnitServerCreateWithoutActiveConfigInput = {
+    id?: string
+    domain: string
+    name: string
+    orchestratorToken: string
+    unitToken: string
+    requiresUpdate?: boolean
+    constellation: ConstellationCreateNestedOneWithoutServersInput
+    clients?: ClientCreateNestedManyWithoutServerInput
+    professionals?: ProfessionalCreateNestedManyWithoutServerInput
+    cases?: CaseCreateNestedManyWithoutServerInput
+    sections?: SectionCreateNestedManyWithoutServerInput
+    manualArticles?: ManualArticleCreateNestedManyWithoutServerInput
+    autoSources?: AutoSourceCreateNestedManyWithoutServerInput
+    updateLogs?: UpdateLogCreateNestedManyWithoutServerInput
+    notifications?: UserNotificationCreateNestedManyWithoutServerInput
+  }
+
+  export type UnitServerUncheckedCreateWithoutActiveConfigInput = {
+    id?: string
+    domain: string
+    name: string
+    orchestratorToken: string
+    unitToken: string
+    requiresUpdate?: boolean
+    constellationId: string
+    clients?: ClientUncheckedCreateNestedManyWithoutServerInput
+    professionals?: ProfessionalUncheckedCreateNestedManyWithoutServerInput
+    cases?: CaseUncheckedCreateNestedManyWithoutServerInput
+    sections?: SectionUncheckedCreateNestedManyWithoutServerInput
+    manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutServerInput
+    autoSources?: AutoSourceUncheckedCreateNestedManyWithoutServerInput
+    updateLogs?: UpdateLogUncheckedCreateNestedManyWithoutServerInput
+    notifications?: UserNotificationUncheckedCreateNestedManyWithoutServerInput
+  }
+
+  export type UnitServerCreateOrConnectWithoutActiveConfigInput = {
+    where: UnitServerWhereUniqueInput
+    create: XOR<UnitServerCreateWithoutActiveConfigInput, UnitServerUncheckedCreateWithoutActiveConfigInput>
+  }
+
+  export type UnitServerCreateManyActiveConfigInputEnvelope = {
+    data: UnitServerCreateManyActiveConfigInput | UnitServerCreateManyActiveConfigInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UpdateLogCreateWithoutConfigInput = {
     id?: string
     status: string
@@ -33490,22 +31385,6 @@ export namespace Prisma {
   export type UpdateLogCreateManyPreviousConfigInputEnvelope = {
     data: UpdateLogCreateManyPreviousConfigInput | UpdateLogCreateManyPreviousConfigInput[]
     skipDuplicates?: boolean
-  }
-
-  export type UnitServerUpsertWithWhereUniqueWithoutActiveConfigInput = {
-    where: UnitServerWhereUniqueInput
-    update: XOR<UnitServerUpdateWithoutActiveConfigInput, UnitServerUncheckedUpdateWithoutActiveConfigInput>
-    create: XOR<UnitServerCreateWithoutActiveConfigInput, UnitServerUncheckedCreateWithoutActiveConfigInput>
-  }
-
-  export type UnitServerUpdateWithWhereUniqueWithoutActiveConfigInput = {
-    where: UnitServerWhereUniqueInput
-    data: XOR<UnitServerUpdateWithoutActiveConfigInput, UnitServerUncheckedUpdateWithoutActiveConfigInput>
-  }
-
-  export type UnitServerUpdateManyWithWhereWithoutActiveConfigInput = {
-    where: UnitServerScalarWhereInput
-    data: XOR<UnitServerUpdateManyMutationInput, UnitServerUncheckedUpdateManyWithoutActiveConfigInput>
   }
 
   export type SectionUpsertWithWhereUniqueWithoutConfigInput = {
@@ -33584,6 +31463,22 @@ export namespace Prisma {
     order?: IntNullableFilter<"Image"> | number | null
   }
 
+  export type UnitServerUpsertWithWhereUniqueWithoutActiveConfigInput = {
+    where: UnitServerWhereUniqueInput
+    update: XOR<UnitServerUpdateWithoutActiveConfigInput, UnitServerUncheckedUpdateWithoutActiveConfigInput>
+    create: XOR<UnitServerCreateWithoutActiveConfigInput, UnitServerUncheckedCreateWithoutActiveConfigInput>
+  }
+
+  export type UnitServerUpdateWithWhereUniqueWithoutActiveConfigInput = {
+    where: UnitServerWhereUniqueInput
+    data: XOR<UnitServerUpdateWithoutActiveConfigInput, UnitServerUncheckedUpdateWithoutActiveConfigInput>
+  }
+
+  export type UnitServerUpdateManyWithWhereWithoutActiveConfigInput = {
+    where: UnitServerScalarWhereInput
+    data: XOR<UnitServerUpdateManyMutationInput, UnitServerUncheckedUpdateManyWithoutActiveConfigInput>
+  }
+
   export type UpdateLogUpsertWithWhereUniqueWithoutConfigInput = {
     where: UpdateLogWhereUniqueInput
     update: XOR<UpdateLogUpdateWithoutConfigInput, UpdateLogUncheckedUpdateWithoutConfigInput>
@@ -33624,14 +31519,13 @@ export namespace Prisma {
     unitToken: string
     requiresUpdate?: boolean
     constellation: ConstellationCreateNestedOneWithoutServersInput
-    activeConfig?: UnitConfigCreateNestedOneWithoutServersInput
+    activeConfig?: UnitConfigCreateNestedOneWithoutActiveInServersInput
     clients?: ClientCreateNestedManyWithoutServerInput
     professionals?: ProfessionalCreateNestedManyWithoutServerInput
     cases?: CaseCreateNestedManyWithoutServerInput
     sections?: SectionCreateNestedManyWithoutServerInput
     manualArticles?: ManualArticleCreateNestedManyWithoutServerInput
     autoSources?: AutoSourceCreateNestedManyWithoutServerInput
-    sessions?: SessionCreateNestedManyWithoutServerInput
     notifications?: UserNotificationCreateNestedManyWithoutServerInput
   }
 
@@ -33650,7 +31544,6 @@ export namespace Prisma {
     sections?: SectionUncheckedCreateNestedManyWithoutServerInput
     manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutServerInput
     autoSources?: AutoSourceUncheckedCreateNestedManyWithoutServerInput
-    sessions?: SessionUncheckedCreateNestedManyWithoutServerInput
     notifications?: UserNotificationUncheckedCreateNestedManyWithoutServerInput
   }
 
@@ -33663,20 +31556,20 @@ export namespace Prisma {
     id?: string
     name: string
     pageTitle: string
-    footerInfo: string
-    legalStepsCount: number
+    footerInfo?: string | null
+    legalStepsCount?: number
     pageType: string
-    externalLinks: JsonNullValueInput | InputJsonValue
-    newsParams: JsonNullValueInput | InputJsonValue
-    selectedNews: JsonNullValueInput | InputJsonValue
-    infoSections: JsonNullValueInput | InputJsonValue
+    externalLinks?: NullableJsonNullValueInput | InputJsonValue
+    newsParams?: NullableJsonNullValueInput | InputJsonValue
+    selectedNews?: NullableJsonNullValueInput | InputJsonValue
+    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
-    servers?: UnitServerCreateNestedManyWithoutActiveConfigInput
     sections?: SectionCreateNestedManyWithoutConfigInput
     manualArticles?: ManualArticleCreateNestedManyWithoutConfigInput
     autoSources?: AutoSourceCreateNestedManyWithoutConfigInput
     images?: ImageCreateNestedManyWithoutConfigInput
+    activeInServers?: UnitServerCreateNestedManyWithoutActiveConfigInput
     previousUpdates?: UpdateLogCreateNestedManyWithoutPreviousConfigInput
   }
 
@@ -33684,20 +31577,20 @@ export namespace Prisma {
     id?: string
     name: string
     pageTitle: string
-    footerInfo: string
-    legalStepsCount: number
+    footerInfo?: string | null
+    legalStepsCount?: number
     pageType: string
-    externalLinks: JsonNullValueInput | InputJsonValue
-    newsParams: JsonNullValueInput | InputJsonValue
-    selectedNews: JsonNullValueInput | InputJsonValue
-    infoSections: JsonNullValueInput | InputJsonValue
+    externalLinks?: NullableJsonNullValueInput | InputJsonValue
+    newsParams?: NullableJsonNullValueInput | InputJsonValue
+    selectedNews?: NullableJsonNullValueInput | InputJsonValue
+    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
-    servers?: UnitServerUncheckedCreateNestedManyWithoutActiveConfigInput
     sections?: SectionUncheckedCreateNestedManyWithoutConfigInput
     manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutConfigInput
     autoSources?: AutoSourceUncheckedCreateNestedManyWithoutConfigInput
     images?: ImageUncheckedCreateNestedManyWithoutConfigInput
+    activeInServers?: UnitServerUncheckedCreateNestedManyWithoutActiveConfigInput
     previousUpdates?: UpdateLogUncheckedCreateNestedManyWithoutPreviousConfigInput
   }
 
@@ -33710,20 +31603,20 @@ export namespace Prisma {
     id?: string
     name: string
     pageTitle: string
-    footerInfo: string
-    legalStepsCount: number
+    footerInfo?: string | null
+    legalStepsCount?: number
     pageType: string
-    externalLinks: JsonNullValueInput | InputJsonValue
-    newsParams: JsonNullValueInput | InputJsonValue
-    selectedNews: JsonNullValueInput | InputJsonValue
-    infoSections: JsonNullValueInput | InputJsonValue
+    externalLinks?: NullableJsonNullValueInput | InputJsonValue
+    newsParams?: NullableJsonNullValueInput | InputJsonValue
+    selectedNews?: NullableJsonNullValueInput | InputJsonValue
+    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
-    servers?: UnitServerCreateNestedManyWithoutActiveConfigInput
     sections?: SectionCreateNestedManyWithoutConfigInput
     manualArticles?: ManualArticleCreateNestedManyWithoutConfigInput
     autoSources?: AutoSourceCreateNestedManyWithoutConfigInput
     images?: ImageCreateNestedManyWithoutConfigInput
+    activeInServers?: UnitServerCreateNestedManyWithoutActiveConfigInput
     updates?: UpdateLogCreateNestedManyWithoutConfigInput
   }
 
@@ -33731,20 +31624,20 @@ export namespace Prisma {
     id?: string
     name: string
     pageTitle: string
-    footerInfo: string
-    legalStepsCount: number
+    footerInfo?: string | null
+    legalStepsCount?: number
     pageType: string
-    externalLinks: JsonNullValueInput | InputJsonValue
-    newsParams: JsonNullValueInput | InputJsonValue
-    selectedNews: JsonNullValueInput | InputJsonValue
-    infoSections: JsonNullValueInput | InputJsonValue
+    externalLinks?: NullableJsonNullValueInput | InputJsonValue
+    newsParams?: NullableJsonNullValueInput | InputJsonValue
+    selectedNews?: NullableJsonNullValueInput | InputJsonValue
+    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
-    servers?: UnitServerUncheckedCreateNestedManyWithoutActiveConfigInput
     sections?: SectionUncheckedCreateNestedManyWithoutConfigInput
     manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutConfigInput
     autoSources?: AutoSourceUncheckedCreateNestedManyWithoutConfigInput
     images?: ImageUncheckedCreateNestedManyWithoutConfigInput
+    activeInServers?: UnitServerUncheckedCreateNestedManyWithoutActiveConfigInput
     updates?: UpdateLogUncheckedCreateNestedManyWithoutConfigInput
   }
 
@@ -33769,7 +31662,6 @@ export namespace Prisma {
     lastLoginAt?: Date | string | null
     clients?: ClientCreateNestedManyWithoutUserInput
     professionals?: ProfessionalCreateNestedManyWithoutUserInput
-    sessions?: SessionCreateNestedManyWithoutUserInput
     notifications?: UserNotificationCreateNestedManyWithoutUserInput
   }
 
@@ -33789,7 +31681,6 @@ export namespace Prisma {
     lastLoginAt?: Date | string | null
     clients?: ClientUncheckedCreateNestedManyWithoutUserInput
     professionals?: ProfessionalUncheckedCreateNestedManyWithoutUserInput
-    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     notifications?: UserNotificationUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -33817,14 +31708,13 @@ export namespace Prisma {
     unitToken?: StringFieldUpdateOperationsInput | string
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
     constellation?: ConstellationUpdateOneRequiredWithoutServersNestedInput
-    activeConfig?: UnitConfigUpdateOneWithoutServersNestedInput
+    activeConfig?: UnitConfigUpdateOneWithoutActiveInServersNestedInput
     clients?: ClientUpdateManyWithoutServerNestedInput
     professionals?: ProfessionalUpdateManyWithoutServerNestedInput
     cases?: CaseUpdateManyWithoutServerNestedInput
     sections?: SectionUpdateManyWithoutServerNestedInput
     manualArticles?: ManualArticleUpdateManyWithoutServerNestedInput
     autoSources?: AutoSourceUpdateManyWithoutServerNestedInput
-    sessions?: SessionUpdateManyWithoutServerNestedInput
     notifications?: UserNotificationUpdateManyWithoutServerNestedInput
   }
 
@@ -33843,7 +31733,6 @@ export namespace Prisma {
     sections?: SectionUncheckedUpdateManyWithoutServerNestedInput
     manualArticles?: ManualArticleUncheckedUpdateManyWithoutServerNestedInput
     autoSources?: AutoSourceUncheckedUpdateManyWithoutServerNestedInput
-    sessions?: SessionUncheckedUpdateManyWithoutServerNestedInput
     notifications?: UserNotificationUncheckedUpdateManyWithoutServerNestedInput
   }
 
@@ -33862,20 +31751,20 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     pageTitle?: StringFieldUpdateOperationsInput | string
-    footerInfo?: StringFieldUpdateOperationsInput | string
+    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
     legalStepsCount?: IntFieldUpdateOperationsInput | number
     pageType?: StringFieldUpdateOperationsInput | string
-    externalLinks?: JsonNullValueInput | InputJsonValue
-    newsParams?: JsonNullValueInput | InputJsonValue
-    selectedNews?: JsonNullValueInput | InputJsonValue
-    infoSections?: JsonNullValueInput | InputJsonValue
+    externalLinks?: NullableJsonNullValueInput | InputJsonValue
+    newsParams?: NullableJsonNullValueInput | InputJsonValue
+    selectedNews?: NullableJsonNullValueInput | InputJsonValue
+    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    servers?: UnitServerUpdateManyWithoutActiveConfigNestedInput
     sections?: SectionUpdateManyWithoutConfigNestedInput
     manualArticles?: ManualArticleUpdateManyWithoutConfigNestedInput
     autoSources?: AutoSourceUpdateManyWithoutConfigNestedInput
     images?: ImageUpdateManyWithoutConfigNestedInput
+    activeInServers?: UnitServerUpdateManyWithoutActiveConfigNestedInput
     previousUpdates?: UpdateLogUpdateManyWithoutPreviousConfigNestedInput
   }
 
@@ -33883,20 +31772,20 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     pageTitle?: StringFieldUpdateOperationsInput | string
-    footerInfo?: StringFieldUpdateOperationsInput | string
+    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
     legalStepsCount?: IntFieldUpdateOperationsInput | number
     pageType?: StringFieldUpdateOperationsInput | string
-    externalLinks?: JsonNullValueInput | InputJsonValue
-    newsParams?: JsonNullValueInput | InputJsonValue
-    selectedNews?: JsonNullValueInput | InputJsonValue
-    infoSections?: JsonNullValueInput | InputJsonValue
+    externalLinks?: NullableJsonNullValueInput | InputJsonValue
+    newsParams?: NullableJsonNullValueInput | InputJsonValue
+    selectedNews?: NullableJsonNullValueInput | InputJsonValue
+    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    servers?: UnitServerUncheckedUpdateManyWithoutActiveConfigNestedInput
     sections?: SectionUncheckedUpdateManyWithoutConfigNestedInput
     manualArticles?: ManualArticleUncheckedUpdateManyWithoutConfigNestedInput
     autoSources?: AutoSourceUncheckedUpdateManyWithoutConfigNestedInput
     images?: ImageUncheckedUpdateManyWithoutConfigNestedInput
+    activeInServers?: UnitServerUncheckedUpdateManyWithoutActiveConfigNestedInput
     previousUpdates?: UpdateLogUncheckedUpdateManyWithoutPreviousConfigNestedInput
   }
 
@@ -33915,20 +31804,20 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     pageTitle?: StringFieldUpdateOperationsInput | string
-    footerInfo?: StringFieldUpdateOperationsInput | string
+    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
     legalStepsCount?: IntFieldUpdateOperationsInput | number
     pageType?: StringFieldUpdateOperationsInput | string
-    externalLinks?: JsonNullValueInput | InputJsonValue
-    newsParams?: JsonNullValueInput | InputJsonValue
-    selectedNews?: JsonNullValueInput | InputJsonValue
-    infoSections?: JsonNullValueInput | InputJsonValue
+    externalLinks?: NullableJsonNullValueInput | InputJsonValue
+    newsParams?: NullableJsonNullValueInput | InputJsonValue
+    selectedNews?: NullableJsonNullValueInput | InputJsonValue
+    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    servers?: UnitServerUpdateManyWithoutActiveConfigNestedInput
     sections?: SectionUpdateManyWithoutConfigNestedInput
     manualArticles?: ManualArticleUpdateManyWithoutConfigNestedInput
     autoSources?: AutoSourceUpdateManyWithoutConfigNestedInput
     images?: ImageUpdateManyWithoutConfigNestedInput
+    activeInServers?: UnitServerUpdateManyWithoutActiveConfigNestedInput
     updates?: UpdateLogUpdateManyWithoutConfigNestedInput
   }
 
@@ -33936,20 +31825,20 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     pageTitle?: StringFieldUpdateOperationsInput | string
-    footerInfo?: StringFieldUpdateOperationsInput | string
+    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
     legalStepsCount?: IntFieldUpdateOperationsInput | number
     pageType?: StringFieldUpdateOperationsInput | string
-    externalLinks?: JsonNullValueInput | InputJsonValue
-    newsParams?: JsonNullValueInput | InputJsonValue
-    selectedNews?: JsonNullValueInput | InputJsonValue
-    infoSections?: JsonNullValueInput | InputJsonValue
+    externalLinks?: NullableJsonNullValueInput | InputJsonValue
+    newsParams?: NullableJsonNullValueInput | InputJsonValue
+    selectedNews?: NullableJsonNullValueInput | InputJsonValue
+    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    servers?: UnitServerUncheckedUpdateManyWithoutActiveConfigNestedInput
     sections?: SectionUncheckedUpdateManyWithoutConfigNestedInput
     manualArticles?: ManualArticleUncheckedUpdateManyWithoutConfigNestedInput
     autoSources?: AutoSourceUncheckedUpdateManyWithoutConfigNestedInput
     images?: ImageUncheckedUpdateManyWithoutConfigNestedInput
+    activeInServers?: UnitServerUncheckedUpdateManyWithoutActiveConfigNestedInput
     updates?: UpdateLogUncheckedUpdateManyWithoutConfigNestedInput
   }
 
@@ -33980,7 +31869,6 @@ export namespace Prisma {
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     clients?: ClientUpdateManyWithoutUserNestedInput
     professionals?: ProfessionalUpdateManyWithoutUserNestedInput
-    sessions?: SessionUpdateManyWithoutUserNestedInput
     notifications?: UserNotificationUpdateManyWithoutUserNestedInput
   }
 
@@ -34000,7 +31888,6 @@ export namespace Prisma {
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     clients?: ClientUncheckedUpdateManyWithoutUserNestedInput
     professionals?: ProfessionalUncheckedUpdateManyWithoutUserNestedInput
-    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     notifications?: UserNotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -34020,7 +31907,6 @@ export namespace Prisma {
     lastLoginAt?: Date | string | null
     clients?: ClientCreateNestedManyWithoutUserInput
     professionals?: ProfessionalCreateNestedManyWithoutUserInput
-    sessions?: SessionCreateNestedManyWithoutUserInput
     initiatedUpdates?: UpdateLogCreateNestedManyWithoutInitiatorInput
   }
 
@@ -34040,7 +31926,6 @@ export namespace Prisma {
     lastLoginAt?: Date | string | null
     clients?: ClientUncheckedCreateNestedManyWithoutUserInput
     professionals?: ProfessionalUncheckedCreateNestedManyWithoutUserInput
-    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     initiatedUpdates?: UpdateLogUncheckedCreateNestedManyWithoutInitiatorInput
   }
 
@@ -34057,14 +31942,13 @@ export namespace Prisma {
     unitToken: string
     requiresUpdate?: boolean
     constellation: ConstellationCreateNestedOneWithoutServersInput
-    activeConfig?: UnitConfigCreateNestedOneWithoutServersInput
+    activeConfig?: UnitConfigCreateNestedOneWithoutActiveInServersInput
     clients?: ClientCreateNestedManyWithoutServerInput
     professionals?: ProfessionalCreateNestedManyWithoutServerInput
     cases?: CaseCreateNestedManyWithoutServerInput
     sections?: SectionCreateNestedManyWithoutServerInput
     manualArticles?: ManualArticleCreateNestedManyWithoutServerInput
     autoSources?: AutoSourceCreateNestedManyWithoutServerInput
-    sessions?: SessionCreateNestedManyWithoutServerInput
     updateLogs?: UpdateLogCreateNestedManyWithoutServerInput
   }
 
@@ -34083,7 +31967,6 @@ export namespace Prisma {
     sections?: SectionUncheckedCreateNestedManyWithoutServerInput
     manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutServerInput
     autoSources?: AutoSourceUncheckedCreateNestedManyWithoutServerInput
-    sessions?: SessionUncheckedCreateNestedManyWithoutServerInput
     updateLogs?: UpdateLogUncheckedCreateNestedManyWithoutServerInput
   }
 
@@ -34119,7 +32002,6 @@ export namespace Prisma {
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     clients?: ClientUpdateManyWithoutUserNestedInput
     professionals?: ProfessionalUpdateManyWithoutUserNestedInput
-    sessions?: SessionUpdateManyWithoutUserNestedInput
     initiatedUpdates?: UpdateLogUpdateManyWithoutInitiatorNestedInput
   }
 
@@ -34139,7 +32021,6 @@ export namespace Prisma {
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     clients?: ClientUncheckedUpdateManyWithoutUserNestedInput
     professionals?: ProfessionalUncheckedUpdateManyWithoutUserNestedInput
-    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     initiatedUpdates?: UpdateLogUncheckedUpdateManyWithoutInitiatorNestedInput
   }
 
@@ -34162,14 +32043,13 @@ export namespace Prisma {
     unitToken?: StringFieldUpdateOperationsInput | string
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
     constellation?: ConstellationUpdateOneRequiredWithoutServersNestedInput
-    activeConfig?: UnitConfigUpdateOneWithoutServersNestedInput
+    activeConfig?: UnitConfigUpdateOneWithoutActiveInServersNestedInput
     clients?: ClientUpdateManyWithoutServerNestedInput
     professionals?: ProfessionalUpdateManyWithoutServerNestedInput
     cases?: CaseUpdateManyWithoutServerNestedInput
     sections?: SectionUpdateManyWithoutServerNestedInput
     manualArticles?: ManualArticleUpdateManyWithoutServerNestedInput
     autoSources?: AutoSourceUpdateManyWithoutServerNestedInput
-    sessions?: SessionUpdateManyWithoutServerNestedInput
     updateLogs?: UpdateLogUpdateManyWithoutServerNestedInput
   }
 
@@ -34188,7 +32068,6 @@ export namespace Prisma {
     sections?: SectionUncheckedUpdateManyWithoutServerNestedInput
     manualArticles?: ManualArticleUncheckedUpdateManyWithoutServerNestedInput
     autoSources?: AutoSourceUncheckedUpdateManyWithoutServerNestedInput
-    sessions?: SessionUncheckedUpdateManyWithoutServerNestedInput
     updateLogs?: UpdateLogUncheckedUpdateManyWithoutServerNestedInput
   }
 
@@ -34201,19 +32080,6 @@ export namespace Prisma {
   export type ProfessionalCreateManyUserInput = {
     id?: string
     serverId: string
-  }
-
-  export type SessionCreateManyUserInput = {
-    id?: string
-    token: string
-    serverId?: string | null
-    sessionType?: $Enums.SessionType
-    userAgent?: string | null
-    ip?: string | null
-    createdAt?: Date | string
-    expiresAt: Date | string
-    isActive?: boolean
-    lastUsedAt?: Date | string
   }
 
   export type UserNotificationCreateManyUserInput = {
@@ -34281,45 +32147,6 @@ export namespace Prisma {
   export type ProfessionalUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     serverId?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type SessionUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    token?: StringFieldUpdateOperationsInput | string
-    sessionType?: EnumSessionTypeFieldUpdateOperationsInput | $Enums.SessionType
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    ip?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    lastUsedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    server?: UnitServerUpdateOneWithoutSessionsNestedInput
-  }
-
-  export type SessionUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    token?: StringFieldUpdateOperationsInput | string
-    serverId?: NullableStringFieldUpdateOperationsInput | string | null
-    sessionType?: EnumSessionTypeFieldUpdateOperationsInput | $Enums.SessionType
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    ip?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    lastUsedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type SessionUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    token?: StringFieldUpdateOperationsInput | string
-    serverId?: NullableStringFieldUpdateOperationsInput | string | null
-    sessionType?: EnumSessionTypeFieldUpdateOperationsInput | $Enums.SessionType
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    ip?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    lastUsedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserNotificationUpdateWithoutUserInput = {
@@ -34699,14 +32526,13 @@ export namespace Prisma {
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
-    activeConfig?: UnitConfigUpdateOneWithoutServersNestedInput
+    activeConfig?: UnitConfigUpdateOneWithoutActiveInServersNestedInput
     clients?: ClientUpdateManyWithoutServerNestedInput
     professionals?: ProfessionalUpdateManyWithoutServerNestedInput
     cases?: CaseUpdateManyWithoutServerNestedInput
     sections?: SectionUpdateManyWithoutServerNestedInput
     manualArticles?: ManualArticleUpdateManyWithoutServerNestedInput
     autoSources?: AutoSourceUpdateManyWithoutServerNestedInput
-    sessions?: SessionUpdateManyWithoutServerNestedInput
     updateLogs?: UpdateLogUpdateManyWithoutServerNestedInput
     notifications?: UserNotificationUpdateManyWithoutServerNestedInput
   }
@@ -34725,7 +32551,6 @@ export namespace Prisma {
     sections?: SectionUncheckedUpdateManyWithoutServerNestedInput
     manualArticles?: ManualArticleUncheckedUpdateManyWithoutServerNestedInput
     autoSources?: AutoSourceUncheckedUpdateManyWithoutServerNestedInput
-    sessions?: SessionUncheckedUpdateManyWithoutServerNestedInput
     updateLogs?: UpdateLogUncheckedUpdateManyWithoutServerNestedInput
     notifications?: UserNotificationUncheckedUpdateManyWithoutServerNestedInput
   }
@@ -34784,19 +32609,6 @@ export namespace Prisma {
     url: string
     type: string
     createdAt?: Date | string
-  }
-
-  export type SessionCreateManyServerInput = {
-    id?: string
-    token: string
-    userId: string
-    sessionType?: $Enums.SessionType
-    userAgent?: string | null
-    ip?: string | null
-    createdAt?: Date | string
-    expiresAt: Date | string
-    isActive?: boolean
-    lastUsedAt?: Date | string
   }
 
   export type UpdateLogCreateManyServerInput = {
@@ -34977,45 +32789,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type SessionUpdateWithoutServerInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    token?: StringFieldUpdateOperationsInput | string
-    sessionType?: EnumSessionTypeFieldUpdateOperationsInput | $Enums.SessionType
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    ip?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    lastUsedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutSessionsNestedInput
-  }
-
-  export type SessionUncheckedUpdateWithoutServerInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    token?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    sessionType?: EnumSessionTypeFieldUpdateOperationsInput | $Enums.SessionType
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    ip?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    lastUsedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type SessionUncheckedUpdateManyWithoutServerInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    token?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    sessionType?: EnumSessionTypeFieldUpdateOperationsInput | $Enums.SessionType
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    ip?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    lastUsedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type UpdateLogUpdateWithoutServerInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
@@ -35088,16 +32861,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type UnitServerCreateManyActiveConfigInput = {
-    id?: string
-    domain: string
-    name: string
-    orchestratorToken: string
-    unitToken: string
-    requiresUpdate?: boolean
-    constellationId: string
-  }
-
   export type SectionCreateManyConfigInput = {
     id?: string
     serverId?: string | null
@@ -35132,6 +32895,16 @@ export namespace Prisma {
     order?: number | null
   }
 
+  export type UnitServerCreateManyActiveConfigInput = {
+    id?: string
+    domain: string
+    name: string
+    orchestratorToken: string
+    unitToken: string
+    requiresUpdate?: boolean
+    constellationId: string
+  }
+
   export type UpdateLogCreateManyConfigInput = {
     id?: string
     serverId: string
@@ -35154,54 +32927,6 @@ export namespace Prisma {
     startedAt?: Date | string
     completedAt?: Date | string | null
     errorDetails?: string | null
-  }
-
-  export type UnitServerUpdateWithoutActiveConfigInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    domain?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    orchestratorToken?: StringFieldUpdateOperationsInput | string
-    unitToken?: StringFieldUpdateOperationsInput | string
-    requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
-    constellation?: ConstellationUpdateOneRequiredWithoutServersNestedInput
-    clients?: ClientUpdateManyWithoutServerNestedInput
-    professionals?: ProfessionalUpdateManyWithoutServerNestedInput
-    cases?: CaseUpdateManyWithoutServerNestedInput
-    sections?: SectionUpdateManyWithoutServerNestedInput
-    manualArticles?: ManualArticleUpdateManyWithoutServerNestedInput
-    autoSources?: AutoSourceUpdateManyWithoutServerNestedInput
-    sessions?: SessionUpdateManyWithoutServerNestedInput
-    updateLogs?: UpdateLogUpdateManyWithoutServerNestedInput
-    notifications?: UserNotificationUpdateManyWithoutServerNestedInput
-  }
-
-  export type UnitServerUncheckedUpdateWithoutActiveConfigInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    domain?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    orchestratorToken?: StringFieldUpdateOperationsInput | string
-    unitToken?: StringFieldUpdateOperationsInput | string
-    requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
-    constellationId?: StringFieldUpdateOperationsInput | string
-    clients?: ClientUncheckedUpdateManyWithoutServerNestedInput
-    professionals?: ProfessionalUncheckedUpdateManyWithoutServerNestedInput
-    cases?: CaseUncheckedUpdateManyWithoutServerNestedInput
-    sections?: SectionUncheckedUpdateManyWithoutServerNestedInput
-    manualArticles?: ManualArticleUncheckedUpdateManyWithoutServerNestedInput
-    autoSources?: AutoSourceUncheckedUpdateManyWithoutServerNestedInput
-    sessions?: SessionUncheckedUpdateManyWithoutServerNestedInput
-    updateLogs?: UpdateLogUncheckedUpdateManyWithoutServerNestedInput
-    notifications?: UserNotificationUncheckedUpdateManyWithoutServerNestedInput
-  }
-
-  export type UnitServerUncheckedUpdateManyWithoutActiveConfigInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    domain?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    orchestratorToken?: StringFieldUpdateOperationsInput | string
-    unitToken?: StringFieldUpdateOperationsInput | string
-    requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
-    constellationId?: StringFieldUpdateOperationsInput | string
   }
 
   export type SectionUpdateWithoutConfigInput = {
@@ -35304,6 +33029,52 @@ export namespace Prisma {
     altText?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     order?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type UnitServerUpdateWithoutActiveConfigInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    domain?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    orchestratorToken?: StringFieldUpdateOperationsInput | string
+    unitToken?: StringFieldUpdateOperationsInput | string
+    requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
+    constellation?: ConstellationUpdateOneRequiredWithoutServersNestedInput
+    clients?: ClientUpdateManyWithoutServerNestedInput
+    professionals?: ProfessionalUpdateManyWithoutServerNestedInput
+    cases?: CaseUpdateManyWithoutServerNestedInput
+    sections?: SectionUpdateManyWithoutServerNestedInput
+    manualArticles?: ManualArticleUpdateManyWithoutServerNestedInput
+    autoSources?: AutoSourceUpdateManyWithoutServerNestedInput
+    updateLogs?: UpdateLogUpdateManyWithoutServerNestedInput
+    notifications?: UserNotificationUpdateManyWithoutServerNestedInput
+  }
+
+  export type UnitServerUncheckedUpdateWithoutActiveConfigInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    domain?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    orchestratorToken?: StringFieldUpdateOperationsInput | string
+    unitToken?: StringFieldUpdateOperationsInput | string
+    requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
+    constellationId?: StringFieldUpdateOperationsInput | string
+    clients?: ClientUncheckedUpdateManyWithoutServerNestedInput
+    professionals?: ProfessionalUncheckedUpdateManyWithoutServerNestedInput
+    cases?: CaseUncheckedUpdateManyWithoutServerNestedInput
+    sections?: SectionUncheckedUpdateManyWithoutServerNestedInput
+    manualArticles?: ManualArticleUncheckedUpdateManyWithoutServerNestedInput
+    autoSources?: AutoSourceUncheckedUpdateManyWithoutServerNestedInput
+    updateLogs?: UpdateLogUncheckedUpdateManyWithoutServerNestedInput
+    notifications?: UserNotificationUncheckedUpdateManyWithoutServerNestedInput
+  }
+
+  export type UnitServerUncheckedUpdateManyWithoutActiveConfigInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    domain?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    orchestratorToken?: StringFieldUpdateOperationsInput | string
+    unitToken?: StringFieldUpdateOperationsInput | string
+    requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
+    constellationId?: StringFieldUpdateOperationsInput | string
   }
 
   export type UpdateLogUpdateWithoutConfigInput = {

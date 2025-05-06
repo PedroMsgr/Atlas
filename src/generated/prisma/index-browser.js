@@ -136,20 +136,6 @@ exports.Prisma.UserScalarFieldEnum = {
   lastLoginAt: 'lastLoginAt'
 };
 
-exports.Prisma.SessionScalarFieldEnum = {
-  id: 'id',
-  token: 'token',
-  userId: 'userId',
-  serverId: 'serverId',
-  sessionType: 'sessionType',
-  userAgent: 'userAgent',
-  ip: 'ip',
-  createdAt: 'createdAt',
-  expiresAt: 'expiresAt',
-  isActive: 'isActive',
-  lastUsedAt: 'lastUsedAt'
-};
-
 exports.Prisma.ClientScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -306,7 +292,8 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
-exports.Prisma.JsonNullValueInput = {
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
   JsonNull: Prisma.JsonNull
 };
 
@@ -329,11 +316,6 @@ exports.Role = exports.$Enums.Role = {
   client: 'client',
   professional: 'professional',
   admin: 'admin'
-};
-
-exports.SessionType = exports.$Enums.SessionType = {
-  local: 'local',
-  api: 'api'
 };
 
 exports.ClientStatus = exports.$Enums.ClientStatus = {
@@ -365,7 +347,6 @@ exports.SectionType = exports.$Enums.SectionType = {
 
 exports.Prisma.ModelName = {
   User: 'User',
-  Session: 'Session',
   Client: 'Client',
   Professional: 'Professional',
   Case: 'Case',

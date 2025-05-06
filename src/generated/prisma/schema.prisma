@@ -73,33 +73,34 @@ model User {
 
   clients          Client[]
   professionals    Professional[]
-  sessions         Session[]
+  // sessions     Session[] // FUTURA IMPLEMENTACIÓN: Sistema híbrido JWT + Sesiones
   notifications    UserNotification[]
   initiatedUpdates UpdateLog[]
 }
 
-model Session {
-  id          String      @id @default(uuid())
-  token       String      @unique
-  userId      String
-  serverId    String?
-  sessionType SessionType @default(local)
-  userAgent   String? // Información del navegador/dispositivo
-  ip          String? // Dirección IP desde donde se conecta
-  createdAt   DateTime    @default(now())
-  expiresAt   DateTime
-  isActive    Boolean     @default(true)
-  lastUsedAt  DateTime    @default(now()) // Última vez que se usó el token
+// FUTURA IMPLEMENTACIÓN: Sistema híbrido JWT + Sesiones
+// model Session {
+//   id          String      @id @default(uuid())
+//   token       String      @unique
+//   userId      String
+//   serverId    String?
+//   sessionType SessionType @default(local)
+//   userAgent   String?     // Información del navegador/dispositivo
+//   ip          String?     // Dirección IP desde donde se conecta
+//   createdAt   DateTime    @default(now())
+//   expiresAt   DateTime
+//   isActive    Boolean     @default(true)
+//   lastUsedAt  DateTime    @default(now()) // Última vez que se usó el token
 
-  user   User        @relation(fields: [userId], references: [id])
-  server UnitServer? @relation(fields: [serverId], references: [id])
+//   user        User        @relation(fields: [userId], references: [id])
+//   server      UnitServer? @relation(fields: [serverId], references: [id])
 
-  @@index([token])
-  @@index([userId])
-  @@index([serverId])
-  @@index([sessionType])
-  @@index([isActive])
-}
+//   @@index([token])
+//   @@index([userId])
+//   @@index([serverId])
+//   @@index([sessionType])
+//   @@index([isActive])
+// }
 
 model Client {
   id       String       @id @default(uuid())
@@ -260,7 +261,7 @@ model UnitServer {
   activeConfigId    String?
 
   constellation Constellation @relation(fields: [constellationId], references: [id])
-  activeConfig  UnitConfig?   @relation(fields: [activeConfigId], references: [id], name: "ConfigInServers")
+  activeConfig  UnitConfig?   @relation("ActiveConfig", fields: [activeConfigId], references: [id])
 
   clients        Client[]
   professionals  Professional[]
@@ -268,7 +269,7 @@ model UnitServer {
   sections       Section[]
   manualArticles ManualArticle[]
   autoSources    AutoSource[]
-  sessions       Session[]
+  // sessions        Session[] // FUTURA IMPLEMENTACIÓN: Sistema híbrido JWT + Sesiones
   updateLogs     UpdateLog[]
   notifications  UserNotification[]
 }
@@ -277,22 +278,21 @@ model UnitConfig {
   id              String   @id @default(uuid())
   name            String   @unique
   pageTitle       String
-  footerInfo      String
-  legalStepsCount Int
-  pageType        String // landing, wiget, etc.
-  externalLinks   Json // { facebook, twitter, … }
-  newsParams      Json // { keyword, limit }
-  selectedNews    Json // [{ title, url }]
-  infoSections    Json // textos estáticos (FAQ, cómo trabajamos…)
+  footerInfo      String?
+  legalStepsCount Int      @default(0)
+  pageType        String
+  externalLinks   Json?
+  newsParams      Json?
+  selectedNews    Json?
+  infoSections    Json?
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
-  // Relaciones
-  servers         UnitServer[]    @relation("ConfigInServers")
   sections        Section[]
   manualArticles  ManualArticle[]
   autoSources     AutoSource[]
   images          Image[]
+  activeInServers UnitServer[]    @relation("ActiveConfig")
   updates         UpdateLog[]     @relation("ConfigInUpdates")
   previousUpdates UpdateLog[]     @relation("PreviousConfig")
 }
