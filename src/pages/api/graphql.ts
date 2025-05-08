@@ -1,76 +1,36 @@
 import { ApolloServer } from '@apollo/server';
 import { startServerAndCreateNextHandler } from '@as-integrations/next';
-import { gql } from 'graphql-tag';
-import prisma from '@/lib/prisma';
+import { schema } from '../../graphql/schema';
+import { PrismaClient } from '@prisma/client';
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "./auth/[...nextauth]";
 import { NextApiRequest, NextApiResponse } from 'next';
 
-const typeDefs = gql`
-  type User {
-    id: String
-    email: String
-    role: String
-    firstName: String
-    lastName: String
-  }
-
-  type UnitServer {
-    id: String
-    domain: String
-    name: String
-  }
-
-  type Case {
-    id: String
-    status: String
-    createdAt: String
-  }
-
-  type Query {
-    users: [User]
-    unitServers: [UnitServer]
-    cases: [Case]
-  }
-`;
-
-const resolvers = {
-  Query: {
-    users: () => prisma.user.findMany({
-      select: {
-        id: true,
-        email: true,
-        role: true,
-        firstName: true,
-        lastName: true
-      }
-    }),
-    unitServers: () => prisma.unitServer.findMany({
-      select: {
-        id: true,
-        domain: true,
-        name: true
-      }
-    }),
-    cases: () => prisma.case.findMany({
-      select: {
-        id: true,
-        status: true,
-        createdAt: true
-      }
-    })
-  }
+export type Context = {
+  prisma: PrismaClient;
+  session: any;
 };
 
+// Inicializa Prisma Client
+const prisma = new PrismaClient();
+
+// Crea una instancia de Apollo Server
 const server = new ApolloServer({
-  typeDefs,
-  resolvers,
+  schema,
+  introspection: process.env.NODE_ENV !== 'production',
 });
 
+// Define la función que crea el contexto para cada solicitud
+const createContext = async (req: NextApiRequest, res: NextApiResponse): Promise<Context> => {
+  const session = await getServerSession(req, res, authOptions);
+  
+  return {
+    prisma,
+    session,
+  };
+};
+
+// Exporta el handler para Next.js
 export default startServerAndCreateNextHandler(server, {
-  context: async (req: NextApiRequest, res: NextApiResponse) => {
-    return {
-      prisma,
-      req,
-      res
-    };
-  },
+  context: async (req, res) => createContext(req, res),
 });

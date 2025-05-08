@@ -19,7 +19,7 @@ declare module "next-auth" {
 
 // Configuración de autenticación
 export const authOptions: NextAuthOptions = {
-  providers: [
+  providers: [ // Proveedor de credenciales
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
@@ -77,7 +77,7 @@ export const authOptions: NextAuthOptions = {
     signIn: '/auth/signin',
     error: '/auth/error',
   },
-  callbacks: {
+  callbacks: { // Callback para manejar el token JWT y la sesión cuando se crea o actualiza
     async session({ session, token }) {
       if (token && session.user) {
         session.user.id = token.sub!;

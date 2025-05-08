@@ -3,8 +3,7 @@
 import { useState, useEffect } from 'react';
 import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { TextField, Button, Card, Flex, Heading, Text, Theme, Box } from '@radix-ui/themes';
-import '@radix-ui/themes/styles.css';
+import { TextField, Button, Card, Flex, Heading, Text, Box } from '@radix-ui/themes';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -13,8 +12,14 @@ export default function SignIn() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [pageReady, setPageReady] = useState(false);
   const router = useRouter();
   const { data: session, status } = useSession();
+
+  // Indicar que el componente está listo en el cliente
+  useEffect(() => {
+    setPageReady(true);
+  }, []);
 
   // Redireccionar si ya está autenticado
   useEffect(() => {
@@ -29,7 +34,7 @@ export default function SignIn() {
         router.push('/');
       }
     }
-  }, [status, session, router]);
+  }, [status, session, router]); // estado de autenticación, sesión y router como dependencias
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -56,22 +61,8 @@ export default function SignIn() {
           setError('Credenciales incorrectas');
         }
         setLoading(false);
-      } else if (result?.ok) {
-        // Obtenemos la información del usuario para determinar su rol
-        const userResponse = await fetch('/api/auth/session');
-        const session = await userResponse.json();
-        
-        // Redirigimos según el rol
-        if (session?.user?.role === 'admin') {
-          router.push('/admin');
-        } else if (session?.user?.role === 'professional') {
-          router.push('/pro');
-        } else if (session?.user?.role === 'client') {
-          router.push('/client');
-        } else {
-          router.push('/');
-        }
       }
+      // No es necesario hacer nada más aquí - el efecto anterior redirigirá al usuario cuando la sesión se actualice
     } catch (err) {
       setError('Error al iniciar sesión. Inténtalo más tarde.');
       setLoading(false);
@@ -79,7 +70,7 @@ export default function SignIn() {
   };
 
   // Si está cargando la sesión, mostrar pantalla de carga
-  if (status === 'loading') {
+  if (!pageReady || status === 'loading') {
     return (
       <Flex justify="center" align="center" className="min-h-screen">
         <Text>Cargando...</Text>
@@ -87,67 +78,74 @@ export default function SignIn() {
     );
   }
 
-  return (
-    <Theme appearance="light" accentColor="blue">
-      <Flex justify="center" align="center" className="min-h-screen bg-gray-50">
-        <Card className="w-full max-w-md p-8">
-          <Flex direction="column" gap="6" align="center">
-            <Link href="/">
-              <Image src="/globe.svg" width={60} height={60} alt="Atlas Logo" />
-            </Link>
-            
-            <Heading size="6">Iniciar sesión en Atlas</Heading>
-            
-            {error && (
-              <Box className="w-full p-3 bg-red-50 text-red-700 rounded-md">
-                {error}
-              </Box>
-            )}
-            
-            <form onSubmit={handleSubmit} className="w-full space-y-4">
-              <Flex direction="column" gap="3" className="w-full">
-                <label htmlFor="email">
-                  <Text size="2" weight="medium">Correo electrónico</Text>
-                </label>
-                <TextField.Root
-                  id="email"
-                  type="email"
-                  placeholder="ejemplo@correo.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </Flex>
-              
-              <Flex direction="column" gap="3" className="w-full">
-                <label htmlFor="password">
-                  <Text size="2" weight="medium">Contraseña</Text>
-                </label>
-                <TextField.Root 
-                  id="password"
-                  type="password"
-                  placeholder="Tu contraseña"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </Flex>
-              
-              <Button 
-                type="submit" 
-                className="w-full" 
-                disabled={loading}
-              >
-                {loading ? 'Iniciando sesión...' : 'Iniciar sesión'}
-              </Button>
-            </form>
-            
-            <Text size="2" className="text-gray-500">
-              ¿No puedes acceder a tu cuenta? Contacta con tu administrador.
-            </Text>
-          </Flex>
-        </Card>
+  // No renderizar el formulario si ya está autenticado (evita parpadeos)
+  if (status === 'authenticated') {
+    return (
+      <Flex justify="center" align="center" className="min-h-screen">
+        <Text>Redirigiendo...</Text>
       </Flex>
-    </Theme>
+    );
+  }
+
+  return (
+    <Flex justify="center" align="center" className="min-h-screen bg-gray-50">
+      <Card className="w-full max-w-md p-8">
+        <Flex direction="column" gap="6" align="center">
+          <Link href="/">
+            <Image src="/globe.svg" width={60} height={60} alt="Atlas Logo" />
+          </Link>
+          
+          <Heading size="6">Iniciar sesión en Atlas</Heading>
+          
+          {error && (
+            <Box className="w-full p-3 bg-red-50 text-red-700 rounded-md">
+              {error}
+            </Box>
+          )}
+          
+          <form onSubmit={handleSubmit} className="w-full space-y-4">
+            <Flex direction="column" gap="3" className="w-full">
+              <label htmlFor="email">
+                <Text size="2" weight="medium">Correo electrónico</Text>
+              </label>
+              <TextField.Root
+                id="email"
+                type="email"
+                placeholder="ejemplo@correo.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </Flex>
+            
+            <Flex direction="column" gap="3" className="w-full">
+              <label htmlFor="password">
+                <Text size="2" weight="medium">Contraseña</Text>
+              </label>
+              <TextField.Root 
+                id="password"
+                type="password"
+                placeholder="Tu contraseña"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </Flex>
+            
+            <Button 
+              type="submit" 
+              className="w-full" 
+              disabled={loading}
+            >
+              {loading ? 'Iniciando sesión...' : 'Iniciar sesión'}
+            </Button>
+          </form>
+          
+          <Text size="2" className="text-gray-500">
+            ¿No puedes acceder a tu cuenta? Contacta con tu administrador.
+          </Text>
+        </Flex>
+      </Card>
+    </Flex>
   );
 }
