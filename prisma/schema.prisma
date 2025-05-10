@@ -74,7 +74,6 @@ model User {
   clients      Client[]
   professionals Professional[]
   // sessions     Session[] // FUTURA IMPLEMENTACIÓN: Sistema híbrido JWT + Sesiones
-  notifications UserNotification[]
   initiatedUpdates UpdateLog[]
 }
 
@@ -271,7 +270,6 @@ model UnitServer {
   autoSources      AutoSource[]
   // sessions        Session[] // FUTURA IMPLEMENTACIÓN: Sistema híbrido JWT + Sesiones
   updateLogs       UpdateLog[]
-  notifications    UserNotification[]
 }
 
 model UnitConfig {
@@ -316,22 +314,3 @@ model UpdateLog {
   initiator       User        @relation(fields: [initiatorId], references: [id])
 }
 
-model UserNotification {
-  id                String    @id @default(uuid())
-  userId            String
-  title             String
-  message           String
-  type              String    // info, warning, error, success
-  relatedEntityId   String?
-  relatedEntityType String?   // Case, Chat, Message, etc.
-  isRead            Boolean   @default(false)
-  createdAt         DateTime  @default(now())
-  serverId          String?
-
-  user              User       @relation(fields: [userId], references: [id])
-  server            UnitServer? @relation(fields: [serverId], references: [id])
-
-  @@index([userId])
-  @@index([isRead])
-  @@index([serverId])
-}

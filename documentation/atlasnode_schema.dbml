@@ -244,23 +244,3 @@ startedAt       timestamp [note: 'Fecha y hora de inicio del proceso']
 completedAt     timestamp [note: 'Fecha y hora de finalización (si completado)']
 errorDetails    text      [note: 'Detalles de error en caso de fallo']
 }
-
-// Sistema de notificaciones
-table UserNotification [note: 'Alertas y notificaciones pendientes para usuarios.'] {
-id                uuid      [pk, note: 'Identificador único de la notificación']
-userId            uuid      [ref: > User.id, note: 'Usuario receptor de la notificación']
-serverId          uuid      [ref: > UnitServer.id, note: 'Servidor emisor de la notificación (opcional para orquestador)']
-title             varchar   [note: 'Título corto de la notificación']
-message           text      [note: 'Mensaje descriptivo de la notificación']
-type              varchar   [note: 'Tipo de notificación (info, warning, error, success)']
-relatedEntityId   varchar   [note: 'ID de la entidad relacionada (caso, chat, etc.)']
-relatedEntityType varchar   [note: 'Tipo de entidad relacionada (Case, Chat, Message, etc.)']
-isRead            boolean   [note: 'Indicador de lectura']
-createdAt         timestamp [note: 'Fecha de creación de la notificación']
-
-indexes {
-  (userId) [name: 'notification_user_idx']
-  (isRead) [name: 'notification_read_idx']
-  (serverId) [name: 'notification_server_idx']
-}
-}

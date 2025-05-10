@@ -274,19 +274,6 @@ exports.Prisma.UpdateLogScalarFieldEnum = {
   errorDetails: 'errorDetails'
 };
 
-exports.Prisma.UserNotificationScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  title: 'title',
-  message: 'message',
-  type: 'type',
-  relatedEntityId: 'relatedEntityId',
-  relatedEntityType: 'relatedEntityType',
-  isRead: 'isRead',
-  createdAt: 'createdAt',
-  serverId: 'serverId'
-};
-
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -361,8 +348,7 @@ exports.Prisma.ModelName = {
   Image: 'Image',
   UnitServer: 'UnitServer',
   UnitConfig: 'UnitConfig',
-  UpdateLog: 'UpdateLog',
-  UserNotification: 'UserNotification'
+  UpdateLog: 'UpdateLog'
 };
 
 /**
