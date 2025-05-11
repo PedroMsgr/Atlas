@@ -1,11 +1,22 @@
 import bcrypt from 'bcryptjs';
-import { signIn, signOut } from 'next-auth/react';
-import prisma from '@/lib/prisma';
+import jwt from 'jsonwebtoken';
+import { UsersRepository } from '@/db/repositories/users.repo';
 
 export class AuthService {
+  private usersRepo: UsersRepository;
+  private readonly JWT_SECRET: string;
+  private readonly JWT_EXPIRES_IN: string;
+
+  constructor() {
+    this.usersRepo = new UsersRepository();
+    this.JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
+    this.JWT_EXPIRES_IN = '24h';
+  }
+
   /**
    * Autenticar un usuario mediante email y contraseña
-   */  async authenticateUser(credentials: { email: string; password: string }) {
+   */
+  async authenticateUser(credentials: { email: string; password: string }) {
     const { email, password } = credentials;
     
     // Verificar si las credenciales están presentes
@@ -18,9 +29,7 @@ export class AuthService {
     
     try {
       // Buscar el usuario en la base de datos
-      const user = await prisma.user.findUnique({
-        where: { email }
-      });
+      const user = await this.usersRepo.findByEmail(email);
       
       // Verificar si el usuario existe y está activo
       if (!user || !user.isActive) {
@@ -49,13 +58,19 @@ export class AuthService {
       }
       
       // Actualizar la última fecha de inicio de sesión
-      await prisma.user.update({
-        where: { id: user.id },
-        data: { lastLoginAt: new Date() }
-      });
+      await this.usersRepo.updateLastLogin(user.id);
       
-      // En lugar de llamar a signIn aquí (ya que se hará desde el componente),
-      // simplemente devolvemos la información del usuario autenticado
+      // Generar el token JWT
+      const token = jwt.sign(
+        {
+          id: user.id,
+          email: user.email,
+          role: user.role
+        },
+        process.env.JWT_SECRET || 'default-secret',
+        { expiresIn: '24h' }
+      );
+      
       return {
         success: true,
         message: 'Inicio de sesión exitoso',
@@ -65,7 +80,8 @@ export class AuthService {
           name: `${user.firstName} ${user.lastName}`,
           role: user.role,
           image: user.avatarUrl
-        }
+        },
+        token
       };
     } catch (error) {
       console.error('Error de autenticación:', error);
@@ -81,7 +97,6 @@ export class AuthService {
    */
   async logoutUser() {
     try {
-      await signOut({ redirect: false });
       return {
         success: true,
         message: 'Sesión cerrada correctamente'
@@ -96,33 +111,56 @@ export class AuthService {
   }
   
   /**
-   * Obtener el usuario actual a partir de la sesión
-   */  async getCurrentUser(session: any) {
-    if (!session?.user) {
+   * Obtener el usuario actual a partir del token JWT
+   */
+  async getCurrentUser(token: string | null) {
+    if (!token) {
       return null;
     }
-    
-    return {
-      id: session.user.id,
-      email: session.user.email,
-      name: session.user.name,
-      role: session.user.role,
-      image: session.user.image
-    };
+
+    try {
+      const decoded = jwt.verify(token, this.JWT_SECRET) as {
+        id: string;
+        email: string;
+        role: string;
+      };
+
+      const user = await this.usersRepo.findById(decoded.id);
+      
+      if (!user || !user.isActive) {
+        return null;
+      }
+
+      return {
+        id: user.id,
+        email: user.email,
+        name: `${user.firstName} ${user.lastName}`,
+        role: user.role,
+        image: user.avatarUrl
+      };
+    } catch (error) {
+      console.error('Error al verificar token:', error);
+      return null;
+    }
   }
 
   /**
    * Verifica si el usuario tiene los roles requeridos
-   * @param session Sesión actual
-   * @param allowedRoles Roles permitidos para la operación
-   * @returns true si el usuario tiene permiso, false en caso contrario
    */
-  hasPermission(session: any, allowedRoles: string[]) {
-    if (!session?.user?.role) {
+  hasPermission(token: string | null, allowedRoles: string[]) {
+    if (!token) {
       return false;
     }
-    
-    return allowedRoles.includes(session.user.role);
+
+    try {
+      const decoded = jwt.verify(token, this.JWT_SECRET) as {
+        role: string;
+      };
+      
+      return allowedRoles.includes(decoded.role);
+    } catch (error) {
+      return false;
+    }
   }
 }
 

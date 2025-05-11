@@ -6,8 +6,17 @@ import { useSession, signOut } from 'next-auth/react';
 import { ExitIcon, HomeIcon, GearIcon } from '@radix-ui/react-icons';
 import Image from 'next/image';
 
+// Extender el tipo de sesión para incluir role
+interface CustomUser {
+  name?: string | null;
+  email?: string | null;
+  image?: string | null;
+  role?: string;
+}
+
 export default function Header() {
   const { data: session } = useSession();
+  const user = session?.user as CustomUser | undefined;
 
   return (
     <header>
@@ -18,8 +27,8 @@ export default function Header() {
               <Image src="/globe.svg" width={30} height={30} alt="Atlas" />
             </Link>
             <Heading size="6">
-              {session?.user?.role === 'admin' ? 'Panel de Administración' : 
-               session?.user?.role === 'professional' ? 'Portal Profesional' : 'Atlas Legal Platform'}
+              {user?.role === 'admin' ? 'Panel de Administración' : 
+               user?.role === 'professional' ? 'Portal Profesional' : 'Atlas Legal Platform'}
             </Heading>
           </Flex>
           
@@ -28,13 +37,13 @@ export default function Header() {
               <>
                 <Flex align="center" gap="2">
                   <Avatar
-                    fallback={(session.user.name?.[0] || 'A') as string}
+                    fallback={((user?.name?.[0]) || 'A')}
                     color="blue"
                     variant="solid"
                   />
-                  <Text>{session.user.name || session.user.email}</Text>
+                  <Text>{user?.name || user?.email}</Text>
                 </Flex>
-                {session.user.role === 'admin' && (
+                {user?.role === 'admin' && (
                   <Link href="/admin">
                     <Button variant="soft">
                       <GearIcon />
@@ -42,7 +51,7 @@ export default function Header() {
                     </Button>
                   </Link>
                 )}
-                {session.user.role === 'professional' && (
+                {user?.role === 'professional' && (
                   <Link href="/pro">
                     <Button variant="soft">
                       <HomeIcon />

@@ -1,50 +1,59 @@
-import { NextResponse } from 'next/server';
-import { withAuth } from 'next-auth/middleware';
-import { NextRequestWithAuth } from 'next-auth/middleware';
+// middleware.ts
+import { withAuth } from "next-auth/middleware";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
-// Middleware que se ejecuta en cada solicitud
+// Add nextauth property to NextRequest
+declare module "next/server" {
+  interface NextRequest {
+    nextauth: {
+      token: {
+        role?: string;
+        [key: string]: any;
+      } | null;
+    };
+  }
+}
+
 export default withAuth(
-  // `withAuth` aumenta la request con la sesión del usuario
-  function middleware(request: NextRequestWithAuth) {
-    // Obtener la ruta actual y la sesión
-    const pathname = request.nextUrl.pathname;
-    const role = request.nextauth.token?.role as string | undefined;
-    
-    // Rutas para el panel de administración
-    if (pathname.startsWith('/admin')) {
-      // Solo permitir acceso a administradores
-      if (role !== 'admin') {
-        const url = new URL('/auth/signin', request.url);
-        url.searchParams.set('callbackUrl', encodeURI(request.url));
-        url.searchParams.set('error', 'AccessDenied');
-        return NextResponse.redirect(url);
-      }
+  function middleware(req: NextRequest) {
+    const { pathname } = req.nextUrl;
+    const token = req.nextauth.token as { role?: string } | undefined;
+
+    // Si no hay token, withAuth ya redirige por defecto a /api/auth/signin
+    // Aquí solo manejamos permisos por ruta/rol
+
+    // Rutas de administrador
+    if (pathname.startsWith("/admin") && token?.role !== "admin") {
+      return NextResponse.redirect(new URL("/", req.url));
     }
-    
-    // Rutas para profesionales
-    if (pathname.startsWith('/pro')) {
-      // Permitir acceso a profesionales y administradores
-      if (!(role === 'professional' || role === 'admin')) {
-        const url = new URL('/auth/signin', request.url);
-        url.searchParams.set('callbackUrl', encodeURI(request.url));
-        url.searchParams.set('error', 'AccessDenied');
-        return NextResponse.redirect(url);
-      }
+
+    // Rutas de profesional (admin también puede entrar)
+    if (
+      pathname.startsWith("/pro") &&
+      token?.role !== "professional" &&
+      token?.role !== "admin"
+    ) {
+      return NextResponse.redirect(new URL("/", req.url));
     }
-    
-    // Si la autenticación pasa, continuar con la solicitud
+
+    // Rutas de cliente
+    if (pathname.startsWith("/client") && token?.role !== "client") {
+      return NextResponse.redirect(new URL("/", req.url));
+    }
+
+    // Si pasa todas las comprobaciones, continúa
     return NextResponse.next();
   },
   {
-    // Configuración de withAuth
     callbacks: {
-      // Verificar si el usuario tiene sesión para estas rutas
+      // Solo permite avanzar a usuarios autenticados
       authorized: ({ token }) => !!token,
     },
   }
 );
 
-// Configurar en qué rutas se ejecutará el middleware
 export const config = {
-  matcher: ['/admin/:path*', '/pro/:path*'],
+  // Aplica middleware a estas rutas
+  matcher: ["/admin/:path*", "/pro/:path*", "/client/:path*"],
 };
