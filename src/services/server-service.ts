@@ -7,13 +7,29 @@ export class ServerService {
   constructor() {
     this.serversRepo = new ServersRepository();
   }
-
   async getAllServers() {
-    return await this.serversRepo.findAll();
+    const servers = await this.serversRepo.findAll();
+    return servers.map(server => ({
+      ...server,
+      isActive: true,
+      // Asegurarse de que las fechas estén en formato ISO
+      createdAt: server.createdAt ? server.createdAt.toISOString() : null,
+      updatedAt: server.updatedAt ? server.updatedAt.toISOString() : null
+    }));
   }
 
   async getServerById(id: string) {
-    return await this.serversRepo.findById(id);
+    const server = await this.serversRepo.findById(id);
+    if (server) {
+      return {
+        ...server,
+        isActive: true,
+        // Asegurarse de que las fechas estén en formato ISO
+        createdAt: server.createdAt ? server.createdAt.toISOString() : null,
+        updatedAt: server.updatedAt ? server.updatedAt.toISOString() : null
+      };
+    }
+    return null;
   }
 
   async createServer(data: { name: string; domain: string; constellationId?: string }) {
@@ -32,8 +48,12 @@ export class ServerService {
       domain,
       orchestratorToken: tokenService.generateOrchestratorToken(),
       unitToken: tokenService.generateUnitToken(),
-      isActive: true,
       requiresUpdate: false,
+      isActive: true,
+      constellationId: null,
+      activeConfigId: null,
+      updatedAt: new Date().toISOString(),
+      createdAt: new Date().toISOString(),
     };
 
     // Agregar constelación si existe ID
@@ -44,11 +64,48 @@ export class ServerService {
     const createdServer = await this.serversRepo.create(serverData);
     
     // Obtener el servidor con sus relaciones
-    return await this.serversRepo.findById(createdServer.id);
-  }  async getAllConstellations() {
-    // Importamos prisma aquí para mantener la compatibilidad hasta que tengamos un repositorio de constelaciones
+    const server = await this.serversRepo.findById(createdServer.id);
+    if (server) {
+      return {
+        ...server,
+        isActive: true // Siempre devolvemos true por ahora
+      };
+    }
+    return null;
+  }
+
+  async updateServer(id: string, data: { 
+    name?: string; 
+    domain?: string; 
+    constellationId?: string;
+    requiresUpdate?: boolean;
+    isActive?: boolean;
+  }) {
+    // Si se está actualizando el dominio, verificar que no exista
+    if (data.domain) {
+      const existingServer = await this.serversRepo.findByDomain(data.domain);
+      if (existingServer && existingServer.id !== id) {
+        throw new Error(`Ya existe un servidor con el dominio ${data.domain}`);
+      }
+    }
+
+    return await this.serversRepo.update(id, data);
+  }
+
+  async deleteServer(id: string) {
+    return await this.serversRepo.delete(id);
+  }
+
+  async getAllConstellations() {
     const { prisma } = await import('@/db/prisma-client');
     return await prisma.constellation.findMany();
+  }
+
+  async getConstellationById(id: string) {
+    const { prisma } = await import('@/db/prisma-client');
+    return await prisma.constellation.findUnique({
+      where: { id },
+    });
   }
 }
 

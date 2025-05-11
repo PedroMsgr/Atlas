@@ -1,7 +1,8 @@
 'use client';
 
 import { Box, Heading } from '@radix-ui/themes';
-import ServerList from '@/components/examples/ServerList';
+import ServerList from '@/components/server-components/ServerList';
+import CreateServer from '@/components/server-components/CreateServer';
 
 export default function ServersPage() {
   return (
@@ -17,6 +18,7 @@ export default function ServersPage() {
             <ServerList />
           </div>
           <div className="lg:col-span-1">
+            <CreateServer />
           </div>
         </div>
       </div>

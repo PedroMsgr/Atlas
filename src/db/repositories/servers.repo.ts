@@ -3,7 +3,26 @@ import { prisma } from '../prisma-client';
 
 export class ServersRepository {
   async findAll(): Promise<UnitServer[]> {
-    return prisma.unitServer.findMany();
+    return prisma.unitServer.findMany({
+      select: {
+        id: true,
+        name: true,
+        domain: true,
+        requiresUpdate: true,
+        isActive: true,
+        constellation: {
+          select: {
+            name: true
+          }
+        },
+        updatedAt: true,
+        createdAt: true,
+        orchestratorToken: true,
+        unitToken: true,
+        constellationId: true,
+        activeConfigId: true
+      }
+    });
   }
 
   async findById(id: string): Promise<UnitServer | null> {

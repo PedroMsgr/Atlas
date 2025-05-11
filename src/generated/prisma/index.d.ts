@@ -17220,8 +17220,11 @@ export namespace Prisma {
     orchestratorToken: string | null
     unitToken: string | null
     requiresUpdate: boolean | null
+    isActive: boolean | null
     constellationId: string | null
     activeConfigId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type UnitServerMaxAggregateOutputType = {
@@ -17231,8 +17234,11 @@ export namespace Prisma {
     orchestratorToken: string | null
     unitToken: string | null
     requiresUpdate: boolean | null
+    isActive: boolean | null
     constellationId: string | null
     activeConfigId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type UnitServerCountAggregateOutputType = {
@@ -17242,8 +17248,11 @@ export namespace Prisma {
     orchestratorToken: number
     unitToken: number
     requiresUpdate: number
+    isActive: number
     constellationId: number
     activeConfigId: number
+    createdAt: number
+    updatedAt: number
     _all: number
   }
 
@@ -17255,8 +17264,11 @@ export namespace Prisma {
     orchestratorToken?: true
     unitToken?: true
     requiresUpdate?: true
+    isActive?: true
     constellationId?: true
     activeConfigId?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type UnitServerMaxAggregateInputType = {
@@ -17266,8 +17278,11 @@ export namespace Prisma {
     orchestratorToken?: true
     unitToken?: true
     requiresUpdate?: true
+    isActive?: true
     constellationId?: true
     activeConfigId?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type UnitServerCountAggregateInputType = {
@@ -17277,8 +17292,11 @@ export namespace Prisma {
     orchestratorToken?: true
     unitToken?: true
     requiresUpdate?: true
+    isActive?: true
     constellationId?: true
     activeConfigId?: true
+    createdAt?: true
+    updatedAt?: true
     _all?: true
   }
 
@@ -17361,8 +17379,11 @@ export namespace Prisma {
     orchestratorToken: string
     unitToken: string
     requiresUpdate: boolean
+    isActive: boolean
     constellationId: string
     activeConfigId: string | null
+    createdAt: Date
+    updatedAt: Date
     _count: UnitServerCountAggregateOutputType | null
     _min: UnitServerMinAggregateOutputType | null
     _max: UnitServerMaxAggregateOutputType | null
@@ -17389,8 +17410,11 @@ export namespace Prisma {
     orchestratorToken?: boolean
     unitToken?: boolean
     requiresUpdate?: boolean
+    isActive?: boolean
     constellationId?: boolean
     activeConfigId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     constellation?: boolean | ConstellationDefaultArgs<ExtArgs>
     activeConfig?: boolean | UnitServer$activeConfigArgs<ExtArgs>
     clients?: boolean | UnitServer$clientsArgs<ExtArgs>
@@ -17410,8 +17434,11 @@ export namespace Prisma {
     orchestratorToken?: boolean
     unitToken?: boolean
     requiresUpdate?: boolean
+    isActive?: boolean
     constellationId?: boolean
     activeConfigId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     constellation?: boolean | ConstellationDefaultArgs<ExtArgs>
     activeConfig?: boolean | UnitServer$activeConfigArgs<ExtArgs>
   }, ExtArgs["result"]["unitServer"]>
@@ -17423,8 +17450,11 @@ export namespace Prisma {
     orchestratorToken?: boolean
     unitToken?: boolean
     requiresUpdate?: boolean
+    isActive?: boolean
     constellationId?: boolean
     activeConfigId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     constellation?: boolean | ConstellationDefaultArgs<ExtArgs>
     activeConfig?: boolean | UnitServer$activeConfigArgs<ExtArgs>
   }, ExtArgs["result"]["unitServer"]>
@@ -17436,11 +17466,14 @@ export namespace Prisma {
     orchestratorToken?: boolean
     unitToken?: boolean
     requiresUpdate?: boolean
+    isActive?: boolean
     constellationId?: boolean
     activeConfigId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
   }
 
-  export type UnitServerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "domain" | "name" | "orchestratorToken" | "unitToken" | "requiresUpdate" | "constellationId" | "activeConfigId", ExtArgs["result"]["unitServer"]>
+  export type UnitServerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "domain" | "name" | "orchestratorToken" | "unitToken" | "requiresUpdate" | "isActive" | "constellationId" | "activeConfigId" | "createdAt" | "updatedAt", ExtArgs["result"]["unitServer"]>
   export type UnitServerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     constellation?: boolean | ConstellationDefaultArgs<ExtArgs>
     activeConfig?: boolean | UnitServer$activeConfigArgs<ExtArgs>
@@ -17482,8 +17515,11 @@ export namespace Prisma {
       orchestratorToken: string
       unitToken: string
       requiresUpdate: boolean
+      isActive: boolean
       constellationId: string
       activeConfigId: string | null
+      createdAt: Date
+      updatedAt: Date
     }, ExtArgs["result"]["unitServer"]>
     composites: {}
   }
@@ -17922,8 +17958,11 @@ export namespace Prisma {
     readonly orchestratorToken: FieldRef<"UnitServer", 'String'>
     readonly unitToken: FieldRef<"UnitServer", 'String'>
     readonly requiresUpdate: FieldRef<"UnitServer", 'Boolean'>
+    readonly isActive: FieldRef<"UnitServer", 'Boolean'>
     readonly constellationId: FieldRef<"UnitServer", 'String'>
     readonly activeConfigId: FieldRef<"UnitServer", 'String'>
+    readonly createdAt: FieldRef<"UnitServer", 'DateTime'>
+    readonly updatedAt: FieldRef<"UnitServer", 'DateTime'>
   }
     
 
@@ -21213,8 +21252,11 @@ export namespace Prisma {
     orchestratorToken: 'orchestratorToken',
     unitToken: 'unitToken',
     requiresUpdate: 'requiresUpdate',
+    isActive: 'isActive',
     constellationId: 'constellationId',
-    activeConfigId: 'activeConfigId'
+    activeConfigId: 'activeConfigId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
   };
 
   export type UnitServerScalarFieldEnum = (typeof UnitServerScalarFieldEnum)[keyof typeof UnitServerScalarFieldEnum]
@@ -22297,8 +22339,11 @@ export namespace Prisma {
     orchestratorToken?: StringFilter<"UnitServer"> | string
     unitToken?: StringFilter<"UnitServer"> | string
     requiresUpdate?: BoolFilter<"UnitServer"> | boolean
+    isActive?: BoolFilter<"UnitServer"> | boolean
     constellationId?: StringFilter<"UnitServer"> | string
     activeConfigId?: StringNullableFilter<"UnitServer"> | string | null
+    createdAt?: DateTimeFilter<"UnitServer"> | Date | string
+    updatedAt?: DateTimeFilter<"UnitServer"> | Date | string
     constellation?: XOR<ConstellationScalarRelationFilter, ConstellationWhereInput>
     activeConfig?: XOR<UnitConfigNullableScalarRelationFilter, UnitConfigWhereInput> | null
     clients?: ClientListRelationFilter
@@ -22317,8 +22362,11 @@ export namespace Prisma {
     orchestratorToken?: SortOrder
     unitToken?: SortOrder
     requiresUpdate?: SortOrder
+    isActive?: SortOrder
     constellationId?: SortOrder
     activeConfigId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     constellation?: ConstellationOrderByWithRelationInput
     activeConfig?: UnitConfigOrderByWithRelationInput
     clients?: ClientOrderByRelationAggregateInput
@@ -22340,8 +22388,11 @@ export namespace Prisma {
     NOT?: UnitServerWhereInput | UnitServerWhereInput[]
     name?: StringFilter<"UnitServer"> | string
     requiresUpdate?: BoolFilter<"UnitServer"> | boolean
+    isActive?: BoolFilter<"UnitServer"> | boolean
     constellationId?: StringFilter<"UnitServer"> | string
     activeConfigId?: StringNullableFilter<"UnitServer"> | string | null
+    createdAt?: DateTimeFilter<"UnitServer"> | Date | string
+    updatedAt?: DateTimeFilter<"UnitServer"> | Date | string
     constellation?: XOR<ConstellationScalarRelationFilter, ConstellationWhereInput>
     activeConfig?: XOR<UnitConfigNullableScalarRelationFilter, UnitConfigWhereInput> | null
     clients?: ClientListRelationFilter
@@ -22360,8 +22411,11 @@ export namespace Prisma {
     orchestratorToken?: SortOrder
     unitToken?: SortOrder
     requiresUpdate?: SortOrder
+    isActive?: SortOrder
     constellationId?: SortOrder
     activeConfigId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     _count?: UnitServerCountOrderByAggregateInput
     _max?: UnitServerMaxOrderByAggregateInput
     _min?: UnitServerMinOrderByAggregateInput
@@ -22377,8 +22431,11 @@ export namespace Prisma {
     orchestratorToken?: StringWithAggregatesFilter<"UnitServer"> | string
     unitToken?: StringWithAggregatesFilter<"UnitServer"> | string
     requiresUpdate?: BoolWithAggregatesFilter<"UnitServer"> | boolean
+    isActive?: BoolWithAggregatesFilter<"UnitServer"> | boolean
     constellationId?: StringWithAggregatesFilter<"UnitServer"> | string
     activeConfigId?: StringNullableWithAggregatesFilter<"UnitServer"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"UnitServer"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"UnitServer"> | Date | string
   }
 
   export type UnitConfigWhereInput = {
@@ -23423,6 +23480,9 @@ export namespace Prisma {
     orchestratorToken: string
     unitToken: string
     requiresUpdate?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
     constellation: ConstellationCreateNestedOneWithoutServersInput
     activeConfig?: UnitConfigCreateNestedOneWithoutActiveInServersInput
     clients?: ClientCreateNestedManyWithoutServerInput
@@ -23441,8 +23501,11 @@ export namespace Prisma {
     orchestratorToken: string
     unitToken: string
     requiresUpdate?: boolean
+    isActive?: boolean
     constellationId: string
     activeConfigId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     clients?: ClientUncheckedCreateNestedManyWithoutServerInput
     professionals?: ProfessionalUncheckedCreateNestedManyWithoutServerInput
     cases?: CaseUncheckedCreateNestedManyWithoutServerInput
@@ -23459,6 +23522,9 @@ export namespace Prisma {
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     constellation?: ConstellationUpdateOneRequiredWithoutServersNestedInput
     activeConfig?: UnitConfigUpdateOneWithoutActiveInServersNestedInput
     clients?: ClientUpdateManyWithoutServerNestedInput
@@ -23477,8 +23543,11 @@ export namespace Prisma {
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     constellationId?: StringFieldUpdateOperationsInput | string
     activeConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     clients?: ClientUncheckedUpdateManyWithoutServerNestedInput
     professionals?: ProfessionalUncheckedUpdateManyWithoutServerNestedInput
     cases?: CaseUncheckedUpdateManyWithoutServerNestedInput
@@ -23495,8 +23564,11 @@ export namespace Prisma {
     orchestratorToken: string
     unitToken: string
     requiresUpdate?: boolean
+    isActive?: boolean
     constellationId: string
     activeConfigId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type UnitServerUpdateManyMutationInput = {
@@ -23506,6 +23578,9 @@ export namespace Prisma {
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UnitServerUncheckedUpdateManyInput = {
@@ -23515,8 +23590,11 @@ export namespace Prisma {
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     constellationId?: StringFieldUpdateOperationsInput | string
     activeConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UnitConfigCreateInput = {
@@ -24555,8 +24633,11 @@ export namespace Prisma {
     orchestratorToken?: SortOrder
     unitToken?: SortOrder
     requiresUpdate?: SortOrder
+    isActive?: SortOrder
     constellationId?: SortOrder
     activeConfigId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type UnitServerMaxOrderByAggregateInput = {
@@ -24566,8 +24647,11 @@ export namespace Prisma {
     orchestratorToken?: SortOrder
     unitToken?: SortOrder
     requiresUpdate?: SortOrder
+    isActive?: SortOrder
     constellationId?: SortOrder
     activeConfigId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type UnitServerMinOrderByAggregateInput = {
@@ -24577,8 +24661,11 @@ export namespace Prisma {
     orchestratorToken?: SortOrder
     unitToken?: SortOrder
     requiresUpdate?: SortOrder
+    isActive?: SortOrder
     constellationId?: SortOrder
     activeConfigId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
   export type JsonNullableFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -26822,6 +26909,9 @@ export namespace Prisma {
     orchestratorToken: string
     unitToken: string
     requiresUpdate?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
     constellation: ConstellationCreateNestedOneWithoutServersInput
     activeConfig?: UnitConfigCreateNestedOneWithoutActiveInServersInput
     professionals?: ProfessionalCreateNestedManyWithoutServerInput
@@ -26839,8 +26929,11 @@ export namespace Prisma {
     orchestratorToken: string
     unitToken: string
     requiresUpdate?: boolean
+    isActive?: boolean
     constellationId: string
     activeConfigId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     professionals?: ProfessionalUncheckedCreateNestedManyWithoutServerInput
     cases?: CaseUncheckedCreateNestedManyWithoutServerInput
     sections?: SectionUncheckedCreateNestedManyWithoutServerInput
@@ -27007,6 +27100,9 @@ export namespace Prisma {
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     constellation?: ConstellationUpdateOneRequiredWithoutServersNestedInput
     activeConfig?: UnitConfigUpdateOneWithoutActiveInServersNestedInput
     professionals?: ProfessionalUpdateManyWithoutServerNestedInput
@@ -27024,8 +27120,11 @@ export namespace Prisma {
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     constellationId?: StringFieldUpdateOperationsInput | string
     activeConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     professionals?: ProfessionalUncheckedUpdateManyWithoutServerNestedInput
     cases?: CaseUncheckedUpdateManyWithoutServerNestedInput
     sections?: SectionUncheckedUpdateManyWithoutServerNestedInput
@@ -27168,6 +27267,9 @@ export namespace Prisma {
     orchestratorToken: string
     unitToken: string
     requiresUpdate?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
     constellation: ConstellationCreateNestedOneWithoutServersInput
     activeConfig?: UnitConfigCreateNestedOneWithoutActiveInServersInput
     clients?: ClientCreateNestedManyWithoutServerInput
@@ -27185,8 +27287,11 @@ export namespace Prisma {
     orchestratorToken: string
     unitToken: string
     requiresUpdate?: boolean
+    isActive?: boolean
     constellationId: string
     activeConfigId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     clients?: ClientUncheckedCreateNestedManyWithoutServerInput
     cases?: CaseUncheckedCreateNestedManyWithoutServerInput
     sections?: SectionUncheckedCreateNestedManyWithoutServerInput
@@ -27329,6 +27434,9 @@ export namespace Prisma {
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     constellation?: ConstellationUpdateOneRequiredWithoutServersNestedInput
     activeConfig?: UnitConfigUpdateOneWithoutActiveInServersNestedInput
     clients?: ClientUpdateManyWithoutServerNestedInput
@@ -27346,8 +27454,11 @@ export namespace Prisma {
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     constellationId?: StringFieldUpdateOperationsInput | string
     activeConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     clients?: ClientUncheckedUpdateManyWithoutServerNestedInput
     cases?: CaseUncheckedUpdateManyWithoutServerNestedInput
     sections?: SectionUncheckedUpdateManyWithoutServerNestedInput
@@ -27437,6 +27548,9 @@ export namespace Prisma {
     orchestratorToken: string
     unitToken: string
     requiresUpdate?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
     constellation: ConstellationCreateNestedOneWithoutServersInput
     activeConfig?: UnitConfigCreateNestedOneWithoutActiveInServersInput
     clients?: ClientCreateNestedManyWithoutServerInput
@@ -27454,8 +27568,11 @@ export namespace Prisma {
     orchestratorToken: string
     unitToken: string
     requiresUpdate?: boolean
+    isActive?: boolean
     constellationId: string
     activeConfigId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     clients?: ClientUncheckedCreateNestedManyWithoutServerInput
     professionals?: ProfessionalUncheckedCreateNestedManyWithoutServerInput
     sections?: SectionUncheckedCreateNestedManyWithoutServerInput
@@ -27610,6 +27727,9 @@ export namespace Prisma {
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     constellation?: ConstellationUpdateOneRequiredWithoutServersNestedInput
     activeConfig?: UnitConfigUpdateOneWithoutActiveInServersNestedInput
     clients?: ClientUpdateManyWithoutServerNestedInput
@@ -27627,8 +27747,11 @@ export namespace Prisma {
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     constellationId?: StringFieldUpdateOperationsInput | string
     activeConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     clients?: ClientUncheckedUpdateManyWithoutServerNestedInput
     professionals?: ProfessionalUncheckedUpdateManyWithoutServerNestedInput
     sections?: SectionUncheckedUpdateManyWithoutServerNestedInput
@@ -28124,6 +28247,9 @@ export namespace Prisma {
     orchestratorToken: string
     unitToken: string
     requiresUpdate?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
     activeConfig?: UnitConfigCreateNestedOneWithoutActiveInServersInput
     clients?: ClientCreateNestedManyWithoutServerInput
     professionals?: ProfessionalCreateNestedManyWithoutServerInput
@@ -28141,7 +28267,10 @@ export namespace Prisma {
     orchestratorToken: string
     unitToken: string
     requiresUpdate?: boolean
+    isActive?: boolean
     activeConfigId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     clients?: ClientUncheckedCreateNestedManyWithoutServerInput
     professionals?: ProfessionalUncheckedCreateNestedManyWithoutServerInput
     cases?: CaseUncheckedCreateNestedManyWithoutServerInput
@@ -28187,8 +28316,11 @@ export namespace Prisma {
     orchestratorToken?: StringFilter<"UnitServer"> | string
     unitToken?: StringFilter<"UnitServer"> | string
     requiresUpdate?: BoolFilter<"UnitServer"> | boolean
+    isActive?: BoolFilter<"UnitServer"> | boolean
     constellationId?: StringFilter<"UnitServer"> | string
     activeConfigId?: StringNullableFilter<"UnitServer"> | string | null
+    createdAt?: DateTimeFilter<"UnitServer"> | Date | string
+    updatedAt?: DateTimeFilter<"UnitServer"> | Date | string
   }
 
   export type UnitConfigCreateWithoutSectionsInput = {
@@ -28245,6 +28377,9 @@ export namespace Prisma {
     orchestratorToken: string
     unitToken: string
     requiresUpdate?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
     constellation: ConstellationCreateNestedOneWithoutServersInput
     activeConfig?: UnitConfigCreateNestedOneWithoutActiveInServersInput
     clients?: ClientCreateNestedManyWithoutServerInput
@@ -28262,8 +28397,11 @@ export namespace Prisma {
     orchestratorToken: string
     unitToken: string
     requiresUpdate?: boolean
+    isActive?: boolean
     constellationId: string
     activeConfigId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     clients?: ClientUncheckedCreateNestedManyWithoutServerInput
     professionals?: ProfessionalUncheckedCreateNestedManyWithoutServerInput
     cases?: CaseUncheckedCreateNestedManyWithoutServerInput
@@ -28348,6 +28486,9 @@ export namespace Prisma {
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     constellation?: ConstellationUpdateOneRequiredWithoutServersNestedInput
     activeConfig?: UnitConfigUpdateOneWithoutActiveInServersNestedInput
     clients?: ClientUpdateManyWithoutServerNestedInput
@@ -28365,8 +28506,11 @@ export namespace Prisma {
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     constellationId?: StringFieldUpdateOperationsInput | string
     activeConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     clients?: ClientUncheckedUpdateManyWithoutServerNestedInput
     professionals?: ProfessionalUncheckedUpdateManyWithoutServerNestedInput
     cases?: CaseUncheckedUpdateManyWithoutServerNestedInput
@@ -28429,6 +28573,9 @@ export namespace Prisma {
     orchestratorToken: string
     unitToken: string
     requiresUpdate?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
     constellation: ConstellationCreateNestedOneWithoutServersInput
     activeConfig?: UnitConfigCreateNestedOneWithoutActiveInServersInput
     clients?: ClientCreateNestedManyWithoutServerInput
@@ -28446,8 +28593,11 @@ export namespace Prisma {
     orchestratorToken: string
     unitToken: string
     requiresUpdate?: boolean
+    isActive?: boolean
     constellationId: string
     activeConfigId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     clients?: ClientUncheckedCreateNestedManyWithoutServerInput
     professionals?: ProfessionalUncheckedCreateNestedManyWithoutServerInput
     cases?: CaseUncheckedCreateNestedManyWithoutServerInput
@@ -28532,6 +28682,9 @@ export namespace Prisma {
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     constellation?: ConstellationUpdateOneRequiredWithoutServersNestedInput
     activeConfig?: UnitConfigUpdateOneWithoutActiveInServersNestedInput
     clients?: ClientUpdateManyWithoutServerNestedInput
@@ -28549,8 +28702,11 @@ export namespace Prisma {
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     constellationId?: StringFieldUpdateOperationsInput | string
     activeConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     clients?: ClientUncheckedUpdateManyWithoutServerNestedInput
     professionals?: ProfessionalUncheckedUpdateManyWithoutServerNestedInput
     cases?: CaseUncheckedUpdateManyWithoutServerNestedInput
@@ -28613,6 +28769,9 @@ export namespace Prisma {
     orchestratorToken: string
     unitToken: string
     requiresUpdate?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
     constellation: ConstellationCreateNestedOneWithoutServersInput
     activeConfig?: UnitConfigCreateNestedOneWithoutActiveInServersInput
     clients?: ClientCreateNestedManyWithoutServerInput
@@ -28630,8 +28789,11 @@ export namespace Prisma {
     orchestratorToken: string
     unitToken: string
     requiresUpdate?: boolean
+    isActive?: boolean
     constellationId: string
     activeConfigId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     clients?: ClientUncheckedCreateNestedManyWithoutServerInput
     professionals?: ProfessionalUncheckedCreateNestedManyWithoutServerInput
     cases?: CaseUncheckedCreateNestedManyWithoutServerInput
@@ -28716,6 +28878,9 @@ export namespace Prisma {
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     constellation?: ConstellationUpdateOneRequiredWithoutServersNestedInput
     activeConfig?: UnitConfigUpdateOneWithoutActiveInServersNestedInput
     clients?: ClientUpdateManyWithoutServerNestedInput
@@ -28733,8 +28898,11 @@ export namespace Prisma {
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     constellationId?: StringFieldUpdateOperationsInput | string
     activeConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     clients?: ClientUncheckedUpdateManyWithoutServerNestedInput
     professionals?: ProfessionalUncheckedUpdateManyWithoutServerNestedInput
     cases?: CaseUncheckedUpdateManyWithoutServerNestedInput
@@ -29450,6 +29618,9 @@ export namespace Prisma {
     orchestratorToken: string
     unitToken: string
     requiresUpdate?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
     constellation: ConstellationCreateNestedOneWithoutServersInput
     clients?: ClientCreateNestedManyWithoutServerInput
     professionals?: ProfessionalCreateNestedManyWithoutServerInput
@@ -29467,7 +29638,10 @@ export namespace Prisma {
     orchestratorToken: string
     unitToken: string
     requiresUpdate?: boolean
+    isActive?: boolean
     constellationId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     clients?: ClientUncheckedCreateNestedManyWithoutServerInput
     professionals?: ProfessionalUncheckedCreateNestedManyWithoutServerInput
     cases?: CaseUncheckedCreateNestedManyWithoutServerInput
@@ -29686,6 +29860,9 @@ export namespace Prisma {
     orchestratorToken: string
     unitToken: string
     requiresUpdate?: boolean
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
     constellation: ConstellationCreateNestedOneWithoutServersInput
     activeConfig?: UnitConfigCreateNestedOneWithoutActiveInServersInput
     clients?: ClientCreateNestedManyWithoutServerInput
@@ -29703,8 +29880,11 @@ export namespace Prisma {
     orchestratorToken: string
     unitToken: string
     requiresUpdate?: boolean
+    isActive?: boolean
     constellationId: string
     activeConfigId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     clients?: ClientUncheckedCreateNestedManyWithoutServerInput
     professionals?: ProfessionalUncheckedCreateNestedManyWithoutServerInput
     cases?: CaseUncheckedCreateNestedManyWithoutServerInput
@@ -29871,6 +30051,9 @@ export namespace Prisma {
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     constellation?: ConstellationUpdateOneRequiredWithoutServersNestedInput
     activeConfig?: UnitConfigUpdateOneWithoutActiveInServersNestedInput
     clients?: ClientUpdateManyWithoutServerNestedInput
@@ -29888,8 +30071,11 @@ export namespace Prisma {
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     constellationId?: StringFieldUpdateOperationsInput | string
     activeConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     clients?: ClientUncheckedUpdateManyWithoutServerNestedInput
     professionals?: ProfessionalUncheckedUpdateManyWithoutServerNestedInput
     cases?: CaseUncheckedUpdateManyWithoutServerNestedInput
@@ -30448,7 +30634,10 @@ export namespace Prisma {
     orchestratorToken: string
     unitToken: string
     requiresUpdate?: boolean
+    isActive?: boolean
     activeConfigId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type UnitServerUpdateWithoutConstellationInput = {
@@ -30458,6 +30647,9 @@ export namespace Prisma {
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     activeConfig?: UnitConfigUpdateOneWithoutActiveInServersNestedInput
     clients?: ClientUpdateManyWithoutServerNestedInput
     professionals?: ProfessionalUpdateManyWithoutServerNestedInput
@@ -30475,7 +30667,10 @@ export namespace Prisma {
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     activeConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     clients?: ClientUncheckedUpdateManyWithoutServerNestedInput
     professionals?: ProfessionalUncheckedUpdateManyWithoutServerNestedInput
     cases?: CaseUncheckedUpdateManyWithoutServerNestedInput
@@ -30492,7 +30687,10 @@ export namespace Prisma {
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     activeConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ClientCreateManyServerInput = {
@@ -30784,7 +30982,10 @@ export namespace Prisma {
     orchestratorToken: string
     unitToken: string
     requiresUpdate?: boolean
+    isActive?: boolean
     constellationId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type UpdateLogCreateManyConfigInput = {
@@ -30920,6 +31121,9 @@ export namespace Prisma {
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     constellation?: ConstellationUpdateOneRequiredWithoutServersNestedInput
     clients?: ClientUpdateManyWithoutServerNestedInput
     professionals?: ProfessionalUpdateManyWithoutServerNestedInput
@@ -30937,7 +31141,10 @@ export namespace Prisma {
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     constellationId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     clients?: ClientUncheckedUpdateManyWithoutServerNestedInput
     professionals?: ProfessionalUncheckedUpdateManyWithoutServerNestedInput
     cases?: CaseUncheckedUpdateManyWithoutServerNestedInput
@@ -30954,7 +31161,10 @@ export namespace Prisma {
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     constellationId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UpdateLogUpdateWithoutConfigInput = {

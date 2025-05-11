@@ -1,6 +1,6 @@
 // Prisma seed script para generar datos de prueba en la base de datos
-// Para ejecutar: npx ts-node prisma/seedNewSchema.ts
-import { PrismaClient, Role, CaseStatus, Sender, SectionType } from '@prisma/client';
+// Para ejecutar: npx prisma db seed
+import { PrismaClient, Role, CaseStatus, Sender, SectionType, ClientStatus } from '../src/generated/prisma';
 import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
@@ -19,7 +19,6 @@ function slug(text: string): string {
 
 async function main() {
   console.info('⏳  Limpiando la base de datos…');
-
   // Elimina datos respetando dependencias
   await prisma.$transaction([
     prisma.message.deleteMany(),
@@ -29,15 +28,25 @@ async function main() {
     prisma.case.deleteMany(),
     prisma.client.deleteMany(),
     prisma.professional.deleteMany(),
+    prisma.updateLog.deleteMany(),
     prisma.image.deleteMany(),
     prisma.autoSource.deleteMany(),
     prisma.manualArticle.deleteMany(),
     prisma.section.deleteMany(),
-    prisma.unitConfig.deleteMany(),
-    prisma.unitServer.deleteMany(),
-    prisma.constellation.deleteMany(),
-    prisma.user.deleteMany(),
   ]);
+  
+  // Eliminar servidores y configuraciones en un orden que respete las dependencias
+  await prisma.$transaction(async (tx) => {
+    // Eliminar la relación entre unitServer y unitConfig
+    await tx.unitServer.updateMany({
+      data: { activeConfigId: null }
+    });
+    
+    await tx.unitConfig.deleteMany();
+    await tx.unitServer.deleteMany();
+    await tx.constellation.deleteMany();
+    await tx.user.deleteMany();
+  });
 
   console.info('🚀  Insertando datos de prueba…');
 
@@ -91,9 +100,9 @@ async function main() {
 
   const unitServers: any[] = [];
   const unitConfigs: any[] = [];
-
   for (const constellation of constellations) {
     for (let i = 1; i <= 2; i++) {
+      const now = new Date();
       const server = await prisma.unitServer.create({
         data: {
           domain: `${slug(constellation.name)}-${i}.atlasnode.com`,
@@ -101,11 +110,11 @@ async function main() {
           orchestratorToken: `orch-${slug(constellation.name)}-${i}`,
           unitToken: `unit-${slug(constellation.name)}-${i}`,
           constellationId: constellation.id,
+          createdAt: now,
+          updatedAt: now,
         },
       });
-      unitServers.push(server);
-
-      const config = await prisma.unitConfig.create({
+      unitServers.push(server);      const config = await prisma.unitConfig.create({
         data: {
           name: `Config ${server.name}`,
           pageTitle: `Abogados especialistas en ${constellation.name}`,
@@ -118,12 +127,15 @@ async function main() {
           infoSections: [
             { title: '¿Cómo trabajamos?', content: 'Te explicamos el proceso legal paso a paso.' },
           ],
-          servers: { connect: { id: server.id } },
         },
       });
       unitConfigs.push({ config, server });
 
-      await prisma.unitServer.update({ where: { id: server.id }, data: { activeConfigId: config.id } });
+      // Establecer este config como activo en el servidor
+      await prisma.unitServer.update({ 
+        where: { id: server.id }, 
+        data: { activeConfigId: config.id } 
+      });
     }
   }
 
@@ -133,10 +145,13 @@ async function main() {
       prisma.professional.create({ data: { userId: u.id, serverId: unitServers[idx % unitServers.length].id } }),
     ),
   );
-
   const clients = await Promise.all(
     clientUsers.map((u, idx) =>
-      prisma.client.create({ data: { userId: u.id, serverId: unitServers[idx % unitServers.length].id } }),
+      prisma.client.create({ data: { 
+        userId: u.id, 
+        serverId: unitServers[idx % unitServers.length].id,
+        status: ClientStatus.active 
+      }}),
     ),
   );
 
@@ -178,10 +193,20 @@ async function main() {
       await prisma.report.create({ data: { caseId: c.id, clientId: c.clientId, reason: 'Retraso en respuesta' } });
     }
   }
+  // Crear logs de actualización para algunos servidores
+  await prisma.updateLog.create({
+    data: {
+      serverId: unitServers[0].id,
+      configId: unitConfigs[0].config.id,
+      status: 'completed',
+      initiatorId: admin.id,
+      description: 'Actualización inicial',
+      completedAt: new Date(),
+    }
+  });
 
   // Secciones, artículos manuales, fuentes automáticas e imágenes
-  for (const { config, server } of unitConfigs) {
-    // Secciones
+  for (const { config, server } of unitConfigs) {    // Secciones
     await prisma.section.createMany({ data: [
       { configId: config.id, serverId: server.id, type: SectionType.text, title: 'Bienvenida', content: 'Bienvenido a nuestro portal.', order: 1 },
       { configId: config.id, serverId: server.id, type: SectionType.legalGuide, title: 'Guía Legal', content: JSON.stringify(['Paso 1', 'Paso 2', 'Paso 3']), order: 2 },

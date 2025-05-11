@@ -8,6 +8,12 @@ CREATE TYPE "Sender" AS ENUM ('client', 'professional');
 CREATE TYPE "CaseStatus" AS ENUM ('open', 'inProgress', 'pending', 'closed');
 
 -- CreateEnum
+CREATE TYPE "ClientStatus" AS ENUM ('new', 'reviewing', 'active', 'inactive', 'suspended');
+
+-- CreateEnum
+CREATE TYPE "SessionType" AS ENUM ('local', 'api');
+
+-- CreateEnum
 CREATE TYPE "SectionType" AS ENUM ('text', 'legalGuide', 'manual', 'newsConfig');
 
 -- CreateTable
@@ -34,6 +40,7 @@ CREATE TABLE "Client" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
     "serverId" TEXT NOT NULL,
+    "status" "ClientStatus" NOT NULL DEFAULT 'new',
 
     CONSTRAINT "Client_pkey" PRIMARY KEY ("id")
 );
@@ -171,6 +178,7 @@ CREATE TABLE "UnitServer" (
     "orchestratorToken" TEXT NOT NULL,
     "unitToken" TEXT NOT NULL,
     "requiresUpdate" BOOLEAN NOT NULL DEFAULT false,
+    "isActive" BOOLEAN NOT NULL DEFAULT true,
     "constellationId" TEXT NOT NULL,
     "activeConfigId" TEXT,
 
@@ -182,17 +190,33 @@ CREATE TABLE "UnitConfig" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "pageTitle" TEXT NOT NULL,
-    "footerInfo" TEXT NOT NULL,
-    "legalStepsCount" INTEGER NOT NULL,
+    "footerInfo" TEXT,
+    "legalStepsCount" INTEGER NOT NULL DEFAULT 0,
     "pageType" TEXT NOT NULL,
-    "externalLinks" JSONB NOT NULL,
-    "newsParams" JSONB NOT NULL,
-    "selectedNews" JSONB NOT NULL,
-    "infoSections" JSONB NOT NULL,
+    "externalLinks" JSONB,
+    "newsParams" JSONB,
+    "selectedNews" JSONB,
+    "infoSections" JSONB,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "UnitConfig_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "UpdateLog" (
+    "id" TEXT NOT NULL,
+    "serverId" TEXT NOT NULL,
+    "configId" TEXT NOT NULL,
+    "previousConfigId" TEXT,
+    "status" TEXT NOT NULL,
+    "initiatorId" TEXT NOT NULL,
+    "description" TEXT,
+    "startedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "completedAt" TIMESTAMP(3),
+    "errorDetails" TEXT,
+
+    CONSTRAINT "UpdateLog_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -259,12 +283,6 @@ ALTER TABLE "Report" ADD CONSTRAINT "Report_caseId_fkey" FOREIGN KEY ("caseId") 
 ALTER TABLE "Report" ADD CONSTRAINT "Report_clientId_fkey" FOREIGN KEY ("clientId") REFERENCES "Client"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "UnitServer" ADD CONSTRAINT "UnitServer_constellationId_fkey" FOREIGN KEY ("constellationId") REFERENCES "Constellation"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "UnitServer" ADD CONSTRAINT "UnitServer_activeConfigId_fkey" FOREIGN KEY ("activeConfigId") REFERENCES "UnitConfig"("id") ON DELETE SET NULL ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "Section" ADD CONSTRAINT "Section_configId_fkey" FOREIGN KEY ("configId") REFERENCES "UnitConfig"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -284,3 +302,21 @@ ALTER TABLE "AutoSource" ADD CONSTRAINT "AutoSource_serverId_fkey" FOREIGN KEY (
 
 -- AddForeignKey
 ALTER TABLE "Image" ADD CONSTRAINT "Image_configId_fkey" FOREIGN KEY ("configId") REFERENCES "UnitConfig"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "UnitServer" ADD CONSTRAINT "UnitServer_constellationId_fkey" FOREIGN KEY ("constellationId") REFERENCES "Constellation"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "UnitServer" ADD CONSTRAINT "UnitServer_activeConfigId_fkey" FOREIGN KEY ("activeConfigId") REFERENCES "UnitConfig"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "UpdateLog" ADD CONSTRAINT "UpdateLog_serverId_fkey" FOREIGN KEY ("serverId") REFERENCES "UnitServer"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "UpdateLog" ADD CONSTRAINT "UpdateLog_configId_fkey" FOREIGN KEY ("configId") REFERENCES "UnitConfig"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "UpdateLog" ADD CONSTRAINT "UpdateLog_previousConfigId_fkey" FOREIGN KEY ("previousConfigId") REFERENCES "UnitConfig"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "UpdateLog" ADD CONSTRAINT "UpdateLog_initiatorId_fkey" FOREIGN KEY ("initiatorId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

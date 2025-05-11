@@ -1,5 +1,6 @@
 import { NextRequest } from 'next/server';
-import { getServerSession } from 'next-auth/next';
+import { getServerSession } from 'next-auth';
+import { prisma } from '@/db/prisma-client';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 
 export type Context = {
@@ -9,12 +10,19 @@ export type Context = {
 };
 
 export async function createContext({ req }: { req: NextRequest }): Promise<Context> {
-  // Obtener la sesión del servidor
-  const session = await getServerSession(req);
-  
-  return {
-    prisma,
-    session: session?.accessToken || null,
-    user: session?.user || null
-  };
+  try {
+    const session = await getServerSession(authOptions);
+    return {
+      prisma,
+      session: session || null,
+      user: session?.user || null
+    };
+  } catch (error) {
+    console.error('Error creating context:', error);
+    return {
+      prisma,
+      session: null,
+      user: null
+    };
+  }
 }

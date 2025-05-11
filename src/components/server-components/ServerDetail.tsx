@@ -1,28 +1,11 @@
 'use client';
 
-import { useQuery, gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { Box, Card, Heading, Text, Badge, Flex, Separator, Button } from '@radix-ui/themes';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-
-// Query para obtener los detalles de un servidor
-const GET_SERVER = gql`
-  query GetServer($id: ID!) {
-    server(id: $id) {
-      id
-      name
-      domain
-      requiresUpdate
-      isActive
-      createdAt
-      updatedAt
-      constellation {
-        id
-        name
-      }
-    }
-  }
-`;
+import { GET_SERVER_BY_ID } from '@/graphql/queries/server.queries';
+import { formatDate } from '@/utils/date-formatter';
 
 interface ServerDetailProps {
   serverId: string;
@@ -33,7 +16,7 @@ export default function ServerDetail({ serverId }: ServerDetailProps) {
   const [isRestarting, setIsRestarting] = useState(false);
   
   // Consultar los detalles del servidor
-  const { data, loading, error, refetch } = useQuery(GET_SERVER, {
+  const { data, loading, error, refetch } = useQuery(GET_SERVER_BY_ID, {
     variables: { id: serverId },
     fetchPolicy: 'cache-and-network',
   });
@@ -41,10 +24,10 @@ export default function ServerDetail({ serverId }: ServerDetailProps) {
   if (loading) return <Text>Cargando información del servidor...</Text>;
   if (error) return <Text color="red">Error: {error.message}</Text>;
   if (!data?.server) return <Text>No se encontró el servidor.</Text>;
-  
   const server = data.server;
-  const dateCreated = new Date(server.createdAt).toLocaleString();
-  const dateUpdated = new Date(server.updatedAt).toLocaleString();
+  // Utilizamos nuestra función de formateo de fechas
+  const dateCreated = formatDate(server.createdAt, 'full');
+  const dateUpdated = formatDate(server.updatedAt, 'full');
   
   // Función para simular el reinicio del servidor
   const handleRestart = async () => {
@@ -60,8 +43,7 @@ export default function ServerDetail({ serverId }: ServerDetailProps) {
       setIsRestarting(false);
     }
   };
-  
-  return (
+    return (
     <Card>
       <Flex direction="column" gap="4">
         {/* Encabezado */}
@@ -93,18 +75,21 @@ export default function ServerDetail({ serverId }: ServerDetailProps) {
               <Text weight="bold">Constelación:</Text>
               <Text>{server.constellation?.name || "Sin constelación"}</Text>
             </Box>
-            
-            <Flex gap="4">
-              <Box>
-                <Text weight="bold">Creado:</Text>
-                <Text size="2">{dateCreated}</Text>
-              </Box>
-              
-              <Box>
-                <Text weight="bold">Última actualización:</Text>
-                <Text size="2">{dateUpdated}</Text>
-              </Box>
-            </Flex>
+
+            <Box>
+              <Text weight="bold">Configuración activa:</Text>
+              <Text>{server.activeConfig?.name || "Sin configuración"}</Text>
+            </Box>              <Flex gap="4">
+                <Box>
+                  <Text weight="bold">Creado:</Text>
+                  <Text size="2">{dateCreated}</Text>
+                </Box>
+                
+                <Box>
+                  <Text weight="bold">Última actualización:</Text>
+                  <Text size="2">{dateUpdated}</Text>
+                </Box>
+              </Flex>
           </Flex>
         </Box>
         

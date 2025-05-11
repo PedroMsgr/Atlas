@@ -256,8 +256,11 @@ model UnitServer {
   orchestratorToken String      @unique
   unitToken        String      @unique
   requiresUpdate   Boolean      @default(false)
+  isActive         Boolean      @default(true)
   constellationId  String
   activeConfigId   String?
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
 
   constellation    Constellation @relation(fields: [constellationId], references: [id])
   activeConfig     UnitConfig?  @relation("ActiveConfig", fields: [activeConfigId], references: [id])

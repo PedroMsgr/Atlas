@@ -1,41 +1,14 @@
-import { useQuery, gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import Link from 'next/link';
 import { Button } from '@radix-ui/themes';
 import { useState } from 'react';
-
-const GET_SERVERS = gql`
-  query GetServers {
-    servers {
-      id
-      name
-      domain
-      requiresUpdate
-      isActive
-      constellation {
-        name
-      }
-      updatedAt
-    }
-  }
-`;
-
-interface Constellation {
-  name: string | null;
-}
-
-interface UnitServer {
-  id: string;
-  name: string;
-  domain: string;
-  requiresUpdate: boolean;
-  isActive: boolean;
-  constellation: Constellation | null;
-  updatedAt: string;
-}
+import { GET_SERVERS } from '@/graphql/queries/server.queries';
+import { UnitServerListItem } from '@/types/server.types';
+import { formatDate } from '@/utils/date-formatter';
 
 export default function ServerList() {
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const { data, loading, error, refetch } = useQuery<{ servers: UnitServer[] }>(GET_SERVERS, {
+  const { data, loading, error, refetch } = useQuery<{ servers: UnitServerListItem[] }>(GET_SERVERS, {
     fetchPolicy: 'cache-and-network',
     notifyOnNetworkStatusChange: true,
   });
@@ -92,34 +65,32 @@ export default function ServerList() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {servers.map((server) => (
-                <tr key={server.id} 
-                  className="hover:bg-gray-50 transition duration-150"
-                  onClick={() => window.location.href = `/admin/servers/server/${server.id}`}
-                  style={{ cursor: 'pointer' }}
-                >
-                  <td className="py-4 px-4 whitespace-nowrap font-medium">
-                    <Link href={`/admin/servers/server/${server.id}`} className="text-blue-600 hover:underline">
-                      {server.name}
-                    </Link>
-                  </td>
-                  <td className="py-4 px-4 whitespace-nowrap text-sm">{server.domain}</td>
-                  <td className="py-4 px-4 whitespace-nowrap text-sm">{server.constellation?.name || '-'}</td>
-                  <td className="py-4 px-4 whitespace-nowrap text-sm">
-                    <span className={`inline-block rounded-full px-2 py-1 text-xs font-semibold ${server.isActive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
-                      {server.isActive ? 'Activo' : 'Inactivo'}
-                    </span>
-                  </td>
-                  <td className="py-4 px-4 whitespace-nowrap text-sm">
-                    <span className={`inline-block rounded-full px-2 py-1 text-xs font-semibold ${server.requiresUpdate ? 'bg-yellow-100 text-yellow-800' : 'bg-blue-100 text-blue-800'}`}>
-                      {server.requiresUpdate ? 'Pendiente' : 'Actualizado'}
-                    </span>
-                  </td>
-                  <td className="py-4 px-4 whitespace-nowrap text-sm text-gray-500">
-                    {new Date(server.updatedAt).toLocaleDateString()}
-                  </td>
-                </tr>
-              ))}
+              {servers.map((server) => {
+                return (
+                  <tr key={server.id} className="hover:bg-gray-50 transition duration-150">
+                    <td className="py-4 px-4 whitespace-nowrap font-medium">
+                      <Link href={`/admin/servers/${server.id}`} className="text-blue-600 hover:underline">
+                        {server.name}
+                      </Link>
+                    </td>
+                    <td className="py-4 px-4 whitespace-nowrap text-sm">{server.domain}</td>
+                    <td className="py-4 px-4 whitespace-nowrap text-sm">{server.constellation?.name || '-'}</td>
+                    <td className="py-4 px-4 whitespace-nowrap text-sm">
+                      <span className={`inline-block rounded-full px-2 py-1 text-xs font-semibold ${server.isActive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                        {server.isActive ? 'Activo' : 'Inactivo'}
+                      </span>
+                    </td>
+                    <td className="py-4 px-4 whitespace-nowrap text-sm">
+                      <span className={`inline-block rounded-full px-2 py-1 text-xs font-semibold ${server.requiresUpdate ? 'bg-yellow-100 text-yellow-800' : 'bg-blue-100 text-blue-800'}`}>
+                        {server.requiresUpdate ? 'Pendiente' : 'Actualizado'}
+                      </span>
+                    </td>
+                    <td className="py-4 px-4 whitespace-nowrap text-sm text-gray-500">
+                      {formatDate(server.updatedAt, 'date')}
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

@@ -1,4 +1,4 @@
-import NextAuth, { DefaultSession } from 'next-auth';
+import NextAuth, { DefaultSession, NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { authService } from '@/services/auth-service';
 
@@ -22,14 +22,15 @@ declare module "next-auth" {
   }
 }
 
-const handler = NextAuth({
+export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
         email: { label: 'Email', type: 'email' },
         password: { label: 'Password', type: 'password' },
-      },      async authorize(credentials) {
+      },
+      async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
           return null;
         }
@@ -43,7 +44,7 @@ const handler = NextAuth({
             email: authResult.user.email,
             role: authResult.user.role,
             name: authResult.user.name,
-            image: authResult.user.image || undefined, // Ensure image is string or undefined (not null)
+            image: authResult.user.image || undefined,
             token: authResult.token || "",
           };
         } else {
@@ -53,9 +54,10 @@ const handler = NextAuth({
     }),
   ],
   session: {
-    strategy: 'jwt',
+    strategy: 'jwt' as const,
   },
-  callbacks: {    async jwt({ token, user }) {
+  callbacks: {
+    async jwt({ token, user }: { token: any; user: any }) {
       if (user) {
         token.id = user.id;
         token.email = user.email;
@@ -65,7 +67,7 @@ const handler = NextAuth({
       }
       return token;
     },
-    async session({ session, token }) {
+    async session({ session, token }: { session: any; token: any }) {
       if (session.user) {
         session.user.id = token.id as string;
         session.user.email = token.email as string;
@@ -77,6 +79,7 @@ const handler = NextAuth({
     },
   },
   secret: process.env.JWT_SECRET,
-});
+};
 
+const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
