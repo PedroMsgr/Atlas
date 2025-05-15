@@ -273,6 +273,7 @@ model UnitServer {
   autoSources      AutoSource[]
   // sessions        Session[] // FUTURA IMPLEMENTACIÓN: Sistema híbrido JWT + Sesiones
   updateLogs       UpdateLog[]
+  serverLogs       ServerLog[]
 }
 
 model UnitConfig {
@@ -315,5 +316,18 @@ model UpdateLog {
   config          UnitConfig  @relation("ConfigInUpdates", fields: [configId], references: [id])
   previousConfig  UnitConfig? @relation("PreviousConfig", fields: [previousConfigId], references: [id])
   initiator       User        @relation(fields: [initiatorId], references: [id])
+}
+
+model ServerLog {
+  id        String   @id @default(cuid())
+  serverId  String
+  type      String   // 'info' | 'warning' | 'error'
+  message   String
+  timestamp DateTime @default(now())
+  metadata  Json?
+  server    UnitServer @relation(fields: [serverId], references: [id])
+
+  @@index([serverId])
+  @@index([timestamp])
 }
 

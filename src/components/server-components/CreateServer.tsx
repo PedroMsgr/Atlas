@@ -1,8 +1,8 @@
 import { useState, ChangeEvent } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
-import { CREATE_SERVER } from '@/graphql/mutations/server.mutations';
-import { GET_SERVERS } from '@/graphql/queries/server.queries';
-import { GET_CONSTELLATIONS } from '@/graphql/queries/constellation.queries';
+import { CREATE_SERVER } from '@/graphql-client/mutations/server.mutations';
+import { GET_SERVERS } from '@/graphql-client/queries/server.queries';
+import { GET_CONSTELLATIONS } from '@/graphql-client/queries/constellation.queries';
 import { Button, Card, TextField, Select, Text } from '@radix-ui/themes';
 
 export default function CreateServer() {

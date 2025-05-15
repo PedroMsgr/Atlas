@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/client';
 import { Box, Card, Heading, Text, Badge, Flex, Separator, Button } from '@radix-ui/themes';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { GET_SERVER_BY_ID } from '@/graphql/queries/server.queries';
+import { GET_SERVER_BY_ID } from '@/graphql-client/queries/server.queries';
 import { formatDate } from '@/utils/date-formatter';
 
 interface ServerDetailProps {
