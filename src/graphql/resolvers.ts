@@ -1,4 +1,5 @@
 import { serverService } from '@/services/server-service';
+import { tokenService } from '@/services/token-service';
 
 
 export const resolvers = {
@@ -8,11 +9,28 @@ export const resolvers = {
     },
     server: async (_: any, { id }: { id: string }) => {
       return await serverService.getServerById(id);
-    },    constellations: async () => {
+    },
+    constellations: async () => {
       return await serverService.getAllConstellations();
     },
     constellation: async (_: any, { id }: { id: string }) => {
       return await serverService.getConstellationById(id);
+    },    generateServerTokens: async (_: any, { id }: { id: string }) => {
+      // Verificar que el servidor existe pero no guardar los tokens todavía
+      const serverExists = await serverService.getServerById(id);
+      if (!serverExists) {
+        throw new Error(`No se encontró ningún servidor con ID: ${id}`);
+      }
+      
+      // Generar nuevos tokens únicos utilizando el tokenService importado
+      const orchestratorToken = await tokenService.generateOrchestratorTokenAsync();
+      const unitToken = await tokenService.generateUnitTokenAsync();
+      
+      // Devolver los tokens generados (sin guardar)
+      return {
+        orchestratorToken,
+        unitToken
+      };
     },
   },
   Mutation: {
@@ -34,9 +52,34 @@ export const resolvers = {
       };
     }) => {
       return await serverService.updateServer(id, data);
-    },
-    deleteServer: async (_: any, { id }: { id: string }) => {
+    },    deleteServer: async (_: any, { id }: { id: string }) => {
       return await serverService.deleteServer(id);
+    },    updateServerTokens: async (_: any, { id, orchestratorToken, unitToken }: { 
+      id: string;
+      orchestratorToken: string;
+      unitToken: string;
+    }) => {
+      return await serverService.updateServerTokens(id, orchestratorToken, unitToken);
+    },
+    // Añadimos las mutaciones para las constelaciones aquí
+    createConstellation: async (_: any, { name, description }: { name: string; description?: string }) => {
+      const { prisma } = await import('@/db/prisma-client');
+      return await prisma.constellation.create({
+        data: { name, description }
+      });
+    },
+    updateConstellation: async (_: any, { id, name, description }: { id: string; name?: string; description?: string }) => {
+      const { prisma } = await import('@/db/prisma-client');
+      return await prisma.constellation.update({
+        where: { id },
+        data: { name, description }
+      });
+    },
+    deleteConstellation: async (_: any, { id }: { id: string }) => {
+      const { prisma } = await import('@/db/prisma-client');
+      return await prisma.constellation.delete({
+        where: { id }
+      });
     },
   },
-}; 
+};

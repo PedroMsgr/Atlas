@@ -14,10 +14,10 @@ export const typeDefs = gql`
     constellation: Constellation
     activeConfig: UnitConfig
   }
-
   type Constellation {
     id: ID!
     name: String!
+    description: String
   }
 
   type UnitConfig {
@@ -32,17 +32,23 @@ export const typeDefs = gql`
     requiresUpdate: Boolean
     isActive: Boolean
   }
-
   type Query {
     servers: [UnitServer!]!
     server(id: ID!): UnitServer
     constellation(id: ID!): Constellation
     constellations: [Constellation!]!
-  }
-
-  type Mutation {
+    generateServerTokens(id: ID!): ServerTokens!
+  }  type Mutation {
     createServer(name: String!, domain: String!, constellationId: String): UnitServer!
     updateServer(id: ID!, data: ServerUpdateInput!): UnitServer!
-    deleteServer(id: ID!): UnitServer!
+    deleteServer(id: ID!): UnitServer!    updateServerTokens(id: ID!, orchestratorToken: String!, unitToken: String!): UnitServer!
+    createConstellation(name: String!, description: String): Constellation!
+    updateConstellation(id: ID!, name: String, description: String): Constellation!
+    deleteConstellation(id: ID!): Constellation!
+  }
+  
+  type ServerTokens {
+    orchestratorToken: String!
+    unitToken: String!
   }
 `; 

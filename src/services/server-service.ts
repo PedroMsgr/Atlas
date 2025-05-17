@@ -65,10 +65,11 @@ export class ServerService {
     
     // Obtener el servidor con sus relaciones
     const server = await this.serversRepo.findById(createdServer.id);
-    if (server) {
-      return {
+    if (server) {      return {
         ...server,
-        isActive: true // Siempre devolvemos true por ahora
+        isActive: true, // Siempre devolvemos true por ahora
+        createdAt: server.createdAt ? server.createdAt.toISOString() : null,
+        updatedAt: server.updatedAt ? server.updatedAt.toISOString() : null
       };
     }
     return null;
@@ -91,20 +92,59 @@ export class ServerService {
 
     return await this.serversRepo.update(id, data);
   }
-
   async deleteServer(id: string) {
     return await this.serversRepo.delete(id);
   }
-
+  
+  async updateServerTokens(id: string, orchestratorToken: string, unitToken: string) {
+    // Verificar que el servidor exista
+    const server = await this.serversRepo.findById(id);
+    if (!server) {
+      throw new Error(`No se encontró el servidor con ID: ${id}`);
+    }
+    
+    // Actualizar los tokens y la fecha de actualización
+    const updatedServer = await this.serversRepo.update(id, {
+      orchestratorToken,
+      unitToken,
+      updatedAt: new Date()
+    });
+    
+    return {
+      ...updatedServer,
+      isActive: true,
+      createdAt: updatedServer.createdAt ? updatedServer.createdAt.toISOString() : null,
+      updatedAt: updatedServer.updatedAt ? updatedServer.updatedAt.toISOString() : null
+    };
+  }
   async getAllConstellations() {
     const { prisma } = await import('@/db/prisma-client');
-    return await prisma.constellation.findMany();
+    return await prisma.constellation.findMany({
+      select: {
+        id: true,
+        name: true,
+        description: true
+      }
+    });
   }
-
   async getConstellationById(id: string) {
     const { prisma } = await import('@/db/prisma-client');
     return await prisma.constellation.findUnique({
       where: { id },
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        servers: {
+          select: {
+            id: true,
+            name: true,
+            domain: true,
+            isActive: true,
+            requiresUpdate: true
+          }
+        }
+      }
     });
   }
 }

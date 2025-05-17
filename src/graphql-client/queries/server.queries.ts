@@ -39,3 +39,12 @@ export const GET_SERVER_BY_ID = gql`
     }
   }
 `;
+
+export const GENERATE_SERVER_TOKENS = gql`
+  query GenerateServerTokens($id: ID!) {
+    generateServerTokens(id: $id) {
+      orchestratorToken
+      unitToken
+    }
+  }
+`;

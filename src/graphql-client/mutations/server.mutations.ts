@@ -31,6 +31,19 @@ export const UPDATE_SERVER = gql`
   }
 `;
 
+export const UPDATE_SERVER_TOKENS = gql`
+  mutation UpdateServerTokens($id: ID!, $orchestratorToken: String!, $unitToken: String!) {
+    updateServerTokens(id: $id, orchestratorToken: $orchestratorToken, unitToken: $unitToken) {
+      id
+      orchestratorToken
+      unitToken
+      updatedAt
+    }
+  }
+`;
+
+
+
 export const DELETE_SERVER = gql`
   mutation DeleteServer($id: ID!) {
     deleteServer(id: $id) {

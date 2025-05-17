@@ -60,7 +60,6 @@ export class ServersRepository {
       data,
     });
   }
-
   async delete(id: string): Promise<UnitServer> {
     return prisma.unitServer.delete({
       where: { id },
@@ -72,6 +71,30 @@ export class ServersRepository {
       where: { id: serverId },
       data: { activeConfigId: configId },
     });
+  }
+  
+  /**
+   * Verifica si un token de orquestador ya existe en la base de datos
+   * @param token El token a verificar
+   * @returns true si el token ya existe, false en caso contrario
+   */
+  async orchestratorTokenExists(token: string): Promise<boolean> {
+    const count = await prisma.unitServer.count({
+      where: { orchestratorToken: token }
+    });
+    return count > 0;
+  }
+  
+  /**
+   * Verifica si un token de unidad ya existe en la base de datos
+   * @param token El token a verificar
+   * @returns true si el token ya existe, false en caso contrario
+   */
+  async unitTokenExists(token: string): Promise<boolean> {
+    const count = await prisma.unitServer.count({
+      where: { unitToken: token }
+    });
+    return count > 0;
   }
 
   async markForUpdate(id: string, requiresUpdate: boolean): Promise<UnitServer> {

@@ -11,6 +11,9 @@ export default function ServerList() {
   const { data, loading, error, refetch } = useQuery<{ servers: UnitServerListItem[] }>(GET_SERVERS, {
     fetchPolicy: 'cache-and-network',
     notifyOnNetworkStatusChange: true,
+    onError: (error) => {
+      console.error('Error en la consulta de servidores:', error);
+    }
   });
   
   // Función para refrescar la lista
@@ -28,7 +31,14 @@ export default function ServerList() {
   if (loading && !data) return <p className="text-center py-4">Cargando servidores...</p>;
   if (error) return (
     <div className="text-center py-4">
-      <p className="text-red-500 mb-2">Error al cargar servidores: {error.message}</p>
+      <p className="text-red-500 mb-2">
+        Error al cargar servidores: {error.message}
+        {error.graphQLErrors && error.graphQLErrors.length > 0 && (
+          <span className="block mt-2 text-sm">
+            Detalles: {error.graphQLErrors.map((e: any) => e.message).join(', ')}
+          </span>
+        )}
+      </p>
       <Button onClick={handleRefresh} color="blue">Reintentar</Button>
     </div>
   );

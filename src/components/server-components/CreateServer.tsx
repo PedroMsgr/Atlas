@@ -11,23 +11,44 @@ export default function CreateServer() {
   const [constellationId, setConstellationId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [validationError, setValidationError] = useState<string | null>(null);
+  
   // Obtener las constelaciones disponibles
   const { data: constellationsData, loading: loadingConstellations, error: constellationsError } = useQuery(GET_CONSTELLATIONS, {
-    onError: (error) => {
+    onError: (error: any) => {
       console.error('Error al cargar constelaciones:', error);
+      // Manejo más detallado del error
+      if (error.graphQLErrors) {
+        const errorMessage = error.graphQLErrors.map((e: any) => e.message).join(', ');
+        setError(`Error GraphQL: ${errorMessage}`);
+      } else if (error.networkError) {
+        setError(`Error de red: ${error.networkError.message}`);
+      } else {
+        setError(`Error al cargar constelaciones: ${error.message}`);
+      }
     }
   });
   
   const [createServer, { loading }] = useMutation(CREATE_SERVER, {
-    refetchQueries: [{ query: GET_SERVERS }],    onError: (error) => {
-      setError(error.message);
+    refetchQueries: [{ query: GET_SERVERS }],
+    onError: (error: any) => {
+      console.error('Error al crear servidor:', error);
+      // Manejo más detallado del error
+      if (error.graphQLErrors) {
+        const errorMessage = error.graphQLErrors.map((e: any) => e.message).join(', ');
+        setError(`Error GraphQL: ${errorMessage}`);
+      } else if (error.networkError) {
+        setError(`Error de red: ${error.networkError.message}`);
+      } else {
+        setError(`Error: ${error.message}`);
+      }
     },
     onCompleted: () => {
       setName('');
       setDomain('');
       setConstellationId(null);
       setError(null);
-      setValidationError(null);    },
+      setValidationError(null);
+    },
   });
   
   const handleSubmit = async (e: React.FormEvent) => {
@@ -42,7 +63,8 @@ export default function CreateServer() {
       return;
     }
 
-    try {      await createServer({
+    try {
+      await createServer({
         variables: {
           name,
           domain,
@@ -94,15 +116,18 @@ export default function CreateServer() {
                 required
                 className="w-full px-3 py-2 bg-transparent outline-none"
               />
-            </TextField.Slot>          </TextField.Root>
+            </TextField.Slot>
+          </TextField.Root>
         </div>
 
-        <div className="space-y-2">          <Select.Root 
+        <div className="space-y-2">
+          <Select.Root 
             value={constellationId || undefined} 
             onValueChange={setConstellationId}
             disabled={loadingConstellations || !!constellationsError}
           >
-            <Select.Trigger placeholder={loadingConstellations ? "Cargando constelaciones..." : "Seleccionar constelación (opcional)"} />            <Select.Content>
+            <Select.Trigger placeholder={loadingConstellations ? "Cargando constelaciones..." : "Seleccionar constelación (opcional)"} />
+            <Select.Content>
               <Select.Item value="none">Sin constelación</Select.Item>
               {!loadingConstellations && constellationsData?.constellations?.map((constellation: { id: string, name: string }) => (
                 <Select.Item key={constellation.id} value={constellation.id}>
@@ -115,7 +140,9 @@ export default function CreateServer() {
               )}
             </Select.Content>
           </Select.Root>
-        </div>{(error || validationError) && (
+        </div>
+        
+        {(error || validationError) && (
           <Text color="red" size="2" className="mt-2">
             {error || validationError}
           </Text>
@@ -127,4 +154,4 @@ export default function CreateServer() {
       </form>
     </Card>
   );
-} 
+}
