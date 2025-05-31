@@ -8,6 +8,13 @@ export class ConfigsRepository {
         sections: true,
         articles: true,
         images: true,
+        servers: {
+          select: {
+            id: true,
+            name: true,
+            domain: true,
+          }
+        }
       },
     });
   }
@@ -19,6 +26,13 @@ export class ConfigsRepository {
         sections: true,
         articles: true,
         images: true,
+        servers: {
+          select: {
+            id: true,
+            name: true,
+            domain: true,
+          }
+        }
       },
     });
   }

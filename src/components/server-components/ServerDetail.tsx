@@ -197,16 +197,10 @@ export default function ServerDetail({ serverId }: ServerDetailProps) {
             </Box>
             
             <Box>
-              <Text weight="bold">Estado de actualización:</Text>
-              <Badge color={server.requiresUpdate ? "amber" : "blue"}>
-                {server.requiresUpdate ? "Requiere actualización" : "Actualizado"}
-              </Badge>
-            </Box>
-            
-            <Box>
               <Text weight="bold">Constelación:</Text>
               <Text>{server.constellation?.name || "Sin constelación"}</Text>
-            </Box>            <Box>
+            </Box>
+            <Box>
               <Text weight="bold">Configuración activa:</Text>
               {loadingConfigs ? (
                 <Text size="2">Cargando configuraciones...</Text>

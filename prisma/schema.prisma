@@ -213,7 +213,6 @@ model UnitServer {
   name             String
   orchestratorToken String      @unique
   unitToken        String      @unique
-  requiresUpdate   Boolean      @default(false)
   isActive         Boolean      @default(true)
   constellationId  String
   configId         String?      // Relación a la configuración activa

@@ -1,20 +1,10 @@
 'use client';
 
+import { UnitConfigBase } from '@/types/config.types';
 import { useQuery } from '@apollo/client';
-import { Box, Card, Heading, Text, Flex, Badge, Table, Link, Button } from '@radix-ui/themes';
-import { formatDate } from '@/utils/date-formatter';
 import { GET_ALL_CONFIGURATIONS } from '@/graphql-client/queries/configs.queries';
+import { Box, Button, Heading, Table, Text, Badge, Card, Flex } from '@radix-ui/themes';
 import { useState } from 'react';
-import NextLink from 'next/link';
-
-interface Configuration {
-  id: string;
-  name: string;
-  pageTitle: string;
-  pageType: string;
-  updatedAt: string;
-  activeInServers: Server[];
-}
 
 interface Server {
   id: string;
@@ -22,10 +12,15 @@ interface Server {
   domain: string;
 }
 
+interface Configuration extends UnitConfigBase {
+  updatedAt: string;
+  servers: Server[];
+}
+
 export default function ConfigurationList() {
   const [selectedConfig, setSelectedConfig] = useState<Configuration | null>(null);
 
-  const { data, loading, error, refetch } = useQuery(GET_ALL_CONFIGURATIONS, {
+  const { data, loading, error, refetch } = useQuery<{ configurations: Configuration[] }>(GET_ALL_CONFIGURATIONS, {
     fetchPolicy: 'cache-and-network',
   });
 
@@ -66,58 +61,43 @@ export default function ConfigurationList() {
         </Table.Header>
 
         <Table.Body>
-          {data?.configurations?.map((config: Configuration) => (
-            <Table.Row key={config.id}>
-              <Table.Cell>
-                <Text weight="bold">{config.name}</Text>
-                <Text size="1" color="gray">{config.pageTitle}</Text>
-              </Table.Cell>
-              <Table.Cell>
-                <Badge color="blue" variant="soft">
-                  {config.pageType}
-                </Badge>
-              </Table.Cell>
-              <Table.Cell>
-                {config.activeInServers?.length === 0 ? (
-                  <Text size="2" color="gray">No asignada</Text>
-                ) : config.activeInServers?.length === 1 ? (
-                  <NextLink href={`/admin/servers/detail/${config.activeInServers[0].id}`} passHref>
-                    <Link>
-                      <Text size="2">{config.activeInServers[0].name}</Text>
-                    </Link>
-                  </NextLink>
-                ) : (
-                  <Text size="2" weight="bold">{config.activeInServers?.length} servidores</Text>
-                )}
-              </Table.Cell>
-              <Table.Cell>
-                <Text size="2">{config.updatedAt ? formatDate(config.updatedAt) : 'N/A'}</Text>
-              </Table.Cell>
-              <Table.Cell>
-                <Flex gap="2">
-                  <NextLink href={`/admin/configs/detail/${config.id}`} passHref>
-                    <Button size="1" variant="soft">
-                      Ver detalles
-                    </Button>
-                  </NextLink>
-                  {config.activeInServers?.length > 0 && (
-                    <Button 
-                      size="1" 
-                      variant="soft" 
-                      color="blue"
-                      onClick={() => setSelectedConfig(config)}
-                    >
-                      Ver servidores
+          {data?.configurations?.map((config) => {
+            const servers = config.servers ?? [];
+            return (
+              <Table.Row key={config.id}>
+                <Table.Cell>
+                  <Text weight="bold">{config.name}</Text>
+                  <Text size="1" color="gray">{config.pageTitle}</Text>
+                </Table.Cell>
+                <Table.Cell>
+                  <Badge color="blue" variant="soft">
+                    {config.pageType}
+                  </Badge>
+                </Table.Cell>
+                <Table.Cell>
+                  {servers.length === 0 ? (
+                    <Text size="2" color="gray">No asignada</Text>
+                  ) : servers.length === 1 ? (
+                    <Text size="2">{servers[0].name}</Text>
+                  ) : (
+                    <Button variant="ghost" size="1" onClick={() => setSelectedConfig(config)}>
+                      {servers.length} servidores
                     </Button>
                   )}
-                </Flex>
-              </Table.Cell>
-            </Table.Row>
-          ))}
+                </Table.Cell>
+                <Table.Cell>
+                  <Text size="2">{new Date(config.updatedAt).toLocaleString()}</Text>
+                </Table.Cell>
+                <Table.Cell>
+                  {/* Aquí puedes agregar acciones como editar/eliminar */}
+                </Table.Cell>
+              </Table.Row>
+            );
+          })}
         </Table.Body>
       </Table.Root>
 
-      {selectedConfig && selectedConfig.activeInServers.length > 0 && (
+      {selectedConfig && (selectedConfig.servers ?? []).length > 1 && (
         <Card className="mt-4 p-4">
           <Flex direction="column" gap="3">
             <Flex justify="between" align="center">
@@ -138,21 +118,13 @@ export default function ConfigurationList() {
                 <Table.Row>
                   <Table.ColumnHeaderCell>Nombre</Table.ColumnHeaderCell>
                   <Table.ColumnHeaderCell>Dominio</Table.ColumnHeaderCell>
-                  <Table.ColumnHeaderCell>Acciones</Table.ColumnHeaderCell>
                 </Table.Row>
               </Table.Header>
               <Table.Body>
-                {selectedConfig.activeInServers.map(server => (
+                {(selectedConfig.servers ?? []).map(server => (
                   <Table.Row key={server.id}>
                     <Table.Cell>{server.name}</Table.Cell>
                     <Table.Cell>{server.domain}</Table.Cell>
-                    <Table.Cell>
-                      <NextLink href={`/admin/servers/detail/${server.id}`} passHref legacyBehavior>
-                        <Button size="1" variant="soft">
-                          Ver servidor
-                        </Button>
-                      </NextLink>
-                    </Table.Cell>
                   </Table.Row>
                 ))}
               </Table.Body>

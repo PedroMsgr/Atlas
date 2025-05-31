@@ -5,7 +5,6 @@ export interface UnitServerBase {
   id: string;
   name: string;
   domain: string;
-  requiresUpdate: boolean;
   isActive?: boolean;
   constellationId: string;
   activeConfigId?: string | null;
@@ -25,7 +24,6 @@ export interface UnitServerListItem {
   id: string;
   name: string;
   domain: string;
-  requiresUpdate: boolean;
   isActive: boolean;
   constellation: {
     name: string | null;

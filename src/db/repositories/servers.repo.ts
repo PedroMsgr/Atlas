@@ -2,13 +2,13 @@ import { UnitServer } from '../../generated/prisma';
 import { prisma } from '../prisma-client';
 
 export class ServersRepository {
+
   async findAll(): Promise<UnitServer[]> {
     return prisma.unitServer.findMany({
       select: {
         id: true,
         name: true,
         domain: true,
-        requiresUpdate: true,
         isActive: true,
         constellation: {
           select: {
@@ -90,7 +90,7 @@ export class ServersRepository {
    * Elimina un servidor de la base de datos
    * @param id El ID del servidor a eliminar
    * @returns El servidor eliminado
-  */
+   */
   async delete(id: string): Promise<UnitServer> {
     return prisma.unitServer.delete({
       where: { id },
@@ -153,4 +153,26 @@ export class ServersRepository {
       },
     });
   }
+
+  /**
+   * Cuenta los servidores por ID de configuración
+   * @param configId El ID de la configuración a contar
+   * @returns El número de servidores asociados a esa configuración
+   */
+  async countByConfigId(configId: string): Promise<number> {
+  return prisma.unitServer.count({
+    where: { configId }
+  });
+}
+
+async findByConfigId(configId: string): Promise<{ id: string; name: string }[]> {
+  return prisma.unitServer.findMany({
+    where: { configId },
+    select: {
+      id: true,
+      name: true
+    }
+  });
+}
+
 }

@@ -48,7 +48,6 @@ export class ServerService {
       domain,
       orchestratorToken: tokenService.generateOrchestratorToken(),
       unitToken: tokenService.generateUnitToken(),
-      requiresUpdate: false,
       isActive: true,
       constellationId: null,
       updatedAt: new Date().toISOString(),
@@ -64,7 +63,8 @@ export class ServerService {
     
     // Obtener el servidor con sus relaciones
     const server = await this.serversRepo.findById(createdServer.id);
-    if (server) {      return {
+    if (server) {
+      return {
         ...server,
         isActive: true, // Siempre devolvemos true por ahora
         createdAt: server.createdAt ? server.createdAt.toISOString() : null,
@@ -77,7 +77,6 @@ export class ServerService {
     name?: string; 
     domain?: string; 
     constellationId?: string;
-    requiresUpdate?: boolean;
     isActive?: boolean;
   }) {
     // Si se está actualizando el dominio, verificar que no exista
@@ -158,7 +157,6 @@ export class ServerService {
             name: true,
             domain: true,
             isActive: true,
-            requiresUpdate: true
           }
         }
       }

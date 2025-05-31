@@ -229,7 +229,6 @@ exports.Prisma.UnitServerScalarFieldEnum = {
   name: 'name',
   orchestratorToken: 'orchestratorToken',
   unitToken: 'unitToken',
-  requiresUpdate: 'requiresUpdate',
   isActive: 'isActive',
   constellationId: 'constellationId',
   configId: 'configId',

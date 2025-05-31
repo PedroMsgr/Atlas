@@ -28,18 +28,16 @@ async function main() {
     prisma.case.deleteMany(),
     prisma.client.deleteMany(),
     prisma.professional.deleteMany(),
-    prisma.updateLog.deleteMany(),
     prisma.image.deleteMany(),
-    prisma.autoSource.deleteMany(),
-    prisma.manualArticle.deleteMany(),
     prisma.section.deleteMany(),
+    prisma.article.deleteMany(),
   ]);
   
   // Eliminar servidores y configuraciones en un orden que respete las dependencias
   await prisma.$transaction(async (tx) => {
     // Eliminar la relación entre unitServer y unitConfig
     await tx.unitServer.updateMany({
-      data: { activeConfigId: null }
+      data: { configId: null }
     });
     
     await tx.unitConfig.deleteMany();
@@ -114,7 +112,8 @@ async function main() {
           updatedAt: now,
         },
       });
-      unitServers.push(server);      const config = await prisma.unitConfig.create({
+      unitServers.push(server);
+      const config = await prisma.unitConfig.create({
         data: {
           name: `Config ${server.name}`,
           pageTitle: `Abogados especialistas en ${constellation.name}`,
@@ -134,7 +133,7 @@ async function main() {
       // Establecer este config como activo en el servidor
       await prisma.unitServer.update({ 
         where: { id: server.id }, 
-        data: { activeConfigId: config.id } 
+        data: { configId: config.id } 
       });
     }
   }
@@ -193,20 +192,10 @@ async function main() {
       await prisma.report.create({ data: { caseId: c.id, clientId: c.clientId, reason: 'Retraso en respuesta' } });
     }
   }
-  // Crear logs de actualización para algunos servidores
-  await prisma.updateLog.create({
-    data: {
-      serverId: unitServers[0].id,
-      configId: unitConfigs[0].config.id,
-      status: 'completed',
-      initiatorId: admin.id,
-      description: 'Actualización inicial',
-      completedAt: new Date(),
-    }
-  });
 
-  // Secciones, artículos manuales, fuentes automáticas e imágenes
-  for (const { config, server } of unitConfigs) {    // Secciones
+  // Secciones, artículos y imágenes
+  for (const { config, server } of unitConfigs) {
+    // Secciones
     await prisma.section.createMany({ data: [
       { configId: config.id, serverId: server.id, type: SectionType.text, title: 'Bienvenida', content: 'Bienvenido a nuestro portal.', order: 1 },
       { configId: config.id, serverId: server.id, type: SectionType.legalGuide, title: 'Guía Legal', content: JSON.stringify(['Paso 1', 'Paso 2', 'Paso 3']), order: 2 },
@@ -214,19 +203,21 @@ async function main() {
       { configId: config.id, serverId: server.id, type: SectionType.newsConfig, title: 'Noticias', content: JSON.stringify({ enabled: true }), order: 4 },
     ]});
 
-    // Artículos manuales
-    await prisma.manualArticle.create({ data: {
-      configId: config.id,
-      serverId: server.id,
-      title: `Manual de ${server.name}`,
-      content: 'Este artículo provee instrucciones detalladas.',
-    }});
-
-    // Fuentes automáticas
-    await prisma.autoSource.createMany({ data: [
-      { configId: config.id, serverId: server.id, name: 'Blog Legal', url: 'https://blog.atlaslegal.com/rss', type: 'RSS' },
-      { configId: config.id, serverId: server.id, name: 'Noticias Legales', url: 'https://noticias.legales.com/api', type: 'API' },
-    ]});
+    // Artículos (nuevo modelo)
+    const article1 = await prisma.article.create({
+      data: {
+        title: `Artículo destacado de ${server.name}`,
+        content: 'Este es un artículo de ejemplo para la landing.',
+        configs: { connect: [{ id: config.id }] },
+      }
+    });
+    const article2 = await prisma.article.create({
+      data: {
+        title: `Guía rápida de ${server.name}`,
+        content: 'Guía rápida para usuarios del portal.',
+        configs: { connect: [{ id: config.id }] },
+      }
+    });
 
     // Imágenes de la landing
     await prisma.image.createMany({ data: [

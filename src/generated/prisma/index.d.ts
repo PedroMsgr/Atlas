@@ -15925,7 +15925,6 @@ export namespace Prisma {
     name: string | null
     orchestratorToken: string | null
     unitToken: string | null
-    requiresUpdate: boolean | null
     isActive: boolean | null
     constellationId: string | null
     configId: string | null
@@ -15939,7 +15938,6 @@ export namespace Prisma {
     name: string | null
     orchestratorToken: string | null
     unitToken: string | null
-    requiresUpdate: boolean | null
     isActive: boolean | null
     constellationId: string | null
     configId: string | null
@@ -15953,7 +15951,6 @@ export namespace Prisma {
     name: number
     orchestratorToken: number
     unitToken: number
-    requiresUpdate: number
     isActive: number
     constellationId: number
     configId: number
@@ -15969,7 +15966,6 @@ export namespace Prisma {
     name?: true
     orchestratorToken?: true
     unitToken?: true
-    requiresUpdate?: true
     isActive?: true
     constellationId?: true
     configId?: true
@@ -15983,7 +15979,6 @@ export namespace Prisma {
     name?: true
     orchestratorToken?: true
     unitToken?: true
-    requiresUpdate?: true
     isActive?: true
     constellationId?: true
     configId?: true
@@ -15997,7 +15992,6 @@ export namespace Prisma {
     name?: true
     orchestratorToken?: true
     unitToken?: true
-    requiresUpdate?: true
     isActive?: true
     constellationId?: true
     configId?: true
@@ -16084,7 +16078,6 @@ export namespace Prisma {
     name: string
     orchestratorToken: string
     unitToken: string
-    requiresUpdate: boolean
     isActive: boolean
     constellationId: string
     configId: string | null
@@ -16115,7 +16108,6 @@ export namespace Prisma {
     name?: boolean
     orchestratorToken?: boolean
     unitToken?: boolean
-    requiresUpdate?: boolean
     isActive?: boolean
     constellationId?: boolean
     configId?: boolean
@@ -16137,7 +16129,6 @@ export namespace Prisma {
     name?: boolean
     orchestratorToken?: boolean
     unitToken?: boolean
-    requiresUpdate?: boolean
     isActive?: boolean
     constellationId?: boolean
     configId?: boolean
@@ -16153,7 +16144,6 @@ export namespace Prisma {
     name?: boolean
     orchestratorToken?: boolean
     unitToken?: boolean
-    requiresUpdate?: boolean
     isActive?: boolean
     constellationId?: boolean
     configId?: boolean
@@ -16169,7 +16159,6 @@ export namespace Prisma {
     name?: boolean
     orchestratorToken?: boolean
     unitToken?: boolean
-    requiresUpdate?: boolean
     isActive?: boolean
     constellationId?: boolean
     configId?: boolean
@@ -16177,7 +16166,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type UnitServerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "domain" | "name" | "orchestratorToken" | "unitToken" | "requiresUpdate" | "isActive" | "constellationId" | "configId" | "createdAt" | "updatedAt", ExtArgs["result"]["unitServer"]>
+  export type UnitServerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "domain" | "name" | "orchestratorToken" | "unitToken" | "isActive" | "constellationId" | "configId" | "createdAt" | "updatedAt", ExtArgs["result"]["unitServer"]>
   export type UnitServerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     constellation?: boolean | ConstellationDefaultArgs<ExtArgs>
     config?: boolean | UnitServer$configArgs<ExtArgs>
@@ -16214,7 +16203,6 @@ export namespace Prisma {
       name: string
       orchestratorToken: string
       unitToken: string
-      requiresUpdate: boolean
       isActive: boolean
       constellationId: string
       configId: string | null
@@ -16655,7 +16643,6 @@ export namespace Prisma {
     readonly name: FieldRef<"UnitServer", 'String'>
     readonly orchestratorToken: FieldRef<"UnitServer", 'String'>
     readonly unitToken: FieldRef<"UnitServer", 'String'>
-    readonly requiresUpdate: FieldRef<"UnitServer", 'Boolean'>
     readonly isActive: FieldRef<"UnitServer", 'Boolean'>
     readonly constellationId: FieldRef<"UnitServer", 'String'>
     readonly configId: FieldRef<"UnitServer", 'String'>
@@ -19703,7 +19690,6 @@ export namespace Prisma {
     name: 'name',
     orchestratorToken: 'orchestratorToken',
     unitToken: 'unitToken',
-    requiresUpdate: 'requiresUpdate',
     isActive: 'isActive',
     constellationId: 'constellationId',
     configId: 'configId',
@@ -20702,7 +20688,6 @@ export namespace Prisma {
     name?: StringFilter<"UnitServer"> | string
     orchestratorToken?: StringFilter<"UnitServer"> | string
     unitToken?: StringFilter<"UnitServer"> | string
-    requiresUpdate?: BoolFilter<"UnitServer"> | boolean
     isActive?: BoolFilter<"UnitServer"> | boolean
     constellationId?: StringFilter<"UnitServer"> | string
     configId?: StringNullableFilter<"UnitServer"> | string | null
@@ -20723,7 +20708,6 @@ export namespace Prisma {
     name?: SortOrder
     orchestratorToken?: SortOrder
     unitToken?: SortOrder
-    requiresUpdate?: SortOrder
     isActive?: SortOrder
     constellationId?: SortOrder
     configId?: SortOrderInput | SortOrder
@@ -20747,7 +20731,6 @@ export namespace Prisma {
     OR?: UnitServerWhereInput[]
     NOT?: UnitServerWhereInput | UnitServerWhereInput[]
     name?: StringFilter<"UnitServer"> | string
-    requiresUpdate?: BoolFilter<"UnitServer"> | boolean
     isActive?: BoolFilter<"UnitServer"> | boolean
     constellationId?: StringFilter<"UnitServer"> | string
     configId?: StringNullableFilter<"UnitServer"> | string | null
@@ -20768,7 +20751,6 @@ export namespace Prisma {
     name?: SortOrder
     orchestratorToken?: SortOrder
     unitToken?: SortOrder
-    requiresUpdate?: SortOrder
     isActive?: SortOrder
     constellationId?: SortOrder
     configId?: SortOrderInput | SortOrder
@@ -20788,7 +20770,6 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"UnitServer"> | string
     orchestratorToken?: StringWithAggregatesFilter<"UnitServer"> | string
     unitToken?: StringWithAggregatesFilter<"UnitServer"> | string
-    requiresUpdate?: BoolWithAggregatesFilter<"UnitServer"> | boolean
     isActive?: BoolWithAggregatesFilter<"UnitServer"> | boolean
     constellationId?: StringWithAggregatesFilter<"UnitServer"> | string
     configId?: StringNullableWithAggregatesFilter<"UnitServer"> | string | null
@@ -21719,7 +21700,6 @@ export namespace Prisma {
     name: string
     orchestratorToken: string
     unitToken: string
-    requiresUpdate?: boolean
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -21738,7 +21718,6 @@ export namespace Prisma {
     name: string
     orchestratorToken: string
     unitToken: string
-    requiresUpdate?: boolean
     isActive?: boolean
     constellationId: string
     configId?: string | null
@@ -21757,7 +21736,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
-    requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21776,7 +21754,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
-    requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     constellationId?: StringFieldUpdateOperationsInput | string
     configId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21795,7 +21772,6 @@ export namespace Prisma {
     name: string
     orchestratorToken: string
     unitToken: string
-    requiresUpdate?: boolean
     isActive?: boolean
     constellationId: string
     configId?: string | null
@@ -21809,7 +21785,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
-    requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21821,7 +21796,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
-    requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     constellationId?: StringFieldUpdateOperationsInput | string
     configId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22781,7 +22755,6 @@ export namespace Prisma {
     name?: SortOrder
     orchestratorToken?: SortOrder
     unitToken?: SortOrder
-    requiresUpdate?: SortOrder
     isActive?: SortOrder
     constellationId?: SortOrder
     configId?: SortOrder
@@ -22795,7 +22768,6 @@ export namespace Prisma {
     name?: SortOrder
     orchestratorToken?: SortOrder
     unitToken?: SortOrder
-    requiresUpdate?: SortOrder
     isActive?: SortOrder
     constellationId?: SortOrder
     configId?: SortOrder
@@ -22809,7 +22781,6 @@ export namespace Prisma {
     name?: SortOrder
     orchestratorToken?: SortOrder
     unitToken?: SortOrder
-    requiresUpdate?: SortOrder
     isActive?: SortOrder
     constellationId?: SortOrder
     configId?: SortOrder
@@ -24663,7 +24634,6 @@ export namespace Prisma {
     name: string
     orchestratorToken: string
     unitToken: string
-    requiresUpdate?: boolean
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -24681,7 +24651,6 @@ export namespace Prisma {
     name: string
     orchestratorToken: string
     unitToken: string
-    requiresUpdate?: boolean
     isActive?: boolean
     constellationId: string
     configId?: string | null
@@ -24848,7 +24817,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
-    requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24866,7 +24834,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
-    requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     constellationId?: StringFieldUpdateOperationsInput | string
     configId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25009,7 +24976,6 @@ export namespace Prisma {
     name: string
     orchestratorToken: string
     unitToken: string
-    requiresUpdate?: boolean
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -25027,7 +24993,6 @@ export namespace Prisma {
     name: string
     orchestratorToken: string
     unitToken: string
-    requiresUpdate?: boolean
     isActive?: boolean
     constellationId: string
     configId?: string | null
@@ -25170,7 +25135,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
-    requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25188,7 +25152,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
-    requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     constellationId?: StringFieldUpdateOperationsInput | string
     configId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25280,7 +25243,6 @@ export namespace Prisma {
     name: string
     orchestratorToken: string
     unitToken: string
-    requiresUpdate?: boolean
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -25298,7 +25260,6 @@ export namespace Prisma {
     name: string
     orchestratorToken: string
     unitToken: string
-    requiresUpdate?: boolean
     isActive?: boolean
     constellationId: string
     configId?: string | null
@@ -25455,7 +25416,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
-    requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25473,7 +25433,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
-    requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     constellationId?: StringFieldUpdateOperationsInput | string
     configId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25971,7 +25930,6 @@ export namespace Prisma {
     name: string
     orchestratorToken: string
     unitToken: string
-    requiresUpdate?: boolean
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -25989,7 +25947,6 @@ export namespace Prisma {
     name: string
     orchestratorToken: string
     unitToken: string
-    requiresUpdate?: boolean
     isActive?: boolean
     configId?: string | null
     createdAt?: Date | string
@@ -26036,7 +25993,6 @@ export namespace Prisma {
     name?: StringFilter<"UnitServer"> | string
     orchestratorToken?: StringFilter<"UnitServer"> | string
     unitToken?: StringFilter<"UnitServer"> | string
-    requiresUpdate?: BoolFilter<"UnitServer"> | boolean
     isActive?: BoolFilter<"UnitServer"> | boolean
     constellationId?: StringFilter<"UnitServer"> | string
     configId?: StringNullableFilter<"UnitServer"> | string | null
@@ -26091,7 +26047,6 @@ export namespace Prisma {
     name: string
     orchestratorToken: string
     unitToken: string
-    requiresUpdate?: boolean
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -26109,7 +26064,6 @@ export namespace Prisma {
     name: string
     orchestratorToken: string
     unitToken: string
-    requiresUpdate?: boolean
     isActive?: boolean
     constellationId: string
     configId?: string | null
@@ -26190,7 +26144,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
-    requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -26208,7 +26161,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
-    requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     constellationId?: StringFieldUpdateOperationsInput | string
     configId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26835,7 +26787,6 @@ export namespace Prisma {
     name: string
     orchestratorToken: string
     unitToken: string
-    requiresUpdate?: boolean
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -26853,7 +26804,6 @@ export namespace Prisma {
     name: string
     orchestratorToken: string
     unitToken: string
-    requiresUpdate?: boolean
     isActive?: boolean
     constellationId: string
     createdAt?: Date | string
@@ -26967,7 +26917,6 @@ export namespace Prisma {
     name: string
     orchestratorToken: string
     unitToken: string
-    requiresUpdate?: boolean
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -26985,7 +26934,6 @@ export namespace Prisma {
     name: string
     orchestratorToken: string
     unitToken: string
-    requiresUpdate?: boolean
     isActive?: boolean
     constellationId: string
     configId?: string | null
@@ -27019,7 +26967,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
-    requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27037,7 +26984,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
-    requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     constellationId?: StringFieldUpdateOperationsInput | string
     configId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27397,7 +27343,6 @@ export namespace Prisma {
     name: string
     orchestratorToken: string
     unitToken: string
-    requiresUpdate?: boolean
     isActive?: boolean
     configId?: string | null
     createdAt?: Date | string
@@ -27410,7 +27355,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
-    requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27428,7 +27372,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
-    requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     configId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27446,7 +27389,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
-    requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     configId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27691,7 +27633,6 @@ export namespace Prisma {
     name: string
     orchestratorToken: string
     unitToken: string
-    requiresUpdate?: boolean
     isActive?: boolean
     constellationId: string
     createdAt?: Date | string
@@ -27776,7 +27717,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
-    requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27794,7 +27734,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
-    requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     constellationId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27812,7 +27751,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     orchestratorToken?: StringFieldUpdateOperationsInput | string
     unitToken?: StringFieldUpdateOperationsInput | string
-    requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     constellationId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

@@ -70,7 +70,6 @@ export default function ServerList() {
                 <th className="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Dominio</th>
                 <th className="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Constelación</th>
                 <th className="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estado</th>
-                <th className="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actualización</th>
                 <th className="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Última modificación</th>
                 <th className="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Configuración activa</th>
               </tr>
@@ -89,11 +88,6 @@ export default function ServerList() {
                     <td className="py-4 px-4 whitespace-nowrap text-sm">
                       <span className={`inline-block rounded-full px-2 py-1 text-xs font-semibold ${server.isActive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
                         {server.isActive ? 'Activo' : 'Inactivo'}
-                      </span>
-                    </td>
-                    <td className="py-4 px-4 whitespace-nowrap text-sm">
-                      <span className={`inline-block rounded-full px-2 py-1 text-xs font-semibold ${server.requiresUpdate ? 'bg-yellow-100 text-yellow-800' : 'bg-blue-100 text-blue-800'}`}>
-                        {server.requiresUpdate ? 'Pendiente' : 'Actualizado'}
                       </span>
                     </td>
                     <td className="py-4 px-4 whitespace-nowrap text-sm text-gray-500">

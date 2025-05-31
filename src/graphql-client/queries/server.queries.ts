@@ -6,7 +6,6 @@ export const GET_SERVERS = gql`
       id
       name
       domain
-      requiresUpdate
       isActive
       constellation {
         name
@@ -27,7 +26,6 @@ export const GET_SERVER_BY_ID = gql`
       id
       name
       domain
-      requiresUpdate
       isActive
       orchestratorToken
       unitToken

@@ -6,7 +6,6 @@ export const CREATE_SERVER = gql`
       id
       name
       domain
-      requiresUpdate
       isActive
       orchestratorToken
       unitToken
@@ -24,7 +23,6 @@ export const UPDATE_SERVER = gql`
       id
       name
       domain
-      requiresUpdate
       isActive
       updatedAt
     }

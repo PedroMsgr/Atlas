@@ -5,7 +5,6 @@ export const typeDefs = gql`
     id: ID!
     name: String!
     domain: String!
-    requiresUpdate: Boolean!
     isActive: Boolean!
     orchestratorToken: String!
     unitToken: String!
@@ -59,7 +58,6 @@ export const typeDefs = gql`
     configId: String
     orchestratorToken: String
     unitToken: String
-    requiresUpdate: Boolean
     isActive: Boolean
   }
   type ServerTokens {
