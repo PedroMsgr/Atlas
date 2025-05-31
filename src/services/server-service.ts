@@ -51,7 +51,6 @@ export class ServerService {
       requiresUpdate: false,
       isActive: true,
       constellationId: null,
-      activeConfigId: null,
       updatedAt: new Date().toISOString(),
       createdAt: new Date().toISOString(),
     };
@@ -74,7 +73,6 @@ export class ServerService {
     }
     return null;
   }
-
   async updateServer(id: string, data: { 
     name?: string; 
     domain?: string; 
@@ -90,7 +88,27 @@ export class ServerService {
       }
     }
 
-    return await this.serversRepo.update(id, data);
+    // Actualizamos el servidor con los nuevos datos
+    const updatedServer = await this.serversRepo.update(id, {
+      ...data,
+      updatedAt: new Date()
+    });
+    
+    // Obtenemos el servidor con sus relaciones actualizadas
+    const serverWithRelations = await this.serversRepo.findById(id);
+    
+    // Si el servidor existe, lo devolvemos con las relaciones
+    if (serverWithRelations) {
+      return {
+        ...serverWithRelations,
+        isActive: true,
+        // Asegurarse de que las fechas estén en formato ISO
+        createdAt: serverWithRelations.createdAt ? serverWithRelations.createdAt.toISOString() : null, 
+        updatedAt: serverWithRelations.updatedAt ? serverWithRelations.updatedAt.toISOString() : null
+      };
+    }
+    
+    return updatedServer;
   }
   async deleteServer(id: string) {
     return await this.serversRepo.delete(id);
@@ -126,8 +144,7 @@ export class ServerService {
         description: true
       }
     });
-  }
-  async getConstellationById(id: string) {
+  }  async getConstellationById(id: string) {
     const { prisma } = await import('@/db/prisma-client');
     return await prisma.constellation.findUnique({
       where: { id },
@@ -144,6 +161,16 @@ export class ServerService {
             requiresUpdate: true
           }
         }
+      }
+    });
+  }
+  
+  async getAllConfigurations() {
+    const { prisma } = await import('@/db/prisma-client');
+    return await prisma.unitConfig.findMany({
+      select: {
+        id: true,
+        name: true
       }
     });
   }

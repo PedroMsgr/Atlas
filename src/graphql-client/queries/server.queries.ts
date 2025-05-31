@@ -11,6 +11,11 @@ export const GET_SERVERS = gql`
       constellation {
         name
       }
+      configId
+      config {
+        id
+        name
+      }
       updatedAt
     }
   }
@@ -30,10 +35,11 @@ export const GET_SERVER_BY_ID = gql`
         id
         name
       }
-      activeConfig {
+      config {
         id
         name
       }
+      configId
       createdAt
       updatedAt
     }
@@ -48,3 +54,5 @@ export const GENERATE_SERVER_TOKENS = gql`
     }
   }
 `;
+
+

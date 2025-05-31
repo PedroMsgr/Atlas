@@ -1,33 +1,26 @@
 import { gql } from '@apollo/client';
 
-export const GET_CONFIG = gql`
-  query GetConfig($id: ID!) {
-    config(id: $id) {
+export const GET_CONFIGURATION_BY_ID = gql`
+  query GetConfigurationById($id: ID!) {
+    configuration(id: $id) {
       id
       name
       pageTitle
       footerInfo
       legalStepsCount
       pageType
+      updatedAt
+      createdAt
       sections {
         id
         type
         title
-        content
         order
       }
-      manualArticles {
+      articles {
         id
         title
-        content
         publishedAt
-      }
-      autoSources {
-        id
-        name
-        url
-        type
-        createdAt
       }
       images {
         id
@@ -36,18 +29,29 @@ export const GET_CONFIG = gql`
         type
         order
       }
+      servers {
+        id
+        name
+        domain
+        isActive
+      }
     }
   }
 `;
 
-export const GET_CONFIGS = gql`
-  query GetConfigs {
-    configs {
+export const GET_ALL_CONFIGURATIONS = gql`
+  query GetAllConfigurations {
+    configurations {
       id
       name
       pageTitle
       pageType
-      legalStepsCount
+      updatedAt
+      servers {
+        id
+        name
+        domain
+      }
     }
   }
 `;

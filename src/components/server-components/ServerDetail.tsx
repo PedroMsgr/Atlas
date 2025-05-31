@@ -1,11 +1,12 @@
 'use client';
 
 import { useQuery, useMutation, useLazyQuery } from '@apollo/client';
-import { Box, Card, Heading, Text, Badge, Flex, Separator, Button, IconButton, Tooltip } from '@radix-ui/themes';
+import { Box, Card, Heading, Text, Badge, Flex, Separator, Button, IconButton, Tooltip, Select } from '@radix-ui/themes';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { GET_SERVER_BY_ID, GENERATE_SERVER_TOKENS } from '@/graphql-client/queries/server.queries';
-import { UPDATE_SERVER_TOKENS } from '@/graphql-client/mutations/server.mutations';
+import { UPDATE_SERVER_TOKENS, UPDATE_SERVER_CONFIG } from '@/graphql-client/mutations/server.mutations';
+import { GET_ALL_CONFIGURATIONS } from '@/graphql-client/queries/configs.queries';
 import { formatDate } from '@/utils/date-formatter';
 
 interface ServerDetailProps {
@@ -13,19 +14,23 @@ interface ServerDetailProps {
 }
 
 export default function ServerDetail({ serverId }: ServerDetailProps) {
-  const router = useRouter();
-  const [isRestarting, setIsRestarting] = useState(false);
+  const router = useRouter();  const [isRestarting, setIsRestarting] = useState(false);
   const [isCopied, setIsCopied] = useState<{[key: string]: boolean}>({});
   const [isRegeneratingTokens, setIsRegeneratingTokens] = useState(false);
   const [tokensChanged, setTokensChanged] = useState(false);
   const [newTokens, setNewTokens] = useState<{orchestratorToken?: string, unitToken?: string}>({});
   const [updateError, setUpdateError] = useState<string | null>(null);
+  const [selectedConfigId, setSelectedConfigId] = useState<string | null>(null);
+  const [isUpdatingConfig, setIsUpdatingConfig] = useState(false);
   
   // Consultar los detalles del servidor
   const { data, loading, error, refetch } = useQuery(GET_SERVER_BY_ID, {
     variables: { id: serverId },
     fetchPolicy: 'cache-and-network',
   });
+  
+  // Consultar todas las configuraciones disponibles
+  const { data: configsData, loading: loadingConfigs } = useQuery(GET_ALL_CONFIGURATIONS);
   
   // Query para generar nuevos tokens
   const [generateTokens, { loading: generatingTokens }] = useLazyQuery(GENERATE_SERVER_TOKENS, {
@@ -44,8 +49,7 @@ export default function ServerDetail({ serverId }: ServerDetailProps) {
       setUpdateError(`Error al generar tokens: ${error.message}`);
     }
   });
-  
-  // Mutación para actualizar los tokens
+    // Mutación para actualizar los tokens
   const [updateServerTokens, { loading: updatingTokens }] = useMutation(UPDATE_SERVER_TOKENS, {
     onCompleted: () => {
       setTokensChanged(false);
@@ -58,6 +62,27 @@ export default function ServerDetail({ serverId }: ServerDetailProps) {
       setUpdateError(error.message);
     }
   });
+  
+  // Mutación para actualizar la configuración del servidor
+  const [updateServerConfig, { loading: updatingConfig }] = useMutation(UPDATE_SERVER_CONFIG, {
+    onCompleted: () => {
+      setIsUpdatingConfig(false);
+      setUpdateError(null);
+      refetch();
+    },
+    onError: (error) => {
+      console.error('Error al actualizar la configuración:', error);
+      setUpdateError(`Error al actualizar la configuración: ${error.message}`);
+      setIsUpdatingConfig(false);
+    }
+  });
+  
+  // Establecer la configuración seleccionada inicial cuando carguen los datos del servidor
+  useEffect(() => {
+    if (data?.server?.config?.id) {
+      setSelectedConfigId(data.server.config.id);
+    }
+  }, [data]);
   
   // Función para copiar al portapapeles
   const handleCopyToClipboard = async (text: string, field: string) => {
@@ -106,6 +131,23 @@ export default function ServerDetail({ serverId }: ServerDetailProps) {
       });
     } catch (error) {
       console.error('Error al actualizar los tokens:', error);
+    }
+  };
+    // Función para manejar el cambio de configuración
+  const handleConfigChange = async (configId: string) => {
+    if (configId === selectedConfigId) return;
+    setSelectedConfigId(configId);
+    setIsUpdatingConfig(true);
+    setUpdateError(null);
+    try {
+      await updateServerConfig({
+        variables: {
+          id: serverId,
+          configId: configId
+        }
+      });
+    } catch (err) {
+      console.error('Error al actualizar la configuración:', err);
     }
   };
   
@@ -164,11 +206,36 @@ export default function ServerDetail({ serverId }: ServerDetailProps) {
             <Box>
               <Text weight="bold">Constelación:</Text>
               <Text>{server.constellation?.name || "Sin constelación"}</Text>
-            </Box>
-
-            <Box>
+            </Box>            <Box>
               <Text weight="bold">Configuración activa:</Text>
-              <Text>{server.activeConfig?.name || "Sin configuración"}</Text>
+              {loadingConfigs ? (
+                <Text size="2">Cargando configuraciones...</Text>
+              ) : configsData?.configurations?.length > 0 ? (
+                <Flex gap="2" align="center">
+                  <Select.Root 
+                    value={selectedConfigId || ""} 
+                    onValueChange={handleConfigChange}
+                    disabled={isUpdatingConfig}
+                  >
+                    <Select.Trigger 
+                      className="w-full max-w-[250px]" 
+                      placeholder="Selecciona una configuración"
+                    />
+                    <Select.Content>
+                      <Select.Group>
+                        {configsData.configurations.map((config: any) => (
+                          <Select.Item key={config.id} value={config.id}>
+                            {config.name}
+                          </Select.Item>
+                        ))}
+                      </Select.Group>
+                    </Select.Content>
+                  </Select.Root>
+                  {isUpdatingConfig && <Text size="2" color="amber">Actualizando...</Text>}
+                </Flex>
+              ) : (
+                <Text>No hay configuraciones disponibles</Text>
+              )}
             </Box>
             
             {/* Tokens */}

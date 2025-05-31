@@ -12,7 +12,6 @@ export class UsersRepository {
       include: {
         clients: true,
         professionals: true,
-        initiatedUpdates: true,
       },
     });
   }
@@ -61,4 +60,4 @@ export class UsersRepository {
       data: { isActive },
     });
   }
-} 
+}

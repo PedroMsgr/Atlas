@@ -15,64 +15,88 @@ export class ServersRepository {
             name: true
           }
         },
+        configId: true,
+        config: {
+          select: {
+            id: true,
+            name: true
+          }
+        },
         updatedAt: true,
         createdAt: true,
         orchestratorToken: true,
         unitToken: true,
-        constellationId: true,
-        activeConfigId: true
+        constellationId: true
       }
     });
   }
 
+  /**
+   * Busca un servidor por su ID
+   * @param id El ID del servidor a buscar
+   * @returns El servidor encontrado o null si no se encuentra
+   */
   async findById(id: string): Promise<UnitServer | null> {
     return prisma.unitServer.findUnique({
       where: { id },
       include: {
         constellation: true,
-        activeConfig: true,
         clients: true,
         professionals: true,
         cases: true,
         sections: true,
-        manualArticles: true,
-        autoSources: true,
-        updateLogs: true,
+        config: true,
       },
     });
   }
 
+  /**
+   * Busca un servidor por su dominio
+   * @param domain El dominio del servidor a buscar
+   * @returns El servidor encontrado o null si no se encuentra
+   */
   async findByDomain(domain: string): Promise<UnitServer | null> {
     return prisma.unitServer.findUnique({
-      where: { domain },
+      where: { domain }
     });
   }
 
+
+  /**
+   * Crea un nuevo servidor en la base de datos
+   * @param data Los datos del servidor a crear
+   * @returns El servidor creado
+  */
   async create(data: Omit<UnitServer, 'id'>): Promise<UnitServer> {
     return prisma.unitServer.create({
       data,
     });
   }
 
+  /**
+   * Actualiza un servidor en la base de datos
+   * @param id El ID del servidor a actualizar
+   * @param data Los datos a actualizar
+   * @returns El servidor actualizado
+  */
   async update(id: string, data: Partial<UnitServer>): Promise<UnitServer> {
     return prisma.unitServer.update({
       where: { id },
       data,
     });
   }
+
+  /**
+   * Elimina un servidor de la base de datos
+   * @param id El ID del servidor a eliminar
+   * @returns El servidor eliminado
+  */
   async delete(id: string): Promise<UnitServer> {
     return prisma.unitServer.delete({
       where: { id },
     });
   }
 
-  async updateActiveConfig(serverId: string, configId: string): Promise<UnitServer> {
-    return prisma.unitServer.update({
-      where: { id: serverId },
-      data: { activeConfigId: configId },
-    });
-  }
-  
   /**
    * Verifica si un token de orquestador ya existe en la base de datos
    * @param token El token a verificar
@@ -97,10 +121,36 @@ export class ServersRepository {
     return count > 0;
   }
 
-  async markForUpdate(id: string, requiresUpdate: boolean): Promise<UnitServer> {
-    return prisma.unitServer.update({
-      where: { id },
-      data: { requiresUpdate },
+  /**
+   * Verifica si un servidor ya existe en la base de datos
+   * @param id El ID del servidor a verificar
+   * @returns true si el servidor ya existe, false en caso contrario
+   */
+  async countServers(): Promise<number> {
+    return prisma.unitServer.count();
+  }
+
+  /**
+   * Cuenta los servidores activos
+   * @returns El número de servidores activos
+   */
+  async countActiveServers(): Promise<number> {
+    return prisma.unitServer.count({
+      where: {
+        isActive: true,
+      },
     });
   }
-} 
+
+  /**
+   * Cuenta los servidores inactivos
+   * @returns El número de servidores inactivos
+   */
+  async countInactiveServers(): Promise<number> {
+    return prisma.unitServer.count({
+      where: {
+        isActive: false,
+      },
+    });
+  }
+}

@@ -1,5 +1,6 @@
 import { serverService } from '@/services/server-service';
 import { tokenService } from '@/services/token-service';
+import { configService } from '@/services/config-service';
 
 
 export const resolvers = {
@@ -15,7 +16,13 @@ export const resolvers = {
     },
     constellation: async (_: any, { id }: { id: string }) => {
       return await serverService.getConstellationById(id);
-    },    generateServerTokens: async (_: any, { id }: { id: string }) => {
+    },    configurations: async () => {
+      return await configService.getAllConfigs();
+    },
+    configuration: async (_: any, { id }: { id: string }) => {
+      return await configService.getConfigById(id);
+    },
+    generateServerTokens: async (_: any, { id }: { id: string }) => {
       // Verificar que el servidor existe pero no guardar los tokens todavía
       const serverExists = await serverService.getServerById(id);
       if (!serverExists) {
@@ -40,19 +47,21 @@ export const resolvers = {
       constellationId?: string;
     }) => {
       return await serverService.createServer({ name, domain, constellationId });
-    },
-    updateServer: async (_: any, { id, data }: { 
+    },    updateServer: async (_: any, { id, data }: { 
       id: string; 
       data: {
         name?: string;
         domain?: string;
         constellationId?: string;
+        configId?: string;
         requiresUpdate?: boolean;
         isActive?: boolean;
+        orchestratorToken?: string;
+        unitToken?: string;
       };
     }) => {
       return await serverService.updateServer(id, data);
-    },    deleteServer: async (_: any, { id }: { id: string }) => {
+    },deleteServer: async (_: any, { id }: { id: string }) => {
       return await serverService.deleteServer(id);
     },    updateServerTokens: async (_: any, { id, orchestratorToken, unitToken }: { 
       id: string;
@@ -74,12 +83,58 @@ export const resolvers = {
         where: { id },
         data: { name, description }
       });
-    },
-    deleteConstellation: async (_: any, { id }: { id: string }) => {
+    },    deleteConstellation: async (_: any, { id }: { id: string }) => {
       const { prisma } = await import('@/db/prisma-client');
       return await prisma.constellation.delete({
         where: { id }
       });
+    },
+    createConfig: async (_: any, { 
+      name, 
+      pageTitle, 
+      pageType, 
+      footerInfo, 
+      legalStepsCount 
+    }: { 
+      name: string; 
+      pageTitle: string;
+      pageType: string;
+      footerInfo?: string;
+      legalStepsCount?: number;
+    }) => {
+      return await configService.createConfig({ 
+        name, 
+        pageTitle, 
+        pageType, 
+        footerInfo, 
+        legalStepsCount 
+      });
+    },
+    updateConfig: async (_: any, { 
+      id, 
+      name, 
+      pageTitle, 
+      pageType, 
+      footerInfo, 
+      legalStepsCount 
+    }: { 
+      id: string;
+      name?: string;
+      pageTitle?: string;
+      pageType?: string;
+      footerInfo?: string;
+      legalStepsCount?: number;
+    }) => {
+      return await configService.updateConfig(id, { 
+        name, 
+        pageTitle, 
+        pageType, 
+        footerInfo, 
+        legalStepsCount 
+      });
+    },
+    deleteConfig: async (_: any, { id }: { id: string }) => {
+      return await configService.deleteConfig(id);
     },
   },
 };

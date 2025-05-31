@@ -31,6 +31,20 @@ export const UPDATE_SERVER = gql`
   }
 `;
 
+export const UPDATE_SERVER_CONFIG = gql`
+  mutation UpdateServerConfig($id: ID!, $activeConfigId: String!) {
+    updateServer(id: $id, data: { activeConfigId: $activeConfigId }) {
+      id
+      name
+      activeConfig {
+        id
+        name
+      }
+      updatedAt
+    }
+  }
+`;
+
 export const UPDATE_SERVER_TOKENS = gql`
   mutation UpdateServerTokens($id: ID!, $orchestratorToken: String!, $unitToken: String!) {
     updateServerTokens(id: $id, orchestratorToken: $orchestratorToken, unitToken: $unitToken) {

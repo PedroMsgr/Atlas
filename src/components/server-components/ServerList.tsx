@@ -72,6 +72,7 @@ export default function ServerList() {
                 <th className="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estado</th>
                 <th className="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actualización</th>
                 <th className="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Última modificación</th>
+                <th className="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Configuración activa</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
@@ -98,6 +99,7 @@ export default function ServerList() {
                     <td className="py-4 px-4 whitespace-nowrap text-sm text-gray-500">
                       {formatDate(server.updatedAt, 'date')}
                     </td>
+                    <td className="py-4 px-4 whitespace-nowrap text-sm">{server.config?.name || '-'}</td>
                   </tr>
                 );
               })}

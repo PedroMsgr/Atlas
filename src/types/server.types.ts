@@ -30,5 +30,10 @@ export interface UnitServerListItem {
   constellation: {
     name: string | null;
   } | null;
+  configId?: string | null;
+  config?: {
+    id: string;
+    name: string;
+  } | null;
   updatedAt: string;
 }

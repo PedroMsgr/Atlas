@@ -71,35 +71,9 @@ model User {
   updatedAt   DateTime  @updatedAt
   lastLoginAt DateTime?
 
-  clients          Client[]
-  professionals    Professional[]
-  // sessions     Session[] // FUTURA IMPLEMENTACIÓN: Sistema híbrido JWT + Sesiones
-  initiatedUpdates UpdateLog[]
+  clients       Client[]
+  professionals Professional[]
 }
-
-// FUTURA IMPLEMENTACIÓN: Sistema híbrido JWT + Sesiones
-// model Session {
-//   id          String      @id @default(uuid())
-//   token       String      @unique
-//   userId      String
-//   serverId    String?
-//   sessionType SessionType @default(local)
-//   userAgent   String?     // Información del navegador/dispositivo
-//   ip          String?     // Dirección IP desde donde se conecta
-//   createdAt   DateTime    @default(now())
-//   expiresAt   DateTime
-//   isActive    Boolean     @default(true)
-//   lastUsedAt  DateTime    @default(now()) // Última vez que se usó el token
-
-//   user        User        @relation(fields: [userId], references: [id])
-//   server      UnitServer? @relation(fields: [serverId], references: [id])
-
-//   @@index([token])
-//   @@index([userId])
-//   @@index([serverId])
-//   @@index([sessionType])
-//   @@index([isActive])
-// }
 
 model Client {
   id       String       @id @default(uuid())
@@ -213,31 +187,6 @@ model Section {
   server UnitServer? @relation(fields: [serverId], references: [id])
 }
 
-model ManualArticle {
-  id          String   @id @default(uuid())
-  configId    String
-  serverId    String?
-  title       String
-  content     String
-  publishedAt DateTime @default(now())
-
-  config UnitConfig  @relation(fields: [configId], references: [id])
-  server UnitServer? @relation(fields: [serverId], references: [id])
-}
-
-model AutoSource {
-  id        String   @id @default(uuid())
-  configId  String
-  serverId  String?
-  name      String
-  url       String
-  type      String // RSS, Sitemap, HTML, etc.
-  createdAt DateTime @default(now())
-
-  config UnitConfig  @relation(fields: [configId], references: [id])
-  server UnitServer? @relation(fields: [serverId], references: [id])
-}
-
 model Image {
   id       String @id @default(uuid())
   configId String
@@ -249,6 +198,14 @@ model Image {
   config UnitConfig @relation(fields: [configId], references: [id])
 }
 
+model Article {
+  id          String       @id @default(uuid())
+  title       String
+  content     String
+  publishedAt DateTime     @default(now())
+  configs     UnitConfig[] @relation("ConfigArticles")
+}
+
 model UnitServer {
   id                String   @id @default(uuid())
   domain            String   @unique
@@ -258,21 +215,17 @@ model UnitServer {
   requiresUpdate    Boolean  @default(false)
   isActive          Boolean  @default(true)
   constellationId   String
-  activeConfigId    String?
+  configId          String? // Relación a la configuración activa
   createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+  updatedAt         DateTime @default(now())
 
-  constellation Constellation @relation(fields: [constellationId], references: [id])
-  activeConfig  UnitConfig?   @relation("ActiveConfig", fields: [activeConfigId], references: [id])
-
-  clients        Client[]
-  professionals  Professional[]
-  cases          Case[]
-  sections       Section[]
-  manualArticles ManualArticle[]
-  autoSources    AutoSource[]
-  // sessions        Session[] // FUTURA IMPLEMENTACIÓN: Sistema híbrido JWT + Sesiones
-  updateLogs     UpdateLog[]
+  constellation Constellation  @relation(fields: [constellationId], references: [id])
+  config        UnitConfig?    @relation("UnitServerConfig", fields: [configId], references: [id])
+  clients       Client[]
+  professionals Professional[]
+  cases         Case[]
+  sections      Section[]
+  serverLogs    ServerLog[]
 }
 
 model UnitConfig {
@@ -287,32 +240,24 @@ model UnitConfig {
   selectedNews    Json?
   infoSections    Json?
   createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  updatedAt       DateTime @default(now())
 
-  sections        Section[]
-  manualArticles  ManualArticle[]
-  autoSources     AutoSource[]
-  images          Image[]
-  activeInServers UnitServer[]    @relation("ActiveConfig")
-  updates         UpdateLog[]     @relation("ConfigInUpdates")
-  previousUpdates UpdateLog[]     @relation("PreviousConfig")
+  sections Section[]
+  articles Article[]    @relation("ConfigArticles")
+  images   Image[]
+  servers  UnitServer[] @relation("UnitServerConfig") // Relación inversa
 }
 
 // ---------- Logs y notificaciones ----------
-model UpdateLog {
-  id               String    @id @default(uuid())
-  serverId         String
-  configId         String
-  previousConfigId String?
-  status           String
-  initiatorId      String
-  description      String?
-  startedAt        DateTime  @default(now())
-  completedAt      DateTime?
-  errorDetails     String?
+model ServerLog {
+  id        String     @id @default(cuid())
+  serverId  String
+  type      String
+  message   String
+  timestamp DateTime   @default(now())
+  metadata  Json?
+  server    UnitServer @relation(fields: [serverId], references: [id])
 
-  server         UnitServer  @relation(fields: [serverId], references: [id])
-  config         UnitConfig  @relation("ConfigInUpdates", fields: [configId], references: [id])
-  previousConfig UnitConfig? @relation("PreviousConfig", fields: [previousConfigId], references: [id])
-  initiator      User        @relation(fields: [initiatorId], references: [id])
+  @@index([serverId])
+  @@index([timestamp])
 }

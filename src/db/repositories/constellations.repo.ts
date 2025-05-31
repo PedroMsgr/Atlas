@@ -57,12 +57,8 @@ export class ConstellationsRepository {
     return prisma.constellation.findUnique({
       where: { id },
       include: {
-        servers: {
-          include: {
-            activeConfig: true,
-          },
-        },
+        servers: true,
       },
     });
   }
-} 
+}

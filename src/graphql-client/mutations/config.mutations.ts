@@ -1,8 +1,20 @@
 import { gql } from '@apollo/client';
 
 export const CREATE_CONFIG = gql`
-  mutation CreateConfig($data: ConfigCreateInput!) {
-    createConfig(data: $data) {
+  mutation CreateConfig(
+    $name: String!, 
+    $pageTitle: String!, 
+    $pageType: String!, 
+    $footerInfo: String, 
+    $legalStepsCount: Int
+  ) {
+    createConfig(
+      name: $name, 
+      pageTitle: $pageTitle, 
+      pageType: $pageType, 
+      footerInfo: $footerInfo, 
+      legalStepsCount: $legalStepsCount
+    ) {
       id
       name
       pageTitle
@@ -12,14 +24,27 @@ export const CREATE_CONFIG = gql`
 `;
 
 export const UPDATE_CONFIG = gql`
-  mutation UpdateConfig($id: ID!, $data: ConfigUpdateInput!) {
-    updateConfig(id: $id, data: $data) {
+  mutation UpdateConfig(
+    $id: ID!, 
+    $name: String, 
+    $pageTitle: String, 
+    $pageType: String, 
+    $footerInfo: String, 
+    $legalStepsCount: Int
+  ) {
+    updateConfig(
+      id: $id,
+      name: $name, 
+      pageTitle: $pageTitle, 
+      pageType: $pageType, 
+      footerInfo: $footerInfo, 
+      legalStepsCount: $legalStepsCount
+    ) {
       id
       name
       pageTitle
-      footerInfo
-      legalStepsCount
       pageType
+      updatedAt
     }
   }
 `;

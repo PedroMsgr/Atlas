@@ -6,12 +6,8 @@ export class ConfigsRepository {
     return prisma.unitConfig.findMany({
       include: {
         sections: true,
-        manualArticles: true,
-        autoSources: true,
+        articles: true,
         images: true,
-        activeInServers: true,
-        updates: true,
-        previousUpdates: true,
       },
     });
   }
@@ -21,12 +17,8 @@ export class ConfigsRepository {
       where: { id },
       include: {
         sections: true,
-        manualArticles: true,
-        autoSources: true,
+        articles: true,
         images: true,
-        activeInServers: true,
-        updates: true,
-        previousUpdates: true,
       },
     });
   }
@@ -36,8 +28,7 @@ export class ConfigsRepository {
       where: { name },
       include: {
         sections: true,
-        manualArticles: true,
-        autoSources: true,
+        articles: true,
         images: true,
       },
     });
@@ -48,8 +39,7 @@ export class ConfigsRepository {
       data,
       include: {
         sections: true,
-        manualArticles: true,
-        autoSources: true,
+        articles: true,
         images: true,
       },
     });
@@ -61,8 +51,7 @@ export class ConfigsRepository {
       data,
       include: {
         sections: true,
-        manualArticles: true,
-        autoSources: true,
+        articles: true,
         images: true,
       },
     });
@@ -79,23 +68,9 @@ export class ConfigsRepository {
       where: { pageType },
       include: {
         sections: true,
-        manualArticles: true,
-        autoSources: true,
+        articles: true,
         images: true,
       },
     });
   }
-
-  async getActiveConfigs(): Promise<UnitConfig[]> {
-    return prisma.unitConfig.findMany({
-      where: {
-        activeInServers: {
-          some: {},
-        },
-      },
-      include: {
-        activeInServers: true,
-      },
-    });
-  }
-} 
+}

@@ -64,20 +64,15 @@ export type Constellation = $Result.DefaultSelection<Prisma.$ConstellationPayloa
  */
 export type Section = $Result.DefaultSelection<Prisma.$SectionPayload>
 /**
- * Model ManualArticle
- * 
- */
-export type ManualArticle = $Result.DefaultSelection<Prisma.$ManualArticlePayload>
-/**
- * Model AutoSource
- * 
- */
-export type AutoSource = $Result.DefaultSelection<Prisma.$AutoSourcePayload>
-/**
  * Model Image
  * 
  */
 export type Image = $Result.DefaultSelection<Prisma.$ImagePayload>
+/**
+ * Model Article
+ * 
+ */
+export type Article = $Result.DefaultSelection<Prisma.$ArticlePayload>
 /**
  * Model UnitServer
  * 
@@ -89,10 +84,10 @@ export type UnitServer = $Result.DefaultSelection<Prisma.$UnitServerPayload>
  */
 export type UnitConfig = $Result.DefaultSelection<Prisma.$UnitConfigPayload>
 /**
- * Model UpdateLog
+ * Model ServerLog
  * 
  */
-export type UpdateLog = $Result.DefaultSelection<Prisma.$UpdateLogPayload>
+export type ServerLog = $Result.DefaultSelection<Prisma.$ServerLogPayload>
 
 /**
  * Enums
@@ -405,26 +400,6 @@ export class PrismaClient<
   get section(): Prisma.SectionDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.manualArticle`: Exposes CRUD operations for the **ManualArticle** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more ManualArticles
-    * const manualArticles = await prisma.manualArticle.findMany()
-    * ```
-    */
-  get manualArticle(): Prisma.ManualArticleDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.autoSource`: Exposes CRUD operations for the **AutoSource** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more AutoSources
-    * const autoSources = await prisma.autoSource.findMany()
-    * ```
-    */
-  get autoSource(): Prisma.AutoSourceDelegate<ExtArgs, ClientOptions>;
-
-  /**
    * `prisma.image`: Exposes CRUD operations for the **Image** model.
     * Example usage:
     * ```ts
@@ -433,6 +408,16 @@ export class PrismaClient<
     * ```
     */
   get image(): Prisma.ImageDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.article`: Exposes CRUD operations for the **Article** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Articles
+    * const articles = await prisma.article.findMany()
+    * ```
+    */
+  get article(): Prisma.ArticleDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.unitServer`: Exposes CRUD operations for the **UnitServer** model.
@@ -455,14 +440,14 @@ export class PrismaClient<
   get unitConfig(): Prisma.UnitConfigDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.updateLog`: Exposes CRUD operations for the **UpdateLog** model.
+   * `prisma.serverLog`: Exposes CRUD operations for the **ServerLog** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more UpdateLogs
-    * const updateLogs = await prisma.updateLog.findMany()
+    * // Fetch zero or more ServerLogs
+    * const serverLogs = await prisma.serverLog.findMany()
     * ```
     */
-  get updateLog(): Prisma.UpdateLogDelegate<ExtArgs, ClientOptions>;
+  get serverLog(): Prisma.ServerLogDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -521,8 +506,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.7.0
-   * Query Engine version: 3cff47a7f5d65c3ea74883f1d736e41d68ce91ed
+   * Prisma Client JS version: 6.8.2
+   * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
    */
   export type PrismaVersion = {
     client: string
@@ -913,12 +898,11 @@ export namespace Prisma {
     Report: 'Report',
     Constellation: 'Constellation',
     Section: 'Section',
-    ManualArticle: 'ManualArticle',
-    AutoSource: 'AutoSource',
     Image: 'Image',
+    Article: 'Article',
     UnitServer: 'UnitServer',
     UnitConfig: 'UnitConfig',
-    UpdateLog: 'UpdateLog'
+    ServerLog: 'ServerLog'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -937,7 +921,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "client" | "professional" | "case" | "chat" | "message" | "file" | "report" | "constellation" | "section" | "manualArticle" | "autoSource" | "image" | "unitServer" | "unitConfig" | "updateLog"
+      modelProps: "user" | "client" | "professional" | "case" | "chat" | "message" | "file" | "report" | "constellation" | "section" | "image" | "article" | "unitServer" | "unitConfig" | "serverLog"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1681,154 +1665,6 @@ export namespace Prisma {
           }
         }
       }
-      ManualArticle: {
-        payload: Prisma.$ManualArticlePayload<ExtArgs>
-        fields: Prisma.ManualArticleFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.ManualArticleFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ManualArticlePayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.ManualArticleFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ManualArticlePayload>
-          }
-          findFirst: {
-            args: Prisma.ManualArticleFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ManualArticlePayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.ManualArticleFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ManualArticlePayload>
-          }
-          findMany: {
-            args: Prisma.ManualArticleFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ManualArticlePayload>[]
-          }
-          create: {
-            args: Prisma.ManualArticleCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ManualArticlePayload>
-          }
-          createMany: {
-            args: Prisma.ManualArticleCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.ManualArticleCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ManualArticlePayload>[]
-          }
-          delete: {
-            args: Prisma.ManualArticleDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ManualArticlePayload>
-          }
-          update: {
-            args: Prisma.ManualArticleUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ManualArticlePayload>
-          }
-          deleteMany: {
-            args: Prisma.ManualArticleDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.ManualArticleUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.ManualArticleUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ManualArticlePayload>[]
-          }
-          upsert: {
-            args: Prisma.ManualArticleUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ManualArticlePayload>
-          }
-          aggregate: {
-            args: Prisma.ManualArticleAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateManualArticle>
-          }
-          groupBy: {
-            args: Prisma.ManualArticleGroupByArgs<ExtArgs>
-            result: $Utils.Optional<ManualArticleGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.ManualArticleCountArgs<ExtArgs>
-            result: $Utils.Optional<ManualArticleCountAggregateOutputType> | number
-          }
-        }
-      }
-      AutoSource: {
-        payload: Prisma.$AutoSourcePayload<ExtArgs>
-        fields: Prisma.AutoSourceFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.AutoSourceFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AutoSourcePayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.AutoSourceFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AutoSourcePayload>
-          }
-          findFirst: {
-            args: Prisma.AutoSourceFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AutoSourcePayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.AutoSourceFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AutoSourcePayload>
-          }
-          findMany: {
-            args: Prisma.AutoSourceFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AutoSourcePayload>[]
-          }
-          create: {
-            args: Prisma.AutoSourceCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AutoSourcePayload>
-          }
-          createMany: {
-            args: Prisma.AutoSourceCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.AutoSourceCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AutoSourcePayload>[]
-          }
-          delete: {
-            args: Prisma.AutoSourceDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AutoSourcePayload>
-          }
-          update: {
-            args: Prisma.AutoSourceUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AutoSourcePayload>
-          }
-          deleteMany: {
-            args: Prisma.AutoSourceDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.AutoSourceUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.AutoSourceUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AutoSourcePayload>[]
-          }
-          upsert: {
-            args: Prisma.AutoSourceUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AutoSourcePayload>
-          }
-          aggregate: {
-            args: Prisma.AutoSourceAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateAutoSource>
-          }
-          groupBy: {
-            args: Prisma.AutoSourceGroupByArgs<ExtArgs>
-            result: $Utils.Optional<AutoSourceGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.AutoSourceCountArgs<ExtArgs>
-            result: $Utils.Optional<AutoSourceCountAggregateOutputType> | number
-          }
-        }
-      }
       Image: {
         payload: Prisma.$ImagePayload<ExtArgs>
         fields: Prisma.ImageFieldRefs
@@ -1900,6 +1736,80 @@ export namespace Prisma {
           count: {
             args: Prisma.ImageCountArgs<ExtArgs>
             result: $Utils.Optional<ImageCountAggregateOutputType> | number
+          }
+        }
+      }
+      Article: {
+        payload: Prisma.$ArticlePayload<ExtArgs>
+        fields: Prisma.ArticleFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ArticleFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticlePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ArticleFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticlePayload>
+          }
+          findFirst: {
+            args: Prisma.ArticleFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticlePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ArticleFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticlePayload>
+          }
+          findMany: {
+            args: Prisma.ArticleFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticlePayload>[]
+          }
+          create: {
+            args: Prisma.ArticleCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticlePayload>
+          }
+          createMany: {
+            args: Prisma.ArticleCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ArticleCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticlePayload>[]
+          }
+          delete: {
+            args: Prisma.ArticleDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticlePayload>
+          }
+          update: {
+            args: Prisma.ArticleUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticlePayload>
+          }
+          deleteMany: {
+            args: Prisma.ArticleDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ArticleUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ArticleUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticlePayload>[]
+          }
+          upsert: {
+            args: Prisma.ArticleUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArticlePayload>
+          }
+          aggregate: {
+            args: Prisma.ArticleAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateArticle>
+          }
+          groupBy: {
+            args: Prisma.ArticleGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ArticleGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ArticleCountArgs<ExtArgs>
+            result: $Utils.Optional<ArticleCountAggregateOutputType> | number
           }
         }
       }
@@ -2051,77 +1961,77 @@ export namespace Prisma {
           }
         }
       }
-      UpdateLog: {
-        payload: Prisma.$UpdateLogPayload<ExtArgs>
-        fields: Prisma.UpdateLogFieldRefs
+      ServerLog: {
+        payload: Prisma.$ServerLogPayload<ExtArgs>
+        fields: Prisma.ServerLogFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.UpdateLogFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UpdateLogPayload> | null
+            args: Prisma.ServerLogFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServerLogPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.UpdateLogFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UpdateLogPayload>
+            args: Prisma.ServerLogFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServerLogPayload>
           }
           findFirst: {
-            args: Prisma.UpdateLogFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UpdateLogPayload> | null
+            args: Prisma.ServerLogFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServerLogPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.UpdateLogFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UpdateLogPayload>
+            args: Prisma.ServerLogFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServerLogPayload>
           }
           findMany: {
-            args: Prisma.UpdateLogFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UpdateLogPayload>[]
+            args: Prisma.ServerLogFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServerLogPayload>[]
           }
           create: {
-            args: Prisma.UpdateLogCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UpdateLogPayload>
+            args: Prisma.ServerLogCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServerLogPayload>
           }
           createMany: {
-            args: Prisma.UpdateLogCreateManyArgs<ExtArgs>
+            args: Prisma.ServerLogCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.UpdateLogCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UpdateLogPayload>[]
+            args: Prisma.ServerLogCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServerLogPayload>[]
           }
           delete: {
-            args: Prisma.UpdateLogDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UpdateLogPayload>
+            args: Prisma.ServerLogDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServerLogPayload>
           }
           update: {
-            args: Prisma.UpdateLogUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UpdateLogPayload>
+            args: Prisma.ServerLogUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServerLogPayload>
           }
           deleteMany: {
-            args: Prisma.UpdateLogDeleteManyArgs<ExtArgs>
+            args: Prisma.ServerLogDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.UpdateLogUpdateManyArgs<ExtArgs>
+            args: Prisma.ServerLogUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.UpdateLogUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UpdateLogPayload>[]
+            args: Prisma.ServerLogUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServerLogPayload>[]
           }
           upsert: {
-            args: Prisma.UpdateLogUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UpdateLogPayload>
+            args: Prisma.ServerLogUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServerLogPayload>
           }
           aggregate: {
-            args: Prisma.UpdateLogAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateUpdateLog>
+            args: Prisma.ServerLogAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateServerLog>
           }
           groupBy: {
-            args: Prisma.UpdateLogGroupByArgs<ExtArgs>
-            result: $Utils.Optional<UpdateLogGroupByOutputType>[]
+            args: Prisma.ServerLogGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ServerLogGroupByOutputType>[]
           }
           count: {
-            args: Prisma.UpdateLogCountArgs<ExtArgs>
-            result: $Utils.Optional<UpdateLogCountAggregateOutputType> | number
+            args: Prisma.ServerLogCountArgs<ExtArgs>
+            result: $Utils.Optional<ServerLogCountAggregateOutputType> | number
           }
         }
       }
@@ -2219,12 +2129,11 @@ export namespace Prisma {
     report?: ReportOmit
     constellation?: ConstellationOmit
     section?: SectionOmit
-    manualArticle?: ManualArticleOmit
-    autoSource?: AutoSourceOmit
     image?: ImageOmit
+    article?: ArticleOmit
     unitServer?: UnitServerOmit
     unitConfig?: UnitConfigOmit
-    updateLog?: UpdateLogOmit
+    serverLog?: ServerLogOmit
   }
 
   /* Types for Logging */
@@ -2321,13 +2230,11 @@ export namespace Prisma {
   export type UserCountOutputType = {
     clients: number
     professionals: number
-    initiatedUpdates: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     clients?: boolean | UserCountOutputTypeCountClientsArgs
     professionals?: boolean | UserCountOutputTypeCountProfessionalsArgs
-    initiatedUpdates?: boolean | UserCountOutputTypeCountInitiatedUpdatesArgs
   }
 
   // Custom InputTypes
@@ -2353,13 +2260,6 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountProfessionalsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ProfessionalWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountInitiatedUpdatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UpdateLogWhereInput
   }
 
 
@@ -2555,6 +2455,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type ArticleCountOutputType
+   */
+
+  export type ArticleCountOutputType = {
+    configs: number
+  }
+
+  export type ArticleCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    configs?: boolean | ArticleCountOutputTypeCountConfigsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ArticleCountOutputType without action
+   */
+  export type ArticleCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ArticleCountOutputType
+     */
+    select?: ArticleCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ArticleCountOutputType without action
+   */
+  export type ArticleCountOutputTypeCountConfigsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UnitConfigWhereInput
+  }
+
+
+  /**
    * Count Type UnitServerCountOutputType
    */
 
@@ -2563,9 +2494,7 @@ export namespace Prisma {
     professionals: number
     cases: number
     sections: number
-    manualArticles: number
-    autoSources: number
-    updateLogs: number
+    serverLogs: number
   }
 
   export type UnitServerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2573,9 +2502,7 @@ export namespace Prisma {
     professionals?: boolean | UnitServerCountOutputTypeCountProfessionalsArgs
     cases?: boolean | UnitServerCountOutputTypeCountCasesArgs
     sections?: boolean | UnitServerCountOutputTypeCountSectionsArgs
-    manualArticles?: boolean | UnitServerCountOutputTypeCountManualArticlesArgs
-    autoSources?: boolean | UnitServerCountOutputTypeCountAutoSourcesArgs
-    updateLogs?: boolean | UnitServerCountOutputTypeCountUpdateLogsArgs
+    serverLogs?: boolean | UnitServerCountOutputTypeCountServerLogsArgs
   }
 
   // Custom InputTypes
@@ -2620,22 +2547,8 @@ export namespace Prisma {
   /**
    * UnitServerCountOutputType without action
    */
-  export type UnitServerCountOutputTypeCountManualArticlesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ManualArticleWhereInput
-  }
-
-  /**
-   * UnitServerCountOutputType without action
-   */
-  export type UnitServerCountOutputTypeCountAutoSourcesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: AutoSourceWhereInput
-  }
-
-  /**
-   * UnitServerCountOutputType without action
-   */
-  export type UnitServerCountOutputTypeCountUpdateLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UpdateLogWhereInput
+  export type UnitServerCountOutputTypeCountServerLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ServerLogWhereInput
   }
 
 
@@ -2645,22 +2558,16 @@ export namespace Prisma {
 
   export type UnitConfigCountOutputType = {
     sections: number
-    manualArticles: number
-    autoSources: number
+    articles: number
     images: number
-    activeInServers: number
-    updates: number
-    previousUpdates: number
+    servers: number
   }
 
   export type UnitConfigCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sections?: boolean | UnitConfigCountOutputTypeCountSectionsArgs
-    manualArticles?: boolean | UnitConfigCountOutputTypeCountManualArticlesArgs
-    autoSources?: boolean | UnitConfigCountOutputTypeCountAutoSourcesArgs
+    articles?: boolean | UnitConfigCountOutputTypeCountArticlesArgs
     images?: boolean | UnitConfigCountOutputTypeCountImagesArgs
-    activeInServers?: boolean | UnitConfigCountOutputTypeCountActiveInServersArgs
-    updates?: boolean | UnitConfigCountOutputTypeCountUpdatesArgs
-    previousUpdates?: boolean | UnitConfigCountOutputTypeCountPreviousUpdatesArgs
+    servers?: boolean | UnitConfigCountOutputTypeCountServersArgs
   }
 
   // Custom InputTypes
@@ -2684,15 +2591,8 @@ export namespace Prisma {
   /**
    * UnitConfigCountOutputType without action
    */
-  export type UnitConfigCountOutputTypeCountManualArticlesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ManualArticleWhereInput
-  }
-
-  /**
-   * UnitConfigCountOutputType without action
-   */
-  export type UnitConfigCountOutputTypeCountAutoSourcesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: AutoSourceWhereInput
+  export type UnitConfigCountOutputTypeCountArticlesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ArticleWhereInput
   }
 
   /**
@@ -2705,22 +2605,8 @@ export namespace Prisma {
   /**
    * UnitConfigCountOutputType without action
    */
-  export type UnitConfigCountOutputTypeCountActiveInServersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UnitConfigCountOutputTypeCountServersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: UnitServerWhereInput
-  }
-
-  /**
-   * UnitConfigCountOutputType without action
-   */
-  export type UnitConfigCountOutputTypeCountUpdatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UpdateLogWhereInput
-  }
-
-  /**
-   * UnitConfigCountOutputType without action
-   */
-  export type UnitConfigCountOutputTypeCountPreviousUpdatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UpdateLogWhereInput
   }
 
 
@@ -2958,7 +2844,6 @@ export namespace Prisma {
     lastLoginAt?: boolean
     clients?: boolean | User$clientsArgs<ExtArgs>
     professionals?: boolean | User$professionalsArgs<ExtArgs>
-    initiatedUpdates?: boolean | User$initiatedUpdatesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -3014,7 +2899,6 @@ export namespace Prisma {
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     clients?: boolean | User$clientsArgs<ExtArgs>
     professionals?: boolean | User$professionalsArgs<ExtArgs>
-    initiatedUpdates?: boolean | User$initiatedUpdatesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -3025,7 +2909,6 @@ export namespace Prisma {
     objects: {
       clients: Prisma.$ClientPayload<ExtArgs>[]
       professionals: Prisma.$ProfessionalPayload<ExtArgs>[]
-      initiatedUpdates: Prisma.$UpdateLogPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3437,7 +3320,6 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     clients<T extends User$clientsArgs<ExtArgs> = {}>(args?: Subset<T, User$clientsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClientPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     professionals<T extends User$professionalsArgs<ExtArgs> = {}>(args?: Subset<T, User$professionalsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProfessionalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    initiatedUpdates<T extends User$initiatedUpdatesArgs<ExtArgs> = {}>(args?: Subset<T, User$initiatedUpdatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UpdateLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3913,30 +3795,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ProfessionalScalarFieldEnum | ProfessionalScalarFieldEnum[]
-  }
-
-  /**
-   * User.initiatedUpdates
-   */
-  export type User$initiatedUpdatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the UpdateLog
-     */
-    select?: UpdateLogSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the UpdateLog
-     */
-    omit?: UpdateLogOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UpdateLogInclude<ExtArgs> | null
-    where?: UpdateLogWhereInput
-    orderBy?: UpdateLogOrderByWithRelationInput | UpdateLogOrderByWithRelationInput[]
-    cursor?: UpdateLogWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: UpdateLogScalarFieldEnum | UpdateLogScalarFieldEnum[]
   }
 
   /**
@@ -13890,2215 +13748,6 @@ export namespace Prisma {
 
 
   /**
-   * Model ManualArticle
-   */
-
-  export type AggregateManualArticle = {
-    _count: ManualArticleCountAggregateOutputType | null
-    _min: ManualArticleMinAggregateOutputType | null
-    _max: ManualArticleMaxAggregateOutputType | null
-  }
-
-  export type ManualArticleMinAggregateOutputType = {
-    id: string | null
-    configId: string | null
-    serverId: string | null
-    title: string | null
-    content: string | null
-    publishedAt: Date | null
-  }
-
-  export type ManualArticleMaxAggregateOutputType = {
-    id: string | null
-    configId: string | null
-    serverId: string | null
-    title: string | null
-    content: string | null
-    publishedAt: Date | null
-  }
-
-  export type ManualArticleCountAggregateOutputType = {
-    id: number
-    configId: number
-    serverId: number
-    title: number
-    content: number
-    publishedAt: number
-    _all: number
-  }
-
-
-  export type ManualArticleMinAggregateInputType = {
-    id?: true
-    configId?: true
-    serverId?: true
-    title?: true
-    content?: true
-    publishedAt?: true
-  }
-
-  export type ManualArticleMaxAggregateInputType = {
-    id?: true
-    configId?: true
-    serverId?: true
-    title?: true
-    content?: true
-    publishedAt?: true
-  }
-
-  export type ManualArticleCountAggregateInputType = {
-    id?: true
-    configId?: true
-    serverId?: true
-    title?: true
-    content?: true
-    publishedAt?: true
-    _all?: true
-  }
-
-  export type ManualArticleAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which ManualArticle to aggregate.
-     */
-    where?: ManualArticleWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of ManualArticles to fetch.
-     */
-    orderBy?: ManualArticleOrderByWithRelationInput | ManualArticleOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: ManualArticleWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` ManualArticles from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` ManualArticles.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned ManualArticles
-    **/
-    _count?: true | ManualArticleCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: ManualArticleMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: ManualArticleMaxAggregateInputType
-  }
-
-  export type GetManualArticleAggregateType<T extends ManualArticleAggregateArgs> = {
-        [P in keyof T & keyof AggregateManualArticle]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateManualArticle[P]>
-      : GetScalarType<T[P], AggregateManualArticle[P]>
-  }
-
-
-
-
-  export type ManualArticleGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ManualArticleWhereInput
-    orderBy?: ManualArticleOrderByWithAggregationInput | ManualArticleOrderByWithAggregationInput[]
-    by: ManualArticleScalarFieldEnum[] | ManualArticleScalarFieldEnum
-    having?: ManualArticleScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: ManualArticleCountAggregateInputType | true
-    _min?: ManualArticleMinAggregateInputType
-    _max?: ManualArticleMaxAggregateInputType
-  }
-
-  export type ManualArticleGroupByOutputType = {
-    id: string
-    configId: string
-    serverId: string | null
-    title: string
-    content: string
-    publishedAt: Date
-    _count: ManualArticleCountAggregateOutputType | null
-    _min: ManualArticleMinAggregateOutputType | null
-    _max: ManualArticleMaxAggregateOutputType | null
-  }
-
-  type GetManualArticleGroupByPayload<T extends ManualArticleGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<ManualArticleGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof ManualArticleGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], ManualArticleGroupByOutputType[P]>
-            : GetScalarType<T[P], ManualArticleGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type ManualArticleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    configId?: boolean
-    serverId?: boolean
-    title?: boolean
-    content?: boolean
-    publishedAt?: boolean
-    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
-    server?: boolean | ManualArticle$serverArgs<ExtArgs>
-  }, ExtArgs["result"]["manualArticle"]>
-
-  export type ManualArticleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    configId?: boolean
-    serverId?: boolean
-    title?: boolean
-    content?: boolean
-    publishedAt?: boolean
-    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
-    server?: boolean | ManualArticle$serverArgs<ExtArgs>
-  }, ExtArgs["result"]["manualArticle"]>
-
-  export type ManualArticleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    configId?: boolean
-    serverId?: boolean
-    title?: boolean
-    content?: boolean
-    publishedAt?: boolean
-    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
-    server?: boolean | ManualArticle$serverArgs<ExtArgs>
-  }, ExtArgs["result"]["manualArticle"]>
-
-  export type ManualArticleSelectScalar = {
-    id?: boolean
-    configId?: boolean
-    serverId?: boolean
-    title?: boolean
-    content?: boolean
-    publishedAt?: boolean
-  }
-
-  export type ManualArticleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "configId" | "serverId" | "title" | "content" | "publishedAt", ExtArgs["result"]["manualArticle"]>
-  export type ManualArticleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
-    server?: boolean | ManualArticle$serverArgs<ExtArgs>
-  }
-  export type ManualArticleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
-    server?: boolean | ManualArticle$serverArgs<ExtArgs>
-  }
-  export type ManualArticleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
-    server?: boolean | ManualArticle$serverArgs<ExtArgs>
-  }
-
-  export type $ManualArticlePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "ManualArticle"
-    objects: {
-      config: Prisma.$UnitConfigPayload<ExtArgs>
-      server: Prisma.$UnitServerPayload<ExtArgs> | null
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      configId: string
-      serverId: string | null
-      title: string
-      content: string
-      publishedAt: Date
-    }, ExtArgs["result"]["manualArticle"]>
-    composites: {}
-  }
-
-  type ManualArticleGetPayload<S extends boolean | null | undefined | ManualArticleDefaultArgs> = $Result.GetResult<Prisma.$ManualArticlePayload, S>
-
-  type ManualArticleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<ManualArticleFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: ManualArticleCountAggregateInputType | true
-    }
-
-  export interface ManualArticleDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ManualArticle'], meta: { name: 'ManualArticle' } }
-    /**
-     * Find zero or one ManualArticle that matches the filter.
-     * @param {ManualArticleFindUniqueArgs} args - Arguments to find a ManualArticle
-     * @example
-     * // Get one ManualArticle
-     * const manualArticle = await prisma.manualArticle.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends ManualArticleFindUniqueArgs>(args: SelectSubset<T, ManualArticleFindUniqueArgs<ExtArgs>>): Prisma__ManualArticleClient<$Result.GetResult<Prisma.$ManualArticlePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one ManualArticle that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {ManualArticleFindUniqueOrThrowArgs} args - Arguments to find a ManualArticle
-     * @example
-     * // Get one ManualArticle
-     * const manualArticle = await prisma.manualArticle.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends ManualArticleFindUniqueOrThrowArgs>(args: SelectSubset<T, ManualArticleFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ManualArticleClient<$Result.GetResult<Prisma.$ManualArticlePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first ManualArticle that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ManualArticleFindFirstArgs} args - Arguments to find a ManualArticle
-     * @example
-     * // Get one ManualArticle
-     * const manualArticle = await prisma.manualArticle.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends ManualArticleFindFirstArgs>(args?: SelectSubset<T, ManualArticleFindFirstArgs<ExtArgs>>): Prisma__ManualArticleClient<$Result.GetResult<Prisma.$ManualArticlePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first ManualArticle that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ManualArticleFindFirstOrThrowArgs} args - Arguments to find a ManualArticle
-     * @example
-     * // Get one ManualArticle
-     * const manualArticle = await prisma.manualArticle.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends ManualArticleFindFirstOrThrowArgs>(args?: SelectSubset<T, ManualArticleFindFirstOrThrowArgs<ExtArgs>>): Prisma__ManualArticleClient<$Result.GetResult<Prisma.$ManualArticlePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more ManualArticles that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ManualArticleFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all ManualArticles
-     * const manualArticles = await prisma.manualArticle.findMany()
-     * 
-     * // Get first 10 ManualArticles
-     * const manualArticles = await prisma.manualArticle.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const manualArticleWithIdOnly = await prisma.manualArticle.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends ManualArticleFindManyArgs>(args?: SelectSubset<T, ManualArticleFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ManualArticlePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a ManualArticle.
-     * @param {ManualArticleCreateArgs} args - Arguments to create a ManualArticle.
-     * @example
-     * // Create one ManualArticle
-     * const ManualArticle = await prisma.manualArticle.create({
-     *   data: {
-     *     // ... data to create a ManualArticle
-     *   }
-     * })
-     * 
-     */
-    create<T extends ManualArticleCreateArgs>(args: SelectSubset<T, ManualArticleCreateArgs<ExtArgs>>): Prisma__ManualArticleClient<$Result.GetResult<Prisma.$ManualArticlePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many ManualArticles.
-     * @param {ManualArticleCreateManyArgs} args - Arguments to create many ManualArticles.
-     * @example
-     * // Create many ManualArticles
-     * const manualArticle = await prisma.manualArticle.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends ManualArticleCreateManyArgs>(args?: SelectSubset<T, ManualArticleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many ManualArticles and returns the data saved in the database.
-     * @param {ManualArticleCreateManyAndReturnArgs} args - Arguments to create many ManualArticles.
-     * @example
-     * // Create many ManualArticles
-     * const manualArticle = await prisma.manualArticle.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many ManualArticles and only return the `id`
-     * const manualArticleWithIdOnly = await prisma.manualArticle.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends ManualArticleCreateManyAndReturnArgs>(args?: SelectSubset<T, ManualArticleCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ManualArticlePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a ManualArticle.
-     * @param {ManualArticleDeleteArgs} args - Arguments to delete one ManualArticle.
-     * @example
-     * // Delete one ManualArticle
-     * const ManualArticle = await prisma.manualArticle.delete({
-     *   where: {
-     *     // ... filter to delete one ManualArticle
-     *   }
-     * })
-     * 
-     */
-    delete<T extends ManualArticleDeleteArgs>(args: SelectSubset<T, ManualArticleDeleteArgs<ExtArgs>>): Prisma__ManualArticleClient<$Result.GetResult<Prisma.$ManualArticlePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one ManualArticle.
-     * @param {ManualArticleUpdateArgs} args - Arguments to update one ManualArticle.
-     * @example
-     * // Update one ManualArticle
-     * const manualArticle = await prisma.manualArticle.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends ManualArticleUpdateArgs>(args: SelectSubset<T, ManualArticleUpdateArgs<ExtArgs>>): Prisma__ManualArticleClient<$Result.GetResult<Prisma.$ManualArticlePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more ManualArticles.
-     * @param {ManualArticleDeleteManyArgs} args - Arguments to filter ManualArticles to delete.
-     * @example
-     * // Delete a few ManualArticles
-     * const { count } = await prisma.manualArticle.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends ManualArticleDeleteManyArgs>(args?: SelectSubset<T, ManualArticleDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more ManualArticles.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ManualArticleUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many ManualArticles
-     * const manualArticle = await prisma.manualArticle.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends ManualArticleUpdateManyArgs>(args: SelectSubset<T, ManualArticleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more ManualArticles and returns the data updated in the database.
-     * @param {ManualArticleUpdateManyAndReturnArgs} args - Arguments to update many ManualArticles.
-     * @example
-     * // Update many ManualArticles
-     * const manualArticle = await prisma.manualArticle.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more ManualArticles and only return the `id`
-     * const manualArticleWithIdOnly = await prisma.manualArticle.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends ManualArticleUpdateManyAndReturnArgs>(args: SelectSubset<T, ManualArticleUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ManualArticlePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one ManualArticle.
-     * @param {ManualArticleUpsertArgs} args - Arguments to update or create a ManualArticle.
-     * @example
-     * // Update or create a ManualArticle
-     * const manualArticle = await prisma.manualArticle.upsert({
-     *   create: {
-     *     // ... data to create a ManualArticle
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the ManualArticle we want to update
-     *   }
-     * })
-     */
-    upsert<T extends ManualArticleUpsertArgs>(args: SelectSubset<T, ManualArticleUpsertArgs<ExtArgs>>): Prisma__ManualArticleClient<$Result.GetResult<Prisma.$ManualArticlePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of ManualArticles.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ManualArticleCountArgs} args - Arguments to filter ManualArticles to count.
-     * @example
-     * // Count the number of ManualArticles
-     * const count = await prisma.manualArticle.count({
-     *   where: {
-     *     // ... the filter for the ManualArticles we want to count
-     *   }
-     * })
-    **/
-    count<T extends ManualArticleCountArgs>(
-      args?: Subset<T, ManualArticleCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], ManualArticleCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a ManualArticle.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ManualArticleAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends ManualArticleAggregateArgs>(args: Subset<T, ManualArticleAggregateArgs>): Prisma.PrismaPromise<GetManualArticleAggregateType<T>>
-
-    /**
-     * Group by ManualArticle.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ManualArticleGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends ManualArticleGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: ManualArticleGroupByArgs['orderBy'] }
-        : { orderBy?: ManualArticleGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, ManualArticleGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetManualArticleGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the ManualArticle model
-   */
-  readonly fields: ManualArticleFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for ManualArticle.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__ManualArticleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    config<T extends UnitConfigDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfigDefaultArgs<ExtArgs>>): Prisma__UnitConfigClient<$Result.GetResult<Prisma.$UnitConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    server<T extends ManualArticle$serverArgs<ExtArgs> = {}>(args?: Subset<T, ManualArticle$serverArgs<ExtArgs>>): Prisma__UnitServerClient<$Result.GetResult<Prisma.$UnitServerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the ManualArticle model
-   */
-  interface ManualArticleFieldRefs {
-    readonly id: FieldRef<"ManualArticle", 'String'>
-    readonly configId: FieldRef<"ManualArticle", 'String'>
-    readonly serverId: FieldRef<"ManualArticle", 'String'>
-    readonly title: FieldRef<"ManualArticle", 'String'>
-    readonly content: FieldRef<"ManualArticle", 'String'>
-    readonly publishedAt: FieldRef<"ManualArticle", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * ManualArticle findUnique
-   */
-  export type ManualArticleFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ManualArticle
-     */
-    select?: ManualArticleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ManualArticle
-     */
-    omit?: ManualArticleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ManualArticleInclude<ExtArgs> | null
-    /**
-     * Filter, which ManualArticle to fetch.
-     */
-    where: ManualArticleWhereUniqueInput
-  }
-
-  /**
-   * ManualArticle findUniqueOrThrow
-   */
-  export type ManualArticleFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ManualArticle
-     */
-    select?: ManualArticleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ManualArticle
-     */
-    omit?: ManualArticleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ManualArticleInclude<ExtArgs> | null
-    /**
-     * Filter, which ManualArticle to fetch.
-     */
-    where: ManualArticleWhereUniqueInput
-  }
-
-  /**
-   * ManualArticle findFirst
-   */
-  export type ManualArticleFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ManualArticle
-     */
-    select?: ManualArticleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ManualArticle
-     */
-    omit?: ManualArticleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ManualArticleInclude<ExtArgs> | null
-    /**
-     * Filter, which ManualArticle to fetch.
-     */
-    where?: ManualArticleWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of ManualArticles to fetch.
-     */
-    orderBy?: ManualArticleOrderByWithRelationInput | ManualArticleOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for ManualArticles.
-     */
-    cursor?: ManualArticleWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` ManualArticles from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` ManualArticles.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of ManualArticles.
-     */
-    distinct?: ManualArticleScalarFieldEnum | ManualArticleScalarFieldEnum[]
-  }
-
-  /**
-   * ManualArticle findFirstOrThrow
-   */
-  export type ManualArticleFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ManualArticle
-     */
-    select?: ManualArticleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ManualArticle
-     */
-    omit?: ManualArticleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ManualArticleInclude<ExtArgs> | null
-    /**
-     * Filter, which ManualArticle to fetch.
-     */
-    where?: ManualArticleWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of ManualArticles to fetch.
-     */
-    orderBy?: ManualArticleOrderByWithRelationInput | ManualArticleOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for ManualArticles.
-     */
-    cursor?: ManualArticleWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` ManualArticles from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` ManualArticles.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of ManualArticles.
-     */
-    distinct?: ManualArticleScalarFieldEnum | ManualArticleScalarFieldEnum[]
-  }
-
-  /**
-   * ManualArticle findMany
-   */
-  export type ManualArticleFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ManualArticle
-     */
-    select?: ManualArticleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ManualArticle
-     */
-    omit?: ManualArticleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ManualArticleInclude<ExtArgs> | null
-    /**
-     * Filter, which ManualArticles to fetch.
-     */
-    where?: ManualArticleWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of ManualArticles to fetch.
-     */
-    orderBy?: ManualArticleOrderByWithRelationInput | ManualArticleOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing ManualArticles.
-     */
-    cursor?: ManualArticleWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` ManualArticles from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` ManualArticles.
-     */
-    skip?: number
-    distinct?: ManualArticleScalarFieldEnum | ManualArticleScalarFieldEnum[]
-  }
-
-  /**
-   * ManualArticle create
-   */
-  export type ManualArticleCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ManualArticle
-     */
-    select?: ManualArticleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ManualArticle
-     */
-    omit?: ManualArticleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ManualArticleInclude<ExtArgs> | null
-    /**
-     * The data needed to create a ManualArticle.
-     */
-    data: XOR<ManualArticleCreateInput, ManualArticleUncheckedCreateInput>
-  }
-
-  /**
-   * ManualArticle createMany
-   */
-  export type ManualArticleCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many ManualArticles.
-     */
-    data: ManualArticleCreateManyInput | ManualArticleCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * ManualArticle createManyAndReturn
-   */
-  export type ManualArticleCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ManualArticle
-     */
-    select?: ManualArticleSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the ManualArticle
-     */
-    omit?: ManualArticleOmit<ExtArgs> | null
-    /**
-     * The data used to create many ManualArticles.
-     */
-    data: ManualArticleCreateManyInput | ManualArticleCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ManualArticleIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * ManualArticle update
-   */
-  export type ManualArticleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ManualArticle
-     */
-    select?: ManualArticleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ManualArticle
-     */
-    omit?: ManualArticleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ManualArticleInclude<ExtArgs> | null
-    /**
-     * The data needed to update a ManualArticle.
-     */
-    data: XOR<ManualArticleUpdateInput, ManualArticleUncheckedUpdateInput>
-    /**
-     * Choose, which ManualArticle to update.
-     */
-    where: ManualArticleWhereUniqueInput
-  }
-
-  /**
-   * ManualArticle updateMany
-   */
-  export type ManualArticleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update ManualArticles.
-     */
-    data: XOR<ManualArticleUpdateManyMutationInput, ManualArticleUncheckedUpdateManyInput>
-    /**
-     * Filter which ManualArticles to update
-     */
-    where?: ManualArticleWhereInput
-    /**
-     * Limit how many ManualArticles to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * ManualArticle updateManyAndReturn
-   */
-  export type ManualArticleUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ManualArticle
-     */
-    select?: ManualArticleSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the ManualArticle
-     */
-    omit?: ManualArticleOmit<ExtArgs> | null
-    /**
-     * The data used to update ManualArticles.
-     */
-    data: XOR<ManualArticleUpdateManyMutationInput, ManualArticleUncheckedUpdateManyInput>
-    /**
-     * Filter which ManualArticles to update
-     */
-    where?: ManualArticleWhereInput
-    /**
-     * Limit how many ManualArticles to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ManualArticleIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * ManualArticle upsert
-   */
-  export type ManualArticleUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ManualArticle
-     */
-    select?: ManualArticleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ManualArticle
-     */
-    omit?: ManualArticleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ManualArticleInclude<ExtArgs> | null
-    /**
-     * The filter to search for the ManualArticle to update in case it exists.
-     */
-    where: ManualArticleWhereUniqueInput
-    /**
-     * In case the ManualArticle found by the `where` argument doesn't exist, create a new ManualArticle with this data.
-     */
-    create: XOR<ManualArticleCreateInput, ManualArticleUncheckedCreateInput>
-    /**
-     * In case the ManualArticle was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<ManualArticleUpdateInput, ManualArticleUncheckedUpdateInput>
-  }
-
-  /**
-   * ManualArticle delete
-   */
-  export type ManualArticleDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ManualArticle
-     */
-    select?: ManualArticleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ManualArticle
-     */
-    omit?: ManualArticleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ManualArticleInclude<ExtArgs> | null
-    /**
-     * Filter which ManualArticle to delete.
-     */
-    where: ManualArticleWhereUniqueInput
-  }
-
-  /**
-   * ManualArticle deleteMany
-   */
-  export type ManualArticleDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which ManualArticles to delete
-     */
-    where?: ManualArticleWhereInput
-    /**
-     * Limit how many ManualArticles to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * ManualArticle.server
-   */
-  export type ManualArticle$serverArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the UnitServer
-     */
-    select?: UnitServerSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the UnitServer
-     */
-    omit?: UnitServerOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UnitServerInclude<ExtArgs> | null
-    where?: UnitServerWhereInput
-  }
-
-  /**
-   * ManualArticle without action
-   */
-  export type ManualArticleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ManualArticle
-     */
-    select?: ManualArticleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ManualArticle
-     */
-    omit?: ManualArticleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ManualArticleInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model AutoSource
-   */
-
-  export type AggregateAutoSource = {
-    _count: AutoSourceCountAggregateOutputType | null
-    _min: AutoSourceMinAggregateOutputType | null
-    _max: AutoSourceMaxAggregateOutputType | null
-  }
-
-  export type AutoSourceMinAggregateOutputType = {
-    id: string | null
-    configId: string | null
-    serverId: string | null
-    name: string | null
-    url: string | null
-    type: string | null
-    createdAt: Date | null
-  }
-
-  export type AutoSourceMaxAggregateOutputType = {
-    id: string | null
-    configId: string | null
-    serverId: string | null
-    name: string | null
-    url: string | null
-    type: string | null
-    createdAt: Date | null
-  }
-
-  export type AutoSourceCountAggregateOutputType = {
-    id: number
-    configId: number
-    serverId: number
-    name: number
-    url: number
-    type: number
-    createdAt: number
-    _all: number
-  }
-
-
-  export type AutoSourceMinAggregateInputType = {
-    id?: true
-    configId?: true
-    serverId?: true
-    name?: true
-    url?: true
-    type?: true
-    createdAt?: true
-  }
-
-  export type AutoSourceMaxAggregateInputType = {
-    id?: true
-    configId?: true
-    serverId?: true
-    name?: true
-    url?: true
-    type?: true
-    createdAt?: true
-  }
-
-  export type AutoSourceCountAggregateInputType = {
-    id?: true
-    configId?: true
-    serverId?: true
-    name?: true
-    url?: true
-    type?: true
-    createdAt?: true
-    _all?: true
-  }
-
-  export type AutoSourceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which AutoSource to aggregate.
-     */
-    where?: AutoSourceWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of AutoSources to fetch.
-     */
-    orderBy?: AutoSourceOrderByWithRelationInput | AutoSourceOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: AutoSourceWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` AutoSources from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` AutoSources.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned AutoSources
-    **/
-    _count?: true | AutoSourceCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: AutoSourceMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: AutoSourceMaxAggregateInputType
-  }
-
-  export type GetAutoSourceAggregateType<T extends AutoSourceAggregateArgs> = {
-        [P in keyof T & keyof AggregateAutoSource]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateAutoSource[P]>
-      : GetScalarType<T[P], AggregateAutoSource[P]>
-  }
-
-
-
-
-  export type AutoSourceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: AutoSourceWhereInput
-    orderBy?: AutoSourceOrderByWithAggregationInput | AutoSourceOrderByWithAggregationInput[]
-    by: AutoSourceScalarFieldEnum[] | AutoSourceScalarFieldEnum
-    having?: AutoSourceScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: AutoSourceCountAggregateInputType | true
-    _min?: AutoSourceMinAggregateInputType
-    _max?: AutoSourceMaxAggregateInputType
-  }
-
-  export type AutoSourceGroupByOutputType = {
-    id: string
-    configId: string
-    serverId: string | null
-    name: string
-    url: string
-    type: string
-    createdAt: Date
-    _count: AutoSourceCountAggregateOutputType | null
-    _min: AutoSourceMinAggregateOutputType | null
-    _max: AutoSourceMaxAggregateOutputType | null
-  }
-
-  type GetAutoSourceGroupByPayload<T extends AutoSourceGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<AutoSourceGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof AutoSourceGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], AutoSourceGroupByOutputType[P]>
-            : GetScalarType<T[P], AutoSourceGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type AutoSourceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    configId?: boolean
-    serverId?: boolean
-    name?: boolean
-    url?: boolean
-    type?: boolean
-    createdAt?: boolean
-    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
-    server?: boolean | AutoSource$serverArgs<ExtArgs>
-  }, ExtArgs["result"]["autoSource"]>
-
-  export type AutoSourceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    configId?: boolean
-    serverId?: boolean
-    name?: boolean
-    url?: boolean
-    type?: boolean
-    createdAt?: boolean
-    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
-    server?: boolean | AutoSource$serverArgs<ExtArgs>
-  }, ExtArgs["result"]["autoSource"]>
-
-  export type AutoSourceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    configId?: boolean
-    serverId?: boolean
-    name?: boolean
-    url?: boolean
-    type?: boolean
-    createdAt?: boolean
-    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
-    server?: boolean | AutoSource$serverArgs<ExtArgs>
-  }, ExtArgs["result"]["autoSource"]>
-
-  export type AutoSourceSelectScalar = {
-    id?: boolean
-    configId?: boolean
-    serverId?: boolean
-    name?: boolean
-    url?: boolean
-    type?: boolean
-    createdAt?: boolean
-  }
-
-  export type AutoSourceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "configId" | "serverId" | "name" | "url" | "type" | "createdAt", ExtArgs["result"]["autoSource"]>
-  export type AutoSourceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
-    server?: boolean | AutoSource$serverArgs<ExtArgs>
-  }
-  export type AutoSourceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
-    server?: boolean | AutoSource$serverArgs<ExtArgs>
-  }
-  export type AutoSourceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
-    server?: boolean | AutoSource$serverArgs<ExtArgs>
-  }
-
-  export type $AutoSourcePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "AutoSource"
-    objects: {
-      config: Prisma.$UnitConfigPayload<ExtArgs>
-      server: Prisma.$UnitServerPayload<ExtArgs> | null
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      configId: string
-      serverId: string | null
-      name: string
-      url: string
-      type: string
-      createdAt: Date
-    }, ExtArgs["result"]["autoSource"]>
-    composites: {}
-  }
-
-  type AutoSourceGetPayload<S extends boolean | null | undefined | AutoSourceDefaultArgs> = $Result.GetResult<Prisma.$AutoSourcePayload, S>
-
-  type AutoSourceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<AutoSourceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: AutoSourceCountAggregateInputType | true
-    }
-
-  export interface AutoSourceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AutoSource'], meta: { name: 'AutoSource' } }
-    /**
-     * Find zero or one AutoSource that matches the filter.
-     * @param {AutoSourceFindUniqueArgs} args - Arguments to find a AutoSource
-     * @example
-     * // Get one AutoSource
-     * const autoSource = await prisma.autoSource.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends AutoSourceFindUniqueArgs>(args: SelectSubset<T, AutoSourceFindUniqueArgs<ExtArgs>>): Prisma__AutoSourceClient<$Result.GetResult<Prisma.$AutoSourcePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one AutoSource that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {AutoSourceFindUniqueOrThrowArgs} args - Arguments to find a AutoSource
-     * @example
-     * // Get one AutoSource
-     * const autoSource = await prisma.autoSource.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends AutoSourceFindUniqueOrThrowArgs>(args: SelectSubset<T, AutoSourceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AutoSourceClient<$Result.GetResult<Prisma.$AutoSourcePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first AutoSource that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AutoSourceFindFirstArgs} args - Arguments to find a AutoSource
-     * @example
-     * // Get one AutoSource
-     * const autoSource = await prisma.autoSource.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends AutoSourceFindFirstArgs>(args?: SelectSubset<T, AutoSourceFindFirstArgs<ExtArgs>>): Prisma__AutoSourceClient<$Result.GetResult<Prisma.$AutoSourcePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first AutoSource that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AutoSourceFindFirstOrThrowArgs} args - Arguments to find a AutoSource
-     * @example
-     * // Get one AutoSource
-     * const autoSource = await prisma.autoSource.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends AutoSourceFindFirstOrThrowArgs>(args?: SelectSubset<T, AutoSourceFindFirstOrThrowArgs<ExtArgs>>): Prisma__AutoSourceClient<$Result.GetResult<Prisma.$AutoSourcePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more AutoSources that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AutoSourceFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all AutoSources
-     * const autoSources = await prisma.autoSource.findMany()
-     * 
-     * // Get first 10 AutoSources
-     * const autoSources = await prisma.autoSource.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const autoSourceWithIdOnly = await prisma.autoSource.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends AutoSourceFindManyArgs>(args?: SelectSubset<T, AutoSourceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AutoSourcePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a AutoSource.
-     * @param {AutoSourceCreateArgs} args - Arguments to create a AutoSource.
-     * @example
-     * // Create one AutoSource
-     * const AutoSource = await prisma.autoSource.create({
-     *   data: {
-     *     // ... data to create a AutoSource
-     *   }
-     * })
-     * 
-     */
-    create<T extends AutoSourceCreateArgs>(args: SelectSubset<T, AutoSourceCreateArgs<ExtArgs>>): Prisma__AutoSourceClient<$Result.GetResult<Prisma.$AutoSourcePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many AutoSources.
-     * @param {AutoSourceCreateManyArgs} args - Arguments to create many AutoSources.
-     * @example
-     * // Create many AutoSources
-     * const autoSource = await prisma.autoSource.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends AutoSourceCreateManyArgs>(args?: SelectSubset<T, AutoSourceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many AutoSources and returns the data saved in the database.
-     * @param {AutoSourceCreateManyAndReturnArgs} args - Arguments to create many AutoSources.
-     * @example
-     * // Create many AutoSources
-     * const autoSource = await prisma.autoSource.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many AutoSources and only return the `id`
-     * const autoSourceWithIdOnly = await prisma.autoSource.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends AutoSourceCreateManyAndReturnArgs>(args?: SelectSubset<T, AutoSourceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AutoSourcePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a AutoSource.
-     * @param {AutoSourceDeleteArgs} args - Arguments to delete one AutoSource.
-     * @example
-     * // Delete one AutoSource
-     * const AutoSource = await prisma.autoSource.delete({
-     *   where: {
-     *     // ... filter to delete one AutoSource
-     *   }
-     * })
-     * 
-     */
-    delete<T extends AutoSourceDeleteArgs>(args: SelectSubset<T, AutoSourceDeleteArgs<ExtArgs>>): Prisma__AutoSourceClient<$Result.GetResult<Prisma.$AutoSourcePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one AutoSource.
-     * @param {AutoSourceUpdateArgs} args - Arguments to update one AutoSource.
-     * @example
-     * // Update one AutoSource
-     * const autoSource = await prisma.autoSource.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends AutoSourceUpdateArgs>(args: SelectSubset<T, AutoSourceUpdateArgs<ExtArgs>>): Prisma__AutoSourceClient<$Result.GetResult<Prisma.$AutoSourcePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more AutoSources.
-     * @param {AutoSourceDeleteManyArgs} args - Arguments to filter AutoSources to delete.
-     * @example
-     * // Delete a few AutoSources
-     * const { count } = await prisma.autoSource.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends AutoSourceDeleteManyArgs>(args?: SelectSubset<T, AutoSourceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more AutoSources.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AutoSourceUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many AutoSources
-     * const autoSource = await prisma.autoSource.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends AutoSourceUpdateManyArgs>(args: SelectSubset<T, AutoSourceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more AutoSources and returns the data updated in the database.
-     * @param {AutoSourceUpdateManyAndReturnArgs} args - Arguments to update many AutoSources.
-     * @example
-     * // Update many AutoSources
-     * const autoSource = await prisma.autoSource.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more AutoSources and only return the `id`
-     * const autoSourceWithIdOnly = await prisma.autoSource.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends AutoSourceUpdateManyAndReturnArgs>(args: SelectSubset<T, AutoSourceUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AutoSourcePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one AutoSource.
-     * @param {AutoSourceUpsertArgs} args - Arguments to update or create a AutoSource.
-     * @example
-     * // Update or create a AutoSource
-     * const autoSource = await prisma.autoSource.upsert({
-     *   create: {
-     *     // ... data to create a AutoSource
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the AutoSource we want to update
-     *   }
-     * })
-     */
-    upsert<T extends AutoSourceUpsertArgs>(args: SelectSubset<T, AutoSourceUpsertArgs<ExtArgs>>): Prisma__AutoSourceClient<$Result.GetResult<Prisma.$AutoSourcePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of AutoSources.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AutoSourceCountArgs} args - Arguments to filter AutoSources to count.
-     * @example
-     * // Count the number of AutoSources
-     * const count = await prisma.autoSource.count({
-     *   where: {
-     *     // ... the filter for the AutoSources we want to count
-     *   }
-     * })
-    **/
-    count<T extends AutoSourceCountArgs>(
-      args?: Subset<T, AutoSourceCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], AutoSourceCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a AutoSource.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AutoSourceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends AutoSourceAggregateArgs>(args: Subset<T, AutoSourceAggregateArgs>): Prisma.PrismaPromise<GetAutoSourceAggregateType<T>>
-
-    /**
-     * Group by AutoSource.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AutoSourceGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends AutoSourceGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: AutoSourceGroupByArgs['orderBy'] }
-        : { orderBy?: AutoSourceGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, AutoSourceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAutoSourceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the AutoSource model
-   */
-  readonly fields: AutoSourceFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for AutoSource.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__AutoSourceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    config<T extends UnitConfigDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfigDefaultArgs<ExtArgs>>): Prisma__UnitConfigClient<$Result.GetResult<Prisma.$UnitConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    server<T extends AutoSource$serverArgs<ExtArgs> = {}>(args?: Subset<T, AutoSource$serverArgs<ExtArgs>>): Prisma__UnitServerClient<$Result.GetResult<Prisma.$UnitServerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the AutoSource model
-   */
-  interface AutoSourceFieldRefs {
-    readonly id: FieldRef<"AutoSource", 'String'>
-    readonly configId: FieldRef<"AutoSource", 'String'>
-    readonly serverId: FieldRef<"AutoSource", 'String'>
-    readonly name: FieldRef<"AutoSource", 'String'>
-    readonly url: FieldRef<"AutoSource", 'String'>
-    readonly type: FieldRef<"AutoSource", 'String'>
-    readonly createdAt: FieldRef<"AutoSource", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * AutoSource findUnique
-   */
-  export type AutoSourceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AutoSource
-     */
-    select?: AutoSourceSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AutoSource
-     */
-    omit?: AutoSourceOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AutoSourceInclude<ExtArgs> | null
-    /**
-     * Filter, which AutoSource to fetch.
-     */
-    where: AutoSourceWhereUniqueInput
-  }
-
-  /**
-   * AutoSource findUniqueOrThrow
-   */
-  export type AutoSourceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AutoSource
-     */
-    select?: AutoSourceSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AutoSource
-     */
-    omit?: AutoSourceOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AutoSourceInclude<ExtArgs> | null
-    /**
-     * Filter, which AutoSource to fetch.
-     */
-    where: AutoSourceWhereUniqueInput
-  }
-
-  /**
-   * AutoSource findFirst
-   */
-  export type AutoSourceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AutoSource
-     */
-    select?: AutoSourceSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AutoSource
-     */
-    omit?: AutoSourceOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AutoSourceInclude<ExtArgs> | null
-    /**
-     * Filter, which AutoSource to fetch.
-     */
-    where?: AutoSourceWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of AutoSources to fetch.
-     */
-    orderBy?: AutoSourceOrderByWithRelationInput | AutoSourceOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for AutoSources.
-     */
-    cursor?: AutoSourceWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` AutoSources from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` AutoSources.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of AutoSources.
-     */
-    distinct?: AutoSourceScalarFieldEnum | AutoSourceScalarFieldEnum[]
-  }
-
-  /**
-   * AutoSource findFirstOrThrow
-   */
-  export type AutoSourceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AutoSource
-     */
-    select?: AutoSourceSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AutoSource
-     */
-    omit?: AutoSourceOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AutoSourceInclude<ExtArgs> | null
-    /**
-     * Filter, which AutoSource to fetch.
-     */
-    where?: AutoSourceWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of AutoSources to fetch.
-     */
-    orderBy?: AutoSourceOrderByWithRelationInput | AutoSourceOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for AutoSources.
-     */
-    cursor?: AutoSourceWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` AutoSources from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` AutoSources.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of AutoSources.
-     */
-    distinct?: AutoSourceScalarFieldEnum | AutoSourceScalarFieldEnum[]
-  }
-
-  /**
-   * AutoSource findMany
-   */
-  export type AutoSourceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AutoSource
-     */
-    select?: AutoSourceSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AutoSource
-     */
-    omit?: AutoSourceOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AutoSourceInclude<ExtArgs> | null
-    /**
-     * Filter, which AutoSources to fetch.
-     */
-    where?: AutoSourceWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of AutoSources to fetch.
-     */
-    orderBy?: AutoSourceOrderByWithRelationInput | AutoSourceOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing AutoSources.
-     */
-    cursor?: AutoSourceWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` AutoSources from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` AutoSources.
-     */
-    skip?: number
-    distinct?: AutoSourceScalarFieldEnum | AutoSourceScalarFieldEnum[]
-  }
-
-  /**
-   * AutoSource create
-   */
-  export type AutoSourceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AutoSource
-     */
-    select?: AutoSourceSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AutoSource
-     */
-    omit?: AutoSourceOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AutoSourceInclude<ExtArgs> | null
-    /**
-     * The data needed to create a AutoSource.
-     */
-    data: XOR<AutoSourceCreateInput, AutoSourceUncheckedCreateInput>
-  }
-
-  /**
-   * AutoSource createMany
-   */
-  export type AutoSourceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many AutoSources.
-     */
-    data: AutoSourceCreateManyInput | AutoSourceCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * AutoSource createManyAndReturn
-   */
-  export type AutoSourceCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AutoSource
-     */
-    select?: AutoSourceSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the AutoSource
-     */
-    omit?: AutoSourceOmit<ExtArgs> | null
-    /**
-     * The data used to create many AutoSources.
-     */
-    data: AutoSourceCreateManyInput | AutoSourceCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AutoSourceIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * AutoSource update
-   */
-  export type AutoSourceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AutoSource
-     */
-    select?: AutoSourceSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AutoSource
-     */
-    omit?: AutoSourceOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AutoSourceInclude<ExtArgs> | null
-    /**
-     * The data needed to update a AutoSource.
-     */
-    data: XOR<AutoSourceUpdateInput, AutoSourceUncheckedUpdateInput>
-    /**
-     * Choose, which AutoSource to update.
-     */
-    where: AutoSourceWhereUniqueInput
-  }
-
-  /**
-   * AutoSource updateMany
-   */
-  export type AutoSourceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update AutoSources.
-     */
-    data: XOR<AutoSourceUpdateManyMutationInput, AutoSourceUncheckedUpdateManyInput>
-    /**
-     * Filter which AutoSources to update
-     */
-    where?: AutoSourceWhereInput
-    /**
-     * Limit how many AutoSources to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * AutoSource updateManyAndReturn
-   */
-  export type AutoSourceUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AutoSource
-     */
-    select?: AutoSourceSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the AutoSource
-     */
-    omit?: AutoSourceOmit<ExtArgs> | null
-    /**
-     * The data used to update AutoSources.
-     */
-    data: XOR<AutoSourceUpdateManyMutationInput, AutoSourceUncheckedUpdateManyInput>
-    /**
-     * Filter which AutoSources to update
-     */
-    where?: AutoSourceWhereInput
-    /**
-     * Limit how many AutoSources to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AutoSourceIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * AutoSource upsert
-   */
-  export type AutoSourceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AutoSource
-     */
-    select?: AutoSourceSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AutoSource
-     */
-    omit?: AutoSourceOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AutoSourceInclude<ExtArgs> | null
-    /**
-     * The filter to search for the AutoSource to update in case it exists.
-     */
-    where: AutoSourceWhereUniqueInput
-    /**
-     * In case the AutoSource found by the `where` argument doesn't exist, create a new AutoSource with this data.
-     */
-    create: XOR<AutoSourceCreateInput, AutoSourceUncheckedCreateInput>
-    /**
-     * In case the AutoSource was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<AutoSourceUpdateInput, AutoSourceUncheckedUpdateInput>
-  }
-
-  /**
-   * AutoSource delete
-   */
-  export type AutoSourceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AutoSource
-     */
-    select?: AutoSourceSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AutoSource
-     */
-    omit?: AutoSourceOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AutoSourceInclude<ExtArgs> | null
-    /**
-     * Filter which AutoSource to delete.
-     */
-    where: AutoSourceWhereUniqueInput
-  }
-
-  /**
-   * AutoSource deleteMany
-   */
-  export type AutoSourceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which AutoSources to delete
-     */
-    where?: AutoSourceWhereInput
-    /**
-     * Limit how many AutoSources to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * AutoSource.server
-   */
-  export type AutoSource$serverArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the UnitServer
-     */
-    select?: UnitServerSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the UnitServer
-     */
-    omit?: UnitServerOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UnitServerInclude<ExtArgs> | null
-    where?: UnitServerWhereInput
-  }
-
-  /**
-   * AutoSource without action
-   */
-  export type AutoSourceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AutoSource
-     */
-    select?: AutoSourceSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AutoSource
-     */
-    omit?: AutoSourceOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AutoSourceInclude<ExtArgs> | null
-  }
-
-
-  /**
    * Model Image
    */
 
@@ -17204,6 +14853,1063 @@ export namespace Prisma {
 
 
   /**
+   * Model Article
+   */
+
+  export type AggregateArticle = {
+    _count: ArticleCountAggregateOutputType | null
+    _min: ArticleMinAggregateOutputType | null
+    _max: ArticleMaxAggregateOutputType | null
+  }
+
+  export type ArticleMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    content: string | null
+    publishedAt: Date | null
+  }
+
+  export type ArticleMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    content: string | null
+    publishedAt: Date | null
+  }
+
+  export type ArticleCountAggregateOutputType = {
+    id: number
+    title: number
+    content: number
+    publishedAt: number
+    _all: number
+  }
+
+
+  export type ArticleMinAggregateInputType = {
+    id?: true
+    title?: true
+    content?: true
+    publishedAt?: true
+  }
+
+  export type ArticleMaxAggregateInputType = {
+    id?: true
+    title?: true
+    content?: true
+    publishedAt?: true
+  }
+
+  export type ArticleCountAggregateInputType = {
+    id?: true
+    title?: true
+    content?: true
+    publishedAt?: true
+    _all?: true
+  }
+
+  export type ArticleAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Article to aggregate.
+     */
+    where?: ArticleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Articles to fetch.
+     */
+    orderBy?: ArticleOrderByWithRelationInput | ArticleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ArticleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Articles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Articles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Articles
+    **/
+    _count?: true | ArticleCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ArticleMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ArticleMaxAggregateInputType
+  }
+
+  export type GetArticleAggregateType<T extends ArticleAggregateArgs> = {
+        [P in keyof T & keyof AggregateArticle]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateArticle[P]>
+      : GetScalarType<T[P], AggregateArticle[P]>
+  }
+
+
+
+
+  export type ArticleGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ArticleWhereInput
+    orderBy?: ArticleOrderByWithAggregationInput | ArticleOrderByWithAggregationInput[]
+    by: ArticleScalarFieldEnum[] | ArticleScalarFieldEnum
+    having?: ArticleScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ArticleCountAggregateInputType | true
+    _min?: ArticleMinAggregateInputType
+    _max?: ArticleMaxAggregateInputType
+  }
+
+  export type ArticleGroupByOutputType = {
+    id: string
+    title: string
+    content: string
+    publishedAt: Date
+    _count: ArticleCountAggregateOutputType | null
+    _min: ArticleMinAggregateOutputType | null
+    _max: ArticleMaxAggregateOutputType | null
+  }
+
+  type GetArticleGroupByPayload<T extends ArticleGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ArticleGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ArticleGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ArticleGroupByOutputType[P]>
+            : GetScalarType<T[P], ArticleGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ArticleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    content?: boolean
+    publishedAt?: boolean
+    configs?: boolean | Article$configsArgs<ExtArgs>
+    _count?: boolean | ArticleCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["article"]>
+
+  export type ArticleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    content?: boolean
+    publishedAt?: boolean
+  }, ExtArgs["result"]["article"]>
+
+  export type ArticleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    content?: boolean
+    publishedAt?: boolean
+  }, ExtArgs["result"]["article"]>
+
+  export type ArticleSelectScalar = {
+    id?: boolean
+    title?: boolean
+    content?: boolean
+    publishedAt?: boolean
+  }
+
+  export type ArticleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "content" | "publishedAt", ExtArgs["result"]["article"]>
+  export type ArticleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    configs?: boolean | Article$configsArgs<ExtArgs>
+    _count?: boolean | ArticleCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ArticleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type ArticleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $ArticlePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Article"
+    objects: {
+      configs: Prisma.$UnitConfigPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      content: string
+      publishedAt: Date
+    }, ExtArgs["result"]["article"]>
+    composites: {}
+  }
+
+  type ArticleGetPayload<S extends boolean | null | undefined | ArticleDefaultArgs> = $Result.GetResult<Prisma.$ArticlePayload, S>
+
+  type ArticleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ArticleFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ArticleCountAggregateInputType | true
+    }
+
+  export interface ArticleDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Article'], meta: { name: 'Article' } }
+    /**
+     * Find zero or one Article that matches the filter.
+     * @param {ArticleFindUniqueArgs} args - Arguments to find a Article
+     * @example
+     * // Get one Article
+     * const article = await prisma.article.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ArticleFindUniqueArgs>(args: SelectSubset<T, ArticleFindUniqueArgs<ExtArgs>>): Prisma__ArticleClient<$Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Article that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ArticleFindUniqueOrThrowArgs} args - Arguments to find a Article
+     * @example
+     * // Get one Article
+     * const article = await prisma.article.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ArticleFindUniqueOrThrowArgs>(args: SelectSubset<T, ArticleFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ArticleClient<$Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Article that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleFindFirstArgs} args - Arguments to find a Article
+     * @example
+     * // Get one Article
+     * const article = await prisma.article.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ArticleFindFirstArgs>(args?: SelectSubset<T, ArticleFindFirstArgs<ExtArgs>>): Prisma__ArticleClient<$Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Article that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleFindFirstOrThrowArgs} args - Arguments to find a Article
+     * @example
+     * // Get one Article
+     * const article = await prisma.article.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ArticleFindFirstOrThrowArgs>(args?: SelectSubset<T, ArticleFindFirstOrThrowArgs<ExtArgs>>): Prisma__ArticleClient<$Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Articles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Articles
+     * const articles = await prisma.article.findMany()
+     * 
+     * // Get first 10 Articles
+     * const articles = await prisma.article.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const articleWithIdOnly = await prisma.article.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ArticleFindManyArgs>(args?: SelectSubset<T, ArticleFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Article.
+     * @param {ArticleCreateArgs} args - Arguments to create a Article.
+     * @example
+     * // Create one Article
+     * const Article = await prisma.article.create({
+     *   data: {
+     *     // ... data to create a Article
+     *   }
+     * })
+     * 
+     */
+    create<T extends ArticleCreateArgs>(args: SelectSubset<T, ArticleCreateArgs<ExtArgs>>): Prisma__ArticleClient<$Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Articles.
+     * @param {ArticleCreateManyArgs} args - Arguments to create many Articles.
+     * @example
+     * // Create many Articles
+     * const article = await prisma.article.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ArticleCreateManyArgs>(args?: SelectSubset<T, ArticleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Articles and returns the data saved in the database.
+     * @param {ArticleCreateManyAndReturnArgs} args - Arguments to create many Articles.
+     * @example
+     * // Create many Articles
+     * const article = await prisma.article.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Articles and only return the `id`
+     * const articleWithIdOnly = await prisma.article.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ArticleCreateManyAndReturnArgs>(args?: SelectSubset<T, ArticleCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Article.
+     * @param {ArticleDeleteArgs} args - Arguments to delete one Article.
+     * @example
+     * // Delete one Article
+     * const Article = await prisma.article.delete({
+     *   where: {
+     *     // ... filter to delete one Article
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ArticleDeleteArgs>(args: SelectSubset<T, ArticleDeleteArgs<ExtArgs>>): Prisma__ArticleClient<$Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Article.
+     * @param {ArticleUpdateArgs} args - Arguments to update one Article.
+     * @example
+     * // Update one Article
+     * const article = await prisma.article.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ArticleUpdateArgs>(args: SelectSubset<T, ArticleUpdateArgs<ExtArgs>>): Prisma__ArticleClient<$Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Articles.
+     * @param {ArticleDeleteManyArgs} args - Arguments to filter Articles to delete.
+     * @example
+     * // Delete a few Articles
+     * const { count } = await prisma.article.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ArticleDeleteManyArgs>(args?: SelectSubset<T, ArticleDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Articles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Articles
+     * const article = await prisma.article.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ArticleUpdateManyArgs>(args: SelectSubset<T, ArticleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Articles and returns the data updated in the database.
+     * @param {ArticleUpdateManyAndReturnArgs} args - Arguments to update many Articles.
+     * @example
+     * // Update many Articles
+     * const article = await prisma.article.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Articles and only return the `id`
+     * const articleWithIdOnly = await prisma.article.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ArticleUpdateManyAndReturnArgs>(args: SelectSubset<T, ArticleUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Article.
+     * @param {ArticleUpsertArgs} args - Arguments to update or create a Article.
+     * @example
+     * // Update or create a Article
+     * const article = await prisma.article.upsert({
+     *   create: {
+     *     // ... data to create a Article
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Article we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ArticleUpsertArgs>(args: SelectSubset<T, ArticleUpsertArgs<ExtArgs>>): Prisma__ArticleClient<$Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Articles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleCountArgs} args - Arguments to filter Articles to count.
+     * @example
+     * // Count the number of Articles
+     * const count = await prisma.article.count({
+     *   where: {
+     *     // ... the filter for the Articles we want to count
+     *   }
+     * })
+    **/
+    count<T extends ArticleCountArgs>(
+      args?: Subset<T, ArticleCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ArticleCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Article.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ArticleAggregateArgs>(args: Subset<T, ArticleAggregateArgs>): Prisma.PrismaPromise<GetArticleAggregateType<T>>
+
+    /**
+     * Group by Article.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ArticleGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ArticleGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ArticleGroupByArgs['orderBy'] }
+        : { orderBy?: ArticleGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ArticleGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetArticleGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Article model
+   */
+  readonly fields: ArticleFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Article.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ArticleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    configs<T extends Article$configsArgs<ExtArgs> = {}>(args?: Subset<T, Article$configsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UnitConfigPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Article model
+   */
+  interface ArticleFieldRefs {
+    readonly id: FieldRef<"Article", 'String'>
+    readonly title: FieldRef<"Article", 'String'>
+    readonly content: FieldRef<"Article", 'String'>
+    readonly publishedAt: FieldRef<"Article", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Article findUnique
+   */
+  export type ArticleFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Article
+     */
+    select?: ArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Article
+     */
+    omit?: ArticleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleInclude<ExtArgs> | null
+    /**
+     * Filter, which Article to fetch.
+     */
+    where: ArticleWhereUniqueInput
+  }
+
+  /**
+   * Article findUniqueOrThrow
+   */
+  export type ArticleFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Article
+     */
+    select?: ArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Article
+     */
+    omit?: ArticleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleInclude<ExtArgs> | null
+    /**
+     * Filter, which Article to fetch.
+     */
+    where: ArticleWhereUniqueInput
+  }
+
+  /**
+   * Article findFirst
+   */
+  export type ArticleFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Article
+     */
+    select?: ArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Article
+     */
+    omit?: ArticleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleInclude<ExtArgs> | null
+    /**
+     * Filter, which Article to fetch.
+     */
+    where?: ArticleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Articles to fetch.
+     */
+    orderBy?: ArticleOrderByWithRelationInput | ArticleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Articles.
+     */
+    cursor?: ArticleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Articles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Articles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Articles.
+     */
+    distinct?: ArticleScalarFieldEnum | ArticleScalarFieldEnum[]
+  }
+
+  /**
+   * Article findFirstOrThrow
+   */
+  export type ArticleFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Article
+     */
+    select?: ArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Article
+     */
+    omit?: ArticleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleInclude<ExtArgs> | null
+    /**
+     * Filter, which Article to fetch.
+     */
+    where?: ArticleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Articles to fetch.
+     */
+    orderBy?: ArticleOrderByWithRelationInput | ArticleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Articles.
+     */
+    cursor?: ArticleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Articles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Articles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Articles.
+     */
+    distinct?: ArticleScalarFieldEnum | ArticleScalarFieldEnum[]
+  }
+
+  /**
+   * Article findMany
+   */
+  export type ArticleFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Article
+     */
+    select?: ArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Article
+     */
+    omit?: ArticleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleInclude<ExtArgs> | null
+    /**
+     * Filter, which Articles to fetch.
+     */
+    where?: ArticleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Articles to fetch.
+     */
+    orderBy?: ArticleOrderByWithRelationInput | ArticleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Articles.
+     */
+    cursor?: ArticleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Articles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Articles.
+     */
+    skip?: number
+    distinct?: ArticleScalarFieldEnum | ArticleScalarFieldEnum[]
+  }
+
+  /**
+   * Article create
+   */
+  export type ArticleCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Article
+     */
+    select?: ArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Article
+     */
+    omit?: ArticleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Article.
+     */
+    data: XOR<ArticleCreateInput, ArticleUncheckedCreateInput>
+  }
+
+  /**
+   * Article createMany
+   */
+  export type ArticleCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Articles.
+     */
+    data: ArticleCreateManyInput | ArticleCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Article createManyAndReturn
+   */
+  export type ArticleCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Article
+     */
+    select?: ArticleSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Article
+     */
+    omit?: ArticleOmit<ExtArgs> | null
+    /**
+     * The data used to create many Articles.
+     */
+    data: ArticleCreateManyInput | ArticleCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Article update
+   */
+  export type ArticleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Article
+     */
+    select?: ArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Article
+     */
+    omit?: ArticleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Article.
+     */
+    data: XOR<ArticleUpdateInput, ArticleUncheckedUpdateInput>
+    /**
+     * Choose, which Article to update.
+     */
+    where: ArticleWhereUniqueInput
+  }
+
+  /**
+   * Article updateMany
+   */
+  export type ArticleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Articles.
+     */
+    data: XOR<ArticleUpdateManyMutationInput, ArticleUncheckedUpdateManyInput>
+    /**
+     * Filter which Articles to update
+     */
+    where?: ArticleWhereInput
+    /**
+     * Limit how many Articles to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Article updateManyAndReturn
+   */
+  export type ArticleUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Article
+     */
+    select?: ArticleSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Article
+     */
+    omit?: ArticleOmit<ExtArgs> | null
+    /**
+     * The data used to update Articles.
+     */
+    data: XOR<ArticleUpdateManyMutationInput, ArticleUncheckedUpdateManyInput>
+    /**
+     * Filter which Articles to update
+     */
+    where?: ArticleWhereInput
+    /**
+     * Limit how many Articles to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Article upsert
+   */
+  export type ArticleUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Article
+     */
+    select?: ArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Article
+     */
+    omit?: ArticleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Article to update in case it exists.
+     */
+    where: ArticleWhereUniqueInput
+    /**
+     * In case the Article found by the `where` argument doesn't exist, create a new Article with this data.
+     */
+    create: XOR<ArticleCreateInput, ArticleUncheckedCreateInput>
+    /**
+     * In case the Article was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ArticleUpdateInput, ArticleUncheckedUpdateInput>
+  }
+
+  /**
+   * Article delete
+   */
+  export type ArticleDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Article
+     */
+    select?: ArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Article
+     */
+    omit?: ArticleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleInclude<ExtArgs> | null
+    /**
+     * Filter which Article to delete.
+     */
+    where: ArticleWhereUniqueInput
+  }
+
+  /**
+   * Article deleteMany
+   */
+  export type ArticleDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Articles to delete
+     */
+    where?: ArticleWhereInput
+    /**
+     * Limit how many Articles to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Article.configs
+   */
+  export type Article$configsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnitConfig
+     */
+    select?: UnitConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnitConfig
+     */
+    omit?: UnitConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnitConfigInclude<ExtArgs> | null
+    where?: UnitConfigWhereInput
+    orderBy?: UnitConfigOrderByWithRelationInput | UnitConfigOrderByWithRelationInput[]
+    cursor?: UnitConfigWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UnitConfigScalarFieldEnum | UnitConfigScalarFieldEnum[]
+  }
+
+  /**
+   * Article without action
+   */
+  export type ArticleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Article
+     */
+    select?: ArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Article
+     */
+    omit?: ArticleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model UnitServer
    */
 
@@ -17222,7 +15928,7 @@ export namespace Prisma {
     requiresUpdate: boolean | null
     isActive: boolean | null
     constellationId: string | null
-    activeConfigId: string | null
+    configId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -17236,7 +15942,7 @@ export namespace Prisma {
     requiresUpdate: boolean | null
     isActive: boolean | null
     constellationId: string | null
-    activeConfigId: string | null
+    configId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -17250,7 +15956,7 @@ export namespace Prisma {
     requiresUpdate: number
     isActive: number
     constellationId: number
-    activeConfigId: number
+    configId: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -17266,7 +15972,7 @@ export namespace Prisma {
     requiresUpdate?: true
     isActive?: true
     constellationId?: true
-    activeConfigId?: true
+    configId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -17280,7 +15986,7 @@ export namespace Prisma {
     requiresUpdate?: true
     isActive?: true
     constellationId?: true
-    activeConfigId?: true
+    configId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -17294,7 +16000,7 @@ export namespace Prisma {
     requiresUpdate?: true
     isActive?: true
     constellationId?: true
-    activeConfigId?: true
+    configId?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -17381,7 +16087,7 @@ export namespace Prisma {
     requiresUpdate: boolean
     isActive: boolean
     constellationId: string
-    activeConfigId: string | null
+    configId: string | null
     createdAt: Date
     updatedAt: Date
     _count: UnitServerCountAggregateOutputType | null
@@ -17412,18 +16118,16 @@ export namespace Prisma {
     requiresUpdate?: boolean
     isActive?: boolean
     constellationId?: boolean
-    activeConfigId?: boolean
+    configId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     constellation?: boolean | ConstellationDefaultArgs<ExtArgs>
-    activeConfig?: boolean | UnitServer$activeConfigArgs<ExtArgs>
+    config?: boolean | UnitServer$configArgs<ExtArgs>
     clients?: boolean | UnitServer$clientsArgs<ExtArgs>
     professionals?: boolean | UnitServer$professionalsArgs<ExtArgs>
     cases?: boolean | UnitServer$casesArgs<ExtArgs>
     sections?: boolean | UnitServer$sectionsArgs<ExtArgs>
-    manualArticles?: boolean | UnitServer$manualArticlesArgs<ExtArgs>
-    autoSources?: boolean | UnitServer$autoSourcesArgs<ExtArgs>
-    updateLogs?: boolean | UnitServer$updateLogsArgs<ExtArgs>
+    serverLogs?: boolean | UnitServer$serverLogsArgs<ExtArgs>
     _count?: boolean | UnitServerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["unitServer"]>
 
@@ -17436,11 +16140,11 @@ export namespace Prisma {
     requiresUpdate?: boolean
     isActive?: boolean
     constellationId?: boolean
-    activeConfigId?: boolean
+    configId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     constellation?: boolean | ConstellationDefaultArgs<ExtArgs>
-    activeConfig?: boolean | UnitServer$activeConfigArgs<ExtArgs>
+    config?: boolean | UnitServer$configArgs<ExtArgs>
   }, ExtArgs["result"]["unitServer"]>
 
   export type UnitServerSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -17452,11 +16156,11 @@ export namespace Prisma {
     requiresUpdate?: boolean
     isActive?: boolean
     constellationId?: boolean
-    activeConfigId?: boolean
+    configId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     constellation?: boolean | ConstellationDefaultArgs<ExtArgs>
-    activeConfig?: boolean | UnitServer$activeConfigArgs<ExtArgs>
+    config?: boolean | UnitServer$configArgs<ExtArgs>
   }, ExtArgs["result"]["unitServer"]>
 
   export type UnitServerSelectScalar = {
@@ -17468,45 +16172,41 @@ export namespace Prisma {
     requiresUpdate?: boolean
     isActive?: boolean
     constellationId?: boolean
-    activeConfigId?: boolean
+    configId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UnitServerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "domain" | "name" | "orchestratorToken" | "unitToken" | "requiresUpdate" | "isActive" | "constellationId" | "activeConfigId" | "createdAt" | "updatedAt", ExtArgs["result"]["unitServer"]>
+  export type UnitServerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "domain" | "name" | "orchestratorToken" | "unitToken" | "requiresUpdate" | "isActive" | "constellationId" | "configId" | "createdAt" | "updatedAt", ExtArgs["result"]["unitServer"]>
   export type UnitServerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     constellation?: boolean | ConstellationDefaultArgs<ExtArgs>
-    activeConfig?: boolean | UnitServer$activeConfigArgs<ExtArgs>
+    config?: boolean | UnitServer$configArgs<ExtArgs>
     clients?: boolean | UnitServer$clientsArgs<ExtArgs>
     professionals?: boolean | UnitServer$professionalsArgs<ExtArgs>
     cases?: boolean | UnitServer$casesArgs<ExtArgs>
     sections?: boolean | UnitServer$sectionsArgs<ExtArgs>
-    manualArticles?: boolean | UnitServer$manualArticlesArgs<ExtArgs>
-    autoSources?: boolean | UnitServer$autoSourcesArgs<ExtArgs>
-    updateLogs?: boolean | UnitServer$updateLogsArgs<ExtArgs>
+    serverLogs?: boolean | UnitServer$serverLogsArgs<ExtArgs>
     _count?: boolean | UnitServerCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UnitServerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     constellation?: boolean | ConstellationDefaultArgs<ExtArgs>
-    activeConfig?: boolean | UnitServer$activeConfigArgs<ExtArgs>
+    config?: boolean | UnitServer$configArgs<ExtArgs>
   }
   export type UnitServerIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     constellation?: boolean | ConstellationDefaultArgs<ExtArgs>
-    activeConfig?: boolean | UnitServer$activeConfigArgs<ExtArgs>
+    config?: boolean | UnitServer$configArgs<ExtArgs>
   }
 
   export type $UnitServerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "UnitServer"
     objects: {
       constellation: Prisma.$ConstellationPayload<ExtArgs>
-      activeConfig: Prisma.$UnitConfigPayload<ExtArgs> | null
+      config: Prisma.$UnitConfigPayload<ExtArgs> | null
       clients: Prisma.$ClientPayload<ExtArgs>[]
       professionals: Prisma.$ProfessionalPayload<ExtArgs>[]
       cases: Prisma.$CasePayload<ExtArgs>[]
       sections: Prisma.$SectionPayload<ExtArgs>[]
-      manualArticles: Prisma.$ManualArticlePayload<ExtArgs>[]
-      autoSources: Prisma.$AutoSourcePayload<ExtArgs>[]
-      updateLogs: Prisma.$UpdateLogPayload<ExtArgs>[]
+      serverLogs: Prisma.$ServerLogPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -17517,7 +16217,7 @@ export namespace Prisma {
       requiresUpdate: boolean
       isActive: boolean
       constellationId: string
-      activeConfigId: string | null
+      configId: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["unitServer"]>
@@ -17915,14 +16615,12 @@ export namespace Prisma {
   export interface Prisma__UnitServerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     constellation<T extends ConstellationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ConstellationDefaultArgs<ExtArgs>>): Prisma__ConstellationClient<$Result.GetResult<Prisma.$ConstellationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    activeConfig<T extends UnitServer$activeConfigArgs<ExtArgs> = {}>(args?: Subset<T, UnitServer$activeConfigArgs<ExtArgs>>): Prisma__UnitConfigClient<$Result.GetResult<Prisma.$UnitConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    config<T extends UnitServer$configArgs<ExtArgs> = {}>(args?: Subset<T, UnitServer$configArgs<ExtArgs>>): Prisma__UnitConfigClient<$Result.GetResult<Prisma.$UnitConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     clients<T extends UnitServer$clientsArgs<ExtArgs> = {}>(args?: Subset<T, UnitServer$clientsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClientPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     professionals<T extends UnitServer$professionalsArgs<ExtArgs> = {}>(args?: Subset<T, UnitServer$professionalsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProfessionalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     cases<T extends UnitServer$casesArgs<ExtArgs> = {}>(args?: Subset<T, UnitServer$casesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     sections<T extends UnitServer$sectionsArgs<ExtArgs> = {}>(args?: Subset<T, UnitServer$sectionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    manualArticles<T extends UnitServer$manualArticlesArgs<ExtArgs> = {}>(args?: Subset<T, UnitServer$manualArticlesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ManualArticlePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    autoSources<T extends UnitServer$autoSourcesArgs<ExtArgs> = {}>(args?: Subset<T, UnitServer$autoSourcesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AutoSourcePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    updateLogs<T extends UnitServer$updateLogsArgs<ExtArgs> = {}>(args?: Subset<T, UnitServer$updateLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UpdateLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    serverLogs<T extends UnitServer$serverLogsArgs<ExtArgs> = {}>(args?: Subset<T, UnitServer$serverLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServerLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -17960,7 +16658,7 @@ export namespace Prisma {
     readonly requiresUpdate: FieldRef<"UnitServer", 'Boolean'>
     readonly isActive: FieldRef<"UnitServer", 'Boolean'>
     readonly constellationId: FieldRef<"UnitServer", 'String'>
-    readonly activeConfigId: FieldRef<"UnitServer", 'String'>
+    readonly configId: FieldRef<"UnitServer", 'String'>
     readonly createdAt: FieldRef<"UnitServer", 'DateTime'>
     readonly updatedAt: FieldRef<"UnitServer", 'DateTime'>
   }
@@ -18359,9 +17057,9 @@ export namespace Prisma {
   }
 
   /**
-   * UnitServer.activeConfig
+   * UnitServer.config
    */
-  export type UnitServer$activeConfigArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UnitServer$configArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the UnitConfig
      */
@@ -18474,75 +17172,27 @@ export namespace Prisma {
   }
 
   /**
-   * UnitServer.manualArticles
+   * UnitServer.serverLogs
    */
-  export type UnitServer$manualArticlesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UnitServer$serverLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ManualArticle
+     * Select specific fields to fetch from the ServerLog
      */
-    select?: ManualArticleSelect<ExtArgs> | null
+    select?: ServerLogSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ManualArticle
+     * Omit specific fields from the ServerLog
      */
-    omit?: ManualArticleOmit<ExtArgs> | null
+    omit?: ServerLogOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ManualArticleInclude<ExtArgs> | null
-    where?: ManualArticleWhereInput
-    orderBy?: ManualArticleOrderByWithRelationInput | ManualArticleOrderByWithRelationInput[]
-    cursor?: ManualArticleWhereUniqueInput
+    include?: ServerLogInclude<ExtArgs> | null
+    where?: ServerLogWhereInput
+    orderBy?: ServerLogOrderByWithRelationInput | ServerLogOrderByWithRelationInput[]
+    cursor?: ServerLogWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: ManualArticleScalarFieldEnum | ManualArticleScalarFieldEnum[]
-  }
-
-  /**
-   * UnitServer.autoSources
-   */
-  export type UnitServer$autoSourcesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AutoSource
-     */
-    select?: AutoSourceSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AutoSource
-     */
-    omit?: AutoSourceOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AutoSourceInclude<ExtArgs> | null
-    where?: AutoSourceWhereInput
-    orderBy?: AutoSourceOrderByWithRelationInput | AutoSourceOrderByWithRelationInput[]
-    cursor?: AutoSourceWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: AutoSourceScalarFieldEnum | AutoSourceScalarFieldEnum[]
-  }
-
-  /**
-   * UnitServer.updateLogs
-   */
-  export type UnitServer$updateLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the UpdateLog
-     */
-    select?: UpdateLogSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the UpdateLog
-     */
-    omit?: UpdateLogOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UpdateLogInclude<ExtArgs> | null
-    where?: UpdateLogWhereInput
-    orderBy?: UpdateLogOrderByWithRelationInput | UpdateLogOrderByWithRelationInput[]
-    cursor?: UpdateLogWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: UpdateLogScalarFieldEnum | UpdateLogScalarFieldEnum[]
+    distinct?: ServerLogScalarFieldEnum | ServerLogScalarFieldEnum[]
   }
 
   /**
@@ -18803,12 +17453,9 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     sections?: boolean | UnitConfig$sectionsArgs<ExtArgs>
-    manualArticles?: boolean | UnitConfig$manualArticlesArgs<ExtArgs>
-    autoSources?: boolean | UnitConfig$autoSourcesArgs<ExtArgs>
+    articles?: boolean | UnitConfig$articlesArgs<ExtArgs>
     images?: boolean | UnitConfig$imagesArgs<ExtArgs>
-    activeInServers?: boolean | UnitConfig$activeInServersArgs<ExtArgs>
-    updates?: boolean | UnitConfig$updatesArgs<ExtArgs>
-    previousUpdates?: boolean | UnitConfig$previousUpdatesArgs<ExtArgs>
+    servers?: boolean | UnitConfig$serversArgs<ExtArgs>
     _count?: boolean | UnitConfigCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["unitConfig"]>
 
@@ -18860,12 +17507,9 @@ export namespace Prisma {
   export type UnitConfigOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "pageTitle" | "footerInfo" | "legalStepsCount" | "pageType" | "externalLinks" | "newsParams" | "selectedNews" | "infoSections" | "createdAt" | "updatedAt", ExtArgs["result"]["unitConfig"]>
   export type UnitConfigInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sections?: boolean | UnitConfig$sectionsArgs<ExtArgs>
-    manualArticles?: boolean | UnitConfig$manualArticlesArgs<ExtArgs>
-    autoSources?: boolean | UnitConfig$autoSourcesArgs<ExtArgs>
+    articles?: boolean | UnitConfig$articlesArgs<ExtArgs>
     images?: boolean | UnitConfig$imagesArgs<ExtArgs>
-    activeInServers?: boolean | UnitConfig$activeInServersArgs<ExtArgs>
-    updates?: boolean | UnitConfig$updatesArgs<ExtArgs>
-    previousUpdates?: boolean | UnitConfig$previousUpdatesArgs<ExtArgs>
+    servers?: boolean | UnitConfig$serversArgs<ExtArgs>
     _count?: boolean | UnitConfigCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UnitConfigIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -18875,12 +17519,9 @@ export namespace Prisma {
     name: "UnitConfig"
     objects: {
       sections: Prisma.$SectionPayload<ExtArgs>[]
-      manualArticles: Prisma.$ManualArticlePayload<ExtArgs>[]
-      autoSources: Prisma.$AutoSourcePayload<ExtArgs>[]
+      articles: Prisma.$ArticlePayload<ExtArgs>[]
       images: Prisma.$ImagePayload<ExtArgs>[]
-      activeInServers: Prisma.$UnitServerPayload<ExtArgs>[]
-      updates: Prisma.$UpdateLogPayload<ExtArgs>[]
-      previousUpdates: Prisma.$UpdateLogPayload<ExtArgs>[]
+      servers: Prisma.$UnitServerPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -19290,12 +17931,9 @@ export namespace Prisma {
   export interface Prisma__UnitConfigClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     sections<T extends UnitConfig$sectionsArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfig$sectionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    manualArticles<T extends UnitConfig$manualArticlesArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfig$manualArticlesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ManualArticlePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    autoSources<T extends UnitConfig$autoSourcesArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfig$autoSourcesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AutoSourcePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    articles<T extends UnitConfig$articlesArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfig$articlesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     images<T extends UnitConfig$imagesArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfig$imagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    activeInServers<T extends UnitConfig$activeInServersArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfig$activeInServersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UnitServerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    updates<T extends UnitConfig$updatesArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfig$updatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UpdateLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    previousUpdates<T extends UnitConfig$previousUpdatesArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfig$previousUpdatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UpdateLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    servers<T extends UnitConfig$serversArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfig$serversArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UnitServerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -19749,51 +18387,27 @@ export namespace Prisma {
   }
 
   /**
-   * UnitConfig.manualArticles
+   * UnitConfig.articles
    */
-  export type UnitConfig$manualArticlesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UnitConfig$articlesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ManualArticle
+     * Select specific fields to fetch from the Article
      */
-    select?: ManualArticleSelect<ExtArgs> | null
+    select?: ArticleSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ManualArticle
+     * Omit specific fields from the Article
      */
-    omit?: ManualArticleOmit<ExtArgs> | null
+    omit?: ArticleOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ManualArticleInclude<ExtArgs> | null
-    where?: ManualArticleWhereInput
-    orderBy?: ManualArticleOrderByWithRelationInput | ManualArticleOrderByWithRelationInput[]
-    cursor?: ManualArticleWhereUniqueInput
+    include?: ArticleInclude<ExtArgs> | null
+    where?: ArticleWhereInput
+    orderBy?: ArticleOrderByWithRelationInput | ArticleOrderByWithRelationInput[]
+    cursor?: ArticleWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: ManualArticleScalarFieldEnum | ManualArticleScalarFieldEnum[]
-  }
-
-  /**
-   * UnitConfig.autoSources
-   */
-  export type UnitConfig$autoSourcesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AutoSource
-     */
-    select?: AutoSourceSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AutoSource
-     */
-    omit?: AutoSourceOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AutoSourceInclude<ExtArgs> | null
-    where?: AutoSourceWhereInput
-    orderBy?: AutoSourceOrderByWithRelationInput | AutoSourceOrderByWithRelationInput[]
-    cursor?: AutoSourceWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: AutoSourceScalarFieldEnum | AutoSourceScalarFieldEnum[]
+    distinct?: ArticleScalarFieldEnum | ArticleScalarFieldEnum[]
   }
 
   /**
@@ -19821,9 +18435,9 @@ export namespace Prisma {
   }
 
   /**
-   * UnitConfig.activeInServers
+   * UnitConfig.servers
    */
-  export type UnitConfig$activeInServersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UnitConfig$serversArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the UnitServer
      */
@@ -19842,54 +18456,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: UnitServerScalarFieldEnum | UnitServerScalarFieldEnum[]
-  }
-
-  /**
-   * UnitConfig.updates
-   */
-  export type UnitConfig$updatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the UpdateLog
-     */
-    select?: UpdateLogSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the UpdateLog
-     */
-    omit?: UpdateLogOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UpdateLogInclude<ExtArgs> | null
-    where?: UpdateLogWhereInput
-    orderBy?: UpdateLogOrderByWithRelationInput | UpdateLogOrderByWithRelationInput[]
-    cursor?: UpdateLogWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: UpdateLogScalarFieldEnum | UpdateLogScalarFieldEnum[]
-  }
-
-  /**
-   * UnitConfig.previousUpdates
-   */
-  export type UnitConfig$previousUpdatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the UpdateLog
-     */
-    select?: UpdateLogSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the UpdateLog
-     */
-    omit?: UpdateLogOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UpdateLogInclude<ExtArgs> | null
-    where?: UpdateLogWhereInput
-    orderBy?: UpdateLogOrderByWithRelationInput | UpdateLogOrderByWithRelationInput[]
-    cursor?: UpdateLogWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: UpdateLogScalarFieldEnum | UpdateLogScalarFieldEnum[]
   }
 
   /**
@@ -19912,431 +18478,358 @@ export namespace Prisma {
 
 
   /**
-   * Model UpdateLog
+   * Model ServerLog
    */
 
-  export type AggregateUpdateLog = {
-    _count: UpdateLogCountAggregateOutputType | null
-    _min: UpdateLogMinAggregateOutputType | null
-    _max: UpdateLogMaxAggregateOutputType | null
+  export type AggregateServerLog = {
+    _count: ServerLogCountAggregateOutputType | null
+    _min: ServerLogMinAggregateOutputType | null
+    _max: ServerLogMaxAggregateOutputType | null
   }
 
-  export type UpdateLogMinAggregateOutputType = {
+  export type ServerLogMinAggregateOutputType = {
     id: string | null
     serverId: string | null
-    configId: string | null
-    previousConfigId: string | null
-    status: string | null
-    initiatorId: string | null
-    description: string | null
-    startedAt: Date | null
-    completedAt: Date | null
-    errorDetails: string | null
+    type: string | null
+    message: string | null
+    timestamp: Date | null
   }
 
-  export type UpdateLogMaxAggregateOutputType = {
+  export type ServerLogMaxAggregateOutputType = {
     id: string | null
     serverId: string | null
-    configId: string | null
-    previousConfigId: string | null
-    status: string | null
-    initiatorId: string | null
-    description: string | null
-    startedAt: Date | null
-    completedAt: Date | null
-    errorDetails: string | null
+    type: string | null
+    message: string | null
+    timestamp: Date | null
   }
 
-  export type UpdateLogCountAggregateOutputType = {
+  export type ServerLogCountAggregateOutputType = {
     id: number
     serverId: number
-    configId: number
-    previousConfigId: number
-    status: number
-    initiatorId: number
-    description: number
-    startedAt: number
-    completedAt: number
-    errorDetails: number
+    type: number
+    message: number
+    timestamp: number
+    metadata: number
     _all: number
   }
 
 
-  export type UpdateLogMinAggregateInputType = {
+  export type ServerLogMinAggregateInputType = {
     id?: true
     serverId?: true
-    configId?: true
-    previousConfigId?: true
-    status?: true
-    initiatorId?: true
-    description?: true
-    startedAt?: true
-    completedAt?: true
-    errorDetails?: true
+    type?: true
+    message?: true
+    timestamp?: true
   }
 
-  export type UpdateLogMaxAggregateInputType = {
+  export type ServerLogMaxAggregateInputType = {
     id?: true
     serverId?: true
-    configId?: true
-    previousConfigId?: true
-    status?: true
-    initiatorId?: true
-    description?: true
-    startedAt?: true
-    completedAt?: true
-    errorDetails?: true
+    type?: true
+    message?: true
+    timestamp?: true
   }
 
-  export type UpdateLogCountAggregateInputType = {
+  export type ServerLogCountAggregateInputType = {
     id?: true
     serverId?: true
-    configId?: true
-    previousConfigId?: true
-    status?: true
-    initiatorId?: true
-    description?: true
-    startedAt?: true
-    completedAt?: true
-    errorDetails?: true
+    type?: true
+    message?: true
+    timestamp?: true
+    metadata?: true
     _all?: true
   }
 
-  export type UpdateLogAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ServerLogAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which UpdateLog to aggregate.
+     * Filter which ServerLog to aggregate.
      */
-    where?: UpdateLogWhereInput
+    where?: ServerLogWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of UpdateLogs to fetch.
+     * Determine the order of ServerLogs to fetch.
      */
-    orderBy?: UpdateLogOrderByWithRelationInput | UpdateLogOrderByWithRelationInput[]
+    orderBy?: ServerLogOrderByWithRelationInput | ServerLogOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: UpdateLogWhereUniqueInput
+    cursor?: ServerLogWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` UpdateLogs from the position of the cursor.
+     * Take `±n` ServerLogs from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` UpdateLogs.
+     * Skip the first `n` ServerLogs.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned UpdateLogs
+     * Count returned ServerLogs
     **/
-    _count?: true | UpdateLogCountAggregateInputType
+    _count?: true | ServerLogCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: UpdateLogMinAggregateInputType
+    _min?: ServerLogMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: UpdateLogMaxAggregateInputType
+    _max?: ServerLogMaxAggregateInputType
   }
 
-  export type GetUpdateLogAggregateType<T extends UpdateLogAggregateArgs> = {
-        [P in keyof T & keyof AggregateUpdateLog]: P extends '_count' | 'count'
+  export type GetServerLogAggregateType<T extends ServerLogAggregateArgs> = {
+        [P in keyof T & keyof AggregateServerLog]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateUpdateLog[P]>
-      : GetScalarType<T[P], AggregateUpdateLog[P]>
+        : GetScalarType<T[P], AggregateServerLog[P]>
+      : GetScalarType<T[P], AggregateServerLog[P]>
   }
 
 
 
 
-  export type UpdateLogGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UpdateLogWhereInput
-    orderBy?: UpdateLogOrderByWithAggregationInput | UpdateLogOrderByWithAggregationInput[]
-    by: UpdateLogScalarFieldEnum[] | UpdateLogScalarFieldEnum
-    having?: UpdateLogScalarWhereWithAggregatesInput
+  export type ServerLogGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ServerLogWhereInput
+    orderBy?: ServerLogOrderByWithAggregationInput | ServerLogOrderByWithAggregationInput[]
+    by: ServerLogScalarFieldEnum[] | ServerLogScalarFieldEnum
+    having?: ServerLogScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: UpdateLogCountAggregateInputType | true
-    _min?: UpdateLogMinAggregateInputType
-    _max?: UpdateLogMaxAggregateInputType
+    _count?: ServerLogCountAggregateInputType | true
+    _min?: ServerLogMinAggregateInputType
+    _max?: ServerLogMaxAggregateInputType
   }
 
-  export type UpdateLogGroupByOutputType = {
+  export type ServerLogGroupByOutputType = {
     id: string
     serverId: string
-    configId: string
-    previousConfigId: string | null
-    status: string
-    initiatorId: string
-    description: string | null
-    startedAt: Date
-    completedAt: Date | null
-    errorDetails: string | null
-    _count: UpdateLogCountAggregateOutputType | null
-    _min: UpdateLogMinAggregateOutputType | null
-    _max: UpdateLogMaxAggregateOutputType | null
+    type: string
+    message: string
+    timestamp: Date
+    metadata: JsonValue | null
+    _count: ServerLogCountAggregateOutputType | null
+    _min: ServerLogMinAggregateOutputType | null
+    _max: ServerLogMaxAggregateOutputType | null
   }
 
-  type GetUpdateLogGroupByPayload<T extends UpdateLogGroupByArgs> = Prisma.PrismaPromise<
+  type GetServerLogGroupByPayload<T extends ServerLogGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<UpdateLogGroupByOutputType, T['by']> &
+      PickEnumerable<ServerLogGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof UpdateLogGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof ServerLogGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], UpdateLogGroupByOutputType[P]>
-            : GetScalarType<T[P], UpdateLogGroupByOutputType[P]>
+              : GetScalarType<T[P], ServerLogGroupByOutputType[P]>
+            : GetScalarType<T[P], ServerLogGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type UpdateLogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type ServerLogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     serverId?: boolean
-    configId?: boolean
-    previousConfigId?: boolean
-    status?: boolean
-    initiatorId?: boolean
-    description?: boolean
-    startedAt?: boolean
-    completedAt?: boolean
-    errorDetails?: boolean
+    type?: boolean
+    message?: boolean
+    timestamp?: boolean
+    metadata?: boolean
     server?: boolean | UnitServerDefaultArgs<ExtArgs>
-    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
-    previousConfig?: boolean | UpdateLog$previousConfigArgs<ExtArgs>
-    initiator?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["updateLog"]>
+  }, ExtArgs["result"]["serverLog"]>
 
-  export type UpdateLogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type ServerLogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     serverId?: boolean
-    configId?: boolean
-    previousConfigId?: boolean
-    status?: boolean
-    initiatorId?: boolean
-    description?: boolean
-    startedAt?: boolean
-    completedAt?: boolean
-    errorDetails?: boolean
+    type?: boolean
+    message?: boolean
+    timestamp?: boolean
+    metadata?: boolean
     server?: boolean | UnitServerDefaultArgs<ExtArgs>
-    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
-    previousConfig?: boolean | UpdateLog$previousConfigArgs<ExtArgs>
-    initiator?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["updateLog"]>
+  }, ExtArgs["result"]["serverLog"]>
 
-  export type UpdateLogSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type ServerLogSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     serverId?: boolean
-    configId?: boolean
-    previousConfigId?: boolean
-    status?: boolean
-    initiatorId?: boolean
-    description?: boolean
-    startedAt?: boolean
-    completedAt?: boolean
-    errorDetails?: boolean
+    type?: boolean
+    message?: boolean
+    timestamp?: boolean
+    metadata?: boolean
     server?: boolean | UnitServerDefaultArgs<ExtArgs>
-    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
-    previousConfig?: boolean | UpdateLog$previousConfigArgs<ExtArgs>
-    initiator?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["updateLog"]>
+  }, ExtArgs["result"]["serverLog"]>
 
-  export type UpdateLogSelectScalar = {
+  export type ServerLogSelectScalar = {
     id?: boolean
     serverId?: boolean
-    configId?: boolean
-    previousConfigId?: boolean
-    status?: boolean
-    initiatorId?: boolean
-    description?: boolean
-    startedAt?: boolean
-    completedAt?: boolean
-    errorDetails?: boolean
+    type?: boolean
+    message?: boolean
+    timestamp?: boolean
+    metadata?: boolean
   }
 
-  export type UpdateLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "serverId" | "configId" | "previousConfigId" | "status" | "initiatorId" | "description" | "startedAt" | "completedAt" | "errorDetails", ExtArgs["result"]["updateLog"]>
-  export type UpdateLogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ServerLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "serverId" | "type" | "message" | "timestamp" | "metadata", ExtArgs["result"]["serverLog"]>
+  export type ServerLogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     server?: boolean | UnitServerDefaultArgs<ExtArgs>
-    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
-    previousConfig?: boolean | UpdateLog$previousConfigArgs<ExtArgs>
-    initiator?: boolean | UserDefaultArgs<ExtArgs>
   }
-  export type UpdateLogIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ServerLogIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     server?: boolean | UnitServerDefaultArgs<ExtArgs>
-    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
-    previousConfig?: boolean | UpdateLog$previousConfigArgs<ExtArgs>
-    initiator?: boolean | UserDefaultArgs<ExtArgs>
   }
-  export type UpdateLogIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ServerLogIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     server?: boolean | UnitServerDefaultArgs<ExtArgs>
-    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
-    previousConfig?: boolean | UpdateLog$previousConfigArgs<ExtArgs>
-    initiator?: boolean | UserDefaultArgs<ExtArgs>
   }
 
-  export type $UpdateLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "UpdateLog"
+  export type $ServerLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ServerLog"
     objects: {
       server: Prisma.$UnitServerPayload<ExtArgs>
-      config: Prisma.$UnitConfigPayload<ExtArgs>
-      previousConfig: Prisma.$UnitConfigPayload<ExtArgs> | null
-      initiator: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       serverId: string
-      configId: string
-      previousConfigId: string | null
-      status: string
-      initiatorId: string
-      description: string | null
-      startedAt: Date
-      completedAt: Date | null
-      errorDetails: string | null
-    }, ExtArgs["result"]["updateLog"]>
+      type: string
+      message: string
+      timestamp: Date
+      metadata: Prisma.JsonValue | null
+    }, ExtArgs["result"]["serverLog"]>
     composites: {}
   }
 
-  type UpdateLogGetPayload<S extends boolean | null | undefined | UpdateLogDefaultArgs> = $Result.GetResult<Prisma.$UpdateLogPayload, S>
+  type ServerLogGetPayload<S extends boolean | null | undefined | ServerLogDefaultArgs> = $Result.GetResult<Prisma.$ServerLogPayload, S>
 
-  type UpdateLogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<UpdateLogFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: UpdateLogCountAggregateInputType | true
+  type ServerLogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ServerLogFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ServerLogCountAggregateInputType | true
     }
 
-  export interface UpdateLogDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UpdateLog'], meta: { name: 'UpdateLog' } }
+  export interface ServerLogDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ServerLog'], meta: { name: 'ServerLog' } }
     /**
-     * Find zero or one UpdateLog that matches the filter.
-     * @param {UpdateLogFindUniqueArgs} args - Arguments to find a UpdateLog
+     * Find zero or one ServerLog that matches the filter.
+     * @param {ServerLogFindUniqueArgs} args - Arguments to find a ServerLog
      * @example
-     * // Get one UpdateLog
-     * const updateLog = await prisma.updateLog.findUnique({
+     * // Get one ServerLog
+     * const serverLog = await prisma.serverLog.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends UpdateLogFindUniqueArgs>(args: SelectSubset<T, UpdateLogFindUniqueArgs<ExtArgs>>): Prisma__UpdateLogClient<$Result.GetResult<Prisma.$UpdateLogPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends ServerLogFindUniqueArgs>(args: SelectSubset<T, ServerLogFindUniqueArgs<ExtArgs>>): Prisma__ServerLogClient<$Result.GetResult<Prisma.$ServerLogPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one UpdateLog that matches the filter or throw an error with `error.code='P2025'`
+     * Find one ServerLog that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {UpdateLogFindUniqueOrThrowArgs} args - Arguments to find a UpdateLog
+     * @param {ServerLogFindUniqueOrThrowArgs} args - Arguments to find a ServerLog
      * @example
-     * // Get one UpdateLog
-     * const updateLog = await prisma.updateLog.findUniqueOrThrow({
+     * // Get one ServerLog
+     * const serverLog = await prisma.serverLog.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends UpdateLogFindUniqueOrThrowArgs>(args: SelectSubset<T, UpdateLogFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UpdateLogClient<$Result.GetResult<Prisma.$UpdateLogPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends ServerLogFindUniqueOrThrowArgs>(args: SelectSubset<T, ServerLogFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ServerLogClient<$Result.GetResult<Prisma.$ServerLogPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first UpdateLog that matches the filter.
+     * Find the first ServerLog that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UpdateLogFindFirstArgs} args - Arguments to find a UpdateLog
+     * @param {ServerLogFindFirstArgs} args - Arguments to find a ServerLog
      * @example
-     * // Get one UpdateLog
-     * const updateLog = await prisma.updateLog.findFirst({
+     * // Get one ServerLog
+     * const serverLog = await prisma.serverLog.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends UpdateLogFindFirstArgs>(args?: SelectSubset<T, UpdateLogFindFirstArgs<ExtArgs>>): Prisma__UpdateLogClient<$Result.GetResult<Prisma.$UpdateLogPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends ServerLogFindFirstArgs>(args?: SelectSubset<T, ServerLogFindFirstArgs<ExtArgs>>): Prisma__ServerLogClient<$Result.GetResult<Prisma.$ServerLogPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first UpdateLog that matches the filter or
+     * Find the first ServerLog that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UpdateLogFindFirstOrThrowArgs} args - Arguments to find a UpdateLog
+     * @param {ServerLogFindFirstOrThrowArgs} args - Arguments to find a ServerLog
      * @example
-     * // Get one UpdateLog
-     * const updateLog = await prisma.updateLog.findFirstOrThrow({
+     * // Get one ServerLog
+     * const serverLog = await prisma.serverLog.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends UpdateLogFindFirstOrThrowArgs>(args?: SelectSubset<T, UpdateLogFindFirstOrThrowArgs<ExtArgs>>): Prisma__UpdateLogClient<$Result.GetResult<Prisma.$UpdateLogPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends ServerLogFindFirstOrThrowArgs>(args?: SelectSubset<T, ServerLogFindFirstOrThrowArgs<ExtArgs>>): Prisma__ServerLogClient<$Result.GetResult<Prisma.$ServerLogPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more UpdateLogs that matches the filter.
+     * Find zero or more ServerLogs that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UpdateLogFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {ServerLogFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all UpdateLogs
-     * const updateLogs = await prisma.updateLog.findMany()
+     * // Get all ServerLogs
+     * const serverLogs = await prisma.serverLog.findMany()
      * 
-     * // Get first 10 UpdateLogs
-     * const updateLogs = await prisma.updateLog.findMany({ take: 10 })
+     * // Get first 10 ServerLogs
+     * const serverLogs = await prisma.serverLog.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const updateLogWithIdOnly = await prisma.updateLog.findMany({ select: { id: true } })
+     * const serverLogWithIdOnly = await prisma.serverLog.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends UpdateLogFindManyArgs>(args?: SelectSubset<T, UpdateLogFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UpdateLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends ServerLogFindManyArgs>(args?: SelectSubset<T, ServerLogFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServerLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a UpdateLog.
-     * @param {UpdateLogCreateArgs} args - Arguments to create a UpdateLog.
+     * Create a ServerLog.
+     * @param {ServerLogCreateArgs} args - Arguments to create a ServerLog.
      * @example
-     * // Create one UpdateLog
-     * const UpdateLog = await prisma.updateLog.create({
+     * // Create one ServerLog
+     * const ServerLog = await prisma.serverLog.create({
      *   data: {
-     *     // ... data to create a UpdateLog
+     *     // ... data to create a ServerLog
      *   }
      * })
      * 
      */
-    create<T extends UpdateLogCreateArgs>(args: SelectSubset<T, UpdateLogCreateArgs<ExtArgs>>): Prisma__UpdateLogClient<$Result.GetResult<Prisma.$UpdateLogPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends ServerLogCreateArgs>(args: SelectSubset<T, ServerLogCreateArgs<ExtArgs>>): Prisma__ServerLogClient<$Result.GetResult<Prisma.$ServerLogPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many UpdateLogs.
-     * @param {UpdateLogCreateManyArgs} args - Arguments to create many UpdateLogs.
+     * Create many ServerLogs.
+     * @param {ServerLogCreateManyArgs} args - Arguments to create many ServerLogs.
      * @example
-     * // Create many UpdateLogs
-     * const updateLog = await prisma.updateLog.createMany({
+     * // Create many ServerLogs
+     * const serverLog = await prisma.serverLog.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends UpdateLogCreateManyArgs>(args?: SelectSubset<T, UpdateLogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends ServerLogCreateManyArgs>(args?: SelectSubset<T, ServerLogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many UpdateLogs and returns the data saved in the database.
-     * @param {UpdateLogCreateManyAndReturnArgs} args - Arguments to create many UpdateLogs.
+     * Create many ServerLogs and returns the data saved in the database.
+     * @param {ServerLogCreateManyAndReturnArgs} args - Arguments to create many ServerLogs.
      * @example
-     * // Create many UpdateLogs
-     * const updateLog = await prisma.updateLog.createManyAndReturn({
+     * // Create many ServerLogs
+     * const serverLog = await prisma.serverLog.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many UpdateLogs and only return the `id`
-     * const updateLogWithIdOnly = await prisma.updateLog.createManyAndReturn({
+     * // Create many ServerLogs and only return the `id`
+     * const serverLogWithIdOnly = await prisma.serverLog.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -20346,28 +18839,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends UpdateLogCreateManyAndReturnArgs>(args?: SelectSubset<T, UpdateLogCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UpdateLogPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends ServerLogCreateManyAndReturnArgs>(args?: SelectSubset<T, ServerLogCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServerLogPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a UpdateLog.
-     * @param {UpdateLogDeleteArgs} args - Arguments to delete one UpdateLog.
+     * Delete a ServerLog.
+     * @param {ServerLogDeleteArgs} args - Arguments to delete one ServerLog.
      * @example
-     * // Delete one UpdateLog
-     * const UpdateLog = await prisma.updateLog.delete({
+     * // Delete one ServerLog
+     * const ServerLog = await prisma.serverLog.delete({
      *   where: {
-     *     // ... filter to delete one UpdateLog
+     *     // ... filter to delete one ServerLog
      *   }
      * })
      * 
      */
-    delete<T extends UpdateLogDeleteArgs>(args: SelectSubset<T, UpdateLogDeleteArgs<ExtArgs>>): Prisma__UpdateLogClient<$Result.GetResult<Prisma.$UpdateLogPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends ServerLogDeleteArgs>(args: SelectSubset<T, ServerLogDeleteArgs<ExtArgs>>): Prisma__ServerLogClient<$Result.GetResult<Prisma.$ServerLogPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one UpdateLog.
-     * @param {UpdateLogUpdateArgs} args - Arguments to update one UpdateLog.
+     * Update one ServerLog.
+     * @param {ServerLogUpdateArgs} args - Arguments to update one ServerLog.
      * @example
-     * // Update one UpdateLog
-     * const updateLog = await prisma.updateLog.update({
+     * // Update one ServerLog
+     * const serverLog = await prisma.serverLog.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -20377,30 +18870,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends UpdateLogUpdateArgs>(args: SelectSubset<T, UpdateLogUpdateArgs<ExtArgs>>): Prisma__UpdateLogClient<$Result.GetResult<Prisma.$UpdateLogPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends ServerLogUpdateArgs>(args: SelectSubset<T, ServerLogUpdateArgs<ExtArgs>>): Prisma__ServerLogClient<$Result.GetResult<Prisma.$ServerLogPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more UpdateLogs.
-     * @param {UpdateLogDeleteManyArgs} args - Arguments to filter UpdateLogs to delete.
+     * Delete zero or more ServerLogs.
+     * @param {ServerLogDeleteManyArgs} args - Arguments to filter ServerLogs to delete.
      * @example
-     * // Delete a few UpdateLogs
-     * const { count } = await prisma.updateLog.deleteMany({
+     * // Delete a few ServerLogs
+     * const { count } = await prisma.serverLog.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends UpdateLogDeleteManyArgs>(args?: SelectSubset<T, UpdateLogDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends ServerLogDeleteManyArgs>(args?: SelectSubset<T, ServerLogDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more UpdateLogs.
+     * Update zero or more ServerLogs.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UpdateLogUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {ServerLogUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many UpdateLogs
-     * const updateLog = await prisma.updateLog.updateMany({
+     * // Update many ServerLogs
+     * const serverLog = await prisma.serverLog.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -20410,14 +18903,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends UpdateLogUpdateManyArgs>(args: SelectSubset<T, UpdateLogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends ServerLogUpdateManyArgs>(args: SelectSubset<T, ServerLogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more UpdateLogs and returns the data updated in the database.
-     * @param {UpdateLogUpdateManyAndReturnArgs} args - Arguments to update many UpdateLogs.
+     * Update zero or more ServerLogs and returns the data updated in the database.
+     * @param {ServerLogUpdateManyAndReturnArgs} args - Arguments to update many ServerLogs.
      * @example
-     * // Update many UpdateLogs
-     * const updateLog = await prisma.updateLog.updateManyAndReturn({
+     * // Update many ServerLogs
+     * const serverLog = await prisma.serverLog.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -20426,8 +18919,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more UpdateLogs and only return the `id`
-     * const updateLogWithIdOnly = await prisma.updateLog.updateManyAndReturn({
+     * // Update zero or more ServerLogs and only return the `id`
+     * const serverLogWithIdOnly = await prisma.serverLog.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -20440,56 +18933,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends UpdateLogUpdateManyAndReturnArgs>(args: SelectSubset<T, UpdateLogUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UpdateLogPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends ServerLogUpdateManyAndReturnArgs>(args: SelectSubset<T, ServerLogUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServerLogPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one UpdateLog.
-     * @param {UpdateLogUpsertArgs} args - Arguments to update or create a UpdateLog.
+     * Create or update one ServerLog.
+     * @param {ServerLogUpsertArgs} args - Arguments to update or create a ServerLog.
      * @example
-     * // Update or create a UpdateLog
-     * const updateLog = await prisma.updateLog.upsert({
+     * // Update or create a ServerLog
+     * const serverLog = await prisma.serverLog.upsert({
      *   create: {
-     *     // ... data to create a UpdateLog
+     *     // ... data to create a ServerLog
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the UpdateLog we want to update
+     *     // ... the filter for the ServerLog we want to update
      *   }
      * })
      */
-    upsert<T extends UpdateLogUpsertArgs>(args: SelectSubset<T, UpdateLogUpsertArgs<ExtArgs>>): Prisma__UpdateLogClient<$Result.GetResult<Prisma.$UpdateLogPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends ServerLogUpsertArgs>(args: SelectSubset<T, ServerLogUpsertArgs<ExtArgs>>): Prisma__ServerLogClient<$Result.GetResult<Prisma.$ServerLogPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of UpdateLogs.
+     * Count the number of ServerLogs.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UpdateLogCountArgs} args - Arguments to filter UpdateLogs to count.
+     * @param {ServerLogCountArgs} args - Arguments to filter ServerLogs to count.
      * @example
-     * // Count the number of UpdateLogs
-     * const count = await prisma.updateLog.count({
+     * // Count the number of ServerLogs
+     * const count = await prisma.serverLog.count({
      *   where: {
-     *     // ... the filter for the UpdateLogs we want to count
+     *     // ... the filter for the ServerLogs we want to count
      *   }
      * })
     **/
-    count<T extends UpdateLogCountArgs>(
-      args?: Subset<T, UpdateLogCountArgs>,
+    count<T extends ServerLogCountArgs>(
+      args?: Subset<T, ServerLogCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], UpdateLogCountAggregateOutputType>
+          : GetScalarType<T['select'], ServerLogCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a UpdateLog.
+     * Allows you to perform aggregations operations on a ServerLog.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UpdateLogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {ServerLogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -20509,13 +19002,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends UpdateLogAggregateArgs>(args: Subset<T, UpdateLogAggregateArgs>): Prisma.PrismaPromise<GetUpdateLogAggregateType<T>>
+    aggregate<T extends ServerLogAggregateArgs>(args: Subset<T, ServerLogAggregateArgs>): Prisma.PrismaPromise<GetServerLogAggregateType<T>>
 
     /**
-     * Group by UpdateLog.
+     * Group by ServerLog.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UpdateLogGroupByArgs} args - Group by arguments.
+     * @param {ServerLogGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -20530,14 +19023,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends UpdateLogGroupByArgs,
+      T extends ServerLogGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: UpdateLogGroupByArgs['orderBy'] }
-        : { orderBy?: UpdateLogGroupByArgs['orderBy'] },
+        ? { orderBy: ServerLogGroupByArgs['orderBy'] }
+        : { orderBy?: ServerLogGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -20586,25 +19079,22 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, UpdateLogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUpdateLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, ServerLogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetServerLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the UpdateLog model
+   * Fields of the ServerLog model
    */
-  readonly fields: UpdateLogFieldRefs;
+  readonly fields: ServerLogFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for UpdateLog.
+   * The delegate class that acts as a "Promise-like" for ServerLog.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__UpdateLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__ServerLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     server<T extends UnitServerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UnitServerDefaultArgs<ExtArgs>>): Prisma__UnitServerClient<$Result.GetResult<Prisma.$UnitServerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    config<T extends UnitConfigDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfigDefaultArgs<ExtArgs>>): Prisma__UnitConfigClient<$Result.GetResult<Prisma.$UnitConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    previousConfig<T extends UpdateLog$previousConfigArgs<ExtArgs> = {}>(args?: Subset<T, UpdateLog$previousConfigArgs<ExtArgs>>): Prisma__UnitConfigClient<$Result.GetResult<Prisma.$UnitConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    initiator<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -20631,449 +19121,426 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the UpdateLog model
+   * Fields of the ServerLog model
    */
-  interface UpdateLogFieldRefs {
-    readonly id: FieldRef<"UpdateLog", 'String'>
-    readonly serverId: FieldRef<"UpdateLog", 'String'>
-    readonly configId: FieldRef<"UpdateLog", 'String'>
-    readonly previousConfigId: FieldRef<"UpdateLog", 'String'>
-    readonly status: FieldRef<"UpdateLog", 'String'>
-    readonly initiatorId: FieldRef<"UpdateLog", 'String'>
-    readonly description: FieldRef<"UpdateLog", 'String'>
-    readonly startedAt: FieldRef<"UpdateLog", 'DateTime'>
-    readonly completedAt: FieldRef<"UpdateLog", 'DateTime'>
-    readonly errorDetails: FieldRef<"UpdateLog", 'String'>
+  interface ServerLogFieldRefs {
+    readonly id: FieldRef<"ServerLog", 'String'>
+    readonly serverId: FieldRef<"ServerLog", 'String'>
+    readonly type: FieldRef<"ServerLog", 'String'>
+    readonly message: FieldRef<"ServerLog", 'String'>
+    readonly timestamp: FieldRef<"ServerLog", 'DateTime'>
+    readonly metadata: FieldRef<"ServerLog", 'Json'>
   }
     
 
   // Custom InputTypes
   /**
-   * UpdateLog findUnique
+   * ServerLog findUnique
    */
-  export type UpdateLogFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ServerLogFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UpdateLog
+     * Select specific fields to fetch from the ServerLog
      */
-    select?: UpdateLogSelect<ExtArgs> | null
+    select?: ServerLogSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UpdateLog
+     * Omit specific fields from the ServerLog
      */
-    omit?: UpdateLogOmit<ExtArgs> | null
+    omit?: ServerLogOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UpdateLogInclude<ExtArgs> | null
+    include?: ServerLogInclude<ExtArgs> | null
     /**
-     * Filter, which UpdateLog to fetch.
+     * Filter, which ServerLog to fetch.
      */
-    where: UpdateLogWhereUniqueInput
+    where: ServerLogWhereUniqueInput
   }
 
   /**
-   * UpdateLog findUniqueOrThrow
+   * ServerLog findUniqueOrThrow
    */
-  export type UpdateLogFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ServerLogFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UpdateLog
+     * Select specific fields to fetch from the ServerLog
      */
-    select?: UpdateLogSelect<ExtArgs> | null
+    select?: ServerLogSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UpdateLog
+     * Omit specific fields from the ServerLog
      */
-    omit?: UpdateLogOmit<ExtArgs> | null
+    omit?: ServerLogOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UpdateLogInclude<ExtArgs> | null
+    include?: ServerLogInclude<ExtArgs> | null
     /**
-     * Filter, which UpdateLog to fetch.
+     * Filter, which ServerLog to fetch.
      */
-    where: UpdateLogWhereUniqueInput
+    where: ServerLogWhereUniqueInput
   }
 
   /**
-   * UpdateLog findFirst
+   * ServerLog findFirst
    */
-  export type UpdateLogFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ServerLogFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UpdateLog
+     * Select specific fields to fetch from the ServerLog
      */
-    select?: UpdateLogSelect<ExtArgs> | null
+    select?: ServerLogSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UpdateLog
+     * Omit specific fields from the ServerLog
      */
-    omit?: UpdateLogOmit<ExtArgs> | null
+    omit?: ServerLogOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UpdateLogInclude<ExtArgs> | null
+    include?: ServerLogInclude<ExtArgs> | null
     /**
-     * Filter, which UpdateLog to fetch.
+     * Filter, which ServerLog to fetch.
      */
-    where?: UpdateLogWhereInput
+    where?: ServerLogWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of UpdateLogs to fetch.
+     * Determine the order of ServerLogs to fetch.
      */
-    orderBy?: UpdateLogOrderByWithRelationInput | UpdateLogOrderByWithRelationInput[]
+    orderBy?: ServerLogOrderByWithRelationInput | ServerLogOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for UpdateLogs.
+     * Sets the position for searching for ServerLogs.
      */
-    cursor?: UpdateLogWhereUniqueInput
+    cursor?: ServerLogWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` UpdateLogs from the position of the cursor.
+     * Take `±n` ServerLogs from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` UpdateLogs.
+     * Skip the first `n` ServerLogs.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of UpdateLogs.
+     * Filter by unique combinations of ServerLogs.
      */
-    distinct?: UpdateLogScalarFieldEnum | UpdateLogScalarFieldEnum[]
+    distinct?: ServerLogScalarFieldEnum | ServerLogScalarFieldEnum[]
   }
 
   /**
-   * UpdateLog findFirstOrThrow
+   * ServerLog findFirstOrThrow
    */
-  export type UpdateLogFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ServerLogFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UpdateLog
+     * Select specific fields to fetch from the ServerLog
      */
-    select?: UpdateLogSelect<ExtArgs> | null
+    select?: ServerLogSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UpdateLog
+     * Omit specific fields from the ServerLog
      */
-    omit?: UpdateLogOmit<ExtArgs> | null
+    omit?: ServerLogOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UpdateLogInclude<ExtArgs> | null
+    include?: ServerLogInclude<ExtArgs> | null
     /**
-     * Filter, which UpdateLog to fetch.
+     * Filter, which ServerLog to fetch.
      */
-    where?: UpdateLogWhereInput
+    where?: ServerLogWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of UpdateLogs to fetch.
+     * Determine the order of ServerLogs to fetch.
      */
-    orderBy?: UpdateLogOrderByWithRelationInput | UpdateLogOrderByWithRelationInput[]
+    orderBy?: ServerLogOrderByWithRelationInput | ServerLogOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for UpdateLogs.
+     * Sets the position for searching for ServerLogs.
      */
-    cursor?: UpdateLogWhereUniqueInput
+    cursor?: ServerLogWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` UpdateLogs from the position of the cursor.
+     * Take `±n` ServerLogs from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` UpdateLogs.
+     * Skip the first `n` ServerLogs.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of UpdateLogs.
+     * Filter by unique combinations of ServerLogs.
      */
-    distinct?: UpdateLogScalarFieldEnum | UpdateLogScalarFieldEnum[]
+    distinct?: ServerLogScalarFieldEnum | ServerLogScalarFieldEnum[]
   }
 
   /**
-   * UpdateLog findMany
+   * ServerLog findMany
    */
-  export type UpdateLogFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ServerLogFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UpdateLog
+     * Select specific fields to fetch from the ServerLog
      */
-    select?: UpdateLogSelect<ExtArgs> | null
+    select?: ServerLogSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UpdateLog
+     * Omit specific fields from the ServerLog
      */
-    omit?: UpdateLogOmit<ExtArgs> | null
+    omit?: ServerLogOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UpdateLogInclude<ExtArgs> | null
+    include?: ServerLogInclude<ExtArgs> | null
     /**
-     * Filter, which UpdateLogs to fetch.
+     * Filter, which ServerLogs to fetch.
      */
-    where?: UpdateLogWhereInput
+    where?: ServerLogWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of UpdateLogs to fetch.
+     * Determine the order of ServerLogs to fetch.
      */
-    orderBy?: UpdateLogOrderByWithRelationInput | UpdateLogOrderByWithRelationInput[]
+    orderBy?: ServerLogOrderByWithRelationInput | ServerLogOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing UpdateLogs.
+     * Sets the position for listing ServerLogs.
      */
-    cursor?: UpdateLogWhereUniqueInput
+    cursor?: ServerLogWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` UpdateLogs from the position of the cursor.
+     * Take `±n` ServerLogs from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` UpdateLogs.
+     * Skip the first `n` ServerLogs.
      */
     skip?: number
-    distinct?: UpdateLogScalarFieldEnum | UpdateLogScalarFieldEnum[]
+    distinct?: ServerLogScalarFieldEnum | ServerLogScalarFieldEnum[]
   }
 
   /**
-   * UpdateLog create
+   * ServerLog create
    */
-  export type UpdateLogCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ServerLogCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UpdateLog
+     * Select specific fields to fetch from the ServerLog
      */
-    select?: UpdateLogSelect<ExtArgs> | null
+    select?: ServerLogSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UpdateLog
+     * Omit specific fields from the ServerLog
      */
-    omit?: UpdateLogOmit<ExtArgs> | null
+    omit?: ServerLogOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UpdateLogInclude<ExtArgs> | null
+    include?: ServerLogInclude<ExtArgs> | null
     /**
-     * The data needed to create a UpdateLog.
+     * The data needed to create a ServerLog.
      */
-    data: XOR<UpdateLogCreateInput, UpdateLogUncheckedCreateInput>
+    data: XOR<ServerLogCreateInput, ServerLogUncheckedCreateInput>
   }
 
   /**
-   * UpdateLog createMany
+   * ServerLog createMany
    */
-  export type UpdateLogCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ServerLogCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many UpdateLogs.
+     * The data used to create many ServerLogs.
      */
-    data: UpdateLogCreateManyInput | UpdateLogCreateManyInput[]
+    data: ServerLogCreateManyInput | ServerLogCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * UpdateLog createManyAndReturn
+   * ServerLog createManyAndReturn
    */
-  export type UpdateLogCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ServerLogCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UpdateLog
+     * Select specific fields to fetch from the ServerLog
      */
-    select?: UpdateLogSelectCreateManyAndReturn<ExtArgs> | null
+    select?: ServerLogSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the UpdateLog
+     * Omit specific fields from the ServerLog
      */
-    omit?: UpdateLogOmit<ExtArgs> | null
+    omit?: ServerLogOmit<ExtArgs> | null
     /**
-     * The data used to create many UpdateLogs.
+     * The data used to create many ServerLogs.
      */
-    data: UpdateLogCreateManyInput | UpdateLogCreateManyInput[]
+    data: ServerLogCreateManyInput | ServerLogCreateManyInput[]
     skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UpdateLogIncludeCreateManyAndReturn<ExtArgs> | null
+    include?: ServerLogIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * UpdateLog update
+   * ServerLog update
    */
-  export type UpdateLogUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ServerLogUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UpdateLog
+     * Select specific fields to fetch from the ServerLog
      */
-    select?: UpdateLogSelect<ExtArgs> | null
+    select?: ServerLogSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UpdateLog
+     * Omit specific fields from the ServerLog
      */
-    omit?: UpdateLogOmit<ExtArgs> | null
+    omit?: ServerLogOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UpdateLogInclude<ExtArgs> | null
+    include?: ServerLogInclude<ExtArgs> | null
     /**
-     * The data needed to update a UpdateLog.
+     * The data needed to update a ServerLog.
      */
-    data: XOR<UpdateLogUpdateInput, UpdateLogUncheckedUpdateInput>
+    data: XOR<ServerLogUpdateInput, ServerLogUncheckedUpdateInput>
     /**
-     * Choose, which UpdateLog to update.
+     * Choose, which ServerLog to update.
      */
-    where: UpdateLogWhereUniqueInput
+    where: ServerLogWhereUniqueInput
   }
 
   /**
-   * UpdateLog updateMany
+   * ServerLog updateMany
    */
-  export type UpdateLogUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ServerLogUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update UpdateLogs.
+     * The data used to update ServerLogs.
      */
-    data: XOR<UpdateLogUpdateManyMutationInput, UpdateLogUncheckedUpdateManyInput>
+    data: XOR<ServerLogUpdateManyMutationInput, ServerLogUncheckedUpdateManyInput>
     /**
-     * Filter which UpdateLogs to update
+     * Filter which ServerLogs to update
      */
-    where?: UpdateLogWhereInput
+    where?: ServerLogWhereInput
     /**
-     * Limit how many UpdateLogs to update.
+     * Limit how many ServerLogs to update.
      */
     limit?: number
   }
 
   /**
-   * UpdateLog updateManyAndReturn
+   * ServerLog updateManyAndReturn
    */
-  export type UpdateLogUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ServerLogUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UpdateLog
+     * Select specific fields to fetch from the ServerLog
      */
-    select?: UpdateLogSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: ServerLogSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the UpdateLog
+     * Omit specific fields from the ServerLog
      */
-    omit?: UpdateLogOmit<ExtArgs> | null
+    omit?: ServerLogOmit<ExtArgs> | null
     /**
-     * The data used to update UpdateLogs.
+     * The data used to update ServerLogs.
      */
-    data: XOR<UpdateLogUpdateManyMutationInput, UpdateLogUncheckedUpdateManyInput>
+    data: XOR<ServerLogUpdateManyMutationInput, ServerLogUncheckedUpdateManyInput>
     /**
-     * Filter which UpdateLogs to update
+     * Filter which ServerLogs to update
      */
-    where?: UpdateLogWhereInput
+    where?: ServerLogWhereInput
     /**
-     * Limit how many UpdateLogs to update.
+     * Limit how many ServerLogs to update.
      */
     limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UpdateLogIncludeUpdateManyAndReturn<ExtArgs> | null
+    include?: ServerLogIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * UpdateLog upsert
+   * ServerLog upsert
    */
-  export type UpdateLogUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ServerLogUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UpdateLog
+     * Select specific fields to fetch from the ServerLog
      */
-    select?: UpdateLogSelect<ExtArgs> | null
+    select?: ServerLogSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UpdateLog
+     * Omit specific fields from the ServerLog
      */
-    omit?: UpdateLogOmit<ExtArgs> | null
+    omit?: ServerLogOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UpdateLogInclude<ExtArgs> | null
+    include?: ServerLogInclude<ExtArgs> | null
     /**
-     * The filter to search for the UpdateLog to update in case it exists.
+     * The filter to search for the ServerLog to update in case it exists.
      */
-    where: UpdateLogWhereUniqueInput
+    where: ServerLogWhereUniqueInput
     /**
-     * In case the UpdateLog found by the `where` argument doesn't exist, create a new UpdateLog with this data.
+     * In case the ServerLog found by the `where` argument doesn't exist, create a new ServerLog with this data.
      */
-    create: XOR<UpdateLogCreateInput, UpdateLogUncheckedCreateInput>
+    create: XOR<ServerLogCreateInput, ServerLogUncheckedCreateInput>
     /**
-     * In case the UpdateLog was found with the provided `where` argument, update it with this data.
+     * In case the ServerLog was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<UpdateLogUpdateInput, UpdateLogUncheckedUpdateInput>
+    update: XOR<ServerLogUpdateInput, ServerLogUncheckedUpdateInput>
   }
 
   /**
-   * UpdateLog delete
+   * ServerLog delete
    */
-  export type UpdateLogDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ServerLogDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UpdateLog
+     * Select specific fields to fetch from the ServerLog
      */
-    select?: UpdateLogSelect<ExtArgs> | null
+    select?: ServerLogSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UpdateLog
+     * Omit specific fields from the ServerLog
      */
-    omit?: UpdateLogOmit<ExtArgs> | null
+    omit?: ServerLogOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UpdateLogInclude<ExtArgs> | null
+    include?: ServerLogInclude<ExtArgs> | null
     /**
-     * Filter which UpdateLog to delete.
+     * Filter which ServerLog to delete.
      */
-    where: UpdateLogWhereUniqueInput
+    where: ServerLogWhereUniqueInput
   }
 
   /**
-   * UpdateLog deleteMany
+   * ServerLog deleteMany
    */
-  export type UpdateLogDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ServerLogDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which UpdateLogs to delete
+     * Filter which ServerLogs to delete
      */
-    where?: UpdateLogWhereInput
+    where?: ServerLogWhereInput
     /**
-     * Limit how many UpdateLogs to delete.
+     * Limit how many ServerLogs to delete.
      */
     limit?: number
   }
 
   /**
-   * UpdateLog.previousConfig
+   * ServerLog without action
    */
-  export type UpdateLog$previousConfigArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ServerLogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UnitConfig
+     * Select specific fields to fetch from the ServerLog
      */
-    select?: UnitConfigSelect<ExtArgs> | null
+    select?: ServerLogSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UnitConfig
+     * Omit specific fields from the ServerLog
      */
-    omit?: UnitConfigOmit<ExtArgs> | null
+    omit?: ServerLogOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UnitConfigInclude<ExtArgs> | null
-    where?: UnitConfigWhereInput
-  }
-
-  /**
-   * UpdateLog without action
-   */
-  export type UpdateLogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the UpdateLog
-     */
-    select?: UpdateLogSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the UpdateLog
-     */
-    omit?: UpdateLogOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UpdateLogInclude<ExtArgs> | null
+    include?: ServerLogInclude<ExtArgs> | null
   }
 
 
@@ -21208,31 +19675,6 @@ export namespace Prisma {
   export type SectionScalarFieldEnum = (typeof SectionScalarFieldEnum)[keyof typeof SectionScalarFieldEnum]
 
 
-  export const ManualArticleScalarFieldEnum: {
-    id: 'id',
-    configId: 'configId',
-    serverId: 'serverId',
-    title: 'title',
-    content: 'content',
-    publishedAt: 'publishedAt'
-  };
-
-  export type ManualArticleScalarFieldEnum = (typeof ManualArticleScalarFieldEnum)[keyof typeof ManualArticleScalarFieldEnum]
-
-
-  export const AutoSourceScalarFieldEnum: {
-    id: 'id',
-    configId: 'configId',
-    serverId: 'serverId',
-    name: 'name',
-    url: 'url',
-    type: 'type',
-    createdAt: 'createdAt'
-  };
-
-  export type AutoSourceScalarFieldEnum = (typeof AutoSourceScalarFieldEnum)[keyof typeof AutoSourceScalarFieldEnum]
-
-
   export const ImageScalarFieldEnum: {
     id: 'id',
     configId: 'configId',
@@ -21245,6 +19687,16 @@ export namespace Prisma {
   export type ImageScalarFieldEnum = (typeof ImageScalarFieldEnum)[keyof typeof ImageScalarFieldEnum]
 
 
+  export const ArticleScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    content: 'content',
+    publishedAt: 'publishedAt'
+  };
+
+  export type ArticleScalarFieldEnum = (typeof ArticleScalarFieldEnum)[keyof typeof ArticleScalarFieldEnum]
+
+
   export const UnitServerScalarFieldEnum: {
     id: 'id',
     domain: 'domain',
@@ -21254,7 +19706,7 @@ export namespace Prisma {
     requiresUpdate: 'requiresUpdate',
     isActive: 'isActive',
     constellationId: 'constellationId',
-    activeConfigId: 'activeConfigId',
+    configId: 'configId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -21280,20 +19732,16 @@ export namespace Prisma {
   export type UnitConfigScalarFieldEnum = (typeof UnitConfigScalarFieldEnum)[keyof typeof UnitConfigScalarFieldEnum]
 
 
-  export const UpdateLogScalarFieldEnum: {
+  export const ServerLogScalarFieldEnum: {
     id: 'id',
     serverId: 'serverId',
-    configId: 'configId',
-    previousConfigId: 'previousConfigId',
-    status: 'status',
-    initiatorId: 'initiatorId',
-    description: 'description',
-    startedAt: 'startedAt',
-    completedAt: 'completedAt',
-    errorDetails: 'errorDetails'
+    type: 'type',
+    message: 'message',
+    timestamp: 'timestamp',
+    metadata: 'metadata'
   };
 
-  export type UpdateLogScalarFieldEnum = (typeof UpdateLogScalarFieldEnum)[keyof typeof UpdateLogScalarFieldEnum]
+  export type ServerLogScalarFieldEnum = (typeof ServerLogScalarFieldEnum)[keyof typeof ServerLogScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -21511,7 +19959,6 @@ export namespace Prisma {
     lastLoginAt?: DateTimeNullableFilter<"User"> | Date | string | null
     clients?: ClientListRelationFilter
     professionals?: ProfessionalListRelationFilter
-    initiatedUpdates?: UpdateLogListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -21530,7 +19977,6 @@ export namespace Prisma {
     lastLoginAt?: SortOrderInput | SortOrder
     clients?: ClientOrderByRelationAggregateInput
     professionals?: ProfessionalOrderByRelationAggregateInput
-    initiatedUpdates?: UpdateLogOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -21552,7 +19998,6 @@ export namespace Prisma {
     lastLoginAt?: DateTimeNullableFilter<"User"> | Date | string | null
     clients?: ClientListRelationFilter
     professionals?: ProfessionalListRelationFilter
-    initiatedUpdates?: UpdateLogListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -22136,137 +20581,6 @@ export namespace Prisma {
     order?: IntWithAggregatesFilter<"Section"> | number
   }
 
-  export type ManualArticleWhereInput = {
-    AND?: ManualArticleWhereInput | ManualArticleWhereInput[]
-    OR?: ManualArticleWhereInput[]
-    NOT?: ManualArticleWhereInput | ManualArticleWhereInput[]
-    id?: StringFilter<"ManualArticle"> | string
-    configId?: StringFilter<"ManualArticle"> | string
-    serverId?: StringNullableFilter<"ManualArticle"> | string | null
-    title?: StringFilter<"ManualArticle"> | string
-    content?: StringFilter<"ManualArticle"> | string
-    publishedAt?: DateTimeFilter<"ManualArticle"> | Date | string
-    config?: XOR<UnitConfigScalarRelationFilter, UnitConfigWhereInput>
-    server?: XOR<UnitServerNullableScalarRelationFilter, UnitServerWhereInput> | null
-  }
-
-  export type ManualArticleOrderByWithRelationInput = {
-    id?: SortOrder
-    configId?: SortOrder
-    serverId?: SortOrderInput | SortOrder
-    title?: SortOrder
-    content?: SortOrder
-    publishedAt?: SortOrder
-    config?: UnitConfigOrderByWithRelationInput
-    server?: UnitServerOrderByWithRelationInput
-  }
-
-  export type ManualArticleWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    AND?: ManualArticleWhereInput | ManualArticleWhereInput[]
-    OR?: ManualArticleWhereInput[]
-    NOT?: ManualArticleWhereInput | ManualArticleWhereInput[]
-    configId?: StringFilter<"ManualArticle"> | string
-    serverId?: StringNullableFilter<"ManualArticle"> | string | null
-    title?: StringFilter<"ManualArticle"> | string
-    content?: StringFilter<"ManualArticle"> | string
-    publishedAt?: DateTimeFilter<"ManualArticle"> | Date | string
-    config?: XOR<UnitConfigScalarRelationFilter, UnitConfigWhereInput>
-    server?: XOR<UnitServerNullableScalarRelationFilter, UnitServerWhereInput> | null
-  }, "id">
-
-  export type ManualArticleOrderByWithAggregationInput = {
-    id?: SortOrder
-    configId?: SortOrder
-    serverId?: SortOrderInput | SortOrder
-    title?: SortOrder
-    content?: SortOrder
-    publishedAt?: SortOrder
-    _count?: ManualArticleCountOrderByAggregateInput
-    _max?: ManualArticleMaxOrderByAggregateInput
-    _min?: ManualArticleMinOrderByAggregateInput
-  }
-
-  export type ManualArticleScalarWhereWithAggregatesInput = {
-    AND?: ManualArticleScalarWhereWithAggregatesInput | ManualArticleScalarWhereWithAggregatesInput[]
-    OR?: ManualArticleScalarWhereWithAggregatesInput[]
-    NOT?: ManualArticleScalarWhereWithAggregatesInput | ManualArticleScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"ManualArticle"> | string
-    configId?: StringWithAggregatesFilter<"ManualArticle"> | string
-    serverId?: StringNullableWithAggregatesFilter<"ManualArticle"> | string | null
-    title?: StringWithAggregatesFilter<"ManualArticle"> | string
-    content?: StringWithAggregatesFilter<"ManualArticle"> | string
-    publishedAt?: DateTimeWithAggregatesFilter<"ManualArticle"> | Date | string
-  }
-
-  export type AutoSourceWhereInput = {
-    AND?: AutoSourceWhereInput | AutoSourceWhereInput[]
-    OR?: AutoSourceWhereInput[]
-    NOT?: AutoSourceWhereInput | AutoSourceWhereInput[]
-    id?: StringFilter<"AutoSource"> | string
-    configId?: StringFilter<"AutoSource"> | string
-    serverId?: StringNullableFilter<"AutoSource"> | string | null
-    name?: StringFilter<"AutoSource"> | string
-    url?: StringFilter<"AutoSource"> | string
-    type?: StringFilter<"AutoSource"> | string
-    createdAt?: DateTimeFilter<"AutoSource"> | Date | string
-    config?: XOR<UnitConfigScalarRelationFilter, UnitConfigWhereInput>
-    server?: XOR<UnitServerNullableScalarRelationFilter, UnitServerWhereInput> | null
-  }
-
-  export type AutoSourceOrderByWithRelationInput = {
-    id?: SortOrder
-    configId?: SortOrder
-    serverId?: SortOrderInput | SortOrder
-    name?: SortOrder
-    url?: SortOrder
-    type?: SortOrder
-    createdAt?: SortOrder
-    config?: UnitConfigOrderByWithRelationInput
-    server?: UnitServerOrderByWithRelationInput
-  }
-
-  export type AutoSourceWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    AND?: AutoSourceWhereInput | AutoSourceWhereInput[]
-    OR?: AutoSourceWhereInput[]
-    NOT?: AutoSourceWhereInput | AutoSourceWhereInput[]
-    configId?: StringFilter<"AutoSource"> | string
-    serverId?: StringNullableFilter<"AutoSource"> | string | null
-    name?: StringFilter<"AutoSource"> | string
-    url?: StringFilter<"AutoSource"> | string
-    type?: StringFilter<"AutoSource"> | string
-    createdAt?: DateTimeFilter<"AutoSource"> | Date | string
-    config?: XOR<UnitConfigScalarRelationFilter, UnitConfigWhereInput>
-    server?: XOR<UnitServerNullableScalarRelationFilter, UnitServerWhereInput> | null
-  }, "id">
-
-  export type AutoSourceOrderByWithAggregationInput = {
-    id?: SortOrder
-    configId?: SortOrder
-    serverId?: SortOrderInput | SortOrder
-    name?: SortOrder
-    url?: SortOrder
-    type?: SortOrder
-    createdAt?: SortOrder
-    _count?: AutoSourceCountOrderByAggregateInput
-    _max?: AutoSourceMaxOrderByAggregateInput
-    _min?: AutoSourceMinOrderByAggregateInput
-  }
-
-  export type AutoSourceScalarWhereWithAggregatesInput = {
-    AND?: AutoSourceScalarWhereWithAggregatesInput | AutoSourceScalarWhereWithAggregatesInput[]
-    OR?: AutoSourceScalarWhereWithAggregatesInput[]
-    NOT?: AutoSourceScalarWhereWithAggregatesInput | AutoSourceScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"AutoSource"> | string
-    configId?: StringWithAggregatesFilter<"AutoSource"> | string
-    serverId?: StringNullableWithAggregatesFilter<"AutoSource"> | string | null
-    name?: StringWithAggregatesFilter<"AutoSource"> | string
-    url?: StringWithAggregatesFilter<"AutoSource"> | string
-    type?: StringWithAggregatesFilter<"AutoSource"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"AutoSource"> | Date | string
-  }
-
   export type ImageWhereInput = {
     AND?: ImageWhereInput | ImageWhereInput[]
     OR?: ImageWhereInput[]
@@ -22329,6 +20643,56 @@ export namespace Prisma {
     order?: IntNullableWithAggregatesFilter<"Image"> | number | null
   }
 
+  export type ArticleWhereInput = {
+    AND?: ArticleWhereInput | ArticleWhereInput[]
+    OR?: ArticleWhereInput[]
+    NOT?: ArticleWhereInput | ArticleWhereInput[]
+    id?: StringFilter<"Article"> | string
+    title?: StringFilter<"Article"> | string
+    content?: StringFilter<"Article"> | string
+    publishedAt?: DateTimeFilter<"Article"> | Date | string
+    configs?: UnitConfigListRelationFilter
+  }
+
+  export type ArticleOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    content?: SortOrder
+    publishedAt?: SortOrder
+    configs?: UnitConfigOrderByRelationAggregateInput
+  }
+
+  export type ArticleWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ArticleWhereInput | ArticleWhereInput[]
+    OR?: ArticleWhereInput[]
+    NOT?: ArticleWhereInput | ArticleWhereInput[]
+    title?: StringFilter<"Article"> | string
+    content?: StringFilter<"Article"> | string
+    publishedAt?: DateTimeFilter<"Article"> | Date | string
+    configs?: UnitConfigListRelationFilter
+  }, "id">
+
+  export type ArticleOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    content?: SortOrder
+    publishedAt?: SortOrder
+    _count?: ArticleCountOrderByAggregateInput
+    _max?: ArticleMaxOrderByAggregateInput
+    _min?: ArticleMinOrderByAggregateInput
+  }
+
+  export type ArticleScalarWhereWithAggregatesInput = {
+    AND?: ArticleScalarWhereWithAggregatesInput | ArticleScalarWhereWithAggregatesInput[]
+    OR?: ArticleScalarWhereWithAggregatesInput[]
+    NOT?: ArticleScalarWhereWithAggregatesInput | ArticleScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Article"> | string
+    title?: StringWithAggregatesFilter<"Article"> | string
+    content?: StringWithAggregatesFilter<"Article"> | string
+    publishedAt?: DateTimeWithAggregatesFilter<"Article"> | Date | string
+  }
+
   export type UnitServerWhereInput = {
     AND?: UnitServerWhereInput | UnitServerWhereInput[]
     OR?: UnitServerWhereInput[]
@@ -22341,18 +20705,16 @@ export namespace Prisma {
     requiresUpdate?: BoolFilter<"UnitServer"> | boolean
     isActive?: BoolFilter<"UnitServer"> | boolean
     constellationId?: StringFilter<"UnitServer"> | string
-    activeConfigId?: StringNullableFilter<"UnitServer"> | string | null
+    configId?: StringNullableFilter<"UnitServer"> | string | null
     createdAt?: DateTimeFilter<"UnitServer"> | Date | string
     updatedAt?: DateTimeFilter<"UnitServer"> | Date | string
     constellation?: XOR<ConstellationScalarRelationFilter, ConstellationWhereInput>
-    activeConfig?: XOR<UnitConfigNullableScalarRelationFilter, UnitConfigWhereInput> | null
+    config?: XOR<UnitConfigNullableScalarRelationFilter, UnitConfigWhereInput> | null
     clients?: ClientListRelationFilter
     professionals?: ProfessionalListRelationFilter
     cases?: CaseListRelationFilter
     sections?: SectionListRelationFilter
-    manualArticles?: ManualArticleListRelationFilter
-    autoSources?: AutoSourceListRelationFilter
-    updateLogs?: UpdateLogListRelationFilter
+    serverLogs?: ServerLogListRelationFilter
   }
 
   export type UnitServerOrderByWithRelationInput = {
@@ -22364,18 +20726,16 @@ export namespace Prisma {
     requiresUpdate?: SortOrder
     isActive?: SortOrder
     constellationId?: SortOrder
-    activeConfigId?: SortOrderInput | SortOrder
+    configId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     constellation?: ConstellationOrderByWithRelationInput
-    activeConfig?: UnitConfigOrderByWithRelationInput
+    config?: UnitConfigOrderByWithRelationInput
     clients?: ClientOrderByRelationAggregateInput
     professionals?: ProfessionalOrderByRelationAggregateInput
     cases?: CaseOrderByRelationAggregateInput
     sections?: SectionOrderByRelationAggregateInput
-    manualArticles?: ManualArticleOrderByRelationAggregateInput
-    autoSources?: AutoSourceOrderByRelationAggregateInput
-    updateLogs?: UpdateLogOrderByRelationAggregateInput
+    serverLogs?: ServerLogOrderByRelationAggregateInput
   }
 
   export type UnitServerWhereUniqueInput = Prisma.AtLeast<{
@@ -22390,18 +20750,16 @@ export namespace Prisma {
     requiresUpdate?: BoolFilter<"UnitServer"> | boolean
     isActive?: BoolFilter<"UnitServer"> | boolean
     constellationId?: StringFilter<"UnitServer"> | string
-    activeConfigId?: StringNullableFilter<"UnitServer"> | string | null
+    configId?: StringNullableFilter<"UnitServer"> | string | null
     createdAt?: DateTimeFilter<"UnitServer"> | Date | string
     updatedAt?: DateTimeFilter<"UnitServer"> | Date | string
     constellation?: XOR<ConstellationScalarRelationFilter, ConstellationWhereInput>
-    activeConfig?: XOR<UnitConfigNullableScalarRelationFilter, UnitConfigWhereInput> | null
+    config?: XOR<UnitConfigNullableScalarRelationFilter, UnitConfigWhereInput> | null
     clients?: ClientListRelationFilter
     professionals?: ProfessionalListRelationFilter
     cases?: CaseListRelationFilter
     sections?: SectionListRelationFilter
-    manualArticles?: ManualArticleListRelationFilter
-    autoSources?: AutoSourceListRelationFilter
-    updateLogs?: UpdateLogListRelationFilter
+    serverLogs?: ServerLogListRelationFilter
   }, "id" | "domain" | "orchestratorToken" | "unitToken">
 
   export type UnitServerOrderByWithAggregationInput = {
@@ -22413,7 +20771,7 @@ export namespace Prisma {
     requiresUpdate?: SortOrder
     isActive?: SortOrder
     constellationId?: SortOrder
-    activeConfigId?: SortOrderInput | SortOrder
+    configId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UnitServerCountOrderByAggregateInput
@@ -22433,7 +20791,7 @@ export namespace Prisma {
     requiresUpdate?: BoolWithAggregatesFilter<"UnitServer"> | boolean
     isActive?: BoolWithAggregatesFilter<"UnitServer"> | boolean
     constellationId?: StringWithAggregatesFilter<"UnitServer"> | string
-    activeConfigId?: StringNullableWithAggregatesFilter<"UnitServer"> | string | null
+    configId?: StringNullableWithAggregatesFilter<"UnitServer"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"UnitServer"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"UnitServer"> | Date | string
   }
@@ -22455,12 +20813,9 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"UnitConfig"> | Date | string
     updatedAt?: DateTimeFilter<"UnitConfig"> | Date | string
     sections?: SectionListRelationFilter
-    manualArticles?: ManualArticleListRelationFilter
-    autoSources?: AutoSourceListRelationFilter
+    articles?: ArticleListRelationFilter
     images?: ImageListRelationFilter
-    activeInServers?: UnitServerListRelationFilter
-    updates?: UpdateLogListRelationFilter
-    previousUpdates?: UpdateLogListRelationFilter
+    servers?: UnitServerListRelationFilter
   }
 
   export type UnitConfigOrderByWithRelationInput = {
@@ -22477,12 +20832,9 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     sections?: SectionOrderByRelationAggregateInput
-    manualArticles?: ManualArticleOrderByRelationAggregateInput
-    autoSources?: AutoSourceOrderByRelationAggregateInput
+    articles?: ArticleOrderByRelationAggregateInput
     images?: ImageOrderByRelationAggregateInput
-    activeInServers?: UnitServerOrderByRelationAggregateInput
-    updates?: UpdateLogOrderByRelationAggregateInput
-    previousUpdates?: UpdateLogOrderByRelationAggregateInput
+    servers?: UnitServerOrderByRelationAggregateInput
   }
 
   export type UnitConfigWhereUniqueInput = Prisma.AtLeast<{
@@ -22502,12 +20854,9 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"UnitConfig"> | Date | string
     updatedAt?: DateTimeFilter<"UnitConfig"> | Date | string
     sections?: SectionListRelationFilter
-    manualArticles?: ManualArticleListRelationFilter
-    autoSources?: AutoSourceListRelationFilter
+    articles?: ArticleListRelationFilter
     images?: ImageListRelationFilter
-    activeInServers?: UnitServerListRelationFilter
-    updates?: UpdateLogListRelationFilter
-    previousUpdates?: UpdateLogListRelationFilter
+    servers?: UnitServerListRelationFilter
   }, "id" | "name">
 
   export type UnitConfigOrderByWithAggregationInput = {
@@ -22548,93 +20897,64 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"UnitConfig"> | Date | string
   }
 
-  export type UpdateLogWhereInput = {
-    AND?: UpdateLogWhereInput | UpdateLogWhereInput[]
-    OR?: UpdateLogWhereInput[]
-    NOT?: UpdateLogWhereInput | UpdateLogWhereInput[]
-    id?: StringFilter<"UpdateLog"> | string
-    serverId?: StringFilter<"UpdateLog"> | string
-    configId?: StringFilter<"UpdateLog"> | string
-    previousConfigId?: StringNullableFilter<"UpdateLog"> | string | null
-    status?: StringFilter<"UpdateLog"> | string
-    initiatorId?: StringFilter<"UpdateLog"> | string
-    description?: StringNullableFilter<"UpdateLog"> | string | null
-    startedAt?: DateTimeFilter<"UpdateLog"> | Date | string
-    completedAt?: DateTimeNullableFilter<"UpdateLog"> | Date | string | null
-    errorDetails?: StringNullableFilter<"UpdateLog"> | string | null
+  export type ServerLogWhereInput = {
+    AND?: ServerLogWhereInput | ServerLogWhereInput[]
+    OR?: ServerLogWhereInput[]
+    NOT?: ServerLogWhereInput | ServerLogWhereInput[]
+    id?: StringFilter<"ServerLog"> | string
+    serverId?: StringFilter<"ServerLog"> | string
+    type?: StringFilter<"ServerLog"> | string
+    message?: StringFilter<"ServerLog"> | string
+    timestamp?: DateTimeFilter<"ServerLog"> | Date | string
+    metadata?: JsonNullableFilter<"ServerLog">
     server?: XOR<UnitServerScalarRelationFilter, UnitServerWhereInput>
-    config?: XOR<UnitConfigScalarRelationFilter, UnitConfigWhereInput>
-    previousConfig?: XOR<UnitConfigNullableScalarRelationFilter, UnitConfigWhereInput> | null
-    initiator?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
-  export type UpdateLogOrderByWithRelationInput = {
+  export type ServerLogOrderByWithRelationInput = {
     id?: SortOrder
     serverId?: SortOrder
-    configId?: SortOrder
-    previousConfigId?: SortOrderInput | SortOrder
-    status?: SortOrder
-    initiatorId?: SortOrder
-    description?: SortOrderInput | SortOrder
-    startedAt?: SortOrder
-    completedAt?: SortOrderInput | SortOrder
-    errorDetails?: SortOrderInput | SortOrder
+    type?: SortOrder
+    message?: SortOrder
+    timestamp?: SortOrder
+    metadata?: SortOrderInput | SortOrder
     server?: UnitServerOrderByWithRelationInput
-    config?: UnitConfigOrderByWithRelationInput
-    previousConfig?: UnitConfigOrderByWithRelationInput
-    initiator?: UserOrderByWithRelationInput
   }
 
-  export type UpdateLogWhereUniqueInput = Prisma.AtLeast<{
+  export type ServerLogWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    AND?: UpdateLogWhereInput | UpdateLogWhereInput[]
-    OR?: UpdateLogWhereInput[]
-    NOT?: UpdateLogWhereInput | UpdateLogWhereInput[]
-    serverId?: StringFilter<"UpdateLog"> | string
-    configId?: StringFilter<"UpdateLog"> | string
-    previousConfigId?: StringNullableFilter<"UpdateLog"> | string | null
-    status?: StringFilter<"UpdateLog"> | string
-    initiatorId?: StringFilter<"UpdateLog"> | string
-    description?: StringNullableFilter<"UpdateLog"> | string | null
-    startedAt?: DateTimeFilter<"UpdateLog"> | Date | string
-    completedAt?: DateTimeNullableFilter<"UpdateLog"> | Date | string | null
-    errorDetails?: StringNullableFilter<"UpdateLog"> | string | null
+    AND?: ServerLogWhereInput | ServerLogWhereInput[]
+    OR?: ServerLogWhereInput[]
+    NOT?: ServerLogWhereInput | ServerLogWhereInput[]
+    serverId?: StringFilter<"ServerLog"> | string
+    type?: StringFilter<"ServerLog"> | string
+    message?: StringFilter<"ServerLog"> | string
+    timestamp?: DateTimeFilter<"ServerLog"> | Date | string
+    metadata?: JsonNullableFilter<"ServerLog">
     server?: XOR<UnitServerScalarRelationFilter, UnitServerWhereInput>
-    config?: XOR<UnitConfigScalarRelationFilter, UnitConfigWhereInput>
-    previousConfig?: XOR<UnitConfigNullableScalarRelationFilter, UnitConfigWhereInput> | null
-    initiator?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
-  export type UpdateLogOrderByWithAggregationInput = {
+  export type ServerLogOrderByWithAggregationInput = {
     id?: SortOrder
     serverId?: SortOrder
-    configId?: SortOrder
-    previousConfigId?: SortOrderInput | SortOrder
-    status?: SortOrder
-    initiatorId?: SortOrder
-    description?: SortOrderInput | SortOrder
-    startedAt?: SortOrder
-    completedAt?: SortOrderInput | SortOrder
-    errorDetails?: SortOrderInput | SortOrder
-    _count?: UpdateLogCountOrderByAggregateInput
-    _max?: UpdateLogMaxOrderByAggregateInput
-    _min?: UpdateLogMinOrderByAggregateInput
+    type?: SortOrder
+    message?: SortOrder
+    timestamp?: SortOrder
+    metadata?: SortOrderInput | SortOrder
+    _count?: ServerLogCountOrderByAggregateInput
+    _max?: ServerLogMaxOrderByAggregateInput
+    _min?: ServerLogMinOrderByAggregateInput
   }
 
-  export type UpdateLogScalarWhereWithAggregatesInput = {
-    AND?: UpdateLogScalarWhereWithAggregatesInput | UpdateLogScalarWhereWithAggregatesInput[]
-    OR?: UpdateLogScalarWhereWithAggregatesInput[]
-    NOT?: UpdateLogScalarWhereWithAggregatesInput | UpdateLogScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"UpdateLog"> | string
-    serverId?: StringWithAggregatesFilter<"UpdateLog"> | string
-    configId?: StringWithAggregatesFilter<"UpdateLog"> | string
-    previousConfigId?: StringNullableWithAggregatesFilter<"UpdateLog"> | string | null
-    status?: StringWithAggregatesFilter<"UpdateLog"> | string
-    initiatorId?: StringWithAggregatesFilter<"UpdateLog"> | string
-    description?: StringNullableWithAggregatesFilter<"UpdateLog"> | string | null
-    startedAt?: DateTimeWithAggregatesFilter<"UpdateLog"> | Date | string
-    completedAt?: DateTimeNullableWithAggregatesFilter<"UpdateLog"> | Date | string | null
-    errorDetails?: StringNullableWithAggregatesFilter<"UpdateLog"> | string | null
+  export type ServerLogScalarWhereWithAggregatesInput = {
+    AND?: ServerLogScalarWhereWithAggregatesInput | ServerLogScalarWhereWithAggregatesInput[]
+    OR?: ServerLogScalarWhereWithAggregatesInput[]
+    NOT?: ServerLogScalarWhereWithAggregatesInput | ServerLogScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ServerLog"> | string
+    serverId?: StringWithAggregatesFilter<"ServerLog"> | string
+    type?: StringWithAggregatesFilter<"ServerLog"> | string
+    message?: StringWithAggregatesFilter<"ServerLog"> | string
+    timestamp?: DateTimeWithAggregatesFilter<"ServerLog"> | Date | string
+    metadata?: JsonNullableWithAggregatesFilter<"ServerLog">
   }
 
   export type UserCreateInput = {
@@ -22653,7 +20973,6 @@ export namespace Prisma {
     lastLoginAt?: Date | string | null
     clients?: ClientCreateNestedManyWithoutUserInput
     professionals?: ProfessionalCreateNestedManyWithoutUserInput
-    initiatedUpdates?: UpdateLogCreateNestedManyWithoutInitiatorInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -22672,7 +20991,6 @@ export namespace Prisma {
     lastLoginAt?: Date | string | null
     clients?: ClientUncheckedCreateNestedManyWithoutUserInput
     professionals?: ProfessionalUncheckedCreateNestedManyWithoutUserInput
-    initiatedUpdates?: UpdateLogUncheckedCreateNestedManyWithoutInitiatorInput
   }
 
   export type UserUpdateInput = {
@@ -22691,7 +21009,6 @@ export namespace Prisma {
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     clients?: ClientUpdateManyWithoutUserNestedInput
     professionals?: ProfessionalUpdateManyWithoutUserNestedInput
-    initiatedUpdates?: UpdateLogUpdateManyWithoutInitiatorNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -22710,7 +21027,6 @@ export namespace Prisma {
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     clients?: ClientUncheckedUpdateManyWithoutUserNestedInput
     professionals?: ProfessionalUncheckedUpdateManyWithoutUserNestedInput
-    initiatedUpdates?: UpdateLogUncheckedUpdateManyWithoutInitiatorNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -23282,135 +21598,6 @@ export namespace Prisma {
     order?: IntFieldUpdateOperationsInput | number
   }
 
-  export type ManualArticleCreateInput = {
-    id?: string
-    title: string
-    content: string
-    publishedAt?: Date | string
-    config: UnitConfigCreateNestedOneWithoutManualArticlesInput
-    server?: UnitServerCreateNestedOneWithoutManualArticlesInput
-  }
-
-  export type ManualArticleUncheckedCreateInput = {
-    id?: string
-    configId: string
-    serverId?: string | null
-    title: string
-    content: string
-    publishedAt?: Date | string
-  }
-
-  export type ManualArticleUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    publishedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    config?: UnitConfigUpdateOneRequiredWithoutManualArticlesNestedInput
-    server?: UnitServerUpdateOneWithoutManualArticlesNestedInput
-  }
-
-  export type ManualArticleUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    configId?: StringFieldUpdateOperationsInput | string
-    serverId?: NullableStringFieldUpdateOperationsInput | string | null
-    title?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    publishedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ManualArticleCreateManyInput = {
-    id?: string
-    configId: string
-    serverId?: string | null
-    title: string
-    content: string
-    publishedAt?: Date | string
-  }
-
-  export type ManualArticleUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    publishedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ManualArticleUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    configId?: StringFieldUpdateOperationsInput | string
-    serverId?: NullableStringFieldUpdateOperationsInput | string | null
-    title?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    publishedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type AutoSourceCreateInput = {
-    id?: string
-    name: string
-    url: string
-    type: string
-    createdAt?: Date | string
-    config: UnitConfigCreateNestedOneWithoutAutoSourcesInput
-    server?: UnitServerCreateNestedOneWithoutAutoSourcesInput
-  }
-
-  export type AutoSourceUncheckedCreateInput = {
-    id?: string
-    configId: string
-    serverId?: string | null
-    name: string
-    url: string
-    type: string
-    createdAt?: Date | string
-  }
-
-  export type AutoSourceUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    url?: StringFieldUpdateOperationsInput | string
-    type?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    config?: UnitConfigUpdateOneRequiredWithoutAutoSourcesNestedInput
-    server?: UnitServerUpdateOneWithoutAutoSourcesNestedInput
-  }
-
-  export type AutoSourceUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    configId?: StringFieldUpdateOperationsInput | string
-    serverId?: NullableStringFieldUpdateOperationsInput | string | null
-    name?: StringFieldUpdateOperationsInput | string
-    url?: StringFieldUpdateOperationsInput | string
-    type?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type AutoSourceCreateManyInput = {
-    id?: string
-    configId: string
-    serverId?: string | null
-    name: string
-    url: string
-    type: string
-    createdAt?: Date | string
-  }
-
-  export type AutoSourceUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    url?: StringFieldUpdateOperationsInput | string
-    type?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type AutoSourceUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    configId?: StringFieldUpdateOperationsInput | string
-    serverId?: NullableStringFieldUpdateOperationsInput | string | null
-    name?: StringFieldUpdateOperationsInput | string
-    url?: StringFieldUpdateOperationsInput | string
-    type?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type ImageCreateInput = {
     id?: string
     url: string
@@ -23473,6 +21660,59 @@ export namespace Prisma {
     order?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
+  export type ArticleCreateInput = {
+    id?: string
+    title: string
+    content: string
+    publishedAt?: Date | string
+    configs?: UnitConfigCreateNestedManyWithoutArticlesInput
+  }
+
+  export type ArticleUncheckedCreateInput = {
+    id?: string
+    title: string
+    content: string
+    publishedAt?: Date | string
+    configs?: UnitConfigUncheckedCreateNestedManyWithoutArticlesInput
+  }
+
+  export type ArticleUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    publishedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    configs?: UnitConfigUpdateManyWithoutArticlesNestedInput
+  }
+
+  export type ArticleUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    publishedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    configs?: UnitConfigUncheckedUpdateManyWithoutArticlesNestedInput
+  }
+
+  export type ArticleCreateManyInput = {
+    id?: string
+    title: string
+    content: string
+    publishedAt?: Date | string
+  }
+
+  export type ArticleUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    publishedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ArticleUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    publishedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UnitServerCreateInput = {
     id?: string
     domain: string
@@ -23484,14 +21724,12 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     constellation: ConstellationCreateNestedOneWithoutServersInput
-    activeConfig?: UnitConfigCreateNestedOneWithoutActiveInServersInput
+    config?: UnitConfigCreateNestedOneWithoutServersInput
     clients?: ClientCreateNestedManyWithoutServerInput
     professionals?: ProfessionalCreateNestedManyWithoutServerInput
     cases?: CaseCreateNestedManyWithoutServerInput
     sections?: SectionCreateNestedManyWithoutServerInput
-    manualArticles?: ManualArticleCreateNestedManyWithoutServerInput
-    autoSources?: AutoSourceCreateNestedManyWithoutServerInput
-    updateLogs?: UpdateLogCreateNestedManyWithoutServerInput
+    serverLogs?: ServerLogCreateNestedManyWithoutServerInput
   }
 
   export type UnitServerUncheckedCreateInput = {
@@ -23503,16 +21741,14 @@ export namespace Prisma {
     requiresUpdate?: boolean
     isActive?: boolean
     constellationId: string
-    activeConfigId?: string | null
+    configId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     clients?: ClientUncheckedCreateNestedManyWithoutServerInput
     professionals?: ProfessionalUncheckedCreateNestedManyWithoutServerInput
     cases?: CaseUncheckedCreateNestedManyWithoutServerInput
     sections?: SectionUncheckedCreateNestedManyWithoutServerInput
-    manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutServerInput
-    autoSources?: AutoSourceUncheckedCreateNestedManyWithoutServerInput
-    updateLogs?: UpdateLogUncheckedCreateNestedManyWithoutServerInput
+    serverLogs?: ServerLogUncheckedCreateNestedManyWithoutServerInput
   }
 
   export type UnitServerUpdateInput = {
@@ -23526,14 +21762,12 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     constellation?: ConstellationUpdateOneRequiredWithoutServersNestedInput
-    activeConfig?: UnitConfigUpdateOneWithoutActiveInServersNestedInput
+    config?: UnitConfigUpdateOneWithoutServersNestedInput
     clients?: ClientUpdateManyWithoutServerNestedInput
     professionals?: ProfessionalUpdateManyWithoutServerNestedInput
     cases?: CaseUpdateManyWithoutServerNestedInput
     sections?: SectionUpdateManyWithoutServerNestedInput
-    manualArticles?: ManualArticleUpdateManyWithoutServerNestedInput
-    autoSources?: AutoSourceUpdateManyWithoutServerNestedInput
-    updateLogs?: UpdateLogUpdateManyWithoutServerNestedInput
+    serverLogs?: ServerLogUpdateManyWithoutServerNestedInput
   }
 
   export type UnitServerUncheckedUpdateInput = {
@@ -23545,16 +21779,14 @@ export namespace Prisma {
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     constellationId?: StringFieldUpdateOperationsInput | string
-    activeConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    configId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     clients?: ClientUncheckedUpdateManyWithoutServerNestedInput
     professionals?: ProfessionalUncheckedUpdateManyWithoutServerNestedInput
     cases?: CaseUncheckedUpdateManyWithoutServerNestedInput
     sections?: SectionUncheckedUpdateManyWithoutServerNestedInput
-    manualArticles?: ManualArticleUncheckedUpdateManyWithoutServerNestedInput
-    autoSources?: AutoSourceUncheckedUpdateManyWithoutServerNestedInput
-    updateLogs?: UpdateLogUncheckedUpdateManyWithoutServerNestedInput
+    serverLogs?: ServerLogUncheckedUpdateManyWithoutServerNestedInput
   }
 
   export type UnitServerCreateManyInput = {
@@ -23566,7 +21798,7 @@ export namespace Prisma {
     requiresUpdate?: boolean
     isActive?: boolean
     constellationId: string
-    activeConfigId?: string | null
+    configId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -23592,7 +21824,7 @@ export namespace Prisma {
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     constellationId?: StringFieldUpdateOperationsInput | string
-    activeConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    configId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -23611,12 +21843,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     sections?: SectionCreateNestedManyWithoutConfigInput
-    manualArticles?: ManualArticleCreateNestedManyWithoutConfigInput
-    autoSources?: AutoSourceCreateNestedManyWithoutConfigInput
+    articles?: ArticleCreateNestedManyWithoutConfigsInput
     images?: ImageCreateNestedManyWithoutConfigInput
-    activeInServers?: UnitServerCreateNestedManyWithoutActiveConfigInput
-    updates?: UpdateLogCreateNestedManyWithoutConfigInput
-    previousUpdates?: UpdateLogCreateNestedManyWithoutPreviousConfigInput
+    servers?: UnitServerCreateNestedManyWithoutConfigInput
   }
 
   export type UnitConfigUncheckedCreateInput = {
@@ -23633,12 +21862,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     sections?: SectionUncheckedCreateNestedManyWithoutConfigInput
-    manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutConfigInput
-    autoSources?: AutoSourceUncheckedCreateNestedManyWithoutConfigInput
+    articles?: ArticleUncheckedCreateNestedManyWithoutConfigsInput
     images?: ImageUncheckedCreateNestedManyWithoutConfigInput
-    activeInServers?: UnitServerUncheckedCreateNestedManyWithoutActiveConfigInput
-    updates?: UpdateLogUncheckedCreateNestedManyWithoutConfigInput
-    previousUpdates?: UpdateLogUncheckedCreateNestedManyWithoutPreviousConfigInput
+    servers?: UnitServerUncheckedCreateNestedManyWithoutConfigInput
   }
 
   export type UnitConfigUpdateInput = {
@@ -23655,12 +21881,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sections?: SectionUpdateManyWithoutConfigNestedInput
-    manualArticles?: ManualArticleUpdateManyWithoutConfigNestedInput
-    autoSources?: AutoSourceUpdateManyWithoutConfigNestedInput
+    articles?: ArticleUpdateManyWithoutConfigsNestedInput
     images?: ImageUpdateManyWithoutConfigNestedInput
-    activeInServers?: UnitServerUpdateManyWithoutActiveConfigNestedInput
-    updates?: UpdateLogUpdateManyWithoutConfigNestedInput
-    previousUpdates?: UpdateLogUpdateManyWithoutPreviousConfigNestedInput
+    servers?: UnitServerUpdateManyWithoutConfigNestedInput
   }
 
   export type UnitConfigUncheckedUpdateInput = {
@@ -23677,12 +21900,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sections?: SectionUncheckedUpdateManyWithoutConfigNestedInput
-    manualArticles?: ManualArticleUncheckedUpdateManyWithoutConfigNestedInput
-    autoSources?: AutoSourceUncheckedUpdateManyWithoutConfigNestedInput
+    articles?: ArticleUncheckedUpdateManyWithoutConfigsNestedInput
     images?: ImageUncheckedUpdateManyWithoutConfigNestedInput
-    activeInServers?: UnitServerUncheckedUpdateManyWithoutActiveConfigNestedInput
-    updates?: UpdateLogUncheckedUpdateManyWithoutConfigNestedInput
-    previousUpdates?: UpdateLogUncheckedUpdateManyWithoutPreviousConfigNestedInput
+    servers?: UnitServerUncheckedUpdateManyWithoutConfigNestedInput
   }
 
   export type UnitConfigCreateManyInput = {
@@ -23730,91 +21950,66 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type UpdateLogCreateInput = {
+  export type ServerLogCreateInput = {
     id?: string
-    status: string
-    description?: string | null
-    startedAt?: Date | string
-    completedAt?: Date | string | null
-    errorDetails?: string | null
-    server: UnitServerCreateNestedOneWithoutUpdateLogsInput
-    config: UnitConfigCreateNestedOneWithoutUpdatesInput
-    previousConfig?: UnitConfigCreateNestedOneWithoutPreviousUpdatesInput
-    initiator: UserCreateNestedOneWithoutInitiatedUpdatesInput
+    type: string
+    message: string
+    timestamp?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    server: UnitServerCreateNestedOneWithoutServerLogsInput
   }
 
-  export type UpdateLogUncheckedCreateInput = {
+  export type ServerLogUncheckedCreateInput = {
     id?: string
     serverId: string
-    configId: string
-    previousConfigId?: string | null
-    status: string
-    initiatorId: string
-    description?: string | null
-    startedAt?: Date | string
-    completedAt?: Date | string | null
-    errorDetails?: string | null
+    type: string
+    message: string
+    timestamp?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
-  export type UpdateLogUpdateInput = {
+  export type ServerLogUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    errorDetails?: NullableStringFieldUpdateOperationsInput | string | null
-    server?: UnitServerUpdateOneRequiredWithoutUpdateLogsNestedInput
-    config?: UnitConfigUpdateOneRequiredWithoutUpdatesNestedInput
-    previousConfig?: UnitConfigUpdateOneWithoutPreviousUpdatesNestedInput
-    initiator?: UserUpdateOneRequiredWithoutInitiatedUpdatesNestedInput
+    type?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    server?: UnitServerUpdateOneRequiredWithoutServerLogsNestedInput
   }
 
-  export type UpdateLogUncheckedUpdateInput = {
+  export type ServerLogUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     serverId?: StringFieldUpdateOperationsInput | string
-    configId?: StringFieldUpdateOperationsInput | string
-    previousConfigId?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
-    initiatorId?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    errorDetails?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
-  export type UpdateLogCreateManyInput = {
+  export type ServerLogCreateManyInput = {
     id?: string
     serverId: string
-    configId: string
-    previousConfigId?: string | null
-    status: string
-    initiatorId: string
-    description?: string | null
-    startedAt?: Date | string
-    completedAt?: Date | string | null
-    errorDetails?: string | null
+    type: string
+    message: string
+    timestamp?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
-  export type UpdateLogUpdateManyMutationInput = {
+  export type ServerLogUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    errorDetails?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
-  export type UpdateLogUncheckedUpdateManyInput = {
+  export type ServerLogUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     serverId?: StringFieldUpdateOperationsInput | string
-    configId?: StringFieldUpdateOperationsInput | string
-    previousConfigId?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
-    initiatorId?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    errorDetails?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -23893,12 +22088,6 @@ export namespace Prisma {
     none?: ProfessionalWhereInput
   }
 
-  export type UpdateLogListRelationFilter = {
-    every?: UpdateLogWhereInput
-    some?: UpdateLogWhereInput
-    none?: UpdateLogWhereInput
-  }
-
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -23909,10 +22098,6 @@ export namespace Prisma {
   }
 
   export type ProfessionalOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type UpdateLogOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -24467,63 +22652,6 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type ManualArticleCountOrderByAggregateInput = {
-    id?: SortOrder
-    configId?: SortOrder
-    serverId?: SortOrder
-    title?: SortOrder
-    content?: SortOrder
-    publishedAt?: SortOrder
-  }
-
-  export type ManualArticleMaxOrderByAggregateInput = {
-    id?: SortOrder
-    configId?: SortOrder
-    serverId?: SortOrder
-    title?: SortOrder
-    content?: SortOrder
-    publishedAt?: SortOrder
-  }
-
-  export type ManualArticleMinOrderByAggregateInput = {
-    id?: SortOrder
-    configId?: SortOrder
-    serverId?: SortOrder
-    title?: SortOrder
-    content?: SortOrder
-    publishedAt?: SortOrder
-  }
-
-  export type AutoSourceCountOrderByAggregateInput = {
-    id?: SortOrder
-    configId?: SortOrder
-    serverId?: SortOrder
-    name?: SortOrder
-    url?: SortOrder
-    type?: SortOrder
-    createdAt?: SortOrder
-  }
-
-  export type AutoSourceMaxOrderByAggregateInput = {
-    id?: SortOrder
-    configId?: SortOrder
-    serverId?: SortOrder
-    name?: SortOrder
-    url?: SortOrder
-    type?: SortOrder
-    createdAt?: SortOrder
-  }
-
-  export type AutoSourceMinOrderByAggregateInput = {
-    id?: SortOrder
-    configId?: SortOrder
-    serverId?: SortOrder
-    name?: SortOrder
-    url?: SortOrder
-    type?: SortOrder
-    createdAt?: SortOrder
-  }
-
   export type IntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -24586,6 +22714,37 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
+  export type UnitConfigListRelationFilter = {
+    every?: UnitConfigWhereInput
+    some?: UnitConfigWhereInput
+    none?: UnitConfigWhereInput
+  }
+
+  export type UnitConfigOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ArticleCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    content?: SortOrder
+    publishedAt?: SortOrder
+  }
+
+  export type ArticleMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    content?: SortOrder
+    publishedAt?: SortOrder
+  }
+
+  export type ArticleMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    content?: SortOrder
+    publishedAt?: SortOrder
+  }
+
   export type ConstellationScalarRelationFilter = {
     is?: ConstellationWhereInput
     isNot?: ConstellationWhereInput
@@ -24602,27 +22761,17 @@ export namespace Prisma {
     none?: SectionWhereInput
   }
 
-  export type ManualArticleListRelationFilter = {
-    every?: ManualArticleWhereInput
-    some?: ManualArticleWhereInput
-    none?: ManualArticleWhereInput
-  }
-
-  export type AutoSourceListRelationFilter = {
-    every?: AutoSourceWhereInput
-    some?: AutoSourceWhereInput
-    none?: AutoSourceWhereInput
+  export type ServerLogListRelationFilter = {
+    every?: ServerLogWhereInput
+    some?: ServerLogWhereInput
+    none?: ServerLogWhereInput
   }
 
   export type SectionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type ManualArticleOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type AutoSourceOrderByRelationAggregateInput = {
+  export type ServerLogOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -24635,7 +22784,7 @@ export namespace Prisma {
     requiresUpdate?: SortOrder
     isActive?: SortOrder
     constellationId?: SortOrder
-    activeConfigId?: SortOrder
+    configId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -24649,7 +22798,7 @@ export namespace Prisma {
     requiresUpdate?: SortOrder
     isActive?: SortOrder
     constellationId?: SortOrder
-    activeConfigId?: SortOrder
+    configId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -24663,7 +22812,7 @@ export namespace Prisma {
     requiresUpdate?: SortOrder
     isActive?: SortOrder
     constellationId?: SortOrder
-    activeConfigId?: SortOrder
+    configId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -24691,10 +22840,20 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type ArticleListRelationFilter = {
+    every?: ArticleWhereInput
+    some?: ArticleWhereInput
+    none?: ArticleWhereInput
+  }
+
   export type ImageListRelationFilter = {
     every?: ImageWhereInput
     some?: ImageWhereInput
     none?: ImageWhereInput
+  }
+
+  export type ArticleOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type ImageOrderByRelationAggregateInput = {
@@ -24772,43 +22931,29 @@ export namespace Prisma {
     _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
-  export type UpdateLogCountOrderByAggregateInput = {
+  export type ServerLogCountOrderByAggregateInput = {
     id?: SortOrder
     serverId?: SortOrder
-    configId?: SortOrder
-    previousConfigId?: SortOrder
-    status?: SortOrder
-    initiatorId?: SortOrder
-    description?: SortOrder
-    startedAt?: SortOrder
-    completedAt?: SortOrder
-    errorDetails?: SortOrder
+    type?: SortOrder
+    message?: SortOrder
+    timestamp?: SortOrder
+    metadata?: SortOrder
   }
 
-  export type UpdateLogMaxOrderByAggregateInput = {
+  export type ServerLogMaxOrderByAggregateInput = {
     id?: SortOrder
     serverId?: SortOrder
-    configId?: SortOrder
-    previousConfigId?: SortOrder
-    status?: SortOrder
-    initiatorId?: SortOrder
-    description?: SortOrder
-    startedAt?: SortOrder
-    completedAt?: SortOrder
-    errorDetails?: SortOrder
+    type?: SortOrder
+    message?: SortOrder
+    timestamp?: SortOrder
   }
 
-  export type UpdateLogMinOrderByAggregateInput = {
+  export type ServerLogMinOrderByAggregateInput = {
     id?: SortOrder
     serverId?: SortOrder
-    configId?: SortOrder
-    previousConfigId?: SortOrder
-    status?: SortOrder
-    initiatorId?: SortOrder
-    description?: SortOrder
-    startedAt?: SortOrder
-    completedAt?: SortOrder
-    errorDetails?: SortOrder
+    type?: SortOrder
+    message?: SortOrder
+    timestamp?: SortOrder
   }
 
   export type ClientCreateNestedManyWithoutUserInput = {
@@ -24825,13 +22970,6 @@ export namespace Prisma {
     connect?: ProfessionalWhereUniqueInput | ProfessionalWhereUniqueInput[]
   }
 
-  export type UpdateLogCreateNestedManyWithoutInitiatorInput = {
-    create?: XOR<UpdateLogCreateWithoutInitiatorInput, UpdateLogUncheckedCreateWithoutInitiatorInput> | UpdateLogCreateWithoutInitiatorInput[] | UpdateLogUncheckedCreateWithoutInitiatorInput[]
-    connectOrCreate?: UpdateLogCreateOrConnectWithoutInitiatorInput | UpdateLogCreateOrConnectWithoutInitiatorInput[]
-    createMany?: UpdateLogCreateManyInitiatorInputEnvelope
-    connect?: UpdateLogWhereUniqueInput | UpdateLogWhereUniqueInput[]
-  }
-
   export type ClientUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<ClientCreateWithoutUserInput, ClientUncheckedCreateWithoutUserInput> | ClientCreateWithoutUserInput[] | ClientUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ClientCreateOrConnectWithoutUserInput | ClientCreateOrConnectWithoutUserInput[]
@@ -24844,13 +22982,6 @@ export namespace Prisma {
     connectOrCreate?: ProfessionalCreateOrConnectWithoutUserInput | ProfessionalCreateOrConnectWithoutUserInput[]
     createMany?: ProfessionalCreateManyUserInputEnvelope
     connect?: ProfessionalWhereUniqueInput | ProfessionalWhereUniqueInput[]
-  }
-
-  export type UpdateLogUncheckedCreateNestedManyWithoutInitiatorInput = {
-    create?: XOR<UpdateLogCreateWithoutInitiatorInput, UpdateLogUncheckedCreateWithoutInitiatorInput> | UpdateLogCreateWithoutInitiatorInput[] | UpdateLogUncheckedCreateWithoutInitiatorInput[]
-    connectOrCreate?: UpdateLogCreateOrConnectWithoutInitiatorInput | UpdateLogCreateOrConnectWithoutInitiatorInput[]
-    createMany?: UpdateLogCreateManyInitiatorInputEnvelope
-    connect?: UpdateLogWhereUniqueInput | UpdateLogWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -24905,20 +23036,6 @@ export namespace Prisma {
     deleteMany?: ProfessionalScalarWhereInput | ProfessionalScalarWhereInput[]
   }
 
-  export type UpdateLogUpdateManyWithoutInitiatorNestedInput = {
-    create?: XOR<UpdateLogCreateWithoutInitiatorInput, UpdateLogUncheckedCreateWithoutInitiatorInput> | UpdateLogCreateWithoutInitiatorInput[] | UpdateLogUncheckedCreateWithoutInitiatorInput[]
-    connectOrCreate?: UpdateLogCreateOrConnectWithoutInitiatorInput | UpdateLogCreateOrConnectWithoutInitiatorInput[]
-    upsert?: UpdateLogUpsertWithWhereUniqueWithoutInitiatorInput | UpdateLogUpsertWithWhereUniqueWithoutInitiatorInput[]
-    createMany?: UpdateLogCreateManyInitiatorInputEnvelope
-    set?: UpdateLogWhereUniqueInput | UpdateLogWhereUniqueInput[]
-    disconnect?: UpdateLogWhereUniqueInput | UpdateLogWhereUniqueInput[]
-    delete?: UpdateLogWhereUniqueInput | UpdateLogWhereUniqueInput[]
-    connect?: UpdateLogWhereUniqueInput | UpdateLogWhereUniqueInput[]
-    update?: UpdateLogUpdateWithWhereUniqueWithoutInitiatorInput | UpdateLogUpdateWithWhereUniqueWithoutInitiatorInput[]
-    updateMany?: UpdateLogUpdateManyWithWhereWithoutInitiatorInput | UpdateLogUpdateManyWithWhereWithoutInitiatorInput[]
-    deleteMany?: UpdateLogScalarWhereInput | UpdateLogScalarWhereInput[]
-  }
-
   export type ClientUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<ClientCreateWithoutUserInput, ClientUncheckedCreateWithoutUserInput> | ClientCreateWithoutUserInput[] | ClientUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ClientCreateOrConnectWithoutUserInput | ClientCreateOrConnectWithoutUserInput[]
@@ -24945,20 +23062,6 @@ export namespace Prisma {
     update?: ProfessionalUpdateWithWhereUniqueWithoutUserInput | ProfessionalUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: ProfessionalUpdateManyWithWhereWithoutUserInput | ProfessionalUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: ProfessionalScalarWhereInput | ProfessionalScalarWhereInput[]
-  }
-
-  export type UpdateLogUncheckedUpdateManyWithoutInitiatorNestedInput = {
-    create?: XOR<UpdateLogCreateWithoutInitiatorInput, UpdateLogUncheckedCreateWithoutInitiatorInput> | UpdateLogCreateWithoutInitiatorInput[] | UpdateLogUncheckedCreateWithoutInitiatorInput[]
-    connectOrCreate?: UpdateLogCreateOrConnectWithoutInitiatorInput | UpdateLogCreateOrConnectWithoutInitiatorInput[]
-    upsert?: UpdateLogUpsertWithWhereUniqueWithoutInitiatorInput | UpdateLogUpsertWithWhereUniqueWithoutInitiatorInput[]
-    createMany?: UpdateLogCreateManyInitiatorInputEnvelope
-    set?: UpdateLogWhereUniqueInput | UpdateLogWhereUniqueInput[]
-    disconnect?: UpdateLogWhereUniqueInput | UpdateLogWhereUniqueInput[]
-    delete?: UpdateLogWhereUniqueInput | UpdateLogWhereUniqueInput[]
-    connect?: UpdateLogWhereUniqueInput | UpdateLogWhereUniqueInput[]
-    update?: UpdateLogUpdateWithWhereUniqueWithoutInitiatorInput | UpdateLogUpdateWithWhereUniqueWithoutInitiatorInput[]
-    updateMany?: UpdateLogUpdateManyWithWhereWithoutInitiatorInput | UpdateLogUpdateManyWithWhereWithoutInitiatorInput[]
-    deleteMany?: UpdateLogScalarWhereInput | UpdateLogScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutClientsInput = {
@@ -25625,66 +23728,6 @@ export namespace Prisma {
     update?: XOR<XOR<UnitServerUpdateToOneWithWhereWithoutSectionsInput, UnitServerUpdateWithoutSectionsInput>, UnitServerUncheckedUpdateWithoutSectionsInput>
   }
 
-  export type UnitConfigCreateNestedOneWithoutManualArticlesInput = {
-    create?: XOR<UnitConfigCreateWithoutManualArticlesInput, UnitConfigUncheckedCreateWithoutManualArticlesInput>
-    connectOrCreate?: UnitConfigCreateOrConnectWithoutManualArticlesInput
-    connect?: UnitConfigWhereUniqueInput
-  }
-
-  export type UnitServerCreateNestedOneWithoutManualArticlesInput = {
-    create?: XOR<UnitServerCreateWithoutManualArticlesInput, UnitServerUncheckedCreateWithoutManualArticlesInput>
-    connectOrCreate?: UnitServerCreateOrConnectWithoutManualArticlesInput
-    connect?: UnitServerWhereUniqueInput
-  }
-
-  export type UnitConfigUpdateOneRequiredWithoutManualArticlesNestedInput = {
-    create?: XOR<UnitConfigCreateWithoutManualArticlesInput, UnitConfigUncheckedCreateWithoutManualArticlesInput>
-    connectOrCreate?: UnitConfigCreateOrConnectWithoutManualArticlesInput
-    upsert?: UnitConfigUpsertWithoutManualArticlesInput
-    connect?: UnitConfigWhereUniqueInput
-    update?: XOR<XOR<UnitConfigUpdateToOneWithWhereWithoutManualArticlesInput, UnitConfigUpdateWithoutManualArticlesInput>, UnitConfigUncheckedUpdateWithoutManualArticlesInput>
-  }
-
-  export type UnitServerUpdateOneWithoutManualArticlesNestedInput = {
-    create?: XOR<UnitServerCreateWithoutManualArticlesInput, UnitServerUncheckedCreateWithoutManualArticlesInput>
-    connectOrCreate?: UnitServerCreateOrConnectWithoutManualArticlesInput
-    upsert?: UnitServerUpsertWithoutManualArticlesInput
-    disconnect?: UnitServerWhereInput | boolean
-    delete?: UnitServerWhereInput | boolean
-    connect?: UnitServerWhereUniqueInput
-    update?: XOR<XOR<UnitServerUpdateToOneWithWhereWithoutManualArticlesInput, UnitServerUpdateWithoutManualArticlesInput>, UnitServerUncheckedUpdateWithoutManualArticlesInput>
-  }
-
-  export type UnitConfigCreateNestedOneWithoutAutoSourcesInput = {
-    create?: XOR<UnitConfigCreateWithoutAutoSourcesInput, UnitConfigUncheckedCreateWithoutAutoSourcesInput>
-    connectOrCreate?: UnitConfigCreateOrConnectWithoutAutoSourcesInput
-    connect?: UnitConfigWhereUniqueInput
-  }
-
-  export type UnitServerCreateNestedOneWithoutAutoSourcesInput = {
-    create?: XOR<UnitServerCreateWithoutAutoSourcesInput, UnitServerUncheckedCreateWithoutAutoSourcesInput>
-    connectOrCreate?: UnitServerCreateOrConnectWithoutAutoSourcesInput
-    connect?: UnitServerWhereUniqueInput
-  }
-
-  export type UnitConfigUpdateOneRequiredWithoutAutoSourcesNestedInput = {
-    create?: XOR<UnitConfigCreateWithoutAutoSourcesInput, UnitConfigUncheckedCreateWithoutAutoSourcesInput>
-    connectOrCreate?: UnitConfigCreateOrConnectWithoutAutoSourcesInput
-    upsert?: UnitConfigUpsertWithoutAutoSourcesInput
-    connect?: UnitConfigWhereUniqueInput
-    update?: XOR<XOR<UnitConfigUpdateToOneWithWhereWithoutAutoSourcesInput, UnitConfigUpdateWithoutAutoSourcesInput>, UnitConfigUncheckedUpdateWithoutAutoSourcesInput>
-  }
-
-  export type UnitServerUpdateOneWithoutAutoSourcesNestedInput = {
-    create?: XOR<UnitServerCreateWithoutAutoSourcesInput, UnitServerUncheckedCreateWithoutAutoSourcesInput>
-    connectOrCreate?: UnitServerCreateOrConnectWithoutAutoSourcesInput
-    upsert?: UnitServerUpsertWithoutAutoSourcesInput
-    disconnect?: UnitServerWhereInput | boolean
-    delete?: UnitServerWhereInput | boolean
-    connect?: UnitServerWhereUniqueInput
-    update?: XOR<XOR<UnitServerUpdateToOneWithWhereWithoutAutoSourcesInput, UnitServerUpdateWithoutAutoSourcesInput>, UnitServerUncheckedUpdateWithoutAutoSourcesInput>
-  }
-
   export type UnitConfigCreateNestedOneWithoutImagesInput = {
     create?: XOR<UnitConfigCreateWithoutImagesInput, UnitConfigUncheckedCreateWithoutImagesInput>
     connectOrCreate?: UnitConfigCreateOrConnectWithoutImagesInput
@@ -25707,15 +23750,53 @@ export namespace Prisma {
     update?: XOR<XOR<UnitConfigUpdateToOneWithWhereWithoutImagesInput, UnitConfigUpdateWithoutImagesInput>, UnitConfigUncheckedUpdateWithoutImagesInput>
   }
 
+  export type UnitConfigCreateNestedManyWithoutArticlesInput = {
+    create?: XOR<UnitConfigCreateWithoutArticlesInput, UnitConfigUncheckedCreateWithoutArticlesInput> | UnitConfigCreateWithoutArticlesInput[] | UnitConfigUncheckedCreateWithoutArticlesInput[]
+    connectOrCreate?: UnitConfigCreateOrConnectWithoutArticlesInput | UnitConfigCreateOrConnectWithoutArticlesInput[]
+    connect?: UnitConfigWhereUniqueInput | UnitConfigWhereUniqueInput[]
+  }
+
+  export type UnitConfigUncheckedCreateNestedManyWithoutArticlesInput = {
+    create?: XOR<UnitConfigCreateWithoutArticlesInput, UnitConfigUncheckedCreateWithoutArticlesInput> | UnitConfigCreateWithoutArticlesInput[] | UnitConfigUncheckedCreateWithoutArticlesInput[]
+    connectOrCreate?: UnitConfigCreateOrConnectWithoutArticlesInput | UnitConfigCreateOrConnectWithoutArticlesInput[]
+    connect?: UnitConfigWhereUniqueInput | UnitConfigWhereUniqueInput[]
+  }
+
+  export type UnitConfigUpdateManyWithoutArticlesNestedInput = {
+    create?: XOR<UnitConfigCreateWithoutArticlesInput, UnitConfigUncheckedCreateWithoutArticlesInput> | UnitConfigCreateWithoutArticlesInput[] | UnitConfigUncheckedCreateWithoutArticlesInput[]
+    connectOrCreate?: UnitConfigCreateOrConnectWithoutArticlesInput | UnitConfigCreateOrConnectWithoutArticlesInput[]
+    upsert?: UnitConfigUpsertWithWhereUniqueWithoutArticlesInput | UnitConfigUpsertWithWhereUniqueWithoutArticlesInput[]
+    set?: UnitConfigWhereUniqueInput | UnitConfigWhereUniqueInput[]
+    disconnect?: UnitConfigWhereUniqueInput | UnitConfigWhereUniqueInput[]
+    delete?: UnitConfigWhereUniqueInput | UnitConfigWhereUniqueInput[]
+    connect?: UnitConfigWhereUniqueInput | UnitConfigWhereUniqueInput[]
+    update?: UnitConfigUpdateWithWhereUniqueWithoutArticlesInput | UnitConfigUpdateWithWhereUniqueWithoutArticlesInput[]
+    updateMany?: UnitConfigUpdateManyWithWhereWithoutArticlesInput | UnitConfigUpdateManyWithWhereWithoutArticlesInput[]
+    deleteMany?: UnitConfigScalarWhereInput | UnitConfigScalarWhereInput[]
+  }
+
+  export type UnitConfigUncheckedUpdateManyWithoutArticlesNestedInput = {
+    create?: XOR<UnitConfigCreateWithoutArticlesInput, UnitConfigUncheckedCreateWithoutArticlesInput> | UnitConfigCreateWithoutArticlesInput[] | UnitConfigUncheckedCreateWithoutArticlesInput[]
+    connectOrCreate?: UnitConfigCreateOrConnectWithoutArticlesInput | UnitConfigCreateOrConnectWithoutArticlesInput[]
+    upsert?: UnitConfigUpsertWithWhereUniqueWithoutArticlesInput | UnitConfigUpsertWithWhereUniqueWithoutArticlesInput[]
+    set?: UnitConfigWhereUniqueInput | UnitConfigWhereUniqueInput[]
+    disconnect?: UnitConfigWhereUniqueInput | UnitConfigWhereUniqueInput[]
+    delete?: UnitConfigWhereUniqueInput | UnitConfigWhereUniqueInput[]
+    connect?: UnitConfigWhereUniqueInput | UnitConfigWhereUniqueInput[]
+    update?: UnitConfigUpdateWithWhereUniqueWithoutArticlesInput | UnitConfigUpdateWithWhereUniqueWithoutArticlesInput[]
+    updateMany?: UnitConfigUpdateManyWithWhereWithoutArticlesInput | UnitConfigUpdateManyWithWhereWithoutArticlesInput[]
+    deleteMany?: UnitConfigScalarWhereInput | UnitConfigScalarWhereInput[]
+  }
+
   export type ConstellationCreateNestedOneWithoutServersInput = {
     create?: XOR<ConstellationCreateWithoutServersInput, ConstellationUncheckedCreateWithoutServersInput>
     connectOrCreate?: ConstellationCreateOrConnectWithoutServersInput
     connect?: ConstellationWhereUniqueInput
   }
 
-  export type UnitConfigCreateNestedOneWithoutActiveInServersInput = {
-    create?: XOR<UnitConfigCreateWithoutActiveInServersInput, UnitConfigUncheckedCreateWithoutActiveInServersInput>
-    connectOrCreate?: UnitConfigCreateOrConnectWithoutActiveInServersInput
+  export type UnitConfigCreateNestedOneWithoutServersInput = {
+    create?: XOR<UnitConfigCreateWithoutServersInput, UnitConfigUncheckedCreateWithoutServersInput>
+    connectOrCreate?: UnitConfigCreateOrConnectWithoutServersInput
     connect?: UnitConfigWhereUniqueInput
   }
 
@@ -25747,25 +23828,11 @@ export namespace Prisma {
     connect?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
   }
 
-  export type ManualArticleCreateNestedManyWithoutServerInput = {
-    create?: XOR<ManualArticleCreateWithoutServerInput, ManualArticleUncheckedCreateWithoutServerInput> | ManualArticleCreateWithoutServerInput[] | ManualArticleUncheckedCreateWithoutServerInput[]
-    connectOrCreate?: ManualArticleCreateOrConnectWithoutServerInput | ManualArticleCreateOrConnectWithoutServerInput[]
-    createMany?: ManualArticleCreateManyServerInputEnvelope
-    connect?: ManualArticleWhereUniqueInput | ManualArticleWhereUniqueInput[]
-  }
-
-  export type AutoSourceCreateNestedManyWithoutServerInput = {
-    create?: XOR<AutoSourceCreateWithoutServerInput, AutoSourceUncheckedCreateWithoutServerInput> | AutoSourceCreateWithoutServerInput[] | AutoSourceUncheckedCreateWithoutServerInput[]
-    connectOrCreate?: AutoSourceCreateOrConnectWithoutServerInput | AutoSourceCreateOrConnectWithoutServerInput[]
-    createMany?: AutoSourceCreateManyServerInputEnvelope
-    connect?: AutoSourceWhereUniqueInput | AutoSourceWhereUniqueInput[]
-  }
-
-  export type UpdateLogCreateNestedManyWithoutServerInput = {
-    create?: XOR<UpdateLogCreateWithoutServerInput, UpdateLogUncheckedCreateWithoutServerInput> | UpdateLogCreateWithoutServerInput[] | UpdateLogUncheckedCreateWithoutServerInput[]
-    connectOrCreate?: UpdateLogCreateOrConnectWithoutServerInput | UpdateLogCreateOrConnectWithoutServerInput[]
-    createMany?: UpdateLogCreateManyServerInputEnvelope
-    connect?: UpdateLogWhereUniqueInput | UpdateLogWhereUniqueInput[]
+  export type ServerLogCreateNestedManyWithoutServerInput = {
+    create?: XOR<ServerLogCreateWithoutServerInput, ServerLogUncheckedCreateWithoutServerInput> | ServerLogCreateWithoutServerInput[] | ServerLogUncheckedCreateWithoutServerInput[]
+    connectOrCreate?: ServerLogCreateOrConnectWithoutServerInput | ServerLogCreateOrConnectWithoutServerInput[]
+    createMany?: ServerLogCreateManyServerInputEnvelope
+    connect?: ServerLogWhereUniqueInput | ServerLogWhereUniqueInput[]
   }
 
   export type ClientUncheckedCreateNestedManyWithoutServerInput = {
@@ -25796,25 +23863,11 @@ export namespace Prisma {
     connect?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
   }
 
-  export type ManualArticleUncheckedCreateNestedManyWithoutServerInput = {
-    create?: XOR<ManualArticleCreateWithoutServerInput, ManualArticleUncheckedCreateWithoutServerInput> | ManualArticleCreateWithoutServerInput[] | ManualArticleUncheckedCreateWithoutServerInput[]
-    connectOrCreate?: ManualArticleCreateOrConnectWithoutServerInput | ManualArticleCreateOrConnectWithoutServerInput[]
-    createMany?: ManualArticleCreateManyServerInputEnvelope
-    connect?: ManualArticleWhereUniqueInput | ManualArticleWhereUniqueInput[]
-  }
-
-  export type AutoSourceUncheckedCreateNestedManyWithoutServerInput = {
-    create?: XOR<AutoSourceCreateWithoutServerInput, AutoSourceUncheckedCreateWithoutServerInput> | AutoSourceCreateWithoutServerInput[] | AutoSourceUncheckedCreateWithoutServerInput[]
-    connectOrCreate?: AutoSourceCreateOrConnectWithoutServerInput | AutoSourceCreateOrConnectWithoutServerInput[]
-    createMany?: AutoSourceCreateManyServerInputEnvelope
-    connect?: AutoSourceWhereUniqueInput | AutoSourceWhereUniqueInput[]
-  }
-
-  export type UpdateLogUncheckedCreateNestedManyWithoutServerInput = {
-    create?: XOR<UpdateLogCreateWithoutServerInput, UpdateLogUncheckedCreateWithoutServerInput> | UpdateLogCreateWithoutServerInput[] | UpdateLogUncheckedCreateWithoutServerInput[]
-    connectOrCreate?: UpdateLogCreateOrConnectWithoutServerInput | UpdateLogCreateOrConnectWithoutServerInput[]
-    createMany?: UpdateLogCreateManyServerInputEnvelope
-    connect?: UpdateLogWhereUniqueInput | UpdateLogWhereUniqueInput[]
+  export type ServerLogUncheckedCreateNestedManyWithoutServerInput = {
+    create?: XOR<ServerLogCreateWithoutServerInput, ServerLogUncheckedCreateWithoutServerInput> | ServerLogCreateWithoutServerInput[] | ServerLogUncheckedCreateWithoutServerInput[]
+    connectOrCreate?: ServerLogCreateOrConnectWithoutServerInput | ServerLogCreateOrConnectWithoutServerInput[]
+    createMany?: ServerLogCreateManyServerInputEnvelope
+    connect?: ServerLogWhereUniqueInput | ServerLogWhereUniqueInput[]
   }
 
   export type ConstellationUpdateOneRequiredWithoutServersNestedInput = {
@@ -25825,14 +23878,14 @@ export namespace Prisma {
     update?: XOR<XOR<ConstellationUpdateToOneWithWhereWithoutServersInput, ConstellationUpdateWithoutServersInput>, ConstellationUncheckedUpdateWithoutServersInput>
   }
 
-  export type UnitConfigUpdateOneWithoutActiveInServersNestedInput = {
-    create?: XOR<UnitConfigCreateWithoutActiveInServersInput, UnitConfigUncheckedCreateWithoutActiveInServersInput>
-    connectOrCreate?: UnitConfigCreateOrConnectWithoutActiveInServersInput
-    upsert?: UnitConfigUpsertWithoutActiveInServersInput
+  export type UnitConfigUpdateOneWithoutServersNestedInput = {
+    create?: XOR<UnitConfigCreateWithoutServersInput, UnitConfigUncheckedCreateWithoutServersInput>
+    connectOrCreate?: UnitConfigCreateOrConnectWithoutServersInput
+    upsert?: UnitConfigUpsertWithoutServersInput
     disconnect?: UnitConfigWhereInput | boolean
     delete?: UnitConfigWhereInput | boolean
     connect?: UnitConfigWhereUniqueInput
-    update?: XOR<XOR<UnitConfigUpdateToOneWithWhereWithoutActiveInServersInput, UnitConfigUpdateWithoutActiveInServersInput>, UnitConfigUncheckedUpdateWithoutActiveInServersInput>
+    update?: XOR<XOR<UnitConfigUpdateToOneWithWhereWithoutServersInput, UnitConfigUpdateWithoutServersInput>, UnitConfigUncheckedUpdateWithoutServersInput>
   }
 
   export type ClientUpdateManyWithoutServerNestedInput = {
@@ -25891,46 +23944,18 @@ export namespace Prisma {
     deleteMany?: SectionScalarWhereInput | SectionScalarWhereInput[]
   }
 
-  export type ManualArticleUpdateManyWithoutServerNestedInput = {
-    create?: XOR<ManualArticleCreateWithoutServerInput, ManualArticleUncheckedCreateWithoutServerInput> | ManualArticleCreateWithoutServerInput[] | ManualArticleUncheckedCreateWithoutServerInput[]
-    connectOrCreate?: ManualArticleCreateOrConnectWithoutServerInput | ManualArticleCreateOrConnectWithoutServerInput[]
-    upsert?: ManualArticleUpsertWithWhereUniqueWithoutServerInput | ManualArticleUpsertWithWhereUniqueWithoutServerInput[]
-    createMany?: ManualArticleCreateManyServerInputEnvelope
-    set?: ManualArticleWhereUniqueInput | ManualArticleWhereUniqueInput[]
-    disconnect?: ManualArticleWhereUniqueInput | ManualArticleWhereUniqueInput[]
-    delete?: ManualArticleWhereUniqueInput | ManualArticleWhereUniqueInput[]
-    connect?: ManualArticleWhereUniqueInput | ManualArticleWhereUniqueInput[]
-    update?: ManualArticleUpdateWithWhereUniqueWithoutServerInput | ManualArticleUpdateWithWhereUniqueWithoutServerInput[]
-    updateMany?: ManualArticleUpdateManyWithWhereWithoutServerInput | ManualArticleUpdateManyWithWhereWithoutServerInput[]
-    deleteMany?: ManualArticleScalarWhereInput | ManualArticleScalarWhereInput[]
-  }
-
-  export type AutoSourceUpdateManyWithoutServerNestedInput = {
-    create?: XOR<AutoSourceCreateWithoutServerInput, AutoSourceUncheckedCreateWithoutServerInput> | AutoSourceCreateWithoutServerInput[] | AutoSourceUncheckedCreateWithoutServerInput[]
-    connectOrCreate?: AutoSourceCreateOrConnectWithoutServerInput | AutoSourceCreateOrConnectWithoutServerInput[]
-    upsert?: AutoSourceUpsertWithWhereUniqueWithoutServerInput | AutoSourceUpsertWithWhereUniqueWithoutServerInput[]
-    createMany?: AutoSourceCreateManyServerInputEnvelope
-    set?: AutoSourceWhereUniqueInput | AutoSourceWhereUniqueInput[]
-    disconnect?: AutoSourceWhereUniqueInput | AutoSourceWhereUniqueInput[]
-    delete?: AutoSourceWhereUniqueInput | AutoSourceWhereUniqueInput[]
-    connect?: AutoSourceWhereUniqueInput | AutoSourceWhereUniqueInput[]
-    update?: AutoSourceUpdateWithWhereUniqueWithoutServerInput | AutoSourceUpdateWithWhereUniqueWithoutServerInput[]
-    updateMany?: AutoSourceUpdateManyWithWhereWithoutServerInput | AutoSourceUpdateManyWithWhereWithoutServerInput[]
-    deleteMany?: AutoSourceScalarWhereInput | AutoSourceScalarWhereInput[]
-  }
-
-  export type UpdateLogUpdateManyWithoutServerNestedInput = {
-    create?: XOR<UpdateLogCreateWithoutServerInput, UpdateLogUncheckedCreateWithoutServerInput> | UpdateLogCreateWithoutServerInput[] | UpdateLogUncheckedCreateWithoutServerInput[]
-    connectOrCreate?: UpdateLogCreateOrConnectWithoutServerInput | UpdateLogCreateOrConnectWithoutServerInput[]
-    upsert?: UpdateLogUpsertWithWhereUniqueWithoutServerInput | UpdateLogUpsertWithWhereUniqueWithoutServerInput[]
-    createMany?: UpdateLogCreateManyServerInputEnvelope
-    set?: UpdateLogWhereUniqueInput | UpdateLogWhereUniqueInput[]
-    disconnect?: UpdateLogWhereUniqueInput | UpdateLogWhereUniqueInput[]
-    delete?: UpdateLogWhereUniqueInput | UpdateLogWhereUniqueInput[]
-    connect?: UpdateLogWhereUniqueInput | UpdateLogWhereUniqueInput[]
-    update?: UpdateLogUpdateWithWhereUniqueWithoutServerInput | UpdateLogUpdateWithWhereUniqueWithoutServerInput[]
-    updateMany?: UpdateLogUpdateManyWithWhereWithoutServerInput | UpdateLogUpdateManyWithWhereWithoutServerInput[]
-    deleteMany?: UpdateLogScalarWhereInput | UpdateLogScalarWhereInput[]
+  export type ServerLogUpdateManyWithoutServerNestedInput = {
+    create?: XOR<ServerLogCreateWithoutServerInput, ServerLogUncheckedCreateWithoutServerInput> | ServerLogCreateWithoutServerInput[] | ServerLogUncheckedCreateWithoutServerInput[]
+    connectOrCreate?: ServerLogCreateOrConnectWithoutServerInput | ServerLogCreateOrConnectWithoutServerInput[]
+    upsert?: ServerLogUpsertWithWhereUniqueWithoutServerInput | ServerLogUpsertWithWhereUniqueWithoutServerInput[]
+    createMany?: ServerLogCreateManyServerInputEnvelope
+    set?: ServerLogWhereUniqueInput | ServerLogWhereUniqueInput[]
+    disconnect?: ServerLogWhereUniqueInput | ServerLogWhereUniqueInput[]
+    delete?: ServerLogWhereUniqueInput | ServerLogWhereUniqueInput[]
+    connect?: ServerLogWhereUniqueInput | ServerLogWhereUniqueInput[]
+    update?: ServerLogUpdateWithWhereUniqueWithoutServerInput | ServerLogUpdateWithWhereUniqueWithoutServerInput[]
+    updateMany?: ServerLogUpdateManyWithWhereWithoutServerInput | ServerLogUpdateManyWithWhereWithoutServerInput[]
+    deleteMany?: ServerLogScalarWhereInput | ServerLogScalarWhereInput[]
   }
 
   export type ClientUncheckedUpdateManyWithoutServerNestedInput = {
@@ -25989,46 +24014,18 @@ export namespace Prisma {
     deleteMany?: SectionScalarWhereInput | SectionScalarWhereInput[]
   }
 
-  export type ManualArticleUncheckedUpdateManyWithoutServerNestedInput = {
-    create?: XOR<ManualArticleCreateWithoutServerInput, ManualArticleUncheckedCreateWithoutServerInput> | ManualArticleCreateWithoutServerInput[] | ManualArticleUncheckedCreateWithoutServerInput[]
-    connectOrCreate?: ManualArticleCreateOrConnectWithoutServerInput | ManualArticleCreateOrConnectWithoutServerInput[]
-    upsert?: ManualArticleUpsertWithWhereUniqueWithoutServerInput | ManualArticleUpsertWithWhereUniqueWithoutServerInput[]
-    createMany?: ManualArticleCreateManyServerInputEnvelope
-    set?: ManualArticleWhereUniqueInput | ManualArticleWhereUniqueInput[]
-    disconnect?: ManualArticleWhereUniqueInput | ManualArticleWhereUniqueInput[]
-    delete?: ManualArticleWhereUniqueInput | ManualArticleWhereUniqueInput[]
-    connect?: ManualArticleWhereUniqueInput | ManualArticleWhereUniqueInput[]
-    update?: ManualArticleUpdateWithWhereUniqueWithoutServerInput | ManualArticleUpdateWithWhereUniqueWithoutServerInput[]
-    updateMany?: ManualArticleUpdateManyWithWhereWithoutServerInput | ManualArticleUpdateManyWithWhereWithoutServerInput[]
-    deleteMany?: ManualArticleScalarWhereInput | ManualArticleScalarWhereInput[]
-  }
-
-  export type AutoSourceUncheckedUpdateManyWithoutServerNestedInput = {
-    create?: XOR<AutoSourceCreateWithoutServerInput, AutoSourceUncheckedCreateWithoutServerInput> | AutoSourceCreateWithoutServerInput[] | AutoSourceUncheckedCreateWithoutServerInput[]
-    connectOrCreate?: AutoSourceCreateOrConnectWithoutServerInput | AutoSourceCreateOrConnectWithoutServerInput[]
-    upsert?: AutoSourceUpsertWithWhereUniqueWithoutServerInput | AutoSourceUpsertWithWhereUniqueWithoutServerInput[]
-    createMany?: AutoSourceCreateManyServerInputEnvelope
-    set?: AutoSourceWhereUniqueInput | AutoSourceWhereUniqueInput[]
-    disconnect?: AutoSourceWhereUniqueInput | AutoSourceWhereUniqueInput[]
-    delete?: AutoSourceWhereUniqueInput | AutoSourceWhereUniqueInput[]
-    connect?: AutoSourceWhereUniqueInput | AutoSourceWhereUniqueInput[]
-    update?: AutoSourceUpdateWithWhereUniqueWithoutServerInput | AutoSourceUpdateWithWhereUniqueWithoutServerInput[]
-    updateMany?: AutoSourceUpdateManyWithWhereWithoutServerInput | AutoSourceUpdateManyWithWhereWithoutServerInput[]
-    deleteMany?: AutoSourceScalarWhereInput | AutoSourceScalarWhereInput[]
-  }
-
-  export type UpdateLogUncheckedUpdateManyWithoutServerNestedInput = {
-    create?: XOR<UpdateLogCreateWithoutServerInput, UpdateLogUncheckedCreateWithoutServerInput> | UpdateLogCreateWithoutServerInput[] | UpdateLogUncheckedCreateWithoutServerInput[]
-    connectOrCreate?: UpdateLogCreateOrConnectWithoutServerInput | UpdateLogCreateOrConnectWithoutServerInput[]
-    upsert?: UpdateLogUpsertWithWhereUniqueWithoutServerInput | UpdateLogUpsertWithWhereUniqueWithoutServerInput[]
-    createMany?: UpdateLogCreateManyServerInputEnvelope
-    set?: UpdateLogWhereUniqueInput | UpdateLogWhereUniqueInput[]
-    disconnect?: UpdateLogWhereUniqueInput | UpdateLogWhereUniqueInput[]
-    delete?: UpdateLogWhereUniqueInput | UpdateLogWhereUniqueInput[]
-    connect?: UpdateLogWhereUniqueInput | UpdateLogWhereUniqueInput[]
-    update?: UpdateLogUpdateWithWhereUniqueWithoutServerInput | UpdateLogUpdateWithWhereUniqueWithoutServerInput[]
-    updateMany?: UpdateLogUpdateManyWithWhereWithoutServerInput | UpdateLogUpdateManyWithWhereWithoutServerInput[]
-    deleteMany?: UpdateLogScalarWhereInput | UpdateLogScalarWhereInput[]
+  export type ServerLogUncheckedUpdateManyWithoutServerNestedInput = {
+    create?: XOR<ServerLogCreateWithoutServerInput, ServerLogUncheckedCreateWithoutServerInput> | ServerLogCreateWithoutServerInput[] | ServerLogUncheckedCreateWithoutServerInput[]
+    connectOrCreate?: ServerLogCreateOrConnectWithoutServerInput | ServerLogCreateOrConnectWithoutServerInput[]
+    upsert?: ServerLogUpsertWithWhereUniqueWithoutServerInput | ServerLogUpsertWithWhereUniqueWithoutServerInput[]
+    createMany?: ServerLogCreateManyServerInputEnvelope
+    set?: ServerLogWhereUniqueInput | ServerLogWhereUniqueInput[]
+    disconnect?: ServerLogWhereUniqueInput | ServerLogWhereUniqueInput[]
+    delete?: ServerLogWhereUniqueInput | ServerLogWhereUniqueInput[]
+    connect?: ServerLogWhereUniqueInput | ServerLogWhereUniqueInput[]
+    update?: ServerLogUpdateWithWhereUniqueWithoutServerInput | ServerLogUpdateWithWhereUniqueWithoutServerInput[]
+    updateMany?: ServerLogUpdateManyWithWhereWithoutServerInput | ServerLogUpdateManyWithWhereWithoutServerInput[]
+    deleteMany?: ServerLogScalarWhereInput | ServerLogScalarWhereInput[]
   }
 
   export type SectionCreateNestedManyWithoutConfigInput = {
@@ -26038,18 +24035,10 @@ export namespace Prisma {
     connect?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
   }
 
-  export type ManualArticleCreateNestedManyWithoutConfigInput = {
-    create?: XOR<ManualArticleCreateWithoutConfigInput, ManualArticleUncheckedCreateWithoutConfigInput> | ManualArticleCreateWithoutConfigInput[] | ManualArticleUncheckedCreateWithoutConfigInput[]
-    connectOrCreate?: ManualArticleCreateOrConnectWithoutConfigInput | ManualArticleCreateOrConnectWithoutConfigInput[]
-    createMany?: ManualArticleCreateManyConfigInputEnvelope
-    connect?: ManualArticleWhereUniqueInput | ManualArticleWhereUniqueInput[]
-  }
-
-  export type AutoSourceCreateNestedManyWithoutConfigInput = {
-    create?: XOR<AutoSourceCreateWithoutConfigInput, AutoSourceUncheckedCreateWithoutConfigInput> | AutoSourceCreateWithoutConfigInput[] | AutoSourceUncheckedCreateWithoutConfigInput[]
-    connectOrCreate?: AutoSourceCreateOrConnectWithoutConfigInput | AutoSourceCreateOrConnectWithoutConfigInput[]
-    createMany?: AutoSourceCreateManyConfigInputEnvelope
-    connect?: AutoSourceWhereUniqueInput | AutoSourceWhereUniqueInput[]
+  export type ArticleCreateNestedManyWithoutConfigsInput = {
+    create?: XOR<ArticleCreateWithoutConfigsInput, ArticleUncheckedCreateWithoutConfigsInput> | ArticleCreateWithoutConfigsInput[] | ArticleUncheckedCreateWithoutConfigsInput[]
+    connectOrCreate?: ArticleCreateOrConnectWithoutConfigsInput | ArticleCreateOrConnectWithoutConfigsInput[]
+    connect?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
   }
 
   export type ImageCreateNestedManyWithoutConfigInput = {
@@ -26059,25 +24048,11 @@ export namespace Prisma {
     connect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
   }
 
-  export type UnitServerCreateNestedManyWithoutActiveConfigInput = {
-    create?: XOR<UnitServerCreateWithoutActiveConfigInput, UnitServerUncheckedCreateWithoutActiveConfigInput> | UnitServerCreateWithoutActiveConfigInput[] | UnitServerUncheckedCreateWithoutActiveConfigInput[]
-    connectOrCreate?: UnitServerCreateOrConnectWithoutActiveConfigInput | UnitServerCreateOrConnectWithoutActiveConfigInput[]
-    createMany?: UnitServerCreateManyActiveConfigInputEnvelope
+  export type UnitServerCreateNestedManyWithoutConfigInput = {
+    create?: XOR<UnitServerCreateWithoutConfigInput, UnitServerUncheckedCreateWithoutConfigInput> | UnitServerCreateWithoutConfigInput[] | UnitServerUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: UnitServerCreateOrConnectWithoutConfigInput | UnitServerCreateOrConnectWithoutConfigInput[]
+    createMany?: UnitServerCreateManyConfigInputEnvelope
     connect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
-  }
-
-  export type UpdateLogCreateNestedManyWithoutConfigInput = {
-    create?: XOR<UpdateLogCreateWithoutConfigInput, UpdateLogUncheckedCreateWithoutConfigInput> | UpdateLogCreateWithoutConfigInput[] | UpdateLogUncheckedCreateWithoutConfigInput[]
-    connectOrCreate?: UpdateLogCreateOrConnectWithoutConfigInput | UpdateLogCreateOrConnectWithoutConfigInput[]
-    createMany?: UpdateLogCreateManyConfigInputEnvelope
-    connect?: UpdateLogWhereUniqueInput | UpdateLogWhereUniqueInput[]
-  }
-
-  export type UpdateLogCreateNestedManyWithoutPreviousConfigInput = {
-    create?: XOR<UpdateLogCreateWithoutPreviousConfigInput, UpdateLogUncheckedCreateWithoutPreviousConfigInput> | UpdateLogCreateWithoutPreviousConfigInput[] | UpdateLogUncheckedCreateWithoutPreviousConfigInput[]
-    connectOrCreate?: UpdateLogCreateOrConnectWithoutPreviousConfigInput | UpdateLogCreateOrConnectWithoutPreviousConfigInput[]
-    createMany?: UpdateLogCreateManyPreviousConfigInputEnvelope
-    connect?: UpdateLogWhereUniqueInput | UpdateLogWhereUniqueInput[]
   }
 
   export type SectionUncheckedCreateNestedManyWithoutConfigInput = {
@@ -26087,18 +24062,10 @@ export namespace Prisma {
     connect?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
   }
 
-  export type ManualArticleUncheckedCreateNestedManyWithoutConfigInput = {
-    create?: XOR<ManualArticleCreateWithoutConfigInput, ManualArticleUncheckedCreateWithoutConfigInput> | ManualArticleCreateWithoutConfigInput[] | ManualArticleUncheckedCreateWithoutConfigInput[]
-    connectOrCreate?: ManualArticleCreateOrConnectWithoutConfigInput | ManualArticleCreateOrConnectWithoutConfigInput[]
-    createMany?: ManualArticleCreateManyConfigInputEnvelope
-    connect?: ManualArticleWhereUniqueInput | ManualArticleWhereUniqueInput[]
-  }
-
-  export type AutoSourceUncheckedCreateNestedManyWithoutConfigInput = {
-    create?: XOR<AutoSourceCreateWithoutConfigInput, AutoSourceUncheckedCreateWithoutConfigInput> | AutoSourceCreateWithoutConfigInput[] | AutoSourceUncheckedCreateWithoutConfigInput[]
-    connectOrCreate?: AutoSourceCreateOrConnectWithoutConfigInput | AutoSourceCreateOrConnectWithoutConfigInput[]
-    createMany?: AutoSourceCreateManyConfigInputEnvelope
-    connect?: AutoSourceWhereUniqueInput | AutoSourceWhereUniqueInput[]
+  export type ArticleUncheckedCreateNestedManyWithoutConfigsInput = {
+    create?: XOR<ArticleCreateWithoutConfigsInput, ArticleUncheckedCreateWithoutConfigsInput> | ArticleCreateWithoutConfigsInput[] | ArticleUncheckedCreateWithoutConfigsInput[]
+    connectOrCreate?: ArticleCreateOrConnectWithoutConfigsInput | ArticleCreateOrConnectWithoutConfigsInput[]
+    connect?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
   }
 
   export type ImageUncheckedCreateNestedManyWithoutConfigInput = {
@@ -26108,25 +24075,11 @@ export namespace Prisma {
     connect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
   }
 
-  export type UnitServerUncheckedCreateNestedManyWithoutActiveConfigInput = {
-    create?: XOR<UnitServerCreateWithoutActiveConfigInput, UnitServerUncheckedCreateWithoutActiveConfigInput> | UnitServerCreateWithoutActiveConfigInput[] | UnitServerUncheckedCreateWithoutActiveConfigInput[]
-    connectOrCreate?: UnitServerCreateOrConnectWithoutActiveConfigInput | UnitServerCreateOrConnectWithoutActiveConfigInput[]
-    createMany?: UnitServerCreateManyActiveConfigInputEnvelope
+  export type UnitServerUncheckedCreateNestedManyWithoutConfigInput = {
+    create?: XOR<UnitServerCreateWithoutConfigInput, UnitServerUncheckedCreateWithoutConfigInput> | UnitServerCreateWithoutConfigInput[] | UnitServerUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: UnitServerCreateOrConnectWithoutConfigInput | UnitServerCreateOrConnectWithoutConfigInput[]
+    createMany?: UnitServerCreateManyConfigInputEnvelope
     connect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
-  }
-
-  export type UpdateLogUncheckedCreateNestedManyWithoutConfigInput = {
-    create?: XOR<UpdateLogCreateWithoutConfigInput, UpdateLogUncheckedCreateWithoutConfigInput> | UpdateLogCreateWithoutConfigInput[] | UpdateLogUncheckedCreateWithoutConfigInput[]
-    connectOrCreate?: UpdateLogCreateOrConnectWithoutConfigInput | UpdateLogCreateOrConnectWithoutConfigInput[]
-    createMany?: UpdateLogCreateManyConfigInputEnvelope
-    connect?: UpdateLogWhereUniqueInput | UpdateLogWhereUniqueInput[]
-  }
-
-  export type UpdateLogUncheckedCreateNestedManyWithoutPreviousConfigInput = {
-    create?: XOR<UpdateLogCreateWithoutPreviousConfigInput, UpdateLogUncheckedCreateWithoutPreviousConfigInput> | UpdateLogCreateWithoutPreviousConfigInput[] | UpdateLogUncheckedCreateWithoutPreviousConfigInput[]
-    connectOrCreate?: UpdateLogCreateOrConnectWithoutPreviousConfigInput | UpdateLogCreateOrConnectWithoutPreviousConfigInput[]
-    createMany?: UpdateLogCreateManyPreviousConfigInputEnvelope
-    connect?: UpdateLogWhereUniqueInput | UpdateLogWhereUniqueInput[]
   }
 
   export type SectionUpdateManyWithoutConfigNestedInput = {
@@ -26143,32 +24096,17 @@ export namespace Prisma {
     deleteMany?: SectionScalarWhereInput | SectionScalarWhereInput[]
   }
 
-  export type ManualArticleUpdateManyWithoutConfigNestedInput = {
-    create?: XOR<ManualArticleCreateWithoutConfigInput, ManualArticleUncheckedCreateWithoutConfigInput> | ManualArticleCreateWithoutConfigInput[] | ManualArticleUncheckedCreateWithoutConfigInput[]
-    connectOrCreate?: ManualArticleCreateOrConnectWithoutConfigInput | ManualArticleCreateOrConnectWithoutConfigInput[]
-    upsert?: ManualArticleUpsertWithWhereUniqueWithoutConfigInput | ManualArticleUpsertWithWhereUniqueWithoutConfigInput[]
-    createMany?: ManualArticleCreateManyConfigInputEnvelope
-    set?: ManualArticleWhereUniqueInput | ManualArticleWhereUniqueInput[]
-    disconnect?: ManualArticleWhereUniqueInput | ManualArticleWhereUniqueInput[]
-    delete?: ManualArticleWhereUniqueInput | ManualArticleWhereUniqueInput[]
-    connect?: ManualArticleWhereUniqueInput | ManualArticleWhereUniqueInput[]
-    update?: ManualArticleUpdateWithWhereUniqueWithoutConfigInput | ManualArticleUpdateWithWhereUniqueWithoutConfigInput[]
-    updateMany?: ManualArticleUpdateManyWithWhereWithoutConfigInput | ManualArticleUpdateManyWithWhereWithoutConfigInput[]
-    deleteMany?: ManualArticleScalarWhereInput | ManualArticleScalarWhereInput[]
-  }
-
-  export type AutoSourceUpdateManyWithoutConfigNestedInput = {
-    create?: XOR<AutoSourceCreateWithoutConfigInput, AutoSourceUncheckedCreateWithoutConfigInput> | AutoSourceCreateWithoutConfigInput[] | AutoSourceUncheckedCreateWithoutConfigInput[]
-    connectOrCreate?: AutoSourceCreateOrConnectWithoutConfigInput | AutoSourceCreateOrConnectWithoutConfigInput[]
-    upsert?: AutoSourceUpsertWithWhereUniqueWithoutConfigInput | AutoSourceUpsertWithWhereUniqueWithoutConfigInput[]
-    createMany?: AutoSourceCreateManyConfigInputEnvelope
-    set?: AutoSourceWhereUniqueInput | AutoSourceWhereUniqueInput[]
-    disconnect?: AutoSourceWhereUniqueInput | AutoSourceWhereUniqueInput[]
-    delete?: AutoSourceWhereUniqueInput | AutoSourceWhereUniqueInput[]
-    connect?: AutoSourceWhereUniqueInput | AutoSourceWhereUniqueInput[]
-    update?: AutoSourceUpdateWithWhereUniqueWithoutConfigInput | AutoSourceUpdateWithWhereUniqueWithoutConfigInput[]
-    updateMany?: AutoSourceUpdateManyWithWhereWithoutConfigInput | AutoSourceUpdateManyWithWhereWithoutConfigInput[]
-    deleteMany?: AutoSourceScalarWhereInput | AutoSourceScalarWhereInput[]
+  export type ArticleUpdateManyWithoutConfigsNestedInput = {
+    create?: XOR<ArticleCreateWithoutConfigsInput, ArticleUncheckedCreateWithoutConfigsInput> | ArticleCreateWithoutConfigsInput[] | ArticleUncheckedCreateWithoutConfigsInput[]
+    connectOrCreate?: ArticleCreateOrConnectWithoutConfigsInput | ArticleCreateOrConnectWithoutConfigsInput[]
+    upsert?: ArticleUpsertWithWhereUniqueWithoutConfigsInput | ArticleUpsertWithWhereUniqueWithoutConfigsInput[]
+    set?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
+    disconnect?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
+    delete?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
+    connect?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
+    update?: ArticleUpdateWithWhereUniqueWithoutConfigsInput | ArticleUpdateWithWhereUniqueWithoutConfigsInput[]
+    updateMany?: ArticleUpdateManyWithWhereWithoutConfigsInput | ArticleUpdateManyWithWhereWithoutConfigsInput[]
+    deleteMany?: ArticleScalarWhereInput | ArticleScalarWhereInput[]
   }
 
   export type ImageUpdateManyWithoutConfigNestedInput = {
@@ -26185,46 +24123,18 @@ export namespace Prisma {
     deleteMany?: ImageScalarWhereInput | ImageScalarWhereInput[]
   }
 
-  export type UnitServerUpdateManyWithoutActiveConfigNestedInput = {
-    create?: XOR<UnitServerCreateWithoutActiveConfigInput, UnitServerUncheckedCreateWithoutActiveConfigInput> | UnitServerCreateWithoutActiveConfigInput[] | UnitServerUncheckedCreateWithoutActiveConfigInput[]
-    connectOrCreate?: UnitServerCreateOrConnectWithoutActiveConfigInput | UnitServerCreateOrConnectWithoutActiveConfigInput[]
-    upsert?: UnitServerUpsertWithWhereUniqueWithoutActiveConfigInput | UnitServerUpsertWithWhereUniqueWithoutActiveConfigInput[]
-    createMany?: UnitServerCreateManyActiveConfigInputEnvelope
+  export type UnitServerUpdateManyWithoutConfigNestedInput = {
+    create?: XOR<UnitServerCreateWithoutConfigInput, UnitServerUncheckedCreateWithoutConfigInput> | UnitServerCreateWithoutConfigInput[] | UnitServerUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: UnitServerCreateOrConnectWithoutConfigInput | UnitServerCreateOrConnectWithoutConfigInput[]
+    upsert?: UnitServerUpsertWithWhereUniqueWithoutConfigInput | UnitServerUpsertWithWhereUniqueWithoutConfigInput[]
+    createMany?: UnitServerCreateManyConfigInputEnvelope
     set?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
     disconnect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
     delete?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
     connect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
-    update?: UnitServerUpdateWithWhereUniqueWithoutActiveConfigInput | UnitServerUpdateWithWhereUniqueWithoutActiveConfigInput[]
-    updateMany?: UnitServerUpdateManyWithWhereWithoutActiveConfigInput | UnitServerUpdateManyWithWhereWithoutActiveConfigInput[]
+    update?: UnitServerUpdateWithWhereUniqueWithoutConfigInput | UnitServerUpdateWithWhereUniqueWithoutConfigInput[]
+    updateMany?: UnitServerUpdateManyWithWhereWithoutConfigInput | UnitServerUpdateManyWithWhereWithoutConfigInput[]
     deleteMany?: UnitServerScalarWhereInput | UnitServerScalarWhereInput[]
-  }
-
-  export type UpdateLogUpdateManyWithoutConfigNestedInput = {
-    create?: XOR<UpdateLogCreateWithoutConfigInput, UpdateLogUncheckedCreateWithoutConfigInput> | UpdateLogCreateWithoutConfigInput[] | UpdateLogUncheckedCreateWithoutConfigInput[]
-    connectOrCreate?: UpdateLogCreateOrConnectWithoutConfigInput | UpdateLogCreateOrConnectWithoutConfigInput[]
-    upsert?: UpdateLogUpsertWithWhereUniqueWithoutConfigInput | UpdateLogUpsertWithWhereUniqueWithoutConfigInput[]
-    createMany?: UpdateLogCreateManyConfigInputEnvelope
-    set?: UpdateLogWhereUniqueInput | UpdateLogWhereUniqueInput[]
-    disconnect?: UpdateLogWhereUniqueInput | UpdateLogWhereUniqueInput[]
-    delete?: UpdateLogWhereUniqueInput | UpdateLogWhereUniqueInput[]
-    connect?: UpdateLogWhereUniqueInput | UpdateLogWhereUniqueInput[]
-    update?: UpdateLogUpdateWithWhereUniqueWithoutConfigInput | UpdateLogUpdateWithWhereUniqueWithoutConfigInput[]
-    updateMany?: UpdateLogUpdateManyWithWhereWithoutConfigInput | UpdateLogUpdateManyWithWhereWithoutConfigInput[]
-    deleteMany?: UpdateLogScalarWhereInput | UpdateLogScalarWhereInput[]
-  }
-
-  export type UpdateLogUpdateManyWithoutPreviousConfigNestedInput = {
-    create?: XOR<UpdateLogCreateWithoutPreviousConfigInput, UpdateLogUncheckedCreateWithoutPreviousConfigInput> | UpdateLogCreateWithoutPreviousConfigInput[] | UpdateLogUncheckedCreateWithoutPreviousConfigInput[]
-    connectOrCreate?: UpdateLogCreateOrConnectWithoutPreviousConfigInput | UpdateLogCreateOrConnectWithoutPreviousConfigInput[]
-    upsert?: UpdateLogUpsertWithWhereUniqueWithoutPreviousConfigInput | UpdateLogUpsertWithWhereUniqueWithoutPreviousConfigInput[]
-    createMany?: UpdateLogCreateManyPreviousConfigInputEnvelope
-    set?: UpdateLogWhereUniqueInput | UpdateLogWhereUniqueInput[]
-    disconnect?: UpdateLogWhereUniqueInput | UpdateLogWhereUniqueInput[]
-    delete?: UpdateLogWhereUniqueInput | UpdateLogWhereUniqueInput[]
-    connect?: UpdateLogWhereUniqueInput | UpdateLogWhereUniqueInput[]
-    update?: UpdateLogUpdateWithWhereUniqueWithoutPreviousConfigInput | UpdateLogUpdateWithWhereUniqueWithoutPreviousConfigInput[]
-    updateMany?: UpdateLogUpdateManyWithWhereWithoutPreviousConfigInput | UpdateLogUpdateManyWithWhereWithoutPreviousConfigInput[]
-    deleteMany?: UpdateLogScalarWhereInput | UpdateLogScalarWhereInput[]
   }
 
   export type SectionUncheckedUpdateManyWithoutConfigNestedInput = {
@@ -26241,32 +24151,17 @@ export namespace Prisma {
     deleteMany?: SectionScalarWhereInput | SectionScalarWhereInput[]
   }
 
-  export type ManualArticleUncheckedUpdateManyWithoutConfigNestedInput = {
-    create?: XOR<ManualArticleCreateWithoutConfigInput, ManualArticleUncheckedCreateWithoutConfigInput> | ManualArticleCreateWithoutConfigInput[] | ManualArticleUncheckedCreateWithoutConfigInput[]
-    connectOrCreate?: ManualArticleCreateOrConnectWithoutConfigInput | ManualArticleCreateOrConnectWithoutConfigInput[]
-    upsert?: ManualArticleUpsertWithWhereUniqueWithoutConfigInput | ManualArticleUpsertWithWhereUniqueWithoutConfigInput[]
-    createMany?: ManualArticleCreateManyConfigInputEnvelope
-    set?: ManualArticleWhereUniqueInput | ManualArticleWhereUniqueInput[]
-    disconnect?: ManualArticleWhereUniqueInput | ManualArticleWhereUniqueInput[]
-    delete?: ManualArticleWhereUniqueInput | ManualArticleWhereUniqueInput[]
-    connect?: ManualArticleWhereUniqueInput | ManualArticleWhereUniqueInput[]
-    update?: ManualArticleUpdateWithWhereUniqueWithoutConfigInput | ManualArticleUpdateWithWhereUniqueWithoutConfigInput[]
-    updateMany?: ManualArticleUpdateManyWithWhereWithoutConfigInput | ManualArticleUpdateManyWithWhereWithoutConfigInput[]
-    deleteMany?: ManualArticleScalarWhereInput | ManualArticleScalarWhereInput[]
-  }
-
-  export type AutoSourceUncheckedUpdateManyWithoutConfigNestedInput = {
-    create?: XOR<AutoSourceCreateWithoutConfigInput, AutoSourceUncheckedCreateWithoutConfigInput> | AutoSourceCreateWithoutConfigInput[] | AutoSourceUncheckedCreateWithoutConfigInput[]
-    connectOrCreate?: AutoSourceCreateOrConnectWithoutConfigInput | AutoSourceCreateOrConnectWithoutConfigInput[]
-    upsert?: AutoSourceUpsertWithWhereUniqueWithoutConfigInput | AutoSourceUpsertWithWhereUniqueWithoutConfigInput[]
-    createMany?: AutoSourceCreateManyConfigInputEnvelope
-    set?: AutoSourceWhereUniqueInput | AutoSourceWhereUniqueInput[]
-    disconnect?: AutoSourceWhereUniqueInput | AutoSourceWhereUniqueInput[]
-    delete?: AutoSourceWhereUniqueInput | AutoSourceWhereUniqueInput[]
-    connect?: AutoSourceWhereUniqueInput | AutoSourceWhereUniqueInput[]
-    update?: AutoSourceUpdateWithWhereUniqueWithoutConfigInput | AutoSourceUpdateWithWhereUniqueWithoutConfigInput[]
-    updateMany?: AutoSourceUpdateManyWithWhereWithoutConfigInput | AutoSourceUpdateManyWithWhereWithoutConfigInput[]
-    deleteMany?: AutoSourceScalarWhereInput | AutoSourceScalarWhereInput[]
+  export type ArticleUncheckedUpdateManyWithoutConfigsNestedInput = {
+    create?: XOR<ArticleCreateWithoutConfigsInput, ArticleUncheckedCreateWithoutConfigsInput> | ArticleCreateWithoutConfigsInput[] | ArticleUncheckedCreateWithoutConfigsInput[]
+    connectOrCreate?: ArticleCreateOrConnectWithoutConfigsInput | ArticleCreateOrConnectWithoutConfigsInput[]
+    upsert?: ArticleUpsertWithWhereUniqueWithoutConfigsInput | ArticleUpsertWithWhereUniqueWithoutConfigsInput[]
+    set?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
+    disconnect?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
+    delete?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
+    connect?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
+    update?: ArticleUpdateWithWhereUniqueWithoutConfigsInput | ArticleUpdateWithWhereUniqueWithoutConfigsInput[]
+    updateMany?: ArticleUpdateManyWithWhereWithoutConfigsInput | ArticleUpdateManyWithWhereWithoutConfigsInput[]
+    deleteMany?: ArticleScalarWhereInput | ArticleScalarWhereInput[]
   }
 
   export type ImageUncheckedUpdateManyWithoutConfigNestedInput = {
@@ -26283,104 +24178,32 @@ export namespace Prisma {
     deleteMany?: ImageScalarWhereInput | ImageScalarWhereInput[]
   }
 
-  export type UnitServerUncheckedUpdateManyWithoutActiveConfigNestedInput = {
-    create?: XOR<UnitServerCreateWithoutActiveConfigInput, UnitServerUncheckedCreateWithoutActiveConfigInput> | UnitServerCreateWithoutActiveConfigInput[] | UnitServerUncheckedCreateWithoutActiveConfigInput[]
-    connectOrCreate?: UnitServerCreateOrConnectWithoutActiveConfigInput | UnitServerCreateOrConnectWithoutActiveConfigInput[]
-    upsert?: UnitServerUpsertWithWhereUniqueWithoutActiveConfigInput | UnitServerUpsertWithWhereUniqueWithoutActiveConfigInput[]
-    createMany?: UnitServerCreateManyActiveConfigInputEnvelope
+  export type UnitServerUncheckedUpdateManyWithoutConfigNestedInput = {
+    create?: XOR<UnitServerCreateWithoutConfigInput, UnitServerUncheckedCreateWithoutConfigInput> | UnitServerCreateWithoutConfigInput[] | UnitServerUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: UnitServerCreateOrConnectWithoutConfigInput | UnitServerCreateOrConnectWithoutConfigInput[]
+    upsert?: UnitServerUpsertWithWhereUniqueWithoutConfigInput | UnitServerUpsertWithWhereUniqueWithoutConfigInput[]
+    createMany?: UnitServerCreateManyConfigInputEnvelope
     set?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
     disconnect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
     delete?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
     connect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
-    update?: UnitServerUpdateWithWhereUniqueWithoutActiveConfigInput | UnitServerUpdateWithWhereUniqueWithoutActiveConfigInput[]
-    updateMany?: UnitServerUpdateManyWithWhereWithoutActiveConfigInput | UnitServerUpdateManyWithWhereWithoutActiveConfigInput[]
+    update?: UnitServerUpdateWithWhereUniqueWithoutConfigInput | UnitServerUpdateWithWhereUniqueWithoutConfigInput[]
+    updateMany?: UnitServerUpdateManyWithWhereWithoutConfigInput | UnitServerUpdateManyWithWhereWithoutConfigInput[]
     deleteMany?: UnitServerScalarWhereInput | UnitServerScalarWhereInput[]
   }
 
-  export type UpdateLogUncheckedUpdateManyWithoutConfigNestedInput = {
-    create?: XOR<UpdateLogCreateWithoutConfigInput, UpdateLogUncheckedCreateWithoutConfigInput> | UpdateLogCreateWithoutConfigInput[] | UpdateLogUncheckedCreateWithoutConfigInput[]
-    connectOrCreate?: UpdateLogCreateOrConnectWithoutConfigInput | UpdateLogCreateOrConnectWithoutConfigInput[]
-    upsert?: UpdateLogUpsertWithWhereUniqueWithoutConfigInput | UpdateLogUpsertWithWhereUniqueWithoutConfigInput[]
-    createMany?: UpdateLogCreateManyConfigInputEnvelope
-    set?: UpdateLogWhereUniqueInput | UpdateLogWhereUniqueInput[]
-    disconnect?: UpdateLogWhereUniqueInput | UpdateLogWhereUniqueInput[]
-    delete?: UpdateLogWhereUniqueInput | UpdateLogWhereUniqueInput[]
-    connect?: UpdateLogWhereUniqueInput | UpdateLogWhereUniqueInput[]
-    update?: UpdateLogUpdateWithWhereUniqueWithoutConfigInput | UpdateLogUpdateWithWhereUniqueWithoutConfigInput[]
-    updateMany?: UpdateLogUpdateManyWithWhereWithoutConfigInput | UpdateLogUpdateManyWithWhereWithoutConfigInput[]
-    deleteMany?: UpdateLogScalarWhereInput | UpdateLogScalarWhereInput[]
-  }
-
-  export type UpdateLogUncheckedUpdateManyWithoutPreviousConfigNestedInput = {
-    create?: XOR<UpdateLogCreateWithoutPreviousConfigInput, UpdateLogUncheckedCreateWithoutPreviousConfigInput> | UpdateLogCreateWithoutPreviousConfigInput[] | UpdateLogUncheckedCreateWithoutPreviousConfigInput[]
-    connectOrCreate?: UpdateLogCreateOrConnectWithoutPreviousConfigInput | UpdateLogCreateOrConnectWithoutPreviousConfigInput[]
-    upsert?: UpdateLogUpsertWithWhereUniqueWithoutPreviousConfigInput | UpdateLogUpsertWithWhereUniqueWithoutPreviousConfigInput[]
-    createMany?: UpdateLogCreateManyPreviousConfigInputEnvelope
-    set?: UpdateLogWhereUniqueInput | UpdateLogWhereUniqueInput[]
-    disconnect?: UpdateLogWhereUniqueInput | UpdateLogWhereUniqueInput[]
-    delete?: UpdateLogWhereUniqueInput | UpdateLogWhereUniqueInput[]
-    connect?: UpdateLogWhereUniqueInput | UpdateLogWhereUniqueInput[]
-    update?: UpdateLogUpdateWithWhereUniqueWithoutPreviousConfigInput | UpdateLogUpdateWithWhereUniqueWithoutPreviousConfigInput[]
-    updateMany?: UpdateLogUpdateManyWithWhereWithoutPreviousConfigInput | UpdateLogUpdateManyWithWhereWithoutPreviousConfigInput[]
-    deleteMany?: UpdateLogScalarWhereInput | UpdateLogScalarWhereInput[]
-  }
-
-  export type UnitServerCreateNestedOneWithoutUpdateLogsInput = {
-    create?: XOR<UnitServerCreateWithoutUpdateLogsInput, UnitServerUncheckedCreateWithoutUpdateLogsInput>
-    connectOrCreate?: UnitServerCreateOrConnectWithoutUpdateLogsInput
+  export type UnitServerCreateNestedOneWithoutServerLogsInput = {
+    create?: XOR<UnitServerCreateWithoutServerLogsInput, UnitServerUncheckedCreateWithoutServerLogsInput>
+    connectOrCreate?: UnitServerCreateOrConnectWithoutServerLogsInput
     connect?: UnitServerWhereUniqueInput
   }
 
-  export type UnitConfigCreateNestedOneWithoutUpdatesInput = {
-    create?: XOR<UnitConfigCreateWithoutUpdatesInput, UnitConfigUncheckedCreateWithoutUpdatesInput>
-    connectOrCreate?: UnitConfigCreateOrConnectWithoutUpdatesInput
-    connect?: UnitConfigWhereUniqueInput
-  }
-
-  export type UnitConfigCreateNestedOneWithoutPreviousUpdatesInput = {
-    create?: XOR<UnitConfigCreateWithoutPreviousUpdatesInput, UnitConfigUncheckedCreateWithoutPreviousUpdatesInput>
-    connectOrCreate?: UnitConfigCreateOrConnectWithoutPreviousUpdatesInput
-    connect?: UnitConfigWhereUniqueInput
-  }
-
-  export type UserCreateNestedOneWithoutInitiatedUpdatesInput = {
-    create?: XOR<UserCreateWithoutInitiatedUpdatesInput, UserUncheckedCreateWithoutInitiatedUpdatesInput>
-    connectOrCreate?: UserCreateOrConnectWithoutInitiatedUpdatesInput
-    connect?: UserWhereUniqueInput
-  }
-
-  export type UnitServerUpdateOneRequiredWithoutUpdateLogsNestedInput = {
-    create?: XOR<UnitServerCreateWithoutUpdateLogsInput, UnitServerUncheckedCreateWithoutUpdateLogsInput>
-    connectOrCreate?: UnitServerCreateOrConnectWithoutUpdateLogsInput
-    upsert?: UnitServerUpsertWithoutUpdateLogsInput
+  export type UnitServerUpdateOneRequiredWithoutServerLogsNestedInput = {
+    create?: XOR<UnitServerCreateWithoutServerLogsInput, UnitServerUncheckedCreateWithoutServerLogsInput>
+    connectOrCreate?: UnitServerCreateOrConnectWithoutServerLogsInput
+    upsert?: UnitServerUpsertWithoutServerLogsInput
     connect?: UnitServerWhereUniqueInput
-    update?: XOR<XOR<UnitServerUpdateToOneWithWhereWithoutUpdateLogsInput, UnitServerUpdateWithoutUpdateLogsInput>, UnitServerUncheckedUpdateWithoutUpdateLogsInput>
-  }
-
-  export type UnitConfigUpdateOneRequiredWithoutUpdatesNestedInput = {
-    create?: XOR<UnitConfigCreateWithoutUpdatesInput, UnitConfigUncheckedCreateWithoutUpdatesInput>
-    connectOrCreate?: UnitConfigCreateOrConnectWithoutUpdatesInput
-    upsert?: UnitConfigUpsertWithoutUpdatesInput
-    connect?: UnitConfigWhereUniqueInput
-    update?: XOR<XOR<UnitConfigUpdateToOneWithWhereWithoutUpdatesInput, UnitConfigUpdateWithoutUpdatesInput>, UnitConfigUncheckedUpdateWithoutUpdatesInput>
-  }
-
-  export type UnitConfigUpdateOneWithoutPreviousUpdatesNestedInput = {
-    create?: XOR<UnitConfigCreateWithoutPreviousUpdatesInput, UnitConfigUncheckedCreateWithoutPreviousUpdatesInput>
-    connectOrCreate?: UnitConfigCreateOrConnectWithoutPreviousUpdatesInput
-    upsert?: UnitConfigUpsertWithoutPreviousUpdatesInput
-    disconnect?: UnitConfigWhereInput | boolean
-    delete?: UnitConfigWhereInput | boolean
-    connect?: UnitConfigWhereUniqueInput
-    update?: XOR<XOR<UnitConfigUpdateToOneWithWhereWithoutPreviousUpdatesInput, UnitConfigUpdateWithoutPreviousUpdatesInput>, UnitConfigUncheckedUpdateWithoutPreviousUpdatesInput>
-  }
-
-  export type UserUpdateOneRequiredWithoutInitiatedUpdatesNestedInput = {
-    create?: XOR<UserCreateWithoutInitiatedUpdatesInput, UserUncheckedCreateWithoutInitiatedUpdatesInput>
-    connectOrCreate?: UserCreateOrConnectWithoutInitiatedUpdatesInput
-    upsert?: UserUpsertWithoutInitiatedUpdatesInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutInitiatedUpdatesInput, UserUpdateWithoutInitiatedUpdatesInput>, UserUncheckedUpdateWithoutInitiatedUpdatesInput>
+    update?: XOR<XOR<UnitServerUpdateToOneWithWhereWithoutServerLogsInput, UnitServerUpdateWithoutServerLogsInput>, UnitServerUncheckedUpdateWithoutServerLogsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -26744,40 +24567,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type UpdateLogCreateWithoutInitiatorInput = {
-    id?: string
-    status: string
-    description?: string | null
-    startedAt?: Date | string
-    completedAt?: Date | string | null
-    errorDetails?: string | null
-    server: UnitServerCreateNestedOneWithoutUpdateLogsInput
-    config: UnitConfigCreateNestedOneWithoutUpdatesInput
-    previousConfig?: UnitConfigCreateNestedOneWithoutPreviousUpdatesInput
-  }
-
-  export type UpdateLogUncheckedCreateWithoutInitiatorInput = {
-    id?: string
-    serverId: string
-    configId: string
-    previousConfigId?: string | null
-    status: string
-    description?: string | null
-    startedAt?: Date | string
-    completedAt?: Date | string | null
-    errorDetails?: string | null
-  }
-
-  export type UpdateLogCreateOrConnectWithoutInitiatorInput = {
-    where: UpdateLogWhereUniqueInput
-    create: XOR<UpdateLogCreateWithoutInitiatorInput, UpdateLogUncheckedCreateWithoutInitiatorInput>
-  }
-
-  export type UpdateLogCreateManyInitiatorInputEnvelope = {
-    data: UpdateLogCreateManyInitiatorInput | UpdateLogCreateManyInitiatorInput[]
-    skipDuplicates?: boolean
-  }
-
   export type ClientUpsertWithWhereUniqueWithoutUserInput = {
     where: ClientWhereUniqueInput
     update: XOR<ClientUpdateWithoutUserInput, ClientUncheckedUpdateWithoutUserInput>
@@ -26829,38 +24618,6 @@ export namespace Prisma {
     serverId?: StringFilter<"Professional"> | string
   }
 
-  export type UpdateLogUpsertWithWhereUniqueWithoutInitiatorInput = {
-    where: UpdateLogWhereUniqueInput
-    update: XOR<UpdateLogUpdateWithoutInitiatorInput, UpdateLogUncheckedUpdateWithoutInitiatorInput>
-    create: XOR<UpdateLogCreateWithoutInitiatorInput, UpdateLogUncheckedCreateWithoutInitiatorInput>
-  }
-
-  export type UpdateLogUpdateWithWhereUniqueWithoutInitiatorInput = {
-    where: UpdateLogWhereUniqueInput
-    data: XOR<UpdateLogUpdateWithoutInitiatorInput, UpdateLogUncheckedUpdateWithoutInitiatorInput>
-  }
-
-  export type UpdateLogUpdateManyWithWhereWithoutInitiatorInput = {
-    where: UpdateLogScalarWhereInput
-    data: XOR<UpdateLogUpdateManyMutationInput, UpdateLogUncheckedUpdateManyWithoutInitiatorInput>
-  }
-
-  export type UpdateLogScalarWhereInput = {
-    AND?: UpdateLogScalarWhereInput | UpdateLogScalarWhereInput[]
-    OR?: UpdateLogScalarWhereInput[]
-    NOT?: UpdateLogScalarWhereInput | UpdateLogScalarWhereInput[]
-    id?: StringFilter<"UpdateLog"> | string
-    serverId?: StringFilter<"UpdateLog"> | string
-    configId?: StringFilter<"UpdateLog"> | string
-    previousConfigId?: StringNullableFilter<"UpdateLog"> | string | null
-    status?: StringFilter<"UpdateLog"> | string
-    initiatorId?: StringFilter<"UpdateLog"> | string
-    description?: StringNullableFilter<"UpdateLog"> | string | null
-    startedAt?: DateTimeFilter<"UpdateLog"> | Date | string
-    completedAt?: DateTimeNullableFilter<"UpdateLog"> | Date | string | null
-    errorDetails?: StringNullableFilter<"UpdateLog"> | string | null
-  }
-
   export type UserCreateWithoutClientsInput = {
     id?: string
     email: string
@@ -26876,7 +24633,6 @@ export namespace Prisma {
     updatedAt?: Date | string
     lastLoginAt?: Date | string | null
     professionals?: ProfessionalCreateNestedManyWithoutUserInput
-    initiatedUpdates?: UpdateLogCreateNestedManyWithoutInitiatorInput
   }
 
   export type UserUncheckedCreateWithoutClientsInput = {
@@ -26894,7 +24650,6 @@ export namespace Prisma {
     updatedAt?: Date | string
     lastLoginAt?: Date | string | null
     professionals?: ProfessionalUncheckedCreateNestedManyWithoutUserInput
-    initiatedUpdates?: UpdateLogUncheckedCreateNestedManyWithoutInitiatorInput
   }
 
   export type UserCreateOrConnectWithoutClientsInput = {
@@ -26913,13 +24668,11 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     constellation: ConstellationCreateNestedOneWithoutServersInput
-    activeConfig?: UnitConfigCreateNestedOneWithoutActiveInServersInput
+    config?: UnitConfigCreateNestedOneWithoutServersInput
     professionals?: ProfessionalCreateNestedManyWithoutServerInput
     cases?: CaseCreateNestedManyWithoutServerInput
     sections?: SectionCreateNestedManyWithoutServerInput
-    manualArticles?: ManualArticleCreateNestedManyWithoutServerInput
-    autoSources?: AutoSourceCreateNestedManyWithoutServerInput
-    updateLogs?: UpdateLogCreateNestedManyWithoutServerInput
+    serverLogs?: ServerLogCreateNestedManyWithoutServerInput
   }
 
   export type UnitServerUncheckedCreateWithoutClientsInput = {
@@ -26931,15 +24684,13 @@ export namespace Prisma {
     requiresUpdate?: boolean
     isActive?: boolean
     constellationId: string
-    activeConfigId?: string | null
+    configId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     professionals?: ProfessionalUncheckedCreateNestedManyWithoutServerInput
     cases?: CaseUncheckedCreateNestedManyWithoutServerInput
     sections?: SectionUncheckedCreateNestedManyWithoutServerInput
-    manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutServerInput
-    autoSources?: AutoSourceUncheckedCreateNestedManyWithoutServerInput
-    updateLogs?: UpdateLogUncheckedCreateNestedManyWithoutServerInput
+    serverLogs?: ServerLogUncheckedCreateNestedManyWithoutServerInput
   }
 
   export type UnitServerCreateOrConnectWithoutClientsInput = {
@@ -27061,7 +24812,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     professionals?: ProfessionalUpdateManyWithoutUserNestedInput
-    initiatedUpdates?: UpdateLogUpdateManyWithoutInitiatorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutClientsInput = {
@@ -27079,7 +24829,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     professionals?: ProfessionalUncheckedUpdateManyWithoutUserNestedInput
-    initiatedUpdates?: UpdateLogUncheckedUpdateManyWithoutInitiatorNestedInput
   }
 
   export type UnitServerUpsertWithoutClientsInput = {
@@ -27104,13 +24853,11 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     constellation?: ConstellationUpdateOneRequiredWithoutServersNestedInput
-    activeConfig?: UnitConfigUpdateOneWithoutActiveInServersNestedInput
+    config?: UnitConfigUpdateOneWithoutServersNestedInput
     professionals?: ProfessionalUpdateManyWithoutServerNestedInput
     cases?: CaseUpdateManyWithoutServerNestedInput
     sections?: SectionUpdateManyWithoutServerNestedInput
-    manualArticles?: ManualArticleUpdateManyWithoutServerNestedInput
-    autoSources?: AutoSourceUpdateManyWithoutServerNestedInput
-    updateLogs?: UpdateLogUpdateManyWithoutServerNestedInput
+    serverLogs?: ServerLogUpdateManyWithoutServerNestedInput
   }
 
   export type UnitServerUncheckedUpdateWithoutClientsInput = {
@@ -27122,15 +24869,13 @@ export namespace Prisma {
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     constellationId?: StringFieldUpdateOperationsInput | string
-    activeConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    configId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     professionals?: ProfessionalUncheckedUpdateManyWithoutServerNestedInput
     cases?: CaseUncheckedUpdateManyWithoutServerNestedInput
     sections?: SectionUncheckedUpdateManyWithoutServerNestedInput
-    manualArticles?: ManualArticleUncheckedUpdateManyWithoutServerNestedInput
-    autoSources?: AutoSourceUncheckedUpdateManyWithoutServerNestedInput
-    updateLogs?: UpdateLogUncheckedUpdateManyWithoutServerNestedInput
+    serverLogs?: ServerLogUncheckedUpdateManyWithoutServerNestedInput
   }
 
   export type CaseUpsertWithWhereUniqueWithoutClientInput = {
@@ -27234,7 +24979,6 @@ export namespace Prisma {
     updatedAt?: Date | string
     lastLoginAt?: Date | string | null
     clients?: ClientCreateNestedManyWithoutUserInput
-    initiatedUpdates?: UpdateLogCreateNestedManyWithoutInitiatorInput
   }
 
   export type UserUncheckedCreateWithoutProfessionalsInput = {
@@ -27252,7 +24996,6 @@ export namespace Prisma {
     updatedAt?: Date | string
     lastLoginAt?: Date | string | null
     clients?: ClientUncheckedCreateNestedManyWithoutUserInput
-    initiatedUpdates?: UpdateLogUncheckedCreateNestedManyWithoutInitiatorInput
   }
 
   export type UserCreateOrConnectWithoutProfessionalsInput = {
@@ -27271,13 +25014,11 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     constellation: ConstellationCreateNestedOneWithoutServersInput
-    activeConfig?: UnitConfigCreateNestedOneWithoutActiveInServersInput
+    config?: UnitConfigCreateNestedOneWithoutServersInput
     clients?: ClientCreateNestedManyWithoutServerInput
     cases?: CaseCreateNestedManyWithoutServerInput
     sections?: SectionCreateNestedManyWithoutServerInput
-    manualArticles?: ManualArticleCreateNestedManyWithoutServerInput
-    autoSources?: AutoSourceCreateNestedManyWithoutServerInput
-    updateLogs?: UpdateLogCreateNestedManyWithoutServerInput
+    serverLogs?: ServerLogCreateNestedManyWithoutServerInput
   }
 
   export type UnitServerUncheckedCreateWithoutProfessionalsInput = {
@@ -27289,15 +25030,13 @@ export namespace Prisma {
     requiresUpdate?: boolean
     isActive?: boolean
     constellationId: string
-    activeConfigId?: string | null
+    configId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     clients?: ClientUncheckedCreateNestedManyWithoutServerInput
     cases?: CaseUncheckedCreateNestedManyWithoutServerInput
     sections?: SectionUncheckedCreateNestedManyWithoutServerInput
-    manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutServerInput
-    autoSources?: AutoSourceUncheckedCreateNestedManyWithoutServerInput
-    updateLogs?: UpdateLogUncheckedCreateNestedManyWithoutServerInput
+    serverLogs?: ServerLogUncheckedCreateNestedManyWithoutServerInput
   }
 
   export type UnitServerCreateOrConnectWithoutProfessionalsInput = {
@@ -27395,7 +25134,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     clients?: ClientUpdateManyWithoutUserNestedInput
-    initiatedUpdates?: UpdateLogUpdateManyWithoutInitiatorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProfessionalsInput = {
@@ -27413,7 +25151,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     clients?: ClientUncheckedUpdateManyWithoutUserNestedInput
-    initiatedUpdates?: UpdateLogUncheckedUpdateManyWithoutInitiatorNestedInput
   }
 
   export type UnitServerUpsertWithoutProfessionalsInput = {
@@ -27438,13 +25175,11 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     constellation?: ConstellationUpdateOneRequiredWithoutServersNestedInput
-    activeConfig?: UnitConfigUpdateOneWithoutActiveInServersNestedInput
+    config?: UnitConfigUpdateOneWithoutServersNestedInput
     clients?: ClientUpdateManyWithoutServerNestedInput
     cases?: CaseUpdateManyWithoutServerNestedInput
     sections?: SectionUpdateManyWithoutServerNestedInput
-    manualArticles?: ManualArticleUpdateManyWithoutServerNestedInput
-    autoSources?: AutoSourceUpdateManyWithoutServerNestedInput
-    updateLogs?: UpdateLogUpdateManyWithoutServerNestedInput
+    serverLogs?: ServerLogUpdateManyWithoutServerNestedInput
   }
 
   export type UnitServerUncheckedUpdateWithoutProfessionalsInput = {
@@ -27456,15 +25191,13 @@ export namespace Prisma {
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     constellationId?: StringFieldUpdateOperationsInput | string
-    activeConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    configId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     clients?: ClientUncheckedUpdateManyWithoutServerNestedInput
     cases?: CaseUncheckedUpdateManyWithoutServerNestedInput
     sections?: SectionUncheckedUpdateManyWithoutServerNestedInput
-    manualArticles?: ManualArticleUncheckedUpdateManyWithoutServerNestedInput
-    autoSources?: AutoSourceUncheckedUpdateManyWithoutServerNestedInput
-    updateLogs?: UpdateLogUncheckedUpdateManyWithoutServerNestedInput
+    serverLogs?: ServerLogUncheckedUpdateManyWithoutServerNestedInput
   }
 
   export type CaseUpsertWithWhereUniqueWithoutProfessionalInput = {
@@ -27552,13 +25285,11 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     constellation: ConstellationCreateNestedOneWithoutServersInput
-    activeConfig?: UnitConfigCreateNestedOneWithoutActiveInServersInput
+    config?: UnitConfigCreateNestedOneWithoutServersInput
     clients?: ClientCreateNestedManyWithoutServerInput
     professionals?: ProfessionalCreateNestedManyWithoutServerInput
     sections?: SectionCreateNestedManyWithoutServerInput
-    manualArticles?: ManualArticleCreateNestedManyWithoutServerInput
-    autoSources?: AutoSourceCreateNestedManyWithoutServerInput
-    updateLogs?: UpdateLogCreateNestedManyWithoutServerInput
+    serverLogs?: ServerLogCreateNestedManyWithoutServerInput
   }
 
   export type UnitServerUncheckedCreateWithoutCasesInput = {
@@ -27570,15 +25301,13 @@ export namespace Prisma {
     requiresUpdate?: boolean
     isActive?: boolean
     constellationId: string
-    activeConfigId?: string | null
+    configId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     clients?: ClientUncheckedCreateNestedManyWithoutServerInput
     professionals?: ProfessionalUncheckedCreateNestedManyWithoutServerInput
     sections?: SectionUncheckedCreateNestedManyWithoutServerInput
-    manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutServerInput
-    autoSources?: AutoSourceUncheckedCreateNestedManyWithoutServerInput
-    updateLogs?: UpdateLogUncheckedCreateNestedManyWithoutServerInput
+    serverLogs?: ServerLogUncheckedCreateNestedManyWithoutServerInput
   }
 
   export type UnitServerCreateOrConnectWithoutCasesInput = {
@@ -27731,13 +25460,11 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     constellation?: ConstellationUpdateOneRequiredWithoutServersNestedInput
-    activeConfig?: UnitConfigUpdateOneWithoutActiveInServersNestedInput
+    config?: UnitConfigUpdateOneWithoutServersNestedInput
     clients?: ClientUpdateManyWithoutServerNestedInput
     professionals?: ProfessionalUpdateManyWithoutServerNestedInput
     sections?: SectionUpdateManyWithoutServerNestedInput
-    manualArticles?: ManualArticleUpdateManyWithoutServerNestedInput
-    autoSources?: AutoSourceUpdateManyWithoutServerNestedInput
-    updateLogs?: UpdateLogUpdateManyWithoutServerNestedInput
+    serverLogs?: ServerLogUpdateManyWithoutServerNestedInput
   }
 
   export type UnitServerUncheckedUpdateWithoutCasesInput = {
@@ -27749,15 +25476,13 @@ export namespace Prisma {
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     constellationId?: StringFieldUpdateOperationsInput | string
-    activeConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    configId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     clients?: ClientUncheckedUpdateManyWithoutServerNestedInput
     professionals?: ProfessionalUncheckedUpdateManyWithoutServerNestedInput
     sections?: SectionUncheckedUpdateManyWithoutServerNestedInput
-    manualArticles?: ManualArticleUncheckedUpdateManyWithoutServerNestedInput
-    autoSources?: AutoSourceUncheckedUpdateManyWithoutServerNestedInput
-    updateLogs?: UpdateLogUncheckedUpdateManyWithoutServerNestedInput
+    serverLogs?: ServerLogUncheckedUpdateManyWithoutServerNestedInput
   }
 
   export type ChatUpsertWithoutCaseInput = {
@@ -28250,14 +25975,12 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    activeConfig?: UnitConfigCreateNestedOneWithoutActiveInServersInput
+    config?: UnitConfigCreateNestedOneWithoutServersInput
     clients?: ClientCreateNestedManyWithoutServerInput
     professionals?: ProfessionalCreateNestedManyWithoutServerInput
     cases?: CaseCreateNestedManyWithoutServerInput
     sections?: SectionCreateNestedManyWithoutServerInput
-    manualArticles?: ManualArticleCreateNestedManyWithoutServerInput
-    autoSources?: AutoSourceCreateNestedManyWithoutServerInput
-    updateLogs?: UpdateLogCreateNestedManyWithoutServerInput
+    serverLogs?: ServerLogCreateNestedManyWithoutServerInput
   }
 
   export type UnitServerUncheckedCreateWithoutConstellationInput = {
@@ -28268,16 +25991,14 @@ export namespace Prisma {
     unitToken: string
     requiresUpdate?: boolean
     isActive?: boolean
-    activeConfigId?: string | null
+    configId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     clients?: ClientUncheckedCreateNestedManyWithoutServerInput
     professionals?: ProfessionalUncheckedCreateNestedManyWithoutServerInput
     cases?: CaseUncheckedCreateNestedManyWithoutServerInput
     sections?: SectionUncheckedCreateNestedManyWithoutServerInput
-    manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutServerInput
-    autoSources?: AutoSourceUncheckedCreateNestedManyWithoutServerInput
-    updateLogs?: UpdateLogUncheckedCreateNestedManyWithoutServerInput
+    serverLogs?: ServerLogUncheckedCreateNestedManyWithoutServerInput
   }
 
   export type UnitServerCreateOrConnectWithoutConstellationInput = {
@@ -28318,7 +26039,7 @@ export namespace Prisma {
     requiresUpdate?: BoolFilter<"UnitServer"> | boolean
     isActive?: BoolFilter<"UnitServer"> | boolean
     constellationId?: StringFilter<"UnitServer"> | string
-    activeConfigId?: StringNullableFilter<"UnitServer"> | string | null
+    configId?: StringNullableFilter<"UnitServer"> | string | null
     createdAt?: DateTimeFilter<"UnitServer"> | Date | string
     updatedAt?: DateTimeFilter<"UnitServer"> | Date | string
   }
@@ -28336,12 +26057,9 @@ export namespace Prisma {
     infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
-    manualArticles?: ManualArticleCreateNestedManyWithoutConfigInput
-    autoSources?: AutoSourceCreateNestedManyWithoutConfigInput
+    articles?: ArticleCreateNestedManyWithoutConfigsInput
     images?: ImageCreateNestedManyWithoutConfigInput
-    activeInServers?: UnitServerCreateNestedManyWithoutActiveConfigInput
-    updates?: UpdateLogCreateNestedManyWithoutConfigInput
-    previousUpdates?: UpdateLogCreateNestedManyWithoutPreviousConfigInput
+    servers?: UnitServerCreateNestedManyWithoutConfigInput
   }
 
   export type UnitConfigUncheckedCreateWithoutSectionsInput = {
@@ -28357,12 +26075,9 @@ export namespace Prisma {
     infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
-    manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutConfigInput
-    autoSources?: AutoSourceUncheckedCreateNestedManyWithoutConfigInput
+    articles?: ArticleUncheckedCreateNestedManyWithoutConfigsInput
     images?: ImageUncheckedCreateNestedManyWithoutConfigInput
-    activeInServers?: UnitServerUncheckedCreateNestedManyWithoutActiveConfigInput
-    updates?: UpdateLogUncheckedCreateNestedManyWithoutConfigInput
-    previousUpdates?: UpdateLogUncheckedCreateNestedManyWithoutPreviousConfigInput
+    servers?: UnitServerUncheckedCreateNestedManyWithoutConfigInput
   }
 
   export type UnitConfigCreateOrConnectWithoutSectionsInput = {
@@ -28381,13 +26096,11 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     constellation: ConstellationCreateNestedOneWithoutServersInput
-    activeConfig?: UnitConfigCreateNestedOneWithoutActiveInServersInput
+    config?: UnitConfigCreateNestedOneWithoutServersInput
     clients?: ClientCreateNestedManyWithoutServerInput
     professionals?: ProfessionalCreateNestedManyWithoutServerInput
     cases?: CaseCreateNestedManyWithoutServerInput
-    manualArticles?: ManualArticleCreateNestedManyWithoutServerInput
-    autoSources?: AutoSourceCreateNestedManyWithoutServerInput
-    updateLogs?: UpdateLogCreateNestedManyWithoutServerInput
+    serverLogs?: ServerLogCreateNestedManyWithoutServerInput
   }
 
   export type UnitServerUncheckedCreateWithoutSectionsInput = {
@@ -28399,15 +26112,13 @@ export namespace Prisma {
     requiresUpdate?: boolean
     isActive?: boolean
     constellationId: string
-    activeConfigId?: string | null
+    configId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     clients?: ClientUncheckedCreateNestedManyWithoutServerInput
     professionals?: ProfessionalUncheckedCreateNestedManyWithoutServerInput
     cases?: CaseUncheckedCreateNestedManyWithoutServerInput
-    manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutServerInput
-    autoSources?: AutoSourceUncheckedCreateNestedManyWithoutServerInput
-    updateLogs?: UpdateLogUncheckedCreateNestedManyWithoutServerInput
+    serverLogs?: ServerLogUncheckedCreateNestedManyWithoutServerInput
   }
 
   export type UnitServerCreateOrConnectWithoutSectionsInput = {
@@ -28439,12 +26150,9 @@ export namespace Prisma {
     infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    manualArticles?: ManualArticleUpdateManyWithoutConfigNestedInput
-    autoSources?: AutoSourceUpdateManyWithoutConfigNestedInput
+    articles?: ArticleUpdateManyWithoutConfigsNestedInput
     images?: ImageUpdateManyWithoutConfigNestedInput
-    activeInServers?: UnitServerUpdateManyWithoutActiveConfigNestedInput
-    updates?: UpdateLogUpdateManyWithoutConfigNestedInput
-    previousUpdates?: UpdateLogUpdateManyWithoutPreviousConfigNestedInput
+    servers?: UnitServerUpdateManyWithoutConfigNestedInput
   }
 
   export type UnitConfigUncheckedUpdateWithoutSectionsInput = {
@@ -28460,12 +26168,9 @@ export namespace Prisma {
     infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    manualArticles?: ManualArticleUncheckedUpdateManyWithoutConfigNestedInput
-    autoSources?: AutoSourceUncheckedUpdateManyWithoutConfigNestedInput
+    articles?: ArticleUncheckedUpdateManyWithoutConfigsNestedInput
     images?: ImageUncheckedUpdateManyWithoutConfigNestedInput
-    activeInServers?: UnitServerUncheckedUpdateManyWithoutActiveConfigNestedInput
-    updates?: UpdateLogUncheckedUpdateManyWithoutConfigNestedInput
-    previousUpdates?: UpdateLogUncheckedUpdateManyWithoutPreviousConfigNestedInput
+    servers?: UnitServerUncheckedUpdateManyWithoutConfigNestedInput
   }
 
   export type UnitServerUpsertWithoutSectionsInput = {
@@ -28490,13 +26195,11 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     constellation?: ConstellationUpdateOneRequiredWithoutServersNestedInput
-    activeConfig?: UnitConfigUpdateOneWithoutActiveInServersNestedInput
+    config?: UnitConfigUpdateOneWithoutServersNestedInput
     clients?: ClientUpdateManyWithoutServerNestedInput
     professionals?: ProfessionalUpdateManyWithoutServerNestedInput
     cases?: CaseUpdateManyWithoutServerNestedInput
-    manualArticles?: ManualArticleUpdateManyWithoutServerNestedInput
-    autoSources?: AutoSourceUpdateManyWithoutServerNestedInput
-    updateLogs?: UpdateLogUpdateManyWithoutServerNestedInput
+    serverLogs?: ServerLogUpdateManyWithoutServerNestedInput
   }
 
   export type UnitServerUncheckedUpdateWithoutSectionsInput = {
@@ -28508,407 +26211,13 @@ export namespace Prisma {
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     constellationId?: StringFieldUpdateOperationsInput | string
-    activeConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    configId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     clients?: ClientUncheckedUpdateManyWithoutServerNestedInput
     professionals?: ProfessionalUncheckedUpdateManyWithoutServerNestedInput
     cases?: CaseUncheckedUpdateManyWithoutServerNestedInput
-    manualArticles?: ManualArticleUncheckedUpdateManyWithoutServerNestedInput
-    autoSources?: AutoSourceUncheckedUpdateManyWithoutServerNestedInput
-    updateLogs?: UpdateLogUncheckedUpdateManyWithoutServerNestedInput
-  }
-
-  export type UnitConfigCreateWithoutManualArticlesInput = {
-    id?: string
-    name: string
-    pageTitle: string
-    footerInfo?: string | null
-    legalStepsCount?: number
-    pageType: string
-    externalLinks?: NullableJsonNullValueInput | InputJsonValue
-    newsParams?: NullableJsonNullValueInput | InputJsonValue
-    selectedNews?: NullableJsonNullValueInput | InputJsonValue
-    infoSections?: NullableJsonNullValueInput | InputJsonValue
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    sections?: SectionCreateNestedManyWithoutConfigInput
-    autoSources?: AutoSourceCreateNestedManyWithoutConfigInput
-    images?: ImageCreateNestedManyWithoutConfigInput
-    activeInServers?: UnitServerCreateNestedManyWithoutActiveConfigInput
-    updates?: UpdateLogCreateNestedManyWithoutConfigInput
-    previousUpdates?: UpdateLogCreateNestedManyWithoutPreviousConfigInput
-  }
-
-  export type UnitConfigUncheckedCreateWithoutManualArticlesInput = {
-    id?: string
-    name: string
-    pageTitle: string
-    footerInfo?: string | null
-    legalStepsCount?: number
-    pageType: string
-    externalLinks?: NullableJsonNullValueInput | InputJsonValue
-    newsParams?: NullableJsonNullValueInput | InputJsonValue
-    selectedNews?: NullableJsonNullValueInput | InputJsonValue
-    infoSections?: NullableJsonNullValueInput | InputJsonValue
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    sections?: SectionUncheckedCreateNestedManyWithoutConfigInput
-    autoSources?: AutoSourceUncheckedCreateNestedManyWithoutConfigInput
-    images?: ImageUncheckedCreateNestedManyWithoutConfigInput
-    activeInServers?: UnitServerUncheckedCreateNestedManyWithoutActiveConfigInput
-    updates?: UpdateLogUncheckedCreateNestedManyWithoutConfigInput
-    previousUpdates?: UpdateLogUncheckedCreateNestedManyWithoutPreviousConfigInput
-  }
-
-  export type UnitConfigCreateOrConnectWithoutManualArticlesInput = {
-    where: UnitConfigWhereUniqueInput
-    create: XOR<UnitConfigCreateWithoutManualArticlesInput, UnitConfigUncheckedCreateWithoutManualArticlesInput>
-  }
-
-  export type UnitServerCreateWithoutManualArticlesInput = {
-    id?: string
-    domain: string
-    name: string
-    orchestratorToken: string
-    unitToken: string
-    requiresUpdate?: boolean
-    isActive?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    constellation: ConstellationCreateNestedOneWithoutServersInput
-    activeConfig?: UnitConfigCreateNestedOneWithoutActiveInServersInput
-    clients?: ClientCreateNestedManyWithoutServerInput
-    professionals?: ProfessionalCreateNestedManyWithoutServerInput
-    cases?: CaseCreateNestedManyWithoutServerInput
-    sections?: SectionCreateNestedManyWithoutServerInput
-    autoSources?: AutoSourceCreateNestedManyWithoutServerInput
-    updateLogs?: UpdateLogCreateNestedManyWithoutServerInput
-  }
-
-  export type UnitServerUncheckedCreateWithoutManualArticlesInput = {
-    id?: string
-    domain: string
-    name: string
-    orchestratorToken: string
-    unitToken: string
-    requiresUpdate?: boolean
-    isActive?: boolean
-    constellationId: string
-    activeConfigId?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    clients?: ClientUncheckedCreateNestedManyWithoutServerInput
-    professionals?: ProfessionalUncheckedCreateNestedManyWithoutServerInput
-    cases?: CaseUncheckedCreateNestedManyWithoutServerInput
-    sections?: SectionUncheckedCreateNestedManyWithoutServerInput
-    autoSources?: AutoSourceUncheckedCreateNestedManyWithoutServerInput
-    updateLogs?: UpdateLogUncheckedCreateNestedManyWithoutServerInput
-  }
-
-  export type UnitServerCreateOrConnectWithoutManualArticlesInput = {
-    where: UnitServerWhereUniqueInput
-    create: XOR<UnitServerCreateWithoutManualArticlesInput, UnitServerUncheckedCreateWithoutManualArticlesInput>
-  }
-
-  export type UnitConfigUpsertWithoutManualArticlesInput = {
-    update: XOR<UnitConfigUpdateWithoutManualArticlesInput, UnitConfigUncheckedUpdateWithoutManualArticlesInput>
-    create: XOR<UnitConfigCreateWithoutManualArticlesInput, UnitConfigUncheckedCreateWithoutManualArticlesInput>
-    where?: UnitConfigWhereInput
-  }
-
-  export type UnitConfigUpdateToOneWithWhereWithoutManualArticlesInput = {
-    where?: UnitConfigWhereInput
-    data: XOR<UnitConfigUpdateWithoutManualArticlesInput, UnitConfigUncheckedUpdateWithoutManualArticlesInput>
-  }
-
-  export type UnitConfigUpdateWithoutManualArticlesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    pageTitle?: StringFieldUpdateOperationsInput | string
-    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
-    legalStepsCount?: IntFieldUpdateOperationsInput | number
-    pageType?: StringFieldUpdateOperationsInput | string
-    externalLinks?: NullableJsonNullValueInput | InputJsonValue
-    newsParams?: NullableJsonNullValueInput | InputJsonValue
-    selectedNews?: NullableJsonNullValueInput | InputJsonValue
-    infoSections?: NullableJsonNullValueInput | InputJsonValue
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    sections?: SectionUpdateManyWithoutConfigNestedInput
-    autoSources?: AutoSourceUpdateManyWithoutConfigNestedInput
-    images?: ImageUpdateManyWithoutConfigNestedInput
-    activeInServers?: UnitServerUpdateManyWithoutActiveConfigNestedInput
-    updates?: UpdateLogUpdateManyWithoutConfigNestedInput
-    previousUpdates?: UpdateLogUpdateManyWithoutPreviousConfigNestedInput
-  }
-
-  export type UnitConfigUncheckedUpdateWithoutManualArticlesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    pageTitle?: StringFieldUpdateOperationsInput | string
-    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
-    legalStepsCount?: IntFieldUpdateOperationsInput | number
-    pageType?: StringFieldUpdateOperationsInput | string
-    externalLinks?: NullableJsonNullValueInput | InputJsonValue
-    newsParams?: NullableJsonNullValueInput | InputJsonValue
-    selectedNews?: NullableJsonNullValueInput | InputJsonValue
-    infoSections?: NullableJsonNullValueInput | InputJsonValue
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    sections?: SectionUncheckedUpdateManyWithoutConfigNestedInput
-    autoSources?: AutoSourceUncheckedUpdateManyWithoutConfigNestedInput
-    images?: ImageUncheckedUpdateManyWithoutConfigNestedInput
-    activeInServers?: UnitServerUncheckedUpdateManyWithoutActiveConfigNestedInput
-    updates?: UpdateLogUncheckedUpdateManyWithoutConfigNestedInput
-    previousUpdates?: UpdateLogUncheckedUpdateManyWithoutPreviousConfigNestedInput
-  }
-
-  export type UnitServerUpsertWithoutManualArticlesInput = {
-    update: XOR<UnitServerUpdateWithoutManualArticlesInput, UnitServerUncheckedUpdateWithoutManualArticlesInput>
-    create: XOR<UnitServerCreateWithoutManualArticlesInput, UnitServerUncheckedCreateWithoutManualArticlesInput>
-    where?: UnitServerWhereInput
-  }
-
-  export type UnitServerUpdateToOneWithWhereWithoutManualArticlesInput = {
-    where?: UnitServerWhereInput
-    data: XOR<UnitServerUpdateWithoutManualArticlesInput, UnitServerUncheckedUpdateWithoutManualArticlesInput>
-  }
-
-  export type UnitServerUpdateWithoutManualArticlesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    domain?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    orchestratorToken?: StringFieldUpdateOperationsInput | string
-    unitToken?: StringFieldUpdateOperationsInput | string
-    requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    constellation?: ConstellationUpdateOneRequiredWithoutServersNestedInput
-    activeConfig?: UnitConfigUpdateOneWithoutActiveInServersNestedInput
-    clients?: ClientUpdateManyWithoutServerNestedInput
-    professionals?: ProfessionalUpdateManyWithoutServerNestedInput
-    cases?: CaseUpdateManyWithoutServerNestedInput
-    sections?: SectionUpdateManyWithoutServerNestedInput
-    autoSources?: AutoSourceUpdateManyWithoutServerNestedInput
-    updateLogs?: UpdateLogUpdateManyWithoutServerNestedInput
-  }
-
-  export type UnitServerUncheckedUpdateWithoutManualArticlesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    domain?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    orchestratorToken?: StringFieldUpdateOperationsInput | string
-    unitToken?: StringFieldUpdateOperationsInput | string
-    requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    constellationId?: StringFieldUpdateOperationsInput | string
-    activeConfigId?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    clients?: ClientUncheckedUpdateManyWithoutServerNestedInput
-    professionals?: ProfessionalUncheckedUpdateManyWithoutServerNestedInput
-    cases?: CaseUncheckedUpdateManyWithoutServerNestedInput
-    sections?: SectionUncheckedUpdateManyWithoutServerNestedInput
-    autoSources?: AutoSourceUncheckedUpdateManyWithoutServerNestedInput
-    updateLogs?: UpdateLogUncheckedUpdateManyWithoutServerNestedInput
-  }
-
-  export type UnitConfigCreateWithoutAutoSourcesInput = {
-    id?: string
-    name: string
-    pageTitle: string
-    footerInfo?: string | null
-    legalStepsCount?: number
-    pageType: string
-    externalLinks?: NullableJsonNullValueInput | InputJsonValue
-    newsParams?: NullableJsonNullValueInput | InputJsonValue
-    selectedNews?: NullableJsonNullValueInput | InputJsonValue
-    infoSections?: NullableJsonNullValueInput | InputJsonValue
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    sections?: SectionCreateNestedManyWithoutConfigInput
-    manualArticles?: ManualArticleCreateNestedManyWithoutConfigInput
-    images?: ImageCreateNestedManyWithoutConfigInput
-    activeInServers?: UnitServerCreateNestedManyWithoutActiveConfigInput
-    updates?: UpdateLogCreateNestedManyWithoutConfigInput
-    previousUpdates?: UpdateLogCreateNestedManyWithoutPreviousConfigInput
-  }
-
-  export type UnitConfigUncheckedCreateWithoutAutoSourcesInput = {
-    id?: string
-    name: string
-    pageTitle: string
-    footerInfo?: string | null
-    legalStepsCount?: number
-    pageType: string
-    externalLinks?: NullableJsonNullValueInput | InputJsonValue
-    newsParams?: NullableJsonNullValueInput | InputJsonValue
-    selectedNews?: NullableJsonNullValueInput | InputJsonValue
-    infoSections?: NullableJsonNullValueInput | InputJsonValue
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    sections?: SectionUncheckedCreateNestedManyWithoutConfigInput
-    manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutConfigInput
-    images?: ImageUncheckedCreateNestedManyWithoutConfigInput
-    activeInServers?: UnitServerUncheckedCreateNestedManyWithoutActiveConfigInput
-    updates?: UpdateLogUncheckedCreateNestedManyWithoutConfigInput
-    previousUpdates?: UpdateLogUncheckedCreateNestedManyWithoutPreviousConfigInput
-  }
-
-  export type UnitConfigCreateOrConnectWithoutAutoSourcesInput = {
-    where: UnitConfigWhereUniqueInput
-    create: XOR<UnitConfigCreateWithoutAutoSourcesInput, UnitConfigUncheckedCreateWithoutAutoSourcesInput>
-  }
-
-  export type UnitServerCreateWithoutAutoSourcesInput = {
-    id?: string
-    domain: string
-    name: string
-    orchestratorToken: string
-    unitToken: string
-    requiresUpdate?: boolean
-    isActive?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    constellation: ConstellationCreateNestedOneWithoutServersInput
-    activeConfig?: UnitConfigCreateNestedOneWithoutActiveInServersInput
-    clients?: ClientCreateNestedManyWithoutServerInput
-    professionals?: ProfessionalCreateNestedManyWithoutServerInput
-    cases?: CaseCreateNestedManyWithoutServerInput
-    sections?: SectionCreateNestedManyWithoutServerInput
-    manualArticles?: ManualArticleCreateNestedManyWithoutServerInput
-    updateLogs?: UpdateLogCreateNestedManyWithoutServerInput
-  }
-
-  export type UnitServerUncheckedCreateWithoutAutoSourcesInput = {
-    id?: string
-    domain: string
-    name: string
-    orchestratorToken: string
-    unitToken: string
-    requiresUpdate?: boolean
-    isActive?: boolean
-    constellationId: string
-    activeConfigId?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    clients?: ClientUncheckedCreateNestedManyWithoutServerInput
-    professionals?: ProfessionalUncheckedCreateNestedManyWithoutServerInput
-    cases?: CaseUncheckedCreateNestedManyWithoutServerInput
-    sections?: SectionUncheckedCreateNestedManyWithoutServerInput
-    manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutServerInput
-    updateLogs?: UpdateLogUncheckedCreateNestedManyWithoutServerInput
-  }
-
-  export type UnitServerCreateOrConnectWithoutAutoSourcesInput = {
-    where: UnitServerWhereUniqueInput
-    create: XOR<UnitServerCreateWithoutAutoSourcesInput, UnitServerUncheckedCreateWithoutAutoSourcesInput>
-  }
-
-  export type UnitConfigUpsertWithoutAutoSourcesInput = {
-    update: XOR<UnitConfigUpdateWithoutAutoSourcesInput, UnitConfigUncheckedUpdateWithoutAutoSourcesInput>
-    create: XOR<UnitConfigCreateWithoutAutoSourcesInput, UnitConfigUncheckedCreateWithoutAutoSourcesInput>
-    where?: UnitConfigWhereInput
-  }
-
-  export type UnitConfigUpdateToOneWithWhereWithoutAutoSourcesInput = {
-    where?: UnitConfigWhereInput
-    data: XOR<UnitConfigUpdateWithoutAutoSourcesInput, UnitConfigUncheckedUpdateWithoutAutoSourcesInput>
-  }
-
-  export type UnitConfigUpdateWithoutAutoSourcesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    pageTitle?: StringFieldUpdateOperationsInput | string
-    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
-    legalStepsCount?: IntFieldUpdateOperationsInput | number
-    pageType?: StringFieldUpdateOperationsInput | string
-    externalLinks?: NullableJsonNullValueInput | InputJsonValue
-    newsParams?: NullableJsonNullValueInput | InputJsonValue
-    selectedNews?: NullableJsonNullValueInput | InputJsonValue
-    infoSections?: NullableJsonNullValueInput | InputJsonValue
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    sections?: SectionUpdateManyWithoutConfigNestedInput
-    manualArticles?: ManualArticleUpdateManyWithoutConfigNestedInput
-    images?: ImageUpdateManyWithoutConfigNestedInput
-    activeInServers?: UnitServerUpdateManyWithoutActiveConfigNestedInput
-    updates?: UpdateLogUpdateManyWithoutConfigNestedInput
-    previousUpdates?: UpdateLogUpdateManyWithoutPreviousConfigNestedInput
-  }
-
-  export type UnitConfigUncheckedUpdateWithoutAutoSourcesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    pageTitle?: StringFieldUpdateOperationsInput | string
-    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
-    legalStepsCount?: IntFieldUpdateOperationsInput | number
-    pageType?: StringFieldUpdateOperationsInput | string
-    externalLinks?: NullableJsonNullValueInput | InputJsonValue
-    newsParams?: NullableJsonNullValueInput | InputJsonValue
-    selectedNews?: NullableJsonNullValueInput | InputJsonValue
-    infoSections?: NullableJsonNullValueInput | InputJsonValue
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    sections?: SectionUncheckedUpdateManyWithoutConfigNestedInput
-    manualArticles?: ManualArticleUncheckedUpdateManyWithoutConfigNestedInput
-    images?: ImageUncheckedUpdateManyWithoutConfigNestedInput
-    activeInServers?: UnitServerUncheckedUpdateManyWithoutActiveConfigNestedInput
-    updates?: UpdateLogUncheckedUpdateManyWithoutConfigNestedInput
-    previousUpdates?: UpdateLogUncheckedUpdateManyWithoutPreviousConfigNestedInput
-  }
-
-  export type UnitServerUpsertWithoutAutoSourcesInput = {
-    update: XOR<UnitServerUpdateWithoutAutoSourcesInput, UnitServerUncheckedUpdateWithoutAutoSourcesInput>
-    create: XOR<UnitServerCreateWithoutAutoSourcesInput, UnitServerUncheckedCreateWithoutAutoSourcesInput>
-    where?: UnitServerWhereInput
-  }
-
-  export type UnitServerUpdateToOneWithWhereWithoutAutoSourcesInput = {
-    where?: UnitServerWhereInput
-    data: XOR<UnitServerUpdateWithoutAutoSourcesInput, UnitServerUncheckedUpdateWithoutAutoSourcesInput>
-  }
-
-  export type UnitServerUpdateWithoutAutoSourcesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    domain?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    orchestratorToken?: StringFieldUpdateOperationsInput | string
-    unitToken?: StringFieldUpdateOperationsInput | string
-    requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    constellation?: ConstellationUpdateOneRequiredWithoutServersNestedInput
-    activeConfig?: UnitConfigUpdateOneWithoutActiveInServersNestedInput
-    clients?: ClientUpdateManyWithoutServerNestedInput
-    professionals?: ProfessionalUpdateManyWithoutServerNestedInput
-    cases?: CaseUpdateManyWithoutServerNestedInput
-    sections?: SectionUpdateManyWithoutServerNestedInput
-    manualArticles?: ManualArticleUpdateManyWithoutServerNestedInput
-    updateLogs?: UpdateLogUpdateManyWithoutServerNestedInput
-  }
-
-  export type UnitServerUncheckedUpdateWithoutAutoSourcesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    domain?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    orchestratorToken?: StringFieldUpdateOperationsInput | string
-    unitToken?: StringFieldUpdateOperationsInput | string
-    requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    constellationId?: StringFieldUpdateOperationsInput | string
-    activeConfigId?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    clients?: ClientUncheckedUpdateManyWithoutServerNestedInput
-    professionals?: ProfessionalUncheckedUpdateManyWithoutServerNestedInput
-    cases?: CaseUncheckedUpdateManyWithoutServerNestedInput
-    sections?: SectionUncheckedUpdateManyWithoutServerNestedInput
-    manualArticles?: ManualArticleUncheckedUpdateManyWithoutServerNestedInput
-    updateLogs?: UpdateLogUncheckedUpdateManyWithoutServerNestedInput
+    serverLogs?: ServerLogUncheckedUpdateManyWithoutServerNestedInput
   }
 
   export type UnitConfigCreateWithoutImagesInput = {
@@ -28925,11 +26234,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     sections?: SectionCreateNestedManyWithoutConfigInput
-    manualArticles?: ManualArticleCreateNestedManyWithoutConfigInput
-    autoSources?: AutoSourceCreateNestedManyWithoutConfigInput
-    activeInServers?: UnitServerCreateNestedManyWithoutActiveConfigInput
-    updates?: UpdateLogCreateNestedManyWithoutConfigInput
-    previousUpdates?: UpdateLogCreateNestedManyWithoutPreviousConfigInput
+    articles?: ArticleCreateNestedManyWithoutConfigsInput
+    servers?: UnitServerCreateNestedManyWithoutConfigInput
   }
 
   export type UnitConfigUncheckedCreateWithoutImagesInput = {
@@ -28946,11 +26252,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     sections?: SectionUncheckedCreateNestedManyWithoutConfigInput
-    manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutConfigInput
-    autoSources?: AutoSourceUncheckedCreateNestedManyWithoutConfigInput
-    activeInServers?: UnitServerUncheckedCreateNestedManyWithoutActiveConfigInput
-    updates?: UpdateLogUncheckedCreateNestedManyWithoutConfigInput
-    previousUpdates?: UpdateLogUncheckedCreateNestedManyWithoutPreviousConfigInput
+    articles?: ArticleUncheckedCreateNestedManyWithoutConfigsInput
+    servers?: UnitServerUncheckedCreateNestedManyWithoutConfigInput
   }
 
   export type UnitConfigCreateOrConnectWithoutImagesInput = {
@@ -28983,11 +26286,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sections?: SectionUpdateManyWithoutConfigNestedInput
-    manualArticles?: ManualArticleUpdateManyWithoutConfigNestedInput
-    autoSources?: AutoSourceUpdateManyWithoutConfigNestedInput
-    activeInServers?: UnitServerUpdateManyWithoutActiveConfigNestedInput
-    updates?: UpdateLogUpdateManyWithoutConfigNestedInput
-    previousUpdates?: UpdateLogUpdateManyWithoutPreviousConfigNestedInput
+    articles?: ArticleUpdateManyWithoutConfigsNestedInput
+    servers?: UnitServerUpdateManyWithoutConfigNestedInput
   }
 
   export type UnitConfigUncheckedUpdateWithoutImagesInput = {
@@ -29004,11 +26304,83 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sections?: SectionUncheckedUpdateManyWithoutConfigNestedInput
-    manualArticles?: ManualArticleUncheckedUpdateManyWithoutConfigNestedInput
-    autoSources?: AutoSourceUncheckedUpdateManyWithoutConfigNestedInput
-    activeInServers?: UnitServerUncheckedUpdateManyWithoutActiveConfigNestedInput
-    updates?: UpdateLogUncheckedUpdateManyWithoutConfigNestedInput
-    previousUpdates?: UpdateLogUncheckedUpdateManyWithoutPreviousConfigNestedInput
+    articles?: ArticleUncheckedUpdateManyWithoutConfigsNestedInput
+    servers?: UnitServerUncheckedUpdateManyWithoutConfigNestedInput
+  }
+
+  export type UnitConfigCreateWithoutArticlesInput = {
+    id?: string
+    name: string
+    pageTitle: string
+    footerInfo?: string | null
+    legalStepsCount?: number
+    pageType: string
+    externalLinks?: NullableJsonNullValueInput | InputJsonValue
+    newsParams?: NullableJsonNullValueInput | InputJsonValue
+    selectedNews?: NullableJsonNullValueInput | InputJsonValue
+    infoSections?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sections?: SectionCreateNestedManyWithoutConfigInput
+    images?: ImageCreateNestedManyWithoutConfigInput
+    servers?: UnitServerCreateNestedManyWithoutConfigInput
+  }
+
+  export type UnitConfigUncheckedCreateWithoutArticlesInput = {
+    id?: string
+    name: string
+    pageTitle: string
+    footerInfo?: string | null
+    legalStepsCount?: number
+    pageType: string
+    externalLinks?: NullableJsonNullValueInput | InputJsonValue
+    newsParams?: NullableJsonNullValueInput | InputJsonValue
+    selectedNews?: NullableJsonNullValueInput | InputJsonValue
+    infoSections?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sections?: SectionUncheckedCreateNestedManyWithoutConfigInput
+    images?: ImageUncheckedCreateNestedManyWithoutConfigInput
+    servers?: UnitServerUncheckedCreateNestedManyWithoutConfigInput
+  }
+
+  export type UnitConfigCreateOrConnectWithoutArticlesInput = {
+    where: UnitConfigWhereUniqueInput
+    create: XOR<UnitConfigCreateWithoutArticlesInput, UnitConfigUncheckedCreateWithoutArticlesInput>
+  }
+
+  export type UnitConfigUpsertWithWhereUniqueWithoutArticlesInput = {
+    where: UnitConfigWhereUniqueInput
+    update: XOR<UnitConfigUpdateWithoutArticlesInput, UnitConfigUncheckedUpdateWithoutArticlesInput>
+    create: XOR<UnitConfigCreateWithoutArticlesInput, UnitConfigUncheckedCreateWithoutArticlesInput>
+  }
+
+  export type UnitConfigUpdateWithWhereUniqueWithoutArticlesInput = {
+    where: UnitConfigWhereUniqueInput
+    data: XOR<UnitConfigUpdateWithoutArticlesInput, UnitConfigUncheckedUpdateWithoutArticlesInput>
+  }
+
+  export type UnitConfigUpdateManyWithWhereWithoutArticlesInput = {
+    where: UnitConfigScalarWhereInput
+    data: XOR<UnitConfigUpdateManyMutationInput, UnitConfigUncheckedUpdateManyWithoutArticlesInput>
+  }
+
+  export type UnitConfigScalarWhereInput = {
+    AND?: UnitConfigScalarWhereInput | UnitConfigScalarWhereInput[]
+    OR?: UnitConfigScalarWhereInput[]
+    NOT?: UnitConfigScalarWhereInput | UnitConfigScalarWhereInput[]
+    id?: StringFilter<"UnitConfig"> | string
+    name?: StringFilter<"UnitConfig"> | string
+    pageTitle?: StringFilter<"UnitConfig"> | string
+    footerInfo?: StringNullableFilter<"UnitConfig"> | string | null
+    legalStepsCount?: IntFilter<"UnitConfig"> | number
+    pageType?: StringFilter<"UnitConfig"> | string
+    externalLinks?: JsonNullableFilter<"UnitConfig">
+    newsParams?: JsonNullableFilter<"UnitConfig">
+    selectedNews?: JsonNullableFilter<"UnitConfig">
+    infoSections?: JsonNullableFilter<"UnitConfig">
+    createdAt?: DateTimeFilter<"UnitConfig"> | Date | string
+    updatedAt?: DateTimeFilter<"UnitConfig"> | Date | string
   }
 
   export type ConstellationCreateWithoutServersInput = {
@@ -29028,7 +26400,7 @@ export namespace Prisma {
     create: XOR<ConstellationCreateWithoutServersInput, ConstellationUncheckedCreateWithoutServersInput>
   }
 
-  export type UnitConfigCreateWithoutActiveInServersInput = {
+  export type UnitConfigCreateWithoutServersInput = {
     id?: string
     name: string
     pageTitle: string
@@ -29042,14 +26414,11 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     sections?: SectionCreateNestedManyWithoutConfigInput
-    manualArticles?: ManualArticleCreateNestedManyWithoutConfigInput
-    autoSources?: AutoSourceCreateNestedManyWithoutConfigInput
+    articles?: ArticleCreateNestedManyWithoutConfigsInput
     images?: ImageCreateNestedManyWithoutConfigInput
-    updates?: UpdateLogCreateNestedManyWithoutConfigInput
-    previousUpdates?: UpdateLogCreateNestedManyWithoutPreviousConfigInput
   }
 
-  export type UnitConfigUncheckedCreateWithoutActiveInServersInput = {
+  export type UnitConfigUncheckedCreateWithoutServersInput = {
     id?: string
     name: string
     pageTitle: string
@@ -29063,16 +26432,13 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     sections?: SectionUncheckedCreateNestedManyWithoutConfigInput
-    manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutConfigInput
-    autoSources?: AutoSourceUncheckedCreateNestedManyWithoutConfigInput
+    articles?: ArticleUncheckedCreateNestedManyWithoutConfigsInput
     images?: ImageUncheckedCreateNestedManyWithoutConfigInput
-    updates?: UpdateLogUncheckedCreateNestedManyWithoutConfigInput
-    previousUpdates?: UpdateLogUncheckedCreateNestedManyWithoutPreviousConfigInput
   }
 
-  export type UnitConfigCreateOrConnectWithoutActiveInServersInput = {
+  export type UnitConfigCreateOrConnectWithoutServersInput = {
     where: UnitConfigWhereUniqueInput
-    create: XOR<UnitConfigCreateWithoutActiveInServersInput, UnitConfigUncheckedCreateWithoutActiveInServersInput>
+    create: XOR<UnitConfigCreateWithoutServersInput, UnitConfigUncheckedCreateWithoutServersInput>
   }
 
   export type ClientCreateWithoutServerInput = {
@@ -29189,91 +26555,29 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type ManualArticleCreateWithoutServerInput = {
+  export type ServerLogCreateWithoutServerInput = {
     id?: string
-    title: string
-    content: string
-    publishedAt?: Date | string
-    config: UnitConfigCreateNestedOneWithoutManualArticlesInput
-  }
-
-  export type ManualArticleUncheckedCreateWithoutServerInput = {
-    id?: string
-    configId: string
-    title: string
-    content: string
-    publishedAt?: Date | string
-  }
-
-  export type ManualArticleCreateOrConnectWithoutServerInput = {
-    where: ManualArticleWhereUniqueInput
-    create: XOR<ManualArticleCreateWithoutServerInput, ManualArticleUncheckedCreateWithoutServerInput>
-  }
-
-  export type ManualArticleCreateManyServerInputEnvelope = {
-    data: ManualArticleCreateManyServerInput | ManualArticleCreateManyServerInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type AutoSourceCreateWithoutServerInput = {
-    id?: string
-    name: string
-    url: string
     type: string
-    createdAt?: Date | string
-    config: UnitConfigCreateNestedOneWithoutAutoSourcesInput
+    message: string
+    timestamp?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
-  export type AutoSourceUncheckedCreateWithoutServerInput = {
+  export type ServerLogUncheckedCreateWithoutServerInput = {
     id?: string
-    configId: string
-    name: string
-    url: string
     type: string
-    createdAt?: Date | string
+    message: string
+    timestamp?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
-  export type AutoSourceCreateOrConnectWithoutServerInput = {
-    where: AutoSourceWhereUniqueInput
-    create: XOR<AutoSourceCreateWithoutServerInput, AutoSourceUncheckedCreateWithoutServerInput>
+  export type ServerLogCreateOrConnectWithoutServerInput = {
+    where: ServerLogWhereUniqueInput
+    create: XOR<ServerLogCreateWithoutServerInput, ServerLogUncheckedCreateWithoutServerInput>
   }
 
-  export type AutoSourceCreateManyServerInputEnvelope = {
-    data: AutoSourceCreateManyServerInput | AutoSourceCreateManyServerInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type UpdateLogCreateWithoutServerInput = {
-    id?: string
-    status: string
-    description?: string | null
-    startedAt?: Date | string
-    completedAt?: Date | string | null
-    errorDetails?: string | null
-    config: UnitConfigCreateNestedOneWithoutUpdatesInput
-    previousConfig?: UnitConfigCreateNestedOneWithoutPreviousUpdatesInput
-    initiator: UserCreateNestedOneWithoutInitiatedUpdatesInput
-  }
-
-  export type UpdateLogUncheckedCreateWithoutServerInput = {
-    id?: string
-    configId: string
-    previousConfigId?: string | null
-    status: string
-    initiatorId: string
-    description?: string | null
-    startedAt?: Date | string
-    completedAt?: Date | string | null
-    errorDetails?: string | null
-  }
-
-  export type UpdateLogCreateOrConnectWithoutServerInput = {
-    where: UpdateLogWhereUniqueInput
-    create: XOR<UpdateLogCreateWithoutServerInput, UpdateLogUncheckedCreateWithoutServerInput>
-  }
-
-  export type UpdateLogCreateManyServerInputEnvelope = {
-    data: UpdateLogCreateManyServerInput | UpdateLogCreateManyServerInput[]
+  export type ServerLogCreateManyServerInputEnvelope = {
+    data: ServerLogCreateManyServerInput | ServerLogCreateManyServerInput[]
     skipDuplicates?: boolean
   }
 
@@ -29300,18 +26604,18 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type UnitConfigUpsertWithoutActiveInServersInput = {
-    update: XOR<UnitConfigUpdateWithoutActiveInServersInput, UnitConfigUncheckedUpdateWithoutActiveInServersInput>
-    create: XOR<UnitConfigCreateWithoutActiveInServersInput, UnitConfigUncheckedCreateWithoutActiveInServersInput>
+  export type UnitConfigUpsertWithoutServersInput = {
+    update: XOR<UnitConfigUpdateWithoutServersInput, UnitConfigUncheckedUpdateWithoutServersInput>
+    create: XOR<UnitConfigCreateWithoutServersInput, UnitConfigUncheckedCreateWithoutServersInput>
     where?: UnitConfigWhereInput
   }
 
-  export type UnitConfigUpdateToOneWithWhereWithoutActiveInServersInput = {
+  export type UnitConfigUpdateToOneWithWhereWithoutServersInput = {
     where?: UnitConfigWhereInput
-    data: XOR<UnitConfigUpdateWithoutActiveInServersInput, UnitConfigUncheckedUpdateWithoutActiveInServersInput>
+    data: XOR<UnitConfigUpdateWithoutServersInput, UnitConfigUncheckedUpdateWithoutServersInput>
   }
 
-  export type UnitConfigUpdateWithoutActiveInServersInput = {
+  export type UnitConfigUpdateWithoutServersInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     pageTitle?: StringFieldUpdateOperationsInput | string
@@ -29325,14 +26629,11 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sections?: SectionUpdateManyWithoutConfigNestedInput
-    manualArticles?: ManualArticleUpdateManyWithoutConfigNestedInput
-    autoSources?: AutoSourceUpdateManyWithoutConfigNestedInput
+    articles?: ArticleUpdateManyWithoutConfigsNestedInput
     images?: ImageUpdateManyWithoutConfigNestedInput
-    updates?: UpdateLogUpdateManyWithoutConfigNestedInput
-    previousUpdates?: UpdateLogUpdateManyWithoutPreviousConfigNestedInput
   }
 
-  export type UnitConfigUncheckedUpdateWithoutActiveInServersInput = {
+  export type UnitConfigUncheckedUpdateWithoutServersInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     pageTitle?: StringFieldUpdateOperationsInput | string
@@ -29346,11 +26647,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sections?: SectionUncheckedUpdateManyWithoutConfigNestedInput
-    manualArticles?: ManualArticleUncheckedUpdateManyWithoutConfigNestedInput
-    autoSources?: AutoSourceUncheckedUpdateManyWithoutConfigNestedInput
+    articles?: ArticleUncheckedUpdateManyWithoutConfigsNestedInput
     images?: ImageUncheckedUpdateManyWithoutConfigNestedInput
-    updates?: UpdateLogUncheckedUpdateManyWithoutConfigNestedInput
-    previousUpdates?: UpdateLogUncheckedUpdateManyWithoutPreviousConfigNestedInput
   }
 
   export type ClientUpsertWithWhereUniqueWithoutServerInput = {
@@ -29430,77 +26728,32 @@ export namespace Prisma {
     order?: IntFilter<"Section"> | number
   }
 
-  export type ManualArticleUpsertWithWhereUniqueWithoutServerInput = {
-    where: ManualArticleWhereUniqueInput
-    update: XOR<ManualArticleUpdateWithoutServerInput, ManualArticleUncheckedUpdateWithoutServerInput>
-    create: XOR<ManualArticleCreateWithoutServerInput, ManualArticleUncheckedCreateWithoutServerInput>
+  export type ServerLogUpsertWithWhereUniqueWithoutServerInput = {
+    where: ServerLogWhereUniqueInput
+    update: XOR<ServerLogUpdateWithoutServerInput, ServerLogUncheckedUpdateWithoutServerInput>
+    create: XOR<ServerLogCreateWithoutServerInput, ServerLogUncheckedCreateWithoutServerInput>
   }
 
-  export type ManualArticleUpdateWithWhereUniqueWithoutServerInput = {
-    where: ManualArticleWhereUniqueInput
-    data: XOR<ManualArticleUpdateWithoutServerInput, ManualArticleUncheckedUpdateWithoutServerInput>
+  export type ServerLogUpdateWithWhereUniqueWithoutServerInput = {
+    where: ServerLogWhereUniqueInput
+    data: XOR<ServerLogUpdateWithoutServerInput, ServerLogUncheckedUpdateWithoutServerInput>
   }
 
-  export type ManualArticleUpdateManyWithWhereWithoutServerInput = {
-    where: ManualArticleScalarWhereInput
-    data: XOR<ManualArticleUpdateManyMutationInput, ManualArticleUncheckedUpdateManyWithoutServerInput>
+  export type ServerLogUpdateManyWithWhereWithoutServerInput = {
+    where: ServerLogScalarWhereInput
+    data: XOR<ServerLogUpdateManyMutationInput, ServerLogUncheckedUpdateManyWithoutServerInput>
   }
 
-  export type ManualArticleScalarWhereInput = {
-    AND?: ManualArticleScalarWhereInput | ManualArticleScalarWhereInput[]
-    OR?: ManualArticleScalarWhereInput[]
-    NOT?: ManualArticleScalarWhereInput | ManualArticleScalarWhereInput[]
-    id?: StringFilter<"ManualArticle"> | string
-    configId?: StringFilter<"ManualArticle"> | string
-    serverId?: StringNullableFilter<"ManualArticle"> | string | null
-    title?: StringFilter<"ManualArticle"> | string
-    content?: StringFilter<"ManualArticle"> | string
-    publishedAt?: DateTimeFilter<"ManualArticle"> | Date | string
-  }
-
-  export type AutoSourceUpsertWithWhereUniqueWithoutServerInput = {
-    where: AutoSourceWhereUniqueInput
-    update: XOR<AutoSourceUpdateWithoutServerInput, AutoSourceUncheckedUpdateWithoutServerInput>
-    create: XOR<AutoSourceCreateWithoutServerInput, AutoSourceUncheckedCreateWithoutServerInput>
-  }
-
-  export type AutoSourceUpdateWithWhereUniqueWithoutServerInput = {
-    where: AutoSourceWhereUniqueInput
-    data: XOR<AutoSourceUpdateWithoutServerInput, AutoSourceUncheckedUpdateWithoutServerInput>
-  }
-
-  export type AutoSourceUpdateManyWithWhereWithoutServerInput = {
-    where: AutoSourceScalarWhereInput
-    data: XOR<AutoSourceUpdateManyMutationInput, AutoSourceUncheckedUpdateManyWithoutServerInput>
-  }
-
-  export type AutoSourceScalarWhereInput = {
-    AND?: AutoSourceScalarWhereInput | AutoSourceScalarWhereInput[]
-    OR?: AutoSourceScalarWhereInput[]
-    NOT?: AutoSourceScalarWhereInput | AutoSourceScalarWhereInput[]
-    id?: StringFilter<"AutoSource"> | string
-    configId?: StringFilter<"AutoSource"> | string
-    serverId?: StringNullableFilter<"AutoSource"> | string | null
-    name?: StringFilter<"AutoSource"> | string
-    url?: StringFilter<"AutoSource"> | string
-    type?: StringFilter<"AutoSource"> | string
-    createdAt?: DateTimeFilter<"AutoSource"> | Date | string
-  }
-
-  export type UpdateLogUpsertWithWhereUniqueWithoutServerInput = {
-    where: UpdateLogWhereUniqueInput
-    update: XOR<UpdateLogUpdateWithoutServerInput, UpdateLogUncheckedUpdateWithoutServerInput>
-    create: XOR<UpdateLogCreateWithoutServerInput, UpdateLogUncheckedCreateWithoutServerInput>
-  }
-
-  export type UpdateLogUpdateWithWhereUniqueWithoutServerInput = {
-    where: UpdateLogWhereUniqueInput
-    data: XOR<UpdateLogUpdateWithoutServerInput, UpdateLogUncheckedUpdateWithoutServerInput>
-  }
-
-  export type UpdateLogUpdateManyWithWhereWithoutServerInput = {
-    where: UpdateLogScalarWhereInput
-    data: XOR<UpdateLogUpdateManyMutationInput, UpdateLogUncheckedUpdateManyWithoutServerInput>
+  export type ServerLogScalarWhereInput = {
+    AND?: ServerLogScalarWhereInput | ServerLogScalarWhereInput[]
+    OR?: ServerLogScalarWhereInput[]
+    NOT?: ServerLogScalarWhereInput | ServerLogScalarWhereInput[]
+    id?: StringFilter<"ServerLog"> | string
+    serverId?: StringFilter<"ServerLog"> | string
+    type?: StringFilter<"ServerLog"> | string
+    message?: StringFilter<"ServerLog"> | string
+    timestamp?: DateTimeFilter<"ServerLog"> | Date | string
+    metadata?: JsonNullableFilter<"ServerLog">
   }
 
   export type SectionCreateWithoutConfigInput = {
@@ -29531,58 +26784,23 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type ManualArticleCreateWithoutConfigInput = {
+  export type ArticleCreateWithoutConfigsInput = {
     id?: string
     title: string
     content: string
     publishedAt?: Date | string
-    server?: UnitServerCreateNestedOneWithoutManualArticlesInput
   }
 
-  export type ManualArticleUncheckedCreateWithoutConfigInput = {
+  export type ArticleUncheckedCreateWithoutConfigsInput = {
     id?: string
-    serverId?: string | null
     title: string
     content: string
     publishedAt?: Date | string
   }
 
-  export type ManualArticleCreateOrConnectWithoutConfigInput = {
-    where: ManualArticleWhereUniqueInput
-    create: XOR<ManualArticleCreateWithoutConfigInput, ManualArticleUncheckedCreateWithoutConfigInput>
-  }
-
-  export type ManualArticleCreateManyConfigInputEnvelope = {
-    data: ManualArticleCreateManyConfigInput | ManualArticleCreateManyConfigInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type AutoSourceCreateWithoutConfigInput = {
-    id?: string
-    name: string
-    url: string
-    type: string
-    createdAt?: Date | string
-    server?: UnitServerCreateNestedOneWithoutAutoSourcesInput
-  }
-
-  export type AutoSourceUncheckedCreateWithoutConfigInput = {
-    id?: string
-    serverId?: string | null
-    name: string
-    url: string
-    type: string
-    createdAt?: Date | string
-  }
-
-  export type AutoSourceCreateOrConnectWithoutConfigInput = {
-    where: AutoSourceWhereUniqueInput
-    create: XOR<AutoSourceCreateWithoutConfigInput, AutoSourceUncheckedCreateWithoutConfigInput>
-  }
-
-  export type AutoSourceCreateManyConfigInputEnvelope = {
-    data: AutoSourceCreateManyConfigInput | AutoSourceCreateManyConfigInput[]
-    skipDuplicates?: boolean
+  export type ArticleCreateOrConnectWithoutConfigsInput = {
+    where: ArticleWhereUniqueInput
+    create: XOR<ArticleCreateWithoutConfigsInput, ArticleUncheckedCreateWithoutConfigsInput>
   }
 
   export type ImageCreateWithoutConfigInput = {
@@ -29611,7 +26829,7 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type UnitServerCreateWithoutActiveConfigInput = {
+  export type UnitServerCreateWithoutConfigInput = {
     id?: string
     domain: string
     name: string
@@ -29626,12 +26844,10 @@ export namespace Prisma {
     professionals?: ProfessionalCreateNestedManyWithoutServerInput
     cases?: CaseCreateNestedManyWithoutServerInput
     sections?: SectionCreateNestedManyWithoutServerInput
-    manualArticles?: ManualArticleCreateNestedManyWithoutServerInput
-    autoSources?: AutoSourceCreateNestedManyWithoutServerInput
-    updateLogs?: UpdateLogCreateNestedManyWithoutServerInput
+    serverLogs?: ServerLogCreateNestedManyWithoutServerInput
   }
 
-  export type UnitServerUncheckedCreateWithoutActiveConfigInput = {
+  export type UnitServerUncheckedCreateWithoutConfigInput = {
     id?: string
     domain: string
     name: string
@@ -29646,86 +26862,16 @@ export namespace Prisma {
     professionals?: ProfessionalUncheckedCreateNestedManyWithoutServerInput
     cases?: CaseUncheckedCreateNestedManyWithoutServerInput
     sections?: SectionUncheckedCreateNestedManyWithoutServerInput
-    manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutServerInput
-    autoSources?: AutoSourceUncheckedCreateNestedManyWithoutServerInput
-    updateLogs?: UpdateLogUncheckedCreateNestedManyWithoutServerInput
+    serverLogs?: ServerLogUncheckedCreateNestedManyWithoutServerInput
   }
 
-  export type UnitServerCreateOrConnectWithoutActiveConfigInput = {
+  export type UnitServerCreateOrConnectWithoutConfigInput = {
     where: UnitServerWhereUniqueInput
-    create: XOR<UnitServerCreateWithoutActiveConfigInput, UnitServerUncheckedCreateWithoutActiveConfigInput>
+    create: XOR<UnitServerCreateWithoutConfigInput, UnitServerUncheckedCreateWithoutConfigInput>
   }
 
-  export type UnitServerCreateManyActiveConfigInputEnvelope = {
-    data: UnitServerCreateManyActiveConfigInput | UnitServerCreateManyActiveConfigInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type UpdateLogCreateWithoutConfigInput = {
-    id?: string
-    status: string
-    description?: string | null
-    startedAt?: Date | string
-    completedAt?: Date | string | null
-    errorDetails?: string | null
-    server: UnitServerCreateNestedOneWithoutUpdateLogsInput
-    previousConfig?: UnitConfigCreateNestedOneWithoutPreviousUpdatesInput
-    initiator: UserCreateNestedOneWithoutInitiatedUpdatesInput
-  }
-
-  export type UpdateLogUncheckedCreateWithoutConfigInput = {
-    id?: string
-    serverId: string
-    previousConfigId?: string | null
-    status: string
-    initiatorId: string
-    description?: string | null
-    startedAt?: Date | string
-    completedAt?: Date | string | null
-    errorDetails?: string | null
-  }
-
-  export type UpdateLogCreateOrConnectWithoutConfigInput = {
-    where: UpdateLogWhereUniqueInput
-    create: XOR<UpdateLogCreateWithoutConfigInput, UpdateLogUncheckedCreateWithoutConfigInput>
-  }
-
-  export type UpdateLogCreateManyConfigInputEnvelope = {
-    data: UpdateLogCreateManyConfigInput | UpdateLogCreateManyConfigInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type UpdateLogCreateWithoutPreviousConfigInput = {
-    id?: string
-    status: string
-    description?: string | null
-    startedAt?: Date | string
-    completedAt?: Date | string | null
-    errorDetails?: string | null
-    server: UnitServerCreateNestedOneWithoutUpdateLogsInput
-    config: UnitConfigCreateNestedOneWithoutUpdatesInput
-    initiator: UserCreateNestedOneWithoutInitiatedUpdatesInput
-  }
-
-  export type UpdateLogUncheckedCreateWithoutPreviousConfigInput = {
-    id?: string
-    serverId: string
-    configId: string
-    status: string
-    initiatorId: string
-    description?: string | null
-    startedAt?: Date | string
-    completedAt?: Date | string | null
-    errorDetails?: string | null
-  }
-
-  export type UpdateLogCreateOrConnectWithoutPreviousConfigInput = {
-    where: UpdateLogWhereUniqueInput
-    create: XOR<UpdateLogCreateWithoutPreviousConfigInput, UpdateLogUncheckedCreateWithoutPreviousConfigInput>
-  }
-
-  export type UpdateLogCreateManyPreviousConfigInputEnvelope = {
-    data: UpdateLogCreateManyPreviousConfigInput | UpdateLogCreateManyPreviousConfigInput[]
+  export type UnitServerCreateManyConfigInputEnvelope = {
+    data: UnitServerCreateManyConfigInput | UnitServerCreateManyConfigInput[]
     skipDuplicates?: boolean
   }
 
@@ -29745,36 +26891,30 @@ export namespace Prisma {
     data: XOR<SectionUpdateManyMutationInput, SectionUncheckedUpdateManyWithoutConfigInput>
   }
 
-  export type ManualArticleUpsertWithWhereUniqueWithoutConfigInput = {
-    where: ManualArticleWhereUniqueInput
-    update: XOR<ManualArticleUpdateWithoutConfigInput, ManualArticleUncheckedUpdateWithoutConfigInput>
-    create: XOR<ManualArticleCreateWithoutConfigInput, ManualArticleUncheckedCreateWithoutConfigInput>
+  export type ArticleUpsertWithWhereUniqueWithoutConfigsInput = {
+    where: ArticleWhereUniqueInput
+    update: XOR<ArticleUpdateWithoutConfigsInput, ArticleUncheckedUpdateWithoutConfigsInput>
+    create: XOR<ArticleCreateWithoutConfigsInput, ArticleUncheckedCreateWithoutConfigsInput>
   }
 
-  export type ManualArticleUpdateWithWhereUniqueWithoutConfigInput = {
-    where: ManualArticleWhereUniqueInput
-    data: XOR<ManualArticleUpdateWithoutConfigInput, ManualArticleUncheckedUpdateWithoutConfigInput>
+  export type ArticleUpdateWithWhereUniqueWithoutConfigsInput = {
+    where: ArticleWhereUniqueInput
+    data: XOR<ArticleUpdateWithoutConfigsInput, ArticleUncheckedUpdateWithoutConfigsInput>
   }
 
-  export type ManualArticleUpdateManyWithWhereWithoutConfigInput = {
-    where: ManualArticleScalarWhereInput
-    data: XOR<ManualArticleUpdateManyMutationInput, ManualArticleUncheckedUpdateManyWithoutConfigInput>
+  export type ArticleUpdateManyWithWhereWithoutConfigsInput = {
+    where: ArticleScalarWhereInput
+    data: XOR<ArticleUpdateManyMutationInput, ArticleUncheckedUpdateManyWithoutConfigsInput>
   }
 
-  export type AutoSourceUpsertWithWhereUniqueWithoutConfigInput = {
-    where: AutoSourceWhereUniqueInput
-    update: XOR<AutoSourceUpdateWithoutConfigInput, AutoSourceUncheckedUpdateWithoutConfigInput>
-    create: XOR<AutoSourceCreateWithoutConfigInput, AutoSourceUncheckedCreateWithoutConfigInput>
-  }
-
-  export type AutoSourceUpdateWithWhereUniqueWithoutConfigInput = {
-    where: AutoSourceWhereUniqueInput
-    data: XOR<AutoSourceUpdateWithoutConfigInput, AutoSourceUncheckedUpdateWithoutConfigInput>
-  }
-
-  export type AutoSourceUpdateManyWithWhereWithoutConfigInput = {
-    where: AutoSourceScalarWhereInput
-    data: XOR<AutoSourceUpdateManyMutationInput, AutoSourceUncheckedUpdateManyWithoutConfigInput>
+  export type ArticleScalarWhereInput = {
+    AND?: ArticleScalarWhereInput | ArticleScalarWhereInput[]
+    OR?: ArticleScalarWhereInput[]
+    NOT?: ArticleScalarWhereInput | ArticleScalarWhereInput[]
+    id?: StringFilter<"Article"> | string
+    title?: StringFilter<"Article"> | string
+    content?: StringFilter<"Article"> | string
+    publishedAt?: DateTimeFilter<"Article"> | Date | string
   }
 
   export type ImageUpsertWithWhereUniqueWithoutConfigInput = {
@@ -29805,55 +26945,23 @@ export namespace Prisma {
     order?: IntNullableFilter<"Image"> | number | null
   }
 
-  export type UnitServerUpsertWithWhereUniqueWithoutActiveConfigInput = {
+  export type UnitServerUpsertWithWhereUniqueWithoutConfigInput = {
     where: UnitServerWhereUniqueInput
-    update: XOR<UnitServerUpdateWithoutActiveConfigInput, UnitServerUncheckedUpdateWithoutActiveConfigInput>
-    create: XOR<UnitServerCreateWithoutActiveConfigInput, UnitServerUncheckedCreateWithoutActiveConfigInput>
+    update: XOR<UnitServerUpdateWithoutConfigInput, UnitServerUncheckedUpdateWithoutConfigInput>
+    create: XOR<UnitServerCreateWithoutConfigInput, UnitServerUncheckedCreateWithoutConfigInput>
   }
 
-  export type UnitServerUpdateWithWhereUniqueWithoutActiveConfigInput = {
+  export type UnitServerUpdateWithWhereUniqueWithoutConfigInput = {
     where: UnitServerWhereUniqueInput
-    data: XOR<UnitServerUpdateWithoutActiveConfigInput, UnitServerUncheckedUpdateWithoutActiveConfigInput>
+    data: XOR<UnitServerUpdateWithoutConfigInput, UnitServerUncheckedUpdateWithoutConfigInput>
   }
 
-  export type UnitServerUpdateManyWithWhereWithoutActiveConfigInput = {
+  export type UnitServerUpdateManyWithWhereWithoutConfigInput = {
     where: UnitServerScalarWhereInput
-    data: XOR<UnitServerUpdateManyMutationInput, UnitServerUncheckedUpdateManyWithoutActiveConfigInput>
+    data: XOR<UnitServerUpdateManyMutationInput, UnitServerUncheckedUpdateManyWithoutConfigInput>
   }
 
-  export type UpdateLogUpsertWithWhereUniqueWithoutConfigInput = {
-    where: UpdateLogWhereUniqueInput
-    update: XOR<UpdateLogUpdateWithoutConfigInput, UpdateLogUncheckedUpdateWithoutConfigInput>
-    create: XOR<UpdateLogCreateWithoutConfigInput, UpdateLogUncheckedCreateWithoutConfigInput>
-  }
-
-  export type UpdateLogUpdateWithWhereUniqueWithoutConfigInput = {
-    where: UpdateLogWhereUniqueInput
-    data: XOR<UpdateLogUpdateWithoutConfigInput, UpdateLogUncheckedUpdateWithoutConfigInput>
-  }
-
-  export type UpdateLogUpdateManyWithWhereWithoutConfigInput = {
-    where: UpdateLogScalarWhereInput
-    data: XOR<UpdateLogUpdateManyMutationInput, UpdateLogUncheckedUpdateManyWithoutConfigInput>
-  }
-
-  export type UpdateLogUpsertWithWhereUniqueWithoutPreviousConfigInput = {
-    where: UpdateLogWhereUniqueInput
-    update: XOR<UpdateLogUpdateWithoutPreviousConfigInput, UpdateLogUncheckedUpdateWithoutPreviousConfigInput>
-    create: XOR<UpdateLogCreateWithoutPreviousConfigInput, UpdateLogUncheckedCreateWithoutPreviousConfigInput>
-  }
-
-  export type UpdateLogUpdateWithWhereUniqueWithoutPreviousConfigInput = {
-    where: UpdateLogWhereUniqueInput
-    data: XOR<UpdateLogUpdateWithoutPreviousConfigInput, UpdateLogUncheckedUpdateWithoutPreviousConfigInput>
-  }
-
-  export type UpdateLogUpdateManyWithWhereWithoutPreviousConfigInput = {
-    where: UpdateLogScalarWhereInput
-    data: XOR<UpdateLogUpdateManyMutationInput, UpdateLogUncheckedUpdateManyWithoutPreviousConfigInput>
-  }
-
-  export type UnitServerCreateWithoutUpdateLogsInput = {
+  export type UnitServerCreateWithoutServerLogsInput = {
     id?: string
     domain: string
     name: string
@@ -29864,16 +26972,14 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     constellation: ConstellationCreateNestedOneWithoutServersInput
-    activeConfig?: UnitConfigCreateNestedOneWithoutActiveInServersInput
+    config?: UnitConfigCreateNestedOneWithoutServersInput
     clients?: ClientCreateNestedManyWithoutServerInput
     professionals?: ProfessionalCreateNestedManyWithoutServerInput
     cases?: CaseCreateNestedManyWithoutServerInput
     sections?: SectionCreateNestedManyWithoutServerInput
-    manualArticles?: ManualArticleCreateNestedManyWithoutServerInput
-    autoSources?: AutoSourceCreateNestedManyWithoutServerInput
   }
 
-  export type UnitServerUncheckedCreateWithoutUpdateLogsInput = {
+  export type UnitServerUncheckedCreateWithoutServerLogsInput = {
     id?: string
     domain: string
     name: string
@@ -29882,169 +26988,32 @@ export namespace Prisma {
     requiresUpdate?: boolean
     isActive?: boolean
     constellationId: string
-    activeConfigId?: string | null
+    configId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     clients?: ClientUncheckedCreateNestedManyWithoutServerInput
     professionals?: ProfessionalUncheckedCreateNestedManyWithoutServerInput
     cases?: CaseUncheckedCreateNestedManyWithoutServerInput
     sections?: SectionUncheckedCreateNestedManyWithoutServerInput
-    manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutServerInput
-    autoSources?: AutoSourceUncheckedCreateNestedManyWithoutServerInput
   }
 
-  export type UnitServerCreateOrConnectWithoutUpdateLogsInput = {
+  export type UnitServerCreateOrConnectWithoutServerLogsInput = {
     where: UnitServerWhereUniqueInput
-    create: XOR<UnitServerCreateWithoutUpdateLogsInput, UnitServerUncheckedCreateWithoutUpdateLogsInput>
+    create: XOR<UnitServerCreateWithoutServerLogsInput, UnitServerUncheckedCreateWithoutServerLogsInput>
   }
 
-  export type UnitConfigCreateWithoutUpdatesInput = {
-    id?: string
-    name: string
-    pageTitle: string
-    footerInfo?: string | null
-    legalStepsCount?: number
-    pageType: string
-    externalLinks?: NullableJsonNullValueInput | InputJsonValue
-    newsParams?: NullableJsonNullValueInput | InputJsonValue
-    selectedNews?: NullableJsonNullValueInput | InputJsonValue
-    infoSections?: NullableJsonNullValueInput | InputJsonValue
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    sections?: SectionCreateNestedManyWithoutConfigInput
-    manualArticles?: ManualArticleCreateNestedManyWithoutConfigInput
-    autoSources?: AutoSourceCreateNestedManyWithoutConfigInput
-    images?: ImageCreateNestedManyWithoutConfigInput
-    activeInServers?: UnitServerCreateNestedManyWithoutActiveConfigInput
-    previousUpdates?: UpdateLogCreateNestedManyWithoutPreviousConfigInput
-  }
-
-  export type UnitConfigUncheckedCreateWithoutUpdatesInput = {
-    id?: string
-    name: string
-    pageTitle: string
-    footerInfo?: string | null
-    legalStepsCount?: number
-    pageType: string
-    externalLinks?: NullableJsonNullValueInput | InputJsonValue
-    newsParams?: NullableJsonNullValueInput | InputJsonValue
-    selectedNews?: NullableJsonNullValueInput | InputJsonValue
-    infoSections?: NullableJsonNullValueInput | InputJsonValue
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    sections?: SectionUncheckedCreateNestedManyWithoutConfigInput
-    manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutConfigInput
-    autoSources?: AutoSourceUncheckedCreateNestedManyWithoutConfigInput
-    images?: ImageUncheckedCreateNestedManyWithoutConfigInput
-    activeInServers?: UnitServerUncheckedCreateNestedManyWithoutActiveConfigInput
-    previousUpdates?: UpdateLogUncheckedCreateNestedManyWithoutPreviousConfigInput
-  }
-
-  export type UnitConfigCreateOrConnectWithoutUpdatesInput = {
-    where: UnitConfigWhereUniqueInput
-    create: XOR<UnitConfigCreateWithoutUpdatesInput, UnitConfigUncheckedCreateWithoutUpdatesInput>
-  }
-
-  export type UnitConfigCreateWithoutPreviousUpdatesInput = {
-    id?: string
-    name: string
-    pageTitle: string
-    footerInfo?: string | null
-    legalStepsCount?: number
-    pageType: string
-    externalLinks?: NullableJsonNullValueInput | InputJsonValue
-    newsParams?: NullableJsonNullValueInput | InputJsonValue
-    selectedNews?: NullableJsonNullValueInput | InputJsonValue
-    infoSections?: NullableJsonNullValueInput | InputJsonValue
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    sections?: SectionCreateNestedManyWithoutConfigInput
-    manualArticles?: ManualArticleCreateNestedManyWithoutConfigInput
-    autoSources?: AutoSourceCreateNestedManyWithoutConfigInput
-    images?: ImageCreateNestedManyWithoutConfigInput
-    activeInServers?: UnitServerCreateNestedManyWithoutActiveConfigInput
-    updates?: UpdateLogCreateNestedManyWithoutConfigInput
-  }
-
-  export type UnitConfigUncheckedCreateWithoutPreviousUpdatesInput = {
-    id?: string
-    name: string
-    pageTitle: string
-    footerInfo?: string | null
-    legalStepsCount?: number
-    pageType: string
-    externalLinks?: NullableJsonNullValueInput | InputJsonValue
-    newsParams?: NullableJsonNullValueInput | InputJsonValue
-    selectedNews?: NullableJsonNullValueInput | InputJsonValue
-    infoSections?: NullableJsonNullValueInput | InputJsonValue
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    sections?: SectionUncheckedCreateNestedManyWithoutConfigInput
-    manualArticles?: ManualArticleUncheckedCreateNestedManyWithoutConfigInput
-    autoSources?: AutoSourceUncheckedCreateNestedManyWithoutConfigInput
-    images?: ImageUncheckedCreateNestedManyWithoutConfigInput
-    activeInServers?: UnitServerUncheckedCreateNestedManyWithoutActiveConfigInput
-    updates?: UpdateLogUncheckedCreateNestedManyWithoutConfigInput
-  }
-
-  export type UnitConfigCreateOrConnectWithoutPreviousUpdatesInput = {
-    where: UnitConfigWhereUniqueInput
-    create: XOR<UnitConfigCreateWithoutPreviousUpdatesInput, UnitConfigUncheckedCreateWithoutPreviousUpdatesInput>
-  }
-
-  export type UserCreateWithoutInitiatedUpdatesInput = {
-    id?: string
-    email: string
-    password: string
-    role: $Enums.Role
-    firstName: string
-    lastName: string
-    phone?: string | null
-    address?: string | null
-    avatarUrl?: string | null
-    isActive?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    lastLoginAt?: Date | string | null
-    clients?: ClientCreateNestedManyWithoutUserInput
-    professionals?: ProfessionalCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutInitiatedUpdatesInput = {
-    id?: string
-    email: string
-    password: string
-    role: $Enums.Role
-    firstName: string
-    lastName: string
-    phone?: string | null
-    address?: string | null
-    avatarUrl?: string | null
-    isActive?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    lastLoginAt?: Date | string | null
-    clients?: ClientUncheckedCreateNestedManyWithoutUserInput
-    professionals?: ProfessionalUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutInitiatedUpdatesInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutInitiatedUpdatesInput, UserUncheckedCreateWithoutInitiatedUpdatesInput>
-  }
-
-  export type UnitServerUpsertWithoutUpdateLogsInput = {
-    update: XOR<UnitServerUpdateWithoutUpdateLogsInput, UnitServerUncheckedUpdateWithoutUpdateLogsInput>
-    create: XOR<UnitServerCreateWithoutUpdateLogsInput, UnitServerUncheckedCreateWithoutUpdateLogsInput>
+  export type UnitServerUpsertWithoutServerLogsInput = {
+    update: XOR<UnitServerUpdateWithoutServerLogsInput, UnitServerUncheckedUpdateWithoutServerLogsInput>
+    create: XOR<UnitServerCreateWithoutServerLogsInput, UnitServerUncheckedCreateWithoutServerLogsInput>
     where?: UnitServerWhereInput
   }
 
-  export type UnitServerUpdateToOneWithWhereWithoutUpdateLogsInput = {
+  export type UnitServerUpdateToOneWithWhereWithoutServerLogsInput = {
     where?: UnitServerWhereInput
-    data: XOR<UnitServerUpdateWithoutUpdateLogsInput, UnitServerUncheckedUpdateWithoutUpdateLogsInput>
+    data: XOR<UnitServerUpdateWithoutServerLogsInput, UnitServerUncheckedUpdateWithoutServerLogsInput>
   }
 
-  export type UnitServerUpdateWithoutUpdateLogsInput = {
+  export type UnitServerUpdateWithoutServerLogsInput = {
     id?: StringFieldUpdateOperationsInput | string
     domain?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -30055,16 +27024,14 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     constellation?: ConstellationUpdateOneRequiredWithoutServersNestedInput
-    activeConfig?: UnitConfigUpdateOneWithoutActiveInServersNestedInput
+    config?: UnitConfigUpdateOneWithoutServersNestedInput
     clients?: ClientUpdateManyWithoutServerNestedInput
     professionals?: ProfessionalUpdateManyWithoutServerNestedInput
     cases?: CaseUpdateManyWithoutServerNestedInput
     sections?: SectionUpdateManyWithoutServerNestedInput
-    manualArticles?: ManualArticleUpdateManyWithoutServerNestedInput
-    autoSources?: AutoSourceUpdateManyWithoutServerNestedInput
   }
 
-  export type UnitServerUncheckedUpdateWithoutUpdateLogsInput = {
+  export type UnitServerUncheckedUpdateWithoutServerLogsInput = {
     id?: StringFieldUpdateOperationsInput | string
     domain?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -30073,168 +27040,13 @@ export namespace Prisma {
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
     constellationId?: StringFieldUpdateOperationsInput | string
-    activeConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    configId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     clients?: ClientUncheckedUpdateManyWithoutServerNestedInput
     professionals?: ProfessionalUncheckedUpdateManyWithoutServerNestedInput
     cases?: CaseUncheckedUpdateManyWithoutServerNestedInput
     sections?: SectionUncheckedUpdateManyWithoutServerNestedInput
-    manualArticles?: ManualArticleUncheckedUpdateManyWithoutServerNestedInput
-    autoSources?: AutoSourceUncheckedUpdateManyWithoutServerNestedInput
-  }
-
-  export type UnitConfigUpsertWithoutUpdatesInput = {
-    update: XOR<UnitConfigUpdateWithoutUpdatesInput, UnitConfigUncheckedUpdateWithoutUpdatesInput>
-    create: XOR<UnitConfigCreateWithoutUpdatesInput, UnitConfigUncheckedCreateWithoutUpdatesInput>
-    where?: UnitConfigWhereInput
-  }
-
-  export type UnitConfigUpdateToOneWithWhereWithoutUpdatesInput = {
-    where?: UnitConfigWhereInput
-    data: XOR<UnitConfigUpdateWithoutUpdatesInput, UnitConfigUncheckedUpdateWithoutUpdatesInput>
-  }
-
-  export type UnitConfigUpdateWithoutUpdatesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    pageTitle?: StringFieldUpdateOperationsInput | string
-    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
-    legalStepsCount?: IntFieldUpdateOperationsInput | number
-    pageType?: StringFieldUpdateOperationsInput | string
-    externalLinks?: NullableJsonNullValueInput | InputJsonValue
-    newsParams?: NullableJsonNullValueInput | InputJsonValue
-    selectedNews?: NullableJsonNullValueInput | InputJsonValue
-    infoSections?: NullableJsonNullValueInput | InputJsonValue
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    sections?: SectionUpdateManyWithoutConfigNestedInput
-    manualArticles?: ManualArticleUpdateManyWithoutConfigNestedInput
-    autoSources?: AutoSourceUpdateManyWithoutConfigNestedInput
-    images?: ImageUpdateManyWithoutConfigNestedInput
-    activeInServers?: UnitServerUpdateManyWithoutActiveConfigNestedInput
-    previousUpdates?: UpdateLogUpdateManyWithoutPreviousConfigNestedInput
-  }
-
-  export type UnitConfigUncheckedUpdateWithoutUpdatesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    pageTitle?: StringFieldUpdateOperationsInput | string
-    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
-    legalStepsCount?: IntFieldUpdateOperationsInput | number
-    pageType?: StringFieldUpdateOperationsInput | string
-    externalLinks?: NullableJsonNullValueInput | InputJsonValue
-    newsParams?: NullableJsonNullValueInput | InputJsonValue
-    selectedNews?: NullableJsonNullValueInput | InputJsonValue
-    infoSections?: NullableJsonNullValueInput | InputJsonValue
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    sections?: SectionUncheckedUpdateManyWithoutConfigNestedInput
-    manualArticles?: ManualArticleUncheckedUpdateManyWithoutConfigNestedInput
-    autoSources?: AutoSourceUncheckedUpdateManyWithoutConfigNestedInput
-    images?: ImageUncheckedUpdateManyWithoutConfigNestedInput
-    activeInServers?: UnitServerUncheckedUpdateManyWithoutActiveConfigNestedInput
-    previousUpdates?: UpdateLogUncheckedUpdateManyWithoutPreviousConfigNestedInput
-  }
-
-  export type UnitConfigUpsertWithoutPreviousUpdatesInput = {
-    update: XOR<UnitConfigUpdateWithoutPreviousUpdatesInput, UnitConfigUncheckedUpdateWithoutPreviousUpdatesInput>
-    create: XOR<UnitConfigCreateWithoutPreviousUpdatesInput, UnitConfigUncheckedCreateWithoutPreviousUpdatesInput>
-    where?: UnitConfigWhereInput
-  }
-
-  export type UnitConfigUpdateToOneWithWhereWithoutPreviousUpdatesInput = {
-    where?: UnitConfigWhereInput
-    data: XOR<UnitConfigUpdateWithoutPreviousUpdatesInput, UnitConfigUncheckedUpdateWithoutPreviousUpdatesInput>
-  }
-
-  export type UnitConfigUpdateWithoutPreviousUpdatesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    pageTitle?: StringFieldUpdateOperationsInput | string
-    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
-    legalStepsCount?: IntFieldUpdateOperationsInput | number
-    pageType?: StringFieldUpdateOperationsInput | string
-    externalLinks?: NullableJsonNullValueInput | InputJsonValue
-    newsParams?: NullableJsonNullValueInput | InputJsonValue
-    selectedNews?: NullableJsonNullValueInput | InputJsonValue
-    infoSections?: NullableJsonNullValueInput | InputJsonValue
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    sections?: SectionUpdateManyWithoutConfigNestedInput
-    manualArticles?: ManualArticleUpdateManyWithoutConfigNestedInput
-    autoSources?: AutoSourceUpdateManyWithoutConfigNestedInput
-    images?: ImageUpdateManyWithoutConfigNestedInput
-    activeInServers?: UnitServerUpdateManyWithoutActiveConfigNestedInput
-    updates?: UpdateLogUpdateManyWithoutConfigNestedInput
-  }
-
-  export type UnitConfigUncheckedUpdateWithoutPreviousUpdatesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    pageTitle?: StringFieldUpdateOperationsInput | string
-    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
-    legalStepsCount?: IntFieldUpdateOperationsInput | number
-    pageType?: StringFieldUpdateOperationsInput | string
-    externalLinks?: NullableJsonNullValueInput | InputJsonValue
-    newsParams?: NullableJsonNullValueInput | InputJsonValue
-    selectedNews?: NullableJsonNullValueInput | InputJsonValue
-    infoSections?: NullableJsonNullValueInput | InputJsonValue
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    sections?: SectionUncheckedUpdateManyWithoutConfigNestedInput
-    manualArticles?: ManualArticleUncheckedUpdateManyWithoutConfigNestedInput
-    autoSources?: AutoSourceUncheckedUpdateManyWithoutConfigNestedInput
-    images?: ImageUncheckedUpdateManyWithoutConfigNestedInput
-    activeInServers?: UnitServerUncheckedUpdateManyWithoutActiveConfigNestedInput
-    updates?: UpdateLogUncheckedUpdateManyWithoutConfigNestedInput
-  }
-
-  export type UserUpsertWithoutInitiatedUpdatesInput = {
-    update: XOR<UserUpdateWithoutInitiatedUpdatesInput, UserUncheckedUpdateWithoutInitiatedUpdatesInput>
-    create: XOR<UserCreateWithoutInitiatedUpdatesInput, UserUncheckedCreateWithoutInitiatedUpdatesInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutInitiatedUpdatesInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutInitiatedUpdatesInput, UserUncheckedUpdateWithoutInitiatedUpdatesInput>
-  }
-
-  export type UserUpdateWithoutInitiatedUpdatesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    clients?: ClientUpdateManyWithoutUserNestedInput
-    professionals?: ProfessionalUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutInitiatedUpdatesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    clients?: ClientUncheckedUpdateManyWithoutUserNestedInput
-    professionals?: ProfessionalUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ClientCreateManyUserInput = {
@@ -30246,18 +27058,6 @@ export namespace Prisma {
   export type ProfessionalCreateManyUserInput = {
     id?: string
     serverId: string
-  }
-
-  export type UpdateLogCreateManyInitiatorInput = {
-    id?: string
-    serverId: string
-    configId: string
-    previousConfigId?: string | null
-    status: string
-    description?: string | null
-    startedAt?: Date | string
-    completedAt?: Date | string | null
-    errorDetails?: string | null
   }
 
   export type ClientUpdateWithoutUserInput = {
@@ -30301,42 +27101,6 @@ export namespace Prisma {
   export type ProfessionalUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     serverId?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type UpdateLogUpdateWithoutInitiatorInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    errorDetails?: NullableStringFieldUpdateOperationsInput | string | null
-    server?: UnitServerUpdateOneRequiredWithoutUpdateLogsNestedInput
-    config?: UnitConfigUpdateOneRequiredWithoutUpdatesNestedInput
-    previousConfig?: UnitConfigUpdateOneWithoutPreviousUpdatesNestedInput
-  }
-
-  export type UpdateLogUncheckedUpdateWithoutInitiatorInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    serverId?: StringFieldUpdateOperationsInput | string
-    configId?: StringFieldUpdateOperationsInput | string
-    previousConfigId?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    errorDetails?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type UpdateLogUncheckedUpdateManyWithoutInitiatorInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    serverId?: StringFieldUpdateOperationsInput | string
-    configId?: StringFieldUpdateOperationsInput | string
-    previousConfigId?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    errorDetails?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type CaseCreateManyClientInput = {
@@ -30635,7 +27399,7 @@ export namespace Prisma {
     unitToken: string
     requiresUpdate?: boolean
     isActive?: boolean
-    activeConfigId?: string | null
+    configId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -30650,14 +27414,12 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    activeConfig?: UnitConfigUpdateOneWithoutActiveInServersNestedInput
+    config?: UnitConfigUpdateOneWithoutServersNestedInput
     clients?: ClientUpdateManyWithoutServerNestedInput
     professionals?: ProfessionalUpdateManyWithoutServerNestedInput
     cases?: CaseUpdateManyWithoutServerNestedInput
     sections?: SectionUpdateManyWithoutServerNestedInput
-    manualArticles?: ManualArticleUpdateManyWithoutServerNestedInput
-    autoSources?: AutoSourceUpdateManyWithoutServerNestedInput
-    updateLogs?: UpdateLogUpdateManyWithoutServerNestedInput
+    serverLogs?: ServerLogUpdateManyWithoutServerNestedInput
   }
 
   export type UnitServerUncheckedUpdateWithoutConstellationInput = {
@@ -30668,16 +27430,14 @@ export namespace Prisma {
     unitToken?: StringFieldUpdateOperationsInput | string
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    activeConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    configId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     clients?: ClientUncheckedUpdateManyWithoutServerNestedInput
     professionals?: ProfessionalUncheckedUpdateManyWithoutServerNestedInput
     cases?: CaseUncheckedUpdateManyWithoutServerNestedInput
     sections?: SectionUncheckedUpdateManyWithoutServerNestedInput
-    manualArticles?: ManualArticleUncheckedUpdateManyWithoutServerNestedInput
-    autoSources?: AutoSourceUncheckedUpdateManyWithoutServerNestedInput
-    updateLogs?: UpdateLogUncheckedUpdateManyWithoutServerNestedInput
+    serverLogs?: ServerLogUncheckedUpdateManyWithoutServerNestedInput
   }
 
   export type UnitServerUncheckedUpdateManyWithoutConstellationInput = {
@@ -30688,7 +27448,58 @@ export namespace Prisma {
     unitToken?: StringFieldUpdateOperationsInput | string
     requiresUpdate?: BoolFieldUpdateOperationsInput | boolean
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    activeConfigId?: NullableStringFieldUpdateOperationsInput | string | null
+    configId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UnitConfigUpdateWithoutArticlesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    pageTitle?: StringFieldUpdateOperationsInput | string
+    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    legalStepsCount?: IntFieldUpdateOperationsInput | number
+    pageType?: StringFieldUpdateOperationsInput | string
+    externalLinks?: NullableJsonNullValueInput | InputJsonValue
+    newsParams?: NullableJsonNullValueInput | InputJsonValue
+    selectedNews?: NullableJsonNullValueInput | InputJsonValue
+    infoSections?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sections?: SectionUpdateManyWithoutConfigNestedInput
+    images?: ImageUpdateManyWithoutConfigNestedInput
+    servers?: UnitServerUpdateManyWithoutConfigNestedInput
+  }
+
+  export type UnitConfigUncheckedUpdateWithoutArticlesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    pageTitle?: StringFieldUpdateOperationsInput | string
+    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    legalStepsCount?: IntFieldUpdateOperationsInput | number
+    pageType?: StringFieldUpdateOperationsInput | string
+    externalLinks?: NullableJsonNullValueInput | InputJsonValue
+    newsParams?: NullableJsonNullValueInput | InputJsonValue
+    selectedNews?: NullableJsonNullValueInput | InputJsonValue
+    infoSections?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sections?: SectionUncheckedUpdateManyWithoutConfigNestedInput
+    images?: ImageUncheckedUpdateManyWithoutConfigNestedInput
+    servers?: UnitServerUncheckedUpdateManyWithoutConfigNestedInput
+  }
+
+  export type UnitConfigUncheckedUpdateManyWithoutArticlesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    pageTitle?: StringFieldUpdateOperationsInput | string
+    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    legalStepsCount?: IntFieldUpdateOperationsInput | number
+    pageType?: StringFieldUpdateOperationsInput | string
+    externalLinks?: NullableJsonNullValueInput | InputJsonValue
+    newsParams?: NullableJsonNullValueInput | InputJsonValue
+    selectedNews?: NullableJsonNullValueInput | InputJsonValue
+    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -30722,33 +27533,12 @@ export namespace Prisma {
     order: number
   }
 
-  export type ManualArticleCreateManyServerInput = {
+  export type ServerLogCreateManyServerInput = {
     id?: string
-    configId: string
-    title: string
-    content: string
-    publishedAt?: Date | string
-  }
-
-  export type AutoSourceCreateManyServerInput = {
-    id?: string
-    configId: string
-    name: string
-    url: string
     type: string
-    createdAt?: Date | string
-  }
-
-  export type UpdateLogCreateManyServerInput = {
-    id?: string
-    configId: string
-    previousConfigId?: string | null
-    status: string
-    initiatorId: string
-    description?: string | null
-    startedAt?: Date | string
-    completedAt?: Date | string | null
-    errorDetails?: string | null
+    message: string
+    timestamp?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ClientUpdateWithoutServerInput = {
@@ -30854,91 +27644,28 @@ export namespace Prisma {
     order?: IntFieldUpdateOperationsInput | number
   }
 
-  export type ManualArticleUpdateWithoutServerInput = {
+  export type ServerLogUpdateWithoutServerInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    publishedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    config?: UnitConfigUpdateOneRequiredWithoutManualArticlesNestedInput
-  }
-
-  export type ManualArticleUncheckedUpdateWithoutServerInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    configId?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    publishedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ManualArticleUncheckedUpdateManyWithoutServerInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    configId?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    publishedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type AutoSourceUpdateWithoutServerInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    url?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    config?: UnitConfigUpdateOneRequiredWithoutAutoSourcesNestedInput
+    message?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
-  export type AutoSourceUncheckedUpdateWithoutServerInput = {
+  export type ServerLogUncheckedUpdateWithoutServerInput = {
     id?: StringFieldUpdateOperationsInput | string
-    configId?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    url?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    message?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
-  export type AutoSourceUncheckedUpdateManyWithoutServerInput = {
+  export type ServerLogUncheckedUpdateManyWithoutServerInput = {
     id?: StringFieldUpdateOperationsInput | string
-    configId?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    url?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type UpdateLogUpdateWithoutServerInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    errorDetails?: NullableStringFieldUpdateOperationsInput | string | null
-    config?: UnitConfigUpdateOneRequiredWithoutUpdatesNestedInput
-    previousConfig?: UnitConfigUpdateOneWithoutPreviousUpdatesNestedInput
-    initiator?: UserUpdateOneRequiredWithoutInitiatedUpdatesNestedInput
-  }
-
-  export type UpdateLogUncheckedUpdateWithoutServerInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    configId?: StringFieldUpdateOperationsInput | string
-    previousConfigId?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
-    initiatorId?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    errorDetails?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type UpdateLogUncheckedUpdateManyWithoutServerInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    configId?: StringFieldUpdateOperationsInput | string
-    previousConfigId?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
-    initiatorId?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    errorDetails?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type SectionCreateManyConfigInput = {
@@ -30950,23 +27677,6 @@ export namespace Prisma {
     order: number
   }
 
-  export type ManualArticleCreateManyConfigInput = {
-    id?: string
-    serverId?: string | null
-    title: string
-    content: string
-    publishedAt?: Date | string
-  }
-
-  export type AutoSourceCreateManyConfigInput = {
-    id?: string
-    serverId?: string | null
-    name: string
-    url: string
-    type: string
-    createdAt?: Date | string
-  }
-
   export type ImageCreateManyConfigInput = {
     id?: string
     url: string
@@ -30975,7 +27685,7 @@ export namespace Prisma {
     order?: number | null
   }
 
-  export type UnitServerCreateManyActiveConfigInput = {
+  export type UnitServerCreateManyConfigInput = {
     id?: string
     domain: string
     name: string
@@ -30986,30 +27696,6 @@ export namespace Prisma {
     constellationId: string
     createdAt?: Date | string
     updatedAt?: Date | string
-  }
-
-  export type UpdateLogCreateManyConfigInput = {
-    id?: string
-    serverId: string
-    previousConfigId?: string | null
-    status: string
-    initiatorId: string
-    description?: string | null
-    startedAt?: Date | string
-    completedAt?: Date | string | null
-    errorDetails?: string | null
-  }
-
-  export type UpdateLogCreateManyPreviousConfigInput = {
-    id?: string
-    serverId: string
-    configId: string
-    status: string
-    initiatorId: string
-    description?: string | null
-    startedAt?: Date | string
-    completedAt?: Date | string | null
-    errorDetails?: string | null
   }
 
   export type SectionUpdateWithoutConfigInput = {
@@ -31039,55 +27725,25 @@ export namespace Prisma {
     order?: IntFieldUpdateOperationsInput | number
   }
 
-  export type ManualArticleUpdateWithoutConfigInput = {
+  export type ArticleUpdateWithoutConfigsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    publishedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    server?: UnitServerUpdateOneWithoutManualArticlesNestedInput
-  }
-
-  export type ManualArticleUncheckedUpdateWithoutConfigInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    serverId?: NullableStringFieldUpdateOperationsInput | string | null
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     publishedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ManualArticleUncheckedUpdateManyWithoutConfigInput = {
+  export type ArticleUncheckedUpdateWithoutConfigsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    serverId?: NullableStringFieldUpdateOperationsInput | string | null
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     publishedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type AutoSourceUpdateWithoutConfigInput = {
+  export type ArticleUncheckedUpdateManyWithoutConfigsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    url?: StringFieldUpdateOperationsInput | string
-    type?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    server?: UnitServerUpdateOneWithoutAutoSourcesNestedInput
-  }
-
-  export type AutoSourceUncheckedUpdateWithoutConfigInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    serverId?: NullableStringFieldUpdateOperationsInput | string | null
-    name?: StringFieldUpdateOperationsInput | string
-    url?: StringFieldUpdateOperationsInput | string
-    type?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type AutoSourceUncheckedUpdateManyWithoutConfigInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    serverId?: NullableStringFieldUpdateOperationsInput | string | null
-    name?: StringFieldUpdateOperationsInput | string
-    url?: StringFieldUpdateOperationsInput | string
-    type?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    publishedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ImageUpdateWithoutConfigInput = {
@@ -31114,7 +27770,7 @@ export namespace Prisma {
     order?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
-  export type UnitServerUpdateWithoutActiveConfigInput = {
+  export type UnitServerUpdateWithoutConfigInput = {
     id?: StringFieldUpdateOperationsInput | string
     domain?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -31129,12 +27785,10 @@ export namespace Prisma {
     professionals?: ProfessionalUpdateManyWithoutServerNestedInput
     cases?: CaseUpdateManyWithoutServerNestedInput
     sections?: SectionUpdateManyWithoutServerNestedInput
-    manualArticles?: ManualArticleUpdateManyWithoutServerNestedInput
-    autoSources?: AutoSourceUpdateManyWithoutServerNestedInput
-    updateLogs?: UpdateLogUpdateManyWithoutServerNestedInput
+    serverLogs?: ServerLogUpdateManyWithoutServerNestedInput
   }
 
-  export type UnitServerUncheckedUpdateWithoutActiveConfigInput = {
+  export type UnitServerUncheckedUpdateWithoutConfigInput = {
     id?: StringFieldUpdateOperationsInput | string
     domain?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -31149,12 +27803,10 @@ export namespace Prisma {
     professionals?: ProfessionalUncheckedUpdateManyWithoutServerNestedInput
     cases?: CaseUncheckedUpdateManyWithoutServerNestedInput
     sections?: SectionUncheckedUpdateManyWithoutServerNestedInput
-    manualArticles?: ManualArticleUncheckedUpdateManyWithoutServerNestedInput
-    autoSources?: AutoSourceUncheckedUpdateManyWithoutServerNestedInput
-    updateLogs?: UpdateLogUncheckedUpdateManyWithoutServerNestedInput
+    serverLogs?: ServerLogUncheckedUpdateManyWithoutServerNestedInput
   }
 
-  export type UnitServerUncheckedUpdateManyWithoutActiveConfigInput = {
+  export type UnitServerUncheckedUpdateManyWithoutConfigInput = {
     id?: StringFieldUpdateOperationsInput | string
     domain?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -31165,78 +27817,6 @@ export namespace Prisma {
     constellationId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type UpdateLogUpdateWithoutConfigInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    errorDetails?: NullableStringFieldUpdateOperationsInput | string | null
-    server?: UnitServerUpdateOneRequiredWithoutUpdateLogsNestedInput
-    previousConfig?: UnitConfigUpdateOneWithoutPreviousUpdatesNestedInput
-    initiator?: UserUpdateOneRequiredWithoutInitiatedUpdatesNestedInput
-  }
-
-  export type UpdateLogUncheckedUpdateWithoutConfigInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    serverId?: StringFieldUpdateOperationsInput | string
-    previousConfigId?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
-    initiatorId?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    errorDetails?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type UpdateLogUncheckedUpdateManyWithoutConfigInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    serverId?: StringFieldUpdateOperationsInput | string
-    previousConfigId?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
-    initiatorId?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    errorDetails?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type UpdateLogUpdateWithoutPreviousConfigInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    errorDetails?: NullableStringFieldUpdateOperationsInput | string | null
-    server?: UnitServerUpdateOneRequiredWithoutUpdateLogsNestedInput
-    config?: UnitConfigUpdateOneRequiredWithoutUpdatesNestedInput
-    initiator?: UserUpdateOneRequiredWithoutInitiatedUpdatesNestedInput
-  }
-
-  export type UpdateLogUncheckedUpdateWithoutPreviousConfigInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    serverId?: StringFieldUpdateOperationsInput | string
-    configId?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    initiatorId?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    errorDetails?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type UpdateLogUncheckedUpdateManyWithoutPreviousConfigInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    serverId?: StringFieldUpdateOperationsInput | string
-    configId?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    initiatorId?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    errorDetails?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 
