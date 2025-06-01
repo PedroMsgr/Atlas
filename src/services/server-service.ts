@@ -1,11 +1,14 @@
 import { ServersRepository } from '@/db/repositories/servers.repo';
+import { ConstellationsRepository } from '@/db/repositories/constellations.repo';
 import { tokenService } from '@/services/token-service';
 
 export class ServerService {
   private serversRepo: ServersRepository;
+  private constellationsRepo: ConstellationsRepository;
   
   constructor() {
     this.serversRepo = new ServersRepository();
+    this.constellationsRepo = new ConstellationsRepository();
   }
   async getAllServers() {
     const servers = await this.serversRepo.findAll();
@@ -135,42 +138,15 @@ export class ServerService {
     };
   }
   async getAllConstellations() {
-    const { prisma } = await import('@/db/prisma-client');
-    return await prisma.constellation.findMany({
-      select: {
-        id: true,
-        name: true,
-        description: true
-      }
-    });
-  }  async getConstellationById(id: string) {
-    const { prisma } = await import('@/db/prisma-client');
-    return await prisma.constellation.findUnique({
-      where: { id },
-      select: {
-        id: true,
-        name: true,
-        description: true,
-        servers: {
-          select: {
-            id: true,
-            name: true,
-            domain: true,
-            isActive: true,
-          }
-        }
-      }
-    });
+    return await this.constellationsRepo.findAll();
   }
-  
-  async getAllConfigurations() {
-    const { prisma } = await import('@/db/prisma-client');
-    return await prisma.unitConfig.findMany({
-      select: {
-        id: true,
-        name: true
-      }
-    });
+
+  async getConstellationById(id: string) {
+    return await this.constellationsRepo.findById(id);
+  }
+
+  async getServerByUnitToken(token: string) {
+    return await this.serversRepo.findByUnitToken(token);
   }
 }
 

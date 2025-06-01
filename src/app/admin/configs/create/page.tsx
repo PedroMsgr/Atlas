@@ -1,7 +1,8 @@
-'use client';
+"use client";
 
 import { Box, Button } from '@radix-ui/themes';
 import { useRouter } from 'next/navigation';
+import CreateConfigForm from '@/components/config-components/CreateConfigForm';
 
 export default function CreateConfigPage() {
   const router = useRouter();
@@ -15,7 +16,7 @@ export default function CreateConfigPage() {
       >
         &larr; Volver a la lista
       </Button>
-      
+      <CreateConfigForm />
     </Box>
   );
 }

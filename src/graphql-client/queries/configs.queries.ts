@@ -55,3 +55,54 @@ export const GET_ALL_CONFIGURATIONS = gql`
     }
   }
 `;
+
+export const GET_CONFIG_BY_UNIT_TOKEN = gql`
+  query GetConfigByUnitToken($token: String!) {
+    configByToken(token: $token) {
+      id
+      name
+      pageTitle
+      footerInfo
+      legalStepsCount
+      pageType
+      description
+      bannerUrl
+      seoTitle
+      seoDescription
+      seoKeywords
+
+      sections {
+        id
+        title
+        content
+        type
+        order
+        sectionKey
+        mainImageId
+        images {
+          id
+          url
+          altText
+          type
+          order
+        }
+      }
+
+      articles {
+        id
+        title
+        content
+        publishedAt
+      }
+
+      images {
+        id
+        url
+        altText
+        type
+        order
+        sectionId
+      }
+    }
+  }
+`

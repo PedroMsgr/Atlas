@@ -37,8 +37,11 @@ const errorLink = onError(({ graphQLErrors, networkError, operation }) => {
 
 // Enlace HTTP para conectar con el servidor GraphQL
 const httpLink = new HttpLink({
-  uri: '/api/graphql', // URL relativa al endpoint que acabamos de crear
-  credentials: 'same-origin', // Importante: enviar cookies con cada solicitud
+  uri:
+    typeof window === "undefined"
+      ? process.env.NEXT_PUBLIC_GRAPHQL_URL || "http://localhost:3000/api/graphql"
+      : "/api/graphql",
+  credentials: "same-origin",
 });
 
 // Función para crear un cliente Apollo

@@ -197,13 +197,13 @@ async function main() {
   for (const { config, server } of unitConfigs) {
     // Secciones
     await prisma.section.createMany({ data: [
-      { configId: config.id, serverId: server.id, type: SectionType.text, title: 'Bienvenida', content: 'Bienvenido a nuestro portal.', order: 1 },
-      { configId: config.id, serverId: server.id, type: SectionType.legalGuide, title: 'Guía Legal', content: JSON.stringify(['Paso 1', 'Paso 2', 'Paso 3']), order: 2 },
-      { configId: config.id, serverId: server.id, type: SectionType.manual, title: 'Artículo Destacado', content: 'Contenido curado manualmente.', order: 3 },
-      { configId: config.id, serverId: server.id, type: SectionType.newsConfig, title: 'Noticias', content: JSON.stringify({ enabled: true }), order: 4 },
+      { configId: config.id, type: SectionType.text, title: 'Bienvenida', content: 'Bienvenido a nuestro portal.', order: 1 },
+      { configId: config.id, type: SectionType.legalGuide, title: 'Guía Legal', content: JSON.stringify(['Paso 1', 'Paso 2', 'Paso 3']), order: 2 },
+      { configId: config.id, type: SectionType.manual, title: 'Artículo Destacado', content: 'Contenido curado manualmente.', order: 3 },
+      { configId: config.id, type: SectionType.newsConfig, title: 'Noticias', content: JSON.stringify({ enabled: true }), order: 4 },
     ]});
 
-    // Artículos (nuevo modelo)
+    // Artículos (solo globales, no en secciones)
     const article1 = await prisma.article.create({
       data: {
         title: `Artículo destacado de ${server.name}`,

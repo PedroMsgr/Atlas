@@ -44,7 +44,6 @@ export class ServersRepository {
         clients: true,
         professionals: true,
         cases: true,
-        sections: true,
         config: true,
       },
     });
@@ -174,5 +173,16 @@ async findByConfigId(configId: string): Promise<{ id: string; name: string }[]> 
     }
   });
 }
+
+/**
+   * Busca un servidor por unitToken
+   * @param token unitToken a buscar
+   * @returns El servidor encontrado o null si no existe
+   */
+  async findByUnitToken(token: string): Promise<UnitServer | null> {
+    return prisma.unitServer.findUnique({
+      where: { unitToken: token },
+    });
+  }
 
 }

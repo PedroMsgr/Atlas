@@ -1,6 +1,8 @@
 import { serverService } from '@/services/server-service';
 import { tokenService } from '@/services/token-service';
 import { configService } from '@/services/config-service';
+import { generateLandingTSX } from '@/lib/landing-generator';
+import { UnitConfigWithRelations } from '@/types/config.types';
 
 
 export const resolvers = {
@@ -38,6 +40,28 @@ export const resolvers = {
         orchestratorToken,
         unitToken
       };
+    },
+    landingTSX: async (_: any, { token }: { token: string }) => {
+      // 1) Validar token del unitario
+      const server = await serverService.getServerByUnitToken(token);
+      if (!server) {
+        throw new Error('UnitToken inválido o servidor no encontrado');
+      }
+      if (!server.configId) {
+        throw new Error('Este servidor no tiene configuración asignada');
+      }
+
+      // 2) Obtener la configuración completa desde el servicio
+      const config = (await configService.getConfigById(
+        server.configId
+      )) as UnitConfigWithRelations | null;
+      if (!config) {
+        throw new Error('Configuración no encontrada');
+      }
+
+      // 3) Generar TSX a partir del objeto devuelto por el servicio
+      const tsxString = generateLandingTSX(config);
+      return tsxString;
     },
   },
   Mutation: {
@@ -135,6 +159,12 @@ export const resolvers = {
     },
     deleteConfig: async (_: any, { id }: { id: string }) => {
       return await configService.deleteConfig(id);
+    },
+    createFullConfig: async (_: any, { data }: { data: any }) => {
+      return await configService.createFullConfig(data);
+    },
+    updateFullConfig: async (_: any, { id, data }: { id: string, data: any }) => {
+      return await configService.updateFullConfig(id, data);
     },
   },
 };

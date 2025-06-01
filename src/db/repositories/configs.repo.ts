@@ -23,7 +23,11 @@ export class ConfigsRepository {
     return prisma.unitConfig.findUnique({
       where: { id },
       include: {
-        sections: true,
+        sections: {
+          include: {
+            images: true,
+          }
+        },
         articles: true,
         images: true,
         servers: {

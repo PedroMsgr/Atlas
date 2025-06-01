@@ -197,14 +197,40 @@ exports.Prisma.ConstellationScalarFieldEnum = {
   description: 'description'
 };
 
+exports.Prisma.UnitConfigScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  pageTitle: 'pageTitle',
+  subtitle: 'subtitle',
+  description: 'description',
+  iconUrl: 'iconUrl',
+  bannerUrl: 'bannerUrl',
+  seoTitle: 'seoTitle',
+  seoDescription: 'seoDescription',
+  seoKeywords: 'seoKeywords',
+  ogImage: 'ogImage',
+  headerLinks: 'headerLinks',
+  footerLinks: 'footerLinks',
+  footerInfo: 'footerInfo',
+  legalStepsCount: 'legalStepsCount',
+  pageType: 'pageType',
+  externalLinks: 'externalLinks',
+  newsParams: 'newsParams',
+  selectedNews: 'selectedNews',
+  infoSections: 'infoSections',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SectionScalarFieldEnum = {
   id: 'id',
   configId: 'configId',
-  serverId: 'serverId',
   type: 'type',
   title: 'title',
   content: 'content',
-  order: 'order'
+  order: 'order',
+  sectionKey: 'sectionKey',
+  mainImageId: 'mainImageId'
 };
 
 exports.Prisma.ImageScalarFieldEnum = {
@@ -213,7 +239,8 @@ exports.Prisma.ImageScalarFieldEnum = {
   url: 'url',
   altText: 'altText',
   type: 'type',
-  order: 'order'
+  order: 'order',
+  sectionId: 'sectionId'
 };
 
 exports.Prisma.ArticleScalarFieldEnum = {
@@ -232,21 +259,6 @@ exports.Prisma.UnitServerScalarFieldEnum = {
   isActive: 'isActive',
   constellationId: 'constellationId',
   configId: 'configId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.UnitConfigScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  pageTitle: 'pageTitle',
-  footerInfo: 'footerInfo',
-  legalStepsCount: 'legalStepsCount',
-  pageType: 'pageType',
-  externalLinks: 'externalLinks',
-  newsParams: 'newsParams',
-  selectedNews: 'selectedNews',
-  infoSections: 'infoSections',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -328,11 +340,11 @@ exports.Prisma.ModelName = {
   File: 'File',
   Report: 'Report',
   Constellation: 'Constellation',
+  UnitConfig: 'UnitConfig',
   Section: 'Section',
   Image: 'Image',
   Article: 'Article',
   UnitServer: 'UnitServer',
-  UnitConfig: 'UnitConfig',
   ServerLog: 'ServerLog'
 };
 

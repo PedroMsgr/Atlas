@@ -64,6 +64,54 @@ export const typeDefs = gql`
     orchestratorToken: String!
     unitToken: String!
   }
+  input SectionInput {
+    id: ID
+    type: String!
+    title: String!
+    content: String!
+    order: Int!
+    sectionKey: String
+    mainImageId: String
+    images: [ImageInput!]
+  }
+  input ImageInput {
+    id: ID
+    url: String!
+    altText: String!
+    type: String!
+    order: Int
+    sectionId: String
+  }
+  input ArticleInput {
+    id: ID
+    title: String!
+    content: String!
+    publishedAt: String
+  }
+  input ConfigInput {
+    name: String!
+    pageTitle: String!
+    subtitle: String
+    description: String
+    iconUrl: String
+    bannerUrl: String
+    seoTitle: String
+    seoDescription: String
+    seoKeywords: String
+    ogImage: String
+    headerLinks: String
+    footerLinks: String
+    footerInfo: String
+    legalStepsCount: Int
+    pageType: String!
+    externalLinks: String
+    newsParams: String
+    selectedNews: String
+    infoSections: String
+    sections: [SectionInput!]
+    articles: [ArticleInput!]
+    images: [ImageInput!]
+  }
   type Query {
     servers: [UnitServer!]!
     server(id: ID!): UnitServer
@@ -72,6 +120,7 @@ export const typeDefs = gql`
     configurations: [UnitConfig!]!
     configuration(id: ID!): UnitConfig
     generateServerTokens(id: ID!): ServerTokens!
+    landingTSX(token: String!): String!
   }
   type Mutation {
     createServer(name: String!, domain: String!, constellationId: String): UnitServer!
@@ -84,5 +133,7 @@ export const typeDefs = gql`
     createConfig(name: String!, pageTitle: String!, pageType: String!, footerInfo: String, legalStepsCount: Int): UnitConfig!
     updateConfig(id: ID!, name: String, pageTitle: String, pageType: String, footerInfo: String, legalStepsCount: Int): UnitConfig!
     deleteConfig(id: ID!): UnitConfig
+    createFullConfig(data: ConfigInput!): UnitConfig!
+    updateFullConfig(id: ID!, data: ConfigInput!): UnitConfig!
   }
 `;
