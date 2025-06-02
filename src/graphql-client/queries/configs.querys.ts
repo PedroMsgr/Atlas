@@ -9,12 +9,10 @@ export const GET_CONFIGURATION_BY_ID = gql`
       name
       pageTitle
       footerInfo
-      legalStepsCount
       updatedAt
       createdAt
       sections {
         id
-        type
         title
         order
       }
@@ -63,7 +61,6 @@ export const GET_CONFIG_BY_UNIT_TOKEN = gql`
       name
       pageTitle
       footerInfo
-      legalStepsCount
       description
       bannerUrl
       seoTitle
@@ -73,7 +70,6 @@ export const GET_CONFIG_BY_UNIT_TOKEN = gql`
         id
         title
         content
-        type
         order
         sectionKey
         mainImageId
@@ -102,35 +98,26 @@ export const GET_CONFIG_BY_UNIT_TOKEN = gql`
     }
   }
 `
+
 export const LANDING_DATA_QUERY = gql`
   query LandingData($token: String!) {
     landingData(token: $token) {
+      id
+      name
       pageTitle
-      subtitle
-      description
-      iconUrl
-      bannerUrl
-      seoTitle
-      seoDescription
-      seoKeywords
-      ogImage
-      headerLinks
-      footerLinks
+      pageDescription
+      servicesDescription
       footerInfo
-      legalStepsCount
-      externalLinks
-      newsParams
-      selectedNews
-      infoSections
+      bannerUrl
+
+      # Secciones
       sections {
         id
         configId
-        type
         title
-        content
+        body
+        imageUrl
         order
-        sectionKey
-        mainImageId
         images {
           id
           configId
@@ -141,13 +128,19 @@ export const LANDING_DATA_QUERY = gql`
           sectionId
         }
       }
+
+      # Artículos / Noticias
       articles {
         id
         configId
         title
         content
+        url
+        order
         publishedAt
       }
+
+      # Imágenes Globales
       images {
         id
         configId
@@ -157,6 +150,25 @@ export const LANDING_DATA_QUERY = gql`
         order
         sectionId
       }
+
+      # Pasos Legales
+      legalSteps {
+        id
+        configId
+        title
+        description
+        iconUrl
+        order
+      }
+
+      # Enlaces de Footer
+      footerLinks {
+        id
+        configId
+        label
+        url
+        order
+      }
     }
   }
-`
+`;

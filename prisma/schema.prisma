@@ -181,6 +181,7 @@ model UnitConfig {
   name              String      @unique
   pageTitle         String
   pageDescription   String
+  iconUrl           String?
   servicesDescription String
   bannerUrl         String?
   footerInfo        String?

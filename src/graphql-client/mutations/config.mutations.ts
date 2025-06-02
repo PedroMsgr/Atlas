@@ -3,43 +3,25 @@
 import { gql } from '@apollo/client';
 
 export const CREATE_CONFIG = gql`
-  mutation CreateConfig(
-    $name: String!, 
-    $pageTitle: String!, 
-    $footerInfo: String, 
-    $legalStepsCount: Int
-  ) {
-    createConfig(
-      name: $name, 
-      pageTitle: $pageTitle, 
-      footerInfo: $footerInfo, 
-      legalStepsCount: $legalStepsCount
-    ) {
+  mutation CreateConfig($data: CreateConfigInput!) {
+    createConfig(data: $data) {
       id
       name
       pageTitle
+      servicesDescription
+      iconUrl
     }
   }
 `;
 
 export const UPDATE_CONFIG = gql`
-  mutation UpdateConfig(
-    $id: ID!, 
-    $name: String, 
-    $pageTitle: String, 
-    $footerInfo: String, 
-    $legalStepsCount: Int
-  ) {
-    updateConfig(
-      id: $id,
-      name: $name, 
-      pageTitle: $pageTitle, 
-      footerInfo: $footerInfo, 
-      legalStepsCount: $legalStepsCount
-    ) {
+  mutation UpdateConfig($id: ID!, $data: UpdateConfigInput!) {
+    updateConfig(id: $id, data: $data) {
       id
       name
       pageTitle
+      servicesDescription
+      iconUrl
       updatedAt
     }
   }

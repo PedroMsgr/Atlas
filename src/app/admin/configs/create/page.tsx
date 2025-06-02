@@ -3,7 +3,7 @@
 
 import { Box, Button } from "@radix-ui/themes";
 import { useRouter } from "next/navigation";
-import CreateConfigForm from "@/components/config-components/CreateConfigForm";
+import CreateConfigBasicForm from "@/components/config-components/CreateConfig";
 
 export default function CreateConfigPage() {
   const router = useRouter();
@@ -17,7 +17,8 @@ export default function CreateConfigPage() {
       >
         &larr; Volver a la lista
       </Button>
-      <CreateConfigForm onSuccess={() => router.push("/admin/configs")} />
+      {/* Usar el formulario básico para crear la configuración */}
+      <CreateConfigBasicForm />
     </Box>
   );
 }

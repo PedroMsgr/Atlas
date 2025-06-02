@@ -202,6 +202,7 @@ exports.Prisma.UnitConfigScalarFieldEnum = {
   name: 'name',
   pageTitle: 'pageTitle',
   pageDescription: 'pageDescription',
+  iconUrl: 'iconUrl',
   servicesDescription: 'servicesDescription',
   bannerUrl: 'bannerUrl',
   footerInfo: 'footerInfo',

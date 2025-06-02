@@ -1,19 +1,21 @@
 // src/graphql/typeDefs.ts
 
-import { gql } from 'graphql-tag';
+import { gql } from 'apollo-server-micro';
 
 export const typeDefs = gql`
   scalar DateTime
   scalar JSON
 
+  # ---------------- Tipo principal UnitConfig ----------------
   type UnitConfig {
     id: ID!
     name: String!
     pageTitle: String!
-    footerInfo: String
-    legalStepsCount: Int
     pageDescription: String
-    servicesDescription: String
+    servicesDescription: String!
+    iconUrl: String
+    footerInfo: String
+    bannerUrl: String
     createdAt: DateTime!
     updatedAt: DateTime!
     sections: [Section!]!
@@ -24,6 +26,7 @@ export const typeDefs = gql`
     servers: [UnitServer!]!
   }
 
+  # ---------------- Secciones ----------------
   type Section {
     id: ID!
     configId: ID!
@@ -35,16 +38,19 @@ export const typeDefs = gql`
     config: UnitConfig!
   }
 
+  # ---------------- Artículos ----------------
   type Article {
     id: ID!
     configId: ID!
     title: String!
     content: String!
+    url: String
     order: Int!
     publishedAt: DateTime
     config: UnitConfig!
   }
 
+  # ---------------- Imágenes ----------------
   type Image {
     id: ID!
     configId: ID!
@@ -57,6 +63,7 @@ export const typeDefs = gql`
     section: Section
   }
 
+  # ---------------- Pasos Legales ----------------
   type LegalStep {
     id: ID!
     configId: ID!
@@ -67,6 +74,7 @@ export const typeDefs = gql`
     config: UnitConfig!
   }
 
+  # ---------------- FooterLinks ----------------
   type FooterLink {
     id: ID!
     configId: ID!
@@ -76,6 +84,7 @@ export const typeDefs = gql`
     config: UnitConfig!
   }
 
+  # ---------------- Servidores y Constelaciones ----------------
   type UnitServer {
     id: ID!
     name: String!
@@ -102,6 +111,7 @@ export const typeDefs = gql`
     unitToken: String!
   }
 
+  # ---------------- INPUTS para las subentidades ----------------
   input SectionInput {
     configId: ID!
     title: String!
@@ -114,7 +124,9 @@ export const typeDefs = gql`
     configId: ID!
     title: String!
     content: String!
+    url: String
     order: Int!
+    publishedAt: DateTime
   }
 
   input ImageInput {
@@ -142,13 +154,34 @@ export const typeDefs = gql`
   }
 
   input UpdateServerInput {
-    name: String
-    domain: String
-    isActive: Boolean
-    constellationId: String
-    activeConfigId: String
+  name: String
+  domain: String
+  isActive: Boolean
+  constellationId: String
+  configId: String
+}
+  # ---------------- INPUTS para UnitConfig ----------------
+  input CreateConfigInput {
+    name: String!
+    pageTitle: String!
+    servicesDescription: String!
+    iconUrl: String
+    pageDescription: String
+    bannerUrl: String
+    footerInfo: String
   }
 
+  input UpdateConfigInput {
+    name: String
+    pageTitle: String
+    servicesDescription: String
+    iconUrl: String
+    pageDescription: String
+    bannerUrl: String
+    footerInfo: String
+  }
+
+  # ---------------- QUERIES ----------------
   type Query {
     configurations: [UnitConfig!]!
     configuration(id: ID!): UnitConfig
@@ -175,41 +208,16 @@ export const typeDefs = gql`
     generateServerTokens(id: ID!): ServerTokens!
   }
 
+  # ---------------- MUTATIONS ----------------
   type Mutation {
-    createConfig(
-      name: String!
-      pageTitle: String!
-      footerInfo: String
-      legalStepsCount: Int
-      pageDescription: String
-      servicesDescription: String
-    ): UnitConfig!
-    updateConfig(
-      id: ID!
-      name: String
-      pageTitle: String
-      footerInfo: String
-      legalStepsCount: Int
-      pageDescription: String
-      servicesDescription: String
-    ): UnitConfig!
+    createConfig(data: CreateConfigInput!): UnitConfig!
+    updateConfig(id: ID!, data: UpdateConfigInput!): UnitConfig!
     deleteConfig(id: ID!): UnitConfig!
 
-    createServer(
-      name: String!
-      domain: String!
-      constellationId: String
-    ): UnitServer!
-    updateServer(
-      id: ID!
-      data: UpdateServerInput!
-    ): UnitServer!
+    createServer(name: String!, domain: String!, constellationId: String): UnitServer!
+    updateServer(id: ID!, data: UpdateServerInput!): UnitServer!
     deleteServer(id: ID!): UnitServer!
-    updateServerTokens(
-      id: ID!
-      orchestratorToken: String!
-      unitToken: String!
-    ): UnitServer!
+    updateServerTokens(id: ID!, orchestratorToken: String!, unitToken: String!): UnitServer!
 
     createSection(data: SectionInput!): Section!
     updateSection(id: ID!, data: SectionInput!): Section!
@@ -226,22 +234,10 @@ export const typeDefs = gql`
     createFooterLink(data: FooterLinkInput!): FooterLink!
     updateFooterLink(id: ID!, data: FooterLinkInput!): FooterLink!
     deleteFooterLink(id: ID!): FooterLink!
-    createConstellation(
-      name: String!
-      description: String
-    ): Constellation!
-    updateConstellation(
-      id: ID!
-      name: String
-      description: String
-    ): Constellation!
+    createConstellation(name: String!, description: String): Constellation!
+    updateConstellation(id: ID!, name: String, description: String): Constellation!
     deleteConstellation(id: ID!): Constellation!
-    createFullConfig(
-      data: JSON!
-    ): UnitConfig!
-    updateFullConfig(
-      id: ID!
-      data: JSON!
-    ): UnitConfig!
+    createFullConfig(data: JSON!): UnitConfig!
+    updateFullConfig(id: ID!, data: JSON!): UnitConfig!
   }
 `;

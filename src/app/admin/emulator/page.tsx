@@ -1,5 +1,5 @@
 "use client";
-// src/app/admin/emulador/page.tsx
+// src/app/admin/emulator/page.tsx
 
 import { useState } from "react";
 import Link from "next/link";

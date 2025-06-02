@@ -1,4 +1,6 @@
 "use client";
+// src/components/emulator-components/HeaderEmulator.tsx
+
 import Link from "next/link";
 import { useTheme } from "next-themes";
 import { useState, useEffect } from "react";

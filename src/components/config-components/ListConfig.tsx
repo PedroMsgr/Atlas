@@ -19,7 +19,7 @@ interface Configuration extends UnitConfigBase {
   servers: Server[];
 }
 
-export default function ConfigurationList() {
+export default function ListConfig() {
   const router = useRouter();
   const [selectedConfig, setSelectedConfig] = useState<Configuration | null>(null);
 
