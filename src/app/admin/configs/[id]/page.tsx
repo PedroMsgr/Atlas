@@ -1,16 +1,18 @@
 "use client";
 // src/app/admin/configs/[id]/page.tsx
 
+import React from "react";
 import { Box, Button } from "@radix-ui/themes";
 import { useRouter } from "next/navigation";
 import { useQuery } from "@apollo/client";
 import { GET_CONFIGURATION_BY_ID } from "@/graphql-client/queries/configs.querys";
 import CreateConfigForm from "@/components/config-components/CreateConfigForm";
 
-export default function EditConfigPage({ params }: { params: { id: string } }) {
+export default function EditConfigPage({ params }: { params: any }) {
   const router = useRouter();
+  const { id } = React.use(params) as { id: string };
   const { data, loading, error } = useQuery(GET_CONFIGURATION_BY_ID, {
-    variables: { id: params.id },
+    variables: { id },
     fetchPolicy: "network-only",
   });
 

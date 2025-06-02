@@ -1,7 +1,7 @@
 import { Button, Container, Flex, Heading, Section, Text, Card, Box } from '@radix-ui/themes';
 import Image from 'next/image';
 import Link from 'next/link';
-import MainLayout from '@/components/layout/MainLayout';
+import MainLayout from '@/components/layout-components/MainLayout';
 
 export default function Home() {
   return (

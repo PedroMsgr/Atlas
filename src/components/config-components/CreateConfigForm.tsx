@@ -9,25 +9,19 @@ import {
   CREATE_CONFIG,
   UPDATE_CONFIG,
 } from "@/graphql-client/mutations/config.mutations";
-import {
-  GET_SECTIONS_BY_CONFIG,
-} from "@/graphql-client/queries/section.querys";
+import { GET_SECTIONS_BY_CONFIG } from "@/graphql-client/queries/section.querys";
 import {
   CREATE_SECTION,
   UPDATE_SECTION,
   DELETE_SECTION,
 } from "@/graphql-client/mutations/section.mutations";
-import {
-  GET_ARTICLES_BY_CONFIG,
-} from "@/graphql-client/queries/article.querys";
+import { GET_ARTICLES_BY_CONFIG } from "@/graphql-client/queries/article.querys";
 import {
   CREATE_ARTICLE,
   UPDATE_ARTICLE,
   DELETE_ARTICLE,
 } from "@/graphql-client/mutations/article.mutations";
-import {
-  GET_IMAGES_BY_CONFIG,
-} from "@/graphql-client/queries/image.querys";
+import { GET_IMAGES_BY_CONFIG } from "@/graphql-client/queries/image.querys";
 import {
   CREATE_IMAGE,
   UPDATE_IMAGE,
@@ -122,9 +116,7 @@ export default function CreateConfigForm({
     order: 1,
     type: "text",
   });
-  const [editingSectionId, setEditingSectionId] = useState<string | null>(
-    null
-  );
+  const [editingSectionId, setEditingSectionId] = useState<string | null>(null);
 
   // Formulario local de artículo
   const [articleForm, setArticleForm] = useState<{
@@ -142,9 +134,7 @@ export default function CreateConfigForm({
   const [editingArticleId, setEditingArticleId] = useState<string | null>(null);
 
   // Sección actual para imágenes “inline”
-  const [currentSectionId, setCurrentSectionId] = useState<string | null>(
-    null
-  );
+  const [currentSectionId, setCurrentSectionId] = useState<string | null>(null);
 
   // Inicializar estado si recibimos `config` (edición)
   useEffect(() => {
@@ -444,8 +434,8 @@ export default function CreateConfigForm({
           altText: file.name,
           type: "inline",
           order:
-            (form.sections?.find((s: any) => s.id === currentSectionId)
-              ?.images?.length || 0) + 1,
+            (form.sections?.find((s: any) => s.id === currentSectionId)?.images
+              ?.length || 0) + 1,
         },
       },
     });
@@ -646,7 +636,9 @@ export default function CreateConfigForm({
               <Flex gap="2" className="mt-2">
                 <Button
                   color="green"
-                  onClick={editingSectionId ? handleEditSection : handleAddSection}
+                  onClick={
+                    editingSectionId ? handleEditSection : handleAddSection
+                  }
                 >
                   {editingSectionId ? "Actualizar" : "Agregar"}
                 </Button>
@@ -682,7 +674,9 @@ export default function CreateConfigForm({
                   >
                     <Box>
                       <Heading size="6">{sec.title}</Heading>
-                      <p>Orden: {sec.order} | Tipo: {sec.type}</p>
+                      <p>
+                        Orden: {sec.order} | Tipo: {sec.type}
+                      </p>
                     </Box>
                     <Flex gap="2">
                       <Button
@@ -796,7 +790,10 @@ export default function CreateConfigForm({
                 type="date"
                 value={articleForm.publishedAt}
                 onChange={(e) =>
-                  setArticleForm({ ...articleForm, publishedAt: e.target.value })
+                  setArticleForm({
+                    ...articleForm,
+                    publishedAt: e.target.value,
+                  })
                 }
                 required
               />
@@ -819,9 +816,7 @@ export default function CreateConfigForm({
                         title: "",
                         content: "",
                         url: "",
-                        publishedAt: new Date()
-                          .toISOString()
-                          .split("T")[0],
+                        publishedAt: new Date().toISOString().split("T")[0],
                       });
                     }}
                   >
@@ -844,7 +839,7 @@ export default function CreateConfigForm({
                     <Box>
                       <Heading size="6">{art.title}</Heading>
                       <p>
-                        {new Date(art.publishedAt).toLocaleDateString()} – {" "}
+                        {new Date(art.publishedAt).toLocaleDateString()} –{" "}
                         <a
                           href={art.url}
                           target="_blank"

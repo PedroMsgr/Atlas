@@ -3,7 +3,7 @@
 import { Box, Flex, Text, Separator } from '@radix-ui/themes';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import Layout from '@/components/layout/Layout';
+import Layout from '@/components/layout-components/Layout';
 
 const menuItems = [
   { name: 'Dashboard',      path: '/admin',               icon: '📊' },
