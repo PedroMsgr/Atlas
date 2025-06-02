@@ -1,20 +1,21 @@
-"use client"
+"use client";
+// src/app/admin/emulador/page.tsx
 
-import { useState } from "react"
-import Link from "next/link"
+import { useState } from "react";
+import Link from "next/link";
 
 export default function EmulatorGeneratorPage() {
-  const [token, setToken] = useState("")
-  const [status, setStatus] = useState<null | "idle" | "loading" | "success" | "error">(null)
-  const [errorMsg, setErrorMsg] = useState<string | null>(null)
+  const [token, setToken] = useState("");
+  const [status, setStatus] = useState<null | "idle" | "loading" | "success" | "error">(null);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   const handleGenerate = async () => {
     if (!token.trim()) {
-      setErrorMsg("Por favor, ingresa un token válido")
-      return
+      setErrorMsg("Por favor, ingresa un token válido");
+      return;
     }
-    setErrorMsg(null)
-    setStatus("loading")
+    setErrorMsg(null);
+    setStatus("loading");
     try {
       const res = await fetch("/api/generate-landing", {
         method: "POST",
@@ -22,19 +23,19 @@ export default function EmulatorGeneratorPage() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ token: token.trim() }),
-      })
-      const data = await res.json()
+      });
+      const data = await res.json();
       if (!res.ok) {
-        setErrorMsg(data.error || "Error desconocido")
-        setStatus("error")
+        setErrorMsg(data.error || "Error desconocido");
+        setStatus("error");
       } else {
-        setStatus("success")
+        setStatus("success");
       }
     } catch (err: any) {
-      setErrorMsg(err.message || "Error de red")
-      setStatus("error")
+      setErrorMsg(err.message || "Error de red");
+      setStatus("error");
     }
-  }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
@@ -54,9 +55,7 @@ export default function EmulatorGeneratorPage() {
         />
 
         {errorMsg && (
-          <p className="text-red-600 text-sm mb-3">
-            {errorMsg}
-          </p>
+          <p className="text-red-600 text-sm mb-3">{errorMsg}</p>
         )}
 
         <button
@@ -80,12 +79,12 @@ export default function EmulatorGeneratorPage() {
           </p>
         )}
 
-          <div className="mt-6 text-center">
-            <Link href="/emulator" className="text-blue-600 hover:underline">
-              Ir a la página del emulador
-            </Link>
-          </div>
+        <div className="mt-6 text-center">
+          <Link href="/emulator" className="text-blue-600 hover:underline">
+            Ir a la página del emulador
+          </Link>
+        </div>
       </div>
     </div>
-  )
+  );
 }

@@ -4,3 +4,6 @@ export * from './constellation.mutations';
 export * from './config.mutations';
 export * from './user.mutations';
 export * from './case.mutations';
+export * from './article.mutations';
+export * from './image.mutations';
+export * from './section.mutations';

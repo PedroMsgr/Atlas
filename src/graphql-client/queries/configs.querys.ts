@@ -108,3 +108,62 @@ export const GET_CONFIG_BY_UNIT_TOKEN = gql`
     }
   }
 `
+export const LANDING_DATA_QUERY = gql`
+  query LandingData($token: String!) {
+    landingData(token: $token) {
+      pageTitle
+      subtitle
+      description
+      iconUrl
+      bannerUrl
+      seoTitle
+      seoDescription
+      seoKeywords
+      ogImage
+      headerLinks
+      footerLinks
+      footerInfo
+      legalStepsCount
+      pageType
+      externalLinks
+      newsParams
+      selectedNews
+      infoSections
+      sections {
+        id
+        configId
+        type
+        title
+        content
+        order
+        sectionKey
+        mainImageId
+        images {
+          id
+          configId
+          url
+          altText
+          type
+          order
+          sectionId
+        }
+      }
+      articles {
+        id
+        configId
+        title
+        content
+        publishedAt
+      }
+      images {
+        id
+        configId
+        url
+        altText
+        type
+        order
+        sectionId
+      }
+    }
+  }
+`

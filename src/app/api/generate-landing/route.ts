@@ -1,14 +1,12 @@
+// src/app/api/generate-landing/route.ts
+
 import { NextRequest, NextResponse } from 'next/server'
 import fs from 'fs/promises'
 import path from 'path'
 import { createApolloClient } from '@/lib/apollo-client'
 import { gql } from '@apollo/client'
-
-const LANDING_TSX_QUERY = gql`
-  query LandingTSX($token: String!) {
-    landingTSX(token: $token)
-  }
-`
+import { generateLandingTSX } from '@/lib/landing-generator'
+import { LANDING_DATA_QUERY } from '@/graphql-client/queries/configs.querys'
 
 export async function POST(req: NextRequest) {
   try {
@@ -20,18 +18,19 @@ export async function POST(req: NextRequest) {
     // 1) Creamos el cliente Apollo que ya apunta a /api/graphql
     const apollo = createApolloClient()
 
-    // 2) Llamamos a la query landingTSX(token)
-    const { data, errors } = await apollo.query<{ landingTSX: string }>({
-      query: LANDING_TSX_QUERY,
+    // 2) Llamamos a la query landingData(token)
+    const { data, errors } = await apollo.query<{ landingData: any }>({
+      query: LANDING_DATA_QUERY,
       variables: { token },
     })
 
     if (errors && errors.length > 0) {
-      console.error('Errores GraphQL en landingTSX:', errors)
-      return NextResponse.json({ error: 'Error generando TSX desde GraphQL' }, { status: 500 })
+      console.error('Errores GraphQL en landingData:', errors)
+      return NextResponse.json({ error: 'Error generando landing desde GraphQL' }, { status: 500 })
     }
 
-    const tsxString = data.landingTSX
+    const landingObject = data.landingData
+    const tsxString = generateLandingTSX(landingObject)
 
     // 3) Determinamos la ruta absoluta a src/app/emulator/page.tsx
     const emulatorDir = path.join(process.cwd(), 'src', 'app', 'emulator')

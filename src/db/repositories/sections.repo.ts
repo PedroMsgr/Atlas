@@ -28,6 +28,7 @@ export class SectionsRepository {
         order: 'asc',
       },
       include: {
+        config: true,
       },
     });
   }

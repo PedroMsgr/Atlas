@@ -67,17 +67,16 @@ export const typeDefs = gql`
     unitToken: String!
   }
   input SectionInput {
-    id: ID
+    configId: String!
     type: String!
     title: String!
     content: String!
     order: Int!
     sectionKey: String
     mainImageId: String
-    images: [ImageInput!]
   }
   input ImageInput {
-    id: ID
+    configId: String!
     url: String!
     altText: String!
     type: String!
@@ -85,7 +84,7 @@ export const typeDefs = gql`
     sectionId: String
   }
   input ArticleInput {
-    id: ID
+    configId: String!
     title: String!
     content: String!
     publishedAt: String
@@ -114,6 +113,56 @@ export const typeDefs = gql`
     articles: [ArticleInput!]
     images: [ImageInput!]
   }
+  type LandingData {
+    pageTitle: String!
+    subtitle: String
+    description: String
+    iconUrl: String
+    bannerUrl: String
+    seoTitle: String
+    seoDescription: String
+    seoKeywords: String
+    ogImage: String
+    headerLinks: String
+    footerLinks: String
+    footerInfo: String
+    legalStepsCount: Int
+    pageType: String!
+    externalLinks: String
+    newsParams: String
+    selectedNews: String
+    infoSections: String
+    sections: [SectionFull!]
+    articles: [ArticleFull!]
+    images: [ImageFull!]
+  }
+  type SectionFull {
+    id: ID!
+    configId: String!
+    type: String!
+    title: String!
+    content: String!
+    order: Int!
+    sectionKey: String
+    mainImageId: String
+    images: [ImageFull!]
+  }
+  type ImageFull {
+    id: ID!
+    configId: String!
+    url: String!
+    altText: String!
+    type: String!
+    order: Int
+    sectionId: String
+  }
+  type ArticleFull {
+    id: ID!
+    configId: String!
+    title: String!
+    content: String!
+    publishedAt: String
+  }
   type Query {
     servers: [UnitServer!]!
     server(id: ID!): UnitServer
@@ -122,7 +171,16 @@ export const typeDefs = gql`
     configurations: [UnitConfig!]!
     configuration(id: ID!): UnitConfig
     generateServerTokens(id: ID!): ServerTokens!
-    landingTSX(token: String!): String!
+    landingData(token: String!): LandingData!
+    section(id: ID!): SectionFull
+    sectionsByConfig(configId: ID!): [SectionFull!]
+    sections: [SectionFull!]
+    image(id: ID!): ImageFull
+    imagesByConfig(configId: ID!): [ImageFull!]
+    images: [ImageFull!]
+    article(id: ID!): ArticleFull
+    articlesByConfig(configId: ID!): [ArticleFull!]
+    articles: [ArticleFull!]
   }
   type Mutation {
     createServer(name: String!, domain: String!, constellationId: String): UnitServer!
@@ -137,5 +195,14 @@ export const typeDefs = gql`
     deleteConfig(id: ID!): UnitConfig
     createFullConfig(data: ConfigInput!): UnitConfig!
     updateFullConfig(id: ID!, data: ConfigInput!): UnitConfig!
+    createSection(data: SectionInput!): SectionFull!
+    updateSection(id: ID!, data: SectionInput!): SectionFull!
+    deleteSection(id: ID!): SectionFull!
+    createImage(data: ImageInput!): ImageFull!
+    updateImage(id: ID!, data: ImageInput!): ImageFull!
+    deleteImage(id: ID!): ImageFull!
+    createArticle(data: ArticleInput!): ArticleFull!
+    updateArticle(id: ID!, data: ArticleInput!): ArticleFull!
+    deleteArticle(id: ID!): ArticleFull!
   }
 `;

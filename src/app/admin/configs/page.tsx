@@ -1,4 +1,5 @@
 'use client';
+// src/app/admin/configs/page.tsx
 
 import { Box, Heading, Flex, Button } from '@radix-ui/themes';
 import ConfigurationList from '@/components/config-components/ConfigurationList';

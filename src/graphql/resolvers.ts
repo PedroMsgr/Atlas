@@ -5,7 +5,13 @@ import { tokenService } from '@/services/token.service';
 import { configService } from '@/services/config.service';
 import { generateLandingTSX } from '@/lib/landing-generator';
 import { UnitConfigWithRelations } from '@/types/config.types';
+import { SectionsRepository } from '@/db/repositories/sections.repo';
+import { ImagesRepository } from '@/db/repositories/images.repo';
+import { ArticlesRepository } from '@/db/repositories/articles.repo';
 
+const sectionsRepo = new SectionsRepository();
+const imagesRepo = new ImagesRepository();
+const articlesRepo = new ArticlesRepository();
 
 export const resolvers = {
   Query: {
@@ -43,28 +49,25 @@ export const resolvers = {
         unitToken
       };
     },
-    landingTSX: async (_: any, { token }: { token: string }) => {
+    landingData: async (_: any, { token }: { token: string }) => {
       // 1) Validar token del unitario
       const server = await serverService.getServerByUnitToken(token);
-      if (!server) {
-        throw new Error('UnitToken inválido o servidor no encontrado');
-      }
-      if (!server.configId) {
-        throw new Error('Este servidor no tiene configuración asignada');
-      }
-
-      // 2) Obtener la configuración completa desde el servicio
-      const config = (await configService.getConfigById(
-        server.configId
-      )) as UnitConfigWithRelations | null;
-      if (!config) {
-        throw new Error('Configuración no encontrada');
-      }
-
-      // 3) Generar TSX a partir del objeto devuelto por el servicio
-      const tsxString = generateLandingTSX(config);
-      return tsxString;
+      if (!server || !server.configId) throw new Error("Token inválido o sin configuración");
+      // 2) Obtener la configuración completa
+      const config = await configService.getConfigById(server.configId);
+      if (!config) throw new Error("Config no encontrada");
+      // 3) Devuelve el objeto con todos los campos necesarios
+      return config;
     },
+    section: async (_: any, { id }: { id: string }) => sectionsRepo.findById(id),
+    sectionsByConfig: async (_: any, { configId }: { configId: string }) => sectionsRepo.findByConfigId(configId),
+    sections: async () => sectionsRepo.findAll(),
+    image: async (_: any, { id }: { id: string }) => imagesRepo.findById(id),
+    imagesByConfig: async (_: any, { configId }: { configId: string }) => imagesRepo.findByConfigId(configId),
+    images: async () => imagesRepo.findAll(),
+    article: async (_: any, { id }: { id: string }) => articlesRepo.findById(id),
+    articlesByConfig: async (_: any, { configId }: { configId: string }) => articlesRepo.findByConfigId(configId),
+    articles: async () => articlesRepo.findAll(),
   },
   Mutation: {
     createServer: async (_: any, { name, domain, constellationId }: { 
@@ -168,5 +171,14 @@ export const resolvers = {
     updateFullConfig: async (_: any, { id, data }: { id: string, data: any }) => {
       return await configService.updateFullConfig(id, data);
     },
+    createSection: async (_: any, { data }: any) => sectionsRepo.create(data),
+    updateSection: async (_: any, { id, data }: any) => sectionsRepo.update(id, data),
+    deleteSection: async (_: any, { id }: any) => sectionsRepo.delete(id),
+    createImage: async (_: any, { data }: any) => imagesRepo.create(data),
+    updateImage: async (_: any, { id, data }: any) => imagesRepo.update(id, data),
+    deleteImage: async (_: any, { id }: any) => imagesRepo.delete(id),
+    createArticle: async (_: any, { data }: any) => articlesRepo.create(data, [data.configId]),
+    updateArticle: async (_: any, { id, data }: any) => articlesRepo.update(id, data, [data.configId]),
+    deleteArticle: async (_: any, { id }: any) => articlesRepo.delete(id),
   },
 };

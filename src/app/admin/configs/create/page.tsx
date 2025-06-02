@@ -1,4 +1,5 @@
 "use client";
+// src/app/admin/configs/create/page.tsx
 
 import { Box, Button } from "@radix-ui/themes";
 import { useRouter } from "next/navigation";

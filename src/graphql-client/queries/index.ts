@@ -1,6 +1,9 @@
 // Exporta todas las consultas para facilitar la importación
-export * from './server.queries';
-export * from './constellation.queries';
-export * from './user.queries';
-export * from './case.queries';
-export * from './configs.queries';
+export * from './server.querys';
+export * from './constellation.querys';
+export * from './user.querys';
+export * from './case.querys';
+export * from './configs.querys';
+export * from './article.querys';
+export * from './image.querys';
+export * from './section.querys';
