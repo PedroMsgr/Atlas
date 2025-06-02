@@ -1,6 +1,8 @@
-import { serverService } from '@/services/server-service';
-import { tokenService } from '@/services/token-service';
-import { configService } from '@/services/config-service';
+// src/graphql/resolvers.ts
+
+import { serverService } from '@/services/server.service';
+import { tokenService } from '@/services/token.service';
+import { configService } from '@/services/config.service';
 import { generateLandingTSX } from '@/lib/landing-generator';
 import { UnitConfigWithRelations } from '@/types/config.types';
 

@@ -1,3 +1,5 @@
+// src/graphql-client/queries/user.queries.ts
+
 import { gql } from '@apollo/client';
 
 export const GET_CLIENTS = gql`

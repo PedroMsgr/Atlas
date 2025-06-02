@@ -1,4 +1,6 @@
-import { gql } from '@apollo/client';
+// src/graphql-client/queries/case.queries.ts
+
+ import { gql } from '@apollo/client';
 
 export const GET_CASES = gql`
   query GetCases($serverId: ID) {

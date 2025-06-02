@@ -1,3 +1,5 @@
+// src/db/repositories/chats.repo.ts
+
 import { Chat, Message, Sender } from '../../generated/prisma';
 import { prisma } from '../prisma-client';
 

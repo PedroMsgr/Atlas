@@ -1,3 +1,5 @@
+// src/graphql/typeDefs.ts
+
 import { gql } from 'graphql-tag';
 
 export const typeDefs = gql`

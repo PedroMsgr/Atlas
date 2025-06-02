@@ -1,3 +1,5 @@
+// src/graphql/context.ts
+
 import { NextRequest } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { prisma } from '@/db/prisma-client';

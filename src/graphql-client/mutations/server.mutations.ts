@@ -1,3 +1,5 @@
+// src/graphql-client/mutations/server.mutations.ts
+
 import { gql } from '@apollo/client';
 
 export const CREATE_SERVER = gql`

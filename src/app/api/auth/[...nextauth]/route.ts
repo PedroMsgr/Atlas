@@ -1,6 +1,6 @@
 import NextAuth, { DefaultSession, NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { authService } from '@/services/auth-service';
+import { authService } from '@/services/auth.service';
 
 declare module "next-auth" {
   interface Session extends DefaultSession {

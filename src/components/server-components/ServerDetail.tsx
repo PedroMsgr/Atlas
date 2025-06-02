@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import { GET_SERVER_BY_ID, GENERATE_SERVER_TOKENS } from '@/graphql-client/queries/server.queries';
 import { UPDATE_SERVER_TOKENS, UPDATE_SERVER_CONFIG } from '@/graphql-client/mutations/server.mutations';
 import { GET_ALL_CONFIGURATIONS } from '@/graphql-client/queries/configs.queries';
-import { formatDate } from '@/utils/date-formatter';
+import { formatDate } from '@/lib/date-formatter';
 
 interface ServerDetailProps {
   serverId: string;

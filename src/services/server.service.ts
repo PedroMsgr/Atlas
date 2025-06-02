@@ -1,6 +1,7 @@
+// src/services/server-service.ts
 import { ServersRepository } from '@/db/repositories/servers.repo';
 import { ConstellationsRepository } from '@/db/repositories/constellations.repo';
-import { tokenService } from '@/services/token-service';
+import { tokenService } from '@/services/token.service';
 
 export class ServerService {
   private serversRepo: ServersRepository;

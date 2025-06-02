@@ -1,3 +1,5 @@
+// src/db/repositories/files.repo.ts
+
 import { File } from '../../generated/prisma';
 import { prisma } from '../prisma-client';
 

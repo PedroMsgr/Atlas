@@ -1,3 +1,5 @@
+// src/graphql-client/mutations/config.mutations.ts
+
 import { gql } from '@apollo/client';
 
 export const CREATE_CONFIG = gql`

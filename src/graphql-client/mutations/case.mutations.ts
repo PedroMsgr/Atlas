@@ -1,3 +1,5 @@
+// src/graphql-client/mutations/case.mutations.ts
+
 import { gql } from '@apollo/client';
 
 export const CREATE_CASE = gql`

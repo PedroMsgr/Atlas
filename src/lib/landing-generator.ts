@@ -1,4 +1,5 @@
 // src/lib/landing-generator.ts
+
 import { UnitConfigWithRelations, SectionBase, ArticleBase, ImageBase } from '@/types/config.types';
 
 export function generateLandingTSX(config: UnitConfigWithRelations): string {

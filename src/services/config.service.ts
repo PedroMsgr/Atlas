@@ -1,7 +1,8 @@
+// src/services/config-service.ts
 import { ConfigsRepository } from '@/db/repositories/configs.repo';
 import { ServersRepository } from '@/db/repositories/servers.repo';
 import { SectionsRepository } from '@/db/repositories/sections.repo';
-import { ArticlesRepository } from '@/db/repositories/articles';
+import { ArticlesRepository } from '@/db/repositories/articles.repo';
 import { ImagesRepository } from '@/db/repositories/images.repo';
 
 export class ConfigService {

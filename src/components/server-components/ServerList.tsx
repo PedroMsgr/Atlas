@@ -4,7 +4,7 @@ import { Button } from '@radix-ui/themes';
 import { useState } from 'react';
 import { GET_SERVERS } from '@/graphql-client/queries/server.queries';
 import { UnitServerListItem } from '@/types/server.types';
-import { formatDate } from '@/utils/date-formatter';
+import { formatDate } from '@/lib/date-formatter';
 
 export default function ServerList() {
   const [isRefreshing, setIsRefreshing] = useState(false);

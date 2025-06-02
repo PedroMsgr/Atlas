@@ -1,3 +1,5 @@
+// src/db/repositories/configs.repo.ts
+
 import { UnitConfig, Prisma } from '../../generated/prisma';
 import { prisma } from '../prisma-client';
 

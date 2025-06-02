@@ -1,3 +1,5 @@
+// src/db/repositories/articles.repo.ts
+
 import { Article } from '../../generated/prisma';
 import { prisma } from '../prisma-client';
 

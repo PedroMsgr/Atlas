@@ -1,3 +1,5 @@
+// src/lib/apollo-client.ts
+
 import { ApolloClient, InMemoryCache, HttpLink, from } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
 

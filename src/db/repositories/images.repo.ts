@@ -1,3 +1,5 @@
+// src/db/repositories/images.repo.ts
+
 import { PrismaClient } from '@prisma/client';
 import { Image } from '@prisma/client';
 

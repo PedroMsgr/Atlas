@@ -1,3 +1,5 @@
+// src/db/repositories/users.repo.ts
+
 import { User, Role } from '../../generated/prisma';
 import { prisma } from '../prisma-client';
 

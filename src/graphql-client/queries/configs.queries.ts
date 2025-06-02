@@ -1,3 +1,5 @@
+// src/graphql-client/queries/configs.queries.ts
+
 import { gql } from '@apollo/client';
 
 export const GET_CONFIGURATION_BY_ID = gql`

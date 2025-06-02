@@ -1,3 +1,5 @@
+// src/db/repositories/cases.repo.ts
+
 import { PrismaClient } from '@prisma/client';
 import { Case, CaseStatus } from '@prisma/client';
 

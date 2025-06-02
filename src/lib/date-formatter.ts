@@ -1,4 +1,4 @@
-// Utilidad para formatear fechas de manera segura
+// src/lib/date-formatter.ts
 
 /**
  * Formatea una fecha en formato legible para el usuario

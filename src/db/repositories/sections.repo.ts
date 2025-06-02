@@ -1,3 +1,5 @@
+// src/db/repositories/sections.repo.ts
+
 import { Section, SectionType } from '../../generated/prisma';
 import { prisma } from '../prisma-client';
 
@@ -6,7 +8,6 @@ export class SectionsRepository {
     return prisma.section.findMany({
       include: {
         config: true,
-        server: true,
       },
     });
   }
@@ -16,7 +17,6 @@ export class SectionsRepository {
       where: { id },
       include: {
         config: true,
-        server: true,
       },
     });
   }
@@ -28,29 +28,16 @@ export class SectionsRepository {
         order: 'asc',
       },
       include: {
-        server: true,
       },
     });
   }
 
-  async findByServerId(serverId: string): Promise<Section[]> {
-    return prisma.section.findMany({
-      where: { serverId },
-      orderBy: {
-        order: 'asc',
-      },
-      include: {
-        config: true,
-      },
-    });
-  }
 
   async create(data: Omit<Section, 'id'>): Promise<Section> {
     return prisma.section.create({
       data,
       include: {
         config: true,
-        server: true,
       },
     });
   }
@@ -61,7 +48,6 @@ export class SectionsRepository {
       data,
       include: {
         config: true,
-        server: true,
       },
     });
   }
@@ -77,7 +63,6 @@ export class SectionsRepository {
       where: { type },
       include: {
         config: true,
-        server: true,
       },
     });
   }

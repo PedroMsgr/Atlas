@@ -1,4 +1,6 @@
-import prisma from '../lib/prisma';
+// src/scripts/reset-admin-password.ts
+
+import { prisma } from '@/db/prisma-client';
 import bcrypt from 'bcryptjs';
 
 async function resetAdminPassword() {
