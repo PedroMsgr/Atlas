@@ -10,7 +10,6 @@ export const GET_CONFIGURATION_BY_ID = gql`
       pageTitle
       footerInfo
       legalStepsCount
-      pageType
       updatedAt
       createdAt
       sections {
@@ -47,7 +46,6 @@ export const GET_ALL_CONFIGURATIONS = gql`
       id
       name
       pageTitle
-      pageType
       updatedAt
       servers {
         id
@@ -60,19 +58,17 @@ export const GET_ALL_CONFIGURATIONS = gql`
 
 export const GET_CONFIG_BY_UNIT_TOKEN = gql`
   query GetConfigByUnitToken($token: String!) {
-    configByToken(token: $token) {
+    landingData(token: $token) {
       id
       name
       pageTitle
       footerInfo
       legalStepsCount
-      pageType
       description
       bannerUrl
       seoTitle
       seoDescription
       seoKeywords
-
       sections {
         id
         title
@@ -89,14 +85,12 @@ export const GET_CONFIG_BY_UNIT_TOKEN = gql`
           order
         }
       }
-
       articles {
         id
         title
         content
         publishedAt
       }
-
       images {
         id
         url
@@ -124,7 +118,6 @@ export const LANDING_DATA_QUERY = gql`
       footerLinks
       footerInfo
       legalStepsCount
-      pageType
       externalLinks
       newsParams
       selectedNews

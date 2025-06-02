@@ -143,7 +143,7 @@ export default function ServerDetail({ serverId }: ServerDetailProps) {
       await updateServerConfig({
         variables: {
           id: serverId,
-          configId: configId
+          activeConfigId: configId
         }
       });
     } catch (err) {

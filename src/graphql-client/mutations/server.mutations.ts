@@ -36,7 +36,7 @@ export const UPDATE_SERVER_CONFIG = gql`
     updateServer(id: $id, data: { activeConfigId: $activeConfigId }) {
       id
       name
-      activeConfig {
+      config {
         id
         name
       }

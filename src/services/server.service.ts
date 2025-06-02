@@ -83,6 +83,7 @@ export class ServerService {
     domain?: string; 
     constellationId?: string;
     isActive?: boolean;
+    activeConfigId?: string; // <-- Añadido
   }) {
     // Si se está actualizando el dominio, verificar que no exista
     if (data.domain) {
@@ -92,11 +93,18 @@ export class ServerService {
       }
     }
 
-    // Actualizamos el servidor con los nuevos datos
-    const updatedServer = await this.serversRepo.update(id, {
+    // Mapeo de activeConfigId a configId para Prisma
+    const updateData: any = {
       ...data,
       updatedAt: new Date()
-    });
+    };
+    if (data.activeConfigId !== undefined) {
+      updateData.configId = data.activeConfigId;
+      delete updateData.activeConfigId;
+    }
+
+    // Actualizamos el servidor con los nuevos datos
+    const updatedServer = await this.serversRepo.update(id, updateData);
     
     // Obtenemos el servidor con sus relaciones actualizadas
     const serverWithRelations = await this.serversRepo.findById(id);

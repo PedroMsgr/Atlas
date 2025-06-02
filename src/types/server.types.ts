@@ -28,7 +28,7 @@ export interface UnitServerListItem {
   constellation: {
     name: string | null;
   } | null;
-  configId?: string | null;
+  activeConfigId?: string | null;
   config?: {
     id: string;
     name: string;

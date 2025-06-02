@@ -25,7 +25,6 @@ export interface UnitConfigWithRelations extends UnitConfigBase {
 // Diferencia entre SectionBase y SectionFull: SectionFull incluye `content`, `sectionKey`, `mainImageId`
 export interface SectionFull {
   id: string;
-  configId: string;
   serverId?: string | null;
   type: string;
   title: string;
@@ -64,7 +63,6 @@ export interface LandingData {
 // ArticleFull incluye `content` y `url`
 export interface ArticleFull {
   id: string;
-  configId: string;
   title: string;
   content: string;
   url: string;
@@ -74,7 +72,6 @@ export interface ArticleFull {
 // ImageFull incluye `sectionId`
 export interface ImageFull {
   id: string;
-  configId: string;
   url: string;
   altText: string;
   type: string;

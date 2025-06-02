@@ -6,21 +6,18 @@ export const CREATE_CONFIG = gql`
   mutation CreateConfig(
     $name: String!, 
     $pageTitle: String!, 
-    $pageType: String!, 
     $footerInfo: String, 
     $legalStepsCount: Int
   ) {
     createConfig(
       name: $name, 
       pageTitle: $pageTitle, 
-      pageType: $pageType, 
       footerInfo: $footerInfo, 
       legalStepsCount: $legalStepsCount
     ) {
       id
       name
       pageTitle
-      pageType
     }
   }
 `;
@@ -30,7 +27,6 @@ export const UPDATE_CONFIG = gql`
     $id: ID!, 
     $name: String, 
     $pageTitle: String, 
-    $pageType: String, 
     $footerInfo: String, 
     $legalStepsCount: Int
   ) {
@@ -38,14 +34,12 @@ export const UPDATE_CONFIG = gql`
       id: $id,
       name: $name, 
       pageTitle: $pageTitle, 
-      pageType: $pageType, 
       footerInfo: $footerInfo, 
       legalStepsCount: $legalStepsCount
     ) {
       id
       name
       pageTitle
-      pageType
       updatedAt
     }
   }

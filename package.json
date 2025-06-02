@@ -37,6 +37,7 @@
     "framer-motion": "^12.15.0",
     "graphql": "^16.11.0",
     "graphql-tag": "^2.12.6",
+    "graphql-type-json": "^0.3.2",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.511.0",
     "micro": "^9.4.1",
