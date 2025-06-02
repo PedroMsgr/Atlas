@@ -117,15 +117,9 @@ async function main() {
         data: {
           name: `Config ${server.name}`,
           pageTitle: `Abogados especialistas en ${constellation.name}`,
+          pageDescription: `Portal especializado en derecho ${constellation.name.toLowerCase()}.`,
+          servicesDescription: `Servicios legales para casos de ${constellation.name.toLowerCase()}.`,
           footerInfo: '© 2025 Atlas Legal',
-          legalStepsCount: 5,
-          pageType: 'landing',
-          externalLinks: { facebook: 'https://facebook.com/atlaslegal' },
-          newsParams: { keyword: constellation.name.toLowerCase(), limit: 5 },
-          selectedNews: [],
-          infoSections: [
-            { title: '¿Cómo trabajamos?', content: 'Te explicamos el proceso legal paso a paso.' },
-          ],
         },
       });
       unitConfigs.push({ config, server });
@@ -193,37 +187,57 @@ async function main() {
     }
   }
 
-  // Secciones, artículos y imágenes
+  // Secciones, artículos, pasos legales y footer links (sin imágenes ni iconos)
   for (const { config, server } of unitConfigs) {
     // Secciones
-    await prisma.section.createMany({ data: [
-      { configId: config.id, type: SectionType.text, title: 'Bienvenida', content: 'Bienvenido a nuestro portal.', order: 1 },
-      { configId: config.id, type: SectionType.legalGuide, title: 'Guía Legal', content: JSON.stringify(['Paso 1', 'Paso 2', 'Paso 3']), order: 2 },
-      { configId: config.id, type: SectionType.manual, title: 'Artículo Destacado', content: 'Contenido curado manualmente.', order: 3 },
-      { configId: config.id, type: SectionType.newsConfig, title: 'Noticias', content: JSON.stringify({ enabled: true }), order: 4 },
-    ]});
+    await prisma.section.createMany({
+      data: [
+        { configId: config.id, title: 'Bienvenida', body: 'Bienvenido a nuestro portal.', imageUrl: null, order: 1 },
+        { configId: config.id, title: 'Guía Legal', body: 'Te guiamos paso a paso en tu proceso legal.', imageUrl: null, order: 2 },
+        { configId: config.id, title: 'Artículo Destacado', body: 'Contenido curado manualmente.', imageUrl: null, order: 3 },
+        { configId: config.id, title: 'Noticias', body: 'Noticias legales relevantes.', imageUrl: null, order: 4 },
+      ]
+    });
 
-    // Artículos (solo globales, no en secciones)
-    const article1 = await prisma.article.create({
+    // Artículos
+    await prisma.article.create({
       data: {
+        configId: config.id,
         title: `Artículo destacado de ${server.name}`,
         content: 'Este es un artículo de ejemplo para la landing.',
-        configs: { connect: [{ id: config.id }] },
+        url: null,
+        order: 1,
       }
     });
-    const article2 = await prisma.article.create({
+    await prisma.article.create({
       data: {
+        configId: config.id,
         title: `Guía rápida de ${server.name}`,
         content: 'Guía rápida para usuarios del portal.',
-        configs: { connect: [{ id: config.id }] },
+        url: null,
+        order: 2,
       }
     });
 
-    // Imágenes de la landing
-    await prisma.image.createMany({ data: [
-      { configId: config.id, url: 'https://.../hero.jpg', altText: 'Imagen Hero', type: 'hero', order: 1 },
-      { configId: config.id, url: 'https://.../gallery1.jpg', altText: 'Galería 1', type: 'gallery', order: 2 },
-    ]});
+    // Pasos legales (sin iconos)
+    await prisma.legalStep.createMany({
+      data: [
+        { configId: config.id, title: 'Evaluación inicial', description: 'Analizamos tu caso y te orientamos.', order: 1 },
+        { configId: config.id, title: 'Revisión documental', description: 'Revisamos toda la documentación relevante.', order: 2 },
+        { configId: config.id, title: 'Negociación', description: 'Negociamos con la parte contraria.', order: 3 },
+        { configId: config.id, title: 'Acción legal', description: 'Si es necesario, iniciamos acciones legales.', order: 4 },
+        { configId: config.id, title: 'Resolución', description: 'Te acompañamos hasta la resolución del caso.', order: 5 },
+      ]
+    });
+
+    // Footer links
+    await prisma.footerLink.createMany({
+      data: [
+        { configId: config.id, label: 'Aviso Legal', url: '/aviso-legal', order: 1 },
+        { configId: config.id, label: 'Política de Privacidad', url: '/privacidad', order: 2 },
+        { configId: config.id, label: 'Contacto', url: '/contacto', order: 3 },
+      ]
+    });
   }
 
   console.info('✅  Base de datos de prueba generada con éxito');

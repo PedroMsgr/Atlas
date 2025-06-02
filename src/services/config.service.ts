@@ -5,6 +5,9 @@ import { ServersRepository } from '@/db/repositories/servers.repo';
 import { SectionsRepository } from '@/db/repositories/sections.repo';
 import { ArticlesRepository } from '@/db/repositories/articles.repo';
 import { ImagesRepository } from '@/db/repositories/images.repo';
+import { FooterLinksRepository } from '@/db/repositories/footerlinks.repo';
+import { LegalStepsRepository } from '@/db/repositories/legalsteps.repo';
+import { LegalStep, FooterLink } from '@/generated/prisma';
 
 export class ConfigService {
   private configsRepo: ConfigsRepository;
@@ -12,13 +15,17 @@ export class ConfigService {
   private sectionsRepo: SectionsRepository;
   private articlesRepo: ArticlesRepository;
   private imagesRepo: ImagesRepository;
-  
+  private legalStepsRepo: LegalStepsRepository;
+  private footerLinksRepo: FooterLinksRepository;
+
   constructor() {
     this.configsRepo = new ConfigsRepository();
     this.serversRepo = new ServersRepository();
     this.sectionsRepo = new SectionsRepository();
     this.articlesRepo = new ArticlesRepository();
     this.imagesRepo = new ImagesRepository();
+    this.legalStepsRepo = new LegalStepsRepository();
+    this.footerLinksRepo = new FooterLinksRepository();
   }
     /**
    * Obtiene todas las configuraciones
@@ -84,7 +91,7 @@ export class ConfigService {
     // Crear artículos globales (no en secciones)
     if (articles && Array.isArray(articles)) {
       for (const art of articles) {
-        await this.articlesRepo.create(art, [config.id]);
+        await this.articlesRepo.create(art);
       }
     }
     return this.configsRepo.findById(config.id);
@@ -143,10 +150,50 @@ export class ConfigService {
     // Crear artículos globales (no en secciones)
     if (articles && Array.isArray(articles)) {
       for (const art of articles) {
-        await this.articlesRepo.create(art, [config.id]);
+        await this.articlesRepo.create(art);
       }
     }
     return this.configsRepo.findById(id);
+  }
+
+  // --- LEGAL STEPS ---
+  async getAllLegalSteps() {
+    return this.legalStepsRepo.findAll();
+  }
+  async getLegalStepById(id: string) {
+    return this.legalStepsRepo.findById(id);
+  }
+  async getLegalStepsByConfig(configId: string) {
+    return this.legalStepsRepo.findByConfigId(configId);
+  }
+  async createLegalStep(data: Omit<LegalStep, 'id'>) {
+    return this.legalStepsRepo.create(data);
+  }
+  async updateLegalStep(id: string, data: Partial<LegalStep>) {
+    return this.legalStepsRepo.update(id, data);
+  }
+  async deleteLegalStep(id: string) {
+    return this.legalStepsRepo.delete(id);
+  }
+
+  // --- FOOTER LINKS ---
+  async getAllFooterLinks() {
+    return this.footerLinksRepo.findAll();
+  }
+  async getFooterLinkById(id: string) {
+    return this.footerLinksRepo.findById(id);
+  }
+  async getFooterLinksByConfig(configId: string) {
+    return this.footerLinksRepo.findByConfigId(configId);
+  }
+  async createFooterLink(data: Omit<FooterLink, 'id'>) {
+    return this.footerLinksRepo.create(data);
+  }
+  async updateFooterLink(id: string, data: Partial<FooterLink>) {
+    return this.footerLinksRepo.update(id, data);
+  }
+  async deleteFooterLink(id: string) {
+    return this.footerLinksRepo.delete(id);
   }
 }
 export const configService = new ConfigService();

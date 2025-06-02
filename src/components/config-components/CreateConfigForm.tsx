@@ -2,8 +2,8 @@
 // src/components/config-components/CreateConfigForm.tsx
 
 import { useState, useEffect } from "react";
-import { Box, Button, TextField, Heading, Flex, Tabs } from "@radix-ui/themes";
 import { useQuery, useMutation } from "@apollo/client";
+import { Tabs, Box, Button, TextField, Heading, Flex, Card, Table, Text, Badge } from "@radix-ui/themes";
 import { useRouter } from "next/navigation";
 import {
   CREATE_CONFIG,
@@ -27,6 +27,10 @@ import {
   UPDATE_IMAGE,
   DELETE_IMAGE,
 } from "@/graphql-client/mutations/image.mutations";
+import { CREATE_LEGALSTEP, UPDATE_LEGALSTEP, DELETE_LEGALSTEP } from "@/graphql-client/mutations/legalstep.mutations";
+import { GET_LEGALSTEPS_BY_CONFIG } from "@/graphql-client/queries/legalstep.querys";
+import { CREATE_FOOTERLINK, UPDATE_FOOTERLINK, DELETE_FOOTERLINK } from "@/graphql-client/mutations/footerlink.mutations";
+import { GET_FOOTERLINKS_BY_CONFIG } from "@/graphql-client/queries/footerlink.querys";
 import { UnitConfigWithRelations } from "@/types/config.types";
 import { uploadImage } from "@/lib/uploadImage";
 
@@ -56,6 +60,8 @@ export default function CreateConfigForm({
     sections: [] as any[],
     articles: [] as any[],
     images: [] as any[],
+    legalSteps: [] as any[],
+    footerLinks: [] as any[],
     ...config,
   });
   const router = useRouter();
@@ -103,6 +109,18 @@ export default function CreateConfigForm({
   const [updateImage] = useMutation(UPDATE_IMAGE);
   const [deleteImage] = useMutation(DELETE_IMAGE);
 
+  // LEGAL STEPS
+  const { data: dataLegalSteps, loading: loadingLegalSteps, refetch: refetchLegalSteps } = useQuery(GET_LEGALSTEPS_BY_CONFIG, { variables: { configId: form.id }, skip: !form.id });
+  const [createLegalStep] = useMutation(CREATE_LEGALSTEP);
+  const [updateLegalStep] = useMutation(UPDATE_LEGALSTEP);
+  const [deleteLegalStep] = useMutation(DELETE_LEGALSTEP);
+
+  // FOOTER LINKS
+  const { data: dataFooterLinks, loading: loadingFooterLinks, refetch: refetchFooterLinks } = useQuery(GET_FOOTERLINKS_BY_CONFIG, { variables: { configId: form.id }, skip: !form.id });
+  const [createFooterLink] = useMutation(CREATE_FOOTERLINK);
+  const [updateFooterLink] = useMutation(UPDATE_FOOTERLINK);
+  const [deleteFooterLink] = useMutation(DELETE_FOOTERLINK);
+
   // Formulario local de sección
   const [sectionForm, setSectionForm] = useState<{
     id?: string;
@@ -136,6 +154,25 @@ export default function CreateConfigForm({
   // Sección actual para imágenes “inline”
   const [currentSectionId, setCurrentSectionId] = useState<string | null>(null);
 
+  // Estado y handlers para LegalStep
+  const [legalStepForm, setLegalStepForm] = useState({
+    id: undefined as string | undefined,
+    title: "",
+    description: "",
+    iconUrl: "",
+    order: 1,
+  });
+  const [editingLegalStepId, setEditingLegalStepId] = useState<string | null>(null);
+
+  // Estado y handlers para FooterLink
+  const [footerLinkForm, setFooterLinkForm] = useState({
+    id: undefined as string | undefined,
+    label: "",
+    url: "",
+    order: 1,
+  });
+  const [editingFooterLinkId, setEditingFooterLinkId] = useState<string | null>(null);
+
   // Inicializar estado si recibimos `config` (edición)
   useEffect(() => {
     if (config) {
@@ -168,6 +205,22 @@ export default function CreateConfigForm({
       }));
     }
   }, [dataImages]);
+  useEffect(() => {
+    if (dataLegalSteps?.legalStepsByConfig) {
+      setForm((prev: any) => ({
+        ...prev,
+        legalSteps: dataLegalSteps.legalStepsByConfig,
+      }));
+    }
+  }, [dataLegalSteps]);
+  useEffect(() => {
+    if (dataFooterLinks?.footerLinksByConfig) {
+      setForm((prev: any) => ({
+        ...prev,
+        footerLinks: dataFooterLinks.footerLinksByConfig,
+      }));
+    }
+  }, [dataFooterLinks]);
 
   /** Manejo de inputs generales **/
 
@@ -196,6 +249,9 @@ export default function CreateConfigForm({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const seoTitle = form.seoTitle || form.pageTitle || form.name;
+    const seoDescription = form.seoDescription || form.pageDescription || form.footerInfo || "";
+    const seoKeywords = form.seoKeywords || [form.name, form.pageTitle, "legal", "servicios"].join(", ");
 
     if (!form.name.trim() || !form.pageTitle.trim()) {
       alert("Debe completar al menos el nombre y título de la página.");
@@ -225,6 +281,8 @@ export default function CreateConfigForm({
         refetchSections();
         refetchArticles();
         refetchImages();
+        refetchLegalSteps();
+        refetchFooterLinks();
         if (onSuccess) onSuccess();
         else router.push("/admin/configs");
       } else {
@@ -447,476 +505,795 @@ export default function CreateConfigForm({
     await refetchSections();
   };
 
-  return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <Tabs.Root value={tab} onValueChange={setTab} className="w-full">
-        <Tabs.List className="flex space-x-2 border-b mb-4">
-          <Tabs.Trigger
-            value="general"
-            className="px-3 py-1 border-b-2 border-transparent data-[state=active]:border-blue-600"
-          >
-            General & SEO
-          </Tabs.Trigger>
-          <Tabs.Trigger
-            value="sections"
-            className="px-3 py-1 border-b-2 border-transparent data-[state=active]:border-blue-600"
-          >
-            Secciones
-          </Tabs.Trigger>
-          <Tabs.Trigger
-            value="articles"
-            className="px-3 py-1 border-b-2 border-transparent data-[state=active]:border-blue-600"
-          >
-            Artículos
-          </Tabs.Trigger>
-          <Tabs.Trigger
-            value="images"
-            className="px-3 py-1 border-b-2 border-transparent data-[state=active]:border-blue-600"
-          >
-            Imágenes
-          </Tabs.Trigger>
-        </Tabs.List>
+  /** CRUD Pasos Legales **/
 
-        {/* -------- PESTAÑA GENERAL & SEO -------- */}
-        <Tabs.Content value="general">
-          <Box className="space-y-4">
-            <Heading size="5">Datos generales y SEO</Heading>
+  const loadLegalStepForEdit = (step: any) => {
+    setLegalStepForm({
+      id: step.id,
+      title: step.title,
+      description: step.description,
+      iconUrl: step.iconUrl || "",
+      order: step.order,
+    });
+    setEditingLegalStepId(step.id);
+  };
+
+  const handleAddLegalStep = async () => {
+    if (!form.id) return;
+    await createLegalStep({
+      variables: {
+        data: {
+          configId: form.id,
+          title: legalStepForm.title,
+          description: legalStepForm.description,
+          iconUrl: legalStepForm.iconUrl,
+          order: legalStepForm.order,
+        },
+      },
+    });
+    await refetchLegalSteps();
+    setLegalStepForm({
+      id: undefined,
+      title: "",
+      description: "",
+      iconUrl: "",
+      order: (form.legalSteps?.length || 0) + 1,
+    });
+    setEditingLegalStepId(null);
+  };
+
+  const handleEditLegalStep = async () => {
+    if (!legalStepForm.id) return;
+    await updateLegalStep({
+      variables: {
+        id: legalStepForm.id!,
+        data: {
+          configId: form.id,
+          title: legalStepForm.title,
+          description: legalStepForm.description,
+          iconUrl: legalStepForm.iconUrl,
+          order: legalStepForm.order,
+        },
+      },
+    });
+    await refetchLegalSteps();
+    setLegalStepForm({
+      id: undefined,
+      title: "",
+      description: "",
+      iconUrl: "",
+      order: (form.legalSteps?.length || 0) + 1,
+    });
+    setEditingLegalStepId(null);
+  };
+
+  const handleDeleteLegalStep = async (stepId: string) => {
+    await deleteLegalStep({ variables: { id: stepId } });
+    await refetchLegalSteps();
+  };
+
+  /** CRUD Enlaces de Footer **/
+
+  const loadFooterLinkForEdit = (link: any) => {
+    setFooterLinkForm({
+      id: link.id,
+      label: link.label,
+      url: link.url,
+      order: link.order,
+    });
+    setEditingFooterLinkId(link.id);
+  };
+
+  const handleAddFooterLink = async () => {
+    if (!form.id) return;
+    await createFooterLink({
+      variables: {
+        data: {
+          configId: form.id,
+          label: footerLinkForm.label,
+          url: footerLinkForm.url,
+          order: footerLinkForm.order,
+        },
+      },
+    });
+    await refetchFooterLinks();
+    setFooterLinkForm({
+      id: undefined,
+      label: "",
+      url: "",
+      order: (form.footerLinks?.length || 0) + 1,
+    });
+    setEditingFooterLinkId(null);
+  };
+
+  const handleEditFooterLink = async () => {
+    if (!footerLinkForm.id) return;
+    await updateFooterLink({
+      variables: {
+        id: footerLinkForm.id!,
+        data: {
+          configId: form.id,
+          label: footerLinkForm.label,
+          url: footerLinkForm.url,
+          order: footerLinkForm.order,
+        },
+      },
+    });
+    await refetchFooterLinks();
+    setFooterLinkForm({
+      id: undefined,
+      label: "",
+      url: "",
+      order: (form.footerLinks?.length || 0) + 1,
+    });
+    setEditingFooterLinkId(null);
+  };
+
+  const handleDeleteFooterLink = async (linkId: string) => {
+    await deleteFooterLink({ variables: { id: linkId } });
+    await refetchFooterLinks();
+  };
+
+  return (
+    <Tabs.Root value={tab} onValueChange={setTab} className="w-full">
+      <Tabs.List>
+        <Tabs.Trigger value="general">General</Tabs.Trigger>
+        <Tabs.Trigger value="sections">Secciones</Tabs.Trigger>
+        <Tabs.Trigger value="articles">Artículos</Tabs.Trigger>
+        <Tabs.Trigger value="images">Imágenes</Tabs.Trigger>
+        <Tabs.Trigger value="legalsteps">Pasos Legales</Tabs.Trigger>
+        <Tabs.Trigger value="footerlinks">FooterLinks</Tabs.Trigger>
+      </Tabs.List>
+
+      <Tabs.Content value="general">
+        <Box className="space-y-4">
+          <Heading size="5">Datos generales y SEO</Heading>
+          <TextField.Root
+            name="name"
+            placeholder="Nombre único de la configuración"
+            value={form.name}
+            onChange={handleChange}
+            required
+          />
+          <TextField.Root
+            name="pageTitle"
+            placeholder="Título que aparecerá en la landing"
+            value={form.pageTitle}
+            onChange={handleChange}
+            required
+          />
+          <TextField.Root
+            name="pageType"
+            placeholder="Tipo de página (p. ej.: landing)"
+            value={form.pageType}
+            onChange={handleChange}
+            required
+          />
+          <TextField.Root
+            name="footerInfo"
+            placeholder="Información de pie de página"
+            value={form.footerInfo || ""}
+            onChange={handleChange}
+          />
+          <TextField.Root
+            name="legalStepsCount"
+            placeholder="Número de pasos legales (ej.: 3)"
+            value={form.legalStepsCount}
+            onChange={handleChange}
+            type="number"
+            min={1}
+            required
+          />
+          <TextField.Root
+            name="seoTitle"
+            placeholder="Título SEO (opcional)"
+            value={form.seoTitle || ""}
+            onChange={handleChange}
+          />
+          <TextField.Root
+            name="seoDescription"
+            placeholder="Descripción SEO (opcional)"
+            value={form.seoDescription || ""}
+            onChange={handleChange}
+          />
+          <TextField.Root
+            name="seoKeywords"
+            placeholder="Palabras clave SEO (separadas por comas)"
+            value={form.seoKeywords || ""}
+            onChange={handleChange}
+          />
+
+          <Box>
+            <label className="block text-sm font-medium mb-1">
+              Icono (favicon)
+            </label>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => handleFileUpload(e, "iconUrl")}
+              className="mb-2"
+            />
+            {form.iconUrl && (
+              <div className="flex items-center space-x-2">
+                <img
+                  src={form.iconUrl}
+                  alt="Icono actual"
+                  className="h-8 w-8 rounded"
+                />
+                <span className="text-sm break-all">{form.iconUrl}</span>
+              </div>
+            )}
+          </Box>
+
+          <Box>
+            <label className="block text-sm font-medium mb-1">
+              Banner principal
+            </label>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => handleFileUpload(e, "bannerUrl")}
+              className="mb-2"
+            />
+            {form.bannerUrl && (
+              <div className="flex items-center space-x-2">
+                <img
+                  src={form.bannerUrl}
+                  alt="Banner actual"
+                  className="h-12 w-24 rounded"
+                />
+                <span className="text-sm break-all">{form.bannerUrl}</span>
+              </div>
+            )}
+          </Box>
+        </Box>
+      </Tabs.Content>
+
+      {/* -------- PESTAÑA SECCIONES -------- */}
+      <Tabs.Content value="sections">
+        <Box>
+          <Heading size="5">Secciones</Heading>
+
+          {/* Formulario interno para crear/editar sección */}
+          <Box className="mt-4 space-y-2 border p-4 rounded-lg">
+            <Heading size="6">
+              {editingSectionId ? "Editar sección" : "Nueva sección"}
+            </Heading>
             <TextField.Root
-              name="name"
-              placeholder="Nombre único de la configuración"
-              value={form.name}
-              onChange={handleChange}
+              name="title"
+              placeholder="Título de sección"
+              value={sectionForm.title}
+              onChange={(e) =>
+                setSectionForm({ ...sectionForm, title: e.target.value })
+              }
               required
             />
             <TextField.Root
-              name="pageTitle"
-              placeholder="Título que aparecerá en la landing"
-              value={form.pageTitle}
-              onChange={handleChange}
+              name="content"
+              placeholder="Contenido de sección"
+              value={sectionForm.content}
+              onChange={(e) =>
+                setSectionForm({ ...sectionForm, content: e.target.value })
+              }
               required
             />
             <TextField.Root
-              name="pageType"
-              placeholder="Tipo de página (p. ej.: landing)"
-              value={form.pageType}
-              onChange={handleChange}
-              required
-            />
-            <TextField.Root
-              name="footerInfo"
-              placeholder="Información de pie de página"
-              value={form.footerInfo || ""}
-              onChange={handleChange}
-            />
-            <TextField.Root
-              name="legalStepsCount"
-              placeholder="Número de pasos legales (ej.: 3)"
-              value={form.legalStepsCount}
-              onChange={handleChange}
+              name="order"
+              placeholder="Orden"
+              value={sectionForm.order}
+              onChange={(e) =>
+                setSectionForm({
+                  ...sectionForm,
+                  order: parseInt(e.target.value, 10),
+                })
+              }
               type="number"
               min={1}
               required
             />
             <TextField.Root
-              name="seoTitle"
-              placeholder="Título SEO (opcional)"
-              value={form.seoTitle || ""}
-              onChange={handleChange}
+              name="type"
+              placeholder="Tipo (text/legalGuide/ etc.)"
+              value={sectionForm.type}
+              onChange={(e) =>
+                setSectionForm({ ...sectionForm, type: e.target.value })
+              }
+              required
             />
-            <TextField.Root
-              name="seoDescription"
-              placeholder="Descripción SEO (opcional)"
-              value={form.seoDescription || ""}
-              onChange={handleChange}
-            />
-            <TextField.Root
-              name="seoKeywords"
-              placeholder="Palabras clave SEO (separadas por comas)"
-              value={form.seoKeywords || ""}
-              onChange={handleChange}
-            />
-
-            <Box>
-              <label className="block text-sm font-medium mb-1">
-                Icono (favicon)
-              </label>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(e) => handleFileUpload(e, "iconUrl")}
-                className="mb-2"
-              />
-              {form.iconUrl && (
-                <div className="flex items-center space-x-2">
-                  <img
-                    src={form.iconUrl}
-                    alt="Icono actual"
-                    className="h-8 w-8 rounded"
-                  />
-                  <span className="text-sm break-all">{form.iconUrl}</span>
-                </div>
-              )}
-            </Box>
-
-            <Box>
-              <label className="block text-sm font-medium mb-1">
-                Banner principal
-              </label>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(e) => handleFileUpload(e, "bannerUrl")}
-                className="mb-2"
-              />
-              {form.bannerUrl && (
-                <div className="flex items-center space-x-2">
-                  <img
-                    src={form.bannerUrl}
-                    alt="Banner actual"
-                    className="h-12 w-24 rounded"
-                  />
-                  <span className="text-sm break-all">{form.bannerUrl}</span>
-                </div>
-              )}
-            </Box>
-          </Box>
-        </Tabs.Content>
-
-        {/* -------- PESTAÑA SECCIONES -------- */}
-        <Tabs.Content value="sections">
-          <Box>
-            <Heading size="5">Secciones</Heading>
-
-            {/* Formulario interno para crear/editar sección */}
-            <Box className="mt-4 space-y-2 border p-4 rounded-lg">
-              <Heading size="6">
-                {editingSectionId ? "Editar sección" : "Nueva sección"}
-              </Heading>
-              <TextField.Root
-                name="title"
-                placeholder="Título de sección"
-                value={sectionForm.title}
-                onChange={(e) =>
-                  setSectionForm({ ...sectionForm, title: e.target.value })
+            <Flex gap="2" className="mt-2">
+              <Button
+                color="green"
+                onClick={
+                  editingSectionId ? handleEditSection : handleAddSection
                 }
-                required
-              />
-              <TextField.Root
-                name="content"
-                placeholder="Contenido de sección"
-                value={sectionForm.content}
-                onChange={(e) =>
-                  setSectionForm({ ...sectionForm, content: e.target.value })
-                }
-                required
-              />
-              <TextField.Root
-                name="order"
-                placeholder="Orden"
-                value={sectionForm.order}
-                onChange={(e) =>
-                  setSectionForm({
-                    ...sectionForm,
-                    order: parseInt(e.target.value, 10),
-                  })
-                }
-                type="number"
-                min={1}
-                required
-              />
-              <TextField.Root
-                name="type"
-                placeholder="Tipo (text/legalGuide/ etc.)"
-                value={sectionForm.type}
-                onChange={(e) =>
-                  setSectionForm({ ...sectionForm, type: e.target.value })
-                }
-                required
-              />
-              <Flex gap="2" className="mt-2">
-                <Button
-                  color="green"
-                  onClick={
-                    editingSectionId ? handleEditSection : handleAddSection
-                  }
-                >
-                  {editingSectionId ? "Actualizar" : "Agregar"}
-                </Button>
-                {editingSectionId && (
-                  <Button
-                    variant="soft"
-                    onClick={() => {
-                      setEditingSectionId(null);
-                      setSectionForm({
-                        id: undefined,
-                        title: "",
-                        content: "",
-                        order: (form.sections?.length || 0) + 1,
-                        type: "text",
-                      });
-                    }}
-                  >
-                    Cancelar
-                  </Button>
-                )}
-              </Flex>
-            </Box>
-
-            {/* Listado de secciones existentes */}
-            {loadingSections ? (
-              <Box className="mt-4">Cargando secciones...</Box>
-            ) : (
-              <Box className="mt-4 space-y-2">
-                {(form.sections || []).map((sec: any) => (
-                  <Box
-                    key={sec.id}
-                    className="border p-3 rounded-lg flex justify-between items-center"
-                  >
-                    <Box>
-                      <Heading size="6">{sec.title}</Heading>
-                      <p>
-                        Orden: {sec.order} | Tipo: {sec.type}
-                      </p>
-                    </Box>
-                    <Flex gap="2">
-                      <Button
-                        variant="soft"
-                        onClick={() => loadSectionForEdit(sec)}
-                      >
-                        Editar
-                      </Button>
-                      <Button
-                        color="red"
-                        onClick={() => handleDeleteSection(sec.id)}
-                      >
-                        Eliminar
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        onClick={() => setCurrentSectionId(sec.id)}
-                      >
-                        Subir imagenes
-                      </Button>
-                    </Flex>
-                  </Box>
-                ))}
-              </Box>
-            )}
-
-            {/* Subida de imágenes “inline” para la sección seleccionada */}
-            {currentSectionId && (
-              <Box className="mt-4 p-3 border rounded-lg bg-slate-50">
-                <Heading size="6">Agregar imagen a esta sección</Heading>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleAddImageSection}
-                  className="mt-2"
-                />
-                <Box className="mt-3 space-y-1">
-                  {form.sections
-                    ?.find((s: any) => s.id === currentSectionId)
-                    ?.images?.map((img: any) => (
-                      <Flex
-                        key={img.id}
-                        className="justify-between items-center"
-                      >
-                        <img
-                          src={img.url}
-                          alt={img.altText}
-                          className="h-12 w-12 rounded"
-                        />
-                        <Button
-                          variant="soft"
-                          onClick={() => handleDeleteImageSection(img.id)}
-                        >
-                          X
-                        </Button>
-                      </Flex>
-                    ))}
-                </Box>
+              >
+                {editingSectionId ? "Actualizar" : "Agregar"}
+              </Button>
+              {editingSectionId && (
                 <Button
                   variant="soft"
-                  className="mt-4"
-                  onClick={() => setCurrentSectionId(null)}
+                  onClick={() => {
+                    setEditingSectionId(null);
+                    setSectionForm({
+                      id: undefined,
+                      title: "",
+                      content: "",
+                      order: (form.sections?.length || 0) + 1,
+                      type: "text",
+                    });
+                  }}
                 >
-                  Cerrar
+                  Cancelar
                 </Button>
-              </Box>
-            )}
+              )}
+            </Flex>
           </Box>
-        </Tabs.Content>
 
-        {/* -------- PESTAÑA ARTÍCULOS -------- */}
-        <Tabs.Content value="articles">
-          <Box>
-            <Heading size="5">Artículos Globales</Heading>
-
-            {/* Formulario interno para crear/editar artículo */}
-            <Box className="mt-4 space-y-2 border p-4 rounded-lg">
-              <Heading size="6">
-                {editingArticleId ? "Editar artículo" : "Nuevo artículo"}
-              </Heading>
-              <TextField.Root
-                name="title"
-                placeholder="Título del artículo"
-                value={articleForm.title}
-                onChange={(e) =>
-                  setArticleForm({ ...articleForm, title: e.target.value })
-                }
-                required
-              />
-              <TextField.Root
-                name="content"
-                placeholder="Contenido breve"
-                value={articleForm.content}
-                onChange={(e) =>
-                  setArticleForm({ ...articleForm, content: e.target.value })
-                }
-                required
-              />
-              <TextField.Root
-                name="url"
-                placeholder="URL de la noticia"
-                value={articleForm.url}
-                onChange={(e) =>
-                  setArticleForm({ ...articleForm, url: e.target.value })
-                }
-                required
-              />
-              <TextField.Root
-                name="publishedAt"
-                placeholder="Fecha de publicación"
-                type="date"
-                value={articleForm.publishedAt}
-                onChange={(e) =>
-                  setArticleForm({
-                    ...articleForm,
-                    publishedAt: e.target.value,
-                  })
-                }
-                required
-              />
-              <Flex gap="2" className="mt-2">
-                <Button
-                  color="green"
-                  onClick={
-                    editingArticleId ? handleEditArticle : handleAddArticle
-                  }
+          {/* Listado de secciones existentes */}
+          {loadingSections ? (
+            <Box className="mt-4">Cargando secciones...</Box>
+          ) : (
+            <Box className="mt-4 space-y-2">
+              {(form.sections || []).map((sec: any) => (
+                <Box
+                  key={sec.id}
+                  className="border p-3 rounded-lg flex justify-between items-center"
                 >
-                  {editingArticleId ? "Actualizar" : "Agregar"}
-                </Button>
-                {editingArticleId && (
-                  <Button
-                    variant="soft"
-                    onClick={() => {
-                      setEditingArticleId(null);
-                      setArticleForm({
-                        id: undefined,
-                        title: "",
-                        content: "",
-                        url: "",
-                        publishedAt: new Date().toISOString().split("T")[0],
-                      });
-                    }}
-                  >
-                    Cancelar
-                  </Button>
-                )}
-              </Flex>
-            </Box>
-
-            {/* Listado de artículos */}
-            {loadingArticles ? (
-              <Box className="mt-4">Cargando artículos...</Box>
-            ) : (
-              <Box className="mt-4 space-y-2">
-                {(form.articles || []).map((art: any) => (
-                  <Box
-                    key={art.id}
-                    className="border p-3 rounded-lg flex justify-between items-center"
-                  >
-                    <Box>
-                      <Heading size="6">{art.title}</Heading>
-                      <p>
-                        {new Date(art.publishedAt).toLocaleDateString()} –{" "}
-                        <a
-                          href={art.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-600 underline"
-                        >
-                          Ver noticia
-                        </a>
-                      </p>
-                    </Box>
-                    <Flex gap="2">
-                      <Button
-                        variant="soft"
-                        onClick={() => loadArticleForEdit(art)}
-                      >
-                        Editar
-                      </Button>
-                      <Button
-                        color="red"
-                        onClick={() => handleDeleteArticle(art.id)}
-                      >
-                        Eliminar
-                      </Button>
-                    </Flex>
+                  <Box>
+                    <Heading size="6">{sec.title}</Heading>
+                    <p>
+                      Orden: {sec.order} | Tipo: {sec.type}
+                    </p>
                   </Box>
-                ))}
-              </Box>
-            )}
-          </Box>
-        </Tabs.Content>
+                  <Flex gap="2">
+                    <Button
+                      variant="soft"
+                      onClick={() => loadSectionForEdit(sec)}
+                    >
+                      Editar
+                    </Button>
+                    <Button
+                      color="red"
+                      onClick={() => handleDeleteSection(sec.id)}
+                    >
+                      Eliminar
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      onClick={() => setCurrentSectionId(sec.id)}
+                    >
+                      Subir imagenes
+                    </Button>
+                  </Flex>
+                </Box>
+              ))}
+            </Box>
+          )}
 
-        {/* -------- PESTAÑA IMÁGENES -------- */}
-        <Tabs.Content value="images">
-          <Box>
-            <Heading size="5">Imágenes Globales</Heading>
-            <Box className="mt-4 p-3 border rounded-lg">
-              <label className="block text-sm font-medium mb-1">
-                Agregar imagen global:
-              </label>
+          {/* Subida de imágenes “inline” para la sección seleccionada */}
+          {currentSectionId && (
+            <Box className="mt-4 p-3 border rounded-lg bg-slate-50">
+              <Heading size="6">Agregar imagen a esta sección</Heading>
               <input
                 type="file"
                 accept="image/*"
-                onChange={handleAddImageGlobal}
-                className="mb-2"
+                onChange={handleAddImageSection}
+                className="mt-2"
               />
-            </Box>
-
-            {/* Listado de imágenes globales */}
-            {loadingImages ? (
-              <Box className="mt-4">Cargando imágenes...</Box>
-            ) : (
-              <Box className="mt-4 grid grid-cols-2 md:grid-cols-3 gap-4">
-                {(form.images || []).map((img: any) => (
-                  <Box
-                    key={img.id}
-                    className="relative rounded-lg overflow-hidden border"
-                  >
-                    <img
-                      src={img.url}
-                      alt={img.altText}
-                      className="w-full h-32 object-cover"
-                    />
-                    <Button
-                      size="1"
-                      variant="soft"
-                      className="absolute top-2 right-2"
-                      onClick={() => handleDeleteImageGlobal(img.id)}
+              <Box className="mt-3 space-y-1">
+                {form.sections
+                  ?.find((s: any) => s.id === currentSectionId)
+                  ?.images?.map((img: any) => (
+                    <Flex
+                      key={img.id}
+                      className="justify-between items-center"
                     >
-                      X
-                    </Button>
-                  </Box>
-                ))}
+                      <img
+                        src={img.url}
+                        alt={img.altText}
+                        className="h-12 w-12 rounded"
+                      />
+                      <Button
+                        variant="soft"
+                        onClick={() => handleDeleteImageSection(img.id)}
+                      >
+                        X
+                      </Button>
+                    </Flex>
+                  ))}
               </Box>
-            )}
+              <Button
+                variant="soft"
+                className="mt-4"
+                onClick={() => setCurrentSectionId(null)}
+              >
+                Cerrar
+              </Button>
+            </Box>
+          )}
+        </Box>
+      </Tabs.Content>
+
+      {/* -------- PESTAÑA ARTÍCULOS -------- */}
+      <Tabs.Content value="articles">
+        <Box>
+          <Heading size="5">Artículos Globales</Heading>
+
+          {/* Formulario interno para crear/editar artículo */}
+          <Box className="mt-4 space-y-2 border p-4 rounded-lg">
+            <Heading size="6">
+              {editingArticleId ? "Editar artículo" : "Nuevo artículo"}
+            </Heading>
+            <TextField.Root
+              name="title"
+              placeholder="Título del artículo"
+              value={articleForm.title}
+              onChange={(e) =>
+                setArticleForm({ ...articleForm, title: e.target.value })
+              }
+              required
+            />
+            <TextField.Root
+              name="content"
+              placeholder="Contenido breve"
+              value={articleForm.content}
+              onChange={(e) =>
+                setArticleForm({ ...articleForm, content: e.target.value })
+              }
+              required
+            />
+            <TextField.Root
+              name="url"
+              placeholder="URL de la noticia"
+              value={articleForm.url}
+              onChange={(e) =>
+                setArticleForm({ ...articleForm, url: e.target.value })
+              }
+              required
+            />
+            <TextField.Root
+              name="publishedAt"
+              placeholder="Fecha de publicación"
+              type="date"
+              value={articleForm.publishedAt}
+              onChange={(e) =>
+                setArticleForm({
+                  ...articleForm,
+                  publishedAt: e.target.value,
+                })
+              }
+              required
+            />
+            <Flex gap="2" className="mt-2">
+              <Button
+                color="green"
+                onClick={
+                  editingArticleId ? handleEditArticle : handleAddArticle
+                }
+              >
+                {editingArticleId ? "Actualizar" : "Agregar"}
+              </Button>
+              {editingArticleId && (
+                <Button
+                  variant="soft"
+                  onClick={() => {
+                    setEditingArticleId(null);
+                    setArticleForm({
+                      id: undefined,
+                      title: "",
+                      content: "",
+                      url: "",
+                      publishedAt: new Date().toISOString().split("T")[0],
+                    });
+                  }}
+                >
+                  Cancelar
+                </Button>
+              )}
+            </Flex>
           </Box>
-        </Tabs.Content>
-      </Tabs.Root>
+
+          {/* Listado de artículos */}
+          {loadingArticles ? (
+            <Box className="mt-4">Cargando artículos...</Box>
+          ) : (
+            <Box className="mt-4 space-y-2">
+              {(form.articles || []).map((art: any) => (
+                <Box
+                  key={art.id}
+                  className="border p-3 rounded-lg flex justify-between items-center"
+                >
+                  <Box>
+                    <Heading size="6">{art.title}</Heading>
+                    <p>
+                      {new Date(art.publishedAt).toLocaleDateString()} –{" "}
+                      <a
+                        href={art.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 underline"
+                      >
+                        Ver noticia
+                      </a>
+                    </p>
+                  </Box>
+                  <Flex gap="2">
+                    <Button
+                      variant="soft"
+                      onClick={() => loadArticleForEdit(art)}
+                    >
+                      Editar
+                    </Button>
+                    <Button
+                      color="red"
+                      onClick={() => handleDeleteArticle(art.id)}
+                    >
+                      Eliminar
+                    </Button>
+                  </Flex>
+                </Box>
+              ))}
+            </Box>
+          )}
+        </Box>
+      </Tabs.Content>
+
+      {/* -------- PESTAÑA IMÁGENES -------- */}
+      <Tabs.Content value="images">
+        <Box>
+          <Heading size="5">Imágenes Globales</Heading>
+          <Box className="mt-4 p-3 border rounded-lg">
+            <label className="block text-sm font-medium mb-1">
+              Agregar imagen global:
+            </label>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleAddImageGlobal}
+              className="mb-2"
+            />
+          </Box>
+
+          {/* Listado de imágenes globales */}
+          {loadingImages ? (
+            <Box className="mt-4">Cargando imágenes...</Box>
+          ) : (
+            <Box className="mt-4 grid grid-cols-2 md:grid-cols-3 gap-4">
+              {(form.images || []).map((img: any) => (
+                <Box
+                  key={img.id}
+                  className="relative rounded-lg overflow-hidden border"
+                >
+                  <img
+                    src={img.url}
+                    alt={img.altText}
+                    className="w-full h-32 object-cover"
+                  />
+                  <Button
+                    size="1"
+                    variant="soft"
+                    className="absolute top-2 right-2"
+                    onClick={() => handleDeleteImageGlobal(img.id)}
+                  >
+                    X
+                  </Button>
+                </Box>
+              ))}
+            </Box>
+          )}
+        </Box>
+      </Tabs.Content>
+
+      {/* -------- PESTAÑA PASOS LEGALES -------- */}
+      <Tabs.Content value="legalsteps">
+        <Box>
+          <Heading size="5">Pasos Legales</Heading>
+
+          {/* Formulario interno para crear/editar paso legal */}
+          <Box className="mt-4 space-y-2 border p-4 rounded-lg">
+            <Heading size="6">
+              {editingLegalStepId ? "Editar paso legal" : "Nuevo paso legal"}
+            </Heading>
+            <TextField.Root
+              name="title"
+              placeholder="Título del paso legal"
+              value={legalStepForm.title}
+              onChange={(e) =>
+                setLegalStepForm({ ...legalStepForm, title: e.target.value })
+              }
+              required
+            />
+            <TextField.Root
+              name="description"
+              placeholder="Descripción del paso legal"
+              value={legalStepForm.description}
+              onChange={(e) =>
+                setLegalStepForm({ ...legalStepForm, description: e.target.value })
+              }
+              required
+            />
+            <TextField.Root
+              name="order"
+              placeholder="Orden"
+              value={legalStepForm.order}
+              onChange={(e) =>
+                setLegalStepForm({
+                  ...legalStepForm,
+                  order: parseInt(e.target.value, 10),
+                })
+              }
+              type="number"
+              min={1}
+              required
+            />
+            <Flex gap="2" className="mt-2">
+              <Button
+                color="green"
+                onClick={
+                  editingLegalStepId ? handleEditLegalStep : handleAddLegalStep
+                }
+              >
+                {editingLegalStepId ? "Actualizar" : "Agregar"}
+              </Button>
+              {editingLegalStepId && (
+                <Button
+                  variant="soft"
+                  onClick={() => {
+                    setEditingLegalStepId(null);
+                    setLegalStepForm({
+                      id: undefined,
+                      title: "",
+                      description: "",
+                      iconUrl: "",
+                      order: (form.legalSteps?.length || 0) + 1,
+                    });
+                  }}
+                >
+                  Cancelar
+                </Button>
+              )}
+            </Flex>
+          </Box>
+
+          {/* Listado de pasos legales existentes */}
+          {loadingLegalSteps ? (
+            <Box className="mt-4">Cargando pasos legales...</Box>
+          ) : (
+            <Box className="mt-4 space-y-2">
+              {(form.legalSteps || []).map((step: any) => (
+                <Box
+                  key={step.id}
+                  className="border p-3 rounded-lg flex justify-between items-center"
+                >
+                  <Box>
+                    <Heading size="6">{step.title}</Heading>
+                    <p>Orden: {step.order}</p>
+                  </Box>
+                  <Flex gap="2">
+                    <Button
+                      variant="soft"
+                      onClick={() => loadLegalStepForEdit(step)}
+                    >
+                      Editar
+                    </Button>
+                    <Button
+                      color="red"
+                      onClick={() => handleDeleteLegalStep(step.id)}
+                    >
+                      Eliminar
+                    </Button>
+                  </Flex>
+                </Box>
+              ))}
+            </Box>
+          )}
+        </Box>
+      </Tabs.Content>
+
+      {/* -------- PESTAÑA FOOTER LINKS -------- */}
+      <Tabs.Content value="footerlinks">
+        <Box>
+          <Heading size="5">Enlaces de Footer</Heading>
+
+          {/* Formulario interno para crear/editar enlace de footer */}
+          <Box className="mt-4 space-y-2 border p-4 rounded-lg">
+            <Heading size="6">
+              {editingFooterLinkId ? "Editar enlace de footer" : "Nuevo enlace de footer"}
+            </Heading>
+            <TextField.Root
+              name="label"
+              placeholder="Texto del enlace"
+              value={footerLinkForm.label}
+              onChange={(e) =>
+                setFooterLinkForm({ ...footerLinkForm, label: e.target.value })
+              }
+              required
+            />
+            <TextField.Root
+              name="url"
+              placeholder="URL del enlace"
+              value={footerLinkForm.url}
+              onChange={(e) =>
+                setFooterLinkForm({ ...footerLinkForm, url: e.target.value })
+              }
+              required
+            />
+            <TextField.Root
+              name="order"
+              placeholder="Orden"
+              value={footerLinkForm.order}
+              onChange={(e) =>
+                setFooterLinkForm({
+                  ...footerLinkForm,
+                  order: parseInt(e.target.value, 10),
+                })
+              }
+              type="number"
+              min={1}
+              required
+            />
+            <Flex gap="2" className="mt-2">
+              <Button
+                color="green"
+                onClick={
+                  editingFooterLinkId ? handleEditFooterLink : handleAddFooterLink
+                }
+              >
+                {editingFooterLinkId ? "Actualizar" : "Agregar"}
+              </Button>
+              {editingFooterLinkId && (
+                <Button
+                  variant="soft"
+                  onClick={() => {
+                    setEditingFooterLinkId(null);
+                    setFooterLinkForm({
+                      id: undefined,
+                      label: "",
+                      url: "",
+                      order: (form.footerLinks?.length || 0) + 1,
+                    });
+                  }}
+                >
+                  Cancelar
+                </Button>
+              )}
+            </Flex>
+          </Box>
+
+          {/* Listado de enlaces de footer existentes */}
+          {loadingFooterLinks ? (
+            <Box className="mt-4">Cargando enlaces de footer...</Box>
+          ) : (
+            <Box className="mt-4 space-y-2">
+              {(form.footerLinks || []).map((link: any) => (
+                <Box
+                  key={link.id}
+                  className="border p-3 rounded-lg flex justify-between items-center"
+                >
+                  <Box>
+                    <Heading size="6">{link.label}</Heading>
+                    <p>URL: {link.url}</p>
+                  </Box>
+                  <Flex gap="2">
+                    <Button
+                      variant="soft"
+                      onClick={() => loadFooterLinkForEdit(link)}
+                    >
+                      Editar
+                    </Button>
+                    <Button
+                      color="red"
+                      onClick={() => handleDeleteFooterLink(link.id)}
+                    >
+                      Eliminar
+                    </Button>
+                  </Flex>
+                </Box>
+              ))}
+            </Box>
+          )}
+        </Box>
+      </Tabs.Content>
 
       <Flex gap="3" className="mt-4">
         <Button type="submit" color="green" disabled={creating || updating}>
@@ -936,6 +1313,6 @@ export default function CreateConfigForm({
           {createError?.message || updateError?.message}
         </div>
       )}
-    </form>
+    </Tabs.Root>
   );
 }

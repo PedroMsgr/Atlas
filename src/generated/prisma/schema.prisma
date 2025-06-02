@@ -1,3 +1,5 @@
+// prisma/schema.prisma
+
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
@@ -174,49 +176,52 @@ model Constellation {
 }
 
 model UnitConfig {
-  id              String   @id @default(uuid())
-  name            String   @unique
-  pageTitle       String
-  subtitle        String?
-  description     String?
-  iconUrl         String?
-  bannerUrl       String?
-  seoTitle        String?
-  seoDescription  String?
-  seoKeywords     String?
-  ogImage         String?
-  headerLinks     Json?
-  footerLinks     Json?
-  footerInfo      String?
-  legalStepsCount Int      @default(0)
-  pageType        String
-  externalLinks   Json?
-  newsParams      Json?
-  selectedNews    Json?
-  infoSections    Json?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @default(now())
+  id                  String       @id @default(uuid())
+  name                String       @unique
+  pageTitle           String
+  pageDescription     String
+  servicesDescription String
+  bannerUrl           String?
+  footerInfo          String?
+  legalSteps          LegalStep[]
+  articles            Article[]
+  sections            Section[]
+  images              Image[]
+  footerLinks         FooterLink[]
+  createdAt           DateTime     @default(now())
+  updatedAt           DateTime     @default(now())
 
-  sections Section[]
-  articles Article[]    @relation("ConfigArticles")
-  images   Image[]
-  servers  UnitServer[] @relation("UnitServerConfig") // Relación inversa
+  servers UnitServer[] @relation("UnitServerConfig") // Relación inversa
+}
+
+model LegalStep {
+  id          String     @id @default(uuid())
+  title       String
+  description String
+  order       Int
+  config      UnitConfig @relation(fields: [configId], references: [id])
+  configId    String
+}
+
+model FooterLink {
+  id       String     @id @default(uuid())
+  label    String
+  url      String
+  order    Int
+  config   UnitConfig @relation(fields: [configId], references: [id])
+  configId String
 }
 
 // ---------- Contenido de las landings ----------
 model Section {
-  id          String      @id @default(uuid())
-  configId    String
-  type        SectionType
-  title       String
-  content     String
-  order       Int
-  sectionKey  String? // Identificador lógico de la sección ("header", "footer", "services", etc.)
-  mainImageId String?     @unique // Imagen principal de la sección
-
-  config    UnitConfig @relation(fields: [configId], references: [id])
-  mainImage Image?     @relation("SectionMainImage", fields: [mainImageId], references: [id])
-  images    Image[]    @relation("SectionImages")
+  id       String     @id @default(uuid())
+  title    String
+  body     String
+  imageUrl String?
+  order    Int
+  config   UnitConfig @relation(fields: [configId], references: [id])
+  configId String
+  images   Image[]    @relation("SectionImages")
 }
 
 model Image {
@@ -228,17 +233,19 @@ model Image {
   order     Int?
   sectionId String?
 
-  config             UnitConfig @relation(fields: [configId], references: [id])
-  section            Section?   @relation("SectionImages", fields: [sectionId], references: [id])
-  mainImageOfSection Section?   @relation("SectionMainImage")
+  config  UnitConfig @relation(fields: [configId], references: [id])
+  section Section?   @relation("SectionImages", fields: [sectionId], references: [id])
 }
 
 model Article {
-  id          String       @id @default(uuid())
+  id          String     @id @default(uuid())
   title       String
   content     String
-  publishedAt DateTime     @default(now())
-  configs     UnitConfig[] @relation("ConfigArticles")
+  url         String?
+  publishedAt DateTime   @default(now())
+  order       Int
+  config      UnitConfig @relation(fields: [configId], references: [id])
+  configId    String
 }
 
 model UnitServer {

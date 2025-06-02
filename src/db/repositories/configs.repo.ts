@@ -7,16 +7,12 @@ export class ConfigsRepository {
   async findAll(): Promise<UnitConfig[]> {
     return prisma.unitConfig.findMany({
       include: {
-        sections: true,
+        sections: { include: { images: true } },
         articles: true,
         images: true,
-        servers: {
-          select: {
-            id: true,
-            name: true,
-            domain: true,
-          }
-        }
+        legalSteps: true,
+        footerLinks: true,
+        servers: { select: { id: true, name: true, domain: true } },
       },
     });
   }
@@ -25,20 +21,12 @@ export class ConfigsRepository {
     return prisma.unitConfig.findUnique({
       where: { id },
       include: {
-        sections: {
-          include: {
-            images: true,
-          }
-        },
+        sections: { include: { images: true } },
         articles: true,
         images: true,
-        servers: {
-          select: {
-            id: true,
-            name: true,
-            domain: true,
-          }
-        }
+        legalSteps: true,
+        footerLinks: true,
+        servers: { select: { id: true, name: true, domain: true } },
       },
     });
   }
@@ -50,6 +38,8 @@ export class ConfigsRepository {
         sections: true,
         articles: true,
         images: true,
+        legalSteps: true,
+        footerLinks: true,
       },
     });
   }
@@ -61,6 +51,8 @@ export class ConfigsRepository {
         sections: true,
         articles: true,
         images: true,
+        legalSteps: true,
+        footerLinks: true,
       },
     });
   }
@@ -73,24 +65,13 @@ export class ConfigsRepository {
         sections: true,
         articles: true,
         images: true,
+        legalSteps: true,
+        footerLinks: true,
       },
     });
   }
 
   async delete(id: string): Promise<UnitConfig> {
-    return prisma.unitConfig.delete({
-      where: { id },
-    });
-  }
-
-  async findByPageType(pageType: string): Promise<UnitConfig[]> {
-    return prisma.unitConfig.findMany({
-      where: { pageType },
-      include: {
-        sections: true,
-        articles: true,
-        images: true,
-      },
-    });
+    return prisma.unitConfig.delete({ where: { id } });
   }
 }

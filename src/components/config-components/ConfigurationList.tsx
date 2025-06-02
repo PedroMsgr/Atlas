@@ -5,6 +5,7 @@ import { UnitConfigBase } from '@/types/config.types';
 import { useQuery } from '@apollo/client';
 import { GET_ALL_CONFIGURATIONS } from '@/graphql-client/queries/configs.querys';
 import { Box, Button, Heading, Table, Text, Badge, Card, Flex } from '@radix-ui/themes';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 interface Server {
@@ -19,6 +20,7 @@ interface Configuration extends UnitConfigBase {
 }
 
 export default function ConfigurationList() {
+  const router = useRouter();
   const [selectedConfig, setSelectedConfig] = useState<Configuration | null>(null);
 
   const { data, loading, error, refetch } = useQuery<{ configurations: Configuration[] }>(GET_ALL_CONFIGURATIONS, {
@@ -49,7 +51,6 @@ export default function ConfigurationList() {
       <Heading size="5" className="mb-4">
         Configuraciones disponibles
       </Heading>
-
       <Table.Root variant="surface">
         <Table.Header>
           <Table.Row>
@@ -60,12 +61,17 @@ export default function ConfigurationList() {
             <Table.ColumnHeaderCell>Acciones</Table.ColumnHeaderCell>
           </Table.Row>
         </Table.Header>
-
         <Table.Body>
           {data?.configurations?.map((config) => {
             const servers = config.servers ?? [];
             return (
-              <Table.Row key={config.id}>
+              <Table.Row
+                key={config.id}
+                onClick={() => router.push(`/admin/configs/${config.id}`)}
+                style={{ cursor: 'pointer', background: selectedConfig?.id === config.id ? '#f0f4ff' : undefined }}
+                onMouseEnter={() => setSelectedConfig(config)}
+                onMouseLeave={() => setSelectedConfig(null)}
+              >
                 <Table.Cell>
                   <Text weight="bold">{config.name}</Text>
                   <Text size="1" color="gray">{config.pageTitle}</Text>

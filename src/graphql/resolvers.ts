@@ -8,10 +8,16 @@ import { UnitConfigWithRelations } from '@/types/config.types';
 import { SectionsRepository } from '@/db/repositories/sections.repo';
 import { ImagesRepository } from '@/db/repositories/images.repo';
 import { ArticlesRepository } from '@/db/repositories/articles.repo';
+import { LegalStepsRepository } from '../db/repositories/legalsteps.repo';
+import { FooterLinksRepository } from '../db/repositories/footerlinks.repo';
+import { ConfigsRepository } from '../db/repositories/configs.repo';
 
 const sectionsRepo = new SectionsRepository();
 const imagesRepo = new ImagesRepository();
 const articlesRepo = new ArticlesRepository();
+const legalStepsRepo = new LegalStepsRepository();
+const footerLinksRepo = new FooterLinksRepository();
+const configsRepo = new ConfigsRepository();
 
 export const resolvers = {
   Query: {
@@ -68,6 +74,12 @@ export const resolvers = {
     article: async (_: any, { id }: { id: string }) => articlesRepo.findById(id),
     articlesByConfig: async (_: any, { configId }: { configId: string }) => articlesRepo.findByConfigId(configId),
     articles: async () => articlesRepo.findAll(),
+    legalStep: async (_: any, { id }: { id: string }) => legalStepsRepo.findById(id),
+    legalStepsByConfig: async (_: any, { configId }: { configId: string }) => legalStepsRepo.findByConfigId(configId),
+    legalSteps: async () => legalStepsRepo.findAll(),
+    footerLink: async (_: any, { id }: { id: string }) => footerLinksRepo.findById(id),
+    footerLinksByConfig: async (_: any, { configId }: { configId: string }) => footerLinksRepo.findByConfigId(configId),
+    footerLinks: async () => footerLinksRepo.findAll(),
   },
   Mutation: {
     createServer: async (_: any, { name, domain, constellationId }: { 
@@ -121,45 +133,45 @@ export const resolvers = {
     createConfig: async (_: any, { 
       name, 
       pageTitle, 
-      pageType, 
-      footerInfo, 
-      legalStepsCount 
+      pageDescription,
+      servicesDescription,
+      footerInfo
     }: { 
       name: string; 
       pageTitle: string;
-      pageType: string;
+      pageDescription: string;
+      servicesDescription: string;
       footerInfo?: string;
-      legalStepsCount?: number;
     }) => {
       return await configService.createConfig({ 
         name, 
         pageTitle, 
-        pageType, 
-        footerInfo, 
-        legalStepsCount 
+        pageDescription,
+        servicesDescription,
+        footerInfo
       });
     },
     updateConfig: async (_: any, { 
       id, 
       name, 
       pageTitle, 
-      pageType, 
-      footerInfo, 
-      legalStepsCount 
+      pageDescription,
+      servicesDescription,
+      footerInfo
     }: { 
       id: string;
       name?: string;
       pageTitle?: string;
-      pageType?: string;
+      pageDescription?: string;
+      servicesDescription?: string;
       footerInfo?: string;
-      legalStepsCount?: number;
     }) => {
       return await configService.updateConfig(id, { 
         name, 
         pageTitle, 
-        pageType, 
-        footerInfo, 
-        legalStepsCount 
+        pageDescription,
+        servicesDescription,
+        footerInfo
       });
     },
     deleteConfig: async (_: any, { id }: { id: string }) => {
@@ -177,8 +189,16 @@ export const resolvers = {
     createImage: async (_: any, { data }: any) => imagesRepo.create(data),
     updateImage: async (_: any, { id, data }: any) => imagesRepo.update(id, data),
     deleteImage: async (_: any, { id }: any) => imagesRepo.delete(id),
-    createArticle: async (_: any, { data }: any) => articlesRepo.create(data, [data.configId]),
-    updateArticle: async (_: any, { id, data }: any) => articlesRepo.update(id, data, [data.configId]),
+    createArticle: async (_: any, { data }: any) => articlesRepo.create(data),
+    updateArticle: async (_: any, { id, data }: any) => articlesRepo.update(id, data),
     deleteArticle: async (_: any, { id }: any) => articlesRepo.delete(id),
+    createLegalStep: async (_: any, { data }: any) => legalStepsRepo.create(data),
+    updateLegalStep: async (_: any, { id, data }: any) => legalStepsRepo.update(id, data),
+    deleteLegalStep: async (_: any, { id }: any) => legalStepsRepo.delete(id),
+    createFooterLink: async (_: any, { data }: any) => footerLinksRepo.create(data),
+    updateFooterLink: async (_: any, { id, data }: any) => footerLinksRepo.update(id, data),
+    deleteFooterLink: async (_: any, { id }: any) => footerLinksRepo.delete(id),
+    createUnitConfig: async (_: any, { data }: any) => configsRepo.create({ ...data }),
+    updateUnitConfig: async (_: any, { id, data }: any) => configsRepo.update(id, { ...data }),
   },
 };

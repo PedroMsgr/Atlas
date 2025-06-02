@@ -1,208 +1,189 @@
 // src/graphql/typeDefs.ts
 
-import { gql } from 'graphql-tag';
+import { gql } from 'apollo-server-micro';
 
 export const typeDefs = gql`
+  scalar DateTime
+
+  type UnitConfig {
+    id: ID!
+    name: String!
+    pageTitle: String!
+    pageType: String!
+    footerInfo: String
+    legalStepsCount: Int
+    pageDescription: String
+    servicesDescription: String
+    createdAt: DateTime!
+    updatedAt: DateTime!
+    sections: [Section!]!
+    articles: [Article!]!
+    images: [Image!]!
+    legalSteps: [LegalStep!]!
+    footerLinks: [FooterLink!]!
+    servers: [UnitServer!]!
+  }
+
+  type Section {
+    id: ID!
+    configId: ID!
+    title: String!
+    body: String
+    imageUrl: String
+    order: Int!
+    images: [Image!]
+    config: UnitConfig!
+  }
+
+  type Article {
+    id: ID!
+    configId: ID!
+    title: String!
+    content: String!
+    order: Int!
+    publishedAt: DateTime
+    config: UnitConfig!
+  }
+
+  type Image {
+    id: ID!
+    configId: ID!
+    url: String!
+    altText: String
+    type: String
+    order: Int
+    sectionId: ID
+    config: UnitConfig!
+  }
+
+  type LegalStep {
+    id: ID!
+    configId: ID!
+    title: String!
+    description: String!
+    iconUrl: String
+    order: Int!
+    config: UnitConfig!
+  }
+
+  type FooterLink {
+    id: ID!
+    configId: ID!
+    label: String!
+    url: String!
+    order: Int!
+    config: UnitConfig!
+  }
+
   type UnitServer {
     id: ID!
     name: String!
     domain: String!
     isActive: Boolean!
-    orchestratorToken: String!
-    unitToken: String!
-    updatedAt: String!
-    createdAt: String!
-    constellation: Constellation
     config: UnitConfig
-    configId: String
   }
-  type Constellation {
-    id: ID!
-    name: String!
-    description: String
-  }
-  type UnitConfig {
-    id: ID!
-    name: String!
-    pageTitle: String!
-    footerInfo: String
-    pageType: String!
-    legalStepsCount: Int!
-    createdAt: String
-    updatedAt: String
-    sections: [Section]
-    articles: [Article]
-    images: [Image]
-    servers: [UnitServer!]
-  }
-  type Section {
-    id: ID!
-    title: String!
-    type: String!
-    order: Int!
-  }
-  type Article {
-    id: ID!
-    title: String!
-    publishedAt: String!
-  }
-  type Image {
-    id: ID!
-    url: String!
-    altText: String!
-    type: String!
-    order: Int
-  }
-  input ServerUpdateInput {
-    name: String
-    domain: String
-    constellationId: String
-    configId: String
-    orchestratorToken: String
-    unitToken: String
-    isActive: Boolean
-  }
-  type ServerTokens {
-    orchestratorToken: String!
-    unitToken: String!
-  }
+
   input SectionInput {
-    configId: String!
-    type: String!
+    configId: ID!
     title: String!
-    content: String!
+    body: String
+    imageUrl: String
     order: Int!
-    sectionKey: String
-    mainImageId: String
   }
-  input ImageInput {
-    configId: String!
-    url: String!
-    altText: String!
-    type: String!
-    order: Int
-    sectionId: String
-  }
+
   input ArticleInput {
-    configId: String!
-    title: String!
-    content: String!
-    publishedAt: String
-  }
-  input ConfigInput {
-    name: String!
-    pageTitle: String!
-    subtitle: String
-    description: String
-    iconUrl: String
-    bannerUrl: String
-    seoTitle: String
-    seoDescription: String
-    seoKeywords: String
-    ogImage: String
-    headerLinks: String
-    footerLinks: String
-    footerInfo: String
-    legalStepsCount: Int
-    pageType: String!
-    externalLinks: String
-    newsParams: String
-    selectedNews: String
-    infoSections: String
-    sections: [SectionInput!]
-    articles: [ArticleInput!]
-    images: [ImageInput!]
-  }
-  type LandingData {
-    pageTitle: String!
-    subtitle: String
-    description: String
-    iconUrl: String
-    bannerUrl: String
-    seoTitle: String
-    seoDescription: String
-    seoKeywords: String
-    ogImage: String
-    headerLinks: String
-    footerLinks: String
-    footerInfo: String
-    legalStepsCount: Int
-    pageType: String!
-    externalLinks: String
-    newsParams: String
-    selectedNews: String
-    infoSections: String
-    sections: [SectionFull!]
-    articles: [ArticleFull!]
-    images: [ImageFull!]
-  }
-  type SectionFull {
-    id: ID!
-    configId: String!
-    type: String!
+    configId: ID!
     title: String!
     content: String!
     order: Int!
-    sectionKey: String
-    mainImageId: String
-    images: [ImageFull!]
   }
-  type ImageFull {
-    id: ID!
-    configId: String!
+
+  input ImageInput {
+    configId: ID!
     url: String!
-    altText: String!
-    type: String!
+    altText: String
+    type: String
     order: Int
-    sectionId: String
+    sectionId: ID
   }
-  type ArticleFull {
-    id: ID!
-    configId: String!
+
+  input LegalStepInput {
+    configId: ID!
     title: String!
-    content: String!
-    publishedAt: String
+    description: String!
+    iconUrl: String
+    order: Int!
   }
+
+  input FooterLinkInput {
+    configId: ID!
+    label: String!
+    url: String!
+    order: Int!
+  }
+
   type Query {
-    servers: [UnitServer!]!
-    server(id: ID!): UnitServer
-    constellation(id: ID!): Constellation
-    constellations: [Constellation!]!
     configurations: [UnitConfig!]!
     configuration(id: ID!): UnitConfig
-    generateServerTokens(id: ID!): ServerTokens!
-    landingData(token: String!): LandingData!
-    section(id: ID!): SectionFull
-    sectionsByConfig(configId: ID!): [SectionFull!]
-    sections: [SectionFull!]
-    image(id: ID!): ImageFull
-    imagesByConfig(configId: ID!): [ImageFull!]
-    images: [ImageFull!]
-    article(id: ID!): ArticleFull
-    articlesByConfig(configId: ID!): [ArticleFull!]
-    articles: [ArticleFull!]
+    sections: [Section!]!
+    section(id: ID!): Section
+    sectionsByConfig(configId: ID!): [Section!]!
+    articles: [Article!]!
+    article(id: ID!): Article
+    articlesByConfig(configId: ID!): [Article!]!
+    images: [Image!]!
+    image(id: ID!): Image
+    imagesByConfig(configId: ID!): [Image!]!
+    legalSteps: [LegalStep!]!
+    legalStep(id: ID!): LegalStep
+    legalStepsByConfig(configId: ID!): [LegalStep!]!
+    footerLinks: [FooterLink!]!
+    footerLink(id: ID!): FooterLink
+    footerLinksByConfig(configId: ID!): [FooterLink!]!
+    servers: [UnitServer!]!
+    server(id: ID!): UnitServer
   }
+
   type Mutation {
-    createServer(name: String!, domain: String!, constellationId: String): UnitServer!
-    updateServer(id: ID!, data: ServerUpdateInput!): UnitServer!
-    deleteServer(id: ID!): UnitServer!
-    updateServerTokens(id: ID!, orchestratorToken: String!, unitToken: String!): UnitServer!
-    createConstellation(name: String!, description: String): Constellation!
-    updateConstellation(id: ID!, name: String, description: String): Constellation!
-    deleteConstellation(id: ID!): Constellation!
-    createConfig(name: String!, pageTitle: String!, pageType: String!, footerInfo: String, legalStepsCount: Int): UnitConfig!
-    updateConfig(id: ID!, name: String, pageTitle: String, pageType: String, footerInfo: String, legalStepsCount: Int): UnitConfig!
-    deleteConfig(id: ID!): UnitConfig
-    createFullConfig(data: ConfigInput!): UnitConfig!
-    updateFullConfig(id: ID!, data: ConfigInput!): UnitConfig!
-    createSection(data: SectionInput!): SectionFull!
-    updateSection(id: ID!, data: SectionInput!): SectionFull!
-    deleteSection(id: ID!): SectionFull!
-    createImage(data: ImageInput!): ImageFull!
-    updateImage(id: ID!, data: ImageInput!): ImageFull!
-    deleteImage(id: ID!): ImageFull!
-    createArticle(data: ArticleInput!): ArticleFull!
-    updateArticle(id: ID!, data: ArticleInput!): ArticleFull!
-    deleteArticle(id: ID!): ArticleFull!
+    createConfig(
+      name: String!
+      pageTitle: String!
+      pageType: String!
+      footerInfo: String
+      legalStepsCount: Int
+      pageDescription: String
+      servicesDescription: String
+    ): UnitConfig!
+    updateConfig(
+      id: ID!
+      name: String
+      pageTitle: String
+      pageType: String
+      footerInfo: String
+      legalStepsCount: Int
+      pageDescription: String
+      servicesDescription: String
+    ): UnitConfig!
+    deleteConfig(id: ID!): UnitConfig!
+
+    createSection(data: SectionInput!): Section!
+    updateSection(id: ID!, data: SectionInput!): Section!
+    deleteSection(id: ID!): Section!
+
+    createArticle(data: ArticleInput!): Article!
+    updateArticle(id: ID!, data: ArticleInput!): Article!
+    deleteArticle(id: ID!): Article!
+
+    createImage(data: ImageInput!): Image!
+    updateImage(id: ID!, data: ImageInput!): Image!
+    deleteImage(id: ID!): Image!
+
+    createLegalStep(data: LegalStepInput!): LegalStep!
+    updateLegalStep(id: ID!, data: LegalStepInput!): LegalStep!
+    deleteLegalStep(id: ID!): LegalStep!
+
+    createFooterLink(data: FooterLinkInput!): FooterLink!
+    updateFooterLink(id: ID!, data: FooterLinkInput!): FooterLink!
+    deleteFooterLink(id: ID!): FooterLink!
   }
 `;

@@ -201,36 +201,37 @@ exports.Prisma.UnitConfigScalarFieldEnum = {
   id: 'id',
   name: 'name',
   pageTitle: 'pageTitle',
-  subtitle: 'subtitle',
-  description: 'description',
-  iconUrl: 'iconUrl',
+  pageDescription: 'pageDescription',
+  servicesDescription: 'servicesDescription',
   bannerUrl: 'bannerUrl',
-  seoTitle: 'seoTitle',
-  seoDescription: 'seoDescription',
-  seoKeywords: 'seoKeywords',
-  ogImage: 'ogImage',
-  headerLinks: 'headerLinks',
-  footerLinks: 'footerLinks',
   footerInfo: 'footerInfo',
-  legalStepsCount: 'legalStepsCount',
-  pageType: 'pageType',
-  externalLinks: 'externalLinks',
-  newsParams: 'newsParams',
-  selectedNews: 'selectedNews',
-  infoSections: 'infoSections',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.LegalStepScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  order: 'order',
+  configId: 'configId'
+};
+
+exports.Prisma.FooterLinkScalarFieldEnum = {
+  id: 'id',
+  label: 'label',
+  url: 'url',
+  order: 'order',
+  configId: 'configId'
+};
+
 exports.Prisma.SectionScalarFieldEnum = {
   id: 'id',
-  configId: 'configId',
-  type: 'type',
   title: 'title',
-  content: 'content',
+  body: 'body',
+  imageUrl: 'imageUrl',
   order: 'order',
-  sectionKey: 'sectionKey',
-  mainImageId: 'mainImageId'
+  configId: 'configId'
 };
 
 exports.Prisma.ImageScalarFieldEnum = {
@@ -247,7 +248,10 @@ exports.Prisma.ArticleScalarFieldEnum = {
   id: 'id',
   title: 'title',
   content: 'content',
-  publishedAt: 'publishedAt'
+  url: 'url',
+  publishedAt: 'publishedAt',
+  order: 'order',
+  configId: 'configId'
 };
 
 exports.Prisma.UnitServerScalarFieldEnum = {
@@ -323,13 +327,6 @@ exports.Sender = exports.$Enums.Sender = {
   professional: 'professional'
 };
 
-exports.SectionType = exports.$Enums.SectionType = {
-  text: 'text',
-  legalGuide: 'legalGuide',
-  manual: 'manual',
-  newsConfig: 'newsConfig'
-};
-
 exports.Prisma.ModelName = {
   User: 'User',
   Client: 'Client',
@@ -341,6 +338,8 @@ exports.Prisma.ModelName = {
   Report: 'Report',
   Constellation: 'Constellation',
   UnitConfig: 'UnitConfig',
+  LegalStep: 'LegalStep',
+  FooterLink: 'FooterLink',
   Section: 'Section',
   Image: 'Image',
   Article: 'Article',

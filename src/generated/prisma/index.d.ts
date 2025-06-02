@@ -64,6 +64,16 @@ export type Constellation = $Result.DefaultSelection<Prisma.$ConstellationPayloa
  */
 export type UnitConfig = $Result.DefaultSelection<Prisma.$UnitConfigPayload>
 /**
+ * Model LegalStep
+ * 
+ */
+export type LegalStep = $Result.DefaultSelection<Prisma.$LegalStepPayload>
+/**
+ * Model FooterLink
+ * 
+ */
+export type FooterLink = $Result.DefaultSelection<Prisma.$FooterLinkPayload>
+/**
  * Model Section
  * 
  */
@@ -398,6 +408,26 @@ export class PrismaClient<
     * ```
     */
   get unitConfig(): Prisma.UnitConfigDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.legalStep`: Exposes CRUD operations for the **LegalStep** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more LegalSteps
+    * const legalSteps = await prisma.legalStep.findMany()
+    * ```
+    */
+  get legalStep(): Prisma.LegalStepDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.footerLink`: Exposes CRUD operations for the **FooterLink** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more FooterLinks
+    * const footerLinks = await prisma.footerLink.findMany()
+    * ```
+    */
+  get footerLink(): Prisma.FooterLinkDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.section`: Exposes CRUD operations for the **Section** model.
@@ -898,6 +928,8 @@ export namespace Prisma {
     Report: 'Report',
     Constellation: 'Constellation',
     UnitConfig: 'UnitConfig',
+    LegalStep: 'LegalStep',
+    FooterLink: 'FooterLink',
     Section: 'Section',
     Image: 'Image',
     Article: 'Article',
@@ -921,7 +953,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "client" | "professional" | "case" | "chat" | "message" | "file" | "report" | "constellation" | "unitConfig" | "section" | "image" | "article" | "unitServer" | "serverLog"
+      modelProps: "user" | "client" | "professional" | "case" | "chat" | "message" | "file" | "report" | "constellation" | "unitConfig" | "legalStep" | "footerLink" | "section" | "image" | "article" | "unitServer" | "serverLog"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1665,6 +1697,154 @@ export namespace Prisma {
           }
         }
       }
+      LegalStep: {
+        payload: Prisma.$LegalStepPayload<ExtArgs>
+        fields: Prisma.LegalStepFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LegalStepFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegalStepPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LegalStepFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegalStepPayload>
+          }
+          findFirst: {
+            args: Prisma.LegalStepFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegalStepPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LegalStepFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegalStepPayload>
+          }
+          findMany: {
+            args: Prisma.LegalStepFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegalStepPayload>[]
+          }
+          create: {
+            args: Prisma.LegalStepCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegalStepPayload>
+          }
+          createMany: {
+            args: Prisma.LegalStepCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LegalStepCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegalStepPayload>[]
+          }
+          delete: {
+            args: Prisma.LegalStepDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegalStepPayload>
+          }
+          update: {
+            args: Prisma.LegalStepUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegalStepPayload>
+          }
+          deleteMany: {
+            args: Prisma.LegalStepDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LegalStepUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.LegalStepUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegalStepPayload>[]
+          }
+          upsert: {
+            args: Prisma.LegalStepUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegalStepPayload>
+          }
+          aggregate: {
+            args: Prisma.LegalStepAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLegalStep>
+          }
+          groupBy: {
+            args: Prisma.LegalStepGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LegalStepGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LegalStepCountArgs<ExtArgs>
+            result: $Utils.Optional<LegalStepCountAggregateOutputType> | number
+          }
+        }
+      }
+      FooterLink: {
+        payload: Prisma.$FooterLinkPayload<ExtArgs>
+        fields: Prisma.FooterLinkFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.FooterLinkFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FooterLinkPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.FooterLinkFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FooterLinkPayload>
+          }
+          findFirst: {
+            args: Prisma.FooterLinkFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FooterLinkPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.FooterLinkFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FooterLinkPayload>
+          }
+          findMany: {
+            args: Prisma.FooterLinkFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FooterLinkPayload>[]
+          }
+          create: {
+            args: Prisma.FooterLinkCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FooterLinkPayload>
+          }
+          createMany: {
+            args: Prisma.FooterLinkCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.FooterLinkCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FooterLinkPayload>[]
+          }
+          delete: {
+            args: Prisma.FooterLinkDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FooterLinkPayload>
+          }
+          update: {
+            args: Prisma.FooterLinkUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FooterLinkPayload>
+          }
+          deleteMany: {
+            args: Prisma.FooterLinkDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.FooterLinkUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.FooterLinkUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FooterLinkPayload>[]
+          }
+          upsert: {
+            args: Prisma.FooterLinkUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FooterLinkPayload>
+          }
+          aggregate: {
+            args: Prisma.FooterLinkAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateFooterLink>
+          }
+          groupBy: {
+            args: Prisma.FooterLinkGroupByArgs<ExtArgs>
+            result: $Utils.Optional<FooterLinkGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.FooterLinkCountArgs<ExtArgs>
+            result: $Utils.Optional<FooterLinkCountAggregateOutputType> | number
+          }
+        }
+      }
       Section: {
         payload: Prisma.$SectionPayload<ExtArgs>
         fields: Prisma.SectionFieldRefs
@@ -2129,6 +2309,8 @@ export namespace Prisma {
     report?: ReportOmit
     constellation?: ConstellationOmit
     unitConfig?: UnitConfigOmit
+    legalStep?: LegalStepOmit
+    footerLink?: FooterLinkOmit
     section?: SectionOmit
     image?: ImageOmit
     article?: ArticleOmit
@@ -2459,16 +2641,20 @@ export namespace Prisma {
    */
 
   export type UnitConfigCountOutputType = {
-    sections: number
+    legalSteps: number
     articles: number
+    sections: number
     images: number
+    footerLinks: number
     servers: number
   }
 
   export type UnitConfigCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    sections?: boolean | UnitConfigCountOutputTypeCountSectionsArgs
+    legalSteps?: boolean | UnitConfigCountOutputTypeCountLegalStepsArgs
     articles?: boolean | UnitConfigCountOutputTypeCountArticlesArgs
+    sections?: boolean | UnitConfigCountOutputTypeCountSectionsArgs
     images?: boolean | UnitConfigCountOutputTypeCountImagesArgs
+    footerLinks?: boolean | UnitConfigCountOutputTypeCountFooterLinksArgs
     servers?: boolean | UnitConfigCountOutputTypeCountServersArgs
   }
 
@@ -2486,8 +2672,8 @@ export namespace Prisma {
   /**
    * UnitConfigCountOutputType without action
    */
-  export type UnitConfigCountOutputTypeCountSectionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: SectionWhereInput
+  export type UnitConfigCountOutputTypeCountLegalStepsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LegalStepWhereInput
   }
 
   /**
@@ -2500,8 +2686,22 @@ export namespace Prisma {
   /**
    * UnitConfigCountOutputType without action
    */
+  export type UnitConfigCountOutputTypeCountSectionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SectionWhereInput
+  }
+
+  /**
+   * UnitConfigCountOutputType without action
+   */
   export type UnitConfigCountOutputTypeCountImagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ImageWhereInput
+  }
+
+  /**
+   * UnitConfigCountOutputType without action
+   */
+  export type UnitConfigCountOutputTypeCountFooterLinksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FooterLinkWhereInput
   }
 
   /**
@@ -2540,37 +2740,6 @@ export namespace Prisma {
    */
   export type SectionCountOutputTypeCountImagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ImageWhereInput
-  }
-
-
-  /**
-   * Count Type ArticleCountOutputType
-   */
-
-  export type ArticleCountOutputType = {
-    configs: number
-  }
-
-  export type ArticleCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    configs?: boolean | ArticleCountOutputTypeCountConfigsArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * ArticleCountOutputType without action
-   */
-  export type ArticleCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ArticleCountOutputType
-     */
-    select?: ArticleCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * ArticleCountOutputType without action
-   */
-  export type ArticleCountOutputTypeCountConfigsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UnitConfigWhereInput
   }
 
 
@@ -12630,35 +12799,18 @@ export namespace Prisma {
 
   export type AggregateUnitConfig = {
     _count: UnitConfigCountAggregateOutputType | null
-    _avg: UnitConfigAvgAggregateOutputType | null
-    _sum: UnitConfigSumAggregateOutputType | null
     _min: UnitConfigMinAggregateOutputType | null
     _max: UnitConfigMaxAggregateOutputType | null
-  }
-
-  export type UnitConfigAvgAggregateOutputType = {
-    legalStepsCount: number | null
-  }
-
-  export type UnitConfigSumAggregateOutputType = {
-    legalStepsCount: number | null
   }
 
   export type UnitConfigMinAggregateOutputType = {
     id: string | null
     name: string | null
     pageTitle: string | null
-    subtitle: string | null
-    description: string | null
-    iconUrl: string | null
+    pageDescription: string | null
+    servicesDescription: string | null
     bannerUrl: string | null
-    seoTitle: string | null
-    seoDescription: string | null
-    seoKeywords: string | null
-    ogImage: string | null
     footerInfo: string | null
-    legalStepsCount: number | null
-    pageType: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -12667,17 +12819,10 @@ export namespace Prisma {
     id: string | null
     name: string | null
     pageTitle: string | null
-    subtitle: string | null
-    description: string | null
-    iconUrl: string | null
+    pageDescription: string | null
+    servicesDescription: string | null
     bannerUrl: string | null
-    seoTitle: string | null
-    seoDescription: string | null
-    seoKeywords: string | null
-    ogImage: string | null
     footerInfo: string | null
-    legalStepsCount: number | null
-    pageType: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -12686,52 +12831,24 @@ export namespace Prisma {
     id: number
     name: number
     pageTitle: number
-    subtitle: number
-    description: number
-    iconUrl: number
+    pageDescription: number
+    servicesDescription: number
     bannerUrl: number
-    seoTitle: number
-    seoDescription: number
-    seoKeywords: number
-    ogImage: number
-    headerLinks: number
-    footerLinks: number
     footerInfo: number
-    legalStepsCount: number
-    pageType: number
-    externalLinks: number
-    newsParams: number
-    selectedNews: number
-    infoSections: number
     createdAt: number
     updatedAt: number
     _all: number
   }
 
 
-  export type UnitConfigAvgAggregateInputType = {
-    legalStepsCount?: true
-  }
-
-  export type UnitConfigSumAggregateInputType = {
-    legalStepsCount?: true
-  }
-
   export type UnitConfigMinAggregateInputType = {
     id?: true
     name?: true
     pageTitle?: true
-    subtitle?: true
-    description?: true
-    iconUrl?: true
+    pageDescription?: true
+    servicesDescription?: true
     bannerUrl?: true
-    seoTitle?: true
-    seoDescription?: true
-    seoKeywords?: true
-    ogImage?: true
     footerInfo?: true
-    legalStepsCount?: true
-    pageType?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -12740,17 +12857,10 @@ export namespace Prisma {
     id?: true
     name?: true
     pageTitle?: true
-    subtitle?: true
-    description?: true
-    iconUrl?: true
+    pageDescription?: true
+    servicesDescription?: true
     bannerUrl?: true
-    seoTitle?: true
-    seoDescription?: true
-    seoKeywords?: true
-    ogImage?: true
     footerInfo?: true
-    legalStepsCount?: true
-    pageType?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -12759,23 +12869,10 @@ export namespace Prisma {
     id?: true
     name?: true
     pageTitle?: true
-    subtitle?: true
-    description?: true
-    iconUrl?: true
+    pageDescription?: true
+    servicesDescription?: true
     bannerUrl?: true
-    seoTitle?: true
-    seoDescription?: true
-    seoKeywords?: true
-    ogImage?: true
-    headerLinks?: true
-    footerLinks?: true
     footerInfo?: true
-    legalStepsCount?: true
-    pageType?: true
-    externalLinks?: true
-    newsParams?: true
-    selectedNews?: true
-    infoSections?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -12819,18 +12916,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: UnitConfigAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: UnitConfigSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: UnitConfigMinAggregateInputType
@@ -12861,8 +12946,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: UnitConfigCountAggregateInputType | true
-    _avg?: UnitConfigAvgAggregateInputType
-    _sum?: UnitConfigSumAggregateInputType
     _min?: UnitConfigMinAggregateInputType
     _max?: UnitConfigMaxAggregateInputType
   }
@@ -12871,28 +12954,13 @@ export namespace Prisma {
     id: string
     name: string
     pageTitle: string
-    subtitle: string | null
-    description: string | null
-    iconUrl: string | null
+    pageDescription: string
+    servicesDescription: string
     bannerUrl: string | null
-    seoTitle: string | null
-    seoDescription: string | null
-    seoKeywords: string | null
-    ogImage: string | null
-    headerLinks: JsonValue | null
-    footerLinks: JsonValue | null
     footerInfo: string | null
-    legalStepsCount: number
-    pageType: string
-    externalLinks: JsonValue | null
-    newsParams: JsonValue | null
-    selectedNews: JsonValue | null
-    infoSections: JsonValue | null
     createdAt: Date
     updatedAt: Date
     _count: UnitConfigCountAggregateOutputType | null
-    _avg: UnitConfigAvgAggregateOutputType | null
-    _sum: UnitConfigSumAggregateOutputType | null
     _min: UnitConfigMinAggregateOutputType | null
     _max: UnitConfigMaxAggregateOutputType | null
   }
@@ -12915,28 +12983,17 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     pageTitle?: boolean
-    subtitle?: boolean
-    description?: boolean
-    iconUrl?: boolean
+    pageDescription?: boolean
+    servicesDescription?: boolean
     bannerUrl?: boolean
-    seoTitle?: boolean
-    seoDescription?: boolean
-    seoKeywords?: boolean
-    ogImage?: boolean
-    headerLinks?: boolean
-    footerLinks?: boolean
     footerInfo?: boolean
-    legalStepsCount?: boolean
-    pageType?: boolean
-    externalLinks?: boolean
-    newsParams?: boolean
-    selectedNews?: boolean
-    infoSections?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    sections?: boolean | UnitConfig$sectionsArgs<ExtArgs>
+    legalSteps?: boolean | UnitConfig$legalStepsArgs<ExtArgs>
     articles?: boolean | UnitConfig$articlesArgs<ExtArgs>
+    sections?: boolean | UnitConfig$sectionsArgs<ExtArgs>
     images?: boolean | UnitConfig$imagesArgs<ExtArgs>
+    footerLinks?: boolean | UnitConfig$footerLinksArgs<ExtArgs>
     servers?: boolean | UnitConfig$serversArgs<ExtArgs>
     _count?: boolean | UnitConfigCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["unitConfig"]>
@@ -12945,23 +13002,10 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     pageTitle?: boolean
-    subtitle?: boolean
-    description?: boolean
-    iconUrl?: boolean
+    pageDescription?: boolean
+    servicesDescription?: boolean
     bannerUrl?: boolean
-    seoTitle?: boolean
-    seoDescription?: boolean
-    seoKeywords?: boolean
-    ogImage?: boolean
-    headerLinks?: boolean
-    footerLinks?: boolean
     footerInfo?: boolean
-    legalStepsCount?: boolean
-    pageType?: boolean
-    externalLinks?: boolean
-    newsParams?: boolean
-    selectedNews?: boolean
-    infoSections?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["unitConfig"]>
@@ -12970,23 +13014,10 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     pageTitle?: boolean
-    subtitle?: boolean
-    description?: boolean
-    iconUrl?: boolean
+    pageDescription?: boolean
+    servicesDescription?: boolean
     bannerUrl?: boolean
-    seoTitle?: boolean
-    seoDescription?: boolean
-    seoKeywords?: boolean
-    ogImage?: boolean
-    headerLinks?: boolean
-    footerLinks?: boolean
     footerInfo?: boolean
-    legalStepsCount?: boolean
-    pageType?: boolean
-    externalLinks?: boolean
-    newsParams?: boolean
-    selectedNews?: boolean
-    infoSections?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["unitConfig"]>
@@ -12995,32 +13026,21 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     pageTitle?: boolean
-    subtitle?: boolean
-    description?: boolean
-    iconUrl?: boolean
+    pageDescription?: boolean
+    servicesDescription?: boolean
     bannerUrl?: boolean
-    seoTitle?: boolean
-    seoDescription?: boolean
-    seoKeywords?: boolean
-    ogImage?: boolean
-    headerLinks?: boolean
-    footerLinks?: boolean
     footerInfo?: boolean
-    legalStepsCount?: boolean
-    pageType?: boolean
-    externalLinks?: boolean
-    newsParams?: boolean
-    selectedNews?: boolean
-    infoSections?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UnitConfigOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "pageTitle" | "subtitle" | "description" | "iconUrl" | "bannerUrl" | "seoTitle" | "seoDescription" | "seoKeywords" | "ogImage" | "headerLinks" | "footerLinks" | "footerInfo" | "legalStepsCount" | "pageType" | "externalLinks" | "newsParams" | "selectedNews" | "infoSections" | "createdAt" | "updatedAt", ExtArgs["result"]["unitConfig"]>
+  export type UnitConfigOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "pageTitle" | "pageDescription" | "servicesDescription" | "bannerUrl" | "footerInfo" | "createdAt" | "updatedAt", ExtArgs["result"]["unitConfig"]>
   export type UnitConfigInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    sections?: boolean | UnitConfig$sectionsArgs<ExtArgs>
+    legalSteps?: boolean | UnitConfig$legalStepsArgs<ExtArgs>
     articles?: boolean | UnitConfig$articlesArgs<ExtArgs>
+    sections?: boolean | UnitConfig$sectionsArgs<ExtArgs>
     images?: boolean | UnitConfig$imagesArgs<ExtArgs>
+    footerLinks?: boolean | UnitConfig$footerLinksArgs<ExtArgs>
     servers?: boolean | UnitConfig$serversArgs<ExtArgs>
     _count?: boolean | UnitConfigCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -13030,32 +13050,21 @@ export namespace Prisma {
   export type $UnitConfigPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "UnitConfig"
     objects: {
-      sections: Prisma.$SectionPayload<ExtArgs>[]
+      legalSteps: Prisma.$LegalStepPayload<ExtArgs>[]
       articles: Prisma.$ArticlePayload<ExtArgs>[]
+      sections: Prisma.$SectionPayload<ExtArgs>[]
       images: Prisma.$ImagePayload<ExtArgs>[]
+      footerLinks: Prisma.$FooterLinkPayload<ExtArgs>[]
       servers: Prisma.$UnitServerPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
       pageTitle: string
-      subtitle: string | null
-      description: string | null
-      iconUrl: string | null
+      pageDescription: string
+      servicesDescription: string
       bannerUrl: string | null
-      seoTitle: string | null
-      seoDescription: string | null
-      seoKeywords: string | null
-      ogImage: string | null
-      headerLinks: Prisma.JsonValue | null
-      footerLinks: Prisma.JsonValue | null
       footerInfo: string | null
-      legalStepsCount: number
-      pageType: string
-      externalLinks: Prisma.JsonValue | null
-      newsParams: Prisma.JsonValue | null
-      selectedNews: Prisma.JsonValue | null
-      infoSections: Prisma.JsonValue | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["unitConfig"]>
@@ -13452,9 +13461,11 @@ export namespace Prisma {
    */
   export interface Prisma__UnitConfigClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    sections<T extends UnitConfig$sectionsArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfig$sectionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    legalSteps<T extends UnitConfig$legalStepsArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfig$legalStepsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LegalStepPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     articles<T extends UnitConfig$articlesArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfig$articlesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    sections<T extends UnitConfig$sectionsArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfig$sectionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     images<T extends UnitConfig$imagesArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfig$imagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    footerLinks<T extends UnitConfig$footerLinksArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfig$footerLinksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FooterLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     servers<T extends UnitConfig$serversArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfig$serversArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UnitServerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -13488,23 +13499,10 @@ export namespace Prisma {
     readonly id: FieldRef<"UnitConfig", 'String'>
     readonly name: FieldRef<"UnitConfig", 'String'>
     readonly pageTitle: FieldRef<"UnitConfig", 'String'>
-    readonly subtitle: FieldRef<"UnitConfig", 'String'>
-    readonly description: FieldRef<"UnitConfig", 'String'>
-    readonly iconUrl: FieldRef<"UnitConfig", 'String'>
+    readonly pageDescription: FieldRef<"UnitConfig", 'String'>
+    readonly servicesDescription: FieldRef<"UnitConfig", 'String'>
     readonly bannerUrl: FieldRef<"UnitConfig", 'String'>
-    readonly seoTitle: FieldRef<"UnitConfig", 'String'>
-    readonly seoDescription: FieldRef<"UnitConfig", 'String'>
-    readonly seoKeywords: FieldRef<"UnitConfig", 'String'>
-    readonly ogImage: FieldRef<"UnitConfig", 'String'>
-    readonly headerLinks: FieldRef<"UnitConfig", 'Json'>
-    readonly footerLinks: FieldRef<"UnitConfig", 'Json'>
     readonly footerInfo: FieldRef<"UnitConfig", 'String'>
-    readonly legalStepsCount: FieldRef<"UnitConfig", 'Int'>
-    readonly pageType: FieldRef<"UnitConfig", 'String'>
-    readonly externalLinks: FieldRef<"UnitConfig", 'Json'>
-    readonly newsParams: FieldRef<"UnitConfig", 'Json'>
-    readonly selectedNews: FieldRef<"UnitConfig", 'Json'>
-    readonly infoSections: FieldRef<"UnitConfig", 'Json'>
     readonly createdAt: FieldRef<"UnitConfig", 'DateTime'>
     readonly updatedAt: FieldRef<"UnitConfig", 'DateTime'>
   }
@@ -13895,27 +13893,27 @@ export namespace Prisma {
   }
 
   /**
-   * UnitConfig.sections
+   * UnitConfig.legalSteps
    */
-  export type UnitConfig$sectionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UnitConfig$legalStepsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Section
+     * Select specific fields to fetch from the LegalStep
      */
-    select?: SectionSelect<ExtArgs> | null
+    select?: LegalStepSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Section
+     * Omit specific fields from the LegalStep
      */
-    omit?: SectionOmit<ExtArgs> | null
+    omit?: LegalStepOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: SectionInclude<ExtArgs> | null
-    where?: SectionWhereInput
-    orderBy?: SectionOrderByWithRelationInput | SectionOrderByWithRelationInput[]
-    cursor?: SectionWhereUniqueInput
+    include?: LegalStepInclude<ExtArgs> | null
+    where?: LegalStepWhereInput
+    orderBy?: LegalStepOrderByWithRelationInput | LegalStepOrderByWithRelationInput[]
+    cursor?: LegalStepWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: SectionScalarFieldEnum | SectionScalarFieldEnum[]
+    distinct?: LegalStepScalarFieldEnum | LegalStepScalarFieldEnum[]
   }
 
   /**
@@ -13943,6 +13941,30 @@ export namespace Prisma {
   }
 
   /**
+   * UnitConfig.sections
+   */
+  export type UnitConfig$sectionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Section
+     */
+    select?: SectionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Section
+     */
+    omit?: SectionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectionInclude<ExtArgs> | null
+    where?: SectionWhereInput
+    orderBy?: SectionOrderByWithRelationInput | SectionOrderByWithRelationInput[]
+    cursor?: SectionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SectionScalarFieldEnum | SectionScalarFieldEnum[]
+  }
+
+  /**
    * UnitConfig.images
    */
   export type UnitConfig$imagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -13964,6 +13986,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ImageScalarFieldEnum | ImageScalarFieldEnum[]
+  }
+
+  /**
+   * UnitConfig.footerLinks
+   */
+  export type UnitConfig$footerLinksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FooterLink
+     */
+    select?: FooterLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FooterLink
+     */
+    omit?: FooterLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FooterLinkInclude<ExtArgs> | null
+    where?: FooterLinkWhereInput
+    orderBy?: FooterLinkOrderByWithRelationInput | FooterLinkOrderByWithRelationInput[]
+    cursor?: FooterLinkWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FooterLinkScalarFieldEnum | FooterLinkScalarFieldEnum[]
   }
 
   /**
@@ -14010,6 +14056,2190 @@ export namespace Prisma {
 
 
   /**
+   * Model LegalStep
+   */
+
+  export type AggregateLegalStep = {
+    _count: LegalStepCountAggregateOutputType | null
+    _avg: LegalStepAvgAggregateOutputType | null
+    _sum: LegalStepSumAggregateOutputType | null
+    _min: LegalStepMinAggregateOutputType | null
+    _max: LegalStepMaxAggregateOutputType | null
+  }
+
+  export type LegalStepAvgAggregateOutputType = {
+    order: number | null
+  }
+
+  export type LegalStepSumAggregateOutputType = {
+    order: number | null
+  }
+
+  export type LegalStepMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    order: number | null
+    configId: string | null
+  }
+
+  export type LegalStepMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    order: number | null
+    configId: string | null
+  }
+
+  export type LegalStepCountAggregateOutputType = {
+    id: number
+    title: number
+    description: number
+    order: number
+    configId: number
+    _all: number
+  }
+
+
+  export type LegalStepAvgAggregateInputType = {
+    order?: true
+  }
+
+  export type LegalStepSumAggregateInputType = {
+    order?: true
+  }
+
+  export type LegalStepMinAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    order?: true
+    configId?: true
+  }
+
+  export type LegalStepMaxAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    order?: true
+    configId?: true
+  }
+
+  export type LegalStepCountAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    order?: true
+    configId?: true
+    _all?: true
+  }
+
+  export type LegalStepAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LegalStep to aggregate.
+     */
+    where?: LegalStepWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LegalSteps to fetch.
+     */
+    orderBy?: LegalStepOrderByWithRelationInput | LegalStepOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LegalStepWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LegalSteps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LegalSteps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned LegalSteps
+    **/
+    _count?: true | LegalStepCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: LegalStepAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: LegalStepSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LegalStepMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LegalStepMaxAggregateInputType
+  }
+
+  export type GetLegalStepAggregateType<T extends LegalStepAggregateArgs> = {
+        [P in keyof T & keyof AggregateLegalStep]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLegalStep[P]>
+      : GetScalarType<T[P], AggregateLegalStep[P]>
+  }
+
+
+
+
+  export type LegalStepGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LegalStepWhereInput
+    orderBy?: LegalStepOrderByWithAggregationInput | LegalStepOrderByWithAggregationInput[]
+    by: LegalStepScalarFieldEnum[] | LegalStepScalarFieldEnum
+    having?: LegalStepScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LegalStepCountAggregateInputType | true
+    _avg?: LegalStepAvgAggregateInputType
+    _sum?: LegalStepSumAggregateInputType
+    _min?: LegalStepMinAggregateInputType
+    _max?: LegalStepMaxAggregateInputType
+  }
+
+  export type LegalStepGroupByOutputType = {
+    id: string
+    title: string
+    description: string
+    order: number
+    configId: string
+    _count: LegalStepCountAggregateOutputType | null
+    _avg: LegalStepAvgAggregateOutputType | null
+    _sum: LegalStepSumAggregateOutputType | null
+    _min: LegalStepMinAggregateOutputType | null
+    _max: LegalStepMaxAggregateOutputType | null
+  }
+
+  type GetLegalStepGroupByPayload<T extends LegalStepGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LegalStepGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LegalStepGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LegalStepGroupByOutputType[P]>
+            : GetScalarType<T[P], LegalStepGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LegalStepSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    order?: boolean
+    configId?: boolean
+    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["legalStep"]>
+
+  export type LegalStepSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    order?: boolean
+    configId?: boolean
+    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["legalStep"]>
+
+  export type LegalStepSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    order?: boolean
+    configId?: boolean
+    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["legalStep"]>
+
+  export type LegalStepSelectScalar = {
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    order?: boolean
+    configId?: boolean
+  }
+
+  export type LegalStepOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "order" | "configId", ExtArgs["result"]["legalStep"]>
+  export type LegalStepInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
+  }
+  export type LegalStepIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
+  }
+  export type LegalStepIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
+  }
+
+  export type $LegalStepPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "LegalStep"
+    objects: {
+      config: Prisma.$UnitConfigPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      description: string
+      order: number
+      configId: string
+    }, ExtArgs["result"]["legalStep"]>
+    composites: {}
+  }
+
+  type LegalStepGetPayload<S extends boolean | null | undefined | LegalStepDefaultArgs> = $Result.GetResult<Prisma.$LegalStepPayload, S>
+
+  type LegalStepCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LegalStepFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LegalStepCountAggregateInputType | true
+    }
+
+  export interface LegalStepDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['LegalStep'], meta: { name: 'LegalStep' } }
+    /**
+     * Find zero or one LegalStep that matches the filter.
+     * @param {LegalStepFindUniqueArgs} args - Arguments to find a LegalStep
+     * @example
+     * // Get one LegalStep
+     * const legalStep = await prisma.legalStep.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LegalStepFindUniqueArgs>(args: SelectSubset<T, LegalStepFindUniqueArgs<ExtArgs>>): Prisma__LegalStepClient<$Result.GetResult<Prisma.$LegalStepPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one LegalStep that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {LegalStepFindUniqueOrThrowArgs} args - Arguments to find a LegalStep
+     * @example
+     * // Get one LegalStep
+     * const legalStep = await prisma.legalStep.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LegalStepFindUniqueOrThrowArgs>(args: SelectSubset<T, LegalStepFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LegalStepClient<$Result.GetResult<Prisma.$LegalStepPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LegalStep that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LegalStepFindFirstArgs} args - Arguments to find a LegalStep
+     * @example
+     * // Get one LegalStep
+     * const legalStep = await prisma.legalStep.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LegalStepFindFirstArgs>(args?: SelectSubset<T, LegalStepFindFirstArgs<ExtArgs>>): Prisma__LegalStepClient<$Result.GetResult<Prisma.$LegalStepPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LegalStep that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LegalStepFindFirstOrThrowArgs} args - Arguments to find a LegalStep
+     * @example
+     * // Get one LegalStep
+     * const legalStep = await prisma.legalStep.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LegalStepFindFirstOrThrowArgs>(args?: SelectSubset<T, LegalStepFindFirstOrThrowArgs<ExtArgs>>): Prisma__LegalStepClient<$Result.GetResult<Prisma.$LegalStepPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more LegalSteps that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LegalStepFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all LegalSteps
+     * const legalSteps = await prisma.legalStep.findMany()
+     * 
+     * // Get first 10 LegalSteps
+     * const legalSteps = await prisma.legalStep.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const legalStepWithIdOnly = await prisma.legalStep.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends LegalStepFindManyArgs>(args?: SelectSubset<T, LegalStepFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LegalStepPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a LegalStep.
+     * @param {LegalStepCreateArgs} args - Arguments to create a LegalStep.
+     * @example
+     * // Create one LegalStep
+     * const LegalStep = await prisma.legalStep.create({
+     *   data: {
+     *     // ... data to create a LegalStep
+     *   }
+     * })
+     * 
+     */
+    create<T extends LegalStepCreateArgs>(args: SelectSubset<T, LegalStepCreateArgs<ExtArgs>>): Prisma__LegalStepClient<$Result.GetResult<Prisma.$LegalStepPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many LegalSteps.
+     * @param {LegalStepCreateManyArgs} args - Arguments to create many LegalSteps.
+     * @example
+     * // Create many LegalSteps
+     * const legalStep = await prisma.legalStep.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LegalStepCreateManyArgs>(args?: SelectSubset<T, LegalStepCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many LegalSteps and returns the data saved in the database.
+     * @param {LegalStepCreateManyAndReturnArgs} args - Arguments to create many LegalSteps.
+     * @example
+     * // Create many LegalSteps
+     * const legalStep = await prisma.legalStep.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many LegalSteps and only return the `id`
+     * const legalStepWithIdOnly = await prisma.legalStep.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LegalStepCreateManyAndReturnArgs>(args?: SelectSubset<T, LegalStepCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LegalStepPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a LegalStep.
+     * @param {LegalStepDeleteArgs} args - Arguments to delete one LegalStep.
+     * @example
+     * // Delete one LegalStep
+     * const LegalStep = await prisma.legalStep.delete({
+     *   where: {
+     *     // ... filter to delete one LegalStep
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LegalStepDeleteArgs>(args: SelectSubset<T, LegalStepDeleteArgs<ExtArgs>>): Prisma__LegalStepClient<$Result.GetResult<Prisma.$LegalStepPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one LegalStep.
+     * @param {LegalStepUpdateArgs} args - Arguments to update one LegalStep.
+     * @example
+     * // Update one LegalStep
+     * const legalStep = await prisma.legalStep.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LegalStepUpdateArgs>(args: SelectSubset<T, LegalStepUpdateArgs<ExtArgs>>): Prisma__LegalStepClient<$Result.GetResult<Prisma.$LegalStepPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more LegalSteps.
+     * @param {LegalStepDeleteManyArgs} args - Arguments to filter LegalSteps to delete.
+     * @example
+     * // Delete a few LegalSteps
+     * const { count } = await prisma.legalStep.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LegalStepDeleteManyArgs>(args?: SelectSubset<T, LegalStepDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LegalSteps.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LegalStepUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many LegalSteps
+     * const legalStep = await prisma.legalStep.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LegalStepUpdateManyArgs>(args: SelectSubset<T, LegalStepUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LegalSteps and returns the data updated in the database.
+     * @param {LegalStepUpdateManyAndReturnArgs} args - Arguments to update many LegalSteps.
+     * @example
+     * // Update many LegalSteps
+     * const legalStep = await prisma.legalStep.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more LegalSteps and only return the `id`
+     * const legalStepWithIdOnly = await prisma.legalStep.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends LegalStepUpdateManyAndReturnArgs>(args: SelectSubset<T, LegalStepUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LegalStepPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one LegalStep.
+     * @param {LegalStepUpsertArgs} args - Arguments to update or create a LegalStep.
+     * @example
+     * // Update or create a LegalStep
+     * const legalStep = await prisma.legalStep.upsert({
+     *   create: {
+     *     // ... data to create a LegalStep
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the LegalStep we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LegalStepUpsertArgs>(args: SelectSubset<T, LegalStepUpsertArgs<ExtArgs>>): Prisma__LegalStepClient<$Result.GetResult<Prisma.$LegalStepPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of LegalSteps.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LegalStepCountArgs} args - Arguments to filter LegalSteps to count.
+     * @example
+     * // Count the number of LegalSteps
+     * const count = await prisma.legalStep.count({
+     *   where: {
+     *     // ... the filter for the LegalSteps we want to count
+     *   }
+     * })
+    **/
+    count<T extends LegalStepCountArgs>(
+      args?: Subset<T, LegalStepCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LegalStepCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a LegalStep.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LegalStepAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LegalStepAggregateArgs>(args: Subset<T, LegalStepAggregateArgs>): Prisma.PrismaPromise<GetLegalStepAggregateType<T>>
+
+    /**
+     * Group by LegalStep.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LegalStepGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LegalStepGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LegalStepGroupByArgs['orderBy'] }
+        : { orderBy?: LegalStepGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LegalStepGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLegalStepGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the LegalStep model
+   */
+  readonly fields: LegalStepFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for LegalStep.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LegalStepClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    config<T extends UnitConfigDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfigDefaultArgs<ExtArgs>>): Prisma__UnitConfigClient<$Result.GetResult<Prisma.$UnitConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the LegalStep model
+   */
+  interface LegalStepFieldRefs {
+    readonly id: FieldRef<"LegalStep", 'String'>
+    readonly title: FieldRef<"LegalStep", 'String'>
+    readonly description: FieldRef<"LegalStep", 'String'>
+    readonly order: FieldRef<"LegalStep", 'Int'>
+    readonly configId: FieldRef<"LegalStep", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * LegalStep findUnique
+   */
+  export type LegalStepFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LegalStep
+     */
+    select?: LegalStepSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LegalStep
+     */
+    omit?: LegalStepOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LegalStepInclude<ExtArgs> | null
+    /**
+     * Filter, which LegalStep to fetch.
+     */
+    where: LegalStepWhereUniqueInput
+  }
+
+  /**
+   * LegalStep findUniqueOrThrow
+   */
+  export type LegalStepFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LegalStep
+     */
+    select?: LegalStepSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LegalStep
+     */
+    omit?: LegalStepOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LegalStepInclude<ExtArgs> | null
+    /**
+     * Filter, which LegalStep to fetch.
+     */
+    where: LegalStepWhereUniqueInput
+  }
+
+  /**
+   * LegalStep findFirst
+   */
+  export type LegalStepFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LegalStep
+     */
+    select?: LegalStepSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LegalStep
+     */
+    omit?: LegalStepOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LegalStepInclude<ExtArgs> | null
+    /**
+     * Filter, which LegalStep to fetch.
+     */
+    where?: LegalStepWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LegalSteps to fetch.
+     */
+    orderBy?: LegalStepOrderByWithRelationInput | LegalStepOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LegalSteps.
+     */
+    cursor?: LegalStepWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LegalSteps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LegalSteps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LegalSteps.
+     */
+    distinct?: LegalStepScalarFieldEnum | LegalStepScalarFieldEnum[]
+  }
+
+  /**
+   * LegalStep findFirstOrThrow
+   */
+  export type LegalStepFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LegalStep
+     */
+    select?: LegalStepSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LegalStep
+     */
+    omit?: LegalStepOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LegalStepInclude<ExtArgs> | null
+    /**
+     * Filter, which LegalStep to fetch.
+     */
+    where?: LegalStepWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LegalSteps to fetch.
+     */
+    orderBy?: LegalStepOrderByWithRelationInput | LegalStepOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LegalSteps.
+     */
+    cursor?: LegalStepWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LegalSteps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LegalSteps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LegalSteps.
+     */
+    distinct?: LegalStepScalarFieldEnum | LegalStepScalarFieldEnum[]
+  }
+
+  /**
+   * LegalStep findMany
+   */
+  export type LegalStepFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LegalStep
+     */
+    select?: LegalStepSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LegalStep
+     */
+    omit?: LegalStepOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LegalStepInclude<ExtArgs> | null
+    /**
+     * Filter, which LegalSteps to fetch.
+     */
+    where?: LegalStepWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LegalSteps to fetch.
+     */
+    orderBy?: LegalStepOrderByWithRelationInput | LegalStepOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing LegalSteps.
+     */
+    cursor?: LegalStepWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LegalSteps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LegalSteps.
+     */
+    skip?: number
+    distinct?: LegalStepScalarFieldEnum | LegalStepScalarFieldEnum[]
+  }
+
+  /**
+   * LegalStep create
+   */
+  export type LegalStepCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LegalStep
+     */
+    select?: LegalStepSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LegalStep
+     */
+    omit?: LegalStepOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LegalStepInclude<ExtArgs> | null
+    /**
+     * The data needed to create a LegalStep.
+     */
+    data: XOR<LegalStepCreateInput, LegalStepUncheckedCreateInput>
+  }
+
+  /**
+   * LegalStep createMany
+   */
+  export type LegalStepCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many LegalSteps.
+     */
+    data: LegalStepCreateManyInput | LegalStepCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * LegalStep createManyAndReturn
+   */
+  export type LegalStepCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LegalStep
+     */
+    select?: LegalStepSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LegalStep
+     */
+    omit?: LegalStepOmit<ExtArgs> | null
+    /**
+     * The data used to create many LegalSteps.
+     */
+    data: LegalStepCreateManyInput | LegalStepCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LegalStepIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LegalStep update
+   */
+  export type LegalStepUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LegalStep
+     */
+    select?: LegalStepSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LegalStep
+     */
+    omit?: LegalStepOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LegalStepInclude<ExtArgs> | null
+    /**
+     * The data needed to update a LegalStep.
+     */
+    data: XOR<LegalStepUpdateInput, LegalStepUncheckedUpdateInput>
+    /**
+     * Choose, which LegalStep to update.
+     */
+    where: LegalStepWhereUniqueInput
+  }
+
+  /**
+   * LegalStep updateMany
+   */
+  export type LegalStepUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update LegalSteps.
+     */
+    data: XOR<LegalStepUpdateManyMutationInput, LegalStepUncheckedUpdateManyInput>
+    /**
+     * Filter which LegalSteps to update
+     */
+    where?: LegalStepWhereInput
+    /**
+     * Limit how many LegalSteps to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * LegalStep updateManyAndReturn
+   */
+  export type LegalStepUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LegalStep
+     */
+    select?: LegalStepSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LegalStep
+     */
+    omit?: LegalStepOmit<ExtArgs> | null
+    /**
+     * The data used to update LegalSteps.
+     */
+    data: XOR<LegalStepUpdateManyMutationInput, LegalStepUncheckedUpdateManyInput>
+    /**
+     * Filter which LegalSteps to update
+     */
+    where?: LegalStepWhereInput
+    /**
+     * Limit how many LegalSteps to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LegalStepIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LegalStep upsert
+   */
+  export type LegalStepUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LegalStep
+     */
+    select?: LegalStepSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LegalStep
+     */
+    omit?: LegalStepOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LegalStepInclude<ExtArgs> | null
+    /**
+     * The filter to search for the LegalStep to update in case it exists.
+     */
+    where: LegalStepWhereUniqueInput
+    /**
+     * In case the LegalStep found by the `where` argument doesn't exist, create a new LegalStep with this data.
+     */
+    create: XOR<LegalStepCreateInput, LegalStepUncheckedCreateInput>
+    /**
+     * In case the LegalStep was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LegalStepUpdateInput, LegalStepUncheckedUpdateInput>
+  }
+
+  /**
+   * LegalStep delete
+   */
+  export type LegalStepDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LegalStep
+     */
+    select?: LegalStepSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LegalStep
+     */
+    omit?: LegalStepOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LegalStepInclude<ExtArgs> | null
+    /**
+     * Filter which LegalStep to delete.
+     */
+    where: LegalStepWhereUniqueInput
+  }
+
+  /**
+   * LegalStep deleteMany
+   */
+  export type LegalStepDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LegalSteps to delete
+     */
+    where?: LegalStepWhereInput
+    /**
+     * Limit how many LegalSteps to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * LegalStep without action
+   */
+  export type LegalStepDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LegalStep
+     */
+    select?: LegalStepSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LegalStep
+     */
+    omit?: LegalStepOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LegalStepInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model FooterLink
+   */
+
+  export type AggregateFooterLink = {
+    _count: FooterLinkCountAggregateOutputType | null
+    _avg: FooterLinkAvgAggregateOutputType | null
+    _sum: FooterLinkSumAggregateOutputType | null
+    _min: FooterLinkMinAggregateOutputType | null
+    _max: FooterLinkMaxAggregateOutputType | null
+  }
+
+  export type FooterLinkAvgAggregateOutputType = {
+    order: number | null
+  }
+
+  export type FooterLinkSumAggregateOutputType = {
+    order: number | null
+  }
+
+  export type FooterLinkMinAggregateOutputType = {
+    id: string | null
+    label: string | null
+    url: string | null
+    order: number | null
+    configId: string | null
+  }
+
+  export type FooterLinkMaxAggregateOutputType = {
+    id: string | null
+    label: string | null
+    url: string | null
+    order: number | null
+    configId: string | null
+  }
+
+  export type FooterLinkCountAggregateOutputType = {
+    id: number
+    label: number
+    url: number
+    order: number
+    configId: number
+    _all: number
+  }
+
+
+  export type FooterLinkAvgAggregateInputType = {
+    order?: true
+  }
+
+  export type FooterLinkSumAggregateInputType = {
+    order?: true
+  }
+
+  export type FooterLinkMinAggregateInputType = {
+    id?: true
+    label?: true
+    url?: true
+    order?: true
+    configId?: true
+  }
+
+  export type FooterLinkMaxAggregateInputType = {
+    id?: true
+    label?: true
+    url?: true
+    order?: true
+    configId?: true
+  }
+
+  export type FooterLinkCountAggregateInputType = {
+    id?: true
+    label?: true
+    url?: true
+    order?: true
+    configId?: true
+    _all?: true
+  }
+
+  export type FooterLinkAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FooterLink to aggregate.
+     */
+    where?: FooterLinkWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FooterLinks to fetch.
+     */
+    orderBy?: FooterLinkOrderByWithRelationInput | FooterLinkOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: FooterLinkWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FooterLinks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FooterLinks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned FooterLinks
+    **/
+    _count?: true | FooterLinkCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: FooterLinkAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: FooterLinkSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FooterLinkMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FooterLinkMaxAggregateInputType
+  }
+
+  export type GetFooterLinkAggregateType<T extends FooterLinkAggregateArgs> = {
+        [P in keyof T & keyof AggregateFooterLink]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFooterLink[P]>
+      : GetScalarType<T[P], AggregateFooterLink[P]>
+  }
+
+
+
+
+  export type FooterLinkGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FooterLinkWhereInput
+    orderBy?: FooterLinkOrderByWithAggregationInput | FooterLinkOrderByWithAggregationInput[]
+    by: FooterLinkScalarFieldEnum[] | FooterLinkScalarFieldEnum
+    having?: FooterLinkScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: FooterLinkCountAggregateInputType | true
+    _avg?: FooterLinkAvgAggregateInputType
+    _sum?: FooterLinkSumAggregateInputType
+    _min?: FooterLinkMinAggregateInputType
+    _max?: FooterLinkMaxAggregateInputType
+  }
+
+  export type FooterLinkGroupByOutputType = {
+    id: string
+    label: string
+    url: string
+    order: number
+    configId: string
+    _count: FooterLinkCountAggregateOutputType | null
+    _avg: FooterLinkAvgAggregateOutputType | null
+    _sum: FooterLinkSumAggregateOutputType | null
+    _min: FooterLinkMinAggregateOutputType | null
+    _max: FooterLinkMaxAggregateOutputType | null
+  }
+
+  type GetFooterLinkGroupByPayload<T extends FooterLinkGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<FooterLinkGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FooterLinkGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FooterLinkGroupByOutputType[P]>
+            : GetScalarType<T[P], FooterLinkGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type FooterLinkSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    label?: boolean
+    url?: boolean
+    order?: boolean
+    configId?: boolean
+    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["footerLink"]>
+
+  export type FooterLinkSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    label?: boolean
+    url?: boolean
+    order?: boolean
+    configId?: boolean
+    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["footerLink"]>
+
+  export type FooterLinkSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    label?: boolean
+    url?: boolean
+    order?: boolean
+    configId?: boolean
+    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["footerLink"]>
+
+  export type FooterLinkSelectScalar = {
+    id?: boolean
+    label?: boolean
+    url?: boolean
+    order?: boolean
+    configId?: boolean
+  }
+
+  export type FooterLinkOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "label" | "url" | "order" | "configId", ExtArgs["result"]["footerLink"]>
+  export type FooterLinkInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
+  }
+  export type FooterLinkIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
+  }
+  export type FooterLinkIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
+  }
+
+  export type $FooterLinkPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "FooterLink"
+    objects: {
+      config: Prisma.$UnitConfigPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      label: string
+      url: string
+      order: number
+      configId: string
+    }, ExtArgs["result"]["footerLink"]>
+    composites: {}
+  }
+
+  type FooterLinkGetPayload<S extends boolean | null | undefined | FooterLinkDefaultArgs> = $Result.GetResult<Prisma.$FooterLinkPayload, S>
+
+  type FooterLinkCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<FooterLinkFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: FooterLinkCountAggregateInputType | true
+    }
+
+  export interface FooterLinkDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['FooterLink'], meta: { name: 'FooterLink' } }
+    /**
+     * Find zero or one FooterLink that matches the filter.
+     * @param {FooterLinkFindUniqueArgs} args - Arguments to find a FooterLink
+     * @example
+     * // Get one FooterLink
+     * const footerLink = await prisma.footerLink.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends FooterLinkFindUniqueArgs>(args: SelectSubset<T, FooterLinkFindUniqueArgs<ExtArgs>>): Prisma__FooterLinkClient<$Result.GetResult<Prisma.$FooterLinkPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one FooterLink that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {FooterLinkFindUniqueOrThrowArgs} args - Arguments to find a FooterLink
+     * @example
+     * // Get one FooterLink
+     * const footerLink = await prisma.footerLink.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends FooterLinkFindUniqueOrThrowArgs>(args: SelectSubset<T, FooterLinkFindUniqueOrThrowArgs<ExtArgs>>): Prisma__FooterLinkClient<$Result.GetResult<Prisma.$FooterLinkPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first FooterLink that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FooterLinkFindFirstArgs} args - Arguments to find a FooterLink
+     * @example
+     * // Get one FooterLink
+     * const footerLink = await prisma.footerLink.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends FooterLinkFindFirstArgs>(args?: SelectSubset<T, FooterLinkFindFirstArgs<ExtArgs>>): Prisma__FooterLinkClient<$Result.GetResult<Prisma.$FooterLinkPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first FooterLink that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FooterLinkFindFirstOrThrowArgs} args - Arguments to find a FooterLink
+     * @example
+     * // Get one FooterLink
+     * const footerLink = await prisma.footerLink.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends FooterLinkFindFirstOrThrowArgs>(args?: SelectSubset<T, FooterLinkFindFirstOrThrowArgs<ExtArgs>>): Prisma__FooterLinkClient<$Result.GetResult<Prisma.$FooterLinkPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more FooterLinks that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FooterLinkFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all FooterLinks
+     * const footerLinks = await prisma.footerLink.findMany()
+     * 
+     * // Get first 10 FooterLinks
+     * const footerLinks = await prisma.footerLink.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const footerLinkWithIdOnly = await prisma.footerLink.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends FooterLinkFindManyArgs>(args?: SelectSubset<T, FooterLinkFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FooterLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a FooterLink.
+     * @param {FooterLinkCreateArgs} args - Arguments to create a FooterLink.
+     * @example
+     * // Create one FooterLink
+     * const FooterLink = await prisma.footerLink.create({
+     *   data: {
+     *     // ... data to create a FooterLink
+     *   }
+     * })
+     * 
+     */
+    create<T extends FooterLinkCreateArgs>(args: SelectSubset<T, FooterLinkCreateArgs<ExtArgs>>): Prisma__FooterLinkClient<$Result.GetResult<Prisma.$FooterLinkPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many FooterLinks.
+     * @param {FooterLinkCreateManyArgs} args - Arguments to create many FooterLinks.
+     * @example
+     * // Create many FooterLinks
+     * const footerLink = await prisma.footerLink.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends FooterLinkCreateManyArgs>(args?: SelectSubset<T, FooterLinkCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many FooterLinks and returns the data saved in the database.
+     * @param {FooterLinkCreateManyAndReturnArgs} args - Arguments to create many FooterLinks.
+     * @example
+     * // Create many FooterLinks
+     * const footerLink = await prisma.footerLink.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many FooterLinks and only return the `id`
+     * const footerLinkWithIdOnly = await prisma.footerLink.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends FooterLinkCreateManyAndReturnArgs>(args?: SelectSubset<T, FooterLinkCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FooterLinkPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a FooterLink.
+     * @param {FooterLinkDeleteArgs} args - Arguments to delete one FooterLink.
+     * @example
+     * // Delete one FooterLink
+     * const FooterLink = await prisma.footerLink.delete({
+     *   where: {
+     *     // ... filter to delete one FooterLink
+     *   }
+     * })
+     * 
+     */
+    delete<T extends FooterLinkDeleteArgs>(args: SelectSubset<T, FooterLinkDeleteArgs<ExtArgs>>): Prisma__FooterLinkClient<$Result.GetResult<Prisma.$FooterLinkPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one FooterLink.
+     * @param {FooterLinkUpdateArgs} args - Arguments to update one FooterLink.
+     * @example
+     * // Update one FooterLink
+     * const footerLink = await prisma.footerLink.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends FooterLinkUpdateArgs>(args: SelectSubset<T, FooterLinkUpdateArgs<ExtArgs>>): Prisma__FooterLinkClient<$Result.GetResult<Prisma.$FooterLinkPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more FooterLinks.
+     * @param {FooterLinkDeleteManyArgs} args - Arguments to filter FooterLinks to delete.
+     * @example
+     * // Delete a few FooterLinks
+     * const { count } = await prisma.footerLink.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends FooterLinkDeleteManyArgs>(args?: SelectSubset<T, FooterLinkDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more FooterLinks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FooterLinkUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many FooterLinks
+     * const footerLink = await prisma.footerLink.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends FooterLinkUpdateManyArgs>(args: SelectSubset<T, FooterLinkUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more FooterLinks and returns the data updated in the database.
+     * @param {FooterLinkUpdateManyAndReturnArgs} args - Arguments to update many FooterLinks.
+     * @example
+     * // Update many FooterLinks
+     * const footerLink = await prisma.footerLink.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more FooterLinks and only return the `id`
+     * const footerLinkWithIdOnly = await prisma.footerLink.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends FooterLinkUpdateManyAndReturnArgs>(args: SelectSubset<T, FooterLinkUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FooterLinkPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one FooterLink.
+     * @param {FooterLinkUpsertArgs} args - Arguments to update or create a FooterLink.
+     * @example
+     * // Update or create a FooterLink
+     * const footerLink = await prisma.footerLink.upsert({
+     *   create: {
+     *     // ... data to create a FooterLink
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the FooterLink we want to update
+     *   }
+     * })
+     */
+    upsert<T extends FooterLinkUpsertArgs>(args: SelectSubset<T, FooterLinkUpsertArgs<ExtArgs>>): Prisma__FooterLinkClient<$Result.GetResult<Prisma.$FooterLinkPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of FooterLinks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FooterLinkCountArgs} args - Arguments to filter FooterLinks to count.
+     * @example
+     * // Count the number of FooterLinks
+     * const count = await prisma.footerLink.count({
+     *   where: {
+     *     // ... the filter for the FooterLinks we want to count
+     *   }
+     * })
+    **/
+    count<T extends FooterLinkCountArgs>(
+      args?: Subset<T, FooterLinkCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FooterLinkCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a FooterLink.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FooterLinkAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FooterLinkAggregateArgs>(args: Subset<T, FooterLinkAggregateArgs>): Prisma.PrismaPromise<GetFooterLinkAggregateType<T>>
+
+    /**
+     * Group by FooterLink.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FooterLinkGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends FooterLinkGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: FooterLinkGroupByArgs['orderBy'] }
+        : { orderBy?: FooterLinkGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, FooterLinkGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFooterLinkGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the FooterLink model
+   */
+  readonly fields: FooterLinkFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for FooterLink.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__FooterLinkClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    config<T extends UnitConfigDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfigDefaultArgs<ExtArgs>>): Prisma__UnitConfigClient<$Result.GetResult<Prisma.$UnitConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the FooterLink model
+   */
+  interface FooterLinkFieldRefs {
+    readonly id: FieldRef<"FooterLink", 'String'>
+    readonly label: FieldRef<"FooterLink", 'String'>
+    readonly url: FieldRef<"FooterLink", 'String'>
+    readonly order: FieldRef<"FooterLink", 'Int'>
+    readonly configId: FieldRef<"FooterLink", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * FooterLink findUnique
+   */
+  export type FooterLinkFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FooterLink
+     */
+    select?: FooterLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FooterLink
+     */
+    omit?: FooterLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FooterLinkInclude<ExtArgs> | null
+    /**
+     * Filter, which FooterLink to fetch.
+     */
+    where: FooterLinkWhereUniqueInput
+  }
+
+  /**
+   * FooterLink findUniqueOrThrow
+   */
+  export type FooterLinkFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FooterLink
+     */
+    select?: FooterLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FooterLink
+     */
+    omit?: FooterLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FooterLinkInclude<ExtArgs> | null
+    /**
+     * Filter, which FooterLink to fetch.
+     */
+    where: FooterLinkWhereUniqueInput
+  }
+
+  /**
+   * FooterLink findFirst
+   */
+  export type FooterLinkFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FooterLink
+     */
+    select?: FooterLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FooterLink
+     */
+    omit?: FooterLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FooterLinkInclude<ExtArgs> | null
+    /**
+     * Filter, which FooterLink to fetch.
+     */
+    where?: FooterLinkWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FooterLinks to fetch.
+     */
+    orderBy?: FooterLinkOrderByWithRelationInput | FooterLinkOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FooterLinks.
+     */
+    cursor?: FooterLinkWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FooterLinks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FooterLinks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FooterLinks.
+     */
+    distinct?: FooterLinkScalarFieldEnum | FooterLinkScalarFieldEnum[]
+  }
+
+  /**
+   * FooterLink findFirstOrThrow
+   */
+  export type FooterLinkFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FooterLink
+     */
+    select?: FooterLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FooterLink
+     */
+    omit?: FooterLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FooterLinkInclude<ExtArgs> | null
+    /**
+     * Filter, which FooterLink to fetch.
+     */
+    where?: FooterLinkWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FooterLinks to fetch.
+     */
+    orderBy?: FooterLinkOrderByWithRelationInput | FooterLinkOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FooterLinks.
+     */
+    cursor?: FooterLinkWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FooterLinks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FooterLinks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FooterLinks.
+     */
+    distinct?: FooterLinkScalarFieldEnum | FooterLinkScalarFieldEnum[]
+  }
+
+  /**
+   * FooterLink findMany
+   */
+  export type FooterLinkFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FooterLink
+     */
+    select?: FooterLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FooterLink
+     */
+    omit?: FooterLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FooterLinkInclude<ExtArgs> | null
+    /**
+     * Filter, which FooterLinks to fetch.
+     */
+    where?: FooterLinkWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FooterLinks to fetch.
+     */
+    orderBy?: FooterLinkOrderByWithRelationInput | FooterLinkOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing FooterLinks.
+     */
+    cursor?: FooterLinkWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FooterLinks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FooterLinks.
+     */
+    skip?: number
+    distinct?: FooterLinkScalarFieldEnum | FooterLinkScalarFieldEnum[]
+  }
+
+  /**
+   * FooterLink create
+   */
+  export type FooterLinkCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FooterLink
+     */
+    select?: FooterLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FooterLink
+     */
+    omit?: FooterLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FooterLinkInclude<ExtArgs> | null
+    /**
+     * The data needed to create a FooterLink.
+     */
+    data: XOR<FooterLinkCreateInput, FooterLinkUncheckedCreateInput>
+  }
+
+  /**
+   * FooterLink createMany
+   */
+  export type FooterLinkCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many FooterLinks.
+     */
+    data: FooterLinkCreateManyInput | FooterLinkCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * FooterLink createManyAndReturn
+   */
+  export type FooterLinkCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FooterLink
+     */
+    select?: FooterLinkSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the FooterLink
+     */
+    omit?: FooterLinkOmit<ExtArgs> | null
+    /**
+     * The data used to create many FooterLinks.
+     */
+    data: FooterLinkCreateManyInput | FooterLinkCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FooterLinkIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * FooterLink update
+   */
+  export type FooterLinkUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FooterLink
+     */
+    select?: FooterLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FooterLink
+     */
+    omit?: FooterLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FooterLinkInclude<ExtArgs> | null
+    /**
+     * The data needed to update a FooterLink.
+     */
+    data: XOR<FooterLinkUpdateInput, FooterLinkUncheckedUpdateInput>
+    /**
+     * Choose, which FooterLink to update.
+     */
+    where: FooterLinkWhereUniqueInput
+  }
+
+  /**
+   * FooterLink updateMany
+   */
+  export type FooterLinkUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update FooterLinks.
+     */
+    data: XOR<FooterLinkUpdateManyMutationInput, FooterLinkUncheckedUpdateManyInput>
+    /**
+     * Filter which FooterLinks to update
+     */
+    where?: FooterLinkWhereInput
+    /**
+     * Limit how many FooterLinks to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * FooterLink updateManyAndReturn
+   */
+  export type FooterLinkUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FooterLink
+     */
+    select?: FooterLinkSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the FooterLink
+     */
+    omit?: FooterLinkOmit<ExtArgs> | null
+    /**
+     * The data used to update FooterLinks.
+     */
+    data: XOR<FooterLinkUpdateManyMutationInput, FooterLinkUncheckedUpdateManyInput>
+    /**
+     * Filter which FooterLinks to update
+     */
+    where?: FooterLinkWhereInput
+    /**
+     * Limit how many FooterLinks to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FooterLinkIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * FooterLink upsert
+   */
+  export type FooterLinkUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FooterLink
+     */
+    select?: FooterLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FooterLink
+     */
+    omit?: FooterLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FooterLinkInclude<ExtArgs> | null
+    /**
+     * The filter to search for the FooterLink to update in case it exists.
+     */
+    where: FooterLinkWhereUniqueInput
+    /**
+     * In case the FooterLink found by the `where` argument doesn't exist, create a new FooterLink with this data.
+     */
+    create: XOR<FooterLinkCreateInput, FooterLinkUncheckedCreateInput>
+    /**
+     * In case the FooterLink was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<FooterLinkUpdateInput, FooterLinkUncheckedUpdateInput>
+  }
+
+  /**
+   * FooterLink delete
+   */
+  export type FooterLinkDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FooterLink
+     */
+    select?: FooterLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FooterLink
+     */
+    omit?: FooterLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FooterLinkInclude<ExtArgs> | null
+    /**
+     * Filter which FooterLink to delete.
+     */
+    where: FooterLinkWhereUniqueInput
+  }
+
+  /**
+   * FooterLink deleteMany
+   */
+  export type FooterLinkDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FooterLinks to delete
+     */
+    where?: FooterLinkWhereInput
+    /**
+     * Limit how many FooterLinks to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * FooterLink without action
+   */
+  export type FooterLinkDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FooterLink
+     */
+    select?: FooterLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FooterLink
+     */
+    omit?: FooterLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FooterLinkInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Section
    */
 
@@ -14031,35 +16261,29 @@ export namespace Prisma {
 
   export type SectionMinAggregateOutputType = {
     id: string | null
-    configId: string | null
-    type: $Enums.SectionType | null
     title: string | null
-    content: string | null
+    body: string | null
+    imageUrl: string | null
     order: number | null
-    sectionKey: string | null
-    mainImageId: string | null
+    configId: string | null
   }
 
   export type SectionMaxAggregateOutputType = {
     id: string | null
-    configId: string | null
-    type: $Enums.SectionType | null
     title: string | null
-    content: string | null
+    body: string | null
+    imageUrl: string | null
     order: number | null
-    sectionKey: string | null
-    mainImageId: string | null
+    configId: string | null
   }
 
   export type SectionCountAggregateOutputType = {
     id: number
-    configId: number
-    type: number
     title: number
-    content: number
+    body: number
+    imageUrl: number
     order: number
-    sectionKey: number
-    mainImageId: number
+    configId: number
     _all: number
   }
 
@@ -14074,35 +16298,29 @@ export namespace Prisma {
 
   export type SectionMinAggregateInputType = {
     id?: true
-    configId?: true
-    type?: true
     title?: true
-    content?: true
+    body?: true
+    imageUrl?: true
     order?: true
-    sectionKey?: true
-    mainImageId?: true
+    configId?: true
   }
 
   export type SectionMaxAggregateInputType = {
     id?: true
-    configId?: true
-    type?: true
     title?: true
-    content?: true
+    body?: true
+    imageUrl?: true
     order?: true
-    sectionKey?: true
-    mainImageId?: true
+    configId?: true
   }
 
   export type SectionCountAggregateInputType = {
     id?: true
-    configId?: true
-    type?: true
     title?: true
-    content?: true
+    body?: true
+    imageUrl?: true
     order?: true
-    sectionKey?: true
-    mainImageId?: true
+    configId?: true
     _all?: true
   }
 
@@ -14194,13 +16412,11 @@ export namespace Prisma {
 
   export type SectionGroupByOutputType = {
     id: string
-    configId: string
-    type: $Enums.SectionType
     title: string
-    content: string
+    body: string
+    imageUrl: string | null
     order: number
-    sectionKey: string | null
-    mainImageId: string | null
+    configId: string
     _count: SectionCountAggregateOutputType | null
     _avg: SectionAvgAggregateOutputType | null
     _sum: SectionSumAggregateOutputType | null
@@ -14224,88 +16440,71 @@ export namespace Prisma {
 
   export type SectionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    configId?: boolean
-    type?: boolean
     title?: boolean
-    content?: boolean
+    body?: boolean
+    imageUrl?: boolean
     order?: boolean
-    sectionKey?: boolean
-    mainImageId?: boolean
+    configId?: boolean
     config?: boolean | UnitConfigDefaultArgs<ExtArgs>
-    mainImage?: boolean | Section$mainImageArgs<ExtArgs>
     images?: boolean | Section$imagesArgs<ExtArgs>
     _count?: boolean | SectionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["section"]>
 
   export type SectionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    configId?: boolean
-    type?: boolean
     title?: boolean
-    content?: boolean
+    body?: boolean
+    imageUrl?: boolean
     order?: boolean
-    sectionKey?: boolean
-    mainImageId?: boolean
+    configId?: boolean
     config?: boolean | UnitConfigDefaultArgs<ExtArgs>
-    mainImage?: boolean | Section$mainImageArgs<ExtArgs>
   }, ExtArgs["result"]["section"]>
 
   export type SectionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    configId?: boolean
-    type?: boolean
     title?: boolean
-    content?: boolean
+    body?: boolean
+    imageUrl?: boolean
     order?: boolean
-    sectionKey?: boolean
-    mainImageId?: boolean
+    configId?: boolean
     config?: boolean | UnitConfigDefaultArgs<ExtArgs>
-    mainImage?: boolean | Section$mainImageArgs<ExtArgs>
   }, ExtArgs["result"]["section"]>
 
   export type SectionSelectScalar = {
     id?: boolean
-    configId?: boolean
-    type?: boolean
     title?: boolean
-    content?: boolean
+    body?: boolean
+    imageUrl?: boolean
     order?: boolean
-    sectionKey?: boolean
-    mainImageId?: boolean
+    configId?: boolean
   }
 
-  export type SectionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "configId" | "type" | "title" | "content" | "order" | "sectionKey" | "mainImageId", ExtArgs["result"]["section"]>
+  export type SectionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "body" | "imageUrl" | "order" | "configId", ExtArgs["result"]["section"]>
   export type SectionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     config?: boolean | UnitConfigDefaultArgs<ExtArgs>
-    mainImage?: boolean | Section$mainImageArgs<ExtArgs>
     images?: boolean | Section$imagesArgs<ExtArgs>
     _count?: boolean | SectionCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SectionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     config?: boolean | UnitConfigDefaultArgs<ExtArgs>
-    mainImage?: boolean | Section$mainImageArgs<ExtArgs>
   }
   export type SectionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     config?: boolean | UnitConfigDefaultArgs<ExtArgs>
-    mainImage?: boolean | Section$mainImageArgs<ExtArgs>
   }
 
   export type $SectionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Section"
     objects: {
       config: Prisma.$UnitConfigPayload<ExtArgs>
-      mainImage: Prisma.$ImagePayload<ExtArgs> | null
       images: Prisma.$ImagePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      configId: string
-      type: $Enums.SectionType
       title: string
-      content: string
+      body: string
+      imageUrl: string | null
       order: number
-      sectionKey: string | null
-      mainImageId: string | null
+      configId: string
     }, ExtArgs["result"]["section"]>
     composites: {}
   }
@@ -14701,7 +16900,6 @@ export namespace Prisma {
   export interface Prisma__SectionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     config<T extends UnitConfigDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfigDefaultArgs<ExtArgs>>): Prisma__UnitConfigClient<$Result.GetResult<Prisma.$UnitConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    mainImage<T extends Section$mainImageArgs<ExtArgs> = {}>(args?: Subset<T, Section$mainImageArgs<ExtArgs>>): Prisma__ImageClient<$Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     images<T extends Section$imagesArgs<ExtArgs> = {}>(args?: Subset<T, Section$imagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -14733,13 +16931,11 @@ export namespace Prisma {
    */
   interface SectionFieldRefs {
     readonly id: FieldRef<"Section", 'String'>
-    readonly configId: FieldRef<"Section", 'String'>
-    readonly type: FieldRef<"Section", 'SectionType'>
     readonly title: FieldRef<"Section", 'String'>
-    readonly content: FieldRef<"Section", 'String'>
+    readonly body: FieldRef<"Section", 'String'>
+    readonly imageUrl: FieldRef<"Section", 'String'>
     readonly order: FieldRef<"Section", 'Int'>
-    readonly sectionKey: FieldRef<"Section", 'String'>
-    readonly mainImageId: FieldRef<"Section", 'String'>
+    readonly configId: FieldRef<"Section", 'String'>
   }
     
 
@@ -15136,25 +17332,6 @@ export namespace Prisma {
   }
 
   /**
-   * Section.mainImage
-   */
-  export type Section$mainImageArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Image
-     */
-    select?: ImageSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Image
-     */
-    omit?: ImageOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ImageInclude<ExtArgs> | null
-    where?: ImageWhereInput
-  }
-
-  /**
    * Section.images
    */
   export type Section$imagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -15413,7 +17590,6 @@ export namespace Prisma {
     sectionId?: boolean
     config?: boolean | UnitConfigDefaultArgs<ExtArgs>
     section?: boolean | Image$sectionArgs<ExtArgs>
-    mainImageOfSection?: boolean | Image$mainImageOfSectionArgs<ExtArgs>
   }, ExtArgs["result"]["image"]>
 
   export type ImageSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -15454,7 +17630,6 @@ export namespace Prisma {
   export type ImageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     config?: boolean | UnitConfigDefaultArgs<ExtArgs>
     section?: boolean | Image$sectionArgs<ExtArgs>
-    mainImageOfSection?: boolean | Image$mainImageOfSectionArgs<ExtArgs>
   }
   export type ImageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     config?: boolean | UnitConfigDefaultArgs<ExtArgs>
@@ -15470,7 +17645,6 @@ export namespace Prisma {
     objects: {
       config: Prisma.$UnitConfigPayload<ExtArgs>
       section: Prisma.$SectionPayload<ExtArgs> | null
-      mainImageOfSection: Prisma.$SectionPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -15876,7 +18050,6 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     config<T extends UnitConfigDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfigDefaultArgs<ExtArgs>>): Prisma__UnitConfigClient<$Result.GetResult<Prisma.$UnitConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     section<T extends Image$sectionArgs<ExtArgs> = {}>(args?: Subset<T, Image$sectionArgs<ExtArgs>>): Prisma__SectionClient<$Result.GetResult<Prisma.$SectionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    mainImageOfSection<T extends Image$mainImageOfSectionArgs<ExtArgs> = {}>(args?: Subset<T, Image$mainImageOfSectionArgs<ExtArgs>>): Prisma__SectionClient<$Result.GetResult<Prisma.$SectionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -16328,25 +18501,6 @@ export namespace Prisma {
   }
 
   /**
-   * Image.mainImageOfSection
-   */
-  export type Image$mainImageOfSectionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Section
-     */
-    select?: SectionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Section
-     */
-    omit?: SectionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SectionInclude<ExtArgs> | null
-    where?: SectionWhereInput
-  }
-
-  /**
    * Image without action
    */
   export type ImageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -16371,52 +18525,88 @@ export namespace Prisma {
 
   export type AggregateArticle = {
     _count: ArticleCountAggregateOutputType | null
+    _avg: ArticleAvgAggregateOutputType | null
+    _sum: ArticleSumAggregateOutputType | null
     _min: ArticleMinAggregateOutputType | null
     _max: ArticleMaxAggregateOutputType | null
+  }
+
+  export type ArticleAvgAggregateOutputType = {
+    order: number | null
+  }
+
+  export type ArticleSumAggregateOutputType = {
+    order: number | null
   }
 
   export type ArticleMinAggregateOutputType = {
     id: string | null
     title: string | null
     content: string | null
+    url: string | null
     publishedAt: Date | null
+    order: number | null
+    configId: string | null
   }
 
   export type ArticleMaxAggregateOutputType = {
     id: string | null
     title: string | null
     content: string | null
+    url: string | null
     publishedAt: Date | null
+    order: number | null
+    configId: string | null
   }
 
   export type ArticleCountAggregateOutputType = {
     id: number
     title: number
     content: number
+    url: number
     publishedAt: number
+    order: number
+    configId: number
     _all: number
   }
 
+
+  export type ArticleAvgAggregateInputType = {
+    order?: true
+  }
+
+  export type ArticleSumAggregateInputType = {
+    order?: true
+  }
 
   export type ArticleMinAggregateInputType = {
     id?: true
     title?: true
     content?: true
+    url?: true
     publishedAt?: true
+    order?: true
+    configId?: true
   }
 
   export type ArticleMaxAggregateInputType = {
     id?: true
     title?: true
     content?: true
+    url?: true
     publishedAt?: true
+    order?: true
+    configId?: true
   }
 
   export type ArticleCountAggregateInputType = {
     id?: true
     title?: true
     content?: true
+    url?: true
     publishedAt?: true
+    order?: true
+    configId?: true
     _all?: true
   }
 
@@ -16458,6 +18648,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: ArticleAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ArticleSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: ArticleMinAggregateInputType
@@ -16488,6 +18690,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: ArticleCountAggregateInputType | true
+    _avg?: ArticleAvgAggregateInputType
+    _sum?: ArticleSumAggregateInputType
     _min?: ArticleMinAggregateInputType
     _max?: ArticleMaxAggregateInputType
   }
@@ -16496,8 +18700,13 @@ export namespace Prisma {
     id: string
     title: string
     content: string
+    url: string | null
     publishedAt: Date
+    order: number
+    configId: string
     _count: ArticleCountAggregateOutputType | null
+    _avg: ArticleAvgAggregateOutputType | null
+    _sum: ArticleSumAggregateOutputType | null
     _min: ArticleMinAggregateOutputType | null
     _max: ArticleMaxAggregateOutputType | null
   }
@@ -16520,50 +18729,69 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     content?: boolean
+    url?: boolean
     publishedAt?: boolean
-    configs?: boolean | Article$configsArgs<ExtArgs>
-    _count?: boolean | ArticleCountOutputTypeDefaultArgs<ExtArgs>
+    order?: boolean
+    configId?: boolean
+    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["article"]>
 
   export type ArticleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
     content?: boolean
+    url?: boolean
     publishedAt?: boolean
+    order?: boolean
+    configId?: boolean
+    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["article"]>
 
   export type ArticleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
     content?: boolean
+    url?: boolean
     publishedAt?: boolean
+    order?: boolean
+    configId?: boolean
+    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["article"]>
 
   export type ArticleSelectScalar = {
     id?: boolean
     title?: boolean
     content?: boolean
+    url?: boolean
     publishedAt?: boolean
+    order?: boolean
+    configId?: boolean
   }
 
-  export type ArticleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "content" | "publishedAt", ExtArgs["result"]["article"]>
+  export type ArticleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "content" | "url" | "publishedAt" | "order" | "configId", ExtArgs["result"]["article"]>
   export type ArticleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    configs?: boolean | Article$configsArgs<ExtArgs>
-    _count?: boolean | ArticleCountOutputTypeDefaultArgs<ExtArgs>
+    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
   }
-  export type ArticleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type ArticleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type ArticleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
+  }
+  export type ArticleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
+  }
 
   export type $ArticlePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Article"
     objects: {
-      configs: Prisma.$UnitConfigPayload<ExtArgs>[]
+      config: Prisma.$UnitConfigPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       title: string
       content: string
+      url: string | null
       publishedAt: Date
+      order: number
+      configId: string
     }, ExtArgs["result"]["article"]>
     composites: {}
   }
@@ -16958,7 +19186,7 @@ export namespace Prisma {
    */
   export interface Prisma__ArticleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    configs<T extends Article$configsArgs<ExtArgs> = {}>(args?: Subset<T, Article$configsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UnitConfigPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    config<T extends UnitConfigDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfigDefaultArgs<ExtArgs>>): Prisma__UnitConfigClient<$Result.GetResult<Prisma.$UnitConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -16991,7 +19219,10 @@ export namespace Prisma {
     readonly id: FieldRef<"Article", 'String'>
     readonly title: FieldRef<"Article", 'String'>
     readonly content: FieldRef<"Article", 'String'>
+    readonly url: FieldRef<"Article", 'String'>
     readonly publishedAt: FieldRef<"Article", 'DateTime'>
+    readonly order: FieldRef<"Article", 'Int'>
+    readonly configId: FieldRef<"Article", 'String'>
   }
     
 
@@ -17241,6 +19472,10 @@ export namespace Prisma {
      */
     data: ArticleCreateManyInput | ArticleCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -17311,6 +19546,10 @@ export namespace Prisma {
      * Limit how many Articles to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -17377,30 +19616,6 @@ export namespace Prisma {
      * Limit how many Articles to delete.
      */
     limit?: number
-  }
-
-  /**
-   * Article.configs
-   */
-  export type Article$configsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the UnitConfig
-     */
-    select?: UnitConfigSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the UnitConfig
-     */
-    omit?: UnitConfigOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UnitConfigInclude<ExtArgs> | null
-    where?: UnitConfigWhereInput
-    orderBy?: UnitConfigOrderByWithRelationInput | UnitConfigOrderByWithRelationInput[]
-    cursor?: UnitConfigWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: UnitConfigScalarFieldEnum | UnitConfigScalarFieldEnum[]
   }
 
   /**
@@ -19875,23 +22090,10 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     pageTitle: 'pageTitle',
-    subtitle: 'subtitle',
-    description: 'description',
-    iconUrl: 'iconUrl',
+    pageDescription: 'pageDescription',
+    servicesDescription: 'servicesDescription',
     bannerUrl: 'bannerUrl',
-    seoTitle: 'seoTitle',
-    seoDescription: 'seoDescription',
-    seoKeywords: 'seoKeywords',
-    ogImage: 'ogImage',
-    headerLinks: 'headerLinks',
-    footerLinks: 'footerLinks',
     footerInfo: 'footerInfo',
-    legalStepsCount: 'legalStepsCount',
-    pageType: 'pageType',
-    externalLinks: 'externalLinks',
-    newsParams: 'newsParams',
-    selectedNews: 'selectedNews',
-    infoSections: 'infoSections',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -19899,15 +22101,35 @@ export namespace Prisma {
   export type UnitConfigScalarFieldEnum = (typeof UnitConfigScalarFieldEnum)[keyof typeof UnitConfigScalarFieldEnum]
 
 
+  export const LegalStepScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    description: 'description',
+    order: 'order',
+    configId: 'configId'
+  };
+
+  export type LegalStepScalarFieldEnum = (typeof LegalStepScalarFieldEnum)[keyof typeof LegalStepScalarFieldEnum]
+
+
+  export const FooterLinkScalarFieldEnum: {
+    id: 'id',
+    label: 'label',
+    url: 'url',
+    order: 'order',
+    configId: 'configId'
+  };
+
+  export type FooterLinkScalarFieldEnum = (typeof FooterLinkScalarFieldEnum)[keyof typeof FooterLinkScalarFieldEnum]
+
+
   export const SectionScalarFieldEnum: {
     id: 'id',
-    configId: 'configId',
-    type: 'type',
     title: 'title',
-    content: 'content',
+    body: 'body',
+    imageUrl: 'imageUrl',
     order: 'order',
-    sectionKey: 'sectionKey',
-    mainImageId: 'mainImageId'
+    configId: 'configId'
   };
 
   export type SectionScalarFieldEnum = (typeof SectionScalarFieldEnum)[keyof typeof SectionScalarFieldEnum]
@@ -19930,7 +22152,10 @@ export namespace Prisma {
     id: 'id',
     title: 'title',
     content: 'content',
-    publishedAt: 'publishedAt'
+    url: 'url',
+    publishedAt: 'publishedAt',
+    order: 'order',
+    configId: 'configId'
   };
 
   export type ArticleScalarFieldEnum = (typeof ArticleScalarFieldEnum)[keyof typeof ArticleScalarFieldEnum]
@@ -20102,20 +22327,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Json'
-   */
-  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
-    
-
-
-  /**
-   * Reference to a field of type 'QueryMode'
-   */
-  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
-    
-
-
-  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -20130,16 +22341,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'SectionType'
+   * Reference to a field of type 'Json'
    */
-  export type EnumSectionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SectionType'>
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
     
 
 
   /**
-   * Reference to a field of type 'SectionType[]'
+   * Reference to a field of type 'QueryMode'
    */
-  export type ListEnumSectionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SectionType[]'>
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 
@@ -20738,28 +22949,17 @@ export namespace Prisma {
     id?: StringFilter<"UnitConfig"> | string
     name?: StringFilter<"UnitConfig"> | string
     pageTitle?: StringFilter<"UnitConfig"> | string
-    subtitle?: StringNullableFilter<"UnitConfig"> | string | null
-    description?: StringNullableFilter<"UnitConfig"> | string | null
-    iconUrl?: StringNullableFilter<"UnitConfig"> | string | null
+    pageDescription?: StringFilter<"UnitConfig"> | string
+    servicesDescription?: StringFilter<"UnitConfig"> | string
     bannerUrl?: StringNullableFilter<"UnitConfig"> | string | null
-    seoTitle?: StringNullableFilter<"UnitConfig"> | string | null
-    seoDescription?: StringNullableFilter<"UnitConfig"> | string | null
-    seoKeywords?: StringNullableFilter<"UnitConfig"> | string | null
-    ogImage?: StringNullableFilter<"UnitConfig"> | string | null
-    headerLinks?: JsonNullableFilter<"UnitConfig">
-    footerLinks?: JsonNullableFilter<"UnitConfig">
     footerInfo?: StringNullableFilter<"UnitConfig"> | string | null
-    legalStepsCount?: IntFilter<"UnitConfig"> | number
-    pageType?: StringFilter<"UnitConfig"> | string
-    externalLinks?: JsonNullableFilter<"UnitConfig">
-    newsParams?: JsonNullableFilter<"UnitConfig">
-    selectedNews?: JsonNullableFilter<"UnitConfig">
-    infoSections?: JsonNullableFilter<"UnitConfig">
     createdAt?: DateTimeFilter<"UnitConfig"> | Date | string
     updatedAt?: DateTimeFilter<"UnitConfig"> | Date | string
-    sections?: SectionListRelationFilter
+    legalSteps?: LegalStepListRelationFilter
     articles?: ArticleListRelationFilter
+    sections?: SectionListRelationFilter
     images?: ImageListRelationFilter
+    footerLinks?: FooterLinkListRelationFilter
     servers?: UnitServerListRelationFilter
   }
 
@@ -20767,28 +22967,17 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     pageTitle?: SortOrder
-    subtitle?: SortOrderInput | SortOrder
-    description?: SortOrderInput | SortOrder
-    iconUrl?: SortOrderInput | SortOrder
+    pageDescription?: SortOrder
+    servicesDescription?: SortOrder
     bannerUrl?: SortOrderInput | SortOrder
-    seoTitle?: SortOrderInput | SortOrder
-    seoDescription?: SortOrderInput | SortOrder
-    seoKeywords?: SortOrderInput | SortOrder
-    ogImage?: SortOrderInput | SortOrder
-    headerLinks?: SortOrderInput | SortOrder
-    footerLinks?: SortOrderInput | SortOrder
     footerInfo?: SortOrderInput | SortOrder
-    legalStepsCount?: SortOrder
-    pageType?: SortOrder
-    externalLinks?: SortOrderInput | SortOrder
-    newsParams?: SortOrderInput | SortOrder
-    selectedNews?: SortOrderInput | SortOrder
-    infoSections?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    sections?: SectionOrderByRelationAggregateInput
+    legalSteps?: LegalStepOrderByRelationAggregateInput
     articles?: ArticleOrderByRelationAggregateInput
+    sections?: SectionOrderByRelationAggregateInput
     images?: ImageOrderByRelationAggregateInput
+    footerLinks?: FooterLinkOrderByRelationAggregateInput
     servers?: UnitServerOrderByRelationAggregateInput
   }
 
@@ -20799,28 +22988,17 @@ export namespace Prisma {
     OR?: UnitConfigWhereInput[]
     NOT?: UnitConfigWhereInput | UnitConfigWhereInput[]
     pageTitle?: StringFilter<"UnitConfig"> | string
-    subtitle?: StringNullableFilter<"UnitConfig"> | string | null
-    description?: StringNullableFilter<"UnitConfig"> | string | null
-    iconUrl?: StringNullableFilter<"UnitConfig"> | string | null
+    pageDescription?: StringFilter<"UnitConfig"> | string
+    servicesDescription?: StringFilter<"UnitConfig"> | string
     bannerUrl?: StringNullableFilter<"UnitConfig"> | string | null
-    seoTitle?: StringNullableFilter<"UnitConfig"> | string | null
-    seoDescription?: StringNullableFilter<"UnitConfig"> | string | null
-    seoKeywords?: StringNullableFilter<"UnitConfig"> | string | null
-    ogImage?: StringNullableFilter<"UnitConfig"> | string | null
-    headerLinks?: JsonNullableFilter<"UnitConfig">
-    footerLinks?: JsonNullableFilter<"UnitConfig">
     footerInfo?: StringNullableFilter<"UnitConfig"> | string | null
-    legalStepsCount?: IntFilter<"UnitConfig"> | number
-    pageType?: StringFilter<"UnitConfig"> | string
-    externalLinks?: JsonNullableFilter<"UnitConfig">
-    newsParams?: JsonNullableFilter<"UnitConfig">
-    selectedNews?: JsonNullableFilter<"UnitConfig">
-    infoSections?: JsonNullableFilter<"UnitConfig">
     createdAt?: DateTimeFilter<"UnitConfig"> | Date | string
     updatedAt?: DateTimeFilter<"UnitConfig"> | Date | string
-    sections?: SectionListRelationFilter
+    legalSteps?: LegalStepListRelationFilter
     articles?: ArticleListRelationFilter
+    sections?: SectionListRelationFilter
     images?: ImageListRelationFilter
+    footerLinks?: FooterLinkListRelationFilter
     servers?: UnitServerListRelationFilter
   }, "id" | "name">
 
@@ -20828,30 +23006,15 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     pageTitle?: SortOrder
-    subtitle?: SortOrderInput | SortOrder
-    description?: SortOrderInput | SortOrder
-    iconUrl?: SortOrderInput | SortOrder
+    pageDescription?: SortOrder
+    servicesDescription?: SortOrder
     bannerUrl?: SortOrderInput | SortOrder
-    seoTitle?: SortOrderInput | SortOrder
-    seoDescription?: SortOrderInput | SortOrder
-    seoKeywords?: SortOrderInput | SortOrder
-    ogImage?: SortOrderInput | SortOrder
-    headerLinks?: SortOrderInput | SortOrder
-    footerLinks?: SortOrderInput | SortOrder
     footerInfo?: SortOrderInput | SortOrder
-    legalStepsCount?: SortOrder
-    pageType?: SortOrder
-    externalLinks?: SortOrderInput | SortOrder
-    newsParams?: SortOrderInput | SortOrder
-    selectedNews?: SortOrderInput | SortOrder
-    infoSections?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UnitConfigCountOrderByAggregateInput
-    _avg?: UnitConfigAvgOrderByAggregateInput
     _max?: UnitConfigMaxOrderByAggregateInput
     _min?: UnitConfigMinOrderByAggregateInput
-    _sum?: UnitConfigSumOrderByAggregateInput
   }
 
   export type UnitConfigScalarWhereWithAggregatesInput = {
@@ -20861,25 +23024,126 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"UnitConfig"> | string
     name?: StringWithAggregatesFilter<"UnitConfig"> | string
     pageTitle?: StringWithAggregatesFilter<"UnitConfig"> | string
-    subtitle?: StringNullableWithAggregatesFilter<"UnitConfig"> | string | null
-    description?: StringNullableWithAggregatesFilter<"UnitConfig"> | string | null
-    iconUrl?: StringNullableWithAggregatesFilter<"UnitConfig"> | string | null
+    pageDescription?: StringWithAggregatesFilter<"UnitConfig"> | string
+    servicesDescription?: StringWithAggregatesFilter<"UnitConfig"> | string
     bannerUrl?: StringNullableWithAggregatesFilter<"UnitConfig"> | string | null
-    seoTitle?: StringNullableWithAggregatesFilter<"UnitConfig"> | string | null
-    seoDescription?: StringNullableWithAggregatesFilter<"UnitConfig"> | string | null
-    seoKeywords?: StringNullableWithAggregatesFilter<"UnitConfig"> | string | null
-    ogImage?: StringNullableWithAggregatesFilter<"UnitConfig"> | string | null
-    headerLinks?: JsonNullableWithAggregatesFilter<"UnitConfig">
-    footerLinks?: JsonNullableWithAggregatesFilter<"UnitConfig">
     footerInfo?: StringNullableWithAggregatesFilter<"UnitConfig"> | string | null
-    legalStepsCount?: IntWithAggregatesFilter<"UnitConfig"> | number
-    pageType?: StringWithAggregatesFilter<"UnitConfig"> | string
-    externalLinks?: JsonNullableWithAggregatesFilter<"UnitConfig">
-    newsParams?: JsonNullableWithAggregatesFilter<"UnitConfig">
-    selectedNews?: JsonNullableWithAggregatesFilter<"UnitConfig">
-    infoSections?: JsonNullableWithAggregatesFilter<"UnitConfig">
     createdAt?: DateTimeWithAggregatesFilter<"UnitConfig"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"UnitConfig"> | Date | string
+  }
+
+  export type LegalStepWhereInput = {
+    AND?: LegalStepWhereInput | LegalStepWhereInput[]
+    OR?: LegalStepWhereInput[]
+    NOT?: LegalStepWhereInput | LegalStepWhereInput[]
+    id?: StringFilter<"LegalStep"> | string
+    title?: StringFilter<"LegalStep"> | string
+    description?: StringFilter<"LegalStep"> | string
+    order?: IntFilter<"LegalStep"> | number
+    configId?: StringFilter<"LegalStep"> | string
+    config?: XOR<UnitConfigScalarRelationFilter, UnitConfigWhereInput>
+  }
+
+  export type LegalStepOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    order?: SortOrder
+    configId?: SortOrder
+    config?: UnitConfigOrderByWithRelationInput
+  }
+
+  export type LegalStepWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: LegalStepWhereInput | LegalStepWhereInput[]
+    OR?: LegalStepWhereInput[]
+    NOT?: LegalStepWhereInput | LegalStepWhereInput[]
+    title?: StringFilter<"LegalStep"> | string
+    description?: StringFilter<"LegalStep"> | string
+    order?: IntFilter<"LegalStep"> | number
+    configId?: StringFilter<"LegalStep"> | string
+    config?: XOR<UnitConfigScalarRelationFilter, UnitConfigWhereInput>
+  }, "id">
+
+  export type LegalStepOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    order?: SortOrder
+    configId?: SortOrder
+    _count?: LegalStepCountOrderByAggregateInput
+    _avg?: LegalStepAvgOrderByAggregateInput
+    _max?: LegalStepMaxOrderByAggregateInput
+    _min?: LegalStepMinOrderByAggregateInput
+    _sum?: LegalStepSumOrderByAggregateInput
+  }
+
+  export type LegalStepScalarWhereWithAggregatesInput = {
+    AND?: LegalStepScalarWhereWithAggregatesInput | LegalStepScalarWhereWithAggregatesInput[]
+    OR?: LegalStepScalarWhereWithAggregatesInput[]
+    NOT?: LegalStepScalarWhereWithAggregatesInput | LegalStepScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"LegalStep"> | string
+    title?: StringWithAggregatesFilter<"LegalStep"> | string
+    description?: StringWithAggregatesFilter<"LegalStep"> | string
+    order?: IntWithAggregatesFilter<"LegalStep"> | number
+    configId?: StringWithAggregatesFilter<"LegalStep"> | string
+  }
+
+  export type FooterLinkWhereInput = {
+    AND?: FooterLinkWhereInput | FooterLinkWhereInput[]
+    OR?: FooterLinkWhereInput[]
+    NOT?: FooterLinkWhereInput | FooterLinkWhereInput[]
+    id?: StringFilter<"FooterLink"> | string
+    label?: StringFilter<"FooterLink"> | string
+    url?: StringFilter<"FooterLink"> | string
+    order?: IntFilter<"FooterLink"> | number
+    configId?: StringFilter<"FooterLink"> | string
+    config?: XOR<UnitConfigScalarRelationFilter, UnitConfigWhereInput>
+  }
+
+  export type FooterLinkOrderByWithRelationInput = {
+    id?: SortOrder
+    label?: SortOrder
+    url?: SortOrder
+    order?: SortOrder
+    configId?: SortOrder
+    config?: UnitConfigOrderByWithRelationInput
+  }
+
+  export type FooterLinkWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: FooterLinkWhereInput | FooterLinkWhereInput[]
+    OR?: FooterLinkWhereInput[]
+    NOT?: FooterLinkWhereInput | FooterLinkWhereInput[]
+    label?: StringFilter<"FooterLink"> | string
+    url?: StringFilter<"FooterLink"> | string
+    order?: IntFilter<"FooterLink"> | number
+    configId?: StringFilter<"FooterLink"> | string
+    config?: XOR<UnitConfigScalarRelationFilter, UnitConfigWhereInput>
+  }, "id">
+
+  export type FooterLinkOrderByWithAggregationInput = {
+    id?: SortOrder
+    label?: SortOrder
+    url?: SortOrder
+    order?: SortOrder
+    configId?: SortOrder
+    _count?: FooterLinkCountOrderByAggregateInput
+    _avg?: FooterLinkAvgOrderByAggregateInput
+    _max?: FooterLinkMaxOrderByAggregateInput
+    _min?: FooterLinkMinOrderByAggregateInput
+    _sum?: FooterLinkSumOrderByAggregateInput
+  }
+
+  export type FooterLinkScalarWhereWithAggregatesInput = {
+    AND?: FooterLinkScalarWhereWithAggregatesInput | FooterLinkScalarWhereWithAggregatesInput[]
+    OR?: FooterLinkScalarWhereWithAggregatesInput[]
+    NOT?: FooterLinkScalarWhereWithAggregatesInput | FooterLinkScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"FooterLink"> | string
+    label?: StringWithAggregatesFilter<"FooterLink"> | string
+    url?: StringWithAggregatesFilter<"FooterLink"> | string
+    order?: IntWithAggregatesFilter<"FooterLink"> | number
+    configId?: StringWithAggregatesFilter<"FooterLink"> | string
   }
 
   export type SectionWhereInput = {
@@ -20887,58 +23151,47 @@ export namespace Prisma {
     OR?: SectionWhereInput[]
     NOT?: SectionWhereInput | SectionWhereInput[]
     id?: StringFilter<"Section"> | string
-    configId?: StringFilter<"Section"> | string
-    type?: EnumSectionTypeFilter<"Section"> | $Enums.SectionType
     title?: StringFilter<"Section"> | string
-    content?: StringFilter<"Section"> | string
+    body?: StringFilter<"Section"> | string
+    imageUrl?: StringNullableFilter<"Section"> | string | null
     order?: IntFilter<"Section"> | number
-    sectionKey?: StringNullableFilter<"Section"> | string | null
-    mainImageId?: StringNullableFilter<"Section"> | string | null
+    configId?: StringFilter<"Section"> | string
     config?: XOR<UnitConfigScalarRelationFilter, UnitConfigWhereInput>
-    mainImage?: XOR<ImageNullableScalarRelationFilter, ImageWhereInput> | null
     images?: ImageListRelationFilter
   }
 
   export type SectionOrderByWithRelationInput = {
     id?: SortOrder
-    configId?: SortOrder
-    type?: SortOrder
     title?: SortOrder
-    content?: SortOrder
+    body?: SortOrder
+    imageUrl?: SortOrderInput | SortOrder
     order?: SortOrder
-    sectionKey?: SortOrderInput | SortOrder
-    mainImageId?: SortOrderInput | SortOrder
+    configId?: SortOrder
     config?: UnitConfigOrderByWithRelationInput
-    mainImage?: ImageOrderByWithRelationInput
     images?: ImageOrderByRelationAggregateInput
   }
 
   export type SectionWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    mainImageId?: string
     AND?: SectionWhereInput | SectionWhereInput[]
     OR?: SectionWhereInput[]
     NOT?: SectionWhereInput | SectionWhereInput[]
-    configId?: StringFilter<"Section"> | string
-    type?: EnumSectionTypeFilter<"Section"> | $Enums.SectionType
     title?: StringFilter<"Section"> | string
-    content?: StringFilter<"Section"> | string
+    body?: StringFilter<"Section"> | string
+    imageUrl?: StringNullableFilter<"Section"> | string | null
     order?: IntFilter<"Section"> | number
-    sectionKey?: StringNullableFilter<"Section"> | string | null
+    configId?: StringFilter<"Section"> | string
     config?: XOR<UnitConfigScalarRelationFilter, UnitConfigWhereInput>
-    mainImage?: XOR<ImageNullableScalarRelationFilter, ImageWhereInput> | null
     images?: ImageListRelationFilter
-  }, "id" | "mainImageId">
+  }, "id">
 
   export type SectionOrderByWithAggregationInput = {
     id?: SortOrder
-    configId?: SortOrder
-    type?: SortOrder
     title?: SortOrder
-    content?: SortOrder
+    body?: SortOrder
+    imageUrl?: SortOrderInput | SortOrder
     order?: SortOrder
-    sectionKey?: SortOrderInput | SortOrder
-    mainImageId?: SortOrderInput | SortOrder
+    configId?: SortOrder
     _count?: SectionCountOrderByAggregateInput
     _avg?: SectionAvgOrderByAggregateInput
     _max?: SectionMaxOrderByAggregateInput
@@ -20951,13 +23204,11 @@ export namespace Prisma {
     OR?: SectionScalarWhereWithAggregatesInput[]
     NOT?: SectionScalarWhereWithAggregatesInput | SectionScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Section"> | string
-    configId?: StringWithAggregatesFilter<"Section"> | string
-    type?: EnumSectionTypeWithAggregatesFilter<"Section"> | $Enums.SectionType
     title?: StringWithAggregatesFilter<"Section"> | string
-    content?: StringWithAggregatesFilter<"Section"> | string
+    body?: StringWithAggregatesFilter<"Section"> | string
+    imageUrl?: StringNullableWithAggregatesFilter<"Section"> | string | null
     order?: IntWithAggregatesFilter<"Section"> | number
-    sectionKey?: StringNullableWithAggregatesFilter<"Section"> | string | null
-    mainImageId?: StringNullableWithAggregatesFilter<"Section"> | string | null
+    configId?: StringWithAggregatesFilter<"Section"> | string
   }
 
   export type ImageWhereInput = {
@@ -20973,7 +23224,6 @@ export namespace Prisma {
     sectionId?: StringNullableFilter<"Image"> | string | null
     config?: XOR<UnitConfigScalarRelationFilter, UnitConfigWhereInput>
     section?: XOR<SectionNullableScalarRelationFilter, SectionWhereInput> | null
-    mainImageOfSection?: XOR<SectionNullableScalarRelationFilter, SectionWhereInput> | null
   }
 
   export type ImageOrderByWithRelationInput = {
@@ -20986,7 +23236,6 @@ export namespace Prisma {
     sectionId?: SortOrderInput | SortOrder
     config?: UnitConfigOrderByWithRelationInput
     section?: SectionOrderByWithRelationInput
-    mainImageOfSection?: SectionOrderByWithRelationInput
   }
 
   export type ImageWhereUniqueInput = Prisma.AtLeast<{
@@ -21002,7 +23251,6 @@ export namespace Prisma {
     sectionId?: StringNullableFilter<"Image"> | string | null
     config?: XOR<UnitConfigScalarRelationFilter, UnitConfigWhereInput>
     section?: XOR<SectionNullableScalarRelationFilter, SectionWhereInput> | null
-    mainImageOfSection?: XOR<SectionNullableScalarRelationFilter, SectionWhereInput> | null
   }, "id">
 
   export type ImageOrderByWithAggregationInput = {
@@ -21040,16 +23288,22 @@ export namespace Prisma {
     id?: StringFilter<"Article"> | string
     title?: StringFilter<"Article"> | string
     content?: StringFilter<"Article"> | string
+    url?: StringNullableFilter<"Article"> | string | null
     publishedAt?: DateTimeFilter<"Article"> | Date | string
-    configs?: UnitConfigListRelationFilter
+    order?: IntFilter<"Article"> | number
+    configId?: StringFilter<"Article"> | string
+    config?: XOR<UnitConfigScalarRelationFilter, UnitConfigWhereInput>
   }
 
   export type ArticleOrderByWithRelationInput = {
     id?: SortOrder
     title?: SortOrder
     content?: SortOrder
+    url?: SortOrderInput | SortOrder
     publishedAt?: SortOrder
-    configs?: UnitConfigOrderByRelationAggregateInput
+    order?: SortOrder
+    configId?: SortOrder
+    config?: UnitConfigOrderByWithRelationInput
   }
 
   export type ArticleWhereUniqueInput = Prisma.AtLeast<{
@@ -21059,18 +23313,26 @@ export namespace Prisma {
     NOT?: ArticleWhereInput | ArticleWhereInput[]
     title?: StringFilter<"Article"> | string
     content?: StringFilter<"Article"> | string
+    url?: StringNullableFilter<"Article"> | string | null
     publishedAt?: DateTimeFilter<"Article"> | Date | string
-    configs?: UnitConfigListRelationFilter
+    order?: IntFilter<"Article"> | number
+    configId?: StringFilter<"Article"> | string
+    config?: XOR<UnitConfigScalarRelationFilter, UnitConfigWhereInput>
   }, "id">
 
   export type ArticleOrderByWithAggregationInput = {
     id?: SortOrder
     title?: SortOrder
     content?: SortOrder
+    url?: SortOrderInput | SortOrder
     publishedAt?: SortOrder
+    order?: SortOrder
+    configId?: SortOrder
     _count?: ArticleCountOrderByAggregateInput
+    _avg?: ArticleAvgOrderByAggregateInput
     _max?: ArticleMaxOrderByAggregateInput
     _min?: ArticleMinOrderByAggregateInput
+    _sum?: ArticleSumOrderByAggregateInput
   }
 
   export type ArticleScalarWhereWithAggregatesInput = {
@@ -21080,7 +23342,10 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Article"> | string
     title?: StringWithAggregatesFilter<"Article"> | string
     content?: StringWithAggregatesFilter<"Article"> | string
+    url?: StringNullableWithAggregatesFilter<"Article"> | string | null
     publishedAt?: DateTimeWithAggregatesFilter<"Article"> | Date | string
+    order?: IntWithAggregatesFilter<"Article"> | number
+    configId?: StringWithAggregatesFilter<"Article"> | string
   }
 
   export type UnitServerWhereInput = {
@@ -21815,28 +24080,17 @@ export namespace Prisma {
     id?: string
     name: string
     pageTitle: string
-    subtitle?: string | null
-    description?: string | null
-    iconUrl?: string | null
+    pageDescription: string
+    servicesDescription: string
     bannerUrl?: string | null
-    seoTitle?: string | null
-    seoDescription?: string | null
-    seoKeywords?: string | null
-    ogImage?: string | null
-    headerLinks?: NullableJsonNullValueInput | InputJsonValue
-    footerLinks?: NullableJsonNullValueInput | InputJsonValue
     footerInfo?: string | null
-    legalStepsCount?: number
-    pageType: string
-    externalLinks?: NullableJsonNullValueInput | InputJsonValue
-    newsParams?: NullableJsonNullValueInput | InputJsonValue
-    selectedNews?: NullableJsonNullValueInput | InputJsonValue
-    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
+    legalSteps?: LegalStepCreateNestedManyWithoutConfigInput
+    articles?: ArticleCreateNestedManyWithoutConfigInput
     sections?: SectionCreateNestedManyWithoutConfigInput
-    articles?: ArticleCreateNestedManyWithoutConfigsInput
     images?: ImageCreateNestedManyWithoutConfigInput
+    footerLinks?: FooterLinkCreateNestedManyWithoutConfigInput
     servers?: UnitServerCreateNestedManyWithoutConfigInput
   }
 
@@ -21844,28 +24098,17 @@ export namespace Prisma {
     id?: string
     name: string
     pageTitle: string
-    subtitle?: string | null
-    description?: string | null
-    iconUrl?: string | null
+    pageDescription: string
+    servicesDescription: string
     bannerUrl?: string | null
-    seoTitle?: string | null
-    seoDescription?: string | null
-    seoKeywords?: string | null
-    ogImage?: string | null
-    headerLinks?: NullableJsonNullValueInput | InputJsonValue
-    footerLinks?: NullableJsonNullValueInput | InputJsonValue
     footerInfo?: string | null
-    legalStepsCount?: number
-    pageType: string
-    externalLinks?: NullableJsonNullValueInput | InputJsonValue
-    newsParams?: NullableJsonNullValueInput | InputJsonValue
-    selectedNews?: NullableJsonNullValueInput | InputJsonValue
-    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
+    legalSteps?: LegalStepUncheckedCreateNestedManyWithoutConfigInput
+    articles?: ArticleUncheckedCreateNestedManyWithoutConfigInput
     sections?: SectionUncheckedCreateNestedManyWithoutConfigInput
-    articles?: ArticleUncheckedCreateNestedManyWithoutConfigsInput
     images?: ImageUncheckedCreateNestedManyWithoutConfigInput
+    footerLinks?: FooterLinkUncheckedCreateNestedManyWithoutConfigInput
     servers?: UnitServerUncheckedCreateNestedManyWithoutConfigInput
   }
 
@@ -21873,28 +24116,17 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     pageTitle?: StringFieldUpdateOperationsInput | string
-    subtitle?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    pageDescription?: StringFieldUpdateOperationsInput | string
+    servicesDescription?: StringFieldUpdateOperationsInput | string
     bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    seoTitle?: NullableStringFieldUpdateOperationsInput | string | null
-    seoDescription?: NullableStringFieldUpdateOperationsInput | string | null
-    seoKeywords?: NullableStringFieldUpdateOperationsInput | string | null
-    ogImage?: NullableStringFieldUpdateOperationsInput | string | null
-    headerLinks?: NullableJsonNullValueInput | InputJsonValue
-    footerLinks?: NullableJsonNullValueInput | InputJsonValue
     footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
-    legalStepsCount?: IntFieldUpdateOperationsInput | number
-    pageType?: StringFieldUpdateOperationsInput | string
-    externalLinks?: NullableJsonNullValueInput | InputJsonValue
-    newsParams?: NullableJsonNullValueInput | InputJsonValue
-    selectedNews?: NullableJsonNullValueInput | InputJsonValue
-    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    legalSteps?: LegalStepUpdateManyWithoutConfigNestedInput
+    articles?: ArticleUpdateManyWithoutConfigNestedInput
     sections?: SectionUpdateManyWithoutConfigNestedInput
-    articles?: ArticleUpdateManyWithoutConfigsNestedInput
     images?: ImageUpdateManyWithoutConfigNestedInput
+    footerLinks?: FooterLinkUpdateManyWithoutConfigNestedInput
     servers?: UnitServerUpdateManyWithoutConfigNestedInput
   }
 
@@ -21902,28 +24134,17 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     pageTitle?: StringFieldUpdateOperationsInput | string
-    subtitle?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    pageDescription?: StringFieldUpdateOperationsInput | string
+    servicesDescription?: StringFieldUpdateOperationsInput | string
     bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    seoTitle?: NullableStringFieldUpdateOperationsInput | string | null
-    seoDescription?: NullableStringFieldUpdateOperationsInput | string | null
-    seoKeywords?: NullableStringFieldUpdateOperationsInput | string | null
-    ogImage?: NullableStringFieldUpdateOperationsInput | string | null
-    headerLinks?: NullableJsonNullValueInput | InputJsonValue
-    footerLinks?: NullableJsonNullValueInput | InputJsonValue
     footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
-    legalStepsCount?: IntFieldUpdateOperationsInput | number
-    pageType?: StringFieldUpdateOperationsInput | string
-    externalLinks?: NullableJsonNullValueInput | InputJsonValue
-    newsParams?: NullableJsonNullValueInput | InputJsonValue
-    selectedNews?: NullableJsonNullValueInput | InputJsonValue
-    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    legalSteps?: LegalStepUncheckedUpdateManyWithoutConfigNestedInput
+    articles?: ArticleUncheckedUpdateManyWithoutConfigNestedInput
     sections?: SectionUncheckedUpdateManyWithoutConfigNestedInput
-    articles?: ArticleUncheckedUpdateManyWithoutConfigsNestedInput
     images?: ImageUncheckedUpdateManyWithoutConfigNestedInput
+    footerLinks?: FooterLinkUncheckedUpdateManyWithoutConfigNestedInput
     servers?: UnitServerUncheckedUpdateManyWithoutConfigNestedInput
   }
 
@@ -21931,23 +24152,10 @@ export namespace Prisma {
     id?: string
     name: string
     pageTitle: string
-    subtitle?: string | null
-    description?: string | null
-    iconUrl?: string | null
+    pageDescription: string
+    servicesDescription: string
     bannerUrl?: string | null
-    seoTitle?: string | null
-    seoDescription?: string | null
-    seoKeywords?: string | null
-    ogImage?: string | null
-    headerLinks?: NullableJsonNullValueInput | InputJsonValue
-    footerLinks?: NullableJsonNullValueInput | InputJsonValue
     footerInfo?: string | null
-    legalStepsCount?: number
-    pageType: string
-    externalLinks?: NullableJsonNullValueInput | InputJsonValue
-    newsParams?: NullableJsonNullValueInput | InputJsonValue
-    selectedNews?: NullableJsonNullValueInput | InputJsonValue
-    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -21956,23 +24164,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     pageTitle?: StringFieldUpdateOperationsInput | string
-    subtitle?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    pageDescription?: StringFieldUpdateOperationsInput | string
+    servicesDescription?: StringFieldUpdateOperationsInput | string
     bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    seoTitle?: NullableStringFieldUpdateOperationsInput | string | null
-    seoDescription?: NullableStringFieldUpdateOperationsInput | string | null
-    seoKeywords?: NullableStringFieldUpdateOperationsInput | string | null
-    ogImage?: NullableStringFieldUpdateOperationsInput | string | null
-    headerLinks?: NullableJsonNullValueInput | InputJsonValue
-    footerLinks?: NullableJsonNullValueInput | InputJsonValue
     footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
-    legalStepsCount?: IntFieldUpdateOperationsInput | number
-    pageType?: StringFieldUpdateOperationsInput | string
-    externalLinks?: NullableJsonNullValueInput | InputJsonValue
-    newsParams?: NullableJsonNullValueInput | InputJsonValue
-    selectedNews?: NullableJsonNullValueInput | InputJsonValue
-    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -21981,104 +24176,188 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     pageTitle?: StringFieldUpdateOperationsInput | string
-    subtitle?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    pageDescription?: StringFieldUpdateOperationsInput | string
+    servicesDescription?: StringFieldUpdateOperationsInput | string
     bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    seoTitle?: NullableStringFieldUpdateOperationsInput | string | null
-    seoDescription?: NullableStringFieldUpdateOperationsInput | string | null
-    seoKeywords?: NullableStringFieldUpdateOperationsInput | string | null
-    ogImage?: NullableStringFieldUpdateOperationsInput | string | null
-    headerLinks?: NullableJsonNullValueInput | InputJsonValue
-    footerLinks?: NullableJsonNullValueInput | InputJsonValue
     footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
-    legalStepsCount?: IntFieldUpdateOperationsInput | number
-    pageType?: StringFieldUpdateOperationsInput | string
-    externalLinks?: NullableJsonNullValueInput | InputJsonValue
-    newsParams?: NullableJsonNullValueInput | InputJsonValue
-    selectedNews?: NullableJsonNullValueInput | InputJsonValue
-    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type LegalStepCreateInput = {
+    id?: string
+    title: string
+    description: string
+    order: number
+    config: UnitConfigCreateNestedOneWithoutLegalStepsInput
+  }
+
+  export type LegalStepUncheckedCreateInput = {
+    id?: string
+    title: string
+    description: string
+    order: number
+    configId: string
+  }
+
+  export type LegalStepUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    config?: UnitConfigUpdateOneRequiredWithoutLegalStepsNestedInput
+  }
+
+  export type LegalStepUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    configId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type LegalStepCreateManyInput = {
+    id?: string
+    title: string
+    description: string
+    order: number
+    configId: string
+  }
+
+  export type LegalStepUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LegalStepUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    configId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type FooterLinkCreateInput = {
+    id?: string
+    label: string
+    url: string
+    order: number
+    config: UnitConfigCreateNestedOneWithoutFooterLinksInput
+  }
+
+  export type FooterLinkUncheckedCreateInput = {
+    id?: string
+    label: string
+    url: string
+    order: number
+    configId: string
+  }
+
+  export type FooterLinkUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    config?: UnitConfigUpdateOneRequiredWithoutFooterLinksNestedInput
+  }
+
+  export type FooterLinkUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    configId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type FooterLinkCreateManyInput = {
+    id?: string
+    label: string
+    url: string
+    order: number
+    configId: string
+  }
+
+  export type FooterLinkUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type FooterLinkUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    configId?: StringFieldUpdateOperationsInput | string
+  }
+
   export type SectionCreateInput = {
     id?: string
-    type: $Enums.SectionType
     title: string
-    content: string
+    body: string
+    imageUrl?: string | null
     order: number
-    sectionKey?: string | null
     config: UnitConfigCreateNestedOneWithoutSectionsInput
-    mainImage?: ImageCreateNestedOneWithoutMainImageOfSectionInput
     images?: ImageCreateNestedManyWithoutSectionInput
   }
 
   export type SectionUncheckedCreateInput = {
     id?: string
-    configId: string
-    type: $Enums.SectionType
     title: string
-    content: string
+    body: string
+    imageUrl?: string | null
     order: number
-    sectionKey?: string | null
-    mainImageId?: string | null
+    configId: string
     images?: ImageUncheckedCreateNestedManyWithoutSectionInput
   }
 
   export type SectionUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    type?: EnumSectionTypeFieldUpdateOperationsInput | $Enums.SectionType
     title?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     order?: IntFieldUpdateOperationsInput | number
-    sectionKey?: NullableStringFieldUpdateOperationsInput | string | null
     config?: UnitConfigUpdateOneRequiredWithoutSectionsNestedInput
-    mainImage?: ImageUpdateOneWithoutMainImageOfSectionNestedInput
     images?: ImageUpdateManyWithoutSectionNestedInput
   }
 
   export type SectionUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    configId?: StringFieldUpdateOperationsInput | string
-    type?: EnumSectionTypeFieldUpdateOperationsInput | $Enums.SectionType
     title?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     order?: IntFieldUpdateOperationsInput | number
-    sectionKey?: NullableStringFieldUpdateOperationsInput | string | null
-    mainImageId?: NullableStringFieldUpdateOperationsInput | string | null
+    configId?: StringFieldUpdateOperationsInput | string
     images?: ImageUncheckedUpdateManyWithoutSectionNestedInput
   }
 
   export type SectionCreateManyInput = {
     id?: string
-    configId: string
-    type: $Enums.SectionType
     title: string
-    content: string
+    body: string
+    imageUrl?: string | null
     order: number
-    sectionKey?: string | null
-    mainImageId?: string | null
+    configId: string
   }
 
   export type SectionUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    type?: EnumSectionTypeFieldUpdateOperationsInput | $Enums.SectionType
     title?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     order?: IntFieldUpdateOperationsInput | number
-    sectionKey?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type SectionUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    configId?: StringFieldUpdateOperationsInput | string
-    type?: EnumSectionTypeFieldUpdateOperationsInput | $Enums.SectionType
     title?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     order?: IntFieldUpdateOperationsInput | number
-    sectionKey?: NullableStringFieldUpdateOperationsInput | string | null
-    mainImageId?: NullableStringFieldUpdateOperationsInput | string | null
+    configId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ImageCreateInput = {
@@ -22089,7 +24368,6 @@ export namespace Prisma {
     order?: number | null
     config: UnitConfigCreateNestedOneWithoutImagesInput
     section?: SectionCreateNestedOneWithoutImagesInput
-    mainImageOfSection?: SectionCreateNestedOneWithoutMainImageInput
   }
 
   export type ImageUncheckedCreateInput = {
@@ -22100,7 +24378,6 @@ export namespace Prisma {
     type: string
     order?: number | null
     sectionId?: string | null
-    mainImageOfSection?: SectionUncheckedCreateNestedOneWithoutMainImageInput
   }
 
   export type ImageUpdateInput = {
@@ -22111,7 +24388,6 @@ export namespace Prisma {
     order?: NullableIntFieldUpdateOperationsInput | number | null
     config?: UnitConfigUpdateOneRequiredWithoutImagesNestedInput
     section?: SectionUpdateOneWithoutImagesNestedInput
-    mainImageOfSection?: SectionUpdateOneWithoutMainImageNestedInput
   }
 
   export type ImageUncheckedUpdateInput = {
@@ -22122,7 +24398,6 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     order?: NullableIntFieldUpdateOperationsInput | number | null
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
-    mainImageOfSection?: SectionUncheckedUpdateOneWithoutMainImageNestedInput
   }
 
   export type ImageCreateManyInput = {
@@ -22157,53 +24432,69 @@ export namespace Prisma {
     id?: string
     title: string
     content: string
+    url?: string | null
     publishedAt?: Date | string
-    configs?: UnitConfigCreateNestedManyWithoutArticlesInput
+    order: number
+    config: UnitConfigCreateNestedOneWithoutArticlesInput
   }
 
   export type ArticleUncheckedCreateInput = {
     id?: string
     title: string
     content: string
+    url?: string | null
     publishedAt?: Date | string
-    configs?: UnitConfigUncheckedCreateNestedManyWithoutArticlesInput
+    order: number
+    configId: string
   }
 
   export type ArticleUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
+    url?: NullableStringFieldUpdateOperationsInput | string | null
     publishedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    configs?: UnitConfigUpdateManyWithoutArticlesNestedInput
+    order?: IntFieldUpdateOperationsInput | number
+    config?: UnitConfigUpdateOneRequiredWithoutArticlesNestedInput
   }
 
   export type ArticleUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
+    url?: NullableStringFieldUpdateOperationsInput | string | null
     publishedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    configs?: UnitConfigUncheckedUpdateManyWithoutArticlesNestedInput
+    order?: IntFieldUpdateOperationsInput | number
+    configId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ArticleCreateManyInput = {
     id?: string
     title: string
     content: string
+    url?: string | null
     publishedAt?: Date | string
+    order: number
+    configId: string
   }
 
   export type ArticleUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
+    url?: NullableStringFieldUpdateOperationsInput | string | null
     publishedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    order?: IntFieldUpdateOperationsInput | number
   }
 
   export type ArticleUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
+    url?: NullableStringFieldUpdateOperationsInput | string | null
     publishedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    order?: IntFieldUpdateOperationsInput | number
+    configId?: StringFieldUpdateOperationsInput | string
   }
 
   export type UnitServerCreateInput = {
@@ -22920,28 +25211,91 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
   }
-  export type JsonNullableFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonNullableFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
 
-  export type JsonNullableFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  export type LegalStepListRelationFilter = {
+    every?: LegalStepWhereInput
+    some?: LegalStepWhereInput
+    none?: LegalStepWhereInput
+  }
+
+  export type ArticleListRelationFilter = {
+    every?: ArticleWhereInput
+    some?: ArticleWhereInput
+    none?: ArticleWhereInput
+  }
+
+  export type SectionListRelationFilter = {
+    every?: SectionWhereInput
+    some?: SectionWhereInput
+    none?: SectionWhereInput
+  }
+
+  export type ImageListRelationFilter = {
+    every?: ImageWhereInput
+    some?: ImageWhereInput
+    none?: ImageWhereInput
+  }
+
+  export type FooterLinkListRelationFilter = {
+    every?: FooterLinkWhereInput
+    some?: FooterLinkWhereInput
+    none?: FooterLinkWhereInput
+  }
+
+  export type LegalStepOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ArticleOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SectionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ImageOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type FooterLinkOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UnitConfigCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    pageTitle?: SortOrder
+    pageDescription?: SortOrder
+    servicesDescription?: SortOrder
+    bannerUrl?: SortOrder
+    footerInfo?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UnitConfigMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    pageTitle?: SortOrder
+    pageDescription?: SortOrder
+    servicesDescription?: SortOrder
+    bannerUrl?: SortOrder
+    footerInfo?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UnitConfigMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    pageTitle?: SortOrder
+    pageDescription?: SortOrder
+    servicesDescription?: SortOrder
+    bannerUrl?: SortOrder
+    footerInfo?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -22955,131 +25309,41 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type SectionListRelationFilter = {
-    every?: SectionWhereInput
-    some?: SectionWhereInput
-    none?: SectionWhereInput
+  export type UnitConfigScalarRelationFilter = {
+    is?: UnitConfigWhereInput
+    isNot?: UnitConfigWhereInput
   }
 
-  export type ArticleListRelationFilter = {
-    every?: ArticleWhereInput
-    some?: ArticleWhereInput
-    none?: ArticleWhereInput
-  }
-
-  export type ImageListRelationFilter = {
-    every?: ImageWhereInput
-    some?: ImageWhereInput
-    none?: ImageWhereInput
-  }
-
-  export type SectionOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type ArticleOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type ImageOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type UnitConfigCountOrderByAggregateInput = {
+  export type LegalStepCountOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
-    pageTitle?: SortOrder
-    subtitle?: SortOrder
+    title?: SortOrder
     description?: SortOrder
-    iconUrl?: SortOrder
-    bannerUrl?: SortOrder
-    seoTitle?: SortOrder
-    seoDescription?: SortOrder
-    seoKeywords?: SortOrder
-    ogImage?: SortOrder
-    headerLinks?: SortOrder
-    footerLinks?: SortOrder
-    footerInfo?: SortOrder
-    legalStepsCount?: SortOrder
-    pageType?: SortOrder
-    externalLinks?: SortOrder
-    newsParams?: SortOrder
-    selectedNews?: SortOrder
-    infoSections?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
+    order?: SortOrder
+    configId?: SortOrder
   }
 
-  export type UnitConfigAvgOrderByAggregateInput = {
-    legalStepsCount?: SortOrder
+  export type LegalStepAvgOrderByAggregateInput = {
+    order?: SortOrder
   }
 
-  export type UnitConfigMaxOrderByAggregateInput = {
+  export type LegalStepMaxOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
-    pageTitle?: SortOrder
-    subtitle?: SortOrder
+    title?: SortOrder
     description?: SortOrder
-    iconUrl?: SortOrder
-    bannerUrl?: SortOrder
-    seoTitle?: SortOrder
-    seoDescription?: SortOrder
-    seoKeywords?: SortOrder
-    ogImage?: SortOrder
-    footerInfo?: SortOrder
-    legalStepsCount?: SortOrder
-    pageType?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
+    order?: SortOrder
+    configId?: SortOrder
   }
 
-  export type UnitConfigMinOrderByAggregateInput = {
+  export type LegalStepMinOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
-    pageTitle?: SortOrder
-    subtitle?: SortOrder
+    title?: SortOrder
     description?: SortOrder
-    iconUrl?: SortOrder
-    bannerUrl?: SortOrder
-    seoTitle?: SortOrder
-    seoDescription?: SortOrder
-    seoKeywords?: SortOrder
-    ogImage?: SortOrder
-    footerInfo?: SortOrder
-    legalStepsCount?: SortOrder
-    pageType?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
+    order?: SortOrder
+    configId?: SortOrder
   }
 
-  export type UnitConfigSumOrderByAggregateInput = {
-    legalStepsCount?: SortOrder
-  }
-  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedJsonNullableFilter<$PrismaModel>
-    _max?: NestedJsonNullableFilter<$PrismaModel>
+  export type LegalStepSumOrderByAggregateInput = {
+    order?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -23098,32 +25362,45 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type EnumSectionTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.SectionType | EnumSectionTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.SectionType[] | ListEnumSectionTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.SectionType[] | ListEnumSectionTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumSectionTypeFilter<$PrismaModel> | $Enums.SectionType
+  export type FooterLinkCountOrderByAggregateInput = {
+    id?: SortOrder
+    label?: SortOrder
+    url?: SortOrder
+    order?: SortOrder
+    configId?: SortOrder
   }
 
-  export type UnitConfigScalarRelationFilter = {
-    is?: UnitConfigWhereInput
-    isNot?: UnitConfigWhereInput
+  export type FooterLinkAvgOrderByAggregateInput = {
+    order?: SortOrder
   }
 
-  export type ImageNullableScalarRelationFilter = {
-    is?: ImageWhereInput | null
-    isNot?: ImageWhereInput | null
+  export type FooterLinkMaxOrderByAggregateInput = {
+    id?: SortOrder
+    label?: SortOrder
+    url?: SortOrder
+    order?: SortOrder
+    configId?: SortOrder
+  }
+
+  export type FooterLinkMinOrderByAggregateInput = {
+    id?: SortOrder
+    label?: SortOrder
+    url?: SortOrder
+    order?: SortOrder
+    configId?: SortOrder
+  }
+
+  export type FooterLinkSumOrderByAggregateInput = {
+    order?: SortOrder
   }
 
   export type SectionCountOrderByAggregateInput = {
     id?: SortOrder
-    configId?: SortOrder
-    type?: SortOrder
     title?: SortOrder
-    content?: SortOrder
+    body?: SortOrder
+    imageUrl?: SortOrder
     order?: SortOrder
-    sectionKey?: SortOrder
-    mainImageId?: SortOrder
+    configId?: SortOrder
   }
 
   export type SectionAvgOrderByAggregateInput = {
@@ -23132,38 +25409,24 @@ export namespace Prisma {
 
   export type SectionMaxOrderByAggregateInput = {
     id?: SortOrder
-    configId?: SortOrder
-    type?: SortOrder
     title?: SortOrder
-    content?: SortOrder
+    body?: SortOrder
+    imageUrl?: SortOrder
     order?: SortOrder
-    sectionKey?: SortOrder
-    mainImageId?: SortOrder
+    configId?: SortOrder
   }
 
   export type SectionMinOrderByAggregateInput = {
     id?: SortOrder
-    configId?: SortOrder
-    type?: SortOrder
     title?: SortOrder
-    content?: SortOrder
+    body?: SortOrder
+    imageUrl?: SortOrder
     order?: SortOrder
-    sectionKey?: SortOrder
-    mainImageId?: SortOrder
+    configId?: SortOrder
   }
 
   export type SectionSumOrderByAggregateInput = {
     order?: SortOrder
-  }
-
-  export type EnumSectionTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.SectionType | EnumSectionTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.SectionType[] | ListEnumSectionTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.SectionType[] | ListEnumSectionTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumSectionTypeWithAggregatesFilter<$PrismaModel> | $Enums.SectionType
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumSectionTypeFilter<$PrismaModel>
-    _max?: NestedEnumSectionTypeFilter<$PrismaModel>
   }
 
   export type IntNullableFilter<$PrismaModel = never> = {
@@ -23236,35 +25499,42 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
-  export type UnitConfigListRelationFilter = {
-    every?: UnitConfigWhereInput
-    some?: UnitConfigWhereInput
-    none?: UnitConfigWhereInput
-  }
-
-  export type UnitConfigOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type ArticleCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
     content?: SortOrder
+    url?: SortOrder
     publishedAt?: SortOrder
+    order?: SortOrder
+    configId?: SortOrder
+  }
+
+  export type ArticleAvgOrderByAggregateInput = {
+    order?: SortOrder
   }
 
   export type ArticleMaxOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
     content?: SortOrder
+    url?: SortOrder
     publishedAt?: SortOrder
+    order?: SortOrder
+    configId?: SortOrder
   }
 
   export type ArticleMinOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
     content?: SortOrder
+    url?: SortOrder
     publishedAt?: SortOrder
+    order?: SortOrder
+    configId?: SortOrder
+  }
+
+  export type ArticleSumOrderByAggregateInput = {
+    order?: SortOrder
   }
 
   export type ConstellationScalarRelationFilter = {
@@ -23325,6 +25595,29 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type ServerLogCountOrderByAggregateInput = {
     id?: SortOrder
@@ -23349,6 +25642,32 @@ export namespace Prisma {
     type?: SortOrder
     message?: SortOrder
     timestamp?: SortOrder
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
   export type ClientCreateNestedManyWithoutUserInput = {
@@ -24081,17 +26400,25 @@ export namespace Prisma {
     deleteMany?: UnitServerScalarWhereInput | UnitServerScalarWhereInput[]
   }
 
+  export type LegalStepCreateNestedManyWithoutConfigInput = {
+    create?: XOR<LegalStepCreateWithoutConfigInput, LegalStepUncheckedCreateWithoutConfigInput> | LegalStepCreateWithoutConfigInput[] | LegalStepUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: LegalStepCreateOrConnectWithoutConfigInput | LegalStepCreateOrConnectWithoutConfigInput[]
+    createMany?: LegalStepCreateManyConfigInputEnvelope
+    connect?: LegalStepWhereUniqueInput | LegalStepWhereUniqueInput[]
+  }
+
+  export type ArticleCreateNestedManyWithoutConfigInput = {
+    create?: XOR<ArticleCreateWithoutConfigInput, ArticleUncheckedCreateWithoutConfigInput> | ArticleCreateWithoutConfigInput[] | ArticleUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: ArticleCreateOrConnectWithoutConfigInput | ArticleCreateOrConnectWithoutConfigInput[]
+    createMany?: ArticleCreateManyConfigInputEnvelope
+    connect?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
+  }
+
   export type SectionCreateNestedManyWithoutConfigInput = {
     create?: XOR<SectionCreateWithoutConfigInput, SectionUncheckedCreateWithoutConfigInput> | SectionCreateWithoutConfigInput[] | SectionUncheckedCreateWithoutConfigInput[]
     connectOrCreate?: SectionCreateOrConnectWithoutConfigInput | SectionCreateOrConnectWithoutConfigInput[]
     createMany?: SectionCreateManyConfigInputEnvelope
     connect?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
-  }
-
-  export type ArticleCreateNestedManyWithoutConfigsInput = {
-    create?: XOR<ArticleCreateWithoutConfigsInput, ArticleUncheckedCreateWithoutConfigsInput> | ArticleCreateWithoutConfigsInput[] | ArticleUncheckedCreateWithoutConfigsInput[]
-    connectOrCreate?: ArticleCreateOrConnectWithoutConfigsInput | ArticleCreateOrConnectWithoutConfigsInput[]
-    connect?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
   }
 
   export type ImageCreateNestedManyWithoutConfigInput = {
@@ -24101,11 +26428,32 @@ export namespace Prisma {
     connect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
   }
 
+  export type FooterLinkCreateNestedManyWithoutConfigInput = {
+    create?: XOR<FooterLinkCreateWithoutConfigInput, FooterLinkUncheckedCreateWithoutConfigInput> | FooterLinkCreateWithoutConfigInput[] | FooterLinkUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: FooterLinkCreateOrConnectWithoutConfigInput | FooterLinkCreateOrConnectWithoutConfigInput[]
+    createMany?: FooterLinkCreateManyConfigInputEnvelope
+    connect?: FooterLinkWhereUniqueInput | FooterLinkWhereUniqueInput[]
+  }
+
   export type UnitServerCreateNestedManyWithoutConfigInput = {
     create?: XOR<UnitServerCreateWithoutConfigInput, UnitServerUncheckedCreateWithoutConfigInput> | UnitServerCreateWithoutConfigInput[] | UnitServerUncheckedCreateWithoutConfigInput[]
     connectOrCreate?: UnitServerCreateOrConnectWithoutConfigInput | UnitServerCreateOrConnectWithoutConfigInput[]
     createMany?: UnitServerCreateManyConfigInputEnvelope
     connect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
+  }
+
+  export type LegalStepUncheckedCreateNestedManyWithoutConfigInput = {
+    create?: XOR<LegalStepCreateWithoutConfigInput, LegalStepUncheckedCreateWithoutConfigInput> | LegalStepCreateWithoutConfigInput[] | LegalStepUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: LegalStepCreateOrConnectWithoutConfigInput | LegalStepCreateOrConnectWithoutConfigInput[]
+    createMany?: LegalStepCreateManyConfigInputEnvelope
+    connect?: LegalStepWhereUniqueInput | LegalStepWhereUniqueInput[]
+  }
+
+  export type ArticleUncheckedCreateNestedManyWithoutConfigInput = {
+    create?: XOR<ArticleCreateWithoutConfigInput, ArticleUncheckedCreateWithoutConfigInput> | ArticleCreateWithoutConfigInput[] | ArticleUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: ArticleCreateOrConnectWithoutConfigInput | ArticleCreateOrConnectWithoutConfigInput[]
+    createMany?: ArticleCreateManyConfigInputEnvelope
+    connect?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
   }
 
   export type SectionUncheckedCreateNestedManyWithoutConfigInput = {
@@ -24115,17 +26463,18 @@ export namespace Prisma {
     connect?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
   }
 
-  export type ArticleUncheckedCreateNestedManyWithoutConfigsInput = {
-    create?: XOR<ArticleCreateWithoutConfigsInput, ArticleUncheckedCreateWithoutConfigsInput> | ArticleCreateWithoutConfigsInput[] | ArticleUncheckedCreateWithoutConfigsInput[]
-    connectOrCreate?: ArticleCreateOrConnectWithoutConfigsInput | ArticleCreateOrConnectWithoutConfigsInput[]
-    connect?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
-  }
-
   export type ImageUncheckedCreateNestedManyWithoutConfigInput = {
     create?: XOR<ImageCreateWithoutConfigInput, ImageUncheckedCreateWithoutConfigInput> | ImageCreateWithoutConfigInput[] | ImageUncheckedCreateWithoutConfigInput[]
     connectOrCreate?: ImageCreateOrConnectWithoutConfigInput | ImageCreateOrConnectWithoutConfigInput[]
     createMany?: ImageCreateManyConfigInputEnvelope
     connect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+  }
+
+  export type FooterLinkUncheckedCreateNestedManyWithoutConfigInput = {
+    create?: XOR<FooterLinkCreateWithoutConfigInput, FooterLinkUncheckedCreateWithoutConfigInput> | FooterLinkCreateWithoutConfigInput[] | FooterLinkUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: FooterLinkCreateOrConnectWithoutConfigInput | FooterLinkCreateOrConnectWithoutConfigInput[]
+    createMany?: FooterLinkCreateManyConfigInputEnvelope
+    connect?: FooterLinkWhereUniqueInput | FooterLinkWhereUniqueInput[]
   }
 
   export type UnitServerUncheckedCreateNestedManyWithoutConfigInput = {
@@ -24135,12 +26484,32 @@ export namespace Prisma {
     connect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
   }
 
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
+  export type LegalStepUpdateManyWithoutConfigNestedInput = {
+    create?: XOR<LegalStepCreateWithoutConfigInput, LegalStepUncheckedCreateWithoutConfigInput> | LegalStepCreateWithoutConfigInput[] | LegalStepUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: LegalStepCreateOrConnectWithoutConfigInput | LegalStepCreateOrConnectWithoutConfigInput[]
+    upsert?: LegalStepUpsertWithWhereUniqueWithoutConfigInput | LegalStepUpsertWithWhereUniqueWithoutConfigInput[]
+    createMany?: LegalStepCreateManyConfigInputEnvelope
+    set?: LegalStepWhereUniqueInput | LegalStepWhereUniqueInput[]
+    disconnect?: LegalStepWhereUniqueInput | LegalStepWhereUniqueInput[]
+    delete?: LegalStepWhereUniqueInput | LegalStepWhereUniqueInput[]
+    connect?: LegalStepWhereUniqueInput | LegalStepWhereUniqueInput[]
+    update?: LegalStepUpdateWithWhereUniqueWithoutConfigInput | LegalStepUpdateWithWhereUniqueWithoutConfigInput[]
+    updateMany?: LegalStepUpdateManyWithWhereWithoutConfigInput | LegalStepUpdateManyWithWhereWithoutConfigInput[]
+    deleteMany?: LegalStepScalarWhereInput | LegalStepScalarWhereInput[]
+  }
+
+  export type ArticleUpdateManyWithoutConfigNestedInput = {
+    create?: XOR<ArticleCreateWithoutConfigInput, ArticleUncheckedCreateWithoutConfigInput> | ArticleCreateWithoutConfigInput[] | ArticleUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: ArticleCreateOrConnectWithoutConfigInput | ArticleCreateOrConnectWithoutConfigInput[]
+    upsert?: ArticleUpsertWithWhereUniqueWithoutConfigInput | ArticleUpsertWithWhereUniqueWithoutConfigInput[]
+    createMany?: ArticleCreateManyConfigInputEnvelope
+    set?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
+    disconnect?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
+    delete?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
+    connect?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
+    update?: ArticleUpdateWithWhereUniqueWithoutConfigInput | ArticleUpdateWithWhereUniqueWithoutConfigInput[]
+    updateMany?: ArticleUpdateManyWithWhereWithoutConfigInput | ArticleUpdateManyWithWhereWithoutConfigInput[]
+    deleteMany?: ArticleScalarWhereInput | ArticleScalarWhereInput[]
   }
 
   export type SectionUpdateManyWithoutConfigNestedInput = {
@@ -24157,19 +26526,6 @@ export namespace Prisma {
     deleteMany?: SectionScalarWhereInput | SectionScalarWhereInput[]
   }
 
-  export type ArticleUpdateManyWithoutConfigsNestedInput = {
-    create?: XOR<ArticleCreateWithoutConfigsInput, ArticleUncheckedCreateWithoutConfigsInput> | ArticleCreateWithoutConfigsInput[] | ArticleUncheckedCreateWithoutConfigsInput[]
-    connectOrCreate?: ArticleCreateOrConnectWithoutConfigsInput | ArticleCreateOrConnectWithoutConfigsInput[]
-    upsert?: ArticleUpsertWithWhereUniqueWithoutConfigsInput | ArticleUpsertWithWhereUniqueWithoutConfigsInput[]
-    set?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
-    disconnect?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
-    delete?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
-    connect?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
-    update?: ArticleUpdateWithWhereUniqueWithoutConfigsInput | ArticleUpdateWithWhereUniqueWithoutConfigsInput[]
-    updateMany?: ArticleUpdateManyWithWhereWithoutConfigsInput | ArticleUpdateManyWithWhereWithoutConfigsInput[]
-    deleteMany?: ArticleScalarWhereInput | ArticleScalarWhereInput[]
-  }
-
   export type ImageUpdateManyWithoutConfigNestedInput = {
     create?: XOR<ImageCreateWithoutConfigInput, ImageUncheckedCreateWithoutConfigInput> | ImageCreateWithoutConfigInput[] | ImageUncheckedCreateWithoutConfigInput[]
     connectOrCreate?: ImageCreateOrConnectWithoutConfigInput | ImageCreateOrConnectWithoutConfigInput[]
@@ -24182,6 +26538,20 @@ export namespace Prisma {
     update?: ImageUpdateWithWhereUniqueWithoutConfigInput | ImageUpdateWithWhereUniqueWithoutConfigInput[]
     updateMany?: ImageUpdateManyWithWhereWithoutConfigInput | ImageUpdateManyWithWhereWithoutConfigInput[]
     deleteMany?: ImageScalarWhereInput | ImageScalarWhereInput[]
+  }
+
+  export type FooterLinkUpdateManyWithoutConfigNestedInput = {
+    create?: XOR<FooterLinkCreateWithoutConfigInput, FooterLinkUncheckedCreateWithoutConfigInput> | FooterLinkCreateWithoutConfigInput[] | FooterLinkUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: FooterLinkCreateOrConnectWithoutConfigInput | FooterLinkCreateOrConnectWithoutConfigInput[]
+    upsert?: FooterLinkUpsertWithWhereUniqueWithoutConfigInput | FooterLinkUpsertWithWhereUniqueWithoutConfigInput[]
+    createMany?: FooterLinkCreateManyConfigInputEnvelope
+    set?: FooterLinkWhereUniqueInput | FooterLinkWhereUniqueInput[]
+    disconnect?: FooterLinkWhereUniqueInput | FooterLinkWhereUniqueInput[]
+    delete?: FooterLinkWhereUniqueInput | FooterLinkWhereUniqueInput[]
+    connect?: FooterLinkWhereUniqueInput | FooterLinkWhereUniqueInput[]
+    update?: FooterLinkUpdateWithWhereUniqueWithoutConfigInput | FooterLinkUpdateWithWhereUniqueWithoutConfigInput[]
+    updateMany?: FooterLinkUpdateManyWithWhereWithoutConfigInput | FooterLinkUpdateManyWithWhereWithoutConfigInput[]
+    deleteMany?: FooterLinkScalarWhereInput | FooterLinkScalarWhereInput[]
   }
 
   export type UnitServerUpdateManyWithoutConfigNestedInput = {
@@ -24198,6 +26568,34 @@ export namespace Prisma {
     deleteMany?: UnitServerScalarWhereInput | UnitServerScalarWhereInput[]
   }
 
+  export type LegalStepUncheckedUpdateManyWithoutConfigNestedInput = {
+    create?: XOR<LegalStepCreateWithoutConfigInput, LegalStepUncheckedCreateWithoutConfigInput> | LegalStepCreateWithoutConfigInput[] | LegalStepUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: LegalStepCreateOrConnectWithoutConfigInput | LegalStepCreateOrConnectWithoutConfigInput[]
+    upsert?: LegalStepUpsertWithWhereUniqueWithoutConfigInput | LegalStepUpsertWithWhereUniqueWithoutConfigInput[]
+    createMany?: LegalStepCreateManyConfigInputEnvelope
+    set?: LegalStepWhereUniqueInput | LegalStepWhereUniqueInput[]
+    disconnect?: LegalStepWhereUniqueInput | LegalStepWhereUniqueInput[]
+    delete?: LegalStepWhereUniqueInput | LegalStepWhereUniqueInput[]
+    connect?: LegalStepWhereUniqueInput | LegalStepWhereUniqueInput[]
+    update?: LegalStepUpdateWithWhereUniqueWithoutConfigInput | LegalStepUpdateWithWhereUniqueWithoutConfigInput[]
+    updateMany?: LegalStepUpdateManyWithWhereWithoutConfigInput | LegalStepUpdateManyWithWhereWithoutConfigInput[]
+    deleteMany?: LegalStepScalarWhereInput | LegalStepScalarWhereInput[]
+  }
+
+  export type ArticleUncheckedUpdateManyWithoutConfigNestedInput = {
+    create?: XOR<ArticleCreateWithoutConfigInput, ArticleUncheckedCreateWithoutConfigInput> | ArticleCreateWithoutConfigInput[] | ArticleUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: ArticleCreateOrConnectWithoutConfigInput | ArticleCreateOrConnectWithoutConfigInput[]
+    upsert?: ArticleUpsertWithWhereUniqueWithoutConfigInput | ArticleUpsertWithWhereUniqueWithoutConfigInput[]
+    createMany?: ArticleCreateManyConfigInputEnvelope
+    set?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
+    disconnect?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
+    delete?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
+    connect?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
+    update?: ArticleUpdateWithWhereUniqueWithoutConfigInput | ArticleUpdateWithWhereUniqueWithoutConfigInput[]
+    updateMany?: ArticleUpdateManyWithWhereWithoutConfigInput | ArticleUpdateManyWithWhereWithoutConfigInput[]
+    deleteMany?: ArticleScalarWhereInput | ArticleScalarWhereInput[]
+  }
+
   export type SectionUncheckedUpdateManyWithoutConfigNestedInput = {
     create?: XOR<SectionCreateWithoutConfigInput, SectionUncheckedCreateWithoutConfigInput> | SectionCreateWithoutConfigInput[] | SectionUncheckedCreateWithoutConfigInput[]
     connectOrCreate?: SectionCreateOrConnectWithoutConfigInput | SectionCreateOrConnectWithoutConfigInput[]
@@ -24210,19 +26608,6 @@ export namespace Prisma {
     update?: SectionUpdateWithWhereUniqueWithoutConfigInput | SectionUpdateWithWhereUniqueWithoutConfigInput[]
     updateMany?: SectionUpdateManyWithWhereWithoutConfigInput | SectionUpdateManyWithWhereWithoutConfigInput[]
     deleteMany?: SectionScalarWhereInput | SectionScalarWhereInput[]
-  }
-
-  export type ArticleUncheckedUpdateManyWithoutConfigsNestedInput = {
-    create?: XOR<ArticleCreateWithoutConfigsInput, ArticleUncheckedCreateWithoutConfigsInput> | ArticleCreateWithoutConfigsInput[] | ArticleUncheckedCreateWithoutConfigsInput[]
-    connectOrCreate?: ArticleCreateOrConnectWithoutConfigsInput | ArticleCreateOrConnectWithoutConfigsInput[]
-    upsert?: ArticleUpsertWithWhereUniqueWithoutConfigsInput | ArticleUpsertWithWhereUniqueWithoutConfigsInput[]
-    set?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
-    disconnect?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
-    delete?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
-    connect?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
-    update?: ArticleUpdateWithWhereUniqueWithoutConfigsInput | ArticleUpdateWithWhereUniqueWithoutConfigsInput[]
-    updateMany?: ArticleUpdateManyWithWhereWithoutConfigsInput | ArticleUpdateManyWithWhereWithoutConfigsInput[]
-    deleteMany?: ArticleScalarWhereInput | ArticleScalarWhereInput[]
   }
 
   export type ImageUncheckedUpdateManyWithoutConfigNestedInput = {
@@ -24239,6 +26624,20 @@ export namespace Prisma {
     deleteMany?: ImageScalarWhereInput | ImageScalarWhereInput[]
   }
 
+  export type FooterLinkUncheckedUpdateManyWithoutConfigNestedInput = {
+    create?: XOR<FooterLinkCreateWithoutConfigInput, FooterLinkUncheckedCreateWithoutConfigInput> | FooterLinkCreateWithoutConfigInput[] | FooterLinkUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: FooterLinkCreateOrConnectWithoutConfigInput | FooterLinkCreateOrConnectWithoutConfigInput[]
+    upsert?: FooterLinkUpsertWithWhereUniqueWithoutConfigInput | FooterLinkUpsertWithWhereUniqueWithoutConfigInput[]
+    createMany?: FooterLinkCreateManyConfigInputEnvelope
+    set?: FooterLinkWhereUniqueInput | FooterLinkWhereUniqueInput[]
+    disconnect?: FooterLinkWhereUniqueInput | FooterLinkWhereUniqueInput[]
+    delete?: FooterLinkWhereUniqueInput | FooterLinkWhereUniqueInput[]
+    connect?: FooterLinkWhereUniqueInput | FooterLinkWhereUniqueInput[]
+    update?: FooterLinkUpdateWithWhereUniqueWithoutConfigInput | FooterLinkUpdateWithWhereUniqueWithoutConfigInput[]
+    updateMany?: FooterLinkUpdateManyWithWhereWithoutConfigInput | FooterLinkUpdateManyWithWhereWithoutConfigInput[]
+    deleteMany?: FooterLinkScalarWhereInput | FooterLinkScalarWhereInput[]
+  }
+
   export type UnitServerUncheckedUpdateManyWithoutConfigNestedInput = {
     create?: XOR<UnitServerCreateWithoutConfigInput, UnitServerUncheckedCreateWithoutConfigInput> | UnitServerCreateWithoutConfigInput[] | UnitServerUncheckedCreateWithoutConfigInput[]
     connectOrCreate?: UnitServerCreateOrConnectWithoutConfigInput | UnitServerCreateOrConnectWithoutConfigInput[]
@@ -24253,16 +26652,46 @@ export namespace Prisma {
     deleteMany?: UnitServerScalarWhereInput | UnitServerScalarWhereInput[]
   }
 
+  export type UnitConfigCreateNestedOneWithoutLegalStepsInput = {
+    create?: XOR<UnitConfigCreateWithoutLegalStepsInput, UnitConfigUncheckedCreateWithoutLegalStepsInput>
+    connectOrCreate?: UnitConfigCreateOrConnectWithoutLegalStepsInput
+    connect?: UnitConfigWhereUniqueInput
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type UnitConfigUpdateOneRequiredWithoutLegalStepsNestedInput = {
+    create?: XOR<UnitConfigCreateWithoutLegalStepsInput, UnitConfigUncheckedCreateWithoutLegalStepsInput>
+    connectOrCreate?: UnitConfigCreateOrConnectWithoutLegalStepsInput
+    upsert?: UnitConfigUpsertWithoutLegalStepsInput
+    connect?: UnitConfigWhereUniqueInput
+    update?: XOR<XOR<UnitConfigUpdateToOneWithWhereWithoutLegalStepsInput, UnitConfigUpdateWithoutLegalStepsInput>, UnitConfigUncheckedUpdateWithoutLegalStepsInput>
+  }
+
+  export type UnitConfigCreateNestedOneWithoutFooterLinksInput = {
+    create?: XOR<UnitConfigCreateWithoutFooterLinksInput, UnitConfigUncheckedCreateWithoutFooterLinksInput>
+    connectOrCreate?: UnitConfigCreateOrConnectWithoutFooterLinksInput
+    connect?: UnitConfigWhereUniqueInput
+  }
+
+  export type UnitConfigUpdateOneRequiredWithoutFooterLinksNestedInput = {
+    create?: XOR<UnitConfigCreateWithoutFooterLinksInput, UnitConfigUncheckedCreateWithoutFooterLinksInput>
+    connectOrCreate?: UnitConfigCreateOrConnectWithoutFooterLinksInput
+    upsert?: UnitConfigUpsertWithoutFooterLinksInput
+    connect?: UnitConfigWhereUniqueInput
+    update?: XOR<XOR<UnitConfigUpdateToOneWithWhereWithoutFooterLinksInput, UnitConfigUpdateWithoutFooterLinksInput>, UnitConfigUncheckedUpdateWithoutFooterLinksInput>
+  }
+
   export type UnitConfigCreateNestedOneWithoutSectionsInput = {
     create?: XOR<UnitConfigCreateWithoutSectionsInput, UnitConfigUncheckedCreateWithoutSectionsInput>
     connectOrCreate?: UnitConfigCreateOrConnectWithoutSectionsInput
     connect?: UnitConfigWhereUniqueInput
-  }
-
-  export type ImageCreateNestedOneWithoutMainImageOfSectionInput = {
-    create?: XOR<ImageCreateWithoutMainImageOfSectionInput, ImageUncheckedCreateWithoutMainImageOfSectionInput>
-    connectOrCreate?: ImageCreateOrConnectWithoutMainImageOfSectionInput
-    connect?: ImageWhereUniqueInput
   }
 
   export type ImageCreateNestedManyWithoutSectionInput = {
@@ -24279,26 +26708,12 @@ export namespace Prisma {
     connect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
   }
 
-  export type EnumSectionTypeFieldUpdateOperationsInput = {
-    set?: $Enums.SectionType
-  }
-
   export type UnitConfigUpdateOneRequiredWithoutSectionsNestedInput = {
     create?: XOR<UnitConfigCreateWithoutSectionsInput, UnitConfigUncheckedCreateWithoutSectionsInput>
     connectOrCreate?: UnitConfigCreateOrConnectWithoutSectionsInput
     upsert?: UnitConfigUpsertWithoutSectionsInput
     connect?: UnitConfigWhereUniqueInput
     update?: XOR<XOR<UnitConfigUpdateToOneWithWhereWithoutSectionsInput, UnitConfigUpdateWithoutSectionsInput>, UnitConfigUncheckedUpdateWithoutSectionsInput>
-  }
-
-  export type ImageUpdateOneWithoutMainImageOfSectionNestedInput = {
-    create?: XOR<ImageCreateWithoutMainImageOfSectionInput, ImageUncheckedCreateWithoutMainImageOfSectionInput>
-    connectOrCreate?: ImageCreateOrConnectWithoutMainImageOfSectionInput
-    upsert?: ImageUpsertWithoutMainImageOfSectionInput
-    disconnect?: ImageWhereInput | boolean
-    delete?: ImageWhereInput | boolean
-    connect?: ImageWhereUniqueInput
-    update?: XOR<XOR<ImageUpdateToOneWithWhereWithoutMainImageOfSectionInput, ImageUpdateWithoutMainImageOfSectionInput>, ImageUncheckedUpdateWithoutMainImageOfSectionInput>
   }
 
   export type ImageUpdateManyWithoutSectionNestedInput = {
@@ -24341,18 +26756,6 @@ export namespace Prisma {
     connect?: SectionWhereUniqueInput
   }
 
-  export type SectionCreateNestedOneWithoutMainImageInput = {
-    create?: XOR<SectionCreateWithoutMainImageInput, SectionUncheckedCreateWithoutMainImageInput>
-    connectOrCreate?: SectionCreateOrConnectWithoutMainImageInput
-    connect?: SectionWhereUniqueInput
-  }
-
-  export type SectionUncheckedCreateNestedOneWithoutMainImageInput = {
-    create?: XOR<SectionCreateWithoutMainImageInput, SectionUncheckedCreateWithoutMainImageInput>
-    connectOrCreate?: SectionCreateOrConnectWithoutMainImageInput
-    connect?: SectionWhereUniqueInput
-  }
-
   export type NullableIntFieldUpdateOperationsInput = {
     set?: number | null
     increment?: number
@@ -24379,62 +26782,18 @@ export namespace Prisma {
     update?: XOR<XOR<SectionUpdateToOneWithWhereWithoutImagesInput, SectionUpdateWithoutImagesInput>, SectionUncheckedUpdateWithoutImagesInput>
   }
 
-  export type SectionUpdateOneWithoutMainImageNestedInput = {
-    create?: XOR<SectionCreateWithoutMainImageInput, SectionUncheckedCreateWithoutMainImageInput>
-    connectOrCreate?: SectionCreateOrConnectWithoutMainImageInput
-    upsert?: SectionUpsertWithoutMainImageInput
-    disconnect?: SectionWhereInput | boolean
-    delete?: SectionWhereInput | boolean
-    connect?: SectionWhereUniqueInput
-    update?: XOR<XOR<SectionUpdateToOneWithWhereWithoutMainImageInput, SectionUpdateWithoutMainImageInput>, SectionUncheckedUpdateWithoutMainImageInput>
+  export type UnitConfigCreateNestedOneWithoutArticlesInput = {
+    create?: XOR<UnitConfigCreateWithoutArticlesInput, UnitConfigUncheckedCreateWithoutArticlesInput>
+    connectOrCreate?: UnitConfigCreateOrConnectWithoutArticlesInput
+    connect?: UnitConfigWhereUniqueInput
   }
 
-  export type SectionUncheckedUpdateOneWithoutMainImageNestedInput = {
-    create?: XOR<SectionCreateWithoutMainImageInput, SectionUncheckedCreateWithoutMainImageInput>
-    connectOrCreate?: SectionCreateOrConnectWithoutMainImageInput
-    upsert?: SectionUpsertWithoutMainImageInput
-    disconnect?: SectionWhereInput | boolean
-    delete?: SectionWhereInput | boolean
-    connect?: SectionWhereUniqueInput
-    update?: XOR<XOR<SectionUpdateToOneWithWhereWithoutMainImageInput, SectionUpdateWithoutMainImageInput>, SectionUncheckedUpdateWithoutMainImageInput>
-  }
-
-  export type UnitConfigCreateNestedManyWithoutArticlesInput = {
-    create?: XOR<UnitConfigCreateWithoutArticlesInput, UnitConfigUncheckedCreateWithoutArticlesInput> | UnitConfigCreateWithoutArticlesInput[] | UnitConfigUncheckedCreateWithoutArticlesInput[]
-    connectOrCreate?: UnitConfigCreateOrConnectWithoutArticlesInput | UnitConfigCreateOrConnectWithoutArticlesInput[]
-    connect?: UnitConfigWhereUniqueInput | UnitConfigWhereUniqueInput[]
-  }
-
-  export type UnitConfigUncheckedCreateNestedManyWithoutArticlesInput = {
-    create?: XOR<UnitConfigCreateWithoutArticlesInput, UnitConfigUncheckedCreateWithoutArticlesInput> | UnitConfigCreateWithoutArticlesInput[] | UnitConfigUncheckedCreateWithoutArticlesInput[]
-    connectOrCreate?: UnitConfigCreateOrConnectWithoutArticlesInput | UnitConfigCreateOrConnectWithoutArticlesInput[]
-    connect?: UnitConfigWhereUniqueInput | UnitConfigWhereUniqueInput[]
-  }
-
-  export type UnitConfigUpdateManyWithoutArticlesNestedInput = {
-    create?: XOR<UnitConfigCreateWithoutArticlesInput, UnitConfigUncheckedCreateWithoutArticlesInput> | UnitConfigCreateWithoutArticlesInput[] | UnitConfigUncheckedCreateWithoutArticlesInput[]
-    connectOrCreate?: UnitConfigCreateOrConnectWithoutArticlesInput | UnitConfigCreateOrConnectWithoutArticlesInput[]
-    upsert?: UnitConfigUpsertWithWhereUniqueWithoutArticlesInput | UnitConfigUpsertWithWhereUniqueWithoutArticlesInput[]
-    set?: UnitConfigWhereUniqueInput | UnitConfigWhereUniqueInput[]
-    disconnect?: UnitConfigWhereUniqueInput | UnitConfigWhereUniqueInput[]
-    delete?: UnitConfigWhereUniqueInput | UnitConfigWhereUniqueInput[]
-    connect?: UnitConfigWhereUniqueInput | UnitConfigWhereUniqueInput[]
-    update?: UnitConfigUpdateWithWhereUniqueWithoutArticlesInput | UnitConfigUpdateWithWhereUniqueWithoutArticlesInput[]
-    updateMany?: UnitConfigUpdateManyWithWhereWithoutArticlesInput | UnitConfigUpdateManyWithWhereWithoutArticlesInput[]
-    deleteMany?: UnitConfigScalarWhereInput | UnitConfigScalarWhereInput[]
-  }
-
-  export type UnitConfigUncheckedUpdateManyWithoutArticlesNestedInput = {
-    create?: XOR<UnitConfigCreateWithoutArticlesInput, UnitConfigUncheckedCreateWithoutArticlesInput> | UnitConfigCreateWithoutArticlesInput[] | UnitConfigUncheckedCreateWithoutArticlesInput[]
-    connectOrCreate?: UnitConfigCreateOrConnectWithoutArticlesInput | UnitConfigCreateOrConnectWithoutArticlesInput[]
-    upsert?: UnitConfigUpsertWithWhereUniqueWithoutArticlesInput | UnitConfigUpsertWithWhereUniqueWithoutArticlesInput[]
-    set?: UnitConfigWhereUniqueInput | UnitConfigWhereUniqueInput[]
-    disconnect?: UnitConfigWhereUniqueInput | UnitConfigWhereUniqueInput[]
-    delete?: UnitConfigWhereUniqueInput | UnitConfigWhereUniqueInput[]
-    connect?: UnitConfigWhereUniqueInput | UnitConfigWhereUniqueInput[]
-    update?: UnitConfigUpdateWithWhereUniqueWithoutArticlesInput | UnitConfigUpdateWithWhereUniqueWithoutArticlesInput[]
-    updateMany?: UnitConfigUpdateManyWithWhereWithoutArticlesInput | UnitConfigUpdateManyWithWhereWithoutArticlesInput[]
-    deleteMany?: UnitConfigScalarWhereInput | UnitConfigScalarWhereInput[]
+  export type UnitConfigUpdateOneRequiredWithoutArticlesNestedInput = {
+    create?: XOR<UnitConfigCreateWithoutArticlesInput, UnitConfigUncheckedCreateWithoutArticlesInput>
+    connectOrCreate?: UnitConfigCreateOrConnectWithoutArticlesInput
+    upsert?: UnitConfigUpsertWithoutArticlesInput
+    connect?: UnitConfigWhereUniqueInput
+    update?: XOR<XOR<UnitConfigUpdateToOneWithWhereWithoutArticlesInput, UnitConfigUpdateWithoutArticlesInput>, UnitConfigUncheckedUpdateWithoutArticlesInput>
   }
 
   export type ConstellationCreateNestedOneWithoutServersInput = {
@@ -24863,29 +27222,6 @@ export namespace Prisma {
     _min?: NestedEnumSenderFilter<$PrismaModel>
     _max?: NestedEnumSenderFilter<$PrismaModel>
   }
-  export type NestedJsonNullableFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
-        Required<NestedJsonNullableFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
-
-  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-  }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
@@ -24914,23 +27250,6 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type NestedEnumSectionTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.SectionType | EnumSectionTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.SectionType[] | ListEnumSectionTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.SectionType[] | ListEnumSectionTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumSectionTypeFilter<$PrismaModel> | $Enums.SectionType
-  }
-
-  export type NestedEnumSectionTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.SectionType | EnumSectionTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.SectionType[] | ListEnumSectionTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.SectionType[] | ListEnumSectionTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumSectionTypeWithAggregatesFilter<$PrismaModel> | $Enums.SectionType
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumSectionTypeFilter<$PrismaModel>
-    _max?: NestedEnumSectionTypeFilter<$PrismaModel>
-  }
-
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -24956,6 +27275,29 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type ClientCreateWithoutUserInput = {
@@ -26458,25 +28800,73 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"UnitServer"> | Date | string
   }
 
-  export type SectionCreateWithoutConfigInput = {
+  export type LegalStepCreateWithoutConfigInput = {
     id?: string
-    type: $Enums.SectionType
+    title: string
+    description: string
+    order: number
+  }
+
+  export type LegalStepUncheckedCreateWithoutConfigInput = {
+    id?: string
+    title: string
+    description: string
+    order: number
+  }
+
+  export type LegalStepCreateOrConnectWithoutConfigInput = {
+    where: LegalStepWhereUniqueInput
+    create: XOR<LegalStepCreateWithoutConfigInput, LegalStepUncheckedCreateWithoutConfigInput>
+  }
+
+  export type LegalStepCreateManyConfigInputEnvelope = {
+    data: LegalStepCreateManyConfigInput | LegalStepCreateManyConfigInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ArticleCreateWithoutConfigInput = {
+    id?: string
     title: string
     content: string
+    url?: string | null
+    publishedAt?: Date | string
     order: number
-    sectionKey?: string | null
-    mainImage?: ImageCreateNestedOneWithoutMainImageOfSectionInput
+  }
+
+  export type ArticleUncheckedCreateWithoutConfigInput = {
+    id?: string
+    title: string
+    content: string
+    url?: string | null
+    publishedAt?: Date | string
+    order: number
+  }
+
+  export type ArticleCreateOrConnectWithoutConfigInput = {
+    where: ArticleWhereUniqueInput
+    create: XOR<ArticleCreateWithoutConfigInput, ArticleUncheckedCreateWithoutConfigInput>
+  }
+
+  export type ArticleCreateManyConfigInputEnvelope = {
+    data: ArticleCreateManyConfigInput | ArticleCreateManyConfigInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SectionCreateWithoutConfigInput = {
+    id?: string
+    title: string
+    body: string
+    imageUrl?: string | null
+    order: number
     images?: ImageCreateNestedManyWithoutSectionInput
   }
 
   export type SectionUncheckedCreateWithoutConfigInput = {
     id?: string
-    type: $Enums.SectionType
     title: string
-    content: string
+    body: string
+    imageUrl?: string | null
     order: number
-    sectionKey?: string | null
-    mainImageId?: string | null
     images?: ImageUncheckedCreateNestedManyWithoutSectionInput
   }
 
@@ -26490,25 +28880,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type ArticleCreateWithoutConfigsInput = {
-    id?: string
-    title: string
-    content: string
-    publishedAt?: Date | string
-  }
-
-  export type ArticleUncheckedCreateWithoutConfigsInput = {
-    id?: string
-    title: string
-    content: string
-    publishedAt?: Date | string
-  }
-
-  export type ArticleCreateOrConnectWithoutConfigsInput = {
-    where: ArticleWhereUniqueInput
-    create: XOR<ArticleCreateWithoutConfigsInput, ArticleUncheckedCreateWithoutConfigsInput>
-  }
-
   export type ImageCreateWithoutConfigInput = {
     id?: string
     url: string
@@ -26516,7 +28887,6 @@ export namespace Prisma {
     type: string
     order?: number | null
     section?: SectionCreateNestedOneWithoutImagesInput
-    mainImageOfSection?: SectionCreateNestedOneWithoutMainImageInput
   }
 
   export type ImageUncheckedCreateWithoutConfigInput = {
@@ -26526,7 +28896,6 @@ export namespace Prisma {
     type: string
     order?: number | null
     sectionId?: string | null
-    mainImageOfSection?: SectionUncheckedCreateNestedOneWithoutMainImageInput
   }
 
   export type ImageCreateOrConnectWithoutConfigInput = {
@@ -26536,6 +28905,30 @@ export namespace Prisma {
 
   export type ImageCreateManyConfigInputEnvelope = {
     data: ImageCreateManyConfigInput | ImageCreateManyConfigInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type FooterLinkCreateWithoutConfigInput = {
+    id?: string
+    label: string
+    url: string
+    order: number
+  }
+
+  export type FooterLinkUncheckedCreateWithoutConfigInput = {
+    id?: string
+    label: string
+    url: string
+    order: number
+  }
+
+  export type FooterLinkCreateOrConnectWithoutConfigInput = {
+    where: FooterLinkWhereUniqueInput
+    create: XOR<FooterLinkCreateWithoutConfigInput, FooterLinkUncheckedCreateWithoutConfigInput>
+  }
+
+  export type FooterLinkCreateManyConfigInputEnvelope = {
+    data: FooterLinkCreateManyConfigInput | FooterLinkCreateManyConfigInput[]
     skipDuplicates?: boolean
   }
 
@@ -26581,6 +28974,62 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type LegalStepUpsertWithWhereUniqueWithoutConfigInput = {
+    where: LegalStepWhereUniqueInput
+    update: XOR<LegalStepUpdateWithoutConfigInput, LegalStepUncheckedUpdateWithoutConfigInput>
+    create: XOR<LegalStepCreateWithoutConfigInput, LegalStepUncheckedCreateWithoutConfigInput>
+  }
+
+  export type LegalStepUpdateWithWhereUniqueWithoutConfigInput = {
+    where: LegalStepWhereUniqueInput
+    data: XOR<LegalStepUpdateWithoutConfigInput, LegalStepUncheckedUpdateWithoutConfigInput>
+  }
+
+  export type LegalStepUpdateManyWithWhereWithoutConfigInput = {
+    where: LegalStepScalarWhereInput
+    data: XOR<LegalStepUpdateManyMutationInput, LegalStepUncheckedUpdateManyWithoutConfigInput>
+  }
+
+  export type LegalStepScalarWhereInput = {
+    AND?: LegalStepScalarWhereInput | LegalStepScalarWhereInput[]
+    OR?: LegalStepScalarWhereInput[]
+    NOT?: LegalStepScalarWhereInput | LegalStepScalarWhereInput[]
+    id?: StringFilter<"LegalStep"> | string
+    title?: StringFilter<"LegalStep"> | string
+    description?: StringFilter<"LegalStep"> | string
+    order?: IntFilter<"LegalStep"> | number
+    configId?: StringFilter<"LegalStep"> | string
+  }
+
+  export type ArticleUpsertWithWhereUniqueWithoutConfigInput = {
+    where: ArticleWhereUniqueInput
+    update: XOR<ArticleUpdateWithoutConfigInput, ArticleUncheckedUpdateWithoutConfigInput>
+    create: XOR<ArticleCreateWithoutConfigInput, ArticleUncheckedCreateWithoutConfigInput>
+  }
+
+  export type ArticleUpdateWithWhereUniqueWithoutConfigInput = {
+    where: ArticleWhereUniqueInput
+    data: XOR<ArticleUpdateWithoutConfigInput, ArticleUncheckedUpdateWithoutConfigInput>
+  }
+
+  export type ArticleUpdateManyWithWhereWithoutConfigInput = {
+    where: ArticleScalarWhereInput
+    data: XOR<ArticleUpdateManyMutationInput, ArticleUncheckedUpdateManyWithoutConfigInput>
+  }
+
+  export type ArticleScalarWhereInput = {
+    AND?: ArticleScalarWhereInput | ArticleScalarWhereInput[]
+    OR?: ArticleScalarWhereInput[]
+    NOT?: ArticleScalarWhereInput | ArticleScalarWhereInput[]
+    id?: StringFilter<"Article"> | string
+    title?: StringFilter<"Article"> | string
+    content?: StringFilter<"Article"> | string
+    url?: StringNullableFilter<"Article"> | string | null
+    publishedAt?: DateTimeFilter<"Article"> | Date | string
+    order?: IntFilter<"Article"> | number
+    configId?: StringFilter<"Article"> | string
+  }
+
   export type SectionUpsertWithWhereUniqueWithoutConfigInput = {
     where: SectionWhereUniqueInput
     update: XOR<SectionUpdateWithoutConfigInput, SectionUncheckedUpdateWithoutConfigInput>
@@ -26602,39 +29051,11 @@ export namespace Prisma {
     OR?: SectionScalarWhereInput[]
     NOT?: SectionScalarWhereInput | SectionScalarWhereInput[]
     id?: StringFilter<"Section"> | string
-    configId?: StringFilter<"Section"> | string
-    type?: EnumSectionTypeFilter<"Section"> | $Enums.SectionType
     title?: StringFilter<"Section"> | string
-    content?: StringFilter<"Section"> | string
+    body?: StringFilter<"Section"> | string
+    imageUrl?: StringNullableFilter<"Section"> | string | null
     order?: IntFilter<"Section"> | number
-    sectionKey?: StringNullableFilter<"Section"> | string | null
-    mainImageId?: StringNullableFilter<"Section"> | string | null
-  }
-
-  export type ArticleUpsertWithWhereUniqueWithoutConfigsInput = {
-    where: ArticleWhereUniqueInput
-    update: XOR<ArticleUpdateWithoutConfigsInput, ArticleUncheckedUpdateWithoutConfigsInput>
-    create: XOR<ArticleCreateWithoutConfigsInput, ArticleUncheckedCreateWithoutConfigsInput>
-  }
-
-  export type ArticleUpdateWithWhereUniqueWithoutConfigsInput = {
-    where: ArticleWhereUniqueInput
-    data: XOR<ArticleUpdateWithoutConfigsInput, ArticleUncheckedUpdateWithoutConfigsInput>
-  }
-
-  export type ArticleUpdateManyWithWhereWithoutConfigsInput = {
-    where: ArticleScalarWhereInput
-    data: XOR<ArticleUpdateManyMutationInput, ArticleUncheckedUpdateManyWithoutConfigsInput>
-  }
-
-  export type ArticleScalarWhereInput = {
-    AND?: ArticleScalarWhereInput | ArticleScalarWhereInput[]
-    OR?: ArticleScalarWhereInput[]
-    NOT?: ArticleScalarWhereInput | ArticleScalarWhereInput[]
-    id?: StringFilter<"Article"> | string
-    title?: StringFilter<"Article"> | string
-    content?: StringFilter<"Article"> | string
-    publishedAt?: DateTimeFilter<"Article"> | Date | string
+    configId?: StringFilter<"Section"> | string
   }
 
   export type ImageUpsertWithWhereUniqueWithoutConfigInput = {
@@ -26666,6 +29087,33 @@ export namespace Prisma {
     sectionId?: StringNullableFilter<"Image"> | string | null
   }
 
+  export type FooterLinkUpsertWithWhereUniqueWithoutConfigInput = {
+    where: FooterLinkWhereUniqueInput
+    update: XOR<FooterLinkUpdateWithoutConfigInput, FooterLinkUncheckedUpdateWithoutConfigInput>
+    create: XOR<FooterLinkCreateWithoutConfigInput, FooterLinkUncheckedCreateWithoutConfigInput>
+  }
+
+  export type FooterLinkUpdateWithWhereUniqueWithoutConfigInput = {
+    where: FooterLinkWhereUniqueInput
+    data: XOR<FooterLinkUpdateWithoutConfigInput, FooterLinkUncheckedUpdateWithoutConfigInput>
+  }
+
+  export type FooterLinkUpdateManyWithWhereWithoutConfigInput = {
+    where: FooterLinkScalarWhereInput
+    data: XOR<FooterLinkUpdateManyMutationInput, FooterLinkUncheckedUpdateManyWithoutConfigInput>
+  }
+
+  export type FooterLinkScalarWhereInput = {
+    AND?: FooterLinkScalarWhereInput | FooterLinkScalarWhereInput[]
+    OR?: FooterLinkScalarWhereInput[]
+    NOT?: FooterLinkScalarWhereInput | FooterLinkScalarWhereInput[]
+    id?: StringFilter<"FooterLink"> | string
+    label?: StringFilter<"FooterLink"> | string
+    url?: StringFilter<"FooterLink"> | string
+    order?: IntFilter<"FooterLink"> | number
+    configId?: StringFilter<"FooterLink"> | string
+  }
+
   export type UnitServerUpsertWithWhereUniqueWithoutConfigInput = {
     where: UnitServerWhereUniqueInput
     update: XOR<UnitServerUpdateWithoutConfigInput, UnitServerUncheckedUpdateWithoutConfigInput>
@@ -26682,31 +29130,188 @@ export namespace Prisma {
     data: XOR<UnitServerUpdateManyMutationInput, UnitServerUncheckedUpdateManyWithoutConfigInput>
   }
 
+  export type UnitConfigCreateWithoutLegalStepsInput = {
+    id?: string
+    name: string
+    pageTitle: string
+    pageDescription: string
+    servicesDescription: string
+    bannerUrl?: string | null
+    footerInfo?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    articles?: ArticleCreateNestedManyWithoutConfigInput
+    sections?: SectionCreateNestedManyWithoutConfigInput
+    images?: ImageCreateNestedManyWithoutConfigInput
+    footerLinks?: FooterLinkCreateNestedManyWithoutConfigInput
+    servers?: UnitServerCreateNestedManyWithoutConfigInput
+  }
+
+  export type UnitConfigUncheckedCreateWithoutLegalStepsInput = {
+    id?: string
+    name: string
+    pageTitle: string
+    pageDescription: string
+    servicesDescription: string
+    bannerUrl?: string | null
+    footerInfo?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    articles?: ArticleUncheckedCreateNestedManyWithoutConfigInput
+    sections?: SectionUncheckedCreateNestedManyWithoutConfigInput
+    images?: ImageUncheckedCreateNestedManyWithoutConfigInput
+    footerLinks?: FooterLinkUncheckedCreateNestedManyWithoutConfigInput
+    servers?: UnitServerUncheckedCreateNestedManyWithoutConfigInput
+  }
+
+  export type UnitConfigCreateOrConnectWithoutLegalStepsInput = {
+    where: UnitConfigWhereUniqueInput
+    create: XOR<UnitConfigCreateWithoutLegalStepsInput, UnitConfigUncheckedCreateWithoutLegalStepsInput>
+  }
+
+  export type UnitConfigUpsertWithoutLegalStepsInput = {
+    update: XOR<UnitConfigUpdateWithoutLegalStepsInput, UnitConfigUncheckedUpdateWithoutLegalStepsInput>
+    create: XOR<UnitConfigCreateWithoutLegalStepsInput, UnitConfigUncheckedCreateWithoutLegalStepsInput>
+    where?: UnitConfigWhereInput
+  }
+
+  export type UnitConfigUpdateToOneWithWhereWithoutLegalStepsInput = {
+    where?: UnitConfigWhereInput
+    data: XOR<UnitConfigUpdateWithoutLegalStepsInput, UnitConfigUncheckedUpdateWithoutLegalStepsInput>
+  }
+
+  export type UnitConfigUpdateWithoutLegalStepsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    pageTitle?: StringFieldUpdateOperationsInput | string
+    pageDescription?: StringFieldUpdateOperationsInput | string
+    servicesDescription?: StringFieldUpdateOperationsInput | string
+    bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    articles?: ArticleUpdateManyWithoutConfigNestedInput
+    sections?: SectionUpdateManyWithoutConfigNestedInput
+    images?: ImageUpdateManyWithoutConfigNestedInput
+    footerLinks?: FooterLinkUpdateManyWithoutConfigNestedInput
+    servers?: UnitServerUpdateManyWithoutConfigNestedInput
+  }
+
+  export type UnitConfigUncheckedUpdateWithoutLegalStepsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    pageTitle?: StringFieldUpdateOperationsInput | string
+    pageDescription?: StringFieldUpdateOperationsInput | string
+    servicesDescription?: StringFieldUpdateOperationsInput | string
+    bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    articles?: ArticleUncheckedUpdateManyWithoutConfigNestedInput
+    sections?: SectionUncheckedUpdateManyWithoutConfigNestedInput
+    images?: ImageUncheckedUpdateManyWithoutConfigNestedInput
+    footerLinks?: FooterLinkUncheckedUpdateManyWithoutConfigNestedInput
+    servers?: UnitServerUncheckedUpdateManyWithoutConfigNestedInput
+  }
+
+  export type UnitConfigCreateWithoutFooterLinksInput = {
+    id?: string
+    name: string
+    pageTitle: string
+    pageDescription: string
+    servicesDescription: string
+    bannerUrl?: string | null
+    footerInfo?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    legalSteps?: LegalStepCreateNestedManyWithoutConfigInput
+    articles?: ArticleCreateNestedManyWithoutConfigInput
+    sections?: SectionCreateNestedManyWithoutConfigInput
+    images?: ImageCreateNestedManyWithoutConfigInput
+    servers?: UnitServerCreateNestedManyWithoutConfigInput
+  }
+
+  export type UnitConfigUncheckedCreateWithoutFooterLinksInput = {
+    id?: string
+    name: string
+    pageTitle: string
+    pageDescription: string
+    servicesDescription: string
+    bannerUrl?: string | null
+    footerInfo?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    legalSteps?: LegalStepUncheckedCreateNestedManyWithoutConfigInput
+    articles?: ArticleUncheckedCreateNestedManyWithoutConfigInput
+    sections?: SectionUncheckedCreateNestedManyWithoutConfigInput
+    images?: ImageUncheckedCreateNestedManyWithoutConfigInput
+    servers?: UnitServerUncheckedCreateNestedManyWithoutConfigInput
+  }
+
+  export type UnitConfigCreateOrConnectWithoutFooterLinksInput = {
+    where: UnitConfigWhereUniqueInput
+    create: XOR<UnitConfigCreateWithoutFooterLinksInput, UnitConfigUncheckedCreateWithoutFooterLinksInput>
+  }
+
+  export type UnitConfigUpsertWithoutFooterLinksInput = {
+    update: XOR<UnitConfigUpdateWithoutFooterLinksInput, UnitConfigUncheckedUpdateWithoutFooterLinksInput>
+    create: XOR<UnitConfigCreateWithoutFooterLinksInput, UnitConfigUncheckedCreateWithoutFooterLinksInput>
+    where?: UnitConfigWhereInput
+  }
+
+  export type UnitConfigUpdateToOneWithWhereWithoutFooterLinksInput = {
+    where?: UnitConfigWhereInput
+    data: XOR<UnitConfigUpdateWithoutFooterLinksInput, UnitConfigUncheckedUpdateWithoutFooterLinksInput>
+  }
+
+  export type UnitConfigUpdateWithoutFooterLinksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    pageTitle?: StringFieldUpdateOperationsInput | string
+    pageDescription?: StringFieldUpdateOperationsInput | string
+    servicesDescription?: StringFieldUpdateOperationsInput | string
+    bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    legalSteps?: LegalStepUpdateManyWithoutConfigNestedInput
+    articles?: ArticleUpdateManyWithoutConfigNestedInput
+    sections?: SectionUpdateManyWithoutConfigNestedInput
+    images?: ImageUpdateManyWithoutConfigNestedInput
+    servers?: UnitServerUpdateManyWithoutConfigNestedInput
+  }
+
+  export type UnitConfigUncheckedUpdateWithoutFooterLinksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    pageTitle?: StringFieldUpdateOperationsInput | string
+    pageDescription?: StringFieldUpdateOperationsInput | string
+    servicesDescription?: StringFieldUpdateOperationsInput | string
+    bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    legalSteps?: LegalStepUncheckedUpdateManyWithoutConfigNestedInput
+    articles?: ArticleUncheckedUpdateManyWithoutConfigNestedInput
+    sections?: SectionUncheckedUpdateManyWithoutConfigNestedInput
+    images?: ImageUncheckedUpdateManyWithoutConfigNestedInput
+    servers?: UnitServerUncheckedUpdateManyWithoutConfigNestedInput
+  }
+
   export type UnitConfigCreateWithoutSectionsInput = {
     id?: string
     name: string
     pageTitle: string
-    subtitle?: string | null
-    description?: string | null
-    iconUrl?: string | null
+    pageDescription: string
+    servicesDescription: string
     bannerUrl?: string | null
-    seoTitle?: string | null
-    seoDescription?: string | null
-    seoKeywords?: string | null
-    ogImage?: string | null
-    headerLinks?: NullableJsonNullValueInput | InputJsonValue
-    footerLinks?: NullableJsonNullValueInput | InputJsonValue
     footerInfo?: string | null
-    legalStepsCount?: number
-    pageType: string
-    externalLinks?: NullableJsonNullValueInput | InputJsonValue
-    newsParams?: NullableJsonNullValueInput | InputJsonValue
-    selectedNews?: NullableJsonNullValueInput | InputJsonValue
-    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
-    articles?: ArticleCreateNestedManyWithoutConfigsInput
+    legalSteps?: LegalStepCreateNestedManyWithoutConfigInput
+    articles?: ArticleCreateNestedManyWithoutConfigInput
     images?: ImageCreateNestedManyWithoutConfigInput
+    footerLinks?: FooterLinkCreateNestedManyWithoutConfigInput
     servers?: UnitServerCreateNestedManyWithoutConfigInput
   }
 
@@ -26714,58 +29319,22 @@ export namespace Prisma {
     id?: string
     name: string
     pageTitle: string
-    subtitle?: string | null
-    description?: string | null
-    iconUrl?: string | null
+    pageDescription: string
+    servicesDescription: string
     bannerUrl?: string | null
-    seoTitle?: string | null
-    seoDescription?: string | null
-    seoKeywords?: string | null
-    ogImage?: string | null
-    headerLinks?: NullableJsonNullValueInput | InputJsonValue
-    footerLinks?: NullableJsonNullValueInput | InputJsonValue
     footerInfo?: string | null
-    legalStepsCount?: number
-    pageType: string
-    externalLinks?: NullableJsonNullValueInput | InputJsonValue
-    newsParams?: NullableJsonNullValueInput | InputJsonValue
-    selectedNews?: NullableJsonNullValueInput | InputJsonValue
-    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
-    articles?: ArticleUncheckedCreateNestedManyWithoutConfigsInput
+    legalSteps?: LegalStepUncheckedCreateNestedManyWithoutConfigInput
+    articles?: ArticleUncheckedCreateNestedManyWithoutConfigInput
     images?: ImageUncheckedCreateNestedManyWithoutConfigInput
+    footerLinks?: FooterLinkUncheckedCreateNestedManyWithoutConfigInput
     servers?: UnitServerUncheckedCreateNestedManyWithoutConfigInput
   }
 
   export type UnitConfigCreateOrConnectWithoutSectionsInput = {
     where: UnitConfigWhereUniqueInput
     create: XOR<UnitConfigCreateWithoutSectionsInput, UnitConfigUncheckedCreateWithoutSectionsInput>
-  }
-
-  export type ImageCreateWithoutMainImageOfSectionInput = {
-    id?: string
-    url: string
-    altText: string
-    type: string
-    order?: number | null
-    config: UnitConfigCreateNestedOneWithoutImagesInput
-    section?: SectionCreateNestedOneWithoutImagesInput
-  }
-
-  export type ImageUncheckedCreateWithoutMainImageOfSectionInput = {
-    id?: string
-    configId: string
-    url: string
-    altText: string
-    type: string
-    order?: number | null
-    sectionId?: string | null
-  }
-
-  export type ImageCreateOrConnectWithoutMainImageOfSectionInput = {
-    where: ImageWhereUniqueInput
-    create: XOR<ImageCreateWithoutMainImageOfSectionInput, ImageUncheckedCreateWithoutMainImageOfSectionInput>
   }
 
   export type ImageCreateWithoutSectionInput = {
@@ -26775,7 +29344,6 @@ export namespace Prisma {
     type: string
     order?: number | null
     config: UnitConfigCreateNestedOneWithoutImagesInput
-    mainImageOfSection?: SectionCreateNestedOneWithoutMainImageInput
   }
 
   export type ImageUncheckedCreateWithoutSectionInput = {
@@ -26785,7 +29353,6 @@ export namespace Prisma {
     altText: string
     type: string
     order?: number | null
-    mainImageOfSection?: SectionUncheckedCreateNestedOneWithoutMainImageInput
   }
 
   export type ImageCreateOrConnectWithoutSectionInput = {
@@ -26813,27 +29380,16 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     pageTitle?: StringFieldUpdateOperationsInput | string
-    subtitle?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    pageDescription?: StringFieldUpdateOperationsInput | string
+    servicesDescription?: StringFieldUpdateOperationsInput | string
     bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    seoTitle?: NullableStringFieldUpdateOperationsInput | string | null
-    seoDescription?: NullableStringFieldUpdateOperationsInput | string | null
-    seoKeywords?: NullableStringFieldUpdateOperationsInput | string | null
-    ogImage?: NullableStringFieldUpdateOperationsInput | string | null
-    headerLinks?: NullableJsonNullValueInput | InputJsonValue
-    footerLinks?: NullableJsonNullValueInput | InputJsonValue
     footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
-    legalStepsCount?: IntFieldUpdateOperationsInput | number
-    pageType?: StringFieldUpdateOperationsInput | string
-    externalLinks?: NullableJsonNullValueInput | InputJsonValue
-    newsParams?: NullableJsonNullValueInput | InputJsonValue
-    selectedNews?: NullableJsonNullValueInput | InputJsonValue
-    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    articles?: ArticleUpdateManyWithoutConfigsNestedInput
+    legalSteps?: LegalStepUpdateManyWithoutConfigNestedInput
+    articles?: ArticleUpdateManyWithoutConfigNestedInput
     images?: ImageUpdateManyWithoutConfigNestedInput
+    footerLinks?: FooterLinkUpdateManyWithoutConfigNestedInput
     servers?: UnitServerUpdateManyWithoutConfigNestedInput
   }
 
@@ -26841,59 +29397,17 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     pageTitle?: StringFieldUpdateOperationsInput | string
-    subtitle?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    pageDescription?: StringFieldUpdateOperationsInput | string
+    servicesDescription?: StringFieldUpdateOperationsInput | string
     bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    seoTitle?: NullableStringFieldUpdateOperationsInput | string | null
-    seoDescription?: NullableStringFieldUpdateOperationsInput | string | null
-    seoKeywords?: NullableStringFieldUpdateOperationsInput | string | null
-    ogImage?: NullableStringFieldUpdateOperationsInput | string | null
-    headerLinks?: NullableJsonNullValueInput | InputJsonValue
-    footerLinks?: NullableJsonNullValueInput | InputJsonValue
     footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
-    legalStepsCount?: IntFieldUpdateOperationsInput | number
-    pageType?: StringFieldUpdateOperationsInput | string
-    externalLinks?: NullableJsonNullValueInput | InputJsonValue
-    newsParams?: NullableJsonNullValueInput | InputJsonValue
-    selectedNews?: NullableJsonNullValueInput | InputJsonValue
-    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    articles?: ArticleUncheckedUpdateManyWithoutConfigsNestedInput
+    legalSteps?: LegalStepUncheckedUpdateManyWithoutConfigNestedInput
+    articles?: ArticleUncheckedUpdateManyWithoutConfigNestedInput
     images?: ImageUncheckedUpdateManyWithoutConfigNestedInput
+    footerLinks?: FooterLinkUncheckedUpdateManyWithoutConfigNestedInput
     servers?: UnitServerUncheckedUpdateManyWithoutConfigNestedInput
-  }
-
-  export type ImageUpsertWithoutMainImageOfSectionInput = {
-    update: XOR<ImageUpdateWithoutMainImageOfSectionInput, ImageUncheckedUpdateWithoutMainImageOfSectionInput>
-    create: XOR<ImageCreateWithoutMainImageOfSectionInput, ImageUncheckedCreateWithoutMainImageOfSectionInput>
-    where?: ImageWhereInput
-  }
-
-  export type ImageUpdateToOneWithWhereWithoutMainImageOfSectionInput = {
-    where?: ImageWhereInput
-    data: XOR<ImageUpdateWithoutMainImageOfSectionInput, ImageUncheckedUpdateWithoutMainImageOfSectionInput>
-  }
-
-  export type ImageUpdateWithoutMainImageOfSectionInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    url?: StringFieldUpdateOperationsInput | string
-    altText?: StringFieldUpdateOperationsInput | string
-    type?: StringFieldUpdateOperationsInput | string
-    order?: NullableIntFieldUpdateOperationsInput | number | null
-    config?: UnitConfigUpdateOneRequiredWithoutImagesNestedInput
-    section?: SectionUpdateOneWithoutImagesNestedInput
-  }
-
-  export type ImageUncheckedUpdateWithoutMainImageOfSectionInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    configId?: StringFieldUpdateOperationsInput | string
-    url?: StringFieldUpdateOperationsInput | string
-    altText?: StringFieldUpdateOperationsInput | string
-    type?: StringFieldUpdateOperationsInput | string
-    order?: NullableIntFieldUpdateOperationsInput | number | null
-    sectionId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ImageUpsertWithWhereUniqueWithoutSectionInput = {
@@ -26916,27 +29430,16 @@ export namespace Prisma {
     id?: string
     name: string
     pageTitle: string
-    subtitle?: string | null
-    description?: string | null
-    iconUrl?: string | null
+    pageDescription: string
+    servicesDescription: string
     bannerUrl?: string | null
-    seoTitle?: string | null
-    seoDescription?: string | null
-    seoKeywords?: string | null
-    ogImage?: string | null
-    headerLinks?: NullableJsonNullValueInput | InputJsonValue
-    footerLinks?: NullableJsonNullValueInput | InputJsonValue
     footerInfo?: string | null
-    legalStepsCount?: number
-    pageType: string
-    externalLinks?: NullableJsonNullValueInput | InputJsonValue
-    newsParams?: NullableJsonNullValueInput | InputJsonValue
-    selectedNews?: NullableJsonNullValueInput | InputJsonValue
-    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
+    legalSteps?: LegalStepCreateNestedManyWithoutConfigInput
+    articles?: ArticleCreateNestedManyWithoutConfigInput
     sections?: SectionCreateNestedManyWithoutConfigInput
-    articles?: ArticleCreateNestedManyWithoutConfigsInput
+    footerLinks?: FooterLinkCreateNestedManyWithoutConfigInput
     servers?: UnitServerCreateNestedManyWithoutConfigInput
   }
 
@@ -26944,27 +29447,16 @@ export namespace Prisma {
     id?: string
     name: string
     pageTitle: string
-    subtitle?: string | null
-    description?: string | null
-    iconUrl?: string | null
+    pageDescription: string
+    servicesDescription: string
     bannerUrl?: string | null
-    seoTitle?: string | null
-    seoDescription?: string | null
-    seoKeywords?: string | null
-    ogImage?: string | null
-    headerLinks?: NullableJsonNullValueInput | InputJsonValue
-    footerLinks?: NullableJsonNullValueInput | InputJsonValue
     footerInfo?: string | null
-    legalStepsCount?: number
-    pageType: string
-    externalLinks?: NullableJsonNullValueInput | InputJsonValue
-    newsParams?: NullableJsonNullValueInput | InputJsonValue
-    selectedNews?: NullableJsonNullValueInput | InputJsonValue
-    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
+    legalSteps?: LegalStepUncheckedCreateNestedManyWithoutConfigInput
+    articles?: ArticleUncheckedCreateNestedManyWithoutConfigInput
     sections?: SectionUncheckedCreateNestedManyWithoutConfigInput
-    articles?: ArticleUncheckedCreateNestedManyWithoutConfigsInput
+    footerLinks?: FooterLinkUncheckedCreateNestedManyWithoutConfigInput
     servers?: UnitServerUncheckedCreateNestedManyWithoutConfigInput
   }
 
@@ -26975,56 +29467,25 @@ export namespace Prisma {
 
   export type SectionCreateWithoutImagesInput = {
     id?: string
-    type: $Enums.SectionType
     title: string
-    content: string
+    body: string
+    imageUrl?: string | null
     order: number
-    sectionKey?: string | null
     config: UnitConfigCreateNestedOneWithoutSectionsInput
-    mainImage?: ImageCreateNestedOneWithoutMainImageOfSectionInput
   }
 
   export type SectionUncheckedCreateWithoutImagesInput = {
     id?: string
-    configId: string
-    type: $Enums.SectionType
     title: string
-    content: string
+    body: string
+    imageUrl?: string | null
     order: number
-    sectionKey?: string | null
-    mainImageId?: string | null
+    configId: string
   }
 
   export type SectionCreateOrConnectWithoutImagesInput = {
     where: SectionWhereUniqueInput
     create: XOR<SectionCreateWithoutImagesInput, SectionUncheckedCreateWithoutImagesInput>
-  }
-
-  export type SectionCreateWithoutMainImageInput = {
-    id?: string
-    type: $Enums.SectionType
-    title: string
-    content: string
-    order: number
-    sectionKey?: string | null
-    config: UnitConfigCreateNestedOneWithoutSectionsInput
-    images?: ImageCreateNestedManyWithoutSectionInput
-  }
-
-  export type SectionUncheckedCreateWithoutMainImageInput = {
-    id?: string
-    configId: string
-    type: $Enums.SectionType
-    title: string
-    content: string
-    order: number
-    sectionKey?: string | null
-    images?: ImageUncheckedCreateNestedManyWithoutSectionInput
-  }
-
-  export type SectionCreateOrConnectWithoutMainImageInput = {
-    where: SectionWhereUniqueInput
-    create: XOR<SectionCreateWithoutMainImageInput, SectionUncheckedCreateWithoutMainImageInput>
   }
 
   export type UnitConfigUpsertWithoutImagesInput = {
@@ -27042,27 +29503,16 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     pageTitle?: StringFieldUpdateOperationsInput | string
-    subtitle?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    pageDescription?: StringFieldUpdateOperationsInput | string
+    servicesDescription?: StringFieldUpdateOperationsInput | string
     bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    seoTitle?: NullableStringFieldUpdateOperationsInput | string | null
-    seoDescription?: NullableStringFieldUpdateOperationsInput | string | null
-    seoKeywords?: NullableStringFieldUpdateOperationsInput | string | null
-    ogImage?: NullableStringFieldUpdateOperationsInput | string | null
-    headerLinks?: NullableJsonNullValueInput | InputJsonValue
-    footerLinks?: NullableJsonNullValueInput | InputJsonValue
     footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
-    legalStepsCount?: IntFieldUpdateOperationsInput | number
-    pageType?: StringFieldUpdateOperationsInput | string
-    externalLinks?: NullableJsonNullValueInput | InputJsonValue
-    newsParams?: NullableJsonNullValueInput | InputJsonValue
-    selectedNews?: NullableJsonNullValueInput | InputJsonValue
-    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    legalSteps?: LegalStepUpdateManyWithoutConfigNestedInput
+    articles?: ArticleUpdateManyWithoutConfigNestedInput
     sections?: SectionUpdateManyWithoutConfigNestedInput
-    articles?: ArticleUpdateManyWithoutConfigsNestedInput
+    footerLinks?: FooterLinkUpdateManyWithoutConfigNestedInput
     servers?: UnitServerUpdateManyWithoutConfigNestedInput
   }
 
@@ -27070,27 +29520,16 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     pageTitle?: StringFieldUpdateOperationsInput | string
-    subtitle?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    pageDescription?: StringFieldUpdateOperationsInput | string
+    servicesDescription?: StringFieldUpdateOperationsInput | string
     bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    seoTitle?: NullableStringFieldUpdateOperationsInput | string | null
-    seoDescription?: NullableStringFieldUpdateOperationsInput | string | null
-    seoKeywords?: NullableStringFieldUpdateOperationsInput | string | null
-    ogImage?: NullableStringFieldUpdateOperationsInput | string | null
-    headerLinks?: NullableJsonNullValueInput | InputJsonValue
-    footerLinks?: NullableJsonNullValueInput | InputJsonValue
     footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
-    legalStepsCount?: IntFieldUpdateOperationsInput | number
-    pageType?: StringFieldUpdateOperationsInput | string
-    externalLinks?: NullableJsonNullValueInput | InputJsonValue
-    newsParams?: NullableJsonNullValueInput | InputJsonValue
-    selectedNews?: NullableJsonNullValueInput | InputJsonValue
-    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    legalSteps?: LegalStepUncheckedUpdateManyWithoutConfigNestedInput
+    articles?: ArticleUncheckedUpdateManyWithoutConfigNestedInput
     sections?: SectionUncheckedUpdateManyWithoutConfigNestedInput
-    articles?: ArticleUncheckedUpdateManyWithoutConfigsNestedInput
+    footerLinks?: FooterLinkUncheckedUpdateManyWithoutConfigNestedInput
     servers?: UnitServerUncheckedUpdateManyWithoutConfigNestedInput
   }
 
@@ -27107,84 +29546,36 @@ export namespace Prisma {
 
   export type SectionUpdateWithoutImagesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    type?: EnumSectionTypeFieldUpdateOperationsInput | $Enums.SectionType
     title?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     order?: IntFieldUpdateOperationsInput | number
-    sectionKey?: NullableStringFieldUpdateOperationsInput | string | null
     config?: UnitConfigUpdateOneRequiredWithoutSectionsNestedInput
-    mainImage?: ImageUpdateOneWithoutMainImageOfSectionNestedInput
   }
 
   export type SectionUncheckedUpdateWithoutImagesInput = {
     id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    order?: IntFieldUpdateOperationsInput | number
     configId?: StringFieldUpdateOperationsInput | string
-    type?: EnumSectionTypeFieldUpdateOperationsInput | $Enums.SectionType
-    title?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    order?: IntFieldUpdateOperationsInput | number
-    sectionKey?: NullableStringFieldUpdateOperationsInput | string | null
-    mainImageId?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type SectionUpsertWithoutMainImageInput = {
-    update: XOR<SectionUpdateWithoutMainImageInput, SectionUncheckedUpdateWithoutMainImageInput>
-    create: XOR<SectionCreateWithoutMainImageInput, SectionUncheckedCreateWithoutMainImageInput>
-    where?: SectionWhereInput
-  }
-
-  export type SectionUpdateToOneWithWhereWithoutMainImageInput = {
-    where?: SectionWhereInput
-    data: XOR<SectionUpdateWithoutMainImageInput, SectionUncheckedUpdateWithoutMainImageInput>
-  }
-
-  export type SectionUpdateWithoutMainImageInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    type?: EnumSectionTypeFieldUpdateOperationsInput | $Enums.SectionType
-    title?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    order?: IntFieldUpdateOperationsInput | number
-    sectionKey?: NullableStringFieldUpdateOperationsInput | string | null
-    config?: UnitConfigUpdateOneRequiredWithoutSectionsNestedInput
-    images?: ImageUpdateManyWithoutSectionNestedInput
-  }
-
-  export type SectionUncheckedUpdateWithoutMainImageInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    configId?: StringFieldUpdateOperationsInput | string
-    type?: EnumSectionTypeFieldUpdateOperationsInput | $Enums.SectionType
-    title?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    order?: IntFieldUpdateOperationsInput | number
-    sectionKey?: NullableStringFieldUpdateOperationsInput | string | null
-    images?: ImageUncheckedUpdateManyWithoutSectionNestedInput
   }
 
   export type UnitConfigCreateWithoutArticlesInput = {
     id?: string
     name: string
     pageTitle: string
-    subtitle?: string | null
-    description?: string | null
-    iconUrl?: string | null
+    pageDescription: string
+    servicesDescription: string
     bannerUrl?: string | null
-    seoTitle?: string | null
-    seoDescription?: string | null
-    seoKeywords?: string | null
-    ogImage?: string | null
-    headerLinks?: NullableJsonNullValueInput | InputJsonValue
-    footerLinks?: NullableJsonNullValueInput | InputJsonValue
     footerInfo?: string | null
-    legalStepsCount?: number
-    pageType: string
-    externalLinks?: NullableJsonNullValueInput | InputJsonValue
-    newsParams?: NullableJsonNullValueInput | InputJsonValue
-    selectedNews?: NullableJsonNullValueInput | InputJsonValue
-    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
+    legalSteps?: LegalStepCreateNestedManyWithoutConfigInput
     sections?: SectionCreateNestedManyWithoutConfigInput
     images?: ImageCreateNestedManyWithoutConfigInput
+    footerLinks?: FooterLinkCreateNestedManyWithoutConfigInput
     servers?: UnitServerCreateNestedManyWithoutConfigInput
   }
 
@@ -27192,27 +29583,16 @@ export namespace Prisma {
     id?: string
     name: string
     pageTitle: string
-    subtitle?: string | null
-    description?: string | null
-    iconUrl?: string | null
+    pageDescription: string
+    servicesDescription: string
     bannerUrl?: string | null
-    seoTitle?: string | null
-    seoDescription?: string | null
-    seoKeywords?: string | null
-    ogImage?: string | null
-    headerLinks?: NullableJsonNullValueInput | InputJsonValue
-    footerLinks?: NullableJsonNullValueInput | InputJsonValue
     footerInfo?: string | null
-    legalStepsCount?: number
-    pageType: string
-    externalLinks?: NullableJsonNullValueInput | InputJsonValue
-    newsParams?: NullableJsonNullValueInput | InputJsonValue
-    selectedNews?: NullableJsonNullValueInput | InputJsonValue
-    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
+    legalSteps?: LegalStepUncheckedCreateNestedManyWithoutConfigInput
     sections?: SectionUncheckedCreateNestedManyWithoutConfigInput
     images?: ImageUncheckedCreateNestedManyWithoutConfigInput
+    footerLinks?: FooterLinkUncheckedCreateNestedManyWithoutConfigInput
     servers?: UnitServerUncheckedCreateNestedManyWithoutConfigInput
   }
 
@@ -27221,48 +29601,49 @@ export namespace Prisma {
     create: XOR<UnitConfigCreateWithoutArticlesInput, UnitConfigUncheckedCreateWithoutArticlesInput>
   }
 
-  export type UnitConfigUpsertWithWhereUniqueWithoutArticlesInput = {
-    where: UnitConfigWhereUniqueInput
+  export type UnitConfigUpsertWithoutArticlesInput = {
     update: XOR<UnitConfigUpdateWithoutArticlesInput, UnitConfigUncheckedUpdateWithoutArticlesInput>
     create: XOR<UnitConfigCreateWithoutArticlesInput, UnitConfigUncheckedCreateWithoutArticlesInput>
+    where?: UnitConfigWhereInput
   }
 
-  export type UnitConfigUpdateWithWhereUniqueWithoutArticlesInput = {
-    where: UnitConfigWhereUniqueInput
+  export type UnitConfigUpdateToOneWithWhereWithoutArticlesInput = {
+    where?: UnitConfigWhereInput
     data: XOR<UnitConfigUpdateWithoutArticlesInput, UnitConfigUncheckedUpdateWithoutArticlesInput>
   }
 
-  export type UnitConfigUpdateManyWithWhereWithoutArticlesInput = {
-    where: UnitConfigScalarWhereInput
-    data: XOR<UnitConfigUpdateManyMutationInput, UnitConfigUncheckedUpdateManyWithoutArticlesInput>
+  export type UnitConfigUpdateWithoutArticlesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    pageTitle?: StringFieldUpdateOperationsInput | string
+    pageDescription?: StringFieldUpdateOperationsInput | string
+    servicesDescription?: StringFieldUpdateOperationsInput | string
+    bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    legalSteps?: LegalStepUpdateManyWithoutConfigNestedInput
+    sections?: SectionUpdateManyWithoutConfigNestedInput
+    images?: ImageUpdateManyWithoutConfigNestedInput
+    footerLinks?: FooterLinkUpdateManyWithoutConfigNestedInput
+    servers?: UnitServerUpdateManyWithoutConfigNestedInput
   }
 
-  export type UnitConfigScalarWhereInput = {
-    AND?: UnitConfigScalarWhereInput | UnitConfigScalarWhereInput[]
-    OR?: UnitConfigScalarWhereInput[]
-    NOT?: UnitConfigScalarWhereInput | UnitConfigScalarWhereInput[]
-    id?: StringFilter<"UnitConfig"> | string
-    name?: StringFilter<"UnitConfig"> | string
-    pageTitle?: StringFilter<"UnitConfig"> | string
-    subtitle?: StringNullableFilter<"UnitConfig"> | string | null
-    description?: StringNullableFilter<"UnitConfig"> | string | null
-    iconUrl?: StringNullableFilter<"UnitConfig"> | string | null
-    bannerUrl?: StringNullableFilter<"UnitConfig"> | string | null
-    seoTitle?: StringNullableFilter<"UnitConfig"> | string | null
-    seoDescription?: StringNullableFilter<"UnitConfig"> | string | null
-    seoKeywords?: StringNullableFilter<"UnitConfig"> | string | null
-    ogImage?: StringNullableFilter<"UnitConfig"> | string | null
-    headerLinks?: JsonNullableFilter<"UnitConfig">
-    footerLinks?: JsonNullableFilter<"UnitConfig">
-    footerInfo?: StringNullableFilter<"UnitConfig"> | string | null
-    legalStepsCount?: IntFilter<"UnitConfig"> | number
-    pageType?: StringFilter<"UnitConfig"> | string
-    externalLinks?: JsonNullableFilter<"UnitConfig">
-    newsParams?: JsonNullableFilter<"UnitConfig">
-    selectedNews?: JsonNullableFilter<"UnitConfig">
-    infoSections?: JsonNullableFilter<"UnitConfig">
-    createdAt?: DateTimeFilter<"UnitConfig"> | Date | string
-    updatedAt?: DateTimeFilter<"UnitConfig"> | Date | string
+  export type UnitConfigUncheckedUpdateWithoutArticlesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    pageTitle?: StringFieldUpdateOperationsInput | string
+    pageDescription?: StringFieldUpdateOperationsInput | string
+    servicesDescription?: StringFieldUpdateOperationsInput | string
+    bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    legalSteps?: LegalStepUncheckedUpdateManyWithoutConfigNestedInput
+    sections?: SectionUncheckedUpdateManyWithoutConfigNestedInput
+    images?: ImageUncheckedUpdateManyWithoutConfigNestedInput
+    footerLinks?: FooterLinkUncheckedUpdateManyWithoutConfigNestedInput
+    servers?: UnitServerUncheckedUpdateManyWithoutConfigNestedInput
   }
 
   export type ConstellationCreateWithoutServersInput = {
@@ -27286,56 +29667,34 @@ export namespace Prisma {
     id?: string
     name: string
     pageTitle: string
-    subtitle?: string | null
-    description?: string | null
-    iconUrl?: string | null
+    pageDescription: string
+    servicesDescription: string
     bannerUrl?: string | null
-    seoTitle?: string | null
-    seoDescription?: string | null
-    seoKeywords?: string | null
-    ogImage?: string | null
-    headerLinks?: NullableJsonNullValueInput | InputJsonValue
-    footerLinks?: NullableJsonNullValueInput | InputJsonValue
     footerInfo?: string | null
-    legalStepsCount?: number
-    pageType: string
-    externalLinks?: NullableJsonNullValueInput | InputJsonValue
-    newsParams?: NullableJsonNullValueInput | InputJsonValue
-    selectedNews?: NullableJsonNullValueInput | InputJsonValue
-    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
+    legalSteps?: LegalStepCreateNestedManyWithoutConfigInput
+    articles?: ArticleCreateNestedManyWithoutConfigInput
     sections?: SectionCreateNestedManyWithoutConfigInput
-    articles?: ArticleCreateNestedManyWithoutConfigsInput
     images?: ImageCreateNestedManyWithoutConfigInput
+    footerLinks?: FooterLinkCreateNestedManyWithoutConfigInput
   }
 
   export type UnitConfigUncheckedCreateWithoutServersInput = {
     id?: string
     name: string
     pageTitle: string
-    subtitle?: string | null
-    description?: string | null
-    iconUrl?: string | null
+    pageDescription: string
+    servicesDescription: string
     bannerUrl?: string | null
-    seoTitle?: string | null
-    seoDescription?: string | null
-    seoKeywords?: string | null
-    ogImage?: string | null
-    headerLinks?: NullableJsonNullValueInput | InputJsonValue
-    footerLinks?: NullableJsonNullValueInput | InputJsonValue
     footerInfo?: string | null
-    legalStepsCount?: number
-    pageType: string
-    externalLinks?: NullableJsonNullValueInput | InputJsonValue
-    newsParams?: NullableJsonNullValueInput | InputJsonValue
-    selectedNews?: NullableJsonNullValueInput | InputJsonValue
-    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
+    legalSteps?: LegalStepUncheckedCreateNestedManyWithoutConfigInput
+    articles?: ArticleUncheckedCreateNestedManyWithoutConfigInput
     sections?: SectionUncheckedCreateNestedManyWithoutConfigInput
-    articles?: ArticleUncheckedCreateNestedManyWithoutConfigsInput
     images?: ImageUncheckedCreateNestedManyWithoutConfigInput
+    footerLinks?: FooterLinkUncheckedCreateNestedManyWithoutConfigInput
   }
 
   export type UnitConfigCreateOrConnectWithoutServersInput = {
@@ -27493,56 +29852,34 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     pageTitle?: StringFieldUpdateOperationsInput | string
-    subtitle?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    pageDescription?: StringFieldUpdateOperationsInput | string
+    servicesDescription?: StringFieldUpdateOperationsInput | string
     bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    seoTitle?: NullableStringFieldUpdateOperationsInput | string | null
-    seoDescription?: NullableStringFieldUpdateOperationsInput | string | null
-    seoKeywords?: NullableStringFieldUpdateOperationsInput | string | null
-    ogImage?: NullableStringFieldUpdateOperationsInput | string | null
-    headerLinks?: NullableJsonNullValueInput | InputJsonValue
-    footerLinks?: NullableJsonNullValueInput | InputJsonValue
     footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
-    legalStepsCount?: IntFieldUpdateOperationsInput | number
-    pageType?: StringFieldUpdateOperationsInput | string
-    externalLinks?: NullableJsonNullValueInput | InputJsonValue
-    newsParams?: NullableJsonNullValueInput | InputJsonValue
-    selectedNews?: NullableJsonNullValueInput | InputJsonValue
-    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    legalSteps?: LegalStepUpdateManyWithoutConfigNestedInput
+    articles?: ArticleUpdateManyWithoutConfigNestedInput
     sections?: SectionUpdateManyWithoutConfigNestedInput
-    articles?: ArticleUpdateManyWithoutConfigsNestedInput
     images?: ImageUpdateManyWithoutConfigNestedInput
+    footerLinks?: FooterLinkUpdateManyWithoutConfigNestedInput
   }
 
   export type UnitConfigUncheckedUpdateWithoutServersInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     pageTitle?: StringFieldUpdateOperationsInput | string
-    subtitle?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    pageDescription?: StringFieldUpdateOperationsInput | string
+    servicesDescription?: StringFieldUpdateOperationsInput | string
     bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    seoTitle?: NullableStringFieldUpdateOperationsInput | string | null
-    seoDescription?: NullableStringFieldUpdateOperationsInput | string | null
-    seoKeywords?: NullableStringFieldUpdateOperationsInput | string | null
-    ogImage?: NullableStringFieldUpdateOperationsInput | string | null
-    headerLinks?: NullableJsonNullValueInput | InputJsonValue
-    footerLinks?: NullableJsonNullValueInput | InputJsonValue
     footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
-    legalStepsCount?: IntFieldUpdateOperationsInput | number
-    pageType?: StringFieldUpdateOperationsInput | string
-    externalLinks?: NullableJsonNullValueInput | InputJsonValue
-    newsParams?: NullableJsonNullValueInput | InputJsonValue
-    selectedNews?: NullableJsonNullValueInput | InputJsonValue
-    infoSections?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    legalSteps?: LegalStepUncheckedUpdateManyWithoutConfigNestedInput
+    articles?: ArticleUncheckedUpdateManyWithoutConfigNestedInput
     sections?: SectionUncheckedUpdateManyWithoutConfigNestedInput
-    articles?: ArticleUncheckedUpdateManyWithoutConfigsNestedInput
     images?: ImageUncheckedUpdateManyWithoutConfigNestedInput
+    footerLinks?: FooterLinkUncheckedUpdateManyWithoutConfigNestedInput
   }
 
   export type ClientUpsertWithWhereUniqueWithoutServerInput = {
@@ -28099,14 +30436,28 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type SectionCreateManyConfigInput = {
+  export type LegalStepCreateManyConfigInput = {
     id?: string
-    type: $Enums.SectionType
+    title: string
+    description: string
+    order: number
+  }
+
+  export type ArticleCreateManyConfigInput = {
+    id?: string
     title: string
     content: string
+    url?: string | null
+    publishedAt?: Date | string
     order: number
-    sectionKey?: string | null
-    mainImageId?: string | null
+  }
+
+  export type SectionCreateManyConfigInput = {
+    id?: string
+    title: string
+    body: string
+    imageUrl?: string | null
+    order: number
   }
 
   export type ImageCreateManyConfigInput = {
@@ -28116,6 +30467,13 @@ export namespace Prisma {
     type: string
     order?: number | null
     sectionId?: string | null
+  }
+
+  export type FooterLinkCreateManyConfigInput = {
+    id?: string
+    label: string
+    url: string
+    order: number
   }
 
   export type UnitServerCreateManyConfigInput = {
@@ -28130,57 +30488,78 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type SectionUpdateWithoutConfigInput = {
+  export type LegalStepUpdateWithoutConfigInput = {
     id?: StringFieldUpdateOperationsInput | string
-    type?: EnumSectionTypeFieldUpdateOperationsInput | $Enums.SectionType
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LegalStepUncheckedUpdateWithoutConfigInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LegalStepUncheckedUpdateManyWithoutConfigInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ArticleUpdateWithoutConfigInput = {
+    id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    publishedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     order?: IntFieldUpdateOperationsInput | number
-    sectionKey?: NullableStringFieldUpdateOperationsInput | string | null
-    mainImage?: ImageUpdateOneWithoutMainImageOfSectionNestedInput
+  }
+
+  export type ArticleUncheckedUpdateWithoutConfigInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    publishedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    order?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ArticleUncheckedUpdateManyWithoutConfigInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    publishedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    order?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type SectionUpdateWithoutConfigInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    order?: IntFieldUpdateOperationsInput | number
     images?: ImageUpdateManyWithoutSectionNestedInput
   }
 
   export type SectionUncheckedUpdateWithoutConfigInput = {
     id?: StringFieldUpdateOperationsInput | string
-    type?: EnumSectionTypeFieldUpdateOperationsInput | $Enums.SectionType
     title?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     order?: IntFieldUpdateOperationsInput | number
-    sectionKey?: NullableStringFieldUpdateOperationsInput | string | null
-    mainImageId?: NullableStringFieldUpdateOperationsInput | string | null
     images?: ImageUncheckedUpdateManyWithoutSectionNestedInput
   }
 
   export type SectionUncheckedUpdateManyWithoutConfigInput = {
     id?: StringFieldUpdateOperationsInput | string
-    type?: EnumSectionTypeFieldUpdateOperationsInput | $Enums.SectionType
     title?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
+    body?: StringFieldUpdateOperationsInput | string
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     order?: IntFieldUpdateOperationsInput | number
-    sectionKey?: NullableStringFieldUpdateOperationsInput | string | null
-    mainImageId?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type ArticleUpdateWithoutConfigsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    publishedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ArticleUncheckedUpdateWithoutConfigsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    publishedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ArticleUncheckedUpdateManyWithoutConfigsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    publishedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ImageUpdateWithoutConfigInput = {
@@ -28190,7 +30569,6 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     order?: NullableIntFieldUpdateOperationsInput | number | null
     section?: SectionUpdateOneWithoutImagesNestedInput
-    mainImageOfSection?: SectionUpdateOneWithoutMainImageNestedInput
   }
 
   export type ImageUncheckedUpdateWithoutConfigInput = {
@@ -28200,7 +30578,6 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     order?: NullableIntFieldUpdateOperationsInput | number | null
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
-    mainImageOfSection?: SectionUncheckedUpdateOneWithoutMainImageNestedInput
   }
 
   export type ImageUncheckedUpdateManyWithoutConfigInput = {
@@ -28210,6 +30587,27 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     order?: NullableIntFieldUpdateOperationsInput | number | null
     sectionId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type FooterLinkUpdateWithoutConfigInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type FooterLinkUncheckedUpdateWithoutConfigInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type FooterLinkUncheckedUpdateManyWithoutConfigInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
   }
 
   export type UnitServerUpdateWithoutConfigInput = {
@@ -28272,7 +30670,6 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     order?: NullableIntFieldUpdateOperationsInput | number | null
     config?: UnitConfigUpdateOneRequiredWithoutImagesNestedInput
-    mainImageOfSection?: SectionUpdateOneWithoutMainImageNestedInput
   }
 
   export type ImageUncheckedUpdateWithoutSectionInput = {
@@ -28282,7 +30679,6 @@ export namespace Prisma {
     altText?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     order?: NullableIntFieldUpdateOperationsInput | number | null
-    mainImageOfSection?: SectionUncheckedUpdateOneWithoutMainImageNestedInput
   }
 
   export type ImageUncheckedUpdateManyWithoutSectionInput = {
@@ -28292,87 +30688,6 @@ export namespace Prisma {
     altText?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     order?: NullableIntFieldUpdateOperationsInput | number | null
-  }
-
-  export type UnitConfigUpdateWithoutArticlesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    pageTitle?: StringFieldUpdateOperationsInput | string
-    subtitle?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    seoTitle?: NullableStringFieldUpdateOperationsInput | string | null
-    seoDescription?: NullableStringFieldUpdateOperationsInput | string | null
-    seoKeywords?: NullableStringFieldUpdateOperationsInput | string | null
-    ogImage?: NullableStringFieldUpdateOperationsInput | string | null
-    headerLinks?: NullableJsonNullValueInput | InputJsonValue
-    footerLinks?: NullableJsonNullValueInput | InputJsonValue
-    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
-    legalStepsCount?: IntFieldUpdateOperationsInput | number
-    pageType?: StringFieldUpdateOperationsInput | string
-    externalLinks?: NullableJsonNullValueInput | InputJsonValue
-    newsParams?: NullableJsonNullValueInput | InputJsonValue
-    selectedNews?: NullableJsonNullValueInput | InputJsonValue
-    infoSections?: NullableJsonNullValueInput | InputJsonValue
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    sections?: SectionUpdateManyWithoutConfigNestedInput
-    images?: ImageUpdateManyWithoutConfigNestedInput
-    servers?: UnitServerUpdateManyWithoutConfigNestedInput
-  }
-
-  export type UnitConfigUncheckedUpdateWithoutArticlesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    pageTitle?: StringFieldUpdateOperationsInput | string
-    subtitle?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    seoTitle?: NullableStringFieldUpdateOperationsInput | string | null
-    seoDescription?: NullableStringFieldUpdateOperationsInput | string | null
-    seoKeywords?: NullableStringFieldUpdateOperationsInput | string | null
-    ogImage?: NullableStringFieldUpdateOperationsInput | string | null
-    headerLinks?: NullableJsonNullValueInput | InputJsonValue
-    footerLinks?: NullableJsonNullValueInput | InputJsonValue
-    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
-    legalStepsCount?: IntFieldUpdateOperationsInput | number
-    pageType?: StringFieldUpdateOperationsInput | string
-    externalLinks?: NullableJsonNullValueInput | InputJsonValue
-    newsParams?: NullableJsonNullValueInput | InputJsonValue
-    selectedNews?: NullableJsonNullValueInput | InputJsonValue
-    infoSections?: NullableJsonNullValueInput | InputJsonValue
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    sections?: SectionUncheckedUpdateManyWithoutConfigNestedInput
-    images?: ImageUncheckedUpdateManyWithoutConfigNestedInput
-    servers?: UnitServerUncheckedUpdateManyWithoutConfigNestedInput
-  }
-
-  export type UnitConfigUncheckedUpdateManyWithoutArticlesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    pageTitle?: StringFieldUpdateOperationsInput | string
-    subtitle?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    seoTitle?: NullableStringFieldUpdateOperationsInput | string | null
-    seoDescription?: NullableStringFieldUpdateOperationsInput | string | null
-    seoKeywords?: NullableStringFieldUpdateOperationsInput | string | null
-    ogImage?: NullableStringFieldUpdateOperationsInput | string | null
-    headerLinks?: NullableJsonNullValueInput | InputJsonValue
-    footerLinks?: NullableJsonNullValueInput | InputJsonValue
-    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
-    legalStepsCount?: IntFieldUpdateOperationsInput | number
-    pageType?: StringFieldUpdateOperationsInput | string
-    externalLinks?: NullableJsonNullValueInput | InputJsonValue
-    newsParams?: NullableJsonNullValueInput | InputJsonValue
-    selectedNews?: NullableJsonNullValueInput | InputJsonValue
-    infoSections?: NullableJsonNullValueInput | InputJsonValue
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ClientCreateManyServerInput = {
