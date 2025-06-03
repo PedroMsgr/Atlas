@@ -227,7 +227,43 @@ export default function UpdateConfig({
       footerInfo: form.footerInfo || '',
     };
     try {
+      // 1. Actualizar la config principal
       const { data } = await updateConfig({ variables: { id: form.id, data: input } });
+      // 2. Eliminar secciones marcadas
+      for (const id of deletedSectionIds) {
+        if (id) await deleteSection({ variables: { id } });
+      }
+      // 3. Crear nuevas secciones
+      for (const sec of form.sections) {
+        if (!sec.id) {
+          await createSection({
+            variables: {
+              data: {
+                configId: form.id,
+                title: sec.title,
+                body: sec.body,
+                imageUrl: sec.imageUrl,
+                order: sec.order,
+              },
+            },
+          });
+        } else {
+          // 4. Actualizar secciones existentes
+          await updateSection({
+            variables: {
+              id: sec.id,
+              data: {
+                configId: form.id,
+                title: sec.title,
+                body: sec.body,
+                imageUrl: sec.imageUrl,
+                order: sec.order,
+              },
+            },
+          });
+        }
+      }
+      setDeletedSectionIds([]);
       if (data?.updateConfig?.id) {
         setForm((prev: any) => ({ ...prev, ...data.updateConfig }));
         if (onSuccess) onSuccess();
@@ -252,15 +288,16 @@ export default function UpdateConfig({
     title: string;
     body: string;
     imageUrl: string;
-    order: number;
   }>({
     title: "",
     body: "",
     imageUrl: "",
-    order: (form.sections?.length || 0) + 1,
   });
   const [editingSectionId, setEditingSectionId] = useState<string | null>(null);
   const [currentSectionId, setCurrentSectionId] = useState<string | null>(null);
+
+  // Estado para cambios diferidos de secciones
+  const [deletedSectionIds, setDeletedSectionIds] = useState<string[]>([]);
 
   const loadSectionForEdit = (sec: any) => {
     setSectionForm({
@@ -268,63 +305,47 @@ export default function UpdateConfig({
       title: sec.title,
       body: sec.body,
       imageUrl: sec.imageUrl || "",
-      order: sec.order,
     });
     setEditingSectionId(sec.id);
   };
 
-  const handleAddSection = async () => {
-    if (!form.id) return;
-    await createSection({
-      variables: {
-        data: {
-          configId: form.id,
+  const handleAddSection = () => {
+    setForm((prev: any) => ({
+      ...prev,
+      sections: [
+        ...prev.sections,
+        {
+          id: undefined,
           title: sectionForm.title,
           body: sectionForm.body,
           imageUrl: sectionForm.imageUrl,
-          order: sectionForm.order,
+          order: (prev.sections?.length || 0) + 1,
         },
-      },
-    });
-    await refetchSections();
-    setSectionForm({
-      id: undefined,
-      title: "",
-      body: "",
-      imageUrl: "",
-      order: (form.sections?.length || 0) + 1,
-    });
+      ],
+    }));
+    setSectionForm({ id: undefined, title: "", body: "", imageUrl: "" });
     setEditingSectionId(null);
   };
 
-  const handleEditSection = async () => {
-    if (!sectionForm.id) return;
-    await updateSection({
-      variables: {
-        id: sectionForm.id!,
-        data: {
-          configId: form.id,
-          title: sectionForm.title,
-          body: sectionForm.body,
-          imageUrl: sectionForm.imageUrl,
-          order: sectionForm.order,
-        },
-      },
-    });
-    await refetchSections();
-    setSectionForm({
-      id: undefined,
-      title: "",
-      body: "",
-      imageUrl: "",
-      order: (form.sections?.length || 0) + 1,
-    });
+  const handleEditSection = () => {
+    setForm((prev: any) => ({
+      ...prev,
+      sections: prev.sections.map((sec: any) =>
+        sec.id === sectionForm.id
+          ? { ...sec, ...sectionForm }
+          : sec
+      ),
+    }));
+    setSectionForm({ id: undefined, title: "", body: "", imageUrl: "" });
     setEditingSectionId(null);
   };
 
-  const handleDeleteSection = async (sectionId: string) => {
-    await deleteSection({ variables: { id: sectionId } });
-    await refetchSections();
+  const handleDeleteSection = (sectionId: string) => {
+    setForm((prev: any) => ({
+      ...prev,
+      sections: prev.sections.filter((sec: any) => sec.id !== sectionId),
+    }));
+    setDeletedSectionIds((prev) => [...prev, sectionId]);
   };
 
   // =================== PESTAÑA ARTÍCULOS ===================
@@ -334,24 +355,26 @@ export default function UpdateConfig({
     content: string;
     url: string;
     publishedAt: string;
-    order: number;
-  }>({
-    title: "",
-    content: "",
-    url: "",
-    publishedAt: new Date().toISOString().split("T")[0],
-    order: (form.articles?.length || 0) + 1,
-  });
+    order?: number;
+  }>(
+    {
+      title: "",
+      content: "",
+      url: "",
+      publishedAt: new Date().toISOString().split("T")[0],
+      order: undefined,
+    }
+  );
   const [editingArticleId, setEditingArticleId] = useState<string | null>(null);
 
   const loadArticleForEdit = (art: any) => {
     setArticleForm({
       id: art.id,
-      title: art.title,
-      content: art.content,
+      title: art.title || "",
+      content: art.content || "",
       url: art.url || "",
       publishedAt: art.publishedAt ? art.publishedAt.split("T")[0] : new Date().toISOString().split("T")[0],
-      order: art.order,
+      order: art.order || 1,
     });
     setEditingArticleId(art.id);
   };
@@ -365,8 +388,8 @@ export default function UpdateConfig({
           title: articleForm.title,
           content: articleForm.content,
           url: articleForm.url,
-          publishedAt: articleForm.publishedAt,
-          order: articleForm.order,
+          publishedAt: new Date(articleForm.publishedAt).toISOString(),
+          order: (form.articles?.length || 0) + 1,
         },
       },
     });
@@ -377,7 +400,7 @@ export default function UpdateConfig({
       content: "",
       url: "",
       publishedAt: new Date().toISOString().split("T")[0],
-      order: (form.articles?.length || 0) + 1,
+      order: undefined,
     });
     setEditingArticleId(null);
   };
@@ -392,8 +415,8 @@ export default function UpdateConfig({
           title: articleForm.title,
           content: articleForm.content,
           url: articleForm.url,
-          publishedAt: articleForm.publishedAt,
-          order: articleForm.order,
+          publishedAt: new Date(articleForm.publishedAt).toISOString(),
+          order: articleForm.order || 1,
         },
       },
     });
@@ -404,7 +427,7 @@ export default function UpdateConfig({
       content: "",
       url: "",
       publishedAt: new Date().toISOString().split("T")[0],
-      order: (form.articles?.length || 0) + 1,
+      order: undefined,
     });
     setEditingArticleId(null);
   };
@@ -480,13 +503,9 @@ export default function UpdateConfig({
     id?: string;
     title: string;
     description: string;
-    iconUrl: string;
-    order: number;
   }>({
     title: "",
     description: "",
-    iconUrl: "",
-    order: (form.legalSteps?.length || 0) + 1,
   });
   const [editingLegalStepId, setEditingLegalStepId] = useState<string | null>(null);
 
@@ -495,58 +514,37 @@ export default function UpdateConfig({
       id: step.id,
       title: step.title,
       description: step.description,
-      iconUrl: step.iconUrl || "",
-      order: step.order,
     });
     setEditingLegalStepId(step.id);
   };
 
-  const handleAddLegalStep = async () => {
-    if (!form.id) return;
-    await createLegalStep({
-      variables: {
-        data: {
-          configId: form.id,
+  const handleAddLegalStep = () => {
+    setForm((prev: any) => ({
+      ...prev,
+      legalSteps: [
+        ...prev.legalSteps,
+        {
+          id: undefined,
           title: legalStepForm.title,
           description: legalStepForm.description,
-          iconUrl: legalStepForm.iconUrl,
-          order: legalStepForm.order,
+          order: (prev.legalSteps?.length || 0) + 1,
         },
-      },
-    });
-    await refetchLegalSteps();
-    setLegalStepForm({
-      id: undefined,
-      title: "",
-      description: "",
-      iconUrl: "",
-      order: (form.legalSteps?.length || 0) + 1,
-    });
+      ],
+    }));
+    setLegalStepForm({ id: undefined, title: "", description: "" });
     setEditingLegalStepId(null);
   };
 
-  const handleEditLegalStep = async () => {
-    if (!legalStepForm.id) return;
-    await updateLegalStep({
-      variables: {
-        id: legalStepForm.id!,
-        data: {
-          configId: form.id,
-          title: legalStepForm.title,
-          description: legalStepForm.description,
-          iconUrl: legalStepForm.iconUrl,
-          order: legalStepForm.order,
-        },
-      },
-    });
-    await refetchLegalSteps();
-    setLegalStepForm({
-      id: undefined,
-      title: "",
-      description: "",
-      iconUrl: "",
-      order: (form.legalSteps?.length || 0) + 1,
-    });
+  const handleEditLegalStep = () => {
+    setForm((prev: any) => ({
+      ...prev,
+      legalSteps: prev.legalSteps.map((step: any) =>
+        step.id === legalStepForm.id
+          ? { ...step, ...legalStepForm }
+          : step
+      ),
+    }));
+    setLegalStepForm({ id: undefined, title: "", description: "" });
     setEditingLegalStepId(null);
   };
 
@@ -560,11 +558,9 @@ export default function UpdateConfig({
     id?: string;
     label: string;
     url: string;
-    order: number;
   }>({
     label: "",
     url: "",
-    order: (form.footerLinks?.length || 0) + 1,
   });
   const [editingFooterLinkId, setEditingFooterLinkId] = useState<string | null>(null);
 
@@ -573,53 +569,37 @@ export default function UpdateConfig({
       id: link.id,
       label: link.label,
       url: link.url,
-      order: link.order,
     });
     setEditingFooterLinkId(link.id);
   };
 
-  const handleAddFooterLink = async () => {
-    if (!form.id) return;
-    await createFooterLink({
-      variables: {
-        data: {
-          configId: form.id,
+  const handleAddFooterLink = () => {
+    setForm((prev: any) => ({
+      ...prev,
+      footerLinks: [
+        ...prev.footerLinks,
+        {
+          id: undefined,
           label: footerLinkForm.label,
           url: footerLinkForm.url,
-          order: footerLinkForm.order,
+          order: (prev.footerLinks?.length || 0) + 1,
         },
-      },
-    });
-    await refetchFooterLinks();
-    setFooterLinkForm({
-      id: undefined,
-      label: "",
-      url: "",
-      order: (form.footerLinks?.length || 0) + 1,
-    });
+      ],
+    }));
+    setFooterLinkForm({ id: undefined, label: "", url: "" });
     setEditingFooterLinkId(null);
   };
 
-  const handleEditFooterLink = async () => {
-    if (!footerLinkForm.id) return;
-    await updateFooterLink({
-      variables: {
-        id: footerLinkForm.id!,
-        data: {
-          configId: form.id,
-          label: footerLinkForm.label,
-          url: footerLinkForm.url,
-          order: footerLinkForm.order,
-        },
-      },
-    });
-    await refetchFooterLinks();
-    setFooterLinkForm({
-      id: undefined,
-      label: "",
-      url: "",
-      order: (form.footerLinks?.length || 0) + 1,
-    });
+  const handleEditFooterLink = () => {
+    setForm((prev: any) => ({
+      ...prev,
+      footerLinks: prev.footerLinks.map((link: any) =>
+        link.id === footerLinkForm.id
+          ? { ...link, ...footerLinkForm }
+          : link
+      ),
+    }));
+    setFooterLinkForm({ id: undefined, label: "", url: "" });
     setEditingFooterLinkId(null);
   };
 
@@ -694,6 +674,14 @@ export default function UpdateConfig({
                 <div className="flex items-center space-x-2">
                   <img src={form.bannerUrl} alt="Banner actual" className="h-12 w-24 rounded" />
                   <span className="text-sm break-all">{form.bannerUrl}</span>
+                  <Button
+                    type="button"
+                    color="red"
+                    size="1"
+                    onClick={() => setForm((prev: any) => ({ ...prev, bannerUrl: "" }))}
+                  >
+                    Eliminar
+                  </Button>
                 </div>
               )}
             </Box>
@@ -707,7 +695,6 @@ export default function UpdateConfig({
                   const file = e.target.files?.[0];
                   if (!file || !form.id) return;
                   const url = await uploadImage(file);
-                  // Registrar en la tabla de imágenes como tipo 'icon'
                   await createImage({
                     variables: {
                       data: {
@@ -729,6 +716,14 @@ export default function UpdateConfig({
                 <div className="flex items-center space-x-2">
                   <img src={form.iconUrl} alt="Icono actual" className="h-12 w-12 rounded-full" />
                   <span className="text-sm break-all">{form.iconUrl}</span>
+                  <Button
+                    type="button"
+                    color="red"
+                    size="1"
+                    onClick={() => setForm((prev: any) => ({ ...prev, iconUrl: "" }))}
+                  >
+                    Eliminar
+                  </Button>
                 </div>
               )}
             </Box>
@@ -762,42 +757,33 @@ export default function UpdateConfig({
                 name="title"
                 placeholder="Título de sección"
                 value={sectionForm.title}
-                onChange={(e) =>
-                  setSectionForm({ ...sectionForm, title: e.target.value })
-                }
+                onChange={(e) => setSectionForm({ ...sectionForm, title: e.target.value })}
                 required
               />
               <Textarea
                 name="body"
                 placeholder="Contenido de sección"
                 value={sectionForm.body}
-                onChange={(e) =>
-                  setSectionForm({ ...sectionForm, body: e.target.value })
-                }
+                onChange={(e) => setSectionForm({ ...sectionForm, body: e.target.value })}
                 required
               />
-              <TextField.Root
-                name="imageUrl"
-                placeholder="URL de la imagen (opcional)"
-                value={sectionForm.imageUrl}
-                onChange={(e) =>
-                  setSectionForm({ ...sectionForm, imageUrl: e.target.value })
-                }
+              <input
+                type="file"
+                accept="image/*"
+                onChange={async (e) => {
+                  const file = e.target.files?.[0];
+                  if (!file) return;
+                  const url = await uploadImage(file);
+                  setSectionForm((prev) => ({ ...prev, imageUrl: url }));
+                }}
+                className="mb-2"
               />
-              <TextField.Root
-                name="order"
-                placeholder="Orden"
-                value={sectionForm.order}
-                onChange={(e) =>
-                  setSectionForm({
-                    ...sectionForm,
-                    order: parseInt(e.target.value, 10),
-                  })
-                }
-                type="number"
-                min={1}
-                required
-              />
+              {sectionForm.imageUrl && (
+                <div className="flex items-center space-x-2">
+                  <img src={sectionForm.imageUrl} alt="Imagen sección" className="h-12 w-24 rounded" />
+                  <Button type="button" color="red" size="1" onClick={() => setSectionForm((prev) => ({ ...prev, imageUrl: "" }))}>Eliminar</Button>
+                </div>
+              )}
               <Flex gap="2" className="mt-2">
                 <Button
                   color="green"
@@ -815,7 +801,6 @@ export default function UpdateConfig({
                         title: "",
                         body: "",
                         imageUrl: "",
-                        order: (form.sections?.length || 0) + 1,
                       });
                     }}
                   >
@@ -830,34 +815,24 @@ export default function UpdateConfig({
               <Box className="mt-4">Cargando secciones...</Box>
             ) : (
               <Box className="mt-4 space-y-2">
-                {(form.sections || []).map((sec: any) => (
+                {form.sections?.map((sec: any, idx: number) => (
                   <Box
-                    key={sec.id}
-                    className="border p-3 rounded-lg flex justify-between items-center"
+                    key={sec.id || `new-${idx}`}
+                    className="border rounded-lg p-3 flex flex-col md:flex-row md:items-center md:justify-between gap-2"
                   >
-                    <Box>
-                      <Heading size="6">{sec.title}</Heading>
-                      <p>Orden: {sec.order}</p>
+                    <div>
+                      <div className="font-semibold">{sec.title}</div>
+                      <div className="text-sm text-gray-600">{sec.body}</div>
                       {sec.imageUrl && (
-                        <img
-                          src={sec.imageUrl}
-                          alt={`Imagen ${sec.title}`}
-                          className="h-12 w-12 mt-1 rounded"
-                        />
+                        <img src={sec.imageUrl} alt="Imagen sección" className="h-10 w-20 rounded mt-1" />
                       )}
-                    </Box>
+                    </div>
                     <Flex gap="2">
-                      <Button variant="soft" onClick={() => loadSectionForEdit(sec)}>
+                      <Button type="button" size="1" onClick={() => loadSectionForEdit(sec)}>
                         Editar
                       </Button>
-                      <Button color="red" onClick={() => handleDeleteSection(sec.id)}>
+                      <Button type="button" color="red" size="1" onClick={() => handleDeleteSection(sec.id)}>
                         Eliminar
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        onClick={() => setCurrentSectionId(sec.id)}
-                      >
-                        Subir imágenes
                       </Button>
                     </Flex>
                   </Box>
@@ -920,50 +895,28 @@ export default function UpdateConfig({
                 name="title"
                 placeholder="Título del artículo"
                 value={articleForm.title}
-                onChange={(e) =>
-                  setArticleForm({ ...articleForm, title: e.target.value })
-                }
+                onChange={(e) => setArticleForm({ ...articleForm, title: e.target.value })}
                 required
               />
               <Textarea
                 name="content"
                 placeholder="Contenido breve"
                 value={articleForm.content}
-                onChange={(e) =>
-                  setArticleForm({ ...articleForm, content: e.target.value })
-                }
+                onChange={(e) => setArticleForm({ ...articleForm, content: e.target.value })}
                 required
               />
               <TextField.Root
                 name="url"
                 placeholder="URL de la noticia"
                 value={articleForm.url}
-                onChange={(e) =>
-                  setArticleForm({ ...articleForm, url: e.target.value })
-                }
+                onChange={(e) => setArticleForm({ ...articleForm, url: e.target.value })}
                 required
               />
               <TextField.Root
                 name="publishedAt"
                 type="date"
                 value={articleForm.publishedAt}
-                onChange={(e) =>
-                  setArticleForm({ ...articleForm, publishedAt: e.target.value })
-                }
-                required
-              />
-              <TextField.Root
-                name="order"
-                placeholder="Orden"
-                type="number"
-                min={1}
-                value={articleForm.order}
-                onChange={(e) =>
-                  setArticleForm({
-                    ...articleForm,
-                    order: parseInt(e.target.value, 10),
-                  })
-                }
+                onChange={(e) => setArticleForm({ ...articleForm, publishedAt: e.target.value })}
                 required
               />
               <Flex gap="2" className="mt-2">
@@ -984,7 +937,7 @@ export default function UpdateConfig({
                         content: "",
                         url: "",
                         publishedAt: new Date().toISOString().split("T")[0],
-                        order: (form.articles?.length || 0) + 1,
+                        order: undefined,
                       });
                     }}
                   >
@@ -999,9 +952,9 @@ export default function UpdateConfig({
               <Box className="mt-4">Cargando artículos...</Box>
             ) : (
               <Box className="mt-4 space-y-2">
-                {(form.articles || []).map((art: any) => (
+                {(form.articles || []).map((art: any, idx: number) => (
                   <Box
-                    key={art.id}
+                    key={art.id || `new-${idx}`}
                     className="border p-3 rounded-lg flex justify-between items-center"
                   >
                     <Box>
@@ -1055,9 +1008,9 @@ export default function UpdateConfig({
               <Box className="mt-4">Cargando imágenes...</Box>
             ) : (
               <Box className="mt-4 grid grid-cols-2 md:grid-cols-3 gap-4">
-                {(form.images || []).map((img: any) => (
+                {(form.images || []).map((img: any, idx: number) => (
                   <Box
-                    key={img.id}
+                    key={img.id || `new-${idx}`}
                     className="relative rounded-lg overflow-hidden border"
                   >
                     <img
@@ -1094,41 +1047,15 @@ export default function UpdateConfig({
                 name="title"
                 placeholder="Título del paso legal"
                 value={legalStepForm.title}
-                onChange={(e) =>
-                  setLegalStepForm({ ...legalStepForm, title: e.target.value })
-                }
+                onChange={(e) => setLegalStepForm({ ...legalStepForm, title: e.target.value })}
                 required
               />
               <Textarea
                 name="description"
                 placeholder="Descripción del paso legal"
                 value={legalStepForm.description}
-                onChange={(e) =>
-                  setLegalStepForm({ ...legalStepForm, description: e.target.value })
-                }
+                onChange={(e) => setLegalStepForm({ ...legalStepForm, description: e.target.value })}
                 required
-              />
-              <TextField.Root
-                name="order"
-                placeholder="Orden"
-                type="number"
-                min={1}
-                value={legalStepForm.order}
-                onChange={(e) =>
-                  setLegalStepForm({
-                    ...legalStepForm,
-                    order: parseInt(e.target.value, 10),
-                  })
-                }
-                required
-              />
-              <TextField.Root
-                name="iconUrl"
-                placeholder="URL del icono (opcional)"
-                value={legalStepForm.iconUrl}
-                onChange={(e) =>
-                  setLegalStepForm({ ...legalStepForm, iconUrl: e.target.value })
-                }
               />
               <Flex gap="2" className="mt-2">
                 <Button
@@ -1146,8 +1073,6 @@ export default function UpdateConfig({
                         id: undefined,
                         title: "",
                         description: "",
-                        iconUrl: "",
-                        order: (form.legalSteps?.length || 0) + 1,
                       });
                     }}
                   >
@@ -1162,21 +1087,14 @@ export default function UpdateConfig({
               <Box className="mt-4">Cargando pasos legales...</Box>
             ) : (
               <Box className="mt-4 space-y-2">
-                {(form.legalSteps || []).map((step: any) => (
+                {(form.legalSteps || []).map((step: any, idx: number) => (
                   <Box
-                    key={step.id}
+                    key={step.id || `new-${idx}`}
                     className="border p-3 rounded-lg flex justify-between items-center"
                   >
                     <Box>
                       <Heading size="6">{step.title}</Heading>
                       <p>Orden: {step.order}</p>
-                      {step.iconUrl && (
-                        <img
-                          src={step.iconUrl}
-                          alt={`Icono ${step.title}`}
-                          className="h-8 w-8 mt-1"
-                        />
-                      )}
                     </Box>
                     <Flex gap="2">
                       <Button variant="soft" onClick={() => loadLegalStepForEdit(step)}>
@@ -1207,32 +1125,14 @@ export default function UpdateConfig({
                 name="label"
                 placeholder="Texto del enlace"
                 value={footerLinkForm.label}
-                onChange={(e) =>
-                  setFooterLinkForm({ ...footerLinkForm, label: e.target.value })
-                }
+                onChange={(e) => setFooterLinkForm({ ...footerLinkForm, label: e.target.value })}
                 required
               />
               <TextField.Root
                 name="url"
                 placeholder="URL del enlace"
                 value={footerLinkForm.url}
-                onChange={(e) =>
-                  setFooterLinkForm({ ...footerLinkForm, url: e.target.value })
-                }
-                required
-              />
-              <TextField.Root
-                name="order"
-                placeholder="Orden"
-                type="number"
-                min={1}
-                value={footerLinkForm.order}
-                onChange={(e) =>
-                  setFooterLinkForm({
-                    ...footerLinkForm,
-                    order: parseInt(e.target.value, 10),
-                  })
-                }
+                onChange={(e) => setFooterLinkForm({ ...footerLinkForm, url: e.target.value })}
                 required
               />
               <Flex gap="2" className="mt-2">
@@ -1253,7 +1153,6 @@ export default function UpdateConfig({
                         id: undefined,
                         label: "",
                         url: "",
-                        order: (form.footerLinks?.length || 0) + 1,
                       });
                     }}
                   >
@@ -1268,15 +1167,14 @@ export default function UpdateConfig({
               <Box className="mt-4">Cargando enlaces de footer...</Box>
             ) : (
               <Box className="mt-4 space-y-2">
-                {(form.footerLinks || []).map((link: any) => (
+                {(form.footerLinks || []).map((link: any, idx: number) => (
                   <Box
-                    key={link.id}
+                    key={link.id || `new-${idx}`}
                     className="border p-3 rounded-lg flex justify-between items-center"
                   >
                     <Box>
                       <Heading size="6">{link.label}</Heading>
                       <p>URL: {link.url}</p>
-                      <p>Orden: {link.order}</p>
                     </Box>
                     <Flex gap="2">
                       <Button variant="soft" onClick={() => loadFooterLinkForEdit(link)}>

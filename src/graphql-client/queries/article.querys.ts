@@ -9,6 +9,7 @@ export const GET_ARTICLE_BY_ID = gql`
       configId
       title
       content
+      url
       publishedAt
     }
   }
@@ -21,6 +22,7 @@ export const GET_ARTICLES_BY_CONFIG = gql`
       configId
       title
       content
+      url
       publishedAt
     }
   }
@@ -33,6 +35,7 @@ export const GET_ALL_ARTICLES = gql`
       configId
       title
       content
+      url
       publishedAt
     }
   }

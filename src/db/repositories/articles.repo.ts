@@ -21,14 +21,14 @@ export class ArticlesRepository {
 
   async create(data: Omit<Article, 'id' | 'publishedAt'>): Promise<Article> {
     return prisma.article.create({
-      data: { ...data, publishedAt: new Date() },
+      data: { ...data, publishedAt: new Date(), url: data.url ?? null },
     });
   }
 
   async update(id: string, data: Partial<Article>): Promise<Article> {
     return prisma.article.update({
       where: { id },
-      data,
+      data: { ...data, url: data.url ?? null },
     });
   }
 

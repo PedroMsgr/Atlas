@@ -9,6 +9,7 @@ export const CREATE_ARTICLE = gql`
       configId
       title
       content
+      url
       publishedAt
     }
   }
@@ -21,6 +22,7 @@ export const UPDATE_ARTICLE = gql`
       configId
       title
       content
+      url
       publishedAt
     }
   }

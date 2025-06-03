@@ -15,7 +15,7 @@ const menuItems = [
   { name: 'Contenido',      path: '/admin/content',       icon: '📝' },
   { name: 'Estadísticas',   path: '/admin/stats',         icon: '📈' },
   { name: 'Seguridad',      path: '/admin/security',      icon: '🔒' },
-  { name: 'Emulador',       path: '/admin/emulador',      icon: '🖥️' },
+  { name: 'Emulador',       path: '/admin/emulator',      icon: '🖥️' },
 ];
 
 export default function AdminLayout({
