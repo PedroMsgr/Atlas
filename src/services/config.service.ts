@@ -1,12 +1,9 @@
 // src/services/config-service.ts
 
-import { ConfigsRepository } from '@/db/repositories/configs.repo';
-import { ServersRepository } from '@/db/repositories/servers.repo';
-import { SectionsRepository } from '@/db/repositories/sections.repo';
-import { ArticlesRepository } from '@/db/repositories/articles.repo';
-import { ImagesRepository } from '@/db/repositories/images.repo';
-import { FooterLinksRepository } from '@/db/repositories/footerlinks.repo';
-import { LegalStepsRepository } from '@/db/repositories/legalsteps.repo';
+import { ConfigsRepository, ServersRepository, 
+  SectionsRepository, ArticlesRepository,
+   ImagesRepository, FooterLinksRepository, 
+   LegalStepsRepository } from '@/db/repositories';
 import { LegalStep, FooterLink } from '@/generated/prisma';
 
 export class ConfigService {

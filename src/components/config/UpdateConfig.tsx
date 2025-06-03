@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
-import { Tabs, Box, Button, TextField, Heading, Flex } from "@radix-ui/themes";
+import { Tabs, Box, Button, Flex } from "@radix-ui/themes";
 import { useRouter } from "next/navigation";
 import {
   UPDATE_CONFIG,
@@ -31,8 +31,12 @@ import { GET_LEGALSTEPS_BY_CONFIG } from "@/graphql-client/queries/legalstep.que
 import { CREATE_FOOTERLINK, UPDATE_FOOTERLINK, DELETE_FOOTERLINK } from "@/graphql-client/mutations/footerlink.mutations";
 import { GET_FOOTERLINKS_BY_CONFIG } from "@/graphql-client/queries/footerlink.querys";
 import { uploadImage } from "@/lib/uploadImage";
-import { Textarea } from "@/components/ui/textarea";
+import GeneralTab from './GeneralTab';
 import SectionsTab from './SectionsTab';
+import ArticlesTab from './ArticlesTab';
+import ImagesTab from './ImagesTab';
+import LegalStepsTab from './LegalStepsTab';
+import FooterLinksTab from './FooterLinksTab';
 
 interface CreateConfigFormProps {
   config?: any; // UnitConfigWithRelations
@@ -222,29 +226,26 @@ export default function UpdateConfig({
 
   // --- Legal Steps Handlers ---
   const handleAddLegalStepDraft = () => {
-    setDraftLegalSteps(prev => {
-      const newArr = [
-        ...prev,
-        {
-          id: undefined,
-          title: legalStepForm.title,
-          description: legalStepForm.description,
-          order: prev.length + 1,
-        },
-      ];
-      return newArr.map((step, idx) => ({ ...step, order: idx + 1 }));
-    });
-    setLegalStepForm({ id: undefined, title: "", description: "" });
-    setEditingLegalStepId(null);
+    if (!legalStepForm.title || !legalStepForm.description) return;
+    setDraftLegalSteps((prev) => [
+      ...prev,
+      {
+        ...legalStepForm,
+        id: undefined,
+        order: prev.length + 1,
+      },
+    ]);
+    setLegalStepForm({ id: undefined, title: '', description: '' });
   };
   const handleEditLegalStepDraft = () => {
-    setDraftLegalSteps(prev => {
-      const newArr = prev.map(step =>
-        step.id === legalStepForm.id ? { ...step, ...legalStepForm } : step
-      );
-      return newArr.map((step, idx) => ({ ...step, order: idx + 1 }));
-    });
-    setLegalStepForm({ id: undefined, title: "", description: "" });
+    setDraftLegalSteps((prev) =>
+      prev.map((step) =>
+        step.id === legalStepForm.id || (!step.id && !legalStepForm.id && step.title === legalStepForm.title)
+          ? { ...step, title: legalStepForm.title, description: legalStepForm.description }
+          : step
+      )
+    );
+    setLegalStepForm({ id: undefined, title: '', description: '' });
     setEditingLegalStepId(null);
   };
   const handleDeleteLegalStepDraft = (id: string | undefined) => {
@@ -371,7 +372,7 @@ export default function UpdateConfig({
               data: {
                 configId: form.id,
                 title: step.title,
-                description: step.description,
+                description: step.description ?? "",
                 order: step.order,
               },
             },
@@ -383,7 +384,7 @@ export default function UpdateConfig({
               data: {
                 configId: form.id,
                 title: step.title,
-                description: step.description,
+                description: step.description ?? "",
                 order: step.order,
               },
             },
@@ -657,13 +658,10 @@ export default function UpdateConfig({
   };
 
   // =================== PESTAÑA PASOS LEGALES ===================
-  const [legalStepForm, setLegalStepForm] = useState<{
-    id?: string;
-    title: string;
-    description: string;
-  }>({
-    title: "",
-    description: "",
+  const [legalStepForm, setLegalStepForm] = useState({
+    id: undefined,
+    title: '',
+    description: '',
   });
   const [editingLegalStepId, setEditingLegalStepId] = useState<string | null>(null);
 
@@ -704,6 +702,7 @@ export default function UpdateConfig({
   const handleEditFooterLink = handleEditFooterLinkDraft;
   const handleDeleteFooterLink = (id: string) => handleDeleteFooterLinkDraft(id);
 
+  // Renderizado de tabs
   return (
     <Box className="w-full">
       <Flex justify="end" align="center" className="mb-4 gap-2">
@@ -728,115 +727,15 @@ export default function UpdateConfig({
 
         {/* ========= PESTAÑA GENERAL ========= */}
         <Tabs.Content value="general">
-          <form className="space-y-4 p-4" onSubmit={e => e.preventDefault()}>
-            <Heading size="5">Datos Generales y Configuración</Heading>
-            <TextField.Root
-              name="name"
-              placeholder="Nombre único de configuración"
-              value={form.name}
-              onChange={handleChange}
-              required
-            />
-            <TextField.Root
-              name="pageTitle"
-              placeholder="Título que aparecerá en la landing"
-              value={form.pageTitle}
-              onChange={handleChange}
-              required
-            />
-            <TextField.Root
-              name="pageDescription"
-              placeholder="Descripción de la página (opcional)"
-              value={form.pageDescription || ""}
-              onChange={handleChange}
-            />
-            <TextField.Root
-              name="servicesDescription"
-              placeholder="Descripción de servicios"
-              value={form.servicesDescription || ""}
-              onChange={handleChange}
-              required
-            />
-
-            <Box>
-              <label className="block text-sm font-medium mb-1">Banner principal</label>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(e) => handleFileUpload(e, "bannerUrl")}
-                className="mb-2"
-              />
-              {form.bannerUrl && (
-                <div className="flex items-center space-x-2">
-                  <img src={form.bannerUrl} alt="Banner actual" className="h-12 w-24 rounded" />
-                  <span className="text-sm break-all">{form.bannerUrl}</span>
-                  <Button
-                    type="button"
-                    color="red"
-                    size="1"
-                    onClick={() => setForm((prev: any) => ({ ...prev, bannerUrl: "" }))}
-                  >
-                    Eliminar
-                  </Button>
-                </div>
-              )}
-            </Box>
-
-            <Box>
-              <label className="block text-sm font-medium mb-1">Icono</label>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={async (e) => {
-                  const file = e.target.files?.[0];
-                  if (!file || !form.id) return;
-                  const url = await uploadImage(file);
-                  await createImage({
-                    variables: {
-                      data: {
-                        configId: form.id,
-                        sectionId: null,
-                        url,
-                        altText: file.name,
-                        type: "icon",
-                        order: 1,
-                      },
-                    },
-                  });
-                  setForm((prev: any) => ({ ...prev, iconUrl: url }));
-                  await refetchImages();
-                }}
-                className="mb-2"
-              />
-              {form.iconUrl && (
-                <div className="flex items-center space-x-2">
-                  <img src={form.iconUrl} alt="Icono actual" className="h-12 w-12 rounded-full" />
-                  <span className="text-sm break-all">{form.iconUrl}</span>
-                  <Button
-                    type="button"
-                    color="red"
-                    size="1"
-                    onClick={() => setForm((prev: any) => ({ ...prev, iconUrl: "" }))}
-                  >
-                    Eliminar
-                  </Button>
-                </div>
-              )}
-            </Box>
-
-            <TextField.Root
-              name="footerInfo"
-              placeholder="Información de pie de página"
-              value={form.footerInfo || ""}
-              onChange={handleChange}
-            />
-
-            {updateError && (
-              <div className="text-red-600 mt-2">
-                {updateError.message}
-              </div>
-            )}
-          </form>
+          <GeneralTab
+            form={form}
+            handleChange={handleChange}
+            handleFileUpload={handleFileUpload}
+            updateError={updateError}
+            updating={updating}
+            handleSubmit={handleSubmit}
+            router={router}
+          />
         </Tabs.Content>
 
         {/* ========= PESTAÑA SECCIONES ========= */}
@@ -850,8 +749,6 @@ export default function UpdateConfig({
             setEditingSectionId={setEditingSectionId}
             currentSectionId={currentSectionId}
             setCurrentSectionId={setCurrentSectionId}
-            deletedSectionIds={deletedSectionIds}
-            setDeletedSectionIds={setDeletedSectionIds}
             loadSectionForEdit={loadSectionForEdit}
             handleAddSection={handleAddSection}
             handleEditSection={handleEditSection}
@@ -865,244 +762,64 @@ export default function UpdateConfig({
 
         {/* ========= PESTAÑA ARTÍCULOS ========= */}
         <Tabs.Content value="articles">
-          <Box className="p-4">
-            <Heading size="5">Artículos Globales</Heading>
-
-            {/* Formulario para crear/editar artículo */}
-            <Box className="mt-4 space-y-2 border p-4 rounded-lg">
-              <Heading size="6">
-                {editingArticleId ? "Editar artículo" : "Nuevo artículo"}
-              </Heading>
-              <TextField.Root
-                name="title"
-                placeholder="Título del artículo"
-                value={articleForm.title}
-                onChange={(e) => setArticleForm({ ...articleForm, title: e.target.value })}
-                required
-              />
-              <Textarea
-                name="content"
-                placeholder="Contenido breve"
-                value={articleForm.content}
-                onChange={(e) => setArticleForm({ ...articleForm, content: e.target.value })}
-                required
-              />
-              <TextField.Root
-                name="url"
-                placeholder="URL de la noticia"
-                value={articleForm.url}
-                onChange={(e) => setArticleForm({ ...articleForm, url: e.target.value })}
-                required
-              />
-              <TextField.Root
-                name="publishedAt"
-                type="date"
-                value={articleForm.publishedAt}
-                onChange={(e) => setArticleForm({ ...articleForm, publishedAt: e.target.value })}
-                required
-              />
-              <Flex gap="2" className="mt-2">
-                <Button
-                  color="green"
-                  onClick={editingArticleId ? handleEditArticle : handleAddArticle}
-                >
-                  {editingArticleId ? "Actualizar" : "Agregar"}
-                </Button>
-                {editingArticleId && (
-                  <Button
-                    variant="soft"
-                    onClick={() => {
-                      setEditingArticleId(null);
-                      setArticleForm({
-                        id: undefined,
-                        title: "",
-                        content: "",
-                        url: "",
-                        publishedAt: new Date().toISOString().split("T")[0],
-                        order: undefined,
-                      });
-                    }}
-                  >
-                    Cancelar
-                  </Button>
-                )}
-              </Flex>
-            </Box>
-
-            {/* Listado de artículos */}
-            {loadingArticles ? (
-              <Box className="mt-4">Cargando artículos...</Box>
-            ) : (
-              <Box className="mt-4 space-y-2">
-                {(form.articles || []).map((art: any, idx: number) => (
-                  <Box
-                    key={art.id || `new-${idx}`}
-                    className="border p-3 rounded-lg flex justify-between items-center"
-                  >
-                    <Box>
-                      <Heading size="6">{art.title}</Heading>
-                      <p>
-                        {new Date(art.publishedAt).toLocaleDateString()} –{" "}
-                        <a
-                          href={art.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-600 underline"
-                        >
-                          Ver noticia
-                        </a>
-                      </p>
-                      <p>Orden: {art.order}</p>
-                    </Box>
-                    <Flex gap="2">
-                      <Button variant="soft" onClick={() => loadArticleForEdit(art)}>
-                        Editar
-                      </Button>
-                      <Button color="red" onClick={() => handleDeleteArticle(art.id)}>
-                        Eliminar
-                      </Button>
-                    </Flex>
-                  </Box>
-                ))}
-              </Box>
-            )}
-          </Box>
+          <ArticlesTab
+            form={form}
+            setForm={setForm}
+            articleForm={articleForm}
+            setArticleForm={setArticleForm}
+            editingArticleId={editingArticleId}
+            setEditingArticleId={setEditingArticleId}
+            loadArticleForEdit={loadArticleForEdit}
+            handleAddArticle={handleAddArticle}
+            handleEditArticle={handleEditArticle}
+            handleDeleteArticle={handleDeleteArticle}
+            loadingArticles={loadingArticles}
+          />
         </Tabs.Content>
 
         {/* ========= PESTAÑA IMÁGENES ========= */}
         <Tabs.Content value="images">
-          <Box className="p-4">
-            <Heading size="5">Imágenes Globales</Heading>
-            <Box className="mt-4 p-3 border rounded-lg">
-              <label className="block text-sm font-medium mb-1">
-                Agregar imagen global:
-              </label>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleAddImageGlobal}
-                className="mb-2"
-              />
-            </Box>
-
-            {/* Listado de imágenes globales */}
-            {loadingImages ? (
-              <Box className="mt-4">Cargando imágenes...</Box>
-            ) : (
-              <Box className="mt-4 grid grid-cols-2 md:grid-cols-3 gap-4">
-                {(form.images || []).map((img: any, idx: number) => (
-                  <Box
-                    key={img.id || `new-${idx}`}
-                    className="relative rounded-lg overflow-hidden border"
-                  >
-                    <img
-                      src={img.url}
-                      alt={img.altText}
-                      className="w-full h-32 object-cover"
-                    />
-                    <Button
-                      size="1"
-                      variant="soft"
-                      className="absolute top-2 right-2"
-                      onClick={() => handleDeleteImageGlobal(img.id)}
-                    >
-                      X
-                    </Button>
-                  </Box>
-                ))}
-              </Box>
-            )}
-          </Box>
+          <ImagesTab
+            form={form}
+            setForm={setForm}
+            loadingImages={loadingImages}
+            handleAddImageGlobal={handleAddImageGlobal}
+            handleDeleteImageGlobal={handleDeleteImageGlobal}
+          />
         </Tabs.Content>
 
         {/* ========= PESTAÑA PASOS LEGALES ========= */}
         <Tabs.Content value="legalsteps">
-          <Box className="p-4">
-            <Heading size="5">Pasos Legales</Heading>
-            <form className="flex flex-col gap-2 mb-4" onSubmit={e => e.preventDefault()}>
-              <TextField.Root
-                placeholder="Título"
-                value={legalStepForm.title}
-                onChange={e => setLegalStepForm(f => ({ ...f, title: e.target.value }))}
-                required
-              />
-              <TextField.Root
-                placeholder="Descripción"
-                value={legalStepForm.description}
-                onChange={e => setLegalStepForm(f => ({ ...f, description: e.target.value }))}
-                required
-              />
-              <Flex gap="2">
-                {editingLegalStepId ? (
-                  <Button type="button" color="blue" onClick={handleEditLegalStep}>Guardar edición</Button>
-                ) : (
-                  <Button type="button" color="green" onClick={handleAddLegalStep}>Agregar</Button>
-                )}
-                {editingLegalStepId && (
-                  <Button type="button" variant="soft" onClick={() => { setLegalStepForm({ id: undefined, title: "", description: "" }); setEditingLegalStepId(null); }}>Cancelar</Button>
-                )}
-              </Flex>
-            </form>
-            <ul className="divide-y">
-              {draftLegalSteps.map((step, idx) => (
-                <li key={step.id || `draft-${idx}`} className="py-2 flex items-center justify-between">
-                  <div>
-                    <b>{step.title}</b>
-                    <div className="text-xs text-gray-500">{step.description}</div>
-                  </div>
-                  <Flex gap="2">
-                    <Button size="1" variant="soft" onClick={() => loadLegalStepForEdit(step)}>Editar</Button>
-                    <Button size="1" color="red" variant="soft" onClick={() => handleDeleteLegalStep(step.id)}>Eliminar</Button>
-                  </Flex>
-                </li>
-              ))}
-            </ul>
-          </Box>
+          <LegalStepsTab
+            legalSteps={draftLegalSteps}
+            setLegalSteps={setDraftLegalSteps}
+            legalStepForm={legalStepForm}
+            setLegalStepForm={setLegalStepForm}
+            editingLegalStepId={editingLegalStepId}
+            setEditingLegalStepId={setEditingLegalStepId}
+            loadLegalStepForEdit={loadLegalStepForEdit}
+            handleAddLegalStep={handleAddLegalStepDraft}
+            handleEditLegalStep={handleEditLegalStepDraft}
+            handleDeleteLegalStep={handleDeleteLegalStepDraft}
+            loadingLegalSteps={loadingLegalSteps}
+          />
         </Tabs.Content>
 
         {/* ========= PESTAÑA FOOTER LINKS ========= */}
         <Tabs.Content value="footerlinks">
-          <Box className="p-4">
-            <Heading size="5">Footer Links</Heading>
-            <form className="flex flex-col gap-2 mb-4" onSubmit={e => e.preventDefault()}>
-              <TextField.Root
-                placeholder="Etiqueta"
-                value={footerLinkForm.label}
-                onChange={e => setFooterLinkForm(f => ({ ...f, label: e.target.value }))}
-                required
-              />
-              <TextField.Root
-                placeholder="URL"
-                value={footerLinkForm.url}
-                onChange={e => setFooterLinkForm(f => ({ ...f, url: e.target.value }))}
-                required
-              />
-              <Flex gap="2">
-                {editingFooterLinkId ? (
-                  <Button type="button" color="blue" onClick={handleEditFooterLink}>Guardar edición</Button>
-                ) : (
-                  <Button type="button" color="green" onClick={handleAddFooterLink}>Agregar</Button>
-                )}
-                {editingFooterLinkId && (
-                  <Button type="button" variant="soft" onClick={() => { setFooterLinkForm({ id: undefined, label: "", url: "" }); setEditingFooterLinkId(null); }}>Cancelar</Button>
-                )}
-              </Flex>
-            </form>
-            <ul className="divide-y">
-              {draftFooterLinks.map((link, idx) => (
-                <li key={link.id || `draft-${idx}`} className="py-2 flex items-center justify-between">
-                  <div>
-                    <b>{link.label}</b>
-                    <div className="text-xs text-gray-500">{link.url}</div>
-                  </div>
-                  <Flex gap="2">
-                    <Button size="1" variant="soft" onClick={() => loadFooterLinkForEdit(link)}>Editar</Button>
-                    <Button size="1" color="red" variant="soft" onClick={() => handleDeleteFooterLink(link.id)}>Eliminar</Button>
-                  </Flex>
-                </li>
-              ))}
-            </ul>
-          </Box>
+          <FooterLinksTab
+            footerLinks={draftFooterLinks}
+            setFooterLinks={setDraftFooterLinks}
+            footerLinkForm={footerLinkForm}
+            setFooterLinkForm={setFooterLinkForm}
+            editingFooterLinkId={editingFooterLinkId}
+            setEditingFooterLinkId={setEditingFooterLinkId}
+            loadFooterLinkForEdit={loadFooterLinkForEdit}
+            handleAddFooterLink={handleAddFooterLinkDraft}
+            handleEditFooterLink={handleEditFooterLinkDraft}
+            handleDeleteFooterLink={handleDeleteFooterLinkDraft}
+            loadingFooterLinks={loadingFooterLinks}
+          />
         </Tabs.Content>
       </Tabs.Root>
     </Box>

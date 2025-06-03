@@ -79,6 +79,7 @@ export default function SectionsTab({
         <Flex gap="2" className="mt-2">
           <Button
             color="green"
+            disabled={!sectionForm.title}
             onClick={editingSectionId ? handleEditSection : handleAddSection}
           >
             {editingSectionId ? "Actualizar" : "Agregar"}
