@@ -193,6 +193,102 @@ export default function UpdateConfig({
     }
   }, [dataFooterLinks]);
 
+  // =================== PESTAÑA PASOS LEGALES Y FOOTER LINKS: DRAFT STATE ===================
+  const [draftLegalSteps, setDraftLegalSteps] = useState<any[]>([]);
+  const [deletedLegalStepIds, setDeletedLegalStepIds] = useState<string[]>([]);
+  const [draftFooterLinks, setDraftFooterLinks] = useState<any[]>([]);
+  const [deletedFooterLinkIds, setDeletedFooterLinkIds] = useState<string[]>([]);
+
+  // Sync draft state with backend data
+  useEffect(() => {
+    if (dataLegalSteps?.legalStepsByConfig) {
+      setDraftLegalSteps(
+        dataLegalSteps.legalStepsByConfig
+          .slice()
+          .sort((a: any, b: any) => a.order - b.order)
+      );
+    }
+  }, [dataLegalSteps]);
+  useEffect(() => {
+    if (dataFooterLinks?.footerLinksByConfig) {
+      setDraftFooterLinks(
+        dataFooterLinks.footerLinksByConfig
+          .slice()
+          .sort((a: any, b: any) => a.order - b.order)
+      );
+    }
+  }, [dataFooterLinks]);
+
+  // --- Legal Steps Handlers ---
+  const handleAddLegalStepDraft = () => {
+    setDraftLegalSteps(prev => {
+      const newArr = [
+        ...prev,
+        {
+          id: undefined,
+          title: legalStepForm.title,
+          description: legalStepForm.description,
+          order: prev.length + 1,
+        },
+      ];
+      return newArr.map((step, idx) => ({ ...step, order: idx + 1 }));
+    });
+    setLegalStepForm({ id: undefined, title: "", description: "" });
+    setEditingLegalStepId(null);
+  };
+  const handleEditLegalStepDraft = () => {
+    setDraftLegalSteps(prev => {
+      const newArr = prev.map(step =>
+        step.id === legalStepForm.id ? { ...step, ...legalStepForm } : step
+      );
+      return newArr.map((step, idx) => ({ ...step, order: idx + 1 }));
+    });
+    setLegalStepForm({ id: undefined, title: "", description: "" });
+    setEditingLegalStepId(null);
+  };
+  const handleDeleteLegalStepDraft = (id: string | undefined) => {
+    setDraftLegalSteps(prev => {
+      const filtered = prev.filter(step => step.id !== id);
+      return filtered.map((step, idx) => ({ ...step, order: idx + 1 }));
+    });
+    if (id) setDeletedLegalStepIds(prev => [...prev, id]);
+  };
+
+  // --- Footer Links Handlers ---
+  const handleAddFooterLinkDraft = () => {
+    setDraftFooterLinks(prev => {
+      const newArr = [
+        ...prev,
+        {
+          id: undefined,
+          label: footerLinkForm.label,
+          url: footerLinkForm.url,
+          order: prev.length + 1,
+        },
+      ];
+      return newArr.map((link, idx) => ({ ...link, order: idx + 1 }));
+    });
+    setFooterLinkForm({ id: undefined, label: "", url: "" });
+    setEditingFooterLinkId(null);
+  };
+  const handleEditFooterLinkDraft = () => {
+    setDraftFooterLinks(prev => {
+      const newArr = prev.map(link =>
+        link.id === footerLinkForm.id ? { ...link, ...footerLinkForm } : link
+      );
+      return newArr.map((link, idx) => ({ ...link, order: idx + 1 }));
+    });
+    setFooterLinkForm({ id: undefined, label: "", url: "" });
+    setEditingFooterLinkId(null);
+  };
+  const handleDeleteFooterLinkDraft = (id: string | undefined) => {
+    setDraftFooterLinks(prev => {
+      const filtered = prev.filter(link => link.id !== id);
+      return filtered.map((link, idx) => ({ ...link, order: idx + 1 }));
+    });
+    if (id) setDeletedFooterLinkIds(prev => [...prev, id]);
+  };
+
   // ------------------ Handlers generales ------------------
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -233,7 +329,7 @@ export default function UpdateConfig({
       for (const id of deletedSectionIds) {
         if (id) await deleteSection({ variables: { id } });
       }
-      // 3. Crear nuevas secciones
+      // 3. Crear nuevas secciones y actualizar existentes
       for (const sec of form.sections) {
         if (!sec.id) {
           await createSection({
@@ -248,7 +344,6 @@ export default function UpdateConfig({
             },
           });
         } else {
-          // 4. Actualizar secciones existentes
           await updateSection({
             variables: {
               id: sec.id,
@@ -264,6 +359,68 @@ export default function UpdateConfig({
         }
       }
       setDeletedSectionIds([]);
+      // --- LEGAL STEPS ---
+      for (const id of deletedLegalStepIds) {
+        if (id) await deleteLegalStep({ variables: { id } });
+      }
+      for (const step of draftLegalSteps) {
+        if (!step.id) {
+          await createLegalStep({
+            variables: {
+              data: {
+                configId: form.id,
+                title: step.title,
+                description: step.description,
+                order: step.order,
+              },
+            },
+          });
+        } else {
+          await updateLegalStep({
+            variables: {
+              id: step.id,
+              data: {
+                configId: form.id,
+                title: step.title,
+                description: step.description,
+                order: step.order,
+              },
+            },
+          });
+        }
+      }
+      setDeletedLegalStepIds([]);
+      // --- FOOTER LINKS ---
+      for (const id of deletedFooterLinkIds) {
+        if (id) await deleteFooterLink({ variables: { id } });
+      }
+      for (const link of draftFooterLinks) {
+        if (!link.id) {
+          await createFooterLink({
+            variables: {
+              data: {
+                configId: form.id,
+                label: link.label,
+                url: link.url,
+                order: link.order,
+              },
+            },
+          });
+        } else {
+          await updateFooterLink({
+            variables: {
+              id: link.id,
+              data: {
+                configId: form.id,
+                label: link.label,
+                url: link.url,
+                order: link.order,
+              },
+            },
+          });
+        }
+      }
+      setDeletedFooterLinkIds([]);
       if (data?.updateConfig?.id) {
         setForm((prev: any) => ({ ...prev, ...data.updateConfig }));
         if (onSuccess) onSuccess();
@@ -518,40 +675,9 @@ export default function UpdateConfig({
     setEditingLegalStepId(step.id);
   };
 
-  const handleAddLegalStep = () => {
-    setForm((prev: any) => ({
-      ...prev,
-      legalSteps: [
-        ...prev.legalSteps,
-        {
-          id: undefined,
-          title: legalStepForm.title,
-          description: legalStepForm.description,
-          order: (prev.legalSteps?.length || 0) + 1,
-        },
-      ],
-    }));
-    setLegalStepForm({ id: undefined, title: "", description: "" });
-    setEditingLegalStepId(null);
-  };
-
-  const handleEditLegalStep = () => {
-    setForm((prev: any) => ({
-      ...prev,
-      legalSteps: prev.legalSteps.map((step: any) =>
-        step.id === legalStepForm.id
-          ? { ...step, ...legalStepForm }
-          : step
-      ),
-    }));
-    setLegalStepForm({ id: undefined, title: "", description: "" });
-    setEditingLegalStepId(null);
-  };
-
-  const handleDeleteLegalStep = async (stepId: string) => {
-    await deleteLegalStep({ variables: { id: stepId } });
-    await refetchLegalSteps();
-  };
+  const handleAddLegalStep = handleAddLegalStepDraft;
+  const handleEditLegalStep = handleEditLegalStepDraft;
+  const handleDeleteLegalStep = (id: string) => handleDeleteLegalStepDraft(id);
 
   // =================== PESTAÑA FOOTER LINKS ===================
   const [footerLinkForm, setFooterLinkForm] = useState<{
@@ -573,40 +699,9 @@ export default function UpdateConfig({
     setEditingFooterLinkId(link.id);
   };
 
-  const handleAddFooterLink = () => {
-    setForm((prev: any) => ({
-      ...prev,
-      footerLinks: [
-        ...prev.footerLinks,
-        {
-          id: undefined,
-          label: footerLinkForm.label,
-          url: footerLinkForm.url,
-          order: (prev.footerLinks?.length || 0) + 1,
-        },
-      ],
-    }));
-    setFooterLinkForm({ id: undefined, label: "", url: "" });
-    setEditingFooterLinkId(null);
-  };
-
-  const handleEditFooterLink = () => {
-    setForm((prev: any) => ({
-      ...prev,
-      footerLinks: prev.footerLinks.map((link: any) =>
-        link.id === footerLinkForm.id
-          ? { ...link, ...footerLinkForm }
-          : link
-      ),
-    }));
-    setFooterLinkForm({ id: undefined, label: "", url: "" });
-    setEditingFooterLinkId(null);
-  };
-
-  const handleDeleteFooterLink = async (linkId: string) => {
-    await deleteFooterLink({ variables: { id: linkId } });
-    await refetchFooterLinks();
-  };
+  const handleAddFooterLink = handleAddFooterLinkDraft;
+  const handleEditFooterLink = handleEditFooterLinkDraft;
+  const handleDeleteFooterLink = (id: string) => handleDeleteFooterLinkDraft(id);
 
   return (
     <Box className="w-full">
@@ -1037,157 +1132,89 @@ export default function UpdateConfig({
         <Tabs.Content value="legalsteps">
           <Box className="p-4">
             <Heading size="5">Pasos Legales</Heading>
-
-            {/* Formulario para crear/editar paso legal */}
-            <Box className="mt-4 space-y-2 border p-4 rounded-lg">
-              <Heading size="6">
-                {editingLegalStepId ? "Editar paso legal" : "Nuevo paso legal"}
-              </Heading>
+            <form className="flex flex-col gap-2 mb-4" onSubmit={e => e.preventDefault()}>
               <TextField.Root
-                name="title"
-                placeholder="Título del paso legal"
+                placeholder="Título"
                 value={legalStepForm.title}
-                onChange={(e) => setLegalStepForm({ ...legalStepForm, title: e.target.value })}
+                onChange={e => setLegalStepForm(f => ({ ...f, title: e.target.value }))}
                 required
               />
-              <Textarea
-                name="description"
-                placeholder="Descripción del paso legal"
+              <TextField.Root
+                placeholder="Descripción"
                 value={legalStepForm.description}
-                onChange={(e) => setLegalStepForm({ ...legalStepForm, description: e.target.value })}
+                onChange={e => setLegalStepForm(f => ({ ...f, description: e.target.value }))}
                 required
               />
-              <Flex gap="2" className="mt-2">
-                <Button
-                  color="green"
-                  onClick={editingLegalStepId ? handleEditLegalStep : handleAddLegalStep}
-                >
-                  {editingLegalStepId ? "Actualizar" : "Agregar"}
-                </Button>
+              <Flex gap="2">
+                {editingLegalStepId ? (
+                  <Button type="button" color="blue" onClick={handleEditLegalStep}>Guardar edición</Button>
+                ) : (
+                  <Button type="button" color="green" onClick={handleAddLegalStep}>Agregar</Button>
+                )}
                 {editingLegalStepId && (
-                  <Button
-                    variant="soft"
-                    onClick={() => {
-                      setEditingLegalStepId(null);
-                      setLegalStepForm({
-                        id: undefined,
-                        title: "",
-                        description: "",
-                      });
-                    }}
-                  >
-                    Cancelar
-                  </Button>
+                  <Button type="button" variant="soft" onClick={() => { setLegalStepForm({ id: undefined, title: "", description: "" }); setEditingLegalStepId(null); }}>Cancelar</Button>
                 )}
               </Flex>
-            </Box>
-
-            {/* Listado de pasos legales */}
-            {loadingLegalSteps ? (
-              <Box className="mt-4">Cargando pasos legales...</Box>
-            ) : (
-              <Box className="mt-4 space-y-2">
-                {(form.legalSteps || []).map((step: any, idx: number) => (
-                  <Box
-                    key={step.id || `new-${idx}`}
-                    className="border p-3 rounded-lg flex justify-between items-center"
-                  >
-                    <Box>
-                      <Heading size="6">{step.title}</Heading>
-                      <p>Orden: {step.order}</p>
-                    </Box>
-                    <Flex gap="2">
-                      <Button variant="soft" onClick={() => loadLegalStepForEdit(step)}>
-                        Editar
-                      </Button>
-                      <Button color="red" onClick={() => handleDeleteLegalStep(step.id)}>
-                        Eliminar
-                      </Button>
-                    </Flex>
-                  </Box>
-                ))}
-              </Box>
-            )}
+            </form>
+            <ul className="divide-y">
+              {draftLegalSteps.map((step, idx) => (
+                <li key={step.id || `draft-${idx}`} className="py-2 flex items-center justify-between">
+                  <div>
+                    <b>{step.title}</b>
+                    <div className="text-xs text-gray-500">{step.description}</div>
+                  </div>
+                  <Flex gap="2">
+                    <Button size="1" variant="soft" onClick={() => loadLegalStepForEdit(step)}>Editar</Button>
+                    <Button size="1" color="red" variant="soft" onClick={() => handleDeleteLegalStep(step.id)}>Eliminar</Button>
+                  </Flex>
+                </li>
+              ))}
+            </ul>
           </Box>
         </Tabs.Content>
 
         {/* ========= PESTAÑA FOOTER LINKS ========= */}
         <Tabs.Content value="footerlinks">
           <Box className="p-4">
-            <Heading size="5">Enlaces de Footer</Heading>
-
-            {/* Formulario para crear/editar enlace de footer */}
-            <Box className="mt-4 space-y-2 border p-4 rounded-lg">
-              <Heading size="6">
-                {editingFooterLinkId ? "Editar enlace de footer" : "Nuevo enlace de footer"}
-              </Heading>
+            <Heading size="5">Footer Links</Heading>
+            <form className="flex flex-col gap-2 mb-4" onSubmit={e => e.preventDefault()}>
               <TextField.Root
-                name="label"
-                placeholder="Texto del enlace"
+                placeholder="Etiqueta"
                 value={footerLinkForm.label}
-                onChange={(e) => setFooterLinkForm({ ...footerLinkForm, label: e.target.value })}
+                onChange={e => setFooterLinkForm(f => ({ ...f, label: e.target.value }))}
                 required
               />
               <TextField.Root
-                name="url"
-                placeholder="URL del enlace"
+                placeholder="URL"
                 value={footerLinkForm.url}
-                onChange={(e) => setFooterLinkForm({ ...footerLinkForm, url: e.target.value })}
+                onChange={e => setFooterLinkForm(f => ({ ...f, url: e.target.value }))}
                 required
               />
-              <Flex gap="2" className="mt-2">
-                <Button
-                  color="green"
-                  onClick={
-                    editingFooterLinkId ? handleEditFooterLink : handleAddFooterLink
-                  }
-                >
-                  {editingFooterLinkId ? "Actualizar" : "Agregar"}
-                </Button>
+              <Flex gap="2">
+                {editingFooterLinkId ? (
+                  <Button type="button" color="blue" onClick={handleEditFooterLink}>Guardar edición</Button>
+                ) : (
+                  <Button type="button" color="green" onClick={handleAddFooterLink}>Agregar</Button>
+                )}
                 {editingFooterLinkId && (
-                  <Button
-                    variant="soft"
-                    onClick={() => {
-                      setEditingFooterLinkId(null);
-                      setFooterLinkForm({
-                        id: undefined,
-                        label: "",
-                        url: "",
-                      });
-                    }}
-                  >
-                    Cancelar
-                  </Button>
+                  <Button type="button" variant="soft" onClick={() => { setFooterLinkForm({ id: undefined, label: "", url: "" }); setEditingFooterLinkId(null); }}>Cancelar</Button>
                 )}
               </Flex>
-            </Box>
-
-            {/* Listado de enlaces de footer */}
-            {loadingFooterLinks ? (
-              <Box className="mt-4">Cargando enlaces de footer...</Box>
-            ) : (
-              <Box className="mt-4 space-y-2">
-                {(form.footerLinks || []).map((link: any, idx: number) => (
-                  <Box
-                    key={link.id || `new-${idx}`}
-                    className="border p-3 rounded-lg flex justify-between items-center"
-                  >
-                    <Box>
-                      <Heading size="6">{link.label}</Heading>
-                      <p>URL: {link.url}</p>
-                    </Box>
-                    <Flex gap="2">
-                      <Button variant="soft" onClick={() => loadFooterLinkForEdit(link)}>
-                        Editar
-                      </Button>
-                      <Button color="red" onClick={() => handleDeleteFooterLink(link.id)}>
-                        Eliminar
-                      </Button>
-                    </Flex>
-                  </Box>
-                ))}
-              </Box>
-            )}
+            </form>
+            <ul className="divide-y">
+              {draftFooterLinks.map((link, idx) => (
+                <li key={link.id || `draft-${idx}`} className="py-2 flex items-center justify-between">
+                  <div>
+                    <b>{link.label}</b>
+                    <div className="text-xs text-gray-500">{link.url}</div>
+                  </div>
+                  <Flex gap="2">
+                    <Button size="1" variant="soft" onClick={() => loadFooterLinkForEdit(link)}>Editar</Button>
+                    <Button size="1" color="red" variant="soft" onClick={() => handleDeleteFooterLink(link.id)}>Eliminar</Button>
+                  </Flex>
+                </li>
+              ))}
+            </ul>
           </Box>
         </Tabs.Content>
       </Tabs.Root>
