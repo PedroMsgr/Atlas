@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Atlas Legal Platform",
+  title: "Universo Legal Platform",
   description: "Plataforma de gestión legal y micrositios para profesionales",
 };
 

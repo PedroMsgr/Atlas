@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Atlas Legal Platform",
+  title: "Universo Legal",
   description: "Plataforma de gestión legal y micrositios para profesionales",
 }; 

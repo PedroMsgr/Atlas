@@ -106,37 +106,28 @@ export const GET_CONFIG_BY_UNIT_TOKEN = gql`
 export const LANDING_DATA_QUERY = gql`
   query LandingData($token: String!) {
     landingData(token: $token) {
-      id
       name
       pageTitle
       pageDescription
-      servicesDescription
+      iconUrl
       footerInfo
       bannerUrl
 
-      # Secciones
       sections {
         id
-        configId
         title
         body
-        imageUrl
         order
         images {
           id
-          configId
           url
           altText
-          type
           order
-          sectionId
         }
       }
 
-      # Artículos / Noticias
       articles {
         id
-        configId
         title
         content
         url
@@ -144,31 +135,23 @@ export const LANDING_DATA_QUERY = gql`
         publishedAt
       }
 
-      # Imágenes Globales
       images {
         id
-        configId
         url
         altText
         type
         order
-        sectionId
       }
 
-      # Pasos Legales
       legalSteps {
         id
-        configId
         title
         description
-        iconUrl
         order
       }
 
-      # Enlaces de Footer
       footerLinks {
         id
-        configId
         label
         url
         order
