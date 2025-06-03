@@ -11,6 +11,7 @@ import { FooterLinksRepository } from '../db/repositories/footerlinks.repo';
 import { ConfigsRepository } from '../db/repositories/configs.repo';
 import { ConstellationsRepository } from '@/db/repositories/constellations.repo';
 import GraphQLJSON from 'graphql-type-json';
+import { imageService } from '@/services/image.service';
 
 const sectionsRepo = new SectionsRepository();
 const imagesRepo = new ImagesRepository();
@@ -56,10 +57,10 @@ export const resolvers = {
     articlesByConfig: async (_: any, { configId }: { configId: string }) =>
       articlesRepo.findByConfigId(configId),
 
-    images: async () => imagesRepo.findAll(),
+    images: async () => imageService.getImagesByType("global"),
     image: async (_: any, { id }: { id: string }) => imagesRepo.findById(id),
     imagesByConfig: async (_: any, { configId }: { configId: string }) =>
-      imagesRepo.findByConfigId(configId),
+      imageService.getImagesByConfig(configId),
 
     legalSteps: async () => legalStepsRepo.findAll(),
     legalStep: async (_: any, { id }: { id: string }) =>
@@ -152,9 +153,9 @@ export const resolvers = {
     deleteArticle: async (_: any, { id }: any) => articlesRepo.delete(id),
 
     // Image CRUD
-    createImage: async (_: any, { data }: any) => imagesRepo.create(data),
-    updateImage: async (_: any, { id, data }: any) => imagesRepo.update(id, data),
-    deleteImage: async (_: any, { id }: any) => imagesRepo.delete(id),
+    createImage: async (_: any, { data }: any) => imageService.registerImage(data),
+    updateImage: async (_: any, { id, data }: any) => imageService.updateImage(id, data),
+    deleteImage: async (_: any, { id }: any) => imageService.deleteImage(id),
 
     // LegalStep CRUD
     createLegalStep: async (_: any, { data }: any) => legalStepsRepo.create(data),

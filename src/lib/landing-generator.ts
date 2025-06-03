@@ -43,7 +43,7 @@ export function generateLandingTSX(config: any): string {
       return `
       <section key={"section-${sec.id}"} className="mb-8 p-4 bg-white rounded-lg shadow">
         <h2 className="text-2xl font-semibold mb-2">${sec.title}</h2>
-        <p className="mb-4">${sec.content}</p>
+        <p className="mb-4">${sec.body}</p>
         <div>${imagesInline}</div>
       </section>
       `;

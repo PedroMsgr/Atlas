@@ -8,6 +8,10 @@ export const GET_CONFIGURATION_BY_ID = gql`
       id
       name
       pageTitle
+      servicesDescription
+      pageDescription
+      iconUrl
+      bannerUrl
       footerInfo
       updatedAt
       createdAt

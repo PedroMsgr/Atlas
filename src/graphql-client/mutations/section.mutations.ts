@@ -7,12 +7,10 @@ export const CREATE_SECTION = gql`
     createSection(data: $data) {
       id
       configId
-      type
       title
-      content
+      body
+      imageUrl
       order
-      sectionKey
-      mainImageId
     }
   }
 `;
@@ -22,12 +20,10 @@ export const UPDATE_SECTION = gql`
     updateSection(id: $id, data: $data) {
       id
       configId
-      type
       title
-      content
+      body
+      imageUrl
       order
-      sectionKey
-      mainImageId
     }
   }
 `;

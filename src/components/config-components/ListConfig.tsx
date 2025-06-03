@@ -77,11 +77,6 @@ export default function ListConfig() {
                   <Text size="1" color="gray">{config.pageTitle}</Text>
                 </Table.Cell>
                 <Table.Cell>
-                  <Badge color="blue" variant="soft">
-                    {config.pageType}
-                  </Badge>
-                </Table.Cell>
-                <Table.Cell>
                   {servers.length === 0 ? (
                     <Text size="2" color="gray">No asignada</Text>
                   ) : servers.length === 1 ? (

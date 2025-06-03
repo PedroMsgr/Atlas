@@ -7,12 +7,10 @@ export const GET_SECTION_BY_ID = gql`
     section(id: $id) {
       id
       configId
-      type
       title
-      content
+      body
+      imageUrl
       order
-      sectionKey
-      mainImageId
       images {
         id
         url
@@ -30,12 +28,10 @@ export const GET_SECTIONS_BY_CONFIG = gql`
     sectionsByConfig(configId: $configId) {
       id
       configId
-      type
       title
-      content
+      body
+      imageUrl
       order
-      sectionKey
-      mainImageId
       images {
         id
         url
@@ -53,12 +49,18 @@ export const GET_ALL_SECTIONS = gql`
     sections {
       id
       configId
-      type
       title
-      content
+      body
+      imageUrl
       order
-      sectionKey
-      mainImageId
+      images {
+        id
+        url
+        altText
+        type
+        order
+        sectionId
+      }
     }
   }
 `;

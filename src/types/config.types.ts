@@ -5,8 +5,6 @@ export interface UnitConfigBase {
   name: string;
   pageTitle: string;
   footerInfo?: string | null;
-  legalStepsCount: number;
-  pageType: string;
   seoTitle?: string | null;
   seoDescription?: string | null;
   seoKeywords?: string | null;
@@ -22,16 +20,14 @@ export interface UnitConfigWithRelations extends UnitConfigBase {
   servers?: ServerBase[];
 }
 
-// Diferencia entre SectionBase y SectionFull: SectionFull incluye `content`, `sectionKey`, `mainImageId`
+// SectionFull solo incluye los campos existentes en el backend
 export interface SectionFull {
   id: string;
-  serverId?: string | null;
-  type: string;
+  configId: string;
   title: string;
-  content: string;
+  body?: string;
+  imageUrl?: string | null;
   order: number;
-  sectionKey?: string | null;
-  mainImageId?: string | null;
   images?: ImageFull[];
 }
 
@@ -49,8 +45,6 @@ export interface LandingData {
   headerLinks?: string | null;
   footerLinks?: string | null;
   footerInfo?: string | null;
-  legalStepsCount: number;
-  pageType: string;
   externalLinks?: string | null;
   newsParams?: string | null;
   selectedNews?: string | null;
