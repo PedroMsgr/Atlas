@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { Button, Card, Flex, Heading, Text, Box } from '@radix-ui/themes';
 import Image from 'next/image';
 import Link from 'next/link';
-import Layout from '@/components/layout-components/Layout';
+import Layout from '@/components/layout/Layout';
 
 // Extender el tipo Session para incluir role
 interface UserWithRole {

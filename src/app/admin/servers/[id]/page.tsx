@@ -1,7 +1,7 @@
 'use client';
 
 import { Heading, Box } from '@radix-ui/themes';
-import ServerDetail from '@/components/server-components/ServerDetail';
+import ServerDetail from '@/components/server/ServerDetail';
 import { use } from 'react';
 
 interface ServerDetailPageProps {

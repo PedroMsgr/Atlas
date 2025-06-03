@@ -2,7 +2,7 @@
 // src/app/admin/configs/page.tsx
 
 import { Box, Heading, Flex, Button } from '@radix-ui/themes';
-import ListConfig from '@/components/config-components/ListConfig';
+import ListConfig from '@/components/config/ListConfig';
 import { useRouter } from 'next/navigation';
 
 export default function ConfigsPage() {

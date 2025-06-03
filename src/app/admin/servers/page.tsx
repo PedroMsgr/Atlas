@@ -1,8 +1,8 @@
 'use client';
 
 import { Box, Heading } from '@radix-ui/themes';
-import ServerList from '@/components/server-components/ServerList';
-import CreateServer from '@/components/server-components/CreateServer';
+import ServerList from '@/components/server/ServerList';
+import CreateServer from '@/components/server/CreateServer';
 
 export default function ServersPage() {
   return (

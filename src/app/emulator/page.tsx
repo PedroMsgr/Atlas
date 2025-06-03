@@ -1,7 +1,7 @@
 "use client";
 import Head from "next/head";
-import HeaderEmulator from "@/components/emulator-components/HeaderEmulator";
-import FormEmulator from "@/components/emulator-components/FormEmulator";
+import HeaderEmulator from "@/components/emulator/HeaderEmulator";
+import FormEmulator from "@/components/emulator/FormEmulator";
 
 export default function EmulatorPage() {
   return (

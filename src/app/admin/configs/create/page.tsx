@@ -3,7 +3,7 @@
 
 import { Box, Button } from "@radix-ui/themes";
 import { useRouter } from "next/navigation";
-import CreateConfigBasicForm from "@/components/config-components/CreateConfig";
+import CreateConfigBasicForm from "@/components/config/CreateConfig";
 
 export default function CreateConfigPage() {
   const router = useRouter();

@@ -1,8 +1,8 @@
 // src/lib/landing-generator.ts
 
 import { SectionFull, ArticleFull, ImageFull } from "@/types/config.types";
-import HeaderEmulator from "@/components/emulator-components/HeaderEmulator";
-import FormEmulator from "@/components/emulator-components/FormEmulator";
+import HeaderEmulator from "@/components/emulator/HeaderEmulator";
+import FormEmulator from "@/components/emulator/FormEmulator";
 
 /**
  * Dado un objeto `config` (UnitConfigWithRelations), genera el TSX que se escribirá

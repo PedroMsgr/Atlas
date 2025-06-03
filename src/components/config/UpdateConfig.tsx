@@ -32,6 +32,7 @@ import { CREATE_FOOTERLINK, UPDATE_FOOTERLINK, DELETE_FOOTERLINK } from "@/graph
 import { GET_FOOTERLINKS_BY_CONFIG } from "@/graphql-client/queries/footerlink.querys";
 import { uploadImage } from "@/lib/uploadImage";
 import { Textarea } from "@/components/ui/textarea";
+import SectionsTab from './SectionsTab';
 
 interface CreateConfigFormProps {
   config?: any; // UnitConfigWithRelations
@@ -840,140 +841,26 @@ export default function UpdateConfig({
 
         {/* ========= PESTAÑA SECCIONES ========= */}
         <Tabs.Content value="sections">
-          <Box className="p-4">
-            <Heading size="5">Secciones</Heading>
-
-            {/* Formulario para crear/editar sección */}
-            <Box className="mt-4 space-y-2 border p-4 rounded-lg">
-              <Heading size="6">
-                {editingSectionId ? "Editar sección" : "Nueva sección"}
-              </Heading>
-              <TextField.Root
-                name="title"
-                placeholder="Título de sección"
-                value={sectionForm.title}
-                onChange={(e) => setSectionForm({ ...sectionForm, title: e.target.value })}
-                required
-              />
-              <Textarea
-                name="body"
-                placeholder="Contenido de sección"
-                value={sectionForm.body}
-                onChange={(e) => setSectionForm({ ...sectionForm, body: e.target.value })}
-                required
-              />
-              <input
-                type="file"
-                accept="image/*"
-                onChange={async (e) => {
-                  const file = e.target.files?.[0];
-                  if (!file) return;
-                  const url = await uploadImage(file);
-                  setSectionForm((prev) => ({ ...prev, imageUrl: url }));
-                }}
-                className="mb-2"
-              />
-              {sectionForm.imageUrl && (
-                <div className="flex items-center space-x-2">
-                  <img src={sectionForm.imageUrl} alt="Imagen sección" className="h-12 w-24 rounded" />
-                  <Button type="button" color="red" size="1" onClick={() => setSectionForm((prev) => ({ ...prev, imageUrl: "" }))}>Eliminar</Button>
-                </div>
-              )}
-              <Flex gap="2" className="mt-2">
-                <Button
-                  color="green"
-                  onClick={editingSectionId ? handleEditSection : handleAddSection}
-                >
-                  {editingSectionId ? "Actualizar" : "Agregar"}
-                </Button>
-                {editingSectionId && (
-                  <Button
-                    variant="soft"
-                    onClick={() => {
-                      setEditingSectionId(null);
-                      setSectionForm({
-                        id: undefined,
-                        title: "",
-                        body: "",
-                        imageUrl: "",
-                      });
-                    }}
-                  >
-                    Cancelar
-                  </Button>
-                )}
-              </Flex>
-            </Box>
-
-            {/* Listado de secciones */}
-            {loadingSections ? (
-              <Box className="mt-4">Cargando secciones...</Box>
-            ) : (
-              <Box className="mt-4 space-y-2">
-                {form.sections?.map((sec: any, idx: number) => (
-                  <Box
-                    key={sec.id || `new-${idx}`}
-                    className="border rounded-lg p-3 flex flex-col md:flex-row md:items-center md:justify-between gap-2"
-                  >
-                    <div>
-                      <div className="font-semibold">{sec.title}</div>
-                      <div className="text-sm text-gray-600">{sec.body}</div>
-                      {sec.imageUrl && (
-                        <img src={sec.imageUrl} alt="Imagen sección" className="h-10 w-20 rounded mt-1" />
-                      )}
-                    </div>
-                    <Flex gap="2">
-                      <Button type="button" size="1" onClick={() => loadSectionForEdit(sec)}>
-                        Editar
-                      </Button>
-                      <Button type="button" color="red" size="1" onClick={() => handleDeleteSection(sec.id)}>
-                        Eliminar
-                      </Button>
-                    </Flex>
-                  </Box>
-                ))}
-              </Box>
-            )}
-
-            {/* Subida de imágenes inline para sección seleccionada */}
-            {currentSectionId && (
-              <Box className="mt-4 p-3 border rounded-lg bg-slate-50">
-                <Heading size="6">Agregar imagen a esta sección</Heading>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleAddImageSection}
-                  className="mt-2"
-                />
-                <Box className="mt-3 space-y-1">
-                  {form.sections
-                    ?.find((s: any) => s.id === currentSectionId)
-                    ?.images?.map((img: any) => (
-                      <Flex key={img.id} className="justify-between items-center">
-                        <img
-                          src={img.url}
-                          alt={img.altText}
-                          className="h-12 w-12 rounded"
-                        />
-                        <Button
-                          variant="soft"
-                          onClick={() => handleDeleteImageSection(img.id)}
-                        >
-                          X
-                        </Button>
-                      </Flex>
-                    ))}
-                </Box>
-                <Button
-                  variant="soft"
-                  className="mt-4"
-                  onClick={() => setCurrentSectionId(null)}
-                >
-                  Cerrar
-                </Button>
-              </Box>
-            )}
-          </Box>
+          <SectionsTab
+            form={form}
+            setForm={setForm}
+            sectionForm={sectionForm}
+            setSectionForm={setSectionForm}
+            editingSectionId={editingSectionId}
+            setEditingSectionId={setEditingSectionId}
+            currentSectionId={currentSectionId}
+            setCurrentSectionId={setCurrentSectionId}
+            deletedSectionIds={deletedSectionIds}
+            setDeletedSectionIds={setDeletedSectionIds}
+            loadSectionForEdit={loadSectionForEdit}
+            handleAddSection={handleAddSection}
+            handleEditSection={handleEditSection}
+            handleDeleteSection={handleDeleteSection}
+            handleAddImageSection={handleAddImageSection}
+            handleDeleteImageSection={handleDeleteImageSection}
+            uploadImage={uploadImage}
+            loadingSections={loadingSections}
+          />
         </Tabs.Content>
 
         {/* ========= PESTAÑA ARTÍCULOS ========= */}
