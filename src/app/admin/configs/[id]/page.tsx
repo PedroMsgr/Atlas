@@ -5,7 +5,7 @@ import React from "react";
 import { Box, Button } from "@radix-ui/themes";
 import { useRouter } from "next/navigation";
 import { useQuery } from "@apollo/client";
-import { GET_CONFIGURATION_BY_ID } from "@/graphql-client/queries/configs.querys";
+import { GET_CONFIGURATION_BY_ID } from "@/graphql/queries/configs.querys";
 import UpdateConfig from "@/components/config/UpdateConfig";
 
 export default function EditConfigPage({ params }: { params: any }) {

@@ -6,7 +6,7 @@ import path from 'path'
 import { createApolloClient } from '@/lib/apollo-client'
 import { gql } from '@apollo/client'
 import { generateLandingTSX } from '@/lib/landing-generator'
-import { LANDING_DATA_QUERY } from '@/graphql-client/queries/configs.querys'
+import { LANDING_DATA_QUERY } from '@/graphql/queries/configs.querys'
 
 export async function POST(req: NextRequest) {
   try {

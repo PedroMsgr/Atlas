@@ -7,29 +7,29 @@ import { Tabs, Box, Button, Flex } from "@radix-ui/themes";
 import { useRouter } from "next/navigation";
 import {
   UPDATE_CONFIG,
-} from "@/graphql-client/mutations/config.mutations";
-import { GET_SECTIONS_BY_CONFIG } from "@/graphql-client/queries/section.querys";
+} from "@/graphql/mutations/config.mutations";
+import { GET_SECTIONS_BY_CONFIG } from "@/graphql/queries/section.querys";
 import {
   CREATE_SECTION,
   UPDATE_SECTION,
   DELETE_SECTION,
-} from "@/graphql-client/mutations/section.mutations";
-import { GET_ARTICLES_BY_CONFIG } from "@/graphql-client/queries/article.querys";
+} from "@/graphql/mutations/section.mutations";
+import { GET_ARTICLES_BY_CONFIG } from "@/graphql/queries/article.querys";
 import {
   CREATE_ARTICLE,
   UPDATE_ARTICLE,
   DELETE_ARTICLE,
-} from "@/graphql-client/mutations/article.mutations";
-import { GET_IMAGES_BY_CONFIG } from "@/graphql-client/queries/image.querys";
+} from "@/graphql/mutations/article.mutations";
+import { GET_IMAGES_BY_CONFIG } from "@/graphql/queries/image.querys";
 import {
   CREATE_IMAGE,
   UPDATE_IMAGE,
   DELETE_IMAGE,
-} from "@/graphql-client/mutations/image.mutations";
-import { CREATE_LEGALSTEP, UPDATE_LEGALSTEP, DELETE_LEGALSTEP } from "@/graphql-client/mutations/legalstep.mutations";
-import { GET_LEGALSTEPS_BY_CONFIG } from "@/graphql-client/queries/legalstep.querys";
-import { CREATE_FOOTERLINK, UPDATE_FOOTERLINK, DELETE_FOOTERLINK } from "@/graphql-client/mutations/footerlink.mutations";
-import { GET_FOOTERLINKS_BY_CONFIG } from "@/graphql-client/queries/footerlink.querys";
+} from "@/graphql/mutations/image.mutations";
+import { CREATE_LEGALSTEP, UPDATE_LEGALSTEP, DELETE_LEGALSTEP } from "@/graphql/mutations/legalstep.mutations";
+import { GET_LEGALSTEPS_BY_CONFIG } from "@/graphql/queries/legalstep.querys";
+import { CREATE_FOOTERLINK, UPDATE_FOOTERLINK, DELETE_FOOTERLINK } from "@/graphql/mutations/footerlink.mutations";
+import { GET_FOOTERLINKS_BY_CONFIG } from "@/graphql/queries/footerlink.querys";
 import { uploadImage } from "@/lib/uploadImage";
 import GeneralTab from './GeneralTab';
 import SectionsTab from './SectionsTab';

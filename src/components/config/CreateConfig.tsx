@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@apollo/client";
-import { CREATE_CONFIG } from "@/graphql-client/mutations/config.mutations";
+import { CREATE_CONFIG } from "@/graphql/mutations/config.mutations";
 import { uploadImage } from "@/lib/uploadImage";
 import { Box, Button, Heading, TextField, Flex } from "@radix-ui/themes";
 

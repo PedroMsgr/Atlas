@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client';
 import Link from 'next/link';
 import { Button } from '@radix-ui/themes';
 import { useState } from 'react';
-import { GET_SERVERS } from '@/graphql-client/queries/server.querys';
+import { GET_SERVERS } from '@/graphql/queries/server.querys';
 import { UnitServerListItem } from '@/types/server.types';
 import { formatDate } from '@/lib/date-formatter';
 

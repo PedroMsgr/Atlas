@@ -3,7 +3,7 @@
 
 import { UnitConfigBase } from '@/types/config.types';
 import { useQuery } from '@apollo/client';
-import { GET_ALL_CONFIGURATIONS } from '@/graphql-client/queries/configs.querys';
+import { GET_ALL_CONFIGURATIONS } from '@/graphql/queries/configs.querys';
 import { Box, Button, Heading, Table, Text, Badge, Card, Flex } from '@radix-ui/themes';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
