@@ -1,10 +1,15 @@
 // src/services/config-service.ts
 
-import { ConfigsRepository, ServersRepository, 
-  SectionsRepository, ArticlesRepository,
-   ImagesRepository, FooterLinksRepository, 
-   LegalStepsRepository } from '@/db/repositories';
-import { LegalStep, FooterLink } from '@/generated/prisma';
+import {
+  ConfigsRepository,
+  ServersRepository,
+  SectionsRepository,
+  ArticlesRepository,
+  ImagesRepository,
+  FooterLinksRepository,
+  LegalStepsRepository,
+} from "@/db/repositories";
+import { LegalStep, FooterLink } from "@/generated/prisma";
 
 export class ConfigService {
   private configsRepo: ConfigsRepository;
@@ -24,7 +29,7 @@ export class ConfigService {
     this.legalStepsRepo = new LegalStepsRepository();
     this.footerLinksRepo = new FooterLinksRepository();
   }
-    /**
+  /**
    * Obtiene todas las configuraciones
    */
   async getAllConfigs() {
@@ -42,21 +47,59 @@ export class ConfigService {
   /**
    * Crea una nueva configuración
    */
-  async createConfig(data: Parameters<ConfigsRepository['create']>[0]) {
+  async createConfig(data: Parameters<ConfigsRepository["create"]>[0]) {
     return this.configsRepo.create(data);
   }
 
   /**
    * Actualiza una configuración existente
    */
-  async updateConfig(id: string, data: Parameters<ConfigsRepository['update']>[1]) {
+  async updateConfig(
+    id: string,
+    data: Parameters<ConfigsRepository["update"]>[1]
+  ) {
     return this.configsRepo.update(id, data);
   }
 
   /**
-   * Elimina una configuración por ID
+   * Elimina una configuración por ID (borrado en cascada manual)
    */
   async deleteConfig(id: string) {
+    // 1. Desasociar UnitServers (poner configId a null)
+    await this.serversRepo.updateManyByConfigId(id, { configId: null });
+
+    // 2. Borrar LegalSteps
+    const legalSteps = await this.legalStepsRepo.findByConfigId(id);
+    for (const step of legalSteps) {
+      await this.legalStepsRepo.delete(step.id);
+    }
+
+    // 3. Borrar FooterLinks
+    const footerLinks = await this.footerLinksRepo.findByConfigId(id);
+    for (const link of footerLinks) {
+      await this.footerLinksRepo.delete(link.id);
+    }
+
+    // 4. Borrar Imágenes
+    const images = await this.imagesRepo.findByConfigId(id);
+    for (const img of images) {
+      await this.imagesRepo.delete(img.id);
+    }
+
+    // 5. Borrar Secciones (y sus imágenes si aplica)
+    const sections = await this.sectionsRepo.findByConfigId(id);
+    for (const section of sections) {
+      // Si tienes imágenes de sección, bórralas aquí si no se borraron antes
+      await this.sectionsRepo.delete(section.id);
+    }
+
+    // 6. Borrar Artículos
+    const articles = await this.articlesRepo.findByConfigId(id);
+    for (const art of articles) {
+      await this.articlesRepo.delete(art.id);
+    }
+
+    // 7. Finalmente, borrar la config
     return this.configsRepo.delete(id);
   }
 
@@ -70,11 +113,18 @@ export class ConfigService {
     if (sections && Array.isArray(sections)) {
       for (const section of sections) {
         const { images: sectionImages, ...sectionData } = section;
-        const createdSection = await this.sectionsRepo.create({ ...sectionData, configId: config.id });
+        const createdSection = await this.sectionsRepo.create({
+          ...sectionData,
+          configId: config.id,
+        });
         // Crear imágenes de sección
         if (sectionImages && Array.isArray(sectionImages)) {
           for (const img of sectionImages) {
-            await this.imagesRepo.create({ ...img, configId: config.id, sectionId: createdSection.id });
+            await this.imagesRepo.create({
+              ...img,
+              configId: config.id,
+              sectionId: createdSection.id,
+            });
           }
         }
       }
@@ -100,7 +150,7 @@ export class ConfigService {
   async updateFullConfig(id: string, data: any) {
     const { sections, articles, images, ...configData } = data;
     const config = await this.configsRepo.update(id, configData);
-    const current = await this.configsRepo.findById(id) as any;
+    const current = (await this.configsRepo.findById(id)) as any;
     if (current) {
       // Eliminar secciones y sus imágenes
       if (current.sections) {
@@ -130,10 +180,17 @@ export class ConfigService {
     if (sections && Array.isArray(sections)) {
       for (const section of sections) {
         const { images: sectionImages, ...sectionData } = section;
-        const createdSection = await this.sectionsRepo.create({ ...sectionData, configId: config.id });
+        const createdSection = await this.sectionsRepo.create({
+          ...sectionData,
+          configId: config.id,
+        });
         if (sectionImages && Array.isArray(sectionImages)) {
           for (const img of sectionImages) {
-            await this.imagesRepo.create({ ...img, configId: config.id, sectionId: createdSection.id });
+            await this.imagesRepo.create({
+              ...img,
+              configId: config.id,
+              sectionId: createdSection.id,
+            });
           }
         }
       }
@@ -163,7 +220,7 @@ export class ConfigService {
   async getLegalStepsByConfig(configId: string) {
     return this.legalStepsRepo.findByConfigId(configId);
   }
-  async createLegalStep(data: Omit<LegalStep, 'id'>) {
+  async createLegalStep(data: Omit<LegalStep, "id">) {
     return this.legalStepsRepo.create(data);
   }
   async updateLegalStep(id: string, data: Partial<LegalStep>) {
@@ -183,7 +240,7 @@ export class ConfigService {
   async getFooterLinksByConfig(configId: string) {
     return this.footerLinksRepo.findByConfigId(configId);
   }
-  async createFooterLink(data: Omit<FooterLink, 'id'>) {
+  async createFooterLink(data: Omit<FooterLink, "id">) {
     return this.footerLinksRepo.create(data);
   }
   async updateFooterLink(id: string, data: Partial<FooterLink>) {

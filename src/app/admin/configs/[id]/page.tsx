@@ -5,8 +5,8 @@ import React from "react";
 import { Box, Button } from "@radix-ui/themes";
 import { useRouter } from "next/navigation";
 import { useQuery } from "@apollo/client";
-import { GET_CONFIGURATION_BY_ID } from "@/graphql/queries/configs.querys";
-import UpdateConfig from "@/components/config/UpdateConfig";
+import { GET_CONFIGURATION_BY_ID } from "@/graphql/queries/config.querys";
+import ConfigUpdate from "@/components/config/ConfigUpdate";
 
 export default function EditConfigPage({ params }: { params: any }) {
   const router = useRouter();
@@ -37,7 +37,7 @@ export default function EditConfigPage({ params }: { params: any }) {
         &larr; Volver a la lista
       </Button>
       {data?.configuration && (
-        <UpdateConfig
+        <ConfigUpdate
           config={data.configuration}
           onSuccess={() => router.push("/admin/configs")}
         />

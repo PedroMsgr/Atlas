@@ -187,4 +187,14 @@ async findByConfigId(configId: string): Promise<{ id: string; name: string }[]> 
     });
   }
 
+  /**
+   * Desasocia todos los servidores de una configuración (pone configId a null)
+   */
+  async updateManyByConfigId(configId: string, data: Partial<UnitServer>) {
+    return prisma.unitServer.updateMany({
+      where: { configId },
+      data,
+    });
+  }
+
 }

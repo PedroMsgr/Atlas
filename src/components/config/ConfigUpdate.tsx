@@ -31,22 +31,22 @@ import { GET_LEGALSTEPS_BY_CONFIG } from "@/graphql/queries/legalstep.querys";
 import { CREATE_FOOTERLINK, UPDATE_FOOTERLINK, DELETE_FOOTERLINK } from "@/graphql/mutations/footerlink.mutations";
 import { GET_FOOTERLINKS_BY_CONFIG } from "@/graphql/queries/footerlink.querys";
 import { uploadImage } from "@/lib/uploadImage";
-import GeneralTab from './GeneralTab';
-import SectionsTab from './SectionsTab';
-import ArticlesTab from './ArticlesTab';
-import ImagesTab from './ImagesTab';
-import LegalStepsTab from './LegalStepsTab';
-import FooterLinksTab from './FooterLinksTab';
+import ConfigGeneralTab from './ConfigGeneralTab';
+import ConfigSectionsTab from './ConfigSectionsTab';
+import ConfigArticlesTab from './ConfigArticlesTab';
+import ImagesTab from './ConfigImagesTab';
+import ConfigLegalStepsTab from './ConfigLegalStepsTab';
+import ConfigFooterLinksTab from './ConfigFooterLinksTab';
 
-interface CreateConfigFormProps {
+interface ConfigUpdateProps {
   config?: any; // UnitConfigWithRelations
   onSuccess?: () => void;
 }
 
-export default function UpdateConfig({
+export default function ConfigUpdate({
   config,
   onSuccess,
-}: CreateConfigFormProps) {
+}: ConfigUpdateProps) {
   const router = useRouter();
   const [tab, setTab] = useState<"general"|"sections"|"articles"|"images"|"legalsteps"|"footerlinks">("general");
 
@@ -727,7 +727,7 @@ export default function UpdateConfig({
 
         {/* ========= PESTAÑA GENERAL ========= */}
         <Tabs.Content value="general">
-          <GeneralTab
+          <ConfigGeneralTab
             form={form}
             handleChange={handleChange}
             handleFileUpload={handleFileUpload}
@@ -740,7 +740,7 @@ export default function UpdateConfig({
 
         {/* ========= PESTAÑA SECCIONES ========= */}
         <Tabs.Content value="sections">
-          <SectionsTab
+          <ConfigSectionsTab
             form={form}
             setForm={setForm}
             sectionForm={sectionForm}
@@ -762,7 +762,7 @@ export default function UpdateConfig({
 
         {/* ========= PESTAÑA ARTÍCULOS ========= */}
         <Tabs.Content value="articles">
-          <ArticlesTab
+          <ConfigArticlesTab
             form={form}
             setForm={setForm}
             articleForm={articleForm}
@@ -790,7 +790,7 @@ export default function UpdateConfig({
 
         {/* ========= PESTAÑA PASOS LEGALES ========= */}
         <Tabs.Content value="legalsteps">
-          <LegalStepsTab
+          <ConfigLegalStepsTab
             legalSteps={draftLegalSteps}
             setLegalSteps={setDraftLegalSteps}
             legalStepForm={legalStepForm}
@@ -807,7 +807,7 @@ export default function UpdateConfig({
 
         {/* ========= PESTAÑA FOOTER LINKS ========= */}
         <Tabs.Content value="footerlinks">
-          <FooterLinksTab
+          <ConfigFooterLinksTab
             footerLinks={draftFooterLinks}
             setFooterLinks={setDraftFooterLinks}
             footerLinkForm={footerLinkForm}

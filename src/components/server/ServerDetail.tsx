@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { GET_SERVER_BY_ID, GENERATE_SERVER_TOKENS } from '@/graphql/queries/server.querys';
 import { UPDATE_SERVER_TOKENS, UPDATE_SERVER_CONFIG } from '@/graphql/mutations/server.mutations';
-import { GET_ALL_CONFIGURATIONS } from '@/graphql/queries/configs.querys';
+import { GET_ALL_CONFIGURATIONS } from '@/graphql/queries/config.querys';
 import { formatDate } from '@/lib/date-formatter';
 
 interface ServerDetailProps {

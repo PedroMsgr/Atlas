@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Button, TextField, Heading, Flex } from "@radix-ui/themes";
 
-export default function GeneralTab({
+export default function ConfigGeneralTab({
   form,
   handleChange,
   handleFileUpload,

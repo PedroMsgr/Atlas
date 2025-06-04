@@ -1,27 +1,20 @@
 'use client';
 
-import { Box, Heading } from '@radix-ui/themes';
+import { Box, Heading, Flex, Button } from '@radix-ui/themes';
 import ServerList from '@/components/server/ServerList';
-import CreateServer from '@/components/server/CreateServer';
+import { useRouter } from 'next/navigation';
 
 export default function ServersPage() {
+  const router = useRouter();
   return (
-    <>
-      <Box className="p-8">
+    <Box className="p-8">
+      <Flex justify="between" align="center" className="mb-6">
         <Heading size="6">Gestión de Servidores Unitarios</Heading>
-      </Box>
-      <div className="p-4">
-        <h1 className="text-3xl font-bold mb-8">Administración de Servidores</h1>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2">
-            <ServerList />
-          </div>
-          <div className="lg:col-span-1">
-            <CreateServer />
-          </div>
-        </div>
-      </div>
-    </>
+        <Button color="green" onClick={() => router.push('/admin/servers/create')}>
+          Nuevo Servidor
+        </Button>
+      </Flex>
+      <ServerList />
+    </Box>
   );
 }

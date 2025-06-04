@@ -4,7 +4,7 @@ import SortableItem from '../dndkit/SortableItem';
 import { DndProvider } from '../dndkit/DndProvider';
 import SortableList from '../dndkit/SortableList';
 
-export default function FooterLinksTab({
+export default function ConfigFooterLinksTab({
   footerLinks,
   setFooterLinks,
   footerLinkForm,
