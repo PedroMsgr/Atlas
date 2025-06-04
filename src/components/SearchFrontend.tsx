@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Box, TextField, Flex, Button, Text } from '@radix-ui/themes';
 
-interface SearchAndPaginateListProps<T> {
+interface SearchFrontendProps<T> {
   data: T[];
   searchField?: keyof T & string;
   placeholder?: string;
@@ -9,13 +9,13 @@ interface SearchAndPaginateListProps<T> {
   onChange: (filtered: T[], paginated: T[], page: number, totalPages: number) => void;
 }
 
-export function SearchAndPaginateList<T>({
+export function SearchFrontend<T>({
   data,
   searchField,
   placeholder = 'Buscar...',
   pageSize = 10,
   onChange,
-}: SearchAndPaginateListProps<T>) {
+}: SearchFrontendProps<T>) {
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
 

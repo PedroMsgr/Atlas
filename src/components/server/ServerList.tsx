@@ -4,7 +4,7 @@ import { TrashIcon } from '@radix-ui/react-icons';
 import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel, AlertDialogAction } from '@/components/ui/alert-dialog';
 import Link from 'next/link';
 import { useState } from 'react';
-import { SearchAndPaginateList } from '@/components/SearchFrontend';
+import ServerListFilters from './ServerListFilters';
 import { GET_SERVERS } from '@/graphql/queries/server.querys';
 import { DELETE_SERVER } from '@/graphql/mutations/server.mutations';
 import { UnitServerListItem } from '@/types/server.types';
@@ -16,6 +16,7 @@ export default function ServerList() {
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [deleteName, setDeleteName] = useState<string | null>(null);
   const [showDialog, setShowDialog] = useState(false);
+  const [filtered, setFiltered] = useState<UnitServerListItem[]>([]);
 
   const { data, loading, error, refetch } = useQuery<{ servers: UnitServerListItem[] }>(GET_SERVERS, {
     fetchPolicy: 'cache-and-network',
@@ -76,13 +77,7 @@ export default function ServerList() {
           {isRefreshing ? 'Actualizando...' : 'Actualizar lista'}
         </RadixButton>
       </Flex>
-      <SearchAndPaginateList
-        data={servers}
-        searchField="name"
-        placeholder="Buscar servidor..."
-        onChange={(_filtered: UnitServerListItem[], paginated: UnitServerListItem[]) => setPaginated(paginated)}
-        pageSize={10}
-      />
+      <ServerListFilters data={servers} onChange={(filtered, paginated) => setPaginated(paginated)} />
       <Table.Root variant="surface">
         <Table.Header>
           <Table.Row>

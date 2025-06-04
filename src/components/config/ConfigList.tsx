@@ -8,7 +8,7 @@ import { DELETE_CONFIG } from '@/graphql/mutations/config.mutations';
 import { Box, Button as RadixButton, Heading, Table, Text, Card, Flex } from '@radix-ui/themes';
 import { TrashIcon } from '@radix-ui/react-icons';
 import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel, AlertDialogAction } from '@/components/ui/alert-dialog';
-import { SearchAndPaginateList } from '@/components/SearchFrontend';
+import ConfigListFilters from './ConfigListFilters';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -30,6 +30,7 @@ export default function ConfigList() {
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [deleteName, setDeleteName] = useState<string | null>(null);
   const [showDialog, setShowDialog] = useState(false);
+  const [filtered, setFiltered] = useState<Configuration[]>([]);
 
   const { data, loading, error, refetch } = useQuery<{ configurations: Configuration[] }>(GET_ALL_CONFIGURATIONS, {
     fetchPolicy: 'cache-and-network',
@@ -85,13 +86,7 @@ export default function ConfigList() {
           Actualizar lista
         </RadixButton>
       </Flex>
-      <SearchAndPaginateList
-        data={data?.configurations || []}
-        searchField="name"
-        placeholder="Buscar configuración..."
-        onChange={(_filtered: Configuration[], paginated: Configuration[]) => setPaginated(paginated)}
-        pageSize={10}
-      />
+      <ConfigListFilters data={data?.configurations || []} onChange={(_filtered, paginated) => setPaginated(paginated)} />
       <Table.Root variant="surface">
         <Table.Header>
           <Table.Row>
