@@ -45,7 +45,7 @@ export default function SignIn() {
   // Mientras carga la sesión o no estamos en cliente, mostramos cargando
   if (!pageReady || status === 'loading') {
     return (
-      <Flex justify="center" align="center" className="min-h-screen">
+      <Flex justify="center" align="center" className="min-h-screen px-4">
         <Text>Cargando...</Text>
       </Flex>
     );
@@ -54,7 +54,7 @@ export default function SignIn() {
   // Evitar parpadeo: si ya está autenticado, mostramos mensaje de redirección
   if (status === 'authenticated') {
     return (
-      <Flex justify="center" align="center" className="min-h-screen">
+      <Flex justify="center" align="center" className="min-h-screen px-4">
         <Text>Redirigiendo...</Text>
       </Flex>
     );
@@ -62,7 +62,11 @@ export default function SignIn() {
 
   return (
     <Layout>
-      <LoginForm />
+      <Flex justify="center" align="center" className="min-h-screen px-4">
+        <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6 sm:p-8">
+          <LoginForm />
+        </div>
+      </Flex>
     </Layout>
   );
 }

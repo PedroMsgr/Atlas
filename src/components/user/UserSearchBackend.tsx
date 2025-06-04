@@ -19,7 +19,7 @@ export default function UserSearchBackend({ search: initialSearch, onChange, onM
   }, [search]);
 
   return (
-    <Flex gap="3" mb="4" align="end">
+    <Flex gap="3" align="end">
       <TextField.Root
         placeholder="Buscar por nombre o email..."
         value={search}
@@ -27,9 +27,6 @@ export default function UserSearchBackend({ search: initialSearch, onChange, onM
         autoFocus={autoFocus}
         style={{ minWidth: 220 }}
       />
-      {onManualSearch && (
-        <Button onClick={onManualSearch}>Buscar</Button>
-      )}
     </Flex>
   );
 }

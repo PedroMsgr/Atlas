@@ -59,7 +59,7 @@ export default function CaseList() {
   return (
     <Box>
       <Flex justify="between" align="center" mb="4">
-        <CaseSearchBackend filters={filters} onChange={handleFiltersChange} />
+        <CaseSearchBackend filters={filters} onChange={handleFiltersChange}  />
         <Button color="green" onClick={() => router.push('/admin/cases/create')}>
           Crear caso
         </Button>
@@ -67,9 +67,9 @@ export default function CaseList() {
       {loading ? (
         <Spinner />
       ) : (
-        <Table.Root>
+        <Table.Root variant="surface" className="border rounded-lg overflow-hidden">
           <Table.Header>
-            <Table.Row>
+            <Table.Row className="bg-slate-50 dark:bg-slate-900">
               <Table.ColumnHeaderCell>Estado</Table.ColumnHeaderCell>
               <Table.ColumnHeaderCell>Cliente</Table.ColumnHeaderCell>
               <Table.ColumnHeaderCell>Profesional</Table.ColumnHeaderCell>

@@ -111,7 +111,7 @@ export default function ArchivosPage() {
         <div className="container mx-auto">
           <div className="flex items-center gap-4">
             <Link 
-              href="/" 
+              href="/emulator" 
               className="text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
             >
               <ArrowLeft className="h-5 w-5" />

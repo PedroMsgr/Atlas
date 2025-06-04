@@ -7,15 +7,15 @@ export default function AdminDashboard() {
   const { data: session } = useSession();
 
   return (
-    <Box className="p-8">
+    <Box className="p-4 md:p-8">
       {/* Header */}
-      <Flex justify="between" align="center" mb="6">
+      <Flex justify="between" align="center" mb="6" className="flex-col sm:flex-row gap-2 sm:gap-0 text-center sm:text-left">
         <Heading size="6">Panel de Administración</Heading>
         <Text size="2" color="gray">Bienvenido, {session?.user?.name}</Text>
       </Flex>
 
       {/* Quick Stats */}
-      <Grid columns="3" gap="4" mb="6">
+      <Grid columns={{ initial: '1', md: '3' }} gap="4" mb="6">
         <Card>
           <Flex direction="column" gap="2" p="4">
             <Text size="2" color="gray">Servidores Activos</Text>
@@ -23,7 +23,6 @@ export default function AdminDashboard() {
             <Text size="1" color="green">+2 este mes</Text>
           </Flex>
         </Card>
-        
         <Card>
           <Flex direction="column" gap="2" p="4">
             <Text size="2" color="gray">Casos Activos</Text>
@@ -31,7 +30,6 @@ export default function AdminDashboard() {
             <Text size="1" color="blue">+23 esta semana</Text>
           </Flex>
         </Card>
-        
         <Card>
           <Flex direction="column" gap="2" p="4">
             <Text size="2" color="gray">Clientes Totales</Text>
@@ -42,7 +40,7 @@ export default function AdminDashboard() {
       </Grid>
 
       {/* Main Content */}
-      <Grid columns="2" gap="6">
+      <Grid columns={{ initial: '1', md: '2' }} gap="6">
         {/* Recent Activity */}
         <Card>
           <Box p="4">

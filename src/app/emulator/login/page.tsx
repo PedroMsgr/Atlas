@@ -31,8 +31,8 @@ export default function LoginPage() {
   return (
     <div className="flex min-h-screen flex-col bg-slate-50 dark:bg-slate-900">
       <div className="container max-w-screen-xl py-4">
-        <Link 
-          href="/" 
+        <Link
+          href="/emulator" 
           className="inline-flex items-center text-sm font-medium text-blue-700 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
         >
           <ArrowLeft className="mr-1 h-4 w-4" />

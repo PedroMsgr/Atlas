@@ -8,6 +8,8 @@ import { DELETE_USER } from '@/graphql/mutations/user.mutations';
 import { GET_USERS } from '@/graphql/queries';
 import { Role } from '@/types/user.types';
 import UserSearchBackend from './UserSearchBackend';
+import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel, AlertDialogAction } from '@/components/ui/alert-dialog';
+import { TrashIcon } from '@radix-ui/react-icons';
 
 export default function ClientList({}: {}) {
   const [search, setSearch] = useState('');
@@ -40,7 +42,7 @@ export default function ClientList({}: {}) {
       {loading ? <Spinner /> : error ? (
         <Text color="red">Error al cargar clientes</Text>
       ) : (
-        <Table.Root variant="surface">
+        <Table.Root variant="surface" style={{ marginTop: 16 }}>
           <Table.Header>
             <Table.Row>
               <Table.Cell><b>Nombre</b></Table.Cell>
@@ -56,24 +58,35 @@ export default function ClientList({}: {}) {
                 <Table.Cell>{u.email}</Table.Cell>
                 <Table.Cell>{u.isActive ? 'Activo' : 'Inactivo'}</Table.Cell>
                 <Table.Cell>
-                  <RadixButton color="red" onClick={() => { setDeleteId(u.id); setShowDialog(true); }} disabled={deleting}>Eliminar</RadixButton>
+                  <AlertDialog open={showDialog && deleteId === u.id} onOpenChange={open => { if (!open) setShowDialog(false); }}>
+                    <AlertDialogTrigger asChild>
+                      <RadixButton color="red" variant="soft" size="1" onClick={() => { setDeleteId(u.id); setShowDialog(true); }} disabled={deleting} aria-label={`Eliminar usuario ${u.firstName} ${u.lastName}`}>
+                        <TrashIcon />
+                      </RadixButton>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>¿Eliminar usuario?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                          ¿Estás seguro de que deseas eliminar al usuario "{u.firstName} {u.lastName}"? Esta acción no se puede deshacer.
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel disabled={deleting}>Cancelar</AlertDialogCancel>
+                        <AlertDialogAction
+                          disabled={deleting}
+                          onClick={() => deleteUser({ variables: { id: u.id } })}
+                        >
+                          {deleting ? 'Eliminando...' : 'Eliminar'}
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
                 </Table.Cell>
               </Table.Row>
             ))}
           </Table.Body>
         </Table.Root>
-      )}
-      {/* Dialogo de confirmación de borrado */}
-      {showDialog && (
-        <Box className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-30 z-50">
-          <Box className="bg-white p-6 rounded shadow">
-            <Text>¿Seguro que quieres eliminar este usuario?</Text>
-            <Flex gap="2" mt="4">
-              <RadixButton color="red" onClick={() => deleteUser({ variables: { id: deleteId } })} disabled={deleting}>Eliminar</RadixButton>
-              <RadixButton onClick={() => setShowDialog(false)} variant="outline">Cancelar</RadixButton>
-            </Flex>
-          </Box>
-        </Box>
       )}
     </>
   );

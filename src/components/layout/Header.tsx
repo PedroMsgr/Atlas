@@ -1,10 +1,10 @@
 'use client';
 
-import { Button, Flex, Heading, Avatar, Text, Box } from '@radix-ui/themes';
+import { Button, Flex, Avatar, Box } from '@radix-ui/themes';
 import Link from 'next/link';
 import { useSession, signOut } from 'next-auth/react';
 import { ExitIcon, HomeIcon, GearIcon } from '@radix-ui/react-icons';
-import Image from 'next/image';
+import { PersonIcon } from '@radix-ui/react-icons';
 
 // Extender el tipo de sesión para incluir role
 interface CustomUser {
@@ -20,63 +20,55 @@ export default function Header() {
 
   return (
     <header>
-      <Box className="bg-blue-600 text-white p-6">
-        <Flex justify="between" align="center">
-          <Flex align="center" gap="3">
-            <Link href="/" className="flex-shrink-0 flex items-center">
-              <Image src="/globe.svg" width={30} height={30} alt="Atlas" />
-            </Link>
-            <Heading size="6">
-              {user?.role === 'admin' ? 'Panel de Administración' : 
-               user?.role === 'professional' ? 'Portal Profesional' : 'Atlas Legal Platform'}
-            </Heading>
-          </Flex>
-          
-          <Flex align="center" gap="4">
-            {session ? (
-              <>
-                <Flex align="center" gap="2">
-                  <Avatar
-                    fallback={((user?.name?.[0]) || 'A')}
-                    color="blue"
-                    variant="solid"
-                  />
-                  <Text>{user?.name || user?.email}</Text>
-                </Flex>
-                {user?.role === 'admin' && (
-                  <Link href="/admin">
-                    <Button variant="soft">
-                      <GearIcon />
-                      Admin
+      <Box className="bg-blue-600 text-white px-4 py-4 md:px-6 md:py-6">
+        <div className="container mx-auto">
+          <Flex align="center" justify="end" className="w-full">
+            <Flex align="center" gap="2" wrap="wrap">
+              {session ? (
+                <>
+                  {/* Avatar como botón de perfil */}
+                  <Link href="/" className="block">
+                    <Button variant="soft" size="2" className="rounded-full p-0 w-9 h-9 flex items-center justify-center" aria-label="Perfil">
+                      <Avatar fallback={((user?.name?.[0]) || 'A')} color="blue" variant="solid" size="2" />
                     </Button>
                   </Link>
-                )}
-                {user?.role === 'professional' && (
-                  <Link href="/pro">
-                    <Button variant="soft">
-                      <HomeIcon />
-                      Portal
-                    </Button>
-                  </Link>
-                )}
-                <Button 
-                  variant="solid" 
-                  color="red"
-                  onClick={() => signOut({ callbackUrl: '/' })}
-                >
-                  <ExitIcon />
-                  Cerrar sesión
-                </Button>
-              </>
-            ) : (
-              <Link href="/auth/signin">
-                <Button variant="solid">
-                  Iniciar sesión
-                </Button>
-              </Link>
-            )}
+                  {/* Botón solo icono para admin/professional */}
+                  {user?.role === 'admin' && (
+                    <Link href="/admin">
+                      <Button variant="soft" size="2" className="rounded-full p-0 w-9 h-9 flex items-center justify-center bg-white/10 text-white hover:bg-white/20" aria-label="Administración" style={{ minWidth: 36, minHeight: 36 }}>
+                        <GearIcon color="white" />
+                      </Button>
+                    </Link>
+                  )}
+                  {user?.role === 'professional' && (
+                    <Link href="/pro">
+                      <Button variant="soft" size="2" className="rounded-full p-0 w-9 h-9 flex items-center justify-center bg-white/10 text-white hover:bg-white/20" aria-label="Portal" style={{ minWidth: 36, minHeight: 36 }}>
+                        <HomeIcon color="white" />
+                      </Button>
+                    </Link>
+                  )}
+                  {/* Botón solo icono para logout */}
+                  <Button 
+                    variant="solid" 
+                    color="red"
+                    size="2"
+                    className="rounded-full p-0 w-9 h-9 flex items-center justify-center"
+                    onClick={() => signOut({ callbackUrl: '/' })}
+                    aria-label="Cerrar sesión"
+                  >
+                    <ExitIcon />
+                  </Button>
+                </>
+              ) : (
+                <Link href="/auth/signin">
+                  <Button variant="solid" size="2">
+                    Iniciar sesión
+                  </Button>
+                </Link>
+              )}
+            </Flex>
           </Flex>
-        </Flex>
+        </div>
       </Box>
     </header>
   );

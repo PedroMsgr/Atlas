@@ -28,7 +28,7 @@ export default function CaseSearchBackend({ filters, onChange, onManualSearch }:
   }, [search, status]);
 
   return (
-    <Flex gap="3" mb="4" align="end">
+    <Flex gap="3" mb="4" align="center">
       <UserSearchBackend
         search={search}
         onChange={setSearch}
@@ -36,7 +36,7 @@ export default function CaseSearchBackend({ filters, onChange, onManualSearch }:
         autoFocus
       />
       <Select.Root value={status} onValueChange={setStatus}>
-        <Select.Trigger style={{ minWidth: 180 }} />
+        <Select.Trigger style={{ minWidth: 120 }} />
         <Select.Content>
           {CASE_STATUS.map((s) => (
             <Select.Item key={s.value} value={s.value}>{s.label}</Select.Item>

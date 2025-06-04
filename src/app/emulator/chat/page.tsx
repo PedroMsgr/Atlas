@@ -91,7 +91,7 @@ export default function ChatPage() {
       <header className="border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4">
         <div className="flex items-center">
           <Link 
-            href="/" 
+            href="/emulator" 
             className="text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white mr-4"
           >
             <ArrowLeft className="h-5 w-5" />
