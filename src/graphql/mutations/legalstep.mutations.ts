@@ -9,7 +9,6 @@ export const CREATE_LEGALSTEP = gql`
       configId
       title
       description
-      iconUrl
       order
     }
   }
@@ -22,7 +21,6 @@ export const UPDATE_LEGALSTEP = gql`
       configId
       title
       description
-      iconUrl
       order
     }
   }
