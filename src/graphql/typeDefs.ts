@@ -1,6 +1,6 @@
 // src/graphql/typeDefs.ts
 
-import { gql } from 'apollo-server-micro';
+import gql from 'graphql-tag';
 
 const typeDefs = gql`
   #########################
