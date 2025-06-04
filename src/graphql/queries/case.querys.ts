@@ -1,31 +1,36 @@
 // src/graphql-client/queries/case.queries.ts
 
- import { gql } from '@apollo/client';
+import { gql } from '@apollo/client';
 
 export const GET_CASES = gql`
-  query GetCases($serverId: ID) {
-    cases(serverId: $serverId) {
-      id
-      status
-      createdAt
-      updatedAt
-      client {
+  query GetCases($filters: CaseFilters) {
+    cases(filters: $filters) {
+      total
+      cases {
         id
-        user {
-          firstName
-          lastName
+        status
+        createdAt
+        updatedAt
+        client {
+          id
+          user {
+            firstName
+            lastName
+            email
+          }
         }
-      }
-      professional {
-        id
-        user {
-          firstName
-          lastName
+        professional {
+          id
+          user {
+            firstName
+            lastName
+            email
+          }
         }
-      }
-      server {
-        id
-        name
+        server {
+          id
+          name
+        }
       }
     }
   }

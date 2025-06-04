@@ -7,26 +7,28 @@ export const CREATE_CASE = gql`
     createCase(data: $data) {
       id
       status
-      client {
-        id
-        user {
-          firstName
-          lastName
-        }
-      }
-      professional {
-        id
-        user {
-          firstName
-          lastName
-        }
-      }
-      server {
-        id
-        name
-      }
+      client { id user { firstName lastName } }
+      professional { id user { firstName lastName } }
+      server { id name }
       createdAt
     }
+  }
+`;
+
+export const UPDATE_CASE = gql`
+  mutation UpdateCase($id: ID!, $data: CaseUpdateInput!) {
+    updateCase(id: $id, data: $data) {
+      id
+      status
+      updatedAt
+      professional { id user { firstName lastName } }
+    }
+  }
+`;
+
+export const DELETE_CASE = gql`
+  mutation DeleteCase($id: ID!) {
+    deleteCase(id: $id)
   }
 `;
 
@@ -40,20 +42,18 @@ export const UPDATE_CASE_STATUS = gql`
   }
 `;
 
-export const SEND_MESSAGE = gql`
-  mutation SendMessage($caseId: ID!, $sender: Sender!, $content: String!) {
-    sendMessage(caseId: $caseId, sender: $sender, content: $content) {
+export const ASSIGN_PROFESSIONAL = gql`
+  mutation AssignProfessional($id: ID!, $professionalId: ID!) {
+    assignProfessional(id: $id, professionalId: $professionalId) {
       id
-      sender
-      content
-      date
+      professional { id user { firstName lastName } }
     }
   }
 `;
 
-export const ADD_FILE = gql`
-  mutation AddFile($caseId: ID!, $data: FileCreateInput!) {
-    addFile(caseId: $caseId, data: $data) {
+export const ADD_CASE_FILE = gql`
+  mutation AddCaseFile($caseId: ID!, $file: FileCreateInput!) {
+    addCaseFile(caseId: $caseId, file: $file) {
       id
       name
       url
@@ -63,12 +63,24 @@ export const ADD_FILE = gql`
   }
 `;
 
-export const CREATE_REPORT = gql`
-  mutation CreateReport($caseId: ID!, $reason: String!) {
-    createReport(caseId: $caseId, reason: $reason) {
+export const REMOVE_CASE_FILE = gql`
+  mutation RemoveCaseFile($fileId: ID!) {
+    removeCaseFile(fileId: $fileId)
+  }
+`;
+
+export const ADD_CASE_REPORT = gql`
+  mutation AddCaseReport($caseId: ID!, $clientId: ID!, $reason: String!) {
+    addCaseReport(caseId: $caseId, clientId: $clientId, reason: $reason) {
       id
       reason
       createdAt
     }
+  }
+`;
+
+export const REMOVE_CASE_REPORT = gql`
+  mutation RemoveCaseReport($reportId: ID!) {
+    removeCaseReport(reportId: $reportId)
   }
 `;

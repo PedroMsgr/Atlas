@@ -6,6 +6,26 @@ export const typeDefs = gql`
   scalar DateTime
   scalar JSON
 
+  enum CaseStatus {
+    open
+    inProgress
+    pending
+    closed
+  }
+
+  enum ClientStatus {
+    new
+    reviewing
+    active
+    inactive
+    suspended
+  }
+
+  enum Sender {
+    client
+    professional
+  }
+
   # ---------------- Tipo principal UnitConfig ----------------
   type UnitConfig {
     id: ID!
@@ -181,6 +201,121 @@ export const typeDefs = gql`
     footerInfo: String
   }
 
+  input FileCreateInput {
+  name: String!
+  url: String!
+  type: String!
+  clientId: ID
+  professionalId: ID
+}
+
+  # ---------------- Casos ----------------
+  type Case {
+    id: ID!
+    status: CaseStatus!
+    createdAt: DateTime!
+    updatedAt: DateTime!
+    client: Client
+    professional: Professional
+    server: UnitServer!
+    chat: Chat
+    files: [File!]!
+    reports: [Report!]!
+  }
+
+  type CasePaginated {
+    total: Int!
+    cases: [Case!]!
+  }
+
+  input CaseFilters {
+    page: Int
+    pageSize: Int
+    status: CaseStatus
+    professionalId: ID
+    clientId: ID
+    serverId: ID
+    search: String
+  }
+
+  input CaseCreateInput {
+    clientId: ID!
+    professionalId: ID!
+    serverId: ID!
+    status: CaseStatus
+  }
+
+  input CaseUpdateInput {
+    status: CaseStatus
+    professionalId: ID
+  }
+
+
+    type User {
+    id: ID!
+    firstName: String!
+    lastName: String!
+    email: String!
+    phone: String
+    isActive: Boolean
+    lastLoginAt: DateTime
+    address: String
+    createdAt: DateTime
+  }
+
+  type Client {
+    id: ID!
+    user: User
+    serverId: ID!
+    status: ClientStatus!
+    server: UnitServer!
+    cases: [Case!]
+    files: [File!]
+    reports: [Report!]
+  }
+
+  type Professional {
+    id: ID!
+    user: User
+    serverId: ID!
+    server: UnitServer!
+    cases: [Case!]
+    files: [File!]
+  }
+
+  type File {
+    id: ID!
+    caseId: ID!
+    clientId: ID
+    professionalId: ID
+    name: String!
+    url: String!
+    type: String!
+    date: DateTime!
+  }
+
+  type Report {
+    id: ID!
+    caseId: ID!
+    clientId: ID!
+    reason: String!
+    createdAt: DateTime!
+  }
+
+  type Chat {
+    id: ID!
+    caseId: ID!
+    messages: [Message!]!
+  }
+
+  type Message {
+    id: ID!
+    chatId: ID!
+    sender: Sender!
+    content: String!
+    date: DateTime!
+  }
+
   # ---------------- QUERIES ----------------
   type Query {
     configurations: [UnitConfig!]!
@@ -206,6 +341,8 @@ export const typeDefs = gql`
     constellation(id: ID!): Constellation
     landingData(token: String!): UnitConfig
     generateServerTokens(id: ID!): ServerTokens!
+    cases(filters: CaseFilters): CasePaginated!
+    case(id: ID!): Case
   }
 
   # ---------------- MUTATIONS ----------------
@@ -239,5 +376,16 @@ export const typeDefs = gql`
     deleteConstellation(id: ID!): Constellation!
     createFullConfig(data: JSON!): UnitConfig!
     updateFullConfig(id: ID!, data: JSON!): UnitConfig!
+    createCase(data: CaseCreateInput!): Case!
+    updateCase(id: ID!, data: CaseUpdateInput!): Case!
+    deleteCase(id: ID!): Boolean!
+    updateCaseStatus(id: ID!, status: CaseStatus!): Case!
+    assignProfessional(id: ID!, professionalId: ID!): Case!
+    addCaseFile(caseId: ID!, file: FileCreateInput!): File!
+    removeCaseFile(fileId: ID!): Boolean!
+    addCaseReport(caseId: ID!, clientId: ID!, reason: String!): Report!
+    removeCaseReport(reportId: ID!): Boolean!
   }
+
+
 `;

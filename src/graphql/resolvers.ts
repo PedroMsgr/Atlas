@@ -3,6 +3,8 @@
 import { serverService } from '@/services/server.service';
 import { tokenService } from '@/services/token.service';
 import { configService } from '@/services/config.service';
+import { CaseService } from '@/services/case.service';
+
 import { SectionsRepository } from '@/db/repositories/sections.repo';
 import { ImagesRepository } from '@/db/repositories/images.repo';
 import { ArticlesRepository } from '@/db/repositories/articles.repo';
@@ -81,6 +83,14 @@ export const resolvers = {
       const orchestratorToken = await tokenService.generateOrchestratorTokenAsync();
       const unitToken = await tokenService.generateUnitTokenAsync();
       return { orchestratorToken, unitToken };
+    },
+
+    cases: async (_parent: unknown, args: { filters: any }, context: any) => {
+      // Llama al servicio que ya hace el include correcto
+      return await context.caseService.getCasesPaginated(args.filters);
+    },
+    case: async (_parent: unknown, { id }: { id: string }, context: any) => {
+      return await context.caseService.getCaseById(id);
     },
   },
 
@@ -166,6 +176,17 @@ export const resolvers = {
     createFooterLink: async (_: any, { data }: any) => footerLinksRepo.create(data),
     updateFooterLink: async (_: any, { id, data }: any) => footerLinksRepo.update(id, data),
     deleteFooterLink: async (_: any, { id }: any) => footerLinksRepo.delete(id),
+
+    // Case CRUD
+    createCase: async (_: any, { data }: any) => CaseService.createCase(data),
+    updateCase: async (_: any, { id, data }: any) => CaseService.updateCase(id, data),
+    deleteCase: async (_: any, { id }: any) => { await CaseService.deleteCase(id); return true; },
+    updateCaseStatus: async (_: any, { id, status }: any) => CaseService.updateStatus(id, status),
+    assignProfessional: async (_: any, { id, professionalId }: any) => CaseService.assignProfessional(id, professionalId),
+    addCaseFile: async (_: any, { caseId, file }: any) => CaseService.addFile(caseId, file),
+    removeCaseFile: async (_: any, { fileId }: any) => { await CaseService.removeFile(fileId); return true; },
+    addCaseReport: async (_: any, { caseId, clientId, reason }: any) => CaseService.addReport(caseId, clientId, reason),
+    removeCaseReport: async (_: any, { reportId }: any) => { await CaseService.removeReport(reportId); return true; },
   },
 
   UnitConfig: {
@@ -221,4 +242,21 @@ export const resolvers = {
         servers.filter((s: any) => s.constellationId === parent.id)
       ),
   },
+
+  Case: {
+    client: (parent: any) => parent.client || null,
+    professional: (parent: any) => parent.professional || null,
+    server: (parent: any) => parent.server || null,
+  },
+  Client: {
+    user: (parent: any) => parent.user || null,
+  },
+  Professional: {
+    user: (parent: any) => parent.user || null,
+  },
+  Chat: {
+    messages: (parent: any) => parent.messages || [],
+  },
 };
+
+export default resolvers;
