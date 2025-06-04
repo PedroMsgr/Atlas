@@ -1,4 +1,4 @@
-// src/graphql-client/mutations/footerlink.mutations.ts
+// src/graphql/mutations/footerlink.mutations.ts
 import { gql } from '@apollo/client';
 
 export const CREATE_FOOTERLINK = gql`

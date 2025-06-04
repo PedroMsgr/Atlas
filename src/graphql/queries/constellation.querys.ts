@@ -1,4 +1,4 @@
-// src/graphql-client/queries/constellation.queries.ts
+// src/graphql/queries/constellation.queries.ts
 
 import { gql } from '@apollo/client';
 

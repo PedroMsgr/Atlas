@@ -1,4 +1,5 @@
-// src/graphql-client/queries/legalstep.querys.ts
+// src/graphql/queries/legalstep.querys.ts
+
 import { gql } from '@apollo/client';
 
 export const GET_LEGALSTEP_BY_ID = gql`

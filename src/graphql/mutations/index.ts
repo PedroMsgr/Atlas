@@ -7,3 +7,4 @@ export * from './case.mutations';
 export * from './article.mutations';
 export * from './image.mutations';
 export * from './section.mutations';
+export * from './file.mutations';

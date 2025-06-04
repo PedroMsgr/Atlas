@@ -175,13 +175,6 @@ async function main() {
       },
     });
 
-    await prisma.file.createMany({
-      data: [
-        { caseId: c.id, clientId: c.clientId, name: 'contrato.pdf', url: 'https://.../contrato.pdf', type: 'pdf' },
-        { caseId: c.id, professionalId: c.professionalId, name: 'evidencia.jpg', url: 'https://.../evidencia.jpg', type: 'image' },
-      ],
-    });
-
     if (cases.indexOf(c) < 2) {
       await prisma.report.create({ data: { caseId: c.id, clientId: c.clientId, reason: 'Retraso en respuesta' } });
     }

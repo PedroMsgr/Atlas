@@ -1,4 +1,4 @@
-// src/graphql-client/mutations/case.mutations.ts
+// src/graphql/mutations/case.mutations.ts
 
 import { gql } from '@apollo/client';
 

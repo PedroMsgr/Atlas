@@ -1,4 +1,4 @@
-// src/graphql-client/queries/user.queries.ts
+// src/graphql/queries/user.queries.ts
 
 import { gql } from '@apollo/client';
 
