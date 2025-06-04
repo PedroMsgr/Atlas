@@ -27,8 +27,6 @@ export const UPDATE_FOOTERLINK = gql`
 
 export const DELETE_FOOTERLINK = gql`
   mutation DeleteFooterLink($id: ID!) {
-    deleteFooterLink(id: $id) {
-      id
-    }
+    deleteFooterLink(id: $id)
   }
 `;

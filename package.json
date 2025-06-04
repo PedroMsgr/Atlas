@@ -4,12 +4,6 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "dev:railway": "dotenv -e .env.railway -- next dev --turbopack",
-    "seed:railway": "dotenv-cli -e .env.railway -- npm run seed",
-    "truncate:railway": "dotenv-cli -e .env.railway -- npm run truncate",
-    "studio:railway": "dotenv-cli -e .env.railway -- npx prisma studio",
-    "generate:railway": "dotenv-cli -e .env.railway -- npx prisma generate",
-    "migrate:reset:railway": "dotenv-cli -e .env.railway -- npx prisma migrate reset",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

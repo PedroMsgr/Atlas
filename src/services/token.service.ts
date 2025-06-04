@@ -3,9 +3,10 @@
 import crypto from 'crypto';
 import { ServersRepository } from '@/db/repositories/servers.repo';
 
-export class TokenService {
+class TokenService {
+
   private serversRepo = new ServersRepository();
-  private maxAttempts = 10; // Número máximo de intentos para generar un token único
+  private maxAttempts = 100; // Número máximo de intentos para generar un token único
 
   /**
    * Genera un token seguro con el prefijo especificado

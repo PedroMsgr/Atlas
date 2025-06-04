@@ -4,7 +4,8 @@ import { ServersRepository } from '@/db/repositories/servers.repo';
 import { ConstellationsRepository } from '@/db/repositories/constellations.repo';
 import { tokenService } from '@/services/token.service';
 
-export class ServerService {
+class ServerService {
+  
   private serversRepo: ServersRepository;
   private constellationsRepo: ConstellationsRepository;
   
@@ -157,6 +158,22 @@ export class ServerService {
 
   async getServerByUnitToken(token: string) {
     return await this.serversRepo.findByUnitToken(token);
+  }
+
+  async createConstellation(data: { name: string; description?: string }) {
+    return this.constellationsRepo.create({
+      name: data.name,
+      description: data.description ?? null
+    });
+  }
+  async updateConstellation(id: string, data: { name?: string; description?: string }) {
+    return this.constellationsRepo.update(id, {
+      ...data,
+      description: data.description ?? null
+    });
+  }
+  async deleteConstellation(id: string) {
+    return this.constellationsRepo.delete(id);
   }
 }
 

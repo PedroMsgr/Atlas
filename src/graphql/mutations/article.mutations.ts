@@ -30,8 +30,6 @@ export const UPDATE_ARTICLE = gql`
 
 export const DELETE_ARTICLE = gql`
   mutation DeleteArticle($id: ID!) {
-    deleteArticle(id: $id) {
-      id
-    }
+    deleteArticle(id: $id)
   }
 `;

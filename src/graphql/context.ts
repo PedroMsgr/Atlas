@@ -4,13 +4,23 @@ import { NextRequest } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { prisma } from '@/db/prisma-client';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-import { CaseService } from '@/services/case.service';
+import { caseService } from '@/services/case.service';
+import { serverService } from '@/services/server.service';
+import { configService } from '@/services/config.service';
+import { imageService } from '@/services/image.service';
+import { tokenService } from '@/services/token.service';
+import { authService } from '@/services/auth.service';
 
 export type Context = {
   prisma: typeof prisma;
   session: any;
   user: any;
-  caseService: typeof CaseService;
+  caseService: typeof caseService;
+  serverService: typeof serverService;
+  configService: typeof configService;
+  imageService: typeof imageService;
+  tokenService: typeof tokenService;
+  authService: typeof authService;
 };
 
 export async function createContext({ req }: { req: NextRequest }): Promise<Context> {
@@ -20,7 +30,12 @@ export async function createContext({ req }: { req: NextRequest }): Promise<Cont
       prisma,
       session: session || null,
       user: session?.user || null,
-      caseService: CaseService
+      caseService,
+      serverService,
+      configService,
+      imageService,
+      tokenService,
+      authService,
     };
   } catch (error) {
     console.error('Error creating context:', error);
@@ -28,7 +43,12 @@ export async function createContext({ req }: { req: NextRequest }): Promise<Cont
       prisma,
       session: null,
       user: null,
-      caseService: CaseService
+      caseService,
+      serverService,
+      configService,
+      imageService,
+      tokenService,
+      authService,
     };
   }
 }

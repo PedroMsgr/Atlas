@@ -24,9 +24,6 @@ export const UPDATE_CONSTELLATION = gql`
 
 export const DELETE_CONSTELLATION = gql`
   mutation DeleteConstellation($id: ID!) {
-    deleteConstellation(id: $id) {
-      id
-      name
-    }
+    deleteConstellation(id: $id)
   }
 `;

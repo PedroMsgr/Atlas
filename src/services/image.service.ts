@@ -2,7 +2,8 @@
 
 import { ImagesRepository } from "@/db/repositories/images.repo";
 
-export class ImageService {
+class ImageService {
+  
   private imagesRepo: ImagesRepository;
 
   constructor() {

@@ -56,13 +56,8 @@ export const UPDATE_SERVER_TOKENS = gql`
   }
 `;
 
-
-
 export const DELETE_SERVER = gql`
   mutation DeleteServer($id: ID!) {
-    deleteServer(id: $id) {
-      id
-      name
-    }
+    deleteServer(id: $id)
   }
 `;

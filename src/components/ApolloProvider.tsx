@@ -1,6 +1,6 @@
 import { ApolloProvider as ApolloClientProvider } from '@apollo/client';
 import { createApolloClient } from '../lib/apollo-client';
-import { ReactNode, useEffect, useMemo, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 
 interface ApolloProviderProps {

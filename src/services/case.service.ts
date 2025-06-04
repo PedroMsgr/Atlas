@@ -1,49 +1,57 @@
 import { CasesRepository } from '@/db/repositories/cases.repo';
 
-const repo = new CasesRepository();
 
-export class CaseService {
-  static async getCasesPaginated(filters: any) {
-    return repo.findAllPaginated(filters);
+class CaseService {
+
+  private repo: CasesRepository;
+
+  constructor() {
+    this.repo = new CasesRepository();
   }
 
-  static async getCaseById(id: string) {
-    return repo.findById(id);
+   async getCasesPaginated(filters: any) {
+    return this.repo.findAllPaginated(filters);
   }
 
-  static async createCase(data: any) {
-    return repo.create(data);
+  async getCaseById(id: string) {
+    return this.repo.findById(id);
   }
 
-  static async updateCase(id: string, data: any) {
-    return repo.update(id, data);
+  async createCase(data: any) {
+    return this.repo.create(data);
   }
 
-  static async deleteCase(id: string) {
-    return repo.delete(id);
+  async updateCase(id: string, data: any) {
+    return this.repo.update(id, data);
   }
 
-  static async updateStatus(id: string, status: any) {
-    return repo.updateStatus(id, status);
+  async deleteCase(id: string) {
+    return this.repo.delete(id);
   }
 
-  static async assignProfessional(id: string, professionalId: string) {
-    return repo.update(id, { professionalId });
+  async updateStatus(id: string, status: any) {
+    return this.repo.updateStatus(id, status);
   }
 
-  static async addFile(caseId: string, fileData: any) {
-    return repo.addFile(caseId, fileData);
+  async assignProfessional(id: string, professionalId: string) {
+    return this.repo.update(id, { professionalId });
   }
 
-  static async removeFile(fileId: string) {
-    return repo.removeFile(fileId);
+  async addFile(caseId: string, fileData: any) {
+    return this.repo.addFile(caseId, fileData);
   }
 
-  static async addReport(caseId: string, clientId: string, reason: string) {
-    return repo.addReport(caseId, clientId, reason);
+  async removeFile(fileId: string) {
+    return this.repo.removeFile(fileId);
   }
 
-  static async removeReport(reportId: string) {
-    return repo.removeReport(reportId);
+  async addReport(caseId: string, clientId: string, reason: string) {
+    return this.repo.addReport(caseId, clientId, reason);
+  }
+
+  async removeReport(reportId: string) {
+    return this.repo.removeReport(reportId);
   }
 }
+
+export const caseService = new CaseService();

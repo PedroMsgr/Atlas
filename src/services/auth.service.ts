@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { UsersRepository } from '@/db/repositories/users.repo';
 
-export class AuthService {
+class AuthService {
   private usersRepo: UsersRepository;
   private readonly JWT_SECRET: string;
   private readonly JWT_EXPIRES_IN: string;
@@ -90,24 +90,6 @@ export class AuthService {
       return {
         success: false,
         message: 'Error interno del servidor'
-      };
-    }
-  }
-  
-  /**
-   * Cerrar la sesión del usuario
-   */
-  async logoutUser() {
-    try {
-      return {
-        success: true,
-        message: 'Sesión cerrada correctamente'
-      };
-    } catch (error) {
-      console.error('Error al cerrar sesión:', error);
-      return {
-        success: false,
-        message: 'Error al cerrar la sesión'
       };
     }
   }

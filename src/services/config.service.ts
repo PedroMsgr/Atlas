@@ -11,7 +11,8 @@ import {
 } from "@/db/repositories";
 import { LegalStep, FooterLink } from "@/generated/prisma";
 
-export class ConfigService {
+class ConfigService {
+  
   private configsRepo: ConfigsRepository;
   private serversRepo: ServersRepository;
   private sectionsRepo: SectionsRepository;
@@ -248,6 +249,66 @@ export class ConfigService {
   }
   async deleteFooterLink(id: string) {
     return this.footerLinksRepo.delete(id);
+  }
+
+  // --- SECTIONS ---
+  async getAllSections() {
+    return this.sectionsRepo.findAll();
+  }
+  async getSectionById(id: string) {
+    return this.sectionsRepo.findById(id);
+  }
+  async getSectionsByConfigId(configId: string) {
+    return this.sectionsRepo.findByConfigId(configId);
+  }
+  async createSection(data: any) {
+    return this.sectionsRepo.create(data);
+  }
+  async updateSection(id: string, data: any) {
+    return this.sectionsRepo.update(id, data);
+  }
+  async deleteSection(id: string) {
+    return this.sectionsRepo.delete(id);
+  }
+
+  // --- ARTICLES ---
+  async getAllArticles() {
+    return this.articlesRepo.findAll();
+  }
+  async getArticleById(id: string) {
+    return this.articlesRepo.findById(id);
+  }
+  async getArticlesByConfigId(configId: string) {
+    return this.articlesRepo.findByConfigId(configId);
+  }
+  async createArticle(data: any) {
+    return this.articlesRepo.create(data);
+  }
+  async updateArticle(id: string, data: any) {
+    return this.articlesRepo.update(id, data);
+  }
+  async deleteArticle(id: string) {
+    return this.articlesRepo.delete(id);
+  }
+
+  // --- IMAGES ---
+  async getAllImages() {
+    return this.imagesRepo.findAll();
+  }
+  async getImageById(id: string) {
+    return this.imagesRepo.findById(id);
+  }
+  async getImagesByConfigId(configId: string) {
+    return this.imagesRepo.findByConfigId(configId);
+  }
+  async createImage(data: any) {
+    return this.imagesRepo.create(data);
+  }
+  async updateImage(id: string, data: any) {
+    return this.imagesRepo.update(id, data);
+  }
+  async deleteImage(id: string) {
+    return this.imagesRepo.delete(id);
   }
 }
 export const configService = new ConfigService();

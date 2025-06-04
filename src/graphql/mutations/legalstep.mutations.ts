@@ -30,8 +30,6 @@ export const UPDATE_LEGALSTEP = gql`
 
 export const DELETE_LEGALSTEP = gql`
   mutation DeleteLegalStep($id: ID!) {
-    deleteLegalStep(id: $id) {
-      id
-    }
+    deleteLegalStep(id: $id)
   }
 `;
