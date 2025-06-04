@@ -59,8 +59,6 @@ class AuthService {
         };
       }
       
-      // Actualizar la última fecha de inicio de sesión
-      await this.usersRepo.updateLastLogin(user.id);
       
       // Generar el token JWT
       const token = jwt.sign(
