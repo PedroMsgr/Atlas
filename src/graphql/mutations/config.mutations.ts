@@ -29,10 +29,7 @@ export const UPDATE_CONFIG = gql`
 
 export const DELETE_CONFIG = gql`
   mutation DeleteConfig($id: ID!) {
-    deleteConfig(id: $id) {
-      id
-      name
-    }
+    deleteConfig(id: $id)
   }
 `;
 

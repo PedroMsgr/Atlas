@@ -114,6 +114,12 @@ const resolvers = {
     case: async (_: any, { id }: { id: string }, context: any) => {
       return context.caseService.getCaseById(id);
     },
+
+    // --- Usuarios ---
+    users: async (_parent: any, args: { role?: string[]; search?: string }, context: any) => {
+      // args.role puede ser undefined, string o string[]
+      return context.userService.getUsers(args.role, args.search);
+    },
   },
 
   // MUTATION RESOLVERS
@@ -126,8 +132,12 @@ const resolvers = {
       return context.configService.updateConfig(id, data);
     },
     deleteConfig: async (_: any, { id }: { id: string }, context: any) => {
-      await context.configService.deleteConfig(id);
-      return true;
+      try {
+        await context.configService.deleteConfig(id);
+        return true;
+      } catch (e) {
+        return false;
+      }
     },
 
     // ---- UnitServer CRUD ----
@@ -142,8 +152,12 @@ const resolvers = {
       return context.serverService.updateServer(id, data);
     },
     deleteServer: async (_: any, { id }: { id: string }, context: any) => {
-      await context.serverService.deleteServer(id);
-      return true;
+      try {
+        await context.serverService.deleteServer(id);
+        return true;
+      } catch (e) {
+        return false;
+      }
     },
     updateServerTokens: async (
       _: any,
@@ -165,8 +179,12 @@ const resolvers = {
       return context.serverService.updateConstellation(id, { name, description });
     },
     deleteConstellation: async (_: any, { id }: { id: string }, context: any) => {
-      await context.serverService.deleteConstellation(id);
-      return true;
+      try {
+        await context.serverService.deleteConstellation(id);
+        return true;
+      } catch (e) {
+        return false;
+      }
     },
 
     // ---- Section CRUD ----
@@ -177,8 +195,12 @@ const resolvers = {
       return context.configService.updateSection(id, data);
     },
     deleteSection: async (_: any, { id }: { id: string }, context: any) => {
-      await context.configService.deleteSection(id);
-      return true;
+      try {
+        await context.configService.deleteSection(id);
+        return true;
+      } catch (e) {
+        return false;
+      }
     },
 
     // ---- Article CRUD ----
@@ -189,8 +211,12 @@ const resolvers = {
       return context.configService.updateArticle(id, data);
     },
     deleteArticle: async (_: any, { id }: { id: string }, context: any) => {
-      await context.configService.deleteArticle(id);
-      return true;
+      try {
+        await context.configService.deleteArticle(id);
+        return true;
+      } catch (e) {
+        return false;
+      }
     },
 
     // ---- Image CRUD ----
@@ -201,8 +227,12 @@ const resolvers = {
       return context.configService.updateImage(id, data);
     },
     deleteImage: async (_: any, { id }: { id: string }, context: any) => {
-      await context.configService.deleteImage(id);
-      return true;
+      try {
+        await context.configService.deleteImage(id);
+        return true;
+      } catch (e) {
+        return false;
+      }
     },
 
     // ---- LegalStep CRUD (sin iconUrl) ----
@@ -213,8 +243,12 @@ const resolvers = {
       return context.configService.updateLegalStep(id, data);
     },
     deleteLegalStep: async (_: any, { id }: { id: string }, context: any) => {
-      await context.configService.deleteLegalStep(id);
-      return true;
+      try {
+        await context.configService.deleteLegalStep(id);
+        return true;
+      } catch (e) {
+        return false;
+      }
     },
 
     // ---- FooterLink CRUD ----
@@ -225,8 +259,12 @@ const resolvers = {
       return context.configService.updateFooterLink(id, data);
     },
     deleteFooterLink: async (_: any, { id }: { id: string }, context: any) => {
-      await context.configService.deleteFooterLink(id);
-      return true;
+      try {
+        await context.configService.deleteFooterLink(id);
+        return true;
+      } catch (e) {
+        return false;
+      }
     },
 
     // ---- FullConfig (JSON) ----
@@ -245,8 +283,12 @@ const resolvers = {
       return context.caseService.updateCase(id, data);
     },
     deleteCase: async (_: any, { id }: { id: string }, context: any) => {
-      await context.caseService.deleteCase(id);
-      return true;
+      try {
+        await context.caseService.deleteCase(id);
+        return true;
+      } catch (e) {
+        return false;
+      }
     },
     updateCaseStatus: async (_: any, { id, status }: { id: string; status: string }, context: any) => {
       return context.caseService.updateStatus(id, status);
@@ -260,15 +302,26 @@ const resolvers = {
       return context.caseService.addFile(caseId, file);
     },
     removeCaseFile: async (_: any, { fileId }: { fileId: string }, context: any) => {
-      await context.caseService.removeFile(fileId);
-      return true;
+      try {
+        await context.caseService.removeFile(fileId);
+        return true;
+      } catch (e) {
+        return false;
+      }
     },
     addCaseReport: async (_: any, { caseId, clientId, reason }: { caseId: string; clientId: string; reason: string }, context: any) => {
       return context.caseService.addReport(caseId, clientId, reason);
     },
     removeCaseReport: async (_: any, { reportId }: { reportId: string }, context: any) => {
-      await context.caseService.removeReport(reportId);
-      return true;
+      try {
+        await context.caseService.removeReport(reportId);
+        return true;
+      } catch (e) {
+        return false;
+      }
+    },
+    deleteUser: async (_parent: any, args: { id: string }, context: any) => {
+      return context.userService.deleteUser(args.id);
     },
   },
 

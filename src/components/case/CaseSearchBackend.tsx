@@ -1,5 +1,6 @@
+import UserSearchBackend from '../user/UserSearchBackend';
 import { useState, useEffect } from 'react';
-import { Box, TextField, Select, Button, Flex } from '@radix-ui/themes';
+import { Select, Button, Flex } from '@radix-ui/themes';
 
 const CASE_STATUS = [
   { value: 'all', label: 'Todos' },
@@ -19,22 +20,20 @@ export default function CaseSearchBackend({ filters, onChange, onManualSearch }:
   const [search, setSearch] = useState(filters.search);
   const [status, setStatus] = useState(filters.status);
 
-  // Retraso para búsqueda backend
   useEffect(() => {
     const handler = setTimeout(() => {
       onChange({ search, status });
-    }, 1000); 
+    }, 1000);
     return () => clearTimeout(handler);
   }, [search, status]);
 
   return (
     <Flex gap="3" mb="4" align="end">
-      <TextField.Root
-        placeholder="Buscar por nombre o email..."
-        value={search}
-        onChange={e => setSearch(e.target.value)}
+      <UserSearchBackend
+        search={search}
+        onChange={setSearch}
+        onManualSearch={onManualSearch}
         autoFocus
-        style={{ minWidth: 220 }}
       />
       <Select.Root value={status} onValueChange={setStatus}>
         <Select.Trigger style={{ minWidth: 180 }} />
@@ -44,9 +43,6 @@ export default function CaseSearchBackend({ filters, onChange, onManualSearch }:
           ))}
         </Select.Content>
       </Select.Root>
-      {onManualSearch && (
-        <Button onClick={onManualSearch}>Buscar</Button>
-      )}
     </Flex>
   );
 }

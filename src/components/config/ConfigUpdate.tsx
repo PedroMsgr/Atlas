@@ -8,28 +8,28 @@ import { useRouter } from "next/navigation";
 import {
   UPDATE_CONFIG,
 } from "@/graphql/mutations/config.mutations";
-import { GET_SECTIONS_BY_CONFIG } from "@/graphql/queries/section.querys";
+import { GET_SECTIONS_BY_CONFIG } from "@/graphql/queries/section.queries";
 import {
   CREATE_SECTION,
   UPDATE_SECTION,
   DELETE_SECTION,
 } from "@/graphql/mutations/section.mutations";
-import { GET_ARTICLES_BY_CONFIG } from "@/graphql/queries/article.querys";
+import { GET_ARTICLES_BY_CONFIG } from "@/graphql/queries/article.queries";
 import {
   CREATE_ARTICLE,
   UPDATE_ARTICLE,
   DELETE_ARTICLE,
 } from "@/graphql/mutations/article.mutations";
-import { GET_IMAGES_BY_CONFIG } from "@/graphql/queries/image.querys";
+import { GET_IMAGES_BY_CONFIG } from "@/graphql/queries/image.queries";
 import {
   CREATE_IMAGE,
   UPDATE_IMAGE,
   DELETE_IMAGE,
 } from "@/graphql/mutations/image.mutations";
 import { CREATE_LEGALSTEP, UPDATE_LEGALSTEP, DELETE_LEGALSTEP } from "@/graphql/mutations/legalstep.mutations";
-import { GET_LEGALSTEPS_BY_CONFIG } from "@/graphql/queries/legalstep.querys";
+import { GET_LEGALSTEPS_BY_CONFIG } from "@/graphql/queries/legalstep.queries";
 import { CREATE_FOOTERLINK, UPDATE_FOOTERLINK, DELETE_FOOTERLINK } from "@/graphql/mutations/footerlink.mutations";
-import { GET_FOOTERLINKS_BY_CONFIG } from "@/graphql/queries/footerlink.querys";
+import { GET_FOOTERLINKS_BY_CONFIG } from "@/graphql/queries/footerlink.queries";
 import { uploadImage } from "@/lib/uploadImage";
 import ConfigGeneralTab from './ConfigGeneralTab';
 import ConfigSectionsTab from './ConfigSectionsTab';

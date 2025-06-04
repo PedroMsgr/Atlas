@@ -9,34 +9,18 @@ import "../globals.css";
 export default function EmulatorPage() {
   const config = {
   "__typename": "UnitConfig",
-  "id": "d6ea95ef-45d1-4bb2-bdb6-613004b68c85",
-  "name": "Config Portal Familia 1",
-  "pageTitle": "Abogados especialistas en Familia",
-  "pageDescription": "Portal especializado en derecho familia.",
-  "servicesDescription": "Servicios legales para casos de familia.",
-  "iconUrl": "https://firebasestorage.googleapis.com/v0/b/universo-legal-4dace.firebasestorage.app/o/images%2F1748980953414-AtlasLogo1.ico?alt=media&token=2b9ba13d-52c6-403e-b807-ae71edf30b16",
-  "footerInfo": "© 2025 Atlas Legal",
-  "bannerUrl": "https://firebasestorage.googleapis.com/v0/b/universo-legal-4dace.firebasestorage.app/o/images%2F1748980958312-6750160.jpg?alt=media&token=55db6fcb-8800-4eb1-849c-213cecd2b531",
+  "id": "8d0ab95b-8cd9-4514-8544-399e6033d54e",
+  "name": "Config Portal Accidentes 1",
+  "pageTitle": "Abogados especialistas en Accidentes",
+  "pageDescription": "Portal especializado en derecho accidentes.",
+  "servicesDescription": "Servicios legales para casos de accidentes.",
+  "iconUrl": "https://firebasestorage.googleapis.com/v0/b/universo-legal-4dace.firebasestorage.app/o/images%2F1749070787329-AtlasLogo1.ico?alt=media&token=26bac980-05db-4be3-b53d-e60bb5860aa8",
+  "footerInfo": "ATALAS UNIVERSO LEGAL",
+  "bannerUrl": "https://firebasestorage.googleapis.com/v0/b/universo-legal-4dace.firebasestorage.app/o/images%2F1749070806371-675016-5.jpg?alt=media&token=e0b84d15-a2bb-4771-b4c8-6b608a2f9626",
   "sections": [
     {
       "__typename": "Section",
-      "id": "90f0fdb1-3a93-40a4-bbd4-6f76ee7a938b",
-      "title": "Bienvenida",
-      "body": "Bienvenido a nuestro portal.",
-      "order": 1,
-      "images": []
-    },
-    {
-      "__typename": "Section",
-      "id": "307d2409-6241-4a20-b337-072707664c13",
-      "title": "Guía Legal",
-      "body": "Te guiamos paso a paso en tu proceso legal.",
-      "order": 2,
-      "images": []
-    },
-    {
-      "__typename": "Section",
-      "id": "641e02fc-71c9-4500-9258-da39d6a6382c",
+      "id": "50f5173a-753b-4f1a-8601-689123081d71",
       "title": "Artículo Destacado",
       "body": "Contenido curado manualmente.",
       "order": 3,
@@ -44,7 +28,7 @@ export default function EmulatorPage() {
     },
     {
       "__typename": "Section",
-      "id": "f9c1a023-b171-4da4-b1c4-152fb114cbac",
+      "id": "7e12de95-f26c-4a38-9594-207ea2104cb3",
       "title": "Noticias",
       "body": "Noticias legales relevantes.",
       "order": 4,
@@ -54,79 +38,95 @@ export default function EmulatorPage() {
   "articles": [
     {
       "__typename": "Article",
-      "id": "9ffdf307-bd09-4bcd-aec4-1d9e618e82ef",
-      "title": "Artículo destacado de Portal Familia 1",
+      "id": "904a9e9d-7aa8-4726-be57-3927deb8ef87",
+      "title": "Artículo destacado de Portal Accidentes 1",
       "content": "Este es un artículo de ejemplo para la landing.",
-      "url": "https://portal.edu.gva.es/03013224/",
+      "url": "youtube.com",
       "order": 1,
-      "publishedAt": "2025-06-02T00:00:00.000Z"
+      "publishedAt": "2025-06-04T00:00:00.000Z"
     },
     {
       "__typename": "Article",
-      "id": "027dff85-d220-4fb8-83ee-4432886591d2",
-      "title": "Guía rápida de Portal Familia 1",
+      "id": "bdabefc8-2298-490b-8211-4ee55e669ac3",
+      "title": "Guía rápida de Portal Accidentes 1",
       "content": "Guía rápida para usuarios del portal.",
       "url": "youtube.com",
       "order": 1,
-      "publishedAt": "2025-06-02T00:00:00.000Z"
+      "publishedAt": "2025-06-04T00:00:00.000Z"
     }
   ],
-  "images": [],
+  "images": [
+    {
+      "__typename": "Image",
+      "id": "80e7e6ef-744b-4a2f-8fa5-2812e85f5202",
+      "url": "https://firebasestorage.googleapis.com/v0/b/universo-legal-4dace.firebasestorage.app/o/images%2F1749070673096-675016-5.jpg?alt=media&token=6736b3db-031f-402f-bf25-cc157afb6ec1",
+      "altText": "675016-5.jpg",
+      "type": "global",
+      "order": 1
+    }
+  ],
   "legalSteps": [
     {
       "__typename": "LegalStep",
-      "id": "d0e2fffb-61b7-4f0a-b161-47138534a0f0",
+      "id": "bbb8b974-7e3d-4bc3-955b-f26fd7db7337",
       "title": "Evaluación inicial",
       "description": "Analizamos tu caso y te orientamos.",
       "order": 1
     },
     {
       "__typename": "LegalStep",
-      "id": "17ac5e3b-6db9-4d7e-a67f-ee1750ee9b2b",
+      "id": "7adff5c0-8980-4829-8fc5-eaa1d55ff7cc",
       "title": "Revisión documental",
       "description": "Revisamos toda la documentación relevante.",
       "order": 2
     },
     {
       "__typename": "LegalStep",
-      "id": "ee0a74fe-3007-4b4b-bd92-fe838ada05b4",
+      "id": "58d4e87b-8c5d-4d4f-84de-01d83fa169a1",
       "title": "Negociación",
       "description": "Negociamos con la parte contraria.",
       "order": 3
     },
     {
       "__typename": "LegalStep",
-      "id": "6470e2a4-8feb-4fad-9078-6e82bdb61794",
-      "title": "Acción legal",
-      "description": "Si es necesario, iniciamos acciones legales.",
+      "id": "c1d7b5a3-1c7d-4640-ba5a-30ed7340747c",
+      "title": "qw",
+      "description": "qweqwerwargergstegstbsfgb",
       "order": 4
     },
     {
       "__typename": "LegalStep",
-      "id": "de79f7b6-5fca-4950-82e0-f149283bf61b",
-      "title": "Resolución",
-      "description": "Te acompañamos hasta la resolución del caso.",
+      "id": "11731a19-131b-46b3-a18e-dfbd41982918",
+      "title": "tewhwrth",
+      "description": "wrthbwrynberynetyn",
       "order": 5
+    },
+    {
+      "__typename": "LegalStep",
+      "id": "7b33e906-dd37-4df5-ae47-00b2b3622e26",
+      "title": "wrtnrwtnrty",
+      "description": "wrynwrynetryne",
+      "order": 6
     }
   ],
   "footerLinks": [
     {
       "__typename": "FooterLink",
-      "id": "beb5f670-adaf-4ceb-b5a5-af6b72a6e05a",
+      "id": "6c0e267e-6853-4489-bbd7-3a433f1f3cd1",
       "label": "Aviso Legal",
       "url": "/aviso-legal",
       "order": 1
     },
     {
       "__typename": "FooterLink",
-      "id": "3b81089c-852d-4084-b44a-ebdd1e822ebd",
+      "id": "aa6fa841-6021-4a21-bc77-c22984a03350",
       "label": "Política de Privacidad",
       "url": "/privacidad",
       "order": 2
     },
     {
       "__typename": "FooterLink",
-      "id": "a47f6c32-0278-4e44-b34c-ea2d97b1763e",
+      "id": "7a13353a-6c5a-4753-b4a9-1cc91635d282",
       "label": "Contacto",
       "url": "/contacto",
       "order": 3
@@ -266,7 +266,7 @@ export default function EmulatorPage() {
               {/* Menú privado (cliente logueado) */}
               {isClient && <>
                 <a
-                  href="#chat"
+                  href="/emulator/chat"
                   className="hidden md:inline-block px-2 py-1 rounded shadow-sm bg-white dark:bg-slate-900 dark:shadow md:mx-0.5 font-medium text-blue-800 dark:text-blue-300 hover:shadow-lg hover:bg-blue-50 dark:hover:bg-slate-800 transition-all"
                 >
                   Mi Chat
@@ -398,30 +398,56 @@ export default function EmulatorPage() {
             <section id="proceso" className="mb-8 bg-white p-6 rounded-lg shadow-md dark:bg-slate-800">
               <h2 className="text-2xl font-bold mb-4 dark:text-white">Proceso Legal</h2>
               <div className="relative mb-6">
-                <div className={"grid w-full grid-cols-" + config.legalSteps.length}>
-                  {config.legalSteps.sort((a: any, b: any) => a.order - b.order).map((step: any, idx: any) => (
-                    <button
-                      key={step.id}
-                      onClick={() => setActiveTab(idx)}
-                      className={
-                        "relative z-10 px-3 py-1 text-sm font-medium cursor-pointer " +
-                        (activeTab === idx
-                          ? 'text-blue-700 dark:text-blue-400'
-                          : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200')
-                      }
-                      aria-selected={activeTab === idx}
-                      aria-controls={"tab-" + step.id}
-                      tabIndex={0}
-                    >
-                      {idx + 1}
-                      <span className="sr-only">{step.title}</span>
-                    </button>
-                  ))}
-                </div>
+                {/* Distribuir los botones de pasos en filas de 3 (o menos si es la última) */}
+                {(() => {
+                  const steps = config.legalSteps.slice().sort((a, b) => a.order - b.order);
+                  const perRow = 3;
+                  const rows = [];
+                  for (let i = 0; i < steps.length; i += perRow) {
+                    rows.push(steps.slice(i, i + perRow));
+                  }
+                  return (
+                    <div className="flex flex-col gap-2">
+                      {rows.map((row, rowIdx) => {
+                        let colClass = '';
+                        if (row.length === 1) colClass = 'grid-cols-1';
+                        else if (row.length === 2) colClass = 'grid-cols-2';
+                        else colClass = 'grid-cols-3';
+                        return (
+                          <div key={rowIdx} className={["grid", "w-full", colClass, "gap-2"].join(" ")}>
+                            {row.map((step, idx) => {
+                              const globalIdx = rowIdx * perRow + idx;
+                              const isActive = activeTab === globalIdx;
+                              return (
+                                <button
+                                  key={step.id}
+                                  onClick={() => setActiveTab(globalIdx)}
+                                  className={
+                                    "relative z-10 px-3 py-1 text-sm font-medium cursor-pointer transition-all duration-300 rounded-lg " +
+                                    (isActive
+                                      ? 'text-blue-700 dark:text-blue-400 bg-white dark:bg-slate-900 scale-105 -translate-y-1 shadow'
+                                      : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 bg-transparent scale-100 translate-y-0')
+                                  }
+                                  style={{ boxShadow: isActive ? '0 2px 8px 0 rgba(37, 99, 235, 0.10)' : undefined }}
+                                  aria-selected={isActive}
+                                  aria-controls={"tab-" + step.id}
+                                  tabIndex={0}
+                                >
+                                  {globalIdx + 1}
+                                  <span className="sr-only">{step.title}</span>
+                                </button>
+                              );
+                            })}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  );
+                })()}
                 <div className="absolute bottom-0 left-0 right-0 h-px bg-slate-200 dark:bg-slate-700"></div>
               </div>
               <div {...swipeHandlers}>
-                {config.legalSteps.sort((a: any, b: any) => a.order - b.order).map((step: any, idx: any) => (
+                {config.legalSteps.slice().sort((a, b) => a.order - b.order).map((step, idx) => (
                   <div
                     key={step.id}
                     id={"tab-" + step.id}

@@ -3,7 +3,7 @@
 
 import { UnitConfigBase } from '@/types/config.types';
 import { useQuery, useMutation } from '@apollo/client';
-import { GET_ALL_CONFIGURATIONS } from '@/graphql/queries/config.querys';
+import { GET_ALL_CONFIGURATIONS } from '@/graphql/queries/config.queries';
 import { DELETE_CONFIG } from '@/graphql/mutations/config.mutations';
 import { Box, Button as RadixButton, Heading, Table, Text, Card, Flex } from '@radix-ui/themes';
 import { TrashIcon } from '@radix-ui/react-icons';

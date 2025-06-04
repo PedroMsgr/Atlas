@@ -10,6 +10,7 @@ import { configService } from '@/services/config.service';
 import { imageService } from '@/services/image.service';
 import { tokenService } from '@/services/token.service';
 import { authService } from '@/services/auth.service';
+import { userService } from '@/services/user.service';
 
 export type Context = {
   prisma: typeof prisma;
@@ -21,6 +22,7 @@ export type Context = {
   imageService: typeof imageService;
   tokenService: typeof tokenService;
   authService: typeof authService;
+  userService: typeof userService;
 };
 
 export async function createContext({ req }: { req: NextRequest }): Promise<Context> {
@@ -36,6 +38,7 @@ export async function createContext({ req }: { req: NextRequest }): Promise<Cont
       imageService,
       tokenService,
       authService,
+      userService,
     };
   } catch (error) {
     console.error('Error creating context:', error);
@@ -49,6 +52,7 @@ export async function createContext({ req }: { req: NextRequest }): Promise<Cont
       imageService,
       tokenService,
       authService,
+      userService,
     };
   }
 }

@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from "react";
 import { Box, Flex, Select } from "@radix-ui/themes";
 import { useQuery } from "@apollo/client";
-import { GET_CONSTELLATIONS } from "@/graphql/queries/constellation.querys";
+import { GET_CONSTELLATIONS } from "@/graphql/queries/constellation.queries";
 import { SearchFrontend } from "@/components/SearchFrontend";
 import { UnitServerListItem } from '@/types/server.types';
 

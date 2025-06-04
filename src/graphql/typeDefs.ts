@@ -32,6 +32,12 @@ const typeDefs = gql`
     professional
   }
 
+  enum Role {
+    client
+    professional
+    admin
+  }
+
   #########################
   #       TYPES           #
   #########################
@@ -152,14 +158,18 @@ const typeDefs = gql`
   # --------- Usuario sin datos sensibles ---------
   type User {
     id: ID!
+    email: String!
+    password: String!
+    role: Role!
     firstName: String!
     lastName: String!
-    email: String!
     phone: String
-    isActive: Boolean
-    lastLoginAt: DateTime
     address: String
-    createdAt: DateTime
+    avatarUrl: String
+    isActive: Boolean!
+    createdAt: DateTime!
+    updatedAt: DateTime!
+    lastLoginAt: DateTime
   }
 
   # --------- Cliente vinculado a un servidor ---------
@@ -403,6 +413,9 @@ const typeDefs = gql`
     # Casos legales
     cases(filters: CaseFilters): CasePaginated!
     case(id: ID!): Case
+
+    # Usuarios
+    users(role: [Role], search: String): [User!]!
   }
 
   #########################
@@ -412,7 +425,7 @@ const typeDefs = gql`
     # -- UnitConfig CRUD --
     createConfig(data: CreateConfigInput!): UnitConfig!
     updateConfig(id: ID!, data: UpdateConfigInput!): UnitConfig!
-    deleteConfig(id: ID!): UnitConfig!
+    deleteConfig(id: ID!): Boolean!
 
     # -- UnitServer CRUD --
     createServer(name: String!, domain: String!, constellationId: ID!): UnitServer!
@@ -423,32 +436,32 @@ const typeDefs = gql`
     # -- Section CRUD --
     createSection(data: SectionInput!): Section!
     updateSection(id: ID!, data: SectionInput!): Section!
-    deleteSection(id: ID!): Section!
+    deleteSection(id: ID!): Boolean!
 
     # -- Article CRUD --
     createArticle(data: ArticleInput!): Article!
     updateArticle(id: ID!, data: ArticleInput!): Article!
-    deleteArticle(id: ID!): Article!
+    deleteArticle(id: ID!): Boolean!
 
     # -- Image CRUD --
     createImage(data: ImageInput!): Image!
     updateImage(id: ID!, data: ImageInput!): Image!
-    deleteImage(id: ID!): Image!
+    deleteImage(id: ID!): Boolean!
 
     # -- LegalStep CRUD --
     createLegalStep(data: LegalStepInput!): LegalStep!
     updateLegalStep(id: ID!, data: LegalStepInput!): LegalStep!
-    deleteLegalStep(id: ID!): LegalStep!
+    deleteLegalStep(id: ID!): Boolean!
 
     # -- FooterLink CRUD --
     createFooterLink(data: FooterLinkInput!): FooterLink!
     updateFooterLink(id: ID!, data: FooterLinkInput!): FooterLink!
-    deleteFooterLink(id: ID!): FooterLink!
+    deleteFooterLink(id: ID!): Boolean!
 
     # -- Constellation CRUD --
     createConstellation(name: String!, description: String): Constellation!
     updateConstellation(id: ID!, name: String, description: String): Constellation!
-    deleteConstellation(id: ID!): Constellation!
+    deleteConstellation(id: ID!): Boolean!
 
     # -- FullConfig (JSON) --
     createFullConfig(data: JSON!): UnitConfig!
@@ -466,6 +479,9 @@ const typeDefs = gql`
     removeCaseFile(fileId: ID!): Boolean!
     addCaseReport(caseId: ID!, clientId: ID!, reason: String!): Report!
     removeCaseReport(reportId: ID!): Boolean!
+
+    # -- Usuario CRUD --
+    deleteUser(id: ID!): Boolean!
   }
 `;
 

@@ -1,7 +1,7 @@
 import { useQuery, useMutation } from '@apollo/client';
 import { Box, Table, Button, Spinner, Flex } from '@radix-ui/themes';
 import { useState } from 'react';
-import { GET_CASES } from '@/graphql/queries/case.querys';
+import { GET_CASES } from '@/graphql/queries/case.queries';
 import type { CaseListItem, CaseListResponse } from '@/types/case.types';
 import { TrashIcon } from '@radix-ui/react-icons';
 import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel, AlertDialogAction } from '@/components/ui/alert-dialog';

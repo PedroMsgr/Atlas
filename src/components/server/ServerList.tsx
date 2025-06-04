@@ -5,7 +5,7 @@ import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader,
 import Link from 'next/link';
 import { useState } from 'react';
 import ServerListFilters from './ServerListFilters';
-import { GET_SERVERS } from '@/graphql/queries/server.querys';
+import { GET_SERVERS } from '@/graphql/queries/server.queries';
 import { DELETE_SERVER } from '@/graphql/mutations/server.mutations';
 import { UnitServerListItem } from '@/types/server.types';
 import { formatDate } from '@/lib/date-formatter';

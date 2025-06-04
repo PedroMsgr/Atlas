@@ -80,9 +80,14 @@ export default function EmulatorGeneratorPage() {
         )}
 
         <div className="mt-6 text-center">
-          <Link href="/emulator" className="text-blue-600 hover:underline">
+          <button
+            type="button"
+            className={`w-full py-2 rounded text-blue-700 border border-blue-600 bg-white hover:bg-blue-50 transition disabled:opacity-60 disabled:cursor-not-allowed ${status === "loading" ? "opacity-60 cursor-not-allowed" : ""}`}
+            onClick={() => window.location.href = "/emulator"}
+            disabled={status === "loading"}
+          >
             Ir a la página del emulador
-          </Link>
+          </button>
         </div>
       </div>
     </div>

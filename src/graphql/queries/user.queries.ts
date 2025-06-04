@@ -2,6 +2,20 @@
 
 import { gql } from '@apollo/client';
 
+export const GET_USERS = gql`
+  query GetUsers($role: [Role], $search: String) {
+    users(role: $role, search: $search) {
+      id
+      firstName
+      lastName
+      email
+      isActive
+      role
+    }
+  }
+`;
+
+
 export const GET_CLIENTS = gql`
   query GetClients($serverId: ID) {
     clients(serverId: $serverId) {

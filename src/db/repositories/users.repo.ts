@@ -4,17 +4,28 @@ import { User, Role } from '../../generated/prisma';
 import { prisma } from '../prisma-client';
 
 export class UsersRepository {
-  async findAll(): Promise<User[]> {
-    return prisma.user.findMany();
+  async findAll(role?: Role | Role[], search?: string): Promise<User[]> {
+    const where: any = {};
+    if (role) {
+      if (Array.isArray(role)) {
+        where.role = { in: role };
+      } else {
+        where.role = role;
+      }
+    }
+    if (search && search.trim() !== '') {
+      where.OR = [
+        { firstName: { contains: search, mode: 'insensitive' } },
+        { lastName: { contains: search, mode: 'insensitive' } },
+        { email: { contains: search, mode: 'insensitive' } },
+      ];
+    }
+    return prisma.user.findMany({ where });
   }
 
   async findById(id: string): Promise<User | null> {
     return prisma.user.findUnique({
       where: { id },
-      include: {
-        clients: true,
-        professionals: true,
-      },
     });
   }
 
@@ -37,29 +48,12 @@ export class UsersRepository {
     });
   }
 
-  async delete(id: string): Promise<User> {
-    return prisma.user.delete({
-      where: { id },
-    });
-  }
-
-  async updateLastLogin(id: string): Promise<User> {
-    return prisma.user.update({
-      where: { id },
-      data: { lastLoginAt: new Date() },
-    });
-  }
-
-  async findByRole(role: Role): Promise<User[]> {
-    return prisma.user.findMany({
-      where: { role },
-    });
-  }
-
-  async updateStatus(id: string, isActive: boolean): Promise<User> {
-    return prisma.user.update({
-      where: { id },
-      data: { isActive },
-    });
+  async delete(id: string): Promise<boolean> {
+    try {
+      await prisma.user.delete({ where: { id } });
+      return true;
+    } catch {
+      return false;
+    }
   }
 }

@@ -11,7 +11,7 @@ import {
   Flex,
   Button,
 } from "@radix-ui/themes";
-import { GET_CASE } from "@/graphql/queries/case.querys";
+import { GET_CASE } from "@/graphql/queries/case.queries";
 
 export default function CaseDetailPage() {
   const params = useParams();

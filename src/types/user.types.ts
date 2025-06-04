@@ -103,3 +103,26 @@ export interface ReportBase {
   reason: string;
   createdAt: string;
 }
+
+// User types
+export interface UserBase {
+  id: string;
+  email: string;
+  password: string;
+  role: Role;
+  firstName: string;
+  lastName: string;
+  phone?: string | null;
+  address?: string | null;
+  avatarUrl?: string | null;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
+  lastLoginAt?: string | null;
+}
+
+export enum Role {
+  CLIENT = 'client',
+  PROFESSIONAL = 'professional',
+  ADMIN = 'admin',
+}

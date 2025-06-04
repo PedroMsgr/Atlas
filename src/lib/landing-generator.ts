@@ -292,30 +292,56 @@ export default function EmulatorPage() {
             <section id="proceso" className="mb-8 bg-white p-6 rounded-lg shadow-md dark:bg-slate-800">
               <h2 className="text-2xl font-bold mb-4 dark:text-white">Proceso Legal</h2>
               <div className="relative mb-6">
-                <div className={"grid w-full grid-cols-" + config.legalSteps.length}>
-                  {config.legalSteps.sort((a: any, b: any) => a.order - b.order).map((step: any, idx: any) => (
-                    <button
-                      key={step.id}
-                      onClick={() => setActiveTab(idx)}
-                      className={
-                        "relative z-10 px-3 py-1 text-sm font-medium cursor-pointer " +
-                        (activeTab === idx
-                          ? 'text-blue-700 dark:text-blue-400'
-                          : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200')
-                      }
-                      aria-selected={activeTab === idx}
-                      aria-controls={"tab-" + step.id}
-                      tabIndex={0}
-                    >
-                      {idx + 1}
-                      <span className="sr-only">{step.title}</span>
-                    </button>
-                  ))}
-                </div>
+                {/* Distribuir los botones de pasos en filas de 3 (o menos si es la última) */}
+                {(() => {
+                  const steps = config.legalSteps.slice().sort((a, b) => a.order - b.order);
+                  const perRow = 3;
+                  const rows = [];
+                  for (let i = 0; i < steps.length; i += perRow) {
+                    rows.push(steps.slice(i, i + perRow));
+                  }
+                  return (
+                    <div className="flex flex-col gap-2">
+                      {rows.map((row, rowIdx) => {
+                        let colClass = '';
+                        if (row.length === 1) colClass = 'grid-cols-1';
+                        else if (row.length === 2) colClass = 'grid-cols-2';
+                        else colClass = 'grid-cols-3';
+                        return (
+                          <div key={rowIdx} className={["grid", "w-full", colClass, "gap-2"].join(" ")}>
+                            {row.map((step, idx) => {
+                              const globalIdx = rowIdx * perRow + idx;
+                              const isActive = activeTab === globalIdx;
+                              return (
+                                <button
+                                  key={step.id}
+                                  onClick={() => setActiveTab(globalIdx)}
+                                  className={
+                                    "relative z-10 px-3 py-1 text-sm font-medium cursor-pointer transition-all duration-300 rounded-lg " +
+                                    (isActive
+                                      ? 'text-blue-700 dark:text-blue-400 bg-white dark:bg-slate-900 scale-105 -translate-y-1 shadow'
+                                      : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 bg-transparent scale-100 translate-y-0')
+                                  }
+                                  style={{ boxShadow: isActive ? '0 2px 8px 0 rgba(37, 99, 235, 0.10)' : undefined }}
+                                  aria-selected={isActive}
+                                  aria-controls={"tab-" + step.id}
+                                  tabIndex={0}
+                                >
+                                  {globalIdx + 1}
+                                  <span className="sr-only">{step.title}</span>
+                                </button>
+                              );
+                            })}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  );
+                })()}
                 <div className="absolute bottom-0 left-0 right-0 h-px bg-slate-200 dark:bg-slate-700"></div>
               </div>
               <div {...swipeHandlers}>
-                {config.legalSteps.sort((a: any, b: any) => a.order - b.order).map((step: any, idx: any) => (
+                {config.legalSteps.slice().sort((a, b) => a.order - b.order).map((step, idx) => (
                   <div
                     key={step.id}
                     id={"tab-" + step.id}

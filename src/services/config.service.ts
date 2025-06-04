@@ -265,6 +265,11 @@ class ConfigService {
     return this.sectionsRepo.create(data);
   }
   async updateSection(id: string, data: any) {
+    // Verificar existencia antes de actualizar para evitar error de prisma
+    const section = await this.sectionsRepo.findById(id);
+    if (!section) {
+      throw new Error('No se encontró la sección a actualizar');
+    }
     return this.sectionsRepo.update(id, data);
   }
   async deleteSection(id: string) {
