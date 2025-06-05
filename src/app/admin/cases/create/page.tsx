@@ -1,4 +1,4 @@
-import { Box, Heading, Button } from '@radix-ui/themes';
+import { Box, Heading } from '@radix-ui/themes';
 
 export default function CreateCasePage() {
   // Aquí irá el formulario de creación de caso

@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Flex, Text, Separator } from '@radix-ui/themes';
+import { Box, Flex, Text } from '@radix-ui/themes';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Layout from '@/components/layout/Layout';

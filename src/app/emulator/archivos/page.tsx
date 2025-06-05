@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { ArrowLeft, FileText, Download, Upload, Paperclip, Calendar, FileIcon, Search, Filter } from "lucide-react"
+import { ArrowLeft, FileText, Download, Upload, Calendar, FileIcon, Search } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"

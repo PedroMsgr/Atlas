@@ -2,7 +2,6 @@
 // src/app/admin/emulator/page.tsx
 
 import { useState } from "react";
-import Link from "next/link";
 
 export default function EmulatorGeneratorPage() {
   const [token, setToken] = useState("");

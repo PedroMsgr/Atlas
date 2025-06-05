@@ -1,35 +1,36 @@
 // src/graphql/resolvers.ts
 
 import GraphQLJSON from 'graphql-type-json';
+import { GraphQLContext } from '@/types/context.types';
 
 const resolvers = {
   JSON: GraphQLJSON,
 
   Query: {
     // --- Servidores y constelaciones ---
-    servers: async (_: any, _args: any, context: any) => {
+    servers: async (_parent: unknown, _args: unknown, context: GraphQLContext) => {
       return context.serverService.getAllServers();
     },
-    server: async (_: any, { id }: { id: string }, context: any) => {
+    server: async (_parent: unknown, { id }: { id: string }, context: GraphQLContext) => {
       return context.serverService.getServerById(id);
     },
-    constellations: async (_: any, _args: any, context: any) => {
+    constellations: async (_parent: unknown, _args: unknown, context: GraphQLContext) => {
       return context.serverService.getAllConstellations();
     },
-    constellation: async (_: any, { id }: { id: string }, context: any) => {
+    constellation: async (_parent: unknown, { id }: { id: string }, context: GraphQLContext) => {
       return context.serverService.getConstellationById(id);
     },
 
     // --- Configuraciones ---
-    configurations: async (_: any, _args: any, context: any) => {
+    configurations: async (_parent: unknown, _args: unknown, context: GraphQLContext) => {
       return context.configService.getAllConfigs();
     },
-    configuration: async (_: any, { id }: { id: string }, context: any) => {
+    configuration: async (_parent: unknown, { id }: { id: string }, context: GraphQLContext) => {
       return context.configService.getConfigById(id);
     },
 
     // --- Landing pública por token ---
-    landingData: async (_: any, { token }: { token: string }, context: any) => {
+    landingData: async (_: any, { token }: { token: string }, context: GraphQLContext) => {
       const server = await context.serverService.getServerByUnitToken(token);
       if (!server || !server.configId) {
         throw new Error('Token inválido o servidor sin configuración asociada');
@@ -42,62 +43,62 @@ const resolvers = {
     },
 
     // --- Secciones ---
-    sections: async (_: any, _args: any, context: any) => {
+    sections: async (_: any, _args: any, context: GraphQLContext) => {
       return context.configService.getAllSections();
     },
-    section: async (_: any, { id }: { id: string }, context: any) => {
+    section: async (_: any, { id }: { id: string }, context: GraphQLContext) => {
       return context.configService.getSectionById(id);
     },
-    sectionsByConfig: async (_: any, { configId }: { configId: string }, context: any) => {
+    sectionsByConfig: async (_: any, { configId }: { configId: string }, context: GraphQLContext) => {
       return context.configService.getSectionsByConfigId(configId);
     },
 
     // --- Artículos ---
-    articles: async (_: any, _args: any, context: any) => {
+    articles: async (_: any, _args: any, context: GraphQLContext) => {
       return context.configService.getAllArticles();
     },
-    article: async (_: any, { id }: { id: string }, context: any) => {
+    article: async (_: any, { id }: { id: string }, context: GraphQLContext) => {
       return context.configService.getArticleById(id);
     },
-    articlesByConfig: async (_: any, { configId }: { configId: string }, context: any) => {
+    articlesByConfig: async (_: any, { configId }: { configId: string }, context: GraphQLContext) => {
       return context.configService.getArticlesByConfigId(configId);
     },
 
     // --- Imágenes ---
-    images: async (_: any, _args: any, context: any) => {
+    images: async (_: any, _args: any, context: GraphQLContext) => {
       return context.configService.getAllImages();
     },
-    image: async (_: any, { id }: { id: string }, context: any) => {
+    image: async (_: any, { id }: { id: string }, context: GraphQLContext) => {
       return context.configService.getImageById(id);
     },
-    imagesByConfig: async (_: any, { configId }: { configId: string }, context: any) => {
+    imagesByConfig: async (_: any, { configId }: { configId: string }, context: GraphQLContext) => {
       return context.configService.getImagesByConfigId(configId);
     },
 
     // --- Pasos legales ---
-    legalSteps: async (_: any, _args: any, context: any) => {
+    legalSteps: async (_: any, _args: any, context: GraphQLContext) => {
       return context.configService.getAllLegalSteps();
     },
-    legalStep: async (_: any, { id }: { id: string }, context: any) => {
+    legalStep: async (_: any, { id }: { id: string }, context: GraphQLContext) => {
       return context.configService.getLegalStepById(id);
     },
-    legalStepsByConfig: async (_: any, { configId }: { configId: string }, context: any) => {
+    legalStepsByConfig: async (_: any, { configId }: { configId: string }, context: GraphQLContext) => {
       return context.configService.getLegalStepsByConfig(configId);
     },
 
     // --- Enlaces de footer ---
-    footerLinks: async (_: any, _args: any, context: any) => {
+    footerLinks: async (_: any, _args: any, context: GraphQLContext) => {
       return context.configService.getAllFooterLinks();
     },
-    footerLink: async (_: any, { id }: { id: string }, context: any) => {
+    footerLink: async (_: any, { id }: { id: string }, context: GraphQLContext) => {
       return context.configService.getFooterLinkById(id);
     },
-    footerLinksByConfig: async (_: any, { configId }: { configId: string }, context: any) => {
+    footerLinksByConfig: async (_: any, { configId }: { configId: string }, context: GraphQLContext) => {
       return context.configService.getFooterLinksByConfig(configId);
     },
 
     // --- Generación de tokens de servidor ---
-    generateServerTokens: async (_: any, { id }: { id: string }, context: any) => {
+    generateServerTokens: async (_: any, { id }: { id: string }, context: GraphQLContext) => {
       const serverExists = await context.serverService.getServerById(id);
       if (!serverExists) {
         throw new Error(`No existe servidor con ID: ${id}`);
@@ -108,16 +109,15 @@ const resolvers = {
     },
 
     // --- Casos legales ---
-    cases: async (_: any, args: { filters: any }, context: any) => {
+    cases: async (_: any, args: { filters: any }, context: GraphQLContext) => {
       return context.caseService.getCasesPaginated(args.filters);
     },
-    case: async (_: any, { id }: { id: string }, context: any) => {
+    case: async (_: any, { id }: { id: string }, context: GraphQLContext) => {
       return context.caseService.getCaseById(id);
     },
 
     // --- Usuarios ---
-    users: async (_parent: any, args: { role?: string[]; search?: string }, context: any) => {
-      // args.role puede ser undefined, string o string[]
+    users: async (_parent: any, args: { role?: string[]; search?: string }, context: GraphQLContext) => {
       return context.userService.getUsers(args.role, args.search);
     },
   },
@@ -125,13 +125,13 @@ const resolvers = {
   // MUTATION RESOLVERS
   Mutation: {
     // ---- UnitConfig CRUD ----
-    createConfig: async (_: any, { data }: { data: any }, context: any) => {
+    createConfig: async (_parent: unknown, { data }: { data: any }, context: GraphQLContext) => {
       return context.configService.createConfig(data);
     },
-    updateConfig: async (_: any, { id, data }: { id: string; data: any }, context: any) => {
+    updateConfig: async (_parent: unknown, { id, data }: { id: string; data: any }, context: GraphQLContext) => {
       return context.configService.updateConfig(id, data);
     },
-    deleteConfig: async (_: any, { id }: { id: string }, context: any) => {
+    deleteConfig: async (_parent: unknown, { id }: { id: string }, context: GraphQLContext) => {
       try {
         await context.configService.deleteConfig(id);
         return true;
@@ -139,19 +139,17 @@ const resolvers = {
         return false;
       }
     },
-
-    // ---- UnitServer CRUD ----
     createServer: async (
-      _: any,
+      _parent: unknown,
       { name, domain, constellationId }: { name: string; domain: string; constellationId: string },
-      context: any
+      context: GraphQLContext
     ) => {
       return context.serverService.createServer({ name, domain, constellationId });
     },
-    updateServer: async (_: any, { id, data }: { id: string; data: any }, context: any) => {
+    updateServer: async (_parent: unknown, { id, data }: { id: string; data: any }, context: GraphQLContext) => {
       return context.serverService.updateServer(id, data);
     },
-    deleteServer: async (_: any, { id }: { id: string }, context: any) => {
+    deleteServer: async (_parent: unknown, { id }: { id: string }, context: GraphQLContext) => {
       try {
         await context.serverService.deleteServer(id);
         return true;
@@ -160,25 +158,23 @@ const resolvers = {
       }
     },
     updateServerTokens: async (
-      _: any,
+      _parent: unknown,
       { id, orchestratorToken, unitToken }: { id: string; orchestratorToken: string; unitToken: string },
-      context: any
+      context: GraphQLContext
     ) => {
       return context.serverService.updateServerTokens(id, orchestratorToken, unitToken);
     },
-
-    // ---- Constellation CRUD ----
-    createConstellation: async (_: any, { name, description }: { name: string; description?: string }, context: any) => {
+    createConstellation: async (_parent: unknown, { name, description }: { name: string; description?: string }, context: GraphQLContext) => {
       return context.serverService.createConstellation({ name, description });
     },
     updateConstellation: async (
-      _: any,
+      _parent: unknown,
       { id, name, description }: { id: string; name?: string; description?: string },
-      context: any
+      context: GraphQLContext
     ) => {
       return context.serverService.updateConstellation(id, { name, description });
     },
-    deleteConstellation: async (_: any, { id }: { id: string }, context: any) => {
+    deleteConstellation: async (_parent: unknown, { id }: { id: string }, context: GraphQLContext) => {
       try {
         await context.serverService.deleteConstellation(id);
         return true;
@@ -186,15 +182,13 @@ const resolvers = {
         return false;
       }
     },
-
-    // ---- Section CRUD ----
-    createSection: async (_: any, { data }: { data: any }, context: any) => {
+    createSection: async (_parent: unknown, { data }: { data: any }, context: GraphQLContext) => {
       return context.configService.createSection(data);
     },
-    updateSection: async (_: any, { id, data }: { id: string; data: any }, context: any) => {
+    updateSection: async (_parent: unknown, { id, data }: { id: string; data: any }, context: GraphQLContext) => {
       return context.configService.updateSection(id, data);
     },
-    deleteSection: async (_: any, { id }: { id: string }, context: any) => {
+    deleteSection: async (_parent: unknown, { id }: { id: string }, context: GraphQLContext) => {
       try {
         await context.configService.deleteSection(id);
         return true;
@@ -202,15 +196,13 @@ const resolvers = {
         return false;
       }
     },
-
-    // ---- Article CRUD ----
-    createArticle: async (_: any, { data }: { data: any }, context: any) => {
+    createArticle: async (_parent: unknown, { data }: { data: any }, context: GraphQLContext) => {
       return context.configService.createArticle(data);
     },
-    updateArticle: async (_: any, { id, data }: { id: string; data: any }, context: any) => {
+    updateArticle: async (_parent: unknown, { id, data }: { id: string; data: any }, context: GraphQLContext) => {
       return context.configService.updateArticle(id, data);
     },
-    deleteArticle: async (_: any, { id }: { id: string }, context: any) => {
+    deleteArticle: async (_parent: unknown, { id }: { id: string }, context: GraphQLContext) => {
       try {
         await context.configService.deleteArticle(id);
         return true;
@@ -218,15 +210,13 @@ const resolvers = {
         return false;
       }
     },
-
-    // ---- Image CRUD ----
-    createImage: async (_: any, { data }: { data: any }, context: any) => {
+    createImage: async (_parent: unknown, { data }: { data: any }, context: GraphQLContext) => {
       return context.configService.createImage(data);
     },
-    updateImage: async (_: any, { id, data }: { id: string; data: any }, context: any) => {
+    updateImage: async (_parent: unknown, { id, data }: { id: string; data: any }, context: GraphQLContext) => {
       return context.configService.updateImage(id, data);
     },
-    deleteImage: async (_: any, { id }: { id: string }, context: any) => {
+    deleteImage: async (_parent: unknown, { id }: { id: string }, context: GraphQLContext) => {
       try {
         await context.configService.deleteImage(id);
         return true;
@@ -234,15 +224,13 @@ const resolvers = {
         return false;
       }
     },
-
-    // ---- LegalStep CRUD (sin iconUrl) ----
-    createLegalStep: async (_: any, { data }: { data: any }, context: any) => {
+    createLegalStep: async (_parent: unknown, { data }: { data: any }, context: GraphQLContext) => {
       return context.configService.createLegalStep(data);
     },
-    updateLegalStep: async (_: any, { id, data }: { id: string; data: any }, context: any) => {
+    updateLegalStep: async (_parent: unknown, { id, data }: { id: string; data: any }, context: GraphQLContext) => {
       return context.configService.updateLegalStep(id, data);
     },
-    deleteLegalStep: async (_: any, { id }: { id: string }, context: any) => {
+    deleteLegalStep: async (_parent: unknown, { id }: { id: string }, context: GraphQLContext) => {
       try {
         await context.configService.deleteLegalStep(id);
         return true;
@@ -250,15 +238,13 @@ const resolvers = {
         return false;
       }
     },
-
-    // ---- FooterLink CRUD ----
-    createFooterLink: async (_: any, { data }: { data: any }, context: any) => {
+    createFooterLink: async (_parent: unknown, { data }: { data: any }, context: GraphQLContext) => {
       return context.configService.createFooterLink(data);
     },
-    updateFooterLink: async (_: any, { id, data }: { id: string; data: any }, context: any) => {
+    updateFooterLink: async (_parent: unknown, { id, data }: { id: string; data: any }, context: GraphQLContext) => {
       return context.configService.updateFooterLink(id, data);
     },
-    deleteFooterLink: async (_: any, { id }: { id: string }, context: any) => {
+    deleteFooterLink: async (_parent: unknown, { id }: { id: string }, context: GraphQLContext) => {
       try {
         await context.configService.deleteFooterLink(id);
         return true;
@@ -266,23 +252,19 @@ const resolvers = {
         return false;
       }
     },
-
-    // ---- FullConfig (JSON) ----
-    createFullConfig: async (_: any, { data }: { data: any }, context: any) => {
+    createFullConfig: async (_parent: unknown, { data }: { data: any }, context: GraphQLContext) => {
       return context.configService.createFullConfig(data);
     },
-    updateFullConfig: async (_: any, { id, data }: { id: string; data: any }, context: any) => {
+    updateFullConfig: async (_parent: unknown, { id, data }: { id: string; data: any }, context: GraphQLContext) => {
       return context.configService.updateFullConfig(id, data);
     },
-
-    // ---- Caso CRUD ----
-    createCase: async (_: any, { data }: { data: any }, context: any) => {
+    createCase: async (_parent: unknown, { data }: { data: any }, context: GraphQLContext) => {
       return context.caseService.createCase(data);
     },
-    updateCase: async (_: any, { id, data }: { id: string; data: any }, context: any) => {
+    updateCase: async (_parent: unknown, { id, data }: { id: string; data: any }, context: GraphQLContext) => {
       return context.caseService.updateCase(id, data);
     },
-    deleteCase: async (_: any, { id }: { id: string }, context: any) => {
+    deleteCase: async (_parent: unknown, { id }: { id: string }, context: GraphQLContext) => {
       try {
         await context.caseService.deleteCase(id);
         return true;
@@ -290,18 +272,16 @@ const resolvers = {
         return false;
       }
     },
-    updateCaseStatus: async (_: any, { id, status }: { id: string; status: string }, context: any) => {
+    updateCaseStatus: async (_parent: unknown, { id, status }: { id: string; status: string }, context: GraphQLContext) => {
       return context.caseService.updateStatus(id, status);
     },
-    assignProfessional: async (_: any, { id, professionalId }: { id: string; professionalId: string }, context: any) => {
+    assignProfessional: async (_parent: unknown, { id, professionalId }: { id: string; professionalId: string }, context: GraphQLContext) => {
       return context.caseService.assignProfessional(id, professionalId);
     },
-
-    // ---- Archivos y reportes de caso ----
-    addCaseFile: async (_: any, { caseId, file }: { caseId: string; file: any }, context: any) => {
+    addCaseFile: async (_parent: unknown, { caseId, file }: { caseId: string; file: any }, context: GraphQLContext) => {
       return context.caseService.addFile(caseId, file);
     },
-    removeCaseFile: async (_: any, { fileId }: { fileId: string }, context: any) => {
+    removeCaseFile: async (_parent: unknown, { fileId }: { fileId: string }, context: GraphQLContext) => {
       try {
         await context.caseService.removeFile(fileId);
         return true;
@@ -309,10 +289,10 @@ const resolvers = {
         return false;
       }
     },
-    addCaseReport: async (_: any, { caseId, clientId, reason }: { caseId: string; clientId: string; reason: string }, context: any) => {
+    addCaseReport: async (_parent: unknown, { caseId, clientId, reason }: { caseId: string; clientId: string; reason: string }, context: GraphQLContext) => {
       return context.caseService.addReport(caseId, clientId, reason);
     },
-    removeCaseReport: async (_: any, { reportId }: { reportId: string }, context: any) => {
+    removeCaseReport: async (_parent: unknown, { reportId }: { reportId: string }, context: GraphQLContext) => {
       try {
         await context.caseService.removeReport(reportId);
         return true;
@@ -320,100 +300,93 @@ const resolvers = {
         return false;
       }
     },
-    deleteUser: async (_parent: any, args: { id: string }, context: any) => {
+    deleteUser: async (_parent: unknown, args: { id: string }, context: GraphQLContext) => {
       return context.userService.deleteUser(args.id);
     },
   },
 
   // TYPE-LEVEL RESOLVERS
   UnitConfig: {
-    sections: (parent: any, _args: any, context: any) =>
+    sections: (parent: any, _args: unknown, context: GraphQLContext) =>
       context.configService.getSectionsByConfigId(parent.id),
-    articles: (parent: any, _args: any, context: any) =>
+    articles: (parent: any, _args: unknown, context: GraphQLContext) =>
       context.configService.getArticlesByConfigId(parent.id),
-    images: (parent: any, _args: any, context: any) =>
+    images: (parent: any, _args: unknown, context: GraphQLContext) =>
       context.configService.getImagesByConfigId(parent.id),
-    legalSteps: (parent: any, _args: any, context: any) =>
+    legalSteps: (parent: any, _args: unknown, context: GraphQLContext) =>
       context.configService.getLegalStepsByConfig(parent.id),
-    footerLinks: (parent: any, _args: any, context: any) =>
+    footerLinks: (parent: any, _args: unknown, context: GraphQLContext) =>
       context.configService.getFooterLinksByConfig(parent.id),
-    servers: (parent: any, _args: any, context: any) =>
+    servers: (parent: any, _args: unknown, context: GraphQLContext) =>
       context.serverService.getAllServers().then((all: any[]) =>
         all.filter((srv) => srv.configId === parent.id)
       ),
   },
 
   Section: {
-    config: (parent: any, _args: any, context: any) =>
+    config: (parent: any, _args: unknown, context: GraphQLContext) =>
       context.configService.getConfigById(parent.configId),
-    images: (parent: any, _args: any, context: any) =>
+    images: (parent: any, _args: unknown, context: GraphQLContext) =>
       context.configService
         .getImagesByConfigId(parent.configId)
         .then((imgs: any[]) => imgs.filter((img) => img.sectionId === parent.id)),
   },
 
   Article: {
-    config: (parent: any, _args: any, context: any) =>
+    config: (parent: any, _args: unknown, context: GraphQLContext) =>
       context.configService.getConfigById(parent.configId),
   },
 
   Image: {
-    config: (parent: any, _args: any, context: any) =>
+    config: (parent: any, _args: unknown, context: GraphQLContext) =>
       context.configService.getConfigById(parent.configId),
-    section: (parent: any, _args: any, context: any) =>
+    section: (parent: any, _args: unknown, context: GraphQLContext) =>
       parent.sectionId ? context.configService.getSectionById(parent.sectionId) : null,
   },
 
   LegalStep: {
-    config: (parent: any, _args: any, context: any) =>
+    config: (parent: any, _args: unknown, context: GraphQLContext) =>
       context.configService.getConfigById(parent.configId),
   },
 
   FooterLink: {
-    config: (parent: any, _args: any, context: any) =>
+    config: (parent: any, _args: unknown, context: GraphQLContext) =>
       context.configService.getConfigById(parent.configId),
   },
 
   UnitServer: {
-    constellation: (parent: any, _args: any, context: any) =>
+    constellation: (parent: any, _args: unknown, context: GraphQLContext) =>
       parent.constellationId
         ? context.serverService.getConstellationById(parent.constellationId)
         : null,
-    config: (parent: any, _args: any, context: any) =>
+    config: (parent: any, _args: unknown, context: GraphQLContext) =>
       parent.configId ? context.configService.getConfigById(parent.configId) : null,
   },
 
   Constellation: {
-    servers: (parent: any, _args: any, context: any) =>
+    servers: (parent: any, _args: unknown, context: GraphQLContext) =>
       context.serverService.getAllServers().then((all: any[]) =>
         all.filter((srv) => srv.constellationId === parent.id)
       ),
   },
 
   Case: {
-    server: (parent: any, _args: any, context: any) =>
+    server: (parent: any, _args: unknown, context: GraphQLContext) =>
       context.serverService.getServerById(parent.serverId),
-    // Si necesitas campos 'client' o 'professional', puedes descomentarlos e implementar el userService
-    // client: (parent: any, _args: any, context: any) => context.userService.getClientById(parent.clientId),
-    // professional: (parent: any, _args: any, context: any) => context.userService.getProfessionalById(parent.professionalId),
   },
 
   Client: {
-    server: (parent: any, _args: any, context: any) =>
+    server: (parent: any, _args: unknown, context: GraphQLContext) =>
       context.serverService.getServerById(parent.serverId),
-    // Si necesitas exponer 'user', descomenta e implementa:
-    // user: (parent: any, _args: any, context: any) => context.userService.getUserById(parent.userId),
   },
 
   Professional: {
-    server: (parent: any, _args: any, context: any) =>
+    server: (parent: any, _args: unknown, context: GraphQLContext) =>
       context.serverService.getServerById(parent.serverId),
-    // Si necesitas exponer 'user', descomenta e implementa:
-    // user: (parent: any, _args: any, context: any) => context.userService.getUserById(parent.userId),
   },
 
   Chat: {
-    messages: (parent: any) => parent.messages || [],
+    messages: (parent: { messages?: unknown[] }) => parent.messages || [],
   },
 };
 

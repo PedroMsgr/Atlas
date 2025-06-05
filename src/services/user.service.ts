@@ -1,11 +1,15 @@
 import { UsersRepository } from '../db/repositories/users.repo';
-import { Role } from '../generated/prisma';
+import { Role, User } from '../generated/prisma';
+
+type CreateUserInput = Omit<User, 'id' | 'createdAt' | 'updatedAt'>;
+type UpdateUserInput = Partial<CreateUserInput>;
 
 class UserService {
   private usersRepo = new UsersRepository();
 
   async getUsers(role?: string | string[], search?: string) {
     const validRoles = Object.values(Role);
+
     if (role !== undefined && role !== null) {
       if (Array.isArray(role)) {
         for (const r of role) {
@@ -13,7 +17,6 @@ class UserService {
             throw new Error(`El valor de role '${r}' no es válido. Debe ser uno de: ${validRoles.join(', ')}`);
           }
         }
-        // El repo acepta Role[]
         return this.usersRepo.findAll(role.map(r => r as Role), search);
       } else {
         if (!validRoles.includes(role as Role)) {
@@ -22,6 +25,7 @@ class UserService {
         return this.usersRepo.findAll(role as Role, search);
       }
     }
+
     return this.usersRepo.findAll(undefined, search);
   }
 
@@ -29,11 +33,11 @@ class UserService {
     return this.usersRepo.findById(id);
   }
 
-  async createUser(data: any) {
+  async createUser(data: CreateUserInput) {
     return this.usersRepo.create(data);
   }
 
-  async updateUser(id: string, data: any) {
+  async updateUser(id: string, data: UpdateUserInput) {
     return this.usersRepo.update(id, data);
   }
 

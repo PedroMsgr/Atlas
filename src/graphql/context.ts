@@ -11,27 +11,20 @@ import { imageService } from '@/services/image.service';
 import { tokenService } from '@/services/token.service';
 import { authService } from '@/services/auth.service';
 import { userService } from '@/services/user.service';
+import { GraphQLContext } from '@/types/context.types';
 
-export type Context = {
-  prisma: typeof prisma;
-  session: any;
-  user: any;
-  caseService: typeof caseService;
-  serverService: typeof serverService;
-  configService: typeof configService;
-  imageService: typeof imageService;
-  tokenService: typeof tokenService;
-  authService: typeof authService;
-  userService: typeof userService;
-};
-
-export async function createContext({ req }: { req: NextRequest }): Promise<Context> {
+export async function createContext({ req }: { req: NextRequest }): Promise<GraphQLContext> {
   try {
     const session = await getServerSession(authOptions);
     return {
       prisma,
       session: session || null,
-      user: session?.user || null,
+      user: session?.user
+        ? {
+            ...session.user,
+            role: (session.user.role as 'client' | 'professional' | 'admin') ?? null,
+          }
+        : null,
       caseService,
       serverService,
       configService,
