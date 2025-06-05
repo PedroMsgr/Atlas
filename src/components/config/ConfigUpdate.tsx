@@ -674,10 +674,6 @@ export default function ConfigUpdate({
     setEditingLegalStepId(step.id);
   };
 
-  const handleAddLegalStep = handleAddLegalStepDraft;
-  const handleEditLegalStep = handleEditLegalStepDraft;
-  const handleDeleteLegalStep = (id: string) => handleDeleteLegalStepDraft(id);
-
   // =================== PESTAÑA FOOTER LINKS ===================
   const [footerLinkForm, setFooterLinkForm] = useState<{
     id?: string;
@@ -697,10 +693,6 @@ export default function ConfigUpdate({
     });
     setEditingFooterLinkId(link.id);
   };
-
-  const handleAddFooterLink = handleAddFooterLinkDraft;
-  const handleEditFooterLink = handleEditFooterLinkDraft;
-  const handleDeleteFooterLink = (id: string) => handleDeleteFooterLinkDraft(id);
 
   // Renderizado de tabs
   return (

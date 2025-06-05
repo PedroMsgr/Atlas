@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from 'react';
+import { useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { CREATE_SERVER } from '@/graphql/mutations/server.mutations';
 import { GET_CONSTELLATIONS } from '@/graphql/queries/constellation.queries';
@@ -12,7 +12,6 @@ export default function ServerCreate({ onSuccess }: ServerCreateProps) {
   const [name, setName] = useState('');
   const [domain, setDomain] = useState('');
   const [constellationId, setConstellationId] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
   const [validationError, setValidationError] = useState<string | null>(null);
 
   const { data: constellationsData, loading: loadingConstellations, error: constellationsError } = useQuery(GET_CONSTELLATIONS);
@@ -21,18 +20,17 @@ export default function ServerCreate({ onSuccess }: ServerCreateProps) {
     onError: (error: any) => {
       if (error.graphQLErrors) {
         const errorMessage = error.graphQLErrors.map((e: any) => e.message).join(', ');
-        setError(`Error GraphQL: ${errorMessage}`);
+        setValidationError(`Error GraphQL: ${errorMessage}`);
       } else if (error.networkError) {
-        setError(`Error de red: ${error.networkError.message}`);
+        setValidationError(`Error de red: ${error.networkError.message}`);
       } else {
-        setError(`Error: ${error.message}`);
+        setValidationError(`Error: ${error.message}`);
       }
     },
     onCompleted: (data) => {
       setName('');
       setDomain('');
       setConstellationId(null);
-      setError(null);
       setValidationError(null);
       if (onSuccess && data?.createServer?.id) {
         onSuccess(data.createServer.id);
@@ -42,7 +40,6 @@ export default function ServerCreate({ onSuccess }: ServerCreateProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError(null);
     setValidationError(null);
     const domainRegex = /^[a-z0-9]([a-z0-9-]+\.)+([a-z0-9]{2,})$/;
     if (!domainRegex.test(domain)) {
@@ -115,8 +112,8 @@ export default function ServerCreate({ onSuccess }: ServerCreateProps) {
             </Select.Content>
           </Select.Root>
         </div>
-        {(error || validationError) && (
-          <Text color="red" size="2">{error || validationError}</Text>
+        {validationError && (
+          <Text color="red" size="2">{validationError}</Text>
         )}
         <Flex justify="end" className="pt-2">
           <Button type="submit" disabled={loading} color="green">

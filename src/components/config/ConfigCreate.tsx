@@ -67,7 +67,7 @@ export default function ConfigCreate({ onSuccess }: ConfigCreateProps) {
         if (onSuccess) onSuccess(data.createConfig.id);
         else router.push(`/admin/configs/${data.createConfig.id}`);
       }
-    } catch (err) {
+    } catch {
       // Manejo de error opcional
     }
   };
@@ -145,6 +145,7 @@ export default function ConfigCreate({ onSuccess }: ConfigCreateProps) {
             className="mb-2"
           />
           {(bannerPreview || form.bannerUrl) && (
+            // TODO: Migrar <img> a <Image /> para optimización Next.js
             <img
               src={bannerPreview || form.bannerUrl}
               alt="Banner preview"
@@ -163,6 +164,7 @@ export default function ConfigCreate({ onSuccess }: ConfigCreateProps) {
             className="mb-2"
           />
           {(iconPreview || form.iconUrl) && (
+            // TODO: Migrar <img> a <Image /> para optimización Next.js
             <img
               src={iconPreview || form.iconUrl}
               alt="Icon preview"

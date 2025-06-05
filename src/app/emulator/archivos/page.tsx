@@ -283,16 +283,16 @@ export default function ArchivosPage() {
                   <div className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300">
                     <span className="text-xs font-medium">1</span>
                   </div>
-                  <span className="text-sm text-slate-700 dark:text-slate-300">
-                    Use el botón "Subir archivo" para añadir documentos
-                  </span>
+                    <span className="text-sm text-slate-700 dark:text-slate-300">
+                    Use el botón &quot;Subir archivo&quot; para añadir documentos
+                    </span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300">
                     <span className="text-xs font-medium">2</span>
                   </div>
                   <span className="text-sm text-slate-700 dark:text-slate-300">
-                    Los documentos compartidos por su abogado están en la pestaña "Archivos del abogado"
+                    Los documentos compartidos por su abogado están en la pestaña &quot;Archivos del abogado&quot;
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
@@ -300,7 +300,7 @@ export default function ArchivosPage() {
                     <span className="text-xs font-medium">3</span>
                   </div>
                   <span className="text-sm text-slate-700 dark:text-slate-300">
-                    Los documentos que ha subido están en la pestaña "Mis archivos"
+                    Los documentos que ha subido están en la pestaña &quot;Mis archivos&quot;
                   </span>
                 </div>
               </div>

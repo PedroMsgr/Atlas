@@ -16,7 +16,6 @@ export default function ServerList() {
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [deleteName, setDeleteName] = useState<string | null>(null);
   const [showDialog, setShowDialog] = useState(false);
-  const [filtered, setFiltered] = useState<UnitServerListItem[]>([]);
 
   const { data, loading, error, refetch } = useQuery<{ servers: UnitServerListItem[] }>(GET_SERVERS, {
     fetchPolicy: 'cache-and-network',
@@ -133,7 +132,7 @@ export default function ServerList() {
                     <AlertDialogHeader>
                       <AlertDialogTitle>¿Eliminar servidor?</AlertDialogTitle>
                       <AlertDialogDescription>
-                        ¿Estás seguro de que deseas eliminar el servidor "{deleteName}"? Esta acción no se puede deshacer.
+                        ¿Estás seguro de que deseas eliminar el servidor &quot;{deleteName}&quot;? Esta acción no se puede deshacer.
                       </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>

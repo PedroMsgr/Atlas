@@ -1,7 +1,7 @@
 'use client';
 
 import { useQuery, useMutation, useLazyQuery } from '@apollo/client';
-import { Box, Card, Heading, Text, Badge, Flex, Separator, Button, IconButton, Tooltip, Select } from '@radix-ui/themes';
+import { Box, Card, Heading, Text, Badge, Flex, Separator, Button, Select } from '@radix-ui/themes';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { GET_SERVER_BY_ID, GENERATE_SERVER_TOKENS } from '@/graphql/queries/server.queries';
@@ -21,7 +21,6 @@ export default function ServerDetail({ serverId }: ServerDetailProps) {
   const [newTokens, setNewTokens] = useState<{orchestratorToken?: string, unitToken?: string}>({});
   const [updateError, setUpdateError] = useState<string | null>(null);
   const [selectedConfigId, setSelectedConfigId] = useState<string | null>(null);
-  const [isUpdatingConfig, setIsUpdatingConfig] = useState(false);
   
   // Consultar los detalles del servidor
   const { data, loading, error, refetch } = useQuery(GET_SERVER_BY_ID, {
@@ -66,14 +65,12 @@ export default function ServerDetail({ serverId }: ServerDetailProps) {
   // Mutación para actualizar la configuración del servidor
   const [updateServerConfig, { loading: updatingConfig }] = useMutation(UPDATE_SERVER_CONFIG, {
     onCompleted: () => {
-      setIsUpdatingConfig(false);
       setUpdateError(null);
       refetch();
     },
     onError: (error) => {
       console.error('Error al actualizar la configuración:', error);
       setUpdateError(`Error al actualizar la configuración: ${error.message}`);
-      setIsUpdatingConfig(false);
     }
   });
   
@@ -137,7 +134,6 @@ export default function ServerDetail({ serverId }: ServerDetailProps) {
   const handleConfigChange = async (configId: string) => {
     if (configId === selectedConfigId) return;
     setSelectedConfigId(configId);
-    setIsUpdatingConfig(true);
     setUpdateError(null);
     try {
       await updateServerConfig({
@@ -209,7 +205,7 @@ export default function ServerDetail({ serverId }: ServerDetailProps) {
                   <Select.Root 
                     value={selectedConfigId || ""} 
                     onValueChange={handleConfigChange}
-                    disabled={isUpdatingConfig}
+                    disabled={updatingConfig}
                   >
                     <Select.Trigger 
                       className="w-full max-w-[250px]" 
@@ -225,7 +221,7 @@ export default function ServerDetail({ serverId }: ServerDetailProps) {
                       </Select.Group>
                     </Select.Content>
                   </Select.Root>
-                  {isUpdatingConfig && <Text size="2" color="amber">Actualizando...</Text>}
+                  {updatingConfig && <Text size="2" color="amber">Actualizando...</Text>}
                 </Flex>
               ) : (
                 <Text>No hay configuraciones disponibles</Text>

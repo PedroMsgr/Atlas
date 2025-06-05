@@ -21,7 +21,7 @@ export default function ServerListFilters({ data, onChange }: ServerListFiltersP
   const [constellation, setConstellation] = useState<string>("all");
   const [order, setOrder] = useState<string>("name-az");
 
-  const { data: constellationsData, loading: loadingConstellations } = useQuery(GET_CONSTELLATIONS);
+  const { data: constellationsData } = useQuery(GET_CONSTELLATIONS);
   const constellations = constellationsData?.constellations || [];
 
   // Filtrado y ordenación
@@ -45,7 +45,7 @@ export default function ServerListFilters({ data, onChange }: ServerListFiltersP
         break;
     }
     return result;
-  }, [data, constellation, order]);
+  }, [data, constellation, order, constellations]);
 
   return (
     <Box className="mb-4">

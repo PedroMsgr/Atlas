@@ -4,7 +4,6 @@ import { Button, Flex, Avatar, Box } from '@radix-ui/themes';
 import Link from 'next/link';
 import { useSession, signOut } from 'next-auth/react';
 import { ExitIcon, HomeIcon, GearIcon } from '@radix-ui/react-icons';
-import { PersonIcon } from '@radix-ui/react-icons';
 
 // Extender el tipo de sesión para incluir role
 interface CustomUser {

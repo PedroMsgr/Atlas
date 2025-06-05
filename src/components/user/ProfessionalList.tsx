@@ -11,7 +11,7 @@ import UserSearchBackend from './UserSearchBackend';
 import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel, AlertDialogAction } from '@/components/ui/alert-dialog';
 import { TrashIcon } from '@radix-ui/react-icons';
 
-export default function ProfessionalList({}: {}) {
+export default function ProfessionalList({}: object) {
   const [search, setSearch] = useState('');
   const { data, loading, error, refetch } = useQuery(GET_USERS, {
     variables: { role: [Role.PROFESSIONAL, Role.ADMIN], search },
@@ -73,7 +73,7 @@ export default function ProfessionalList({}: {}) {
                       <AlertDialogHeader>
                         <AlertDialogTitle>¿Eliminar usuario?</AlertDialogTitle>
                         <AlertDialogDescription>
-                          ¿Estás seguro de que deseas eliminar al usuario "{u.firstName} {u.lastName}"? Esta acción no se puede deshacer.
+                          ¿Estás seguro de que deseas eliminar al usuario &quot;{u.firstName} {u.lastName}&quot;? Esta acción no se puede deshacer.
                         </AlertDialogDescription>
                       </AlertDialogHeader>
                       <AlertDialogFooter>

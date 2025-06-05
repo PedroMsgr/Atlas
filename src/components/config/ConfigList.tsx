@@ -5,7 +5,7 @@ import { UnitConfigBase } from '@/types/config.types';
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_ALL_CONFIGURATIONS } from '@/graphql/queries/config.queries';
 import { DELETE_CONFIG } from '@/graphql/mutations/config.mutations';
-import { Box, Button as RadixButton, Heading, Table, Text, Card, Flex } from '@radix-ui/themes';
+import { Box, Button as RadixButton, Heading, Table, Text, Flex } from '@radix-ui/themes';
 import { TrashIcon } from '@radix-ui/react-icons';
 import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel, AlertDialogAction } from '@/components/ui/alert-dialog';
 import ConfigListFilters from './ConfigListFilters';
@@ -30,7 +30,6 @@ export default function ConfigList() {
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [deleteName, setDeleteName] = useState<string | null>(null);
   const [showDialog, setShowDialog] = useState(false);
-  const [filtered, setFiltered] = useState<Configuration[]>([]);
 
   const { data, loading, error, refetch } = useQuery<{ configurations: Configuration[] }>(GET_ALL_CONFIGURATIONS, {
     fetchPolicy: 'cache-and-network',
@@ -149,7 +148,7 @@ export default function ConfigList() {
                       <AlertDialogHeader>
                         <AlertDialogTitle>¿Eliminar configuración?</AlertDialogTitle>
                         <AlertDialogDescription>
-                          ¿Estás seguro de que deseas eliminar la configuración "{deleteName}"? Esta acción no se puede deshacer.
+                          ¿Estás seguro de que deseas eliminar la configuración &quot;{deleteName}&quot;? Esta acción no se puede deshacer.
                         </AlertDialogDescription>
                       </AlertDialogHeader>
                       <AlertDialogFooter>

@@ -121,6 +121,7 @@ export default function ConfigSectionsTab({
                   <div className="font-semibold">{sec.title}</div>
                   <div className="text-sm text-gray-600">{sec.body}</div>
                   {sec.imageUrl && (
+                    // TODO: Migrar <img> a <Image /> para optimización Next.js
                     <img src={sec.imageUrl} alt="Imagen sección" className="h-10 w-20 rounded mt-1" />
                   )}
                 </div>

@@ -113,7 +113,7 @@ export default function CaseList() {
                   <Table.Cell>{c.professional?.user?.firstName} {c.professional?.user?.lastName}</Table.Cell>
                   <Table.Cell>{c.server?.name}</Table.Cell>
                   <Table.Cell>{new Date(c.createdAt).toLocaleDateString()}</Table.Cell>
-                  <Table.Cell onClick={e => e.stopPropagation()}>
+                  <Table.Cell onClick={() => {}}>
                     <AlertDialog open={showDialog && deleteId === c.id} onOpenChange={open => { if (!open) setShowDialog(false); }}>
                       <AlertDialogTrigger asChild>
                         <Button
@@ -131,7 +131,7 @@ export default function CaseList() {
                         <AlertDialogHeader>
                           <AlertDialogTitle>¿Eliminar caso?</AlertDialogTitle>
                           <AlertDialogDescription>
-                            ¿Estás seguro de que deseas eliminar el caso de "{deleteName}"? Esta acción no se puede deshacer.
+                            ¿Estás seguro de que deseas eliminar el caso de &quot;{deleteName}&quot;? Esta acción no se puede deshacer.
                           </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>

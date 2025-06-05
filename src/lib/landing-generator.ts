@@ -20,8 +20,7 @@ export function generateLandingTSX(config: any): string {
 "use client";
 import Head from "next/head";
 import { useState, useEffect } from "react";
-import Link from "next/link";
-import { LogIn, MessageSquare, FileText, ArrowLeft, ArrowRight } from "lucide-react";
+import { LogIn, MessageSquare, FileText } from "lucide-react";
 import { useSwipeable } from "react-swipeable";
 import "../globals.css";
 
@@ -54,9 +53,9 @@ export default function EmulatorPage() {
   const [isClient, setIsClient] = useState(false);
 
   // Función para cambiar de paso en tabs
-  const goToStep = (idx: number) => {
-    if (idx >= 0 && idx < (config.legalSteps?.length || 0)) setActiveTab(idx);
-  }
+  // const goToStep = (idx: number) => {
+  //   if (idx >= 0 && idx < (config.legalSteps?.length || 0)) setActiveTab(idx);
+  // }
 
   return (
     <>
@@ -425,14 +424,14 @@ export default function EmulatorPage() {
 }
 
 // Función auxiliar para escapar texto en HTML/JSX y evitar inyección inesperada
-function escapeHtml(str: string) {
-  if (!str) return '';
-  return String(str)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
+// function escapeHtml(str: string) {
+//   if (!str) return '';
+//   return String(str)
+//     .replace(/&/g, "&amp;")
+//     .replace(/</g, "&lt;")
+//     .replace(/>/g, "&gt;")
+//     .replace(/"/g, "&quot;")
+//     .replace(/'/g, "&#39;");
+// }
 `;
 }

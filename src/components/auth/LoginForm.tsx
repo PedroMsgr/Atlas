@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { signIn, useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
 import { Button, Card, Flex, Heading, Text, Box } from '@radix-ui/themes';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -18,9 +17,6 @@ export default function LoginForm() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
-  const { data: session, status } = useSession();
-  const user = session?.user as UserWithRole | undefined;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

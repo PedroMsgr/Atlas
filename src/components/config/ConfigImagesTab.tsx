@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, TextField, Heading, Flex } from "@radix-ui/themes";
+import { Box, Button, Heading, Flex } from "@radix-ui/themes";
 import SortableItem from '../dndkit/SortableItem';
 import { DndProvider } from '../dndkit/DndProvider';
 import SortableList from '../dndkit/SortableList';
@@ -51,6 +51,7 @@ export default function ImagesTab({
                 className="border rounded-lg p-3 flex flex-col md:flex-row md:items-center md:justify-between gap-2"
               >
                 <Flex align="center" gap="3">
+                  {/* TODO: Migrar <img> a <Image /> para optimización Next.js */}
                   <img
                     src={img.url}
                     alt={img.altText || 'Imagen'}
