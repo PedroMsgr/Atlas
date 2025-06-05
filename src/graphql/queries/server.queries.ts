@@ -10,6 +10,7 @@ export const GET_SERVERS = gql`
       domain
       isActive
       constellation {
+        id
         name
       }
       configId

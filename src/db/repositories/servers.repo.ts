@@ -14,6 +14,7 @@ export class ServersRepository {
         isActive: true,
         constellation: {
           select: {
+            id: true,
             name: true
           }
         },

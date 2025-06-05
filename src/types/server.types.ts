@@ -26,6 +26,7 @@ export interface UnitServerListItem {
   domain: string;
   isActive: boolean;
   constellation: {
+    id: string | null;
     name: string | null;
   } | null;
   activeConfigId?: string | null;

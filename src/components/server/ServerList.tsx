@@ -3,19 +3,19 @@ import { Box, Button as RadixButton, Heading, Table, Text, Flex } from '@radix-u
 import { TrashIcon } from '@radix-ui/react-icons';
 import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel, AlertDialogAction } from '@/components/ui/alert-dialog';
 import Link from 'next/link';
-import { useState } from 'react';
-import ServerListFilters from './ServerListFilters';
+import { useState, useEffect } from 'react';
 import { GET_SERVERS } from '@/graphql/queries/server.queries';
 import { DELETE_SERVER } from '@/graphql/mutations/server.mutations';
 import { UnitServerListItem } from '@/types/server.types';
 import { formatDate } from '@/lib/date-formatter';
+import ServerListFilters from './ServerListFilters';
 
 export default function ServerList() {
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const [paginated, setPaginated] = useState<UnitServerListItem[]>([]);
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [deleteName, setDeleteName] = useState<string | null>(null);
   const [showDialog, setShowDialog] = useState(false);
+  const [displayed, setDisplayed] = useState<UnitServerListItem[]>([]); // Estado solo para el resultado final
 
   const { data, loading, error, refetch } = useQuery<{ servers: UnitServerListItem[] }>(GET_SERVERS, {
     fetchPolicy: 'cache-and-network',
@@ -42,6 +42,12 @@ export default function ServerList() {
 
   const servers = data?.servers || [];
 
+  useEffect(() => {
+    console.log("[ServerList] Prop 'servers' cambió:", servers);
+  }, [servers]);
+
+  console.log("[ServerList] Render");
+
   const handleRefresh = async () => {
     setIsRefreshing(true);
     try {
@@ -52,6 +58,7 @@ export default function ServerList() {
       setIsRefreshing(false);
     }
   };
+
 
   if (loading && !data) return <Box className="text-center py-4"><Text>Cargando servidores...</Text></Box>;
   if (error) return (
@@ -76,7 +83,8 @@ export default function ServerList() {
           {isRefreshing ? 'Actualizando...' : 'Actualizar lista'}
         </RadixButton>
       </Flex>
-      <ServerListFilters data={servers} onChange={(filtered, paginated) => setPaginated(paginated)} />
+      {/* Barra de filtros y búsqueda */}
+      <ServerListFilters data={servers} onChange={setDisplayed} />
       <Table.Root variant="surface">
         <Table.Header>
           <Table.Row>
@@ -90,13 +98,13 @@ export default function ServerList() {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {paginated.length === 0 ? (
+          {displayed.length === 0 ? (
             <Table.Row>
               <Table.Cell colSpan={7} align="center">
                 <Text color="gray">No hay resultados.</Text>
               </Table.Cell>
             </Table.Row>
-          ) : paginated.map((server) => (
+          ) : displayed.map((server) => (
             <Table.Row key={server.id} className="hover:bg-gray-50 transition duration-150">
               <Table.Cell>
                 <Link href={`/admin/servers/${server.id}`} className="text-blue-600 hover:underline">
