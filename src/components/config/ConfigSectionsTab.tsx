@@ -4,6 +4,7 @@ import { Textarea } from "@/components/ui/textarea";
 import SortableItem from '../dndkit/SortableItem';
 import { DndProvider } from '../dndkit/DndProvider';
 import SortableList from '../dndkit/SortableList';
+import Image from 'next/image';
 
 export default function ConfigSectionsTab({
   form,
@@ -121,8 +122,7 @@ export default function ConfigSectionsTab({
                   <div className="font-semibold">{sec.title}</div>
                   <div className="text-sm text-gray-600">{sec.body}</div>
                   {sec.imageUrl && (
-                    // TODO: Migrar <img> a <Image /> para optimización Next.js
-                    <img src={sec.imageUrl} alt="Imagen sección" className="h-10 w-20 rounded mt-1" />
+                    <Image src={sec.imageUrl} alt="Imagen sección" width={80} height={40} className="h-10 w-20 rounded mt-1" />
                   )}
                 </div>
                 <Flex gap="2">
@@ -153,9 +153,11 @@ export default function ConfigSectionsTab({
               ?.find((s: any) => s.id === currentSectionId)
               ?.images?.map((img: any) => (
                 <Flex key={img.id} className="justify-between items-center">
-                  <img
+                  <Image
                     src={img.url}
                     alt={img.altText}
+                    width={48}
+                    height={48}
                     className="h-12 w-12 rounded"
                   />
                   <Button

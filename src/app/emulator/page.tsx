@@ -3,6 +3,8 @@ import Head from "next/head";
 import { useState, useEffect } from "react";
 import { LogIn, MessageSquare, FileText } from "lucide-react";
 import { useSwipeable } from "react-swipeable";
+import Image from 'next/image';
+import Link from 'next/link';
 import "../globals.css";
 
 export default function EmulatorPage() {
@@ -259,24 +261,24 @@ export default function EmulatorPage() {
               </>}
               {/* Menú privado (cliente logueado) */}
               {isClient && <>
-                <a
+                <Link
                   href="/emulator/chat"
                   className="hidden md:inline-block px-2 py-1 rounded shadow-sm bg-white dark:bg-slate-900 dark:shadow md:mx-0.5 font-medium text-blue-800 dark:text-blue-300 hover:shadow-lg hover:bg-blue-50 dark:hover:bg-slate-800 transition-all"
                 >
                   Mi Chat
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/emulator/archivos"
                   className="hidden md:inline-block px-2 py-1 rounded shadow-sm bg-white dark:bg-slate-900 dark:shadow md:mx-0.5 font-medium text-blue-800 dark:text-blue-300 hover:shadow-lg hover:bg-blue-50 dark:hover:bg-slate-800 transition-all"
                 >
                   Archivos
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/emulator/perfil"
                   className="hidden md:inline-block px-2 py-1 rounded shadow-sm bg-white dark:bg-slate-900 dark:shadow md:mx-0.5 font-medium text-blue-800 dark:text-blue-300 hover:shadow-lg hover:bg-blue-50 dark:hover:bg-slate-800 transition-all"
                 >
                   Mi Perfil
-                </a>
+                </Link>
                 <button
                   type="button"
                   className="hidden md:inline-block px-2 py-1 rounded shadow-sm bg-red-50 dark:bg-slate-900 dark:shadow md:mx-0.5 font-medium text-red-700 dark:text-red-300 hover:shadow-lg hover:bg-red-100 dark:hover:bg-slate-800 transition-all"
@@ -284,18 +286,17 @@ export default function EmulatorPage() {
                 >
                   Cerrar sesión
                 </button>
-                <a
+                <Link
                   href="/admin/emulator/login"
                   className="hidden md:inline-block px-2 py-1 rounded shadow-sm bg-yellow-50 dark:bg-slate-900 dark:shadow md:mx-0.5 font-medium text-yellow-700 dark:text-yellow-300 hover:shadow-lg hover:bg-yellow-100 dark:hover:bg-slate-800 transition-all"
                 >
                   Login
-                </a>
+                </Link>
                 {/* Móvil */}
-                <a href="#chat" className="md:hidden flex items-center gap-2 text-lg font-medium text-blue-700 dark:text-blue-400 px-2 py-2"><MessageSquare className="h-5 w-5" /> Mi Chat</a>
-                <a href="/emulator/archivos" className="md:hidden flex items-center gap-2 text-lg font-medium text-blue-700 dark:text-blue-400 px-2 py-2"><FileText className="h-5 w-5" /> Archivos</a>
-                <a href="/emulator/perfil" className="md:hidden flex items-center gap-2 text-lg font-medium text-blue-700 dark:text-blue-400 px-2 py-2"><LogIn className="h-5 w-5" /> Mi Perfil</a>
-                <button type="button" className="md:hidden flex items-center gap-2 text-lg font-medium text-red-700 dark:text-red-300 px-2 py-2" onClick={() => setIsClient(false)}><LogIn className="h-5 w-5" /> Cerrar sesión</button>
-                <a href="/admin/emulator/login" className="md:hidden flex items-center gap-2 text-lg font-medium text-yellow-700 dark:text-yellow-300 px-2 py-2"><LogIn className="h-5 w-5" /> Login</a>
+                <Link href="/emulator/chat" className="md:hidden flex items-center gap-2 text-lg font-medium text-blue-700 dark:text-blue-400 px-2 py-2"><MessageSquare className="h-5 w-5" /> Mi Chat</Link>
+                <Link href="/emulator/archivos" className="md:hidden flex items-center gap-2 text-lg font-medium text-blue-700 dark:text-blue-400 px-2 py-2"><FileText className="h-5 w-5" /> Archivos</Link>
+                <Link href="/emulator/perfil" className="md:hidden flex items-center gap-2 text-lg font-medium text-blue-700 dark:text-blue-400 px-2 py-2"><LogIn className="h-5 w-5" /> Mi Perfil</Link>
+                <Link href="/admin/emulator/login" className="md:hidden flex items-center gap-2 text-lg font-medium text-yellow-700 dark:text-yellow-300 px-2 py-2"><LogIn className="h-5 w-5" /> Login</Link>
               </>}
             </nav>
             {/* Botón alternar tema (desktop, extremo derecho) */}
@@ -328,9 +329,11 @@ export default function EmulatorPage() {
           <section id="inicio" className="flex justify-center py-8 px-2">
             <div className="w-full max-w-2xl bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 flex flex-col items-center">
               <h1 className="text-3xl font-bold text-center mb-4 dark:text-white">{config.pageTitle}</h1>
-              <img
+              <Image
                 src={config.bannerUrl}
                 alt="Banner principal"
+                width={800}
+                height={256}
                 className="w-full max-h-64 object-cover rounded mb-4 shadow"
                 style={{ objectPosition: 'center' }}
               />
@@ -351,7 +354,7 @@ export default function EmulatorPage() {
               {Array.isArray(sec.images) && sec.images.length > 0 && (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {sec.images.sort((a: any, b: any) => (a.order || 0) - (b.order || 0)).map((img: any) => (
-                    <img key={img.id} src={img.url} alt={img.altText || ''} className="w-full h-48 object-cover rounded shadow" />
+                    <Image key={img.id} src={img.url} alt={img.altText || ''} width={800} height={192} className="w-full h-48 object-cover rounded shadow" />
                   ))}
                 </div>
               )}
@@ -380,7 +383,7 @@ export default function EmulatorPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {config.images.sort((a: any, b: any) => (a.order || 0) - (b.order || 0)).map((img: any) => (
                   <div key={img.id} className="mb-4">
-                    <img src={img.url} alt={img.altText || ''} className="w-full h-48 object-cover rounded shadow" />
+                    <Image src={img.url} alt={img.altText || ''} width={800} height={192} className="w-full h-48 object-cover rounded shadow" />
                   </div>
                 ))}
               </div>
@@ -423,8 +426,6 @@ export default function EmulatorPage() {
                                       : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 bg-transparent scale-100 translate-y-0')
                                   }
                                   style={{ boxShadow: isActive ? '0 2px 8px 0 rgba(37, 99, 235, 0.10)' : undefined }}
-                                  aria-selected={isActive}
-                                  aria-controls={"tab-" + step.id}
                                   tabIndex={0}
                                 >
                                   {globalIdx + 1}

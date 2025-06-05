@@ -3,6 +3,7 @@ import { Box, Button, Heading, Flex } from "@radix-ui/themes";
 import SortableItem from '../dndkit/SortableItem';
 import { DndProvider } from '../dndkit/DndProvider';
 import SortableList from '../dndkit/SortableList';
+import Image from 'next/image';
 
 export default function ImagesTab({
   form,
@@ -51,10 +52,11 @@ export default function ImagesTab({
                 className="border rounded-lg p-3 flex flex-col md:flex-row md:items-center md:justify-between gap-2"
               >
                 <Flex align="center" gap="3">
-                  {/* TODO: Migrar <img> a <Image /> para optimización Next.js */}
-                  <img
+                  <Image
                     src={img.url}
                     alt={img.altText || 'Imagen'}
+                    width={128}
+                    height={64}
                     className="h-16 w-32 object-cover rounded"
                   />
                   <div className="text-xs text-gray-500 break-all">{img.altText}</div>

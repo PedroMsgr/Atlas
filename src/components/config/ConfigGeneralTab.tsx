@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Button, TextField, Heading, Flex } from "@radix-ui/themes";
+import Image from 'next/image';
 
 export default function ConfigGeneralTab({
   form,
@@ -51,8 +52,7 @@ export default function ConfigGeneralTab({
           />
           {form.bannerUrl && (
             <div className="flex items-center space-x-2">
-              {/* TODO: Migrar <img> a <Image /> para optimización Next.js */}
-              <img src={form.bannerUrl} alt="Banner actual" className="h-12 w-24 rounded" />
+              <Image src={form.bannerUrl} alt="Banner actual" width={96} height={48} className="h-12 w-24 rounded" />
               <span className="text-sm break-all">{form.bannerUrl}</span>
               <Button
                 type="button"
@@ -75,8 +75,7 @@ export default function ConfigGeneralTab({
           />
           {form.iconUrl && (
             <div className="flex items-center space-x-2">
-              {/* TODO: Migrar <img> a <Image /> para optimización Next.js */}
-              <img src={form.iconUrl} alt="Icono actual" className="h-12 w-12 rounded-full" />
+              <Image src={form.iconUrl} alt="Icono actual" width={48} height={48} className="h-12 w-12 rounded-full" />
               <span className="text-sm break-all">{form.iconUrl}</span>
               <Button
                 type="button"

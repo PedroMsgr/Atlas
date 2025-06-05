@@ -37,6 +37,7 @@ import ConfigArticlesTab from './ConfigArticlesTab';
 import ImagesTab from './ConfigImagesTab';
 import ConfigLegalStepsTab from './ConfigLegalStepsTab';
 import ConfigFooterLinksTab from './ConfigFooterLinksTab';
+import Image from 'next/image';
 
 interface ConfigUpdateProps {
   config?: any; // UnitConfigWithRelations
@@ -602,7 +603,7 @@ export default function ConfigUpdate({
     <div className="flex flex-wrap gap-4 mt-2">
       {form.images?.map((img: any) => (
         <div key={img.id} className="flex flex-col items-center">
-          <img src={img.url} alt={img.altText || ''} className="w-32 h-32 object-cover rounded shadow" />
+          <Image src={img.url} alt={img.altText || ''} width={128} height={128} className="w-32 h-32 object-cover rounded shadow" />
           <span className="text-xs mt-1">{img.altText}</span>
         </div>
       ))}
