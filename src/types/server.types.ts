@@ -1,4 +1,4 @@
-import { Constellation, UnitConfig } from "../generated/prisma";
+import { Constellation, UnitConfig } from "@/generated/prisma";
 
 // Interfaces para los servidores unitarios
 export interface UnitServerBase {
