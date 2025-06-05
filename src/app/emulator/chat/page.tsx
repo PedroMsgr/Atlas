@@ -4,10 +4,10 @@ import { useState, useRef, useEffect } from "react"
 import Link from "next/link"
 import { ArrowLeft, Send } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { ScrollArea } from "@/components/ui/scroll-area"
+import { Button } from "@/components/ui-shadcn/button"
+import { Input } from "@/components/ui-shadcn/input"
+import { Avatar, AvatarFallback } from "@/components/ui-shadcn/avatar"
+import { ScrollArea } from "@/components/ui-shadcn/scroll-area"
 
 // Mensajes iniciales simplificados
 const initialMessages = [

@@ -1,7 +1,8 @@
 import { useMutation, useQuery } from '@apollo/client';
 import { Box, Button as RadixButton, Heading, Table, Text, Flex } from '@radix-ui/themes';
 import { TrashIcon } from '@radix-ui/react-icons';
-import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel, AlertDialogAction } from '@/components/ui/alert-dialog';
+import { useConfirmDelete } from '@/hooks/useConfirmDelete';
+import DeleteButtonWithConfirm from '@/components/ui/DeleteButtonWithConfirm';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { GET_SERVERS } from '@/graphql/queries/server.queries';
@@ -41,6 +42,8 @@ export default function ServerList() {
   });
 
   const servers = data?.servers || [];
+
+  const { open, id, name, openDialog, closeDialog } = useConfirmDelete();
 
   useEffect(() => {
     console.log("[ServerList] Prop 'servers' cambió:", servers);
@@ -123,37 +126,15 @@ export default function ServerList() {
               </Table.Cell>
               <Table.Cell>{server.config?.name || '-'}</Table.Cell>
               <Table.Cell onClick={e => e.stopPropagation()}>
-                <AlertDialog open={showDialog && deleteId === server.id} onOpenChange={open => { if (!open) setShowDialog(false); }}>
-                  <AlertDialogTrigger asChild>
-                    <RadixButton
-                      color="red"
-                      variant="soft"
-                      size="1"
-                      onClick={e => { setDeleteId(server.id); setDeleteName(server.name); setShowDialog(true); }}
-                      disabled={deleting}
-                      aria-label={`Eliminar servidor ${server.name}`}
-                    >
-                      <TrashIcon />
-                    </RadixButton>
-                  </AlertDialogTrigger>
-                  <AlertDialogContent>
-                    <AlertDialogHeader>
-                      <AlertDialogTitle>¿Eliminar servidor?</AlertDialogTitle>
-                      <AlertDialogDescription>
-                        ¿Estás seguro de que deseas eliminar el servidor &quot;{deleteName}&quot;? Esta acción no se puede deshacer.
-                      </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                      <AlertDialogCancel disabled={deleting}>Cancelar</AlertDialogCancel>
-                      <AlertDialogAction
-                        disabled={deleting}
-                        onClick={() => deleteServer({ variables: { id: server.id } })}
-                      >
-                        {deleting ? 'Eliminando...' : 'Eliminar'}
-                      </AlertDialogAction>
-                    </AlertDialogFooter>
-                  </AlertDialogContent>
-                </AlertDialog>
+                <DeleteButtonWithConfirm
+                  id={server.id}
+                  name={server.name}
+                  loading={deleting}
+                  onConfirm={() => deleteServer({ variables: { id: server.id } })}
+                  title="¿Eliminar servidor?"
+                  description={`¿Estás seguro de que deseas eliminar el servidor \"${server.name}\"? Esta acción no se puede deshacer.`}
+                  ariaLabel={`Eliminar servidor ${server.name}`}
+                />
               </Table.Cell>
             </Table.Row>
           ))}

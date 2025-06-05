@@ -122,3 +122,11 @@
     @apply bg-background text-foreground;
   }
 }
+
+.bg-atlas-gradient {
+  background-image: linear-gradient(to bottom right, #bfdbfe, #3b82f6);
+}
+
+.dark .bg-atlas-gradient {
+  background-image: linear-gradient(to bottom right, #111827, #172554);
+}

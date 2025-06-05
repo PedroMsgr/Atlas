@@ -3,7 +3,7 @@ import { Box, Flex, Select } from "@radix-ui/themes";
 import { useQuery } from "@apollo/client";
 import { GET_CONSTELLATIONS } from "@/graphql/queries/constellation.queries";
 import { GET_ALL_CONFIGURATIONS } from "@/graphql/queries/config.queries";
-import { SearchFrontend } from "@/components/SearchFrontend";
+import { SearchFrontend } from "@/components/ui/SearchFrontend";
 import { UnitServerListItem } from '@/types/server.types';
 
 interface ServerListFiltersProps {

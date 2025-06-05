@@ -3,35 +3,38 @@
 import GraphQLJSON from 'graphql-type-json';
 import { GraphQLContext } from '@/types/context.types';
 
+// Helper para exigir autenticación en resolvers privados
+function requireAuth(
+  resolver: (
+    parent: unknown,
+    args: any,
+    context: GraphQLContext,
+    info: any
+  ) => any
+) {
+  return (parent: unknown, args: any, context: GraphQLContext, info: any) => {
+    if (!context.user) throw new Error('No autorizado');
+    return resolver(parent, args, context, info);
+  };
+}
+
 const resolvers = {
   JSON: GraphQLJSON,
 
   Query: {
     // --- Servidores y constelaciones ---
-    servers: async (_parent: unknown, _args: unknown, context: GraphQLContext) => {
-      return context.serverService.getAllServers();
-    },
-    server: async (_parent: unknown, { id }: { id: string }, context: GraphQLContext) => {
-      return context.serverService.getServerById(id);
-    },
-    constellations: async (_parent: unknown, _args: unknown, context: GraphQLContext) => {
-      return context.serverService.getAllConstellations();
-    },
-    constellation: async (_parent: unknown, { id }: { id: string }, context: GraphQLContext) => {
-      return context.serverService.getConstellationById(id);
-    },
+    servers: requireAuth(async (_parent: unknown, _args: any, context: GraphQLContext) => context.serverService.getAllServers()),
+    server: requireAuth(async (_parent: unknown, args: { id: string }, context: GraphQLContext) => context.serverService.getServerById(args.id)),
+    constellations: requireAuth(async (_parent: unknown, _args: any, context: GraphQLContext) => context.serverService.getAllConstellations()),
+    constellation: requireAuth(async (_parent: unknown, args: { id: string }, context: GraphQLContext) => context.serverService.getConstellationById(args.id)),
 
     // --- Configuraciones ---
-    configurations: async (_parent: unknown, _args: unknown, context: GraphQLContext) => {
-      return context.configService.getAllConfigs();
-    },
-    configuration: async (_parent: unknown, { id }: { id: string }, context: GraphQLContext) => {
-      return context.configService.getConfigById(id);
-    },
+    configurations: requireAuth(async (_parent: unknown, _args: any, context: GraphQLContext) => context.configService.getAllConfigs()),
+    configuration: requireAuth(async (_parent: unknown, args: { id: string }, context: GraphQLContext) => context.configService.getConfigById(args.id)),
 
     // --- Landing pública por token ---
-    landingData: async (_: any, { token }: { token: string }, context: GraphQLContext) => {
-      const server = await context.serverService.getServerByUnitToken(token);
+    landingData: async (_parent: unknown, args: { token: string }, context: GraphQLContext) => {
+      const server = await context.serverService.getServerByUnitToken(args.token);
       if (!server || !server.configId) {
         throw new Error('Token inválido o servidor sin configuración asociada');
       }
@@ -43,266 +46,166 @@ const resolvers = {
     },
 
     // --- Secciones ---
-    sections: async (_: any, _args: any, context: GraphQLContext) => {
-      return context.configService.getAllSections();
-    },
-    section: async (_: any, { id }: { id: string }, context: GraphQLContext) => {
-      return context.configService.getSectionById(id);
-    },
-    sectionsByConfig: async (_: any, { configId }: { configId: string }, context: GraphQLContext) => {
-      return context.configService.getSectionsByConfigId(configId);
-    },
+    sections: requireAuth(async (_parent: unknown, _args: any, context: GraphQLContext) => context.configService.getAllSections()),
+    section: requireAuth(async (_parent: unknown, args: { id: string }, context: GraphQLContext) => context.configService.getSectionById(args.id)),
+    sectionsByConfig: requireAuth(async (_parent: unknown, args: { configId: string }, context: GraphQLContext) => context.configService.getSectionsByConfigId(args.configId)),
 
     // --- Artículos ---
-    articles: async (_: any, _args: any, context: GraphQLContext) => {
-      return context.configService.getAllArticles();
-    },
-    article: async (_: any, { id }: { id: string }, context: GraphQLContext) => {
-      return context.configService.getArticleById(id);
-    },
-    articlesByConfig: async (_: any, { configId }: { configId: string }, context: GraphQLContext) => {
-      return context.configService.getArticlesByConfigId(configId);
-    },
+    articles: requireAuth(async (_parent: unknown, _args: any, context: GraphQLContext) => context.configService.getAllArticles()),
+    article: requireAuth(async (_parent: unknown, args: { id: string }, context: GraphQLContext) => context.configService.getArticleById(args.id)),
+    articlesByConfig: requireAuth(async (_parent: unknown, args: { configId: string }, context: GraphQLContext) => context.configService.getArticlesByConfigId(args.configId)),
 
     // --- Imágenes ---
-    images: async (_: any, _args: any, context: GraphQLContext) => {
-      return context.configService.getAllImages();
-    },
-    image: async (_: any, { id }: { id: string }, context: GraphQLContext) => {
-      return context.configService.getImageById(id);
-    },
-    imagesByConfig: async (_: any, { configId }: { configId: string }, context: GraphQLContext) => {
-      return context.configService.getImagesByConfigId(configId);
-    },
+    images: requireAuth(async (_parent: unknown, _args: any, context: GraphQLContext) => context.configService.getAllImages()),
+    image: requireAuth(async (_parent: unknown, args: { id: string }, context: GraphQLContext) => context.configService.getImageById(args.id)),
+    imagesByConfig: requireAuth(async (_parent: unknown, args: { configId: string }, context: GraphQLContext) => context.configService.getImagesByConfigId(args.configId)),
 
     // --- Pasos legales ---
-    legalSteps: async (_: any, _args: any, context: GraphQLContext) => {
-      return context.configService.getAllLegalSteps();
-    },
-    legalStep: async (_: any, { id }: { id: string }, context: GraphQLContext) => {
-      return context.configService.getLegalStepById(id);
-    },
-    legalStepsByConfig: async (_: any, { configId }: { configId: string }, context: GraphQLContext) => {
-      return context.configService.getLegalStepsByConfig(configId);
-    },
+    legalSteps: requireAuth(async (_parent: unknown, _args: any, context: GraphQLContext) => context.configService.getAllLegalSteps()),
+    legalStep: requireAuth(async (_parent: unknown, args: { id: string }, context: GraphQLContext) => context.configService.getLegalStepById(args.id)),
+    legalStepsByConfig: requireAuth(async (_parent: unknown, args: { configId: string }, context: GraphQLContext) => context.configService.getLegalStepsByConfig(args.configId)),
 
     // --- Enlaces de footer ---
-    footerLinks: async (_: any, _args: any, context: GraphQLContext) => {
-      return context.configService.getAllFooterLinks();
-    },
-    footerLink: async (_: any, { id }: { id: string }, context: GraphQLContext) => {
-      return context.configService.getFooterLinkById(id);
-    },
-    footerLinksByConfig: async (_: any, { configId }: { configId: string }, context: GraphQLContext) => {
-      return context.configService.getFooterLinksByConfig(configId);
-    },
+    footerLinks: requireAuth(async (_parent: unknown, _args: any, context: GraphQLContext) => context.configService.getAllFooterLinks()),
+    footerLink: requireAuth(async (_parent: unknown, args: { id: string }, context: GraphQLContext) => context.configService.getFooterLinkById(args.id)),
+    footerLinksByConfig: requireAuth(async (_parent: unknown, args: { configId: string }, context: GraphQLContext) => context.configService.getFooterLinksByConfig(args.configId)),
 
     // --- Generación de tokens de servidor ---
-    generateServerTokens: async (_: any, { id }: { id: string }, context: GraphQLContext) => {
-      const serverExists = await context.serverService.getServerById(id);
+    generateServerTokens: requireAuth(async (_parent: unknown, args: { id: string }, context: GraphQLContext) => {
+      const serverExists = await context.serverService.getServerById(args.id);
       if (!serverExists) {
-        throw new Error(`No existe servidor con ID: ${id}`);
+        throw new Error(`No existe servidor con ID: ${args.id}`);
       }
       const orchestratorToken = await context.tokenService.generateOrchestratorTokenAsync();
       const unitToken = await context.tokenService.generateUnitTokenAsync();
       return { orchestratorToken, unitToken };
-    },
+    }),
 
     // --- Casos legales ---
-    cases: async (_: any, args: { filters: any }, context: GraphQLContext) => {
-      return context.caseService.getCasesPaginated(args.filters);
-    },
-    case: async (_: any, { id }: { id: string }, context: GraphQLContext) => {
-      return context.caseService.getCaseById(id);
-    },
+    cases: requireAuth(async (_parent: unknown, args: { filters: any }, context: GraphQLContext) => context.caseService.getCasesPaginated(args.filters)),
+    case: requireAuth(async (_parent: unknown, args: { id: string }, context: GraphQLContext) => context.caseService.getCaseById(args.id)),
 
     // --- Usuarios ---
-    users: async (_parent: any, args: { role?: string[]; search?: string }, context: GraphQLContext) => {
-      return context.userService.getUsers(args.role, args.search);
-    },
+    users: requireAuth(async (_parent: unknown, args: { role?: string[]; search?: string }, context: GraphQLContext) => context.userService.getUsers(args.role, args.search)),
   },
 
   // MUTATION RESOLVERS
   Mutation: {
     // ---- UnitConfig CRUD ----
-    createConfig: async (_parent: unknown, { data }: { data: any }, context: GraphQLContext) => {
-      return context.configService.createConfig(data);
-    },
-    updateConfig: async (_parent: unknown, { id, data }: { id: string; data: any }, context: GraphQLContext) => {
-      return context.configService.updateConfig(id, data);
-    },
-    deleteConfig: async (_parent: unknown, { id }: { id: string }, context: GraphQLContext) => {
+    createConfig: requireAuth(async (_parent: unknown, args: { data: any }, context: GraphQLContext) => context.configService.createConfig(args.data)),
+    updateConfig: requireAuth(async (_parent: unknown, args: { id: string; data: any }, context: GraphQLContext) => context.configService.updateConfig(args.id, args.data)),
+    deleteConfig: requireAuth(async (_parent: unknown, args: { id: string }, context: GraphQLContext) => {
       try {
-        await context.configService.deleteConfig(id);
+        await context.configService.deleteConfig(args.id);
         return true;
       } catch (e) {
         return false;
       }
-    },
-    createServer: async (
-      _parent: unknown,
-      { name, domain, constellationId }: { name: string; domain: string; constellationId: string },
-      context: GraphQLContext
-    ) => {
-      return context.serverService.createServer({ name, domain, constellationId });
-    },
-    updateServer: async (_parent: unknown, { id, data }: { id: string; data: any }, context: GraphQLContext) => {
-      return context.serverService.updateServer(id, data);
-    },
-    deleteServer: async (_parent: unknown, { id }: { id: string }, context: GraphQLContext) => {
+    }),
+    createServer: requireAuth(async (_parent: unknown, args: { name: string; domain: string; constellationId: string }, context: GraphQLContext) => context.serverService.createServer({ name: args.name, domain: args.domain, constellationId: args.constellationId })),
+    updateServer: requireAuth(async (_parent: unknown, args: { id: string; data: any }, context: GraphQLContext) => context.serverService.updateServer(args.id, args.data)),
+    deleteServer: requireAuth(async (_parent: unknown, args: { id: string }, context: GraphQLContext) => {
       try {
-        await context.serverService.deleteServer(id);
+        await context.serverService.deleteServer(args.id);
         return true;
       } catch (e) {
         return false;
       }
-    },
-    updateServerTokens: async (
-      _parent: unknown,
-      { id, orchestratorToken, unitToken }: { id: string; orchestratorToken: string; unitToken: string },
-      context: GraphQLContext
-    ) => {
-      return context.serverService.updateServerTokens(id, orchestratorToken, unitToken);
-    },
-    createConstellation: async (_parent: unknown, { name, description }: { name: string; description?: string }, context: GraphQLContext) => {
-      return context.serverService.createConstellation({ name, description });
-    },
-    updateConstellation: async (
-      _parent: unknown,
-      { id, name, description }: { id: string; name?: string; description?: string },
-      context: GraphQLContext
-    ) => {
-      return context.serverService.updateConstellation(id, { name, description });
-    },
-    deleteConstellation: async (_parent: unknown, { id }: { id: string }, context: GraphQLContext) => {
+    }),
+    updateServerTokens: requireAuth(async (_parent: unknown, args: { id: string; orchestratorToken: string; unitToken: string }, context: GraphQLContext) => context.serverService.updateServerTokens(args.id, args.orchestratorToken, args.unitToken)),
+    createConstellation: requireAuth(async (_parent: unknown, args: { name: string; description?: string }, context: GraphQLContext) => context.serverService.createConstellation({ name: args.name, description: args.description })),
+    updateConstellation: requireAuth(async (_parent: unknown, args: { id: string; name?: string; description?: string }, context: GraphQLContext) => context.serverService.updateConstellation(args.id, { name: args.name, description: args.description })),
+    deleteConstellation: requireAuth(async (_parent: unknown, args: { id: string }, context: GraphQLContext) => {
       try {
-        await context.serverService.deleteConstellation(id);
+        await context.serverService.deleteConstellation(args.id);
         return true;
       } catch (e) {
         return false;
       }
-    },
-    createSection: async (_parent: unknown, { data }: { data: any }, context: GraphQLContext) => {
-      return context.configService.createSection(data);
-    },
-    updateSection: async (_parent: unknown, { id, data }: { id: string; data: any }, context: GraphQLContext) => {
-      return context.configService.updateSection(id, data);
-    },
-    deleteSection: async (_parent: unknown, { id }: { id: string }, context: GraphQLContext) => {
+    }),
+    createSection: requireAuth(async (_parent: unknown, args: { data: any }, context: GraphQLContext) => context.configService.createSection(args.data)),
+    updateSection: requireAuth(async (_parent: unknown, args: { id: string; data: any }, context: GraphQLContext) => context.configService.updateSection(args.id, args.data)),
+    deleteSection: requireAuth(async (_parent: unknown, args: { id: string }, context: GraphQLContext) => {
       try {
-        await context.configService.deleteSection(id);
+        await context.configService.deleteSection(args.id);
         return true;
       } catch (e) {
         return false;
       }
-    },
-    createArticle: async (_parent: unknown, { data }: { data: any }, context: GraphQLContext) => {
-      return context.configService.createArticle(data);
-    },
-    updateArticle: async (_parent: unknown, { id, data }: { id: string; data: any }, context: GraphQLContext) => {
-      return context.configService.updateArticle(id, data);
-    },
-    deleteArticle: async (_parent: unknown, { id }: { id: string }, context: GraphQLContext) => {
+    }),
+    createArticle: requireAuth(async (_parent: unknown, args: { data: any }, context: GraphQLContext) => context.configService.createArticle(args.data)),
+    updateArticle: requireAuth(async (_parent: unknown, args: { id: string; data: any }, context: GraphQLContext) => context.configService.updateArticle(args.id, args.data)),
+    deleteArticle: requireAuth(async (_parent: unknown, args: { id: string }, context: GraphQLContext) => {
       try {
-        await context.configService.deleteArticle(id);
+        await context.configService.deleteArticle(args.id);
         return true;
       } catch (e) {
         return false;
       }
-    },
-    createImage: async (_parent: unknown, { data }: { data: any }, context: GraphQLContext) => {
-      return context.configService.createImage(data);
-    },
-    updateImage: async (_parent: unknown, { id, data }: { id: string; data: any }, context: GraphQLContext) => {
-      return context.configService.updateImage(id, data);
-    },
-    deleteImage: async (_parent: unknown, { id }: { id: string }, context: GraphQLContext) => {
+    }),
+    createImage: requireAuth(async (_parent: unknown, args: { data: any }, context: GraphQLContext) => context.configService.createImage(args.data)),
+    updateImage: requireAuth(async (_parent: unknown, args: { id: string; data: any }, context: GraphQLContext) => context.configService.updateImage(args.id, args.data)),
+    deleteImage: requireAuth(async (_parent: unknown, args: { id: string }, context: GraphQLContext) => {
       try {
-        await context.configService.deleteImage(id);
+        await context.configService.deleteImage(args.id);
         return true;
       } catch (e) {
         return false;
       }
-    },
-    createLegalStep: async (_parent: unknown, { data }: { data: any }, context: GraphQLContext) => {
-      return context.configService.createLegalStep(data);
-    },
-    updateLegalStep: async (_parent: unknown, { id, data }: { id: string; data: any }, context: GraphQLContext) => {
-      return context.configService.updateLegalStep(id, data);
-    },
-    deleteLegalStep: async (_parent: unknown, { id }: { id: string }, context: GraphQLContext) => {
+    }),
+    createLegalStep: requireAuth(async (_parent: unknown, args: { data: any }, context: GraphQLContext) => context.configService.createLegalStep(args.data)),
+    updateLegalStep: requireAuth(async (_parent: unknown, args: { id: string; data: any }, context: GraphQLContext) => context.configService.updateLegalStep(args.id, args.data)),
+    deleteLegalStep: requireAuth(async (_parent: unknown, args: { id: string }, context: GraphQLContext) => {
       try {
-        await context.configService.deleteLegalStep(id);
+        await context.configService.deleteLegalStep(args.id);
         return true;
       } catch (e) {
         return false;
       }
-    },
-    createFooterLink: async (_parent: unknown, { data }: { data: any }, context: GraphQLContext) => {
-      return context.configService.createFooterLink(data);
-    },
-    updateFooterLink: async (_parent: unknown, { id, data }: { id: string; data: any }, context: GraphQLContext) => {
-      return context.configService.updateFooterLink(id, data);
-    },
-    deleteFooterLink: async (_parent: unknown, { id }: { id: string }, context: GraphQLContext) => {
+    }),
+    createFooterLink: requireAuth(async (_parent: unknown, args: { data: any }, context: GraphQLContext) => context.configService.createFooterLink(args.data)),
+    updateFooterLink: requireAuth(async (_parent: unknown, args: { id: string; data: any }, context: GraphQLContext) => context.configService.updateFooterLink(args.id, args.data)),
+    deleteFooterLink: requireAuth(async (_parent: unknown, args: { id: string }, context: GraphQLContext) => {
       try {
-        await context.configService.deleteFooterLink(id);
+        await context.configService.deleteFooterLink(args.id);
         return true;
       } catch (e) {
         return false;
       }
-    },
-    createFullConfig: async (_parent: unknown, { data }: { data: any }, context: GraphQLContext) => {
-      return context.configService.createFullConfig(data);
-    },
-    updateFullConfig: async (_parent: unknown, { id, data }: { id: string; data: any }, context: GraphQLContext) => {
-      return context.configService.updateFullConfig(id, data);
-    },
-    createCase: async (_parent: unknown, { data }: { data: any }, context: GraphQLContext) => {
-      return context.caseService.createCase(data);
-    },
-    updateCase: async (_parent: unknown, { id, data }: { id: string; data: any }, context: GraphQLContext) => {
-      return context.caseService.updateCase(id, data);
-    },
-    deleteCase: async (_parent: unknown, { id }: { id: string }, context: GraphQLContext) => {
+    }),
+    createFullConfig: requireAuth(async (_parent: unknown, args: { data: any }, context: GraphQLContext) => context.configService.createFullConfig(args.data)),
+    updateFullConfig: requireAuth(async (_parent: unknown, args: { id: string; data: any }, context: GraphQLContext) => context.configService.updateFullConfig(args.id, args.data)),
+    createCase: requireAuth(async (_parent: unknown, args: { data: any }, context: GraphQLContext) => context.caseService.createCase(args.data)),
+    updateCase: requireAuth(async (_parent: unknown, args: { id: string; data: any }, context: GraphQLContext) => context.caseService.updateCase(args.id, args.data)),
+    deleteCase: requireAuth(async (_parent: unknown, args: { id: string }, context: GraphQLContext) => {
       try {
-        await context.caseService.deleteCase(id);
+        await context.caseService.deleteCase(args.id);
         return true;
       } catch (e) {
         return false;
       }
-    },
-    updateCaseStatus: async (_parent: unknown, { id, status }: { id: string; status: string }, context: GraphQLContext) => {
-      return context.caseService.updateStatus(id, status);
-    },
-    assignProfessional: async (_parent: unknown, { id, professionalId }: { id: string; professionalId: string }, context: GraphQLContext) => {
-      return context.caseService.assignProfessional(id, professionalId);
-    },
-    addCaseFile: async (_parent: unknown, { caseId, file }: { caseId: string; file: any }, context: GraphQLContext) => {
-      return context.caseService.addFile(caseId, file);
-    },
-    removeCaseFile: async (_parent: unknown, { fileId }: { fileId: string }, context: GraphQLContext) => {
+    }),
+    updateCaseStatus: requireAuth(async (_parent: unknown, args: { id: string; status: string }, context: GraphQLContext) => context.caseService.updateStatus(args.id, args.status)),
+    assignProfessional: requireAuth(async (_parent: unknown, args: { id: string; professionalId: string }, context: GraphQLContext) => context.caseService.assignProfessional(args.id, args.professionalId)),
+    addCaseFile: requireAuth(async (_parent: unknown, args: { caseId: string; file: any }, context: GraphQLContext) => context.caseService.addFile(args.caseId, args.file)),
+    removeCaseFile: requireAuth(async (_parent: unknown, args: { fileId: string }, context: GraphQLContext) => {
       try {
-        await context.caseService.removeFile(fileId);
+        await context.caseService.removeFile(args.fileId);
         return true;
       } catch (e) {
         return false;
       }
-    },
-    addCaseReport: async (_parent: unknown, { caseId, clientId, reason }: { caseId: string; clientId: string; reason: string }, context: GraphQLContext) => {
-      return context.caseService.addReport(caseId, clientId, reason);
-    },
-    removeCaseReport: async (_parent: unknown, { reportId }: { reportId: string }, context: GraphQLContext) => {
+    }),
+    addCaseReport: requireAuth(async (_parent: unknown, args: { caseId: string; clientId: string; reason: string }, context: GraphQLContext) => context.caseService.addReport(args.caseId, args.clientId, args.reason)),
+    removeCaseReport: requireAuth(async (_parent: unknown, args: { reportId: string }, context: GraphQLContext) => {
       try {
-        await context.caseService.removeReport(reportId);
+        await context.caseService.removeReport(args.reportId);
         return true;
       } catch (e) {
         return false;
       }
-    },
-    deleteUser: async (_parent: unknown, args: { id: string }, context: GraphQLContext) => {
-      return context.userService.deleteUser(args.id);
-    },
+    }),
+    deleteUser: requireAuth(async (_parent: unknown, args: { id: string }, context: GraphQLContext) => context.userService.deleteUser(args.id)),
   },
 
   // TYPE-LEVEL RESOLVERS

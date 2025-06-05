@@ -6,10 +6,10 @@ import Image from "next/image"
 import { ArrowLeft, Eye, EyeOff } from "lucide-react"
 import { useRouter } from "next/navigation"
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui-shadcn/button"
+import { Input } from "@/components/ui-shadcn/input"
+import { Checkbox } from "@/components/ui-shadcn/checkbox"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui-shadcn/card"
 
 export default function LoginPage() {
   const router = useRouter()

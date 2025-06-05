@@ -1,7 +1,7 @@
 import { Button, Container, Flex, Heading, Section, Text, Card, Box } from '@radix-ui/themes';
-import Image from 'next/image';
 import Link from 'next/link';
 import MainLayout from '@/components/layout/MainLayout';
+import AtlasLogo from '@/components/ui/AtlasLogo';
 
 export default function Home() {
   return (
@@ -11,13 +11,7 @@ export default function Home() {
         <Section size="3" className="bg-gradient-to-b from-blue-50 to-white">
           <Container size="4">
             <Flex direction="column" align="center" gap="6" className="py-12 md:py-24 text-center px-4">
-              <Image 
-                src="/globe.svg" 
-                width={120} 
-                height={120} 
-                alt="Atlas Logo" 
-                className="mb-6"
-              />
+              <AtlasLogo width={120} height={120} className="mb-6" />
               <Heading size="9" className="max-w-3xl text-3xl md:text-5xl">
                 Bienvenido a <span className="text-blue-600">Atlas</span>
               </Heading>
@@ -40,21 +34,21 @@ export default function Home() {
             <Flex gap="6" wrap="wrap" justify="center" className="flex-col md:flex-row md:gap-6 gap-4">
               <Card className="w-full md:w-[30%] p-6 mb-4 md:mb-0">
                 <Flex direction="column" gap="3" align="start">
-                  <Image src="/file.svg" width={48} height={48} alt="Gestión de casos" />
+                  <img src="/file.svg" width={48} height={48} alt="Gestión de casos" />
                   <Heading size="4">Gestión de casos</Heading>
                   <Text>Administra todos tus casos legales en un solo lugar con un sistema intuitivo y eficiente.</Text>
                 </Flex>
               </Card>
               <Card className="w-full md:w-[30%] p-6 mb-4 md:mb-0">
                 <Flex direction="column" gap="3" align="start">
-                  <Image src="/window.svg" width={48} height={48} alt="Comunicación directa" />
+                  <img src="/window.svg" width={48} height={48} alt="Comunicación directa" />
                   <Heading size="4">Comunicación directa</Heading>
                   <Text>Comunícate con tus clientes o abogados mediante un sistema de chat integrado y seguro.</Text>
                 </Flex>
               </Card>
               <Card className="w-full md:w-[30%] p-6">
                 <Flex direction="column" gap="3" align="start">
-                  <Image src="/globe.svg" width={48} height={48} alt="Portales personalizados" />
+                  <AtlasLogo width={48} height={48} />
                   <Heading size="4">Portales personalizados</Heading>
                   <Text>Crea y gestiona portales jurídicos especializados para diferentes áreas del derecho.</Text>
                 </Flex>

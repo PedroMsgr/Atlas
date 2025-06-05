@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from "react";
 import { Box, Flex, Select } from "@radix-ui/themes";
-import { SearchFrontend } from "@/components/SearchFrontend";
+import { SearchFrontend } from "@/components/ui/SearchFrontend";
 import { UnitConfigBase } from '@/types/config.types';
 
 interface Configuration extends UnitConfigBase {

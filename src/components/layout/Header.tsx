@@ -4,6 +4,7 @@ import { Button, Flex, Avatar, Box } from '@radix-ui/themes';
 import Link from 'next/link';
 import { useSession, signOut } from 'next-auth/react';
 import { ExitIcon, HomeIcon, GearIcon } from '@radix-ui/react-icons';
+import AtlasLogo from '@/components/ui/AtlasLogo';
 
 // Extender el tipo de sesión para incluir role
 interface CustomUser {
@@ -21,7 +22,12 @@ export default function Header() {
     <header>
       <Box className="bg-blue-600 text-white px-4 py-4 md:px-6 md:py-6">
         <div className="container mx-auto">
-          <Flex align="center" justify="end" className="w-full">
+          <Flex align="center" justify="between" className="w-full">
+            {/* Logo a la izquierda */}
+            <Link href="/" className="flex items-center gap-2">
+              <AtlasLogo width={36} height={36} style={{ minWidth: 32, minHeight: 32 }} />
+              <span className="font-bold text-lg hidden sm:inline">Atlas</span>
+            </Link>
             <Flex align="center" gap="2" wrap="wrap">
               {session ? (
                 <>
@@ -60,7 +66,7 @@ export default function Header() {
                 </>
               ) : (
                 <Link href="/auth/signin">
-                  <Button variant="solid" size="2">
+                  <Button variant="solid" size="2" >
                     Iniciar sesión
                   </Button>
                 </Link>

@@ -14,7 +14,7 @@ export default function Layout({ children }: LayoutProps) {
     <Theme accentColor="blue" appearance="light">
       <div className="min-h-screen flex flex-col">
         <Header />
-        <main className="flex-grow">
+        <main className="flex-grow bg-atlas-gradient ">
           {children}
         </main>
         <Footer />

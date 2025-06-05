@@ -16,14 +16,14 @@ import {
   FileText,
 } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui-shadcn/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui-shadcn/card"
 import { 
   Tabs, 
   TabsContent, 
   TabsList, 
   TabsTrigger 
-} from "@/components/ui/tabs"
+} from "@/components/ui-shadcn/tabs"
 import { 
   AlertDialog, 
   AlertDialogAction, 
@@ -34,20 +34,20 @@ import {
   AlertDialogHeader, 
   AlertDialogTitle, 
   AlertDialogTrigger 
-} from "@/components/ui/alert-dialog"
+} from "@/components/ui-shadcn/alert-dialog"
 import { 
   RadioGroup, 
   RadioGroupItem 
-} from "@/components/ui/radio-group"
+} from "@/components/ui-shadcn/radio-group"
 import { 
   Separator 
-} from "@/components/ui/separator"
+} from "@/components/ui-shadcn/separator"
 import { 
   Textarea 
-} from "@/components/ui/textarea"
+} from "@/components/ui-shadcn/textarea"
 import { 
   Badge 
-} from "@/components/ui/badge"
+} from "@/components/ui-shadcn/badge"
 
 // Datos de ejemplo del cliente
 const clienteData = {

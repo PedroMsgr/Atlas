@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Button, TextField, Heading, Flex } from "@radix-ui/themes";
-import { Textarea } from "@/components/ui/textarea";
+import { Textarea } from "@/components/ui-shadcn/textarea";
 import SortableItem from '../dndkit/SortableItem';
 import { DndProvider } from '../dndkit/DndProvider';
 import SortableList from '../dndkit/SortableList';

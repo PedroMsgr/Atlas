@@ -1,9 +1,10 @@
 'use client';
+// src/app/auth/signin/page.tsx
 
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { Flex, Text } from '@radix-ui/themes';
+import { Text } from '@radix-ui/themes';
 import LoginForm from '@/components/auth/LoginForm';
 import Layout from '@/components/layout/Layout';
 
@@ -45,28 +46,24 @@ export default function SignIn() {
   // Mientras carga la sesión o no estamos en cliente, mostramos cargando
   if (!pageReady || status === 'loading') {
     return (
-      <Flex justify="center" align="center" className="min-h-screen px-4">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-100 to-blue-100 dark:from-gray-900 dark:to-blue-950">
         <Text>Cargando...</Text>
-      </Flex>
+      </div>
     );
   }
 
   // Evitar parpadeo: si ya está autenticado, mostramos mensaje de redirección
   if (status === 'authenticated') {
     return (
-      <Flex justify="center" align="center" className="min-h-screen px-4">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-100 to-blue-100 dark:from-gray-900 dark:to-blue-950">
         <Text>Redirigiendo...</Text>
-      </Flex>
+      </div>
     );
   }
 
   return (
     <Layout>
-      <Flex justify="center" align="center" className="min-h-screen px-4">
-        <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6 sm:p-8">
-          <LoginForm />
-        </div>
-      </Flex>
+      <LoginForm />
     </Layout>
   );
 }

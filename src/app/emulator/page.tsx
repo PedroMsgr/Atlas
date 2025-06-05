@@ -3,8 +3,6 @@ import Head from "next/head";
 import { useState, useEffect } from "react";
 import { LogIn, MessageSquare, FileText } from "lucide-react";
 import { useSwipeable } from "react-swipeable";
-import Image from 'next/image';
-import Link from 'next/link';
 import "../globals.css";
 
 export default function EmulatorPage() {
@@ -17,7 +15,7 @@ export default function EmulatorPage() {
   "servicesDescription": "Servicios legales para casos de accidentes.",
   "iconUrl": "https://firebasestorage.googleapis.com/v0/b/universo-legal-4dace.firebasestorage.app/o/images%2F1749070787329-AtlasLogo1.ico?alt=media&token=26bac980-05db-4be3-b53d-e60bb5860aa8",
   "footerInfo": "ATALAS UNIVERSO LEGAL",
-  "bannerUrl": "https://firebasestorage.googleapis.com/v0/b/universo-legal-4dace.firebasestorage.app/o/images%2F1749070806371-675016-5.jpg?alt=media&token=e0b84d15-a2bb-4771-b4c8-6b608a2f9626",
+  "bannerUrl": "https://firebasestorage.googleapis.com/v0/b/universo-legal-4dace.firebasestorage.app/o/images%2F1749122248488-Captura%20desde%202025-05-22%2013-08-49.png?alt=media&token=e29c4f0d-8d54-4f81-adaf-cd48f36bd6b4",
   "sections": [
     {
       "__typename": "Section",
@@ -69,9 +67,9 @@ export default function EmulatorPage() {
   "legalSteps": [
     {
       "__typename": "LegalStep",
-      "id": "bbb8b974-7e3d-4bc3-955b-f26fd7db7337",
-      "title": "Evaluación inicial",
-      "description": "Analizamos tu caso y te orientamos.",
+      "id": "58d4e87b-8c5d-4d4f-84de-01d83fa169a1",
+      "title": "Negociación",
+      "description": "Negociamos con la parte contraria.",
       "order": 1
     },
     {
@@ -83,9 +81,9 @@ export default function EmulatorPage() {
     },
     {
       "__typename": "LegalStep",
-      "id": "58d4e87b-8c5d-4d4f-84de-01d83fa169a1",
-      "title": "Negociación",
-      "description": "Negociamos con la parte contraria.",
+      "id": "11731a19-131b-46b3-a18e-dfbd41982918",
+      "title": "tewhwrth",
+      "description": "wrthbwrynberynetyn",
       "order": 3
     },
     {
@@ -97,9 +95,9 @@ export default function EmulatorPage() {
     },
     {
       "__typename": "LegalStep",
-      "id": "11731a19-131b-46b3-a18e-dfbd41982918",
-      "title": "tewhwrth",
-      "description": "wrthbwrynberynetyn",
+      "id": "bbb8b974-7e3d-4bc3-955b-f26fd7db7337",
+      "title": "Evaluación inicial",
+      "description": "Analizamos tu caso y te orientamos.",
       "order": 5
     },
     {
@@ -159,6 +157,11 @@ export default function EmulatorPage() {
   });
   // Estado de login simulado para menú cliente
   const [isClient, setIsClient] = useState(false);
+
+  // Función para cambiar de paso en tabs
+  // const goToStep = (idx: number) => {
+  //   if (idx >= 0 && idx < (config.legalSteps?.length || 0)) setActiveTab(idx);
+  // }
 
   return (
     <>
@@ -261,24 +264,24 @@ export default function EmulatorPage() {
               </>}
               {/* Menú privado (cliente logueado) */}
               {isClient && <>
-                <Link
+                <a
                   href="/emulator/chat"
                   className="hidden md:inline-block px-2 py-1 rounded shadow-sm bg-white dark:bg-slate-900 dark:shadow md:mx-0.5 font-medium text-blue-800 dark:text-blue-300 hover:shadow-lg hover:bg-blue-50 dark:hover:bg-slate-800 transition-all"
                 >
                   Mi Chat
-                </Link>
-                <Link
+                </a>
+                <a
                   href="/emulator/archivos"
                   className="hidden md:inline-block px-2 py-1 rounded shadow-sm bg-white dark:bg-slate-900 dark:shadow md:mx-0.5 font-medium text-blue-800 dark:text-blue-300 hover:shadow-lg hover:bg-blue-50 dark:hover:bg-slate-800 transition-all"
                 >
                   Archivos
-                </Link>
-                <Link
+                </a>
+                <a
                   href="/emulator/perfil"
                   className="hidden md:inline-block px-2 py-1 rounded shadow-sm bg-white dark:bg-slate-900 dark:shadow md:mx-0.5 font-medium text-blue-800 dark:text-blue-300 hover:shadow-lg hover:bg-blue-50 dark:hover:bg-slate-800 transition-all"
                 >
                   Mi Perfil
-                </Link>
+                </a>
                 <button
                   type="button"
                   className="hidden md:inline-block px-2 py-1 rounded shadow-sm bg-red-50 dark:bg-slate-900 dark:shadow md:mx-0.5 font-medium text-red-700 dark:text-red-300 hover:shadow-lg hover:bg-red-100 dark:hover:bg-slate-800 transition-all"
@@ -286,17 +289,18 @@ export default function EmulatorPage() {
                 >
                   Cerrar sesión
                 </button>
-                <Link
+                <a
                   href="/admin/emulator/login"
                   className="hidden md:inline-block px-2 py-1 rounded shadow-sm bg-yellow-50 dark:bg-slate-900 dark:shadow md:mx-0.5 font-medium text-yellow-700 dark:text-yellow-300 hover:shadow-lg hover:bg-yellow-100 dark:hover:bg-slate-800 transition-all"
                 >
                   Login
-                </Link>
+                </a>
                 {/* Móvil */}
-                <Link href="/emulator/chat" className="md:hidden flex items-center gap-2 text-lg font-medium text-blue-700 dark:text-blue-400 px-2 py-2"><MessageSquare className="h-5 w-5" /> Mi Chat</Link>
-                <Link href="/emulator/archivos" className="md:hidden flex items-center gap-2 text-lg font-medium text-blue-700 dark:text-blue-400 px-2 py-2"><FileText className="h-5 w-5" /> Archivos</Link>
-                <Link href="/emulator/perfil" className="md:hidden flex items-center gap-2 text-lg font-medium text-blue-700 dark:text-blue-400 px-2 py-2"><LogIn className="h-5 w-5" /> Mi Perfil</Link>
-                <Link href="/admin/emulator/login" className="md:hidden flex items-center gap-2 text-lg font-medium text-yellow-700 dark:text-yellow-300 px-2 py-2"><LogIn className="h-5 w-5" /> Login</Link>
+                <a href="#chat" className="md:hidden flex items-center gap-2 text-lg font-medium text-blue-700 dark:text-blue-400 px-2 py-2"><MessageSquare className="h-5 w-5" /> Mi Chat</a>
+                <a href="/emulator/archivos" className="md:hidden flex items-center gap-2 text-lg font-medium text-blue-700 dark:text-blue-400 px-2 py-2"><FileText className="h-5 w-5" /> Archivos</a>
+                <a href="/emulator/perfil" className="md:hidden flex items-center gap-2 text-lg font-medium text-blue-700 dark:text-blue-400 px-2 py-2"><LogIn className="h-5 w-5" /> Mi Perfil</a>
+                <button type="button" className="md:hidden flex items-center gap-2 text-lg font-medium text-red-700 dark:text-red-300 px-2 py-2" onClick={() => setIsClient(false)}><LogIn className="h-5 w-5" /> Cerrar sesión</button>
+                <a href="/admin/emulator/login" className="md:hidden flex items-center gap-2 text-lg font-medium text-yellow-700 dark:text-yellow-300 px-2 py-2"><LogIn className="h-5 w-5" /> Login</a>
               </>}
             </nav>
             {/* Botón alternar tema (desktop, extremo derecho) */}
@@ -329,11 +333,9 @@ export default function EmulatorPage() {
           <section id="inicio" className="flex justify-center py-8 px-2">
             <div className="w-full max-w-2xl bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 flex flex-col items-center">
               <h1 className="text-3xl font-bold text-center mb-4 dark:text-white">{config.pageTitle}</h1>
-              <Image
+              <img
                 src={config.bannerUrl}
                 alt="Banner principal"
-                width={800}
-                height={256}
                 className="w-full max-h-64 object-cover rounded mb-4 shadow"
                 style={{ objectPosition: 'center' }}
               />
@@ -354,7 +356,7 @@ export default function EmulatorPage() {
               {Array.isArray(sec.images) && sec.images.length > 0 && (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {sec.images.sort((a: any, b: any) => (a.order || 0) - (b.order || 0)).map((img: any) => (
-                    <Image key={img.id} src={img.url} alt={img.altText || ''} width={800} height={192} className="w-full h-48 object-cover rounded shadow" />
+                    <img key={img.id} src={img.url} alt={img.altText || ''} className="w-full h-48 object-cover rounded shadow" />
                   ))}
                 </div>
               )}
@@ -383,7 +385,7 @@ export default function EmulatorPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {config.images.sort((a: any, b: any) => (a.order || 0) - (b.order || 0)).map((img: any) => (
                   <div key={img.id} className="mb-4">
-                    <Image src={img.url} alt={img.altText || ''} width={800} height={192} className="w-full h-48 object-cover rounded shadow" />
+                    <img src={img.url} alt={img.altText || ''} className="w-full h-48 object-cover rounded shadow" />
                   </div>
                 ))}
               </div>
@@ -426,6 +428,8 @@ export default function EmulatorPage() {
                                       : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 bg-transparent scale-100 translate-y-0')
                                   }
                                   style={{ boxShadow: isActive ? '0 2px 8px 0 rgba(37, 99, 235, 0.10)' : undefined }}
+                                  aria-selected={isActive}
+                                  aria-controls={"tab-" + step.id}
                                   tabIndex={0}
                                 >
                                   {globalIdx + 1}
@@ -524,3 +528,14 @@ export default function EmulatorPage() {
     </>
   );
 }
+
+// Función auxiliar para escapar texto en HTML/JSX y evitar inyección inesperada
+// function escapeHtml(str: string) {
+//   if (!str) return '';
+//   return String(str)
+//     .replace(/&/g, "&amp;")
+//     .replace(/</g, "&lt;")
+//     .replace(/>/g, "&gt;")
+//     .replace(/"/g, "&quot;")
+//     .replace(/'/g, "&#39;");
+// }

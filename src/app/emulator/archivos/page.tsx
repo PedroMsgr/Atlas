@@ -4,12 +4,12 @@ import { useState } from "react"
 import Link from "next/link"
 import { ArrowLeft, FileText, Download, Upload, Calendar, FileIcon, Search } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Card, CardContent } from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
-import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui-shadcn/button"
+import { Input } from "@/components/ui-shadcn/input"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui-shadcn/tabs"
+import { Card, CardContent } from "@/components/ui-shadcn/card"
+import { Separator } from "@/components/ui-shadcn/separator"
+import { Badge } from "@/components/ui-shadcn/badge"
 
 // Datos de ejemplo para los archivos compartidos
 const abogadoFiles = [

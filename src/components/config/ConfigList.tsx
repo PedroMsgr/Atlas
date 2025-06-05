@@ -7,7 +7,8 @@ import { GET_ALL_CONFIGURATIONS } from '@/graphql/queries/config.queries';
 import { DELETE_CONFIG } from '@/graphql/mutations/config.mutations';
 import { Box, Button as RadixButton, Heading, Table, Text, Flex } from '@radix-ui/themes';
 import { TrashIcon } from '@radix-ui/react-icons';
-import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel, AlertDialogAction } from '@/components/ui/alert-dialog';
+import { useConfirmDelete } from '@/hooks/useConfirmDelete';
+import DeleteButtonWithConfirm from '@/components/ui/DeleteButtonWithConfirm';
 import ConfigListFilters from './ConfigListFilters';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -49,6 +50,8 @@ export default function ConfigList() {
       console.error('Error al eliminar configuración:', error);
     }
   });
+
+  const { open, id, name, openDialog, closeDialog } = useConfirmDelete();
 
   const handleRefresh = async () => {
     try {
@@ -131,37 +134,15 @@ export default function ConfigList() {
                   <Text size="2">{new Date(config.updatedAt).toLocaleString()}</Text>
                 </Table.Cell>
                 <Table.Cell onClick={e => e.stopPropagation()}>
-                  <AlertDialog open={showDialog && deleteId === config.id} onOpenChange={open => { if (!open) setShowDialog(false); }}>
-                    <AlertDialogTrigger asChild>
-                      <RadixButton
-                        color="red"
-                        variant="soft"
-                        size="1"
-                        onClick={e => { setDeleteId(config.id); setDeleteName(config.name); setShowDialog(true); }}
-                        disabled={deleting}
-                        aria-label={`Eliminar configuración ${config.name}`}
-                      >
-                        <TrashIcon />
-                      </RadixButton>
-                    </AlertDialogTrigger>
-                    <AlertDialogContent>
-                      <AlertDialogHeader>
-                        <AlertDialogTitle>¿Eliminar configuración?</AlertDialogTitle>
-                        <AlertDialogDescription>
-                          ¿Estás seguro de que deseas eliminar la configuración &quot;{deleteName}&quot;? Esta acción no se puede deshacer.
-                        </AlertDialogDescription>
-                      </AlertDialogHeader>
-                      <AlertDialogFooter>
-                        <AlertDialogCancel disabled={deleting}>Cancelar</AlertDialogCancel>
-                        <AlertDialogAction
-                          disabled={deleting}
-                          onClick={() => deleteConfig({ variables: { id: config.id } })}
-                        >
-                          {deleting ? 'Eliminando...' : 'Eliminar'}
-                        </AlertDialogAction>
-                      </AlertDialogFooter>
-                    </AlertDialogContent>
-                  </AlertDialog>
+                  <DeleteButtonWithConfirm
+                    id={config.id}
+                    name={config.name}
+                    loading={deleting}
+                    onConfirm={() => deleteConfig({ variables: { id: config.id } })}
+                    title="¿Eliminar configuración?"
+                    description={`¿Estás seguro de que deseas eliminar la configuración \"${config.name}\"? Esta acción no se puede deshacer.`}
+                    ariaLabel={`Eliminar configuración ${config.name}`}
+                  />
                 </Table.Cell>
               </Table.Row>
             );

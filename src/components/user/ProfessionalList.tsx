@@ -8,8 +8,8 @@ import { DELETE_USER } from '@/graphql/mutations/user.mutations';
 import { GET_USERS } from '@/graphql/queries';
 import { Role } from '@/types/user.types';
 import UserSearchBackend from './UserSearchBackend';
-import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel, AlertDialogAction } from '@/components/ui/alert-dialog';
-import { TrashIcon } from '@radix-ui/react-icons';
+import { useConfirmDelete } from '@/hooks/useConfirmDelete';
+import DeleteButtonWithConfirm from '@/components/ui/DeleteButtonWithConfirm';
 
 export default function ProfessionalList({}: object) {
   const [search, setSearch] = useState('');
@@ -17,17 +17,11 @@ export default function ProfessionalList({}: object) {
     variables: { role: [Role.PROFESSIONAL, Role.ADMIN], search },
     fetchPolicy: 'cache-and-network',
   });
-  const [deleteId, setDeleteId] = useState<string | null>(null);
-  const [showDialog, setShowDialog] = useState(false);
   const [deleteUser, { loading: deleting }] = useMutation(DELETE_USER, {
     onCompleted: () => {
-      setShowDialog(false);
-      setDeleteId(null);
       refetch();
     },
     onError: () => {
-      setShowDialog(false);
-      setDeleteId(null);
     }
   });
   let users = data?.users || [];
@@ -63,30 +57,15 @@ export default function ProfessionalList({}: object) {
                 <Table.Cell>{u.role}</Table.Cell>
                 <Table.Cell>{u.isActive ? 'Activo' : 'Inactivo'}</Table.Cell>
                 <Table.Cell>
-                  <AlertDialog open={showDialog && deleteId === u.id} onOpenChange={open => { if (!open) setShowDialog(false); }}>
-                    <AlertDialogTrigger asChild>
-                      <RadixButton color="red" variant="soft" size="1" onClick={() => { setDeleteId(u.id); setShowDialog(true); }} disabled={deleting} aria-label={`Eliminar usuario ${u.firstName} ${u.lastName}`}>
-                        <TrashIcon />
-                      </RadixButton>
-                    </AlertDialogTrigger>
-                    <AlertDialogContent>
-                      <AlertDialogHeader>
-                        <AlertDialogTitle>¿Eliminar usuario?</AlertDialogTitle>
-                        <AlertDialogDescription>
-                          ¿Estás seguro de que deseas eliminar al usuario &quot;{u.firstName} {u.lastName}&quot;? Esta acción no se puede deshacer.
-                        </AlertDialogDescription>
-                      </AlertDialogHeader>
-                      <AlertDialogFooter>
-                        <AlertDialogCancel disabled={deleting}>Cancelar</AlertDialogCancel>
-                        <AlertDialogAction
-                          disabled={deleting}
-                          onClick={() => deleteUser({ variables: { id: u.id } })}
-                        >
-                          {deleting ? 'Eliminando...' : 'Eliminar'}
-                        </AlertDialogAction>
-                      </AlertDialogFooter>
-                    </AlertDialogContent>
-                  </AlertDialog>
+                  <DeleteButtonWithConfirm
+                    id={u.id}
+                    name={`${u.firstName} ${u.lastName}`}
+                    loading={deleting}
+                    onConfirm={() => deleteUser({ variables: { id: u.id } })}
+                    title="¿Eliminar usuario?"
+                    description={`¿Estás seguro de que deseas eliminar al usuario "${u.firstName} ${u.lastName}"? Esta acción no se puede deshacer.`}
+                    ariaLabel={`Eliminar usuario ${u.firstName} ${u.lastName}`}
+                  />
                 </Table.Cell>
               </Table.Row>
             ))}

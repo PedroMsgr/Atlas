@@ -4,10 +4,11 @@ import { useState } from 'react';
 import { GET_CASES } from '@/graphql/queries/case.queries';
 import type { CaseListItem, CaseListResponse } from '@/types/case.types';
 import { TrashIcon } from '@radix-ui/react-icons';
-import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel, AlertDialogAction } from '@/components/ui/alert-dialog';
+import { useConfirmDelete } from '@/hooks/useConfirmDelete';
 import { DELETE_CASE } from '@/graphql/mutations/case.mutations';
 import CaseSearchBackend from './CaseSearchBackend';
 import { useRouter } from 'next/navigation';
+import DeleteButtonWithConfirm from '@/components/ui/DeleteButtonWithConfirm';
 
 const CASE_STATUS = [
   { value: 'all', label: 'Todos' },
@@ -38,23 +39,15 @@ export default function CaseList() {
     setPage(1);
   };
 
-  const [deleteId, setDeleteId] = useState<string | null>(null);
-  const [deleteName, setDeleteName] = useState<string | null>(null);
-  const [showDialog, setShowDialog] = useState(false);
-
   const [deleteCase, { loading: deleting }] = useMutation(DELETE_CASE, {
     onCompleted: () => {
-      setShowDialog(false);
-      setDeleteId(null);
-      setDeleteName(null);
       refetch();
     },
     onError: () => {
-      setShowDialog(false);
-      setDeleteId(null);
-      setDeleteName(null);
     }
   });
+
+  const { open, id, name, openDialog, closeDialog } = useConfirmDelete();
 
   return (
     <Box>
@@ -113,38 +106,16 @@ export default function CaseList() {
                   <Table.Cell>{c.professional?.user?.firstName} {c.professional?.user?.lastName}</Table.Cell>
                   <Table.Cell>{c.server?.name}</Table.Cell>
                   <Table.Cell>{new Date(c.createdAt).toLocaleDateString()}</Table.Cell>
-                  <Table.Cell onClick={() => {}}>
-                    <AlertDialog open={showDialog && deleteId === c.id} onOpenChange={open => { if (!open) setShowDialog(false); }}>
-                      <AlertDialogTrigger asChild>
-                        <Button
-                          color="red"
-                          variant="soft"
-                          size="1"
-                          onClick={e => { setDeleteId(c.id); setDeleteName(`${c.client?.user?.firstName} ${c.client?.user?.lastName}`); setShowDialog(true); }}
-                          disabled={deleting}
-                          aria-label={`Eliminar caso de ${c.client?.user?.firstName} ${c.client?.user?.lastName}`}
-                        >
-                          <TrashIcon />
-                        </Button>
-                      </AlertDialogTrigger>
-                      <AlertDialogContent>
-                        <AlertDialogHeader>
-                          <AlertDialogTitle>¿Eliminar caso?</AlertDialogTitle>
-                          <AlertDialogDescription>
-                            ¿Estás seguro de que deseas eliminar el caso de &quot;{deleteName}&quot;? Esta acción no se puede deshacer.
-                          </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                          <AlertDialogCancel disabled={deleting}>Cancelar</AlertDialogCancel>
-                          <AlertDialogAction
-                            disabled={deleting}
-                            onClick={() => deleteCase({ variables: { id: c.id } })}
-                          >
-                            {deleting ? 'Eliminando...' : 'Eliminar'}
-                          </AlertDialogAction>
-                        </AlertDialogFooter>
-                      </AlertDialogContent>
-                    </AlertDialog>
+                  <Table.Cell>
+                    <DeleteButtonWithConfirm
+                      id={c.id}
+                      name={`${c.client?.user?.firstName} ${c.client?.user?.lastName}`}
+                      loading={deleting}
+                      onConfirm={() => deleteCase({ variables: { id: c.id } })}
+                      title="¿Eliminar caso?"
+                      description={`¿Estás seguro de que deseas eliminar el caso de \"${c.client?.user?.firstName} ${c.client?.user?.lastName}\"? Esta acción no se puede deshacer.`}
+                      ariaLabel={`Eliminar caso de ${c.client?.user?.firstName} ${c.client?.user?.lastName}`}
+                    />
                   </Table.Cell>
                 </Table.Row>
               ))
