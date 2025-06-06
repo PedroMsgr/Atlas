@@ -10,6 +10,7 @@ import {
   LegalStepsRepository,
 } from "@/db/repositories";
 import { LegalStep, FooterLink } from "@/generated/prisma";
+import { imageService } from "@/services/image.service";
 
 class ConfigService {
   
@@ -81,10 +82,10 @@ class ConfigService {
       await this.footerLinksRepo.delete(link.id);
     }
 
-    // 4. Borrar Imágenes
+    // 4. Borrar Imágenes (usa imageService para borrar también de Firebase)
     const images = await this.imagesRepo.findByConfigId(id);
     for (const img of images) {
-      await this.imagesRepo.delete(img.id);
+      await imageService.deleteImage(img.id, img.url);
     }
 
     // 5. Borrar Secciones (y sus imágenes si aplica)
@@ -158,7 +159,7 @@ class ConfigService {
         for (const section of current.sections) {
           if (section.images) {
             for (const img of section.images) {
-              await this.imagesRepo.delete(img.id);
+              await imageService.deleteImage(img.id, img.url);
             }
           }
           await this.sectionsRepo.delete(section.id);
@@ -167,7 +168,7 @@ class ConfigService {
       // Eliminar imágenes globales
       if (current.images) {
         for (const img of current.images) {
-          await this.imagesRepo.delete(img.id);
+          await imageService.deleteImage(img.id, img.url);
         }
       }
       // Eliminar artículos globales
@@ -313,7 +314,11 @@ class ConfigService {
     return this.imagesRepo.update(id, data);
   }
   async deleteImage(id: string) {
-    return this.imagesRepo.delete(id);
+    // Buscar la imagen para obtener la url
+    const img = await this.imagesRepo.findById(id);
+    if (!img) return null;
+    // Borrar de Firebase y de la base de datos
+    return imageService.deleteImage(id, img.url);
   }
 }
 export const configService = new ConfigService();

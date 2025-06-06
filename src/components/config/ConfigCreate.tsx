@@ -30,6 +30,8 @@ export default function ConfigCreate({ onSuccess }: ConfigCreateProps) {
   const [createConfig, { loading, error }] = useMutation(CREATE_CONFIG);
   const [bannerPreview, setBannerPreview] = useState<string>("");
   const [iconPreview, setIconPreview] = useState<string>("");
+  const [bannerFile, setBannerFile] = useState<File | null>(null);
+  const [iconFile, setIconFile] = useState<File | null>(null);
 
   // Maneja el cambio de los inputs de texto
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,31 +39,56 @@ export default function ConfigCreate({ onSuccess }: ConfigCreateProps) {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Maneja la subida de archivos a Firebase y guarda la URL
-  const handleFileUpload = async (
+  // Maneja la subida de archivos (solo guarda el archivo y preview, no sube a Firebase)
+  const handleFileSelect = (
     e: React.ChangeEvent<HTMLInputElement>,
     field: "bannerUrl" | "iconUrl"
   ) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    // Preview local
     const reader = new FileReader();
     reader.onload = (ev) => {
       if (field === "bannerUrl") setBannerPreview(ev.target?.result as string);
       if (field === "iconUrl") setIconPreview(ev.target?.result as string);
     };
     reader.readAsDataURL(file);
-    // Subida a Firebase
-    const url = await uploadImage(file);
-    setForm((prev) => ({ ...prev, [field]: url }));
+    if (field === "bannerUrl") {
+      setBannerFile(file);
+      setForm((prev) => ({ ...prev, bannerUrl: "" }));
+    }
+    if (field === "iconUrl") {
+      setIconFile(file);
+      setForm((prev) => ({ ...prev, iconUrl: "" }));
+    }
+  };
+
+  // Eliminar archivo seleccionado antes de guardar
+  const handleRemoveImage = (field: "bannerUrl" | "iconUrl") => {
+    if (field === "bannerUrl") {
+      setBannerFile(null);
+      setBannerPreview("");
+      setForm((prev) => ({ ...prev, bannerUrl: "" }));
+    }
+    if (field === "iconUrl") {
+      setIconFile(null);
+      setIconPreview("");
+      setForm((prev) => ({ ...prev, iconUrl: "" }));
+    }
   };
 
   // Envía la mutación para crear la configuración
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.name || !form.pageTitle || !form.servicesDescription) return;
+    let bannerUrl = form.bannerUrl;
+    let iconUrl = form.iconUrl;
     try {
-      const { data } = await createConfig({ variables: { data: form } });
+      // Solo sube imágenes a Firebase si el usuario confirma (submit)
+      if (bannerFile) bannerUrl = await uploadImage(bannerFile);
+      if (iconFile) iconUrl = await uploadImage(iconFile);
+      const { data } = await createConfig({
+        variables: { data: { ...form, bannerUrl, iconUrl } },
+      });
       if (data?.createConfig?.id) {
         // Redirige a la página de edición avanzada
         if (onSuccess) onSuccess(data.createConfig.id);
@@ -134,44 +161,50 @@ export default function ConfigCreate({ onSuccess }: ConfigCreateProps) {
             className="w-full"
           />
         </div>
-        <Box>
-          <Text as="label" size="2" weight="bold" className="block mb-1">
-            Banner principal
-          </Text>
+        <div>
+          <label className="block text-sm font-medium mb-1">Banner principal</label>
           <input
             type="file"
             accept="image/*"
-            onChange={(e) => handleFileUpload(e, "bannerUrl")}
+            onChange={(e) => handleFileSelect(e, "bannerUrl")}
             className="mb-2"
           />
-          {(bannerPreview || form.bannerUrl) && (
-            // TODO: Migrar <img> a <Image /> para optimización Next.js
-            <img
-              src={bannerPreview || form.bannerUrl}
-              alt="Banner preview"
-              className="h-16 w-auto rounded shadow mb-2"
-            />
+          {(bannerPreview || bannerFile) && bannerPreview && (
+            <div className="flex items-center space-x-2">
+              <img
+                src={bannerPreview}
+                alt="Banner preview"
+                className="h-16 w-auto rounded shadow mb-2"
+              />
+              <span className="text-sm break-all">
+                {bannerFile ? bannerFile.name : ""}
+              </span>
+              <button type="button" className="text-red-600 ml-2" onClick={() => handleRemoveImage("bannerUrl")}>Eliminar</button>
+            </div>
           )}
-        </Box>
-        <Box>
-          <Text as="label" size="2" weight="bold" className="block mb-1">
-            Icono
-          </Text>
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-1">Icono</label>
           <input
             type="file"
             accept="image/*"
-            onChange={(e) => handleFileUpload(e, "iconUrl")}
+            onChange={(e) => handleFileSelect(e, "iconUrl")}
             className="mb-2"
           />
-          {(iconPreview || form.iconUrl) && (
-            // TODO: Migrar <img> a <Image /> para optimización Next.js
-            <img
-              src={iconPreview || form.iconUrl}
-              alt="Icon preview"
-              className="h-12 w-12 rounded-full shadow mb-2"
-            />
+          {(iconPreview || iconFile) && iconPreview && (
+            <div className="flex items-center space-x-2">
+              <img
+                src={iconPreview}
+                alt="Icon preview"
+                className="h-12 w-12 rounded-full shadow mb-2"
+              />
+              <span className="text-sm break-all">
+                {iconFile ? iconFile.name : ""}
+              </span>
+              <button type="button" className="text-red-600 ml-2" onClick={() => handleRemoveImage("iconUrl")}>Eliminar</button>
+            </div>
           )}
-        </Box>
+        </div>
         <div>
           <Text as="label" size="2" weight="bold" htmlFor="config-footerInfo" className="block mb-1">
             Información de pie de página (opcional)

@@ -7,7 +7,6 @@ import { GET_ALL_CONFIGURATIONS } from '@/graphql/queries/config.queries';
 import { DELETE_CONFIG } from '@/graphql/mutations/config.mutations';
 import { Box, Button as RadixButton, Heading, Table, Text, Flex } from '@radix-ui/themes';
 import { TrashIcon } from '@radix-ui/react-icons';
-import { useConfirmDelete } from '@/hooks/useConfirmDelete';
 import DeleteButtonWithConfirm from '@/components/ui/DeleteButtonWithConfirm';
 import ConfigListFilters from './ConfigListFilters';
 import { useRouter } from 'next/navigation';
@@ -50,8 +49,6 @@ export default function ConfigList() {
       console.error('Error al eliminar configuración:', error);
     }
   });
-
-  const { open, id, name, openDialog, closeDialog } = useConfirmDelete();
 
   const handleRefresh = async () => {
     try {

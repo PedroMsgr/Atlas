@@ -1,11 +1,15 @@
 import React from "react";
 import { Box, Button, TextField, Heading, Flex } from "@radix-ui/themes";
-import Image from 'next/image';
 
 export default function ConfigGeneralTab({
   form,
   handleChange,
-  handleFileUpload,
+  handleFileSelect,
+  handleRemoveImage,
+  bannerPreview,
+  bannerFile,
+  iconPreview,
+  iconFile,
   updateError,
   updating,
   handleSubmit,
@@ -47,18 +51,22 @@ export default function ConfigGeneralTab({
           <input
             type="file"
             accept="image/*"
-            onChange={(e) => handleFileUpload(e, "bannerUrl")}
+            onChange={(e) => handleFileSelect(e, "bannerUrl")}
             className="mb-2"
           />
-          {form.bannerUrl && (
+          {(bannerPreview || bannerFile) && bannerPreview && (
             <div className="flex items-center space-x-2">
-              <Image src={form.bannerUrl} alt="Banner actual" width={96} height={48} className="h-12 w-24 rounded" />
-              <span className="text-sm break-all">{form.bannerUrl}</span>
+              <img
+                src={bannerPreview}
+                alt="Banner preview"
+                className="h-12 w-24 rounded"
+              />
+              <span className="text-sm break-all">{bannerFile ? bannerFile.name : ""}</span>
               <Button
                 type="button"
                 color="red"
                 size="1"
-                onClick={() => handleChange({ target: { name: "bannerUrl", value: "" } })}
+                onClick={() => handleRemoveImage("bannerUrl")}
               >
                 Eliminar
               </Button>
@@ -70,18 +78,22 @@ export default function ConfigGeneralTab({
           <input
             type="file"
             accept="image/*"
-            onChange={(e) => handleFileUpload(e, "iconUrl")}
+            onChange={(e) => handleFileSelect(e, "iconUrl")}
             className="mb-2"
           />
-          {form.iconUrl && (
+          {(iconPreview || iconFile) && iconPreview && (
             <div className="flex items-center space-x-2">
-              <Image src={form.iconUrl} alt="Icono actual" width={48} height={48} className="h-12 w-12 rounded-full" />
-              <span className="text-sm break-all">{form.iconUrl}</span>
+              <img
+                src={iconPreview}
+                alt="Icon preview"
+                className="h-12 w-12 rounded-full"
+              />
+              <span className="text-sm break-all">{iconFile ? iconFile.name : ""}</span>
               <Button
                 type="button"
                 color="red"
                 size="1"
-                onClick={() => handleChange({ target: { name: "iconUrl", value: "" } })}
+                onClick={() => handleRemoveImage("iconUrl")}
               >
                 Eliminar
               </Button>

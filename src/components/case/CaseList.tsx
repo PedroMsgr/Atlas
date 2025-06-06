@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { GET_CASES } from '@/graphql/queries/case.queries';
 import type { CaseListItem, CaseListResponse } from '@/types/case.types';
 import { TrashIcon } from '@radix-ui/react-icons';
-import { useConfirmDelete } from '@/hooks/useConfirmDelete';
 import { DELETE_CASE } from '@/graphql/mutations/case.mutations';
 import CaseSearchBackend from './CaseSearchBackend';
 import { useRouter } from 'next/navigation';
@@ -46,8 +45,6 @@ export default function CaseList() {
     onError: () => {
     }
   });
-
-  const { open, id, name, openDialog, closeDialog } = useConfirmDelete();
 
   return (
     <Box>

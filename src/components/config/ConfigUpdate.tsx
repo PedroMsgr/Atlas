@@ -31,6 +31,7 @@ import { GET_LEGALSTEPS_BY_CONFIG } from "@/graphql/queries/legalstep.queries";
 import { CREATE_FOOTERLINK, UPDATE_FOOTERLINK, DELETE_FOOTERLINK } from "@/graphql/mutations/footerlink.mutations";
 import { GET_FOOTERLINKS_BY_CONFIG } from "@/graphql/queries/footerlink.queries";
 import { uploadImage } from "@/lib/uploadImage";
+import { deleteFirebaseFile } from "@/lib/deleteFirebaseFile";
 import ConfigGeneralTab from './ConfigGeneralTab';
 import ConfigSectionsTab from './ConfigSectionsTab';
 import ConfigArticlesTab from './ConfigArticlesTab';
@@ -298,17 +299,80 @@ export default function ConfigUpdate({
     setForm({ ...form, [name]: value });
   };
 
-  const handleFileUpload = async (
+  // Estados para archivos y previews de banner/icono
+  const [bannerFile, setBannerFile] = useState<File | null>(null);
+  const [iconFile, setIconFile] = useState<File | null>(null);
+  const [bannerPreview, setBannerPreview] = useState<string>("");
+  const [iconPreview, setIconPreview] = useState<string>("");
+
+  // Estado local para imagen principal de sección
+  const [sectionImageFile, setSectionImageFile] = useState<File | null>(null);
+  const [sectionImagePreview, setSectionImagePreview] = useState<string>("");
+
+  // Handlers para seleccionar archivo de banner/icono
+  const handleFileSelect = (
     e: React.ChangeEvent<HTMLInputElement>,
-    field: 'bannerUrl' | 'iconUrl'
+    field: "bannerUrl" | "iconUrl"
   ) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    const url = await uploadImage(file);
-    setForm((prev: any) => ({ ...prev, [field]: url }));
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      if (field === "bannerUrl") setBannerPreview(ev.target?.result as string);
+      if (field === "iconUrl") setIconPreview(ev.target?.result as string);
+    };
+    reader.readAsDataURL(file);
+    // Solo preparar el archivo y limpiar la url, no borrar nada de Firebase aquí
+    if (field === "bannerUrl") {
+      setBannerFile(file);
+      setForm((prev: any) => ({ ...prev, bannerUrl: "" }));
+    }
+    if (field === "iconUrl") {
+      setIconFile(file);
+      setForm((prev: any) => ({ ...prev, iconUrl: "" }));
+    }
   };
 
-  // ------------------ Crear/Editar Configuración ------------------
+  // Handler para eliminar archivo seleccionado de banner/icono
+  const handleRemoveImage = async (field: "bannerUrl" | "iconUrl") => {
+    if (field === "bannerUrl") {
+      if (form.bannerUrl) await deleteFirebaseFile(form.bannerUrl);
+      setBannerFile(null);
+      setBannerPreview("");
+      setForm((prev: any) => ({ ...prev, bannerUrl: "" }));
+    }
+    if (field === "iconUrl") {
+      if (form.iconUrl) await deleteFirebaseFile(form.iconUrl);
+      setIconFile(null);
+      setIconPreview("");
+      setForm((prev: any) => ({ ...prev, iconUrl: "" }));
+    }
+  };
+
+  // Handler para imagen principal de sección (reemplazo seguro)
+  const handleSectionImageSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    // Si hay una imagen anterior en Firebase, borrarla
+    if (sectionForm.imageUrl) {
+      await deleteFirebaseFile(sectionForm.imageUrl);
+    }
+    const reader = new FileReader();
+    reader.onload = (ev) => setSectionImagePreview(ev.target?.result as string);
+    reader.readAsDataURL(file);
+    setSectionImageFile(file);
+    setSectionForm((prev: any) => ({ ...prev, imageUrl: "" }));
+  };
+
+  // Handler para eliminar imagen principal de sección
+  const handleRemoveSectionImage = async () => {
+    if (sectionForm.imageUrl) await deleteFirebaseFile(sectionForm.imageUrl);
+    setSectionImageFile(null);
+    setSectionImagePreview("");
+    setSectionForm((prev: any) => ({ ...prev, imageUrl: "" }));
+  };
+
+  // Adaptar handleSubmit para subir imágenes solo al confirmar
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.id) {
@@ -316,129 +380,35 @@ export default function ConfigUpdate({
       return;
     }
     if (!form.name || !form.pageTitle || !form.servicesDescription) return;
+    let bannerUrl = form.bannerUrl;
+    let iconUrl = form.iconUrl;
+    // Subir imágenes si hay archivos nuevos
+    if (bannerFile) bannerUrl = await uploadImage(bannerFile);
+    if (iconFile) iconUrl = await uploadImage(iconFile);
     const input = {
       name: form.name,
       pageTitle: form.pageTitle,
       servicesDescription: form.servicesDescription,
-      iconUrl: form.iconUrl || '',
+      iconUrl: iconUrl || '',
       pageDescription: form.pageDescription || '',
-      bannerUrl: form.bannerUrl || '',
+      bannerUrl: bannerUrl || '',
       footerInfo: form.footerInfo || '',
     };
     try {
-      // 1. Actualizar la config principal
       const { data } = await updateConfig({ variables: { id: form.id, data: input } });
-      // 2. Eliminar secciones marcadas
-      for (const id of deletedSectionIds) {
-        if (id) await deleteSection({ variables: { id } });
+      // Actualizar estado local tras guardar
+      setForm((prev: any) => ({ ...prev, ...input }));
+      if (bannerFile && bannerUrl) {
+        setBannerPreview(bannerUrl);
+        setBannerFile(null);
       }
-      // 3. Crear nuevas secciones y actualizar existentes
-      for (const sec of form.sections) {
-        if (!sec.id) {
-          await createSection({
-            variables: {
-              data: {
-                configId: form.id,
-                title: sec.title,
-                body: sec.body,
-                imageUrl: sec.imageUrl,
-                order: sec.order,
-              },
-            },
-          });
-        } else {
-          await updateSection({
-            variables: {
-              id: sec.id,
-              data: {
-                configId: form.id,
-                title: sec.title,
-                body: sec.body,
-                imageUrl: sec.imageUrl,
-                order: sec.order,
-              },
-            },
-          });
-        }
+      if (iconFile && iconUrl) {
+        setIconPreview(iconUrl);
+        setIconFile(null);
       }
-      setDeletedSectionIds([]);
-      // --- LEGAL STEPS ---
-      for (const id of deletedLegalStepIds) {
-        if (id) await deleteLegalStep({ variables: { id } });
-      }
-      for (const step of draftLegalSteps) {
-        if (!step.id) {
-          await createLegalStep({
-            variables: {
-              data: {
-                configId: form.id,
-                title: step.title,
-                description: step.description ?? "",
-                order: step.order,
-              },
-            },
-          });
-        } else {
-          await updateLegalStep({
-            variables: {
-              id: step.id,
-              data: {
-                configId: form.id,
-                title: step.title,
-                description: step.description ?? "",
-                order: step.order,
-              },
-            },
-          });
-        }
-      }
-      setDeletedLegalStepIds([]);
-      // --- FOOTER LINKS ---
-      for (const id of deletedFooterLinkIds) {
-        if (id) await deleteFooterLink({ variables: { id } });
-      }
-      for (const link of draftFooterLinks) {
-        if (!link.id) {
-          await createFooterLink({
-            variables: {
-              data: {
-                configId: form.id,
-                label: link.label,
-                url: link.url,
-                order: link.order,
-              },
-            },
-          });
-        } else {
-          await updateFooterLink({
-            variables: {
-              id: link.id,
-              data: {
-                configId: form.id,
-                label: link.label,
-                url: link.url,
-                order: link.order,
-              },
-            },
-          });
-        }
-      }
-      setDeletedFooterLinkIds([]);
-      if (data?.updateConfig?.id) {
-        setForm((prev: any) => ({ ...prev, ...data.updateConfig }));
-        if (onSuccess) onSuccess();
-      }
+      if (onSuccess) onSuccess();
     } catch (err: any) {
-      if (
-        err?.message?.includes('Unique constraint failed') ||
-        err?.graphQLErrors?.some((e: any) =>
-          e.message.includes('Unique constraint failed')
-        )
-      ) {
-        alert('Ya existe una configuración con ese nombre. Por favor, elige otro nombre único.');
-      } else {
-        alert('Error al guardar la configuración.');
-      }
+      alert('Error al guardar la configuración.');
     }
   };
 
@@ -723,7 +693,12 @@ export default function ConfigUpdate({
           <ConfigGeneralTab
             form={form}
             handleChange={handleChange}
-            handleFileUpload={handleFileUpload}
+            handleFileSelect={handleFileSelect}
+            handleRemoveImage={handleRemoveImage}
+            bannerPreview={bannerPreview}
+            bannerFile={bannerFile}
+            iconPreview={iconPreview}
+            iconFile={iconFile}
             updateError={updateError}
             updating={updating}
             handleSubmit={handleSubmit}
@@ -750,6 +725,10 @@ export default function ConfigUpdate({
             handleDeleteImageSection={handleDeleteImageSection}
             uploadImage={uploadImage}
             loadingSections={loadingSections}
+            sectionImageFile={sectionImageFile}
+            sectionImagePreview={sectionImagePreview}
+            handleFileSelectSection={handleSectionImageSelect}
+            handleRemoveImageSection={handleRemoveSectionImage}
           />
         </Tabs.Content>
 

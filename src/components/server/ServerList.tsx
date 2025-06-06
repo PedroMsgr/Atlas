@@ -1,7 +1,6 @@
 import { useMutation, useQuery } from '@apollo/client';
 import { Box, Button as RadixButton, Heading, Table, Text, Flex } from '@radix-ui/themes';
 import { TrashIcon } from '@radix-ui/react-icons';
-import { useConfirmDelete } from '@/hooks/useConfirmDelete';
 import DeleteButtonWithConfirm from '@/components/ui/DeleteButtonWithConfirm';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
@@ -42,8 +41,6 @@ export default function ServerList() {
   });
 
   const servers = data?.servers || [];
-
-  const { open, id, name, openDialog, closeDialog } = useConfirmDelete();
 
   useEffect(() => {
     console.log("[ServerList] Prop 'servers' cambió:", servers);

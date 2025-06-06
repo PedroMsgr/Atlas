@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Button, TextField, Heading, Flex } from "@radix-ui/themes";
 import { Textarea } from "@/components/ui-shadcn/textarea";
 import SortableItem from '../dndkit/SortableItem';
@@ -23,7 +23,32 @@ export default function ConfigSectionsTab({
   handleDeleteImageSection,
   uploadImage,
   loadingSections,
+  sectionImageFile,
+  sectionImagePreview,
+  handleFileSelectSection,
+  handleRemoveImageSection,
 }: any) {
+  // Estado local para imagen de sección
+  const [localSectionImageFile, setLocalSectionImageFile] = useState<File|null>(null);
+  const [localSectionImagePreview, setLocalSectionImagePreview] = useState<string>("");
+
+  // Handler para seleccionar archivo de imagen de sección
+  const handleLocalFileSelectSection = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => setLocalSectionImagePreview(ev.target?.result as string);
+    reader.readAsDataURL(file);
+    setLocalSectionImageFile(file);
+    setSectionForm((prev: any) => ({ ...prev, imageUrl: "" }));
+  };
+  // Handler para eliminar archivo seleccionado
+  const handleLocalRemoveImageSection = () => {
+    setLocalSectionImageFile(null);
+    setLocalSectionImagePreview("");
+    setSectionForm((prev: any) => ({ ...prev, imageUrl: "" }));
+  };
+
   // Handler para drag & drop
   const handleDragEnd = (event: any) => {
     const { active, over } = event;
@@ -63,20 +88,20 @@ export default function ConfigSectionsTab({
         <input
           type="file"
           accept="image/*"
-          onChange={async (e: any) => {
-            const file = e.target.files?.[0];
-            if (!file) return;
-            const url = await uploadImage(file);
-            setSectionForm((prev: any) => ({ ...prev, imageUrl: url }));
-          }}
+          onChange={handleFileSelectSection}
           className="mb-2"
         />
-        {sectionForm.imageUrl && (
+        {(sectionImagePreview || sectionImageFile) && sectionImagePreview && (
           <div className="flex items-center space-x-2">
-            <img src={sectionForm.imageUrl} alt="Imagen sección" className="h-12 w-24 rounded" />
-            <Button type="button" color="red" size="1" onClick={() => setSectionForm((prev: any) => ({ ...prev, imageUrl: "" }))}>Eliminar</Button>
+            <img
+              src={sectionImagePreview}
+              alt="Imagen sección preview"
+              className="h-12 w-24 rounded"
+            />
+            <span className="text-sm break-all">{sectionImageFile ? sectionImageFile.name : ""}</span>
+            <Button type="button" color="red" size="1" onClick={handleRemoveImageSection}>Eliminar</Button>
           </div>
-        )}
+        )} 
         <Flex gap="2" className="mt-2">
           <Button
             color="green"

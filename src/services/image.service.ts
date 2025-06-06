@@ -1,9 +1,9 @@
 // src/services/image.service.ts
 
 import { ImagesRepository } from "@/db/repositories/images.repo";
+import { deleteFirebaseFile } from "@/lib/deleteFirebaseFile";
 
 class ImageService {
-  
   private imagesRepo: ImagesRepository;
 
   constructor() {
@@ -12,7 +12,6 @@ class ImageService {
 
   /**
    * Registra una imagen en la base de datos
-   * @param data - Datos de la imagen (url, altText, type, configId, etc.)
    */
   async registerImage(data: {
     url: string;
@@ -38,10 +37,13 @@ class ImageService {
   }
 
   /**
-   * Elimina una imagen por ID
+   * Elimina una imagen por ID y opcionalmente su archivo en Firebase
    */
-  async deleteImage(id: string) {
+  async deleteImage(id: string, url?: string) {
     try {
+      if (url) {
+        await deleteFirebaseFile(url);
+      }
       return await this.imagesRepo.delete(id);
     } catch (error) {
       throw new Error("Error al eliminar la imagen: " + (error as Error).message);

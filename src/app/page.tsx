@@ -2,6 +2,7 @@ import { Button, Container, Flex, Heading, Section, Text, Card, Box } from '@rad
 import Link from 'next/link';
 import MainLayout from '@/components/layout/MainLayout';
 import AtlasLogo from '@/components/ui/AtlasLogo';
+import Image from 'next/image';
 
 export default function Home() {
   return (
@@ -34,14 +35,14 @@ export default function Home() {
             <Flex gap="6" wrap="wrap" justify="center" className="flex-col md:flex-row md:gap-6 gap-4">
               <Card className="w-full md:w-[30%] p-6 mb-4 md:mb-0">
                 <Flex direction="column" gap="3" align="start">
-                  <img src="/file.svg" width={48} height={48} alt="Gestión de casos" />
+                  <Image src="/file.svg" width={48} height={48} alt="Gestión de casos" />
                   <Heading size="4">Gestión de casos</Heading>
                   <Text>Administra todos tus casos legales en un solo lugar con un sistema intuitivo y eficiente.</Text>
                 </Flex>
               </Card>
               <Card className="w-full md:w-[30%] p-6 mb-4 md:mb-0">
                 <Flex direction="column" gap="3" align="start">
-                  <img src="/window.svg" width={48} height={48} alt="Comunicación directa" />
+                  <Image src="/window.svg" width={48} height={48} alt="Comunicación directa" />
                   <Heading size="4">Comunicación directa</Heading>
                   <Text>Comunícate con tus clientes o abogados mediante un sistema de chat integrado y seguro.</Text>
                 </Flex>

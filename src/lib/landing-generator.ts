@@ -22,6 +22,7 @@ import Head from "next/head";
 import { useState, useEffect } from "react";
 import { LogIn, MessageSquare, FileText } from "lucide-react";
 import { useSwipeable } from "react-swipeable";
+import Image from 'next/image';
 import "../globals.css";
 
 export default function EmulatorPage() {
@@ -227,11 +228,13 @@ export default function EmulatorPage() {
           <section id="inicio" className="flex justify-center py-8 px-2">
             <div className="w-full max-w-2xl bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 flex flex-col items-center">
               <h1 className="text-3xl font-bold text-center mb-4 dark:text-white">{config.pageTitle}</h1>
-              <img
+              <Image
                 src={config.bannerUrl}
                 alt="Banner principal"
                 className="w-full max-h-64 object-cover rounded mb-4 shadow"
                 style={{ objectPosition: 'center' }}
+                width={768}
+                height={384}
               />
               {config.servicesDescription && (
                 <p className="text-lg text-slate-700 dark:text-slate-200 text-center">{config.servicesDescription}</p>
@@ -250,7 +253,7 @@ export default function EmulatorPage() {
               {Array.isArray(sec.images) && sec.images.length > 0 && (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {sec.images.sort((a: any, b: any) => (a.order || 0) - (b.order || 0)).map((img: any) => (
-                    <img key={img.id} src={img.url} alt={img.altText || ''} className="w-full h-48 object-cover rounded shadow" />
+                    <Image key={img.id} src={img.url} alt={img.altText || ''} width={768} height={384} className="w-full h-48 object-cover rounded shadow" />
                   ))}
                 </div>
               )}
@@ -279,7 +282,7 @@ export default function EmulatorPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {config.images.sort((a: any, b: any) => (a.order || 0) - (b.order || 0)).map((img: any) => (
                   <div key={img.id} className="mb-4">
-                    <img src={img.url} alt={img.altText || ''} className="w-full h-48 object-cover rounded shadow" />
+                    <Image src={img.url} alt={img.altText || ''} width={768} height={384} className="w-full h-48 object-cover rounded shadow" />
                   </div>
                 ))}
               </div>

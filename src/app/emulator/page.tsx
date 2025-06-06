@@ -3,6 +3,7 @@ import Head from "next/head";
 import { useState, useEffect } from "react";
 import { LogIn, MessageSquare, FileText } from "lucide-react";
 import { useSwipeable } from "react-swipeable";
+import Image from 'next/image';
 import "../globals.css";
 
 export default function EmulatorPage() {
@@ -356,7 +357,7 @@ export default function EmulatorPage() {
               {Array.isArray(sec.images) && sec.images.length > 0 && (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {sec.images.sort((a: any, b: any) => (a.order || 0) - (b.order || 0)).map((img: any) => (
-                    <img key={img.id} src={img.url} alt={img.altText || ''} className="w-full h-48 object-cover rounded shadow" />
+                    <Image key={img.id} src={img.url} alt={img.altText || ''} width={768} height={384} className="w-full h-48 object-cover rounded shadow" />
                   ))}
                 </div>
               )}
@@ -385,7 +386,7 @@ export default function EmulatorPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {config.images.sort((a: any, b: any) => (a.order || 0) - (b.order || 0)).map((img: any) => (
                   <div key={img.id} className="mb-4">
-                    <img src={img.url} alt={img.altText || ''} className="w-full h-48 object-cover rounded shadow" />
+                    <Image src={img.url} alt={img.altText || ''} width={768} height={384} className="w-full h-48 object-cover rounded shadow" />
                   </div>
                 ))}
               </div>

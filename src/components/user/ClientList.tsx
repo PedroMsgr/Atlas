@@ -8,7 +8,6 @@ import { DELETE_USER } from '@/graphql/mutations/user.mutations';
 import { GET_USERS } from '@/graphql/queries';
 import { Role } from '@/types/user.types';
 import UserSearchBackend from './UserSearchBackend';
-import { useConfirmDelete } from '@/hooks/useConfirmDelete';
 import DeleteButtonWithConfirm from '@/components/ui/DeleteButtonWithConfirm';
 
 export default function ClientList({}: object) {
@@ -31,7 +30,6 @@ export default function ClientList({}: object) {
     }
   });
   const users = data?.users || [];
-  const { open, id, name, openDialog, closeDialog } = useConfirmDelete();
   return (
     <>
       <UserSearchBackend
