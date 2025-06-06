@@ -5,26 +5,21 @@ interface BanishTransitionProps extends Omit<AnimatePresenceProps, 'children'> {
   children: React.ReactNode;
   show: boolean; // Condición para mostrar/ocultar
   /**
-   * Animation duration in seconds (default: 1)
+   * Duración de la animación en segundos (por defecto: 1)
    */
   duration?: number;
   /**
-   * Optional: motion.div props for customizing the animation
+   * Customizar la animación con props de motion.div
    */
   motionProps?: MotionProps;
   /**
-   * Optional: className for the motion.div
+   * Estilos adicionales para el contenedor
    */
   className?: string;
 }
 
 /**
- * BanishTransition: animación fade out/fade in condicional.
- *
- * Ejemplo de uso:
- * <BanishTransition show={isVisible}>
- *   <ContenidoAnimado />
- * </BanishTransition>
+ * @function BanishTransition: animación fade out/fade condicional.
  */
 export default function BanishTransition({
   children,

@@ -13,9 +13,9 @@ export default function EmulatorPage() {
   "pageTitle": "Abogados especialistas en Accidentes",
   "pageDescription": "Portal especializado en derecho accidentes.",
   "servicesDescription": "Servicios legales para casos de accidentes.",
-  "iconUrl": "https://firebasestorage.googleapis.com/v0/b/universo-legal-4dace.firebasestorage.app/o/images%2F1749070787329-AtlasLogo1.ico?alt=media&token=26bac980-05db-4be3-b53d-e60bb5860aa8",
+  "iconUrl": "",
   "footerInfo": "ATALAS UNIVERSO LEGAL",
-  "bannerUrl": "https://firebasestorage.googleapis.com/v0/b/universo-legal-4dace.firebasestorage.app/o/images%2F1749122248488-Captura%20desde%202025-05-22%2013-08-49.png?alt=media&token=e29c4f0d-8d54-4f81-adaf-cd48f36bd6b4",
+  "bannerUrl": "",
   "sections": [
     {
       "__typename": "Section",
