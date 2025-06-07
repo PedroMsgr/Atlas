@@ -1,7 +1,7 @@
 // src/db/repositories/articles.repo.ts
 
-import { Article } from '../../generated/prisma';
-import { prisma } from '../prisma-client';
+import { Article } from "../../generated/prisma";
+import { prisma } from "../prisma-client";
 
 export class ArticlesRepository {
   async findAll(): Promise<Article[]> {
@@ -15,11 +15,11 @@ export class ArticlesRepository {
   async findByConfigId(configId: string): Promise<Article[]> {
     return prisma.article.findMany({
       where: { configId },
-      orderBy: { order: 'asc' },
+      orderBy: { order: "asc" },
     });
   }
 
-  async create(data: Omit<Article, 'id' | 'publishedAt'>): Promise<Article> {
+  async create(data: Omit<Article, "id" | "publishedAt">): Promise<Article> {
     return prisma.article.create({
       data: { ...data, publishedAt: new Date(), url: data.url ?? null },
     });

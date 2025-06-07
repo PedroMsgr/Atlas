@@ -1,7 +1,7 @@
 // src/db/repositories/configs.repo.ts
 
-import { UnitConfig, Prisma } from '../../generated/prisma';
-import { prisma } from '../prisma-client';
+import { UnitConfig, Prisma } from "../../generated/prisma";
+import { prisma } from "../prisma-client";
 
 export class ConfigsRepository {
   async findAll(): Promise<UnitConfig[]> {
@@ -57,7 +57,10 @@ export class ConfigsRepository {
     });
   }
 
-  async update(id: string, data: Prisma.UnitConfigUpdateInput): Promise<UnitConfig> {
+  async update(
+    id: string,
+    data: Prisma.UnitConfigUpdateInput
+  ): Promise<UnitConfig> {
     return prisma.unitConfig.update({
       where: { id },
       data,

@@ -1,6 +1,6 @@
 // src/graphql/mutations/legalstep.mutations.ts
 
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const CREATE_LEGALSTEP = gql`
   mutation CreateLegalStep($data: LegalStepInput!) {

@@ -1,6 +1,6 @@
 // src/graphql/mutations/article.mutations.ts
 
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const CREATE_ARTICLE = gql`
   mutation CreateArticle($data: ArticleInput!) {

@@ -1,6 +1,6 @@
 // src/graphql/typeDefs.ts
 
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 const typeDefs = gql`
   #########################
@@ -134,7 +134,7 @@ const typeDefs = gql`
     orchestratorToken: String
     unitToken: String
     constellation: Constellation
-    constellationId: ID! 
+    constellationId: ID!
     config: UnitConfig
     configId: ID
     createdAt: DateTime!
@@ -284,7 +284,7 @@ const typeDefs = gql`
     sectionId: ID
   }
 
-  # Input para crear/editar pasos legales 
+  # Input para crear/editar pasos legales
   input LegalStepInput {
     configId: ID!
     title: String!
@@ -443,10 +443,18 @@ const typeDefs = gql`
     deleteConfig(id: ID!): Boolean!
 
     # -- UnitServer CRUD --
-    createServer(name: String!, domain: String!, constellationId: ID!): UnitServer!
+    createServer(
+      name: String!
+      domain: String!
+      constellationId: ID!
+    ): UnitServer!
     updateServer(id: ID!, data: UpdateServerInput!): UnitServer!
     deleteServer(id: ID!): UnitServer!
-    updateServerTokens(id: ID!, orchestratorToken: String!, unitToken: String!): UnitServer!
+    updateServerTokens(
+      id: ID!
+      orchestratorToken: String!
+      unitToken: String!
+    ): UnitServer!
 
     # -- Section CRUD --
     createSection(data: SectionInput!): Section!
@@ -475,7 +483,11 @@ const typeDefs = gql`
 
     # -- Constellation CRUD --
     createConstellation(name: String!, description: String): Constellation!
-    updateConstellation(id: ID!, name: String, description: String): Constellation!
+    updateConstellation(
+      id: ID!
+      name: String
+      description: String
+    ): Constellation!
     deleteConstellation(id: ID!): Boolean!
 
     # -- FullConfig (JSON) --

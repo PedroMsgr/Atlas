@@ -1,15 +1,13 @@
-import { CasesRepository } from '@/db/repositories/cases.repo';
-
+import { CasesRepository } from "@/db/repositories/cases.repo";
 
 class CaseService {
-
   private repo: CasesRepository;
 
   constructor() {
     this.repo = new CasesRepository();
   }
 
-   async getCasesPaginated(filters: any) {
+  async getCasesPaginated(filters: any) {
     return this.repo.findAllPaginated(filters);
   }
 

@@ -1,6 +1,6 @@
 // src/types/case.types.ts
 
-import { CaseStatus } from '@/generated/prisma';
+import { CaseStatus } from "@/generated/prisma";
 
 export interface CaseUser {
   id: string;

@@ -1,7 +1,7 @@
 // src/db/repositories/constellations.repo.ts
 
-import { Constellation } from '../../generated/prisma';
-import { prisma } from '../prisma-client';
+import { Constellation } from "../../generated/prisma";
+import { prisma } from "../prisma-client";
 
 export class ConstellationsRepository {
   async findAll(): Promise<Constellation[]> {
@@ -30,7 +30,7 @@ export class ConstellationsRepository {
     });
   }
 
-  async create(data: Omit<Constellation, 'id'>): Promise<Constellation> {
+  async create(data: Omit<Constellation, "id">): Promise<Constellation> {
     return prisma.constellation.create({
       data,
       include: {
@@ -39,7 +39,10 @@ export class ConstellationsRepository {
     });
   }
 
-  async update(id: string, data: Partial<Constellation>): Promise<Constellation> {
+  async update(
+    id: string,
+    data: Partial<Constellation>
+  ): Promise<Constellation> {
     return prisma.constellation.update({
       where: { id },
       data,

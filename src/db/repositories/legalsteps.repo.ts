@@ -1,6 +1,6 @@
 // src/db/repositories/legalsteps.repo.ts
-import { prisma } from '../prisma-client';
-import { LegalStep } from '../../generated/prisma';
+import { prisma } from "../prisma-client";
+import { LegalStep } from "../../generated/prisma";
 
 export class LegalStepsRepository {
   async findAll(): Promise<LegalStep[]> {
@@ -14,11 +14,11 @@ export class LegalStepsRepository {
   async findByConfigId(configId: string): Promise<LegalStep[]> {
     return prisma.legalStep.findMany({
       where: { configId },
-      orderBy: { order: 'asc' },
+      orderBy: { order: "asc" },
     });
   }
 
-  async create(data: Omit<LegalStep, 'id'>): Promise<LegalStep> {
+  async create(data: Omit<LegalStep, "id">): Promise<LegalStep> {
     return prisma.legalStep.create({ data });
   }
 

@@ -5,9 +5,7 @@ import { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { Tabs, Box, Button, Flex } from "@radix-ui/themes";
 import { useRouter } from "next/navigation";
-import {
-  UPDATE_CONFIG,
-} from "@/graphql/mutations/config.mutations";
+import { UPDATE_CONFIG } from "@/graphql/mutations/config.mutations";
 import { GET_SECTIONS_BY_CONFIG } from "@/graphql/queries/section.queries";
 import {
   CREATE_SECTION,
@@ -26,43 +24,55 @@ import {
   UPDATE_IMAGE,
   DELETE_IMAGE,
 } from "@/graphql/mutations/image.mutations";
-import { CREATE_LEGALSTEP, UPDATE_LEGALSTEP, DELETE_LEGALSTEP } from "@/graphql/mutations/legalstep.mutations";
+import {
+  CREATE_LEGALSTEP,
+  UPDATE_LEGALSTEP,
+  DELETE_LEGALSTEP,
+} from "@/graphql/mutations/legalstep.mutations";
 import { GET_LEGALSTEPS_BY_CONFIG } from "@/graphql/queries/legalstep.queries";
-import { CREATE_FOOTERLINK, UPDATE_FOOTERLINK, DELETE_FOOTERLINK } from "@/graphql/mutations/footerlink.mutations";
+import {
+  CREATE_FOOTERLINK,
+  UPDATE_FOOTERLINK,
+  DELETE_FOOTERLINK,
+} from "@/graphql/mutations/footerlink.mutations";
 import { GET_FOOTERLINKS_BY_CONFIG } from "@/graphql/queries/footerlink.queries";
 import { uploadImage } from "@/lib/uploadImage";
 import { deleteFirebaseFile } from "@/lib/deleteFirebaseFile";
-import ConfigGeneralTab from './ConfigGeneralTab';
-import ConfigSectionsTab from './ConfigSectionsTab';
-import ConfigArticlesTab from './ConfigArticlesTab';
-import ImagesTab from './ConfigImagesTab';
-import ConfigLegalStepsTab from './ConfigLegalStepsTab';
-import ConfigFooterLinksTab from './ConfigFooterLinksTab';
-import Image from 'next/image';
+import ConfigGeneralTab from "./ConfigGeneralTab";
+import ConfigSectionsTab from "./ConfigSectionsTab";
+import ConfigArticlesTab from "./ConfigArticlesTab";
+import ImagesTab from "./ConfigImagesTab";
+import ConfigLegalStepsTab from "./ConfigLegalStepsTab";
+import ConfigFooterLinksTab from "./ConfigFooterLinksTab";
+import Image from "next/image";
 
 interface ConfigUpdateProps {
   config?: any; // UnitConfigWithRelations
   onSuccess?: () => void;
 }
 
-export default function ConfigUpdate({
-  config,
-  onSuccess,
-}: ConfigUpdateProps) {
+export default function ConfigUpdate({ config, onSuccess }: ConfigUpdateProps) {
   const router = useRouter();
-  const [tab, setTab] = useState<"general"|"sections"|"articles"|"images"|"legalsteps"|"footerlinks">("general");
+  const [tab, setTab] = useState<
+    | "general"
+    | "sections"
+    | "articles"
+    | "images"
+    | "legalsteps"
+    | "footerlinks"
+  >("general");
 
   // Estado principal de configuración
   const [form, setForm] = useState<any>({
-    id: '',
-    name: '',
-    pageTitle: '',
-    servicesDescription: '',
-    iconUrl: '',
+    id: "",
+    name: "",
+    pageTitle: "",
+    servicesDescription: "",
+    iconUrl: "",
     // campos opcionales
-    pageDescription: '',
-    bannerUrl: '',
-    footerInfo: '',
+    pageDescription: "",
+    bannerUrl: "",
+    footerInfo: "",
     sections: [] as any[],
     articles: [] as any[],
     images: [] as any[],
@@ -72,7 +82,8 @@ export default function ConfigUpdate({
   });
 
   // Crear / actualizar Config
-  const [updateConfig, { loading: updating, error: updateError }] = useMutation(UPDATE_CONFIG);
+  const [updateConfig, { loading: updating, error: updateError }] =
+    useMutation(UPDATE_CONFIG);
 
   // ------------------ SECCIONES ------------------
   const {
@@ -204,7 +215,9 @@ export default function ConfigUpdate({
   const [draftLegalSteps, setDraftLegalSteps] = useState<any[]>([]);
   const [deletedLegalStepIds, setDeletedLegalStepIds] = useState<string[]>([]);
   const [draftFooterLinks, setDraftFooterLinks] = useState<any[]>([]);
-  const [deletedFooterLinkIds, setDeletedFooterLinkIds] = useState<string[]>([]);
+  const [deletedFooterLinkIds, setDeletedFooterLinkIds] = useState<string[]>(
+    []
+  );
 
   // Sync draft state with backend data
   useEffect(() => {
@@ -237,30 +250,35 @@ export default function ConfigUpdate({
         order: prev.length + 1,
       },
     ]);
-    setLegalStepForm({ id: undefined, title: '', description: '' });
+    setLegalStepForm({ id: undefined, title: "", description: "" });
   };
   const handleEditLegalStepDraft = () => {
     setDraftLegalSteps((prev) =>
       prev.map((step) =>
-        step.id === legalStepForm.id || (!step.id && !legalStepForm.id && step.title === legalStepForm.title)
-          ? { ...step, title: legalStepForm.title, description: legalStepForm.description }
+        step.id === legalStepForm.id ||
+        (!step.id && !legalStepForm.id && step.title === legalStepForm.title)
+          ? {
+              ...step,
+              title: legalStepForm.title,
+              description: legalStepForm.description,
+            }
           : step
       )
     );
-    setLegalStepForm({ id: undefined, title: '', description: '' });
+    setLegalStepForm({ id: undefined, title: "", description: "" });
     setEditingLegalStepId(null);
   };
   const handleDeleteLegalStepDraft = (id: string | undefined) => {
-    setDraftLegalSteps(prev => {
-      const filtered = prev.filter(step => step.id !== id);
+    setDraftLegalSteps((prev) => {
+      const filtered = prev.filter((step) => step.id !== id);
       return filtered.map((step, idx) => ({ ...step, order: idx + 1 }));
     });
-    if (id) setDeletedLegalStepIds(prev => [...prev, id]);
+    if (id) setDeletedLegalStepIds((prev) => [...prev, id]);
   };
 
   // --- Footer Links Handlers ---
   const handleAddFooterLinkDraft = () => {
-    setDraftFooterLinks(prev => {
+    setDraftFooterLinks((prev) => {
       const newArr = [
         ...prev,
         {
@@ -276,8 +294,8 @@ export default function ConfigUpdate({
     setEditingFooterLinkId(null);
   };
   const handleEditFooterLinkDraft = () => {
-    setDraftFooterLinks(prev => {
-      const newArr = prev.map(link =>
+    setDraftFooterLinks((prev) => {
+      const newArr = prev.map((link) =>
         link.id === footerLinkForm.id ? { ...link, ...footerLinkForm } : link
       );
       return newArr.map((link, idx) => ({ ...link, order: idx + 1 }));
@@ -286,11 +304,11 @@ export default function ConfigUpdate({
     setEditingFooterLinkId(null);
   };
   const handleDeleteFooterLinkDraft = (id: string | undefined) => {
-    setDraftFooterLinks(prev => {
-      const filtered = prev.filter(link => link.id !== id);
+    setDraftFooterLinks((prev) => {
+      const filtered = prev.filter((link) => link.id !== id);
       return filtered.map((link, idx) => ({ ...link, order: idx + 1 }));
     });
-    if (id) setDeletedFooterLinkIds(prev => [...prev, id]);
+    if (id) setDeletedFooterLinkIds((prev) => [...prev, id]);
   };
 
   // ------------------ Handlers generales ------------------
@@ -350,7 +368,9 @@ export default function ConfigUpdate({
   };
 
   // Handler para imagen principal de sección (reemplazo seguro)
-  const handleSectionImageSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSectionImageSelect = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = e.target.files?.[0];
     if (!file) return;
     // Si hay una imagen anterior en Firebase, borrarla
@@ -376,7 +396,7 @@ export default function ConfigUpdate({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.id) {
-      alert('No se puede actualizar: falta el ID de la configuración.');
+      alert("No se puede actualizar: falta el ID de la configuración.");
       return;
     }
     if (!form.name || !form.pageTitle || !form.servicesDescription) return;
@@ -389,13 +409,15 @@ export default function ConfigUpdate({
       name: form.name,
       pageTitle: form.pageTitle,
       servicesDescription: form.servicesDescription,
-      iconUrl: iconUrl || '',
-      pageDescription: form.pageDescription || '',
-      bannerUrl: bannerUrl || '',
-      footerInfo: form.footerInfo || '',
+      iconUrl: iconUrl || "",
+      pageDescription: form.pageDescription || "",
+      bannerUrl: bannerUrl || "",
+      footerInfo: form.footerInfo || "",
     };
     try {
-      const { data } = await updateConfig({ variables: { id: form.id, data: input } });
+      const { data } = await updateConfig({
+        variables: { id: form.id, data: input },
+      });
       // Actualizar estado local tras guardar
       setForm((prev: any) => ({ ...prev, ...input }));
       if (bannerFile && bannerUrl) {
@@ -408,7 +430,7 @@ export default function ConfigUpdate({
       }
       if (onSuccess) onSuccess();
     } catch (err: any) {
-      alert('Error al guardar la configuración.');
+      alert("Error al guardar la configuración.");
     }
   };
 
@@ -461,9 +483,7 @@ export default function ConfigUpdate({
     setForm((prev: any) => ({
       ...prev,
       sections: prev.sections.map((sec: any) =>
-        sec.id === sectionForm.id
-          ? { ...sec, ...sectionForm }
-          : sec
+        sec.id === sectionForm.id ? { ...sec, ...sectionForm } : sec
       ),
     }));
     setSectionForm({ id: undefined, title: "", body: "", imageUrl: "" });
@@ -486,15 +506,13 @@ export default function ConfigUpdate({
     url: string;
     publishedAt: string;
     order?: number;
-  }>(
-    {
-      title: "",
-      content: "",
-      url: "",
-      publishedAt: new Date().toISOString().split("T")[0],
-      order: undefined,
-    }
-  );
+  }>({
+    title: "",
+    content: "",
+    url: "",
+    publishedAt: new Date().toISOString().split("T")[0],
+    order: undefined,
+  });
   const [editingArticleId, setEditingArticleId] = useState<string | null>(null);
 
   const loadArticleForEdit = (art: any) => {
@@ -503,7 +521,9 @@ export default function ConfigUpdate({
       title: art.title || "",
       content: art.content || "",
       url: art.url || "",
-      publishedAt: art.publishedAt ? art.publishedAt.split("T")[0] : new Date().toISOString().split("T")[0],
+      publishedAt: art.publishedAt
+        ? art.publishedAt.split("T")[0]
+        : new Date().toISOString().split("T")[0],
       order: art.order || 1,
     });
     setEditingArticleId(art.id);
@@ -573,14 +593,22 @@ export default function ConfigUpdate({
     <div className="flex flex-wrap gap-4 mt-2">
       {form.images?.map((img: any) => (
         <div key={img.id} className="flex flex-col items-center">
-          <Image src={img.url} alt={img.altText || ''} width={128} height={128} className="w-32 h-32 object-cover rounded shadow" />
+          <Image
+            src={img.url}
+            alt={img.altText || ""}
+            width={128}
+            height={128}
+            className="w-32 h-32 object-cover rounded shadow"
+          />
           <span className="text-xs mt-1">{img.altText}</span>
         </div>
       ))}
     </div>
   );
 
-  const handleAddImageGlobal = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAddImageGlobal = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = e.target.files?.[0];
     if (!file || !form.id) return;
     const url = await uploadImage(file);
@@ -604,7 +632,9 @@ export default function ConfigUpdate({
     await refetchImages();
   };
 
-  const handleAddImageSection = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAddImageSection = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = e.target.files?.[0];
     if (!file || !currentSectionId || !form.id) return;
     const url = await uploadImage(file);
@@ -616,7 +646,9 @@ export default function ConfigUpdate({
           url,
           altText: file.name,
           type: "inline",
-          order: (form.sections?.find((s: any) => s.id === currentSectionId)?.images?.length || 0) + 1,
+          order:
+            (form.sections?.find((s: any) => s.id === currentSectionId)?.images
+              ?.length || 0) + 1,
         },
       },
     });
@@ -631,10 +663,12 @@ export default function ConfigUpdate({
   // =================== PESTAÑA PASOS LEGALES ===================
   const [legalStepForm, setLegalStepForm] = useState({
     id: undefined,
-    title: '',
-    description: '',
+    title: "",
+    description: "",
   });
-  const [editingLegalStepId, setEditingLegalStepId] = useState<string | null>(null);
+  const [editingLegalStepId, setEditingLegalStepId] = useState<string | null>(
+    null
+  );
 
   const loadLegalStepForEdit = (step: any) => {
     setLegalStepForm({
@@ -654,7 +688,9 @@ export default function ConfigUpdate({
     label: "",
     url: "",
   });
-  const [editingFooterLinkId, setEditingFooterLinkId] = useState<string | null>(null);
+  const [editingFooterLinkId, setEditingFooterLinkId] = useState<string | null>(
+    null
+  );
 
   const loadFooterLinkForEdit = (link: any) => {
     setFooterLinkForm({
@@ -669,12 +705,27 @@ export default function ConfigUpdate({
   return (
     <Box className="w-full">
       <Flex justify="end" align="center" className="mb-4 gap-2">
-        <Button type="button" variant="soft" onClick={() => router.push("/admin/configs")}>Cancelar</Button>
-        <Button type="button" color="green" disabled={updating} onClick={handleSubmit}>
+        <Button
+          type="button"
+          variant="soft"
+          onClick={() => router.push("/admin/configs")}
+        >
+          Cancelar
+        </Button>
+        <Button
+          type="button"
+          color="green"
+          disabled={updating}
+          onClick={handleSubmit}
+        >
           Actualizar Configuración
         </Button>
       </Flex>
-      <Tabs.Root value={tab} onValueChange={value => setTab(value as typeof tab)} className="w-full">
+      <Tabs.Root
+        value={tab}
+        onValueChange={(value) => setTab(value as typeof tab)}
+        className="w-full"
+      >
         <Tabs.List>
           <Tabs.Trigger value="general">General</Tabs.Trigger>
           {form.id && (

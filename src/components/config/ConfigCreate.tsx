@@ -101,13 +101,22 @@ export default function ConfigCreate({ onSuccess }: ConfigCreateProps) {
 
   return (
     <Box className="max-w-2xl w-full bg-white border rounded-lg p-8 shadow-sm">
-      <Heading size="5" className="mb-2">Crear nueva configuración</Heading>
+      <Heading size="5" className="mb-2">
+        Crear nueva configuración
+      </Heading>
       <Text as="p" size="3" color="gray" className="mb-6">
-        Completa los datos para registrar una nueva configuración. Los campos marcados con * son obligatorios.
+        Completa los datos para registrar una nueva configuración. Los campos
+        marcados con * son obligatorios.
       </Text>
       <form onSubmit={handleSubmit} className="space-y-5">
         <div>
-          <Text as="label" size="2" weight="bold" htmlFor="config-name" className="block mb-1">
+          <Text
+            as="label"
+            size="2"
+            weight="bold"
+            htmlFor="config-name"
+            className="block mb-1"
+          >
             Nombre de la configuración *
           </Text>
           <TextField.Root
@@ -121,7 +130,13 @@ export default function ConfigCreate({ onSuccess }: ConfigCreateProps) {
           />
         </div>
         <div>
-          <Text as="label" size="2" weight="bold" htmlFor="config-pageTitle" className="block mb-1">
+          <Text
+            as="label"
+            size="2"
+            weight="bold"
+            htmlFor="config-pageTitle"
+            className="block mb-1"
+          >
             Título de la landing *
           </Text>
           <TextField.Root
@@ -135,7 +150,13 @@ export default function ConfigCreate({ onSuccess }: ConfigCreateProps) {
           />
         </div>
         <div>
-          <Text as="label" size="2" weight="bold" htmlFor="config-servicesDescription" className="block mb-1">
+          <Text
+            as="label"
+            size="2"
+            weight="bold"
+            htmlFor="config-servicesDescription"
+            className="block mb-1"
+          >
             Descripción de servicios *
           </Text>
           <TextField.Root
@@ -149,7 +170,13 @@ export default function ConfigCreate({ onSuccess }: ConfigCreateProps) {
           />
         </div>
         <div>
-          <Text as="label" size="2" weight="bold" htmlFor="config-pageDescription" className="block mb-1">
+          <Text
+            as="label"
+            size="2"
+            weight="bold"
+            htmlFor="config-pageDescription"
+            className="block mb-1"
+          >
             Descripción de la página (opcional)
           </Text>
           <TextField.Root
@@ -162,7 +189,9 @@ export default function ConfigCreate({ onSuccess }: ConfigCreateProps) {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-1">Banner principal</label>
+          <label className="block text-sm font-medium mb-1">
+            Banner principal
+          </label>
           <input
             type="file"
             accept="image/*"
@@ -179,7 +208,13 @@ export default function ConfigCreate({ onSuccess }: ConfigCreateProps) {
               <span className="text-sm break-all">
                 {bannerFile ? bannerFile.name : ""}
               </span>
-              <button type="button" className="text-red-600 ml-2" onClick={() => handleRemoveImage("bannerUrl")}>Eliminar</button>
+              <button
+                type="button"
+                className="text-red-600 ml-2"
+                onClick={() => handleRemoveImage("bannerUrl")}
+              >
+                Eliminar
+              </button>
             </div>
           )}
         </div>
@@ -201,12 +236,24 @@ export default function ConfigCreate({ onSuccess }: ConfigCreateProps) {
               <span className="text-sm break-all">
                 {iconFile ? iconFile.name : ""}
               </span>
-              <button type="button" className="text-red-600 ml-2" onClick={() => handleRemoveImage("iconUrl")}>Eliminar</button>
+              <button
+                type="button"
+                className="text-red-600 ml-2"
+                onClick={() => handleRemoveImage("iconUrl")}
+              >
+                Eliminar
+              </button>
             </div>
           )}
         </div>
         <div>
-          <Text as="label" size="2" weight="bold" htmlFor="config-footerInfo" className="block mb-1">
+          <Text
+            as="label"
+            size="2"
+            weight="bold"
+            htmlFor="config-footerInfo"
+            className="block mb-1"
+          >
             Información de pie de página (opcional)
           </Text>
           <TextField.Root
@@ -219,11 +266,13 @@ export default function ConfigCreate({ onSuccess }: ConfigCreateProps) {
           />
         </div>
         {error && (
-          <Text color="red" size="2">{error.message}</Text>
+          <Text color="red" size="2">
+            {error.message}
+          </Text>
         )}
         <Flex justify="end" className="pt-2">
           <Button type="submit" disabled={loading} color="green">
-            {loading ? 'Creando...' : 'Crear Configuración'}
+            {loading ? "Creando..." : "Crear Configuración"}
           </Button>
         </Flex>
       </form>

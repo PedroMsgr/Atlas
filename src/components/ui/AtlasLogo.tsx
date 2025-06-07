@@ -1,5 +1,7 @@
-import * as React from "react"
-const AtlasLogo = (props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>) => (
+import * as React from "react";
+const AtlasLogo = (
+  props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>
+) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="1em"
@@ -32,5 +34,5 @@ const AtlasLogo = (props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGE
       d="m224 272 270 220"
     />
   </svg>
-)
-export default AtlasLogo
+);
+export default AtlasLogo;

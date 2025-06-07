@@ -1,6 +1,6 @@
 // src/graphql/queries/constellation.queries.ts
 
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const GET_CONSTELLATIONS = gql`
   query GetConstellations {

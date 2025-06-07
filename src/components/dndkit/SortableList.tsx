@@ -1,5 +1,8 @@
-import React from 'react';
-import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import React from "react";
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
 
 interface SortableListProps {
   items: string[];
@@ -8,7 +11,12 @@ interface SortableListProps {
   className?: string;
 }
 
-const SortableList: React.FC<SortableListProps> = ({ items, children, strategy = verticalListSortingStrategy, className }) => {
+const SortableList: React.FC<SortableListProps> = ({
+  items,
+  children,
+  strategy = verticalListSortingStrategy,
+  className,
+}) => {
   return (
     <SortableContext items={items} strategy={strategy}>
       <div className={className}>{children}</div>

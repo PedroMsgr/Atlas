@@ -1,7 +1,7 @@
 // src/db/repositories/files.repo.ts
 
-import { File } from '../../generated/prisma';
-import { prisma } from '../prisma-client';
+import { File } from "../../generated/prisma";
+import { prisma } from "../prisma-client";
 
 export class FilesRepository {
   async findAll(): Promise<File[]> {
@@ -55,7 +55,7 @@ export class FilesRepository {
     });
   }
 
-  async create(data: Omit<File, 'id' | 'date'>): Promise<File> {
+  async create(data: Omit<File, "id" | "date">): Promise<File> {
     return prisma.file.create({
       data,
       include: {
@@ -94,4 +94,4 @@ export class FilesRepository {
       },
     });
   }
-} 
+}

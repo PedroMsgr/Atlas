@@ -1,7 +1,7 @@
 // src/db/repositories/users.repo.ts
 
-import { User, Role } from '../../generated/prisma';
-import { prisma } from '../prisma-client';
+import { User, Role } from "../../generated/prisma";
+import { prisma } from "../prisma-client";
 
 export class UsersRepository {
   async findAll(role?: Role | Role[], search?: string): Promise<User[]> {
@@ -13,11 +13,11 @@ export class UsersRepository {
         where.role = role;
       }
     }
-    if (search && search.trim() !== '') {
+    if (search && search.trim() !== "") {
       where.OR = [
-        { firstName: { contains: search, mode: 'insensitive' } },
-        { lastName: { contains: search, mode: 'insensitive' } },
-        { email: { contains: search, mode: 'insensitive' } },
+        { firstName: { contains: search, mode: "insensitive" } },
+        { lastName: { contains: search, mode: "insensitive" } },
+        { email: { contains: search, mode: "insensitive" } },
       ];
     }
     return prisma.user.findMany({ where });
@@ -35,7 +35,9 @@ export class UsersRepository {
     });
   }
 
-  async create(data: Omit<User, 'id' | 'createdAt' | 'updatedAt'>): Promise<User> {
+  async create(
+    data: Omit<User, "id" | "createdAt" | "updatedAt">
+  ): Promise<User> {
     return prisma.user.create({
       data,
     });

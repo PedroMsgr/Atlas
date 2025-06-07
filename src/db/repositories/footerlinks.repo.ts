@@ -1,6 +1,6 @@
 // src/db/repositories/footerlinks.repo.ts
-import { prisma } from '../prisma-client';
-import { FooterLink } from '../../generated/prisma';
+import { prisma } from "../prisma-client";
+import { FooterLink } from "../../generated/prisma";
 
 export class FooterLinksRepository {
   async findAll(): Promise<FooterLink[]> {
@@ -14,11 +14,11 @@ export class FooterLinksRepository {
   async findByConfigId(configId: string): Promise<FooterLink[]> {
     return prisma.footerLink.findMany({
       where: { configId },
-      orderBy: { order: 'asc' },
+      orderBy: { order: "asc" },
     });
   }
 
-  async create(data: Omit<FooterLink, 'id'>): Promise<FooterLink> {
+  async create(data: Omit<FooterLink, "id">): Promise<FooterLink> {
     return prisma.footerLink.create({ data });
   }
 

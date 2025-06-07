@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { Box, Button, TextField, Heading, Flex } from "@radix-ui/themes";
 import { Textarea } from "@/components/ui-shadcn/textarea";
-import SortableItem from '../dndkit/SortableItem';
-import { DndProvider } from '../dndkit/DndProvider';
-import SortableList from '../dndkit/SortableList';
-import Image from 'next/image';
+import SortableItem from "../dndkit/SortableItem";
+import { DndProvider } from "../dndkit/DndProvider";
+import SortableList from "../dndkit/SortableList";
+import Image from "next/image";
 
 export default function ConfigSectionsTab({
   form,
@@ -29,15 +29,20 @@ export default function ConfigSectionsTab({
   handleRemoveImageSection,
 }: any) {
   // Estado local para imagen de sección
-  const [localSectionImageFile, setLocalSectionImageFile] = useState<File|null>(null);
-  const [localSectionImagePreview, setLocalSectionImagePreview] = useState<string>("");
+  const [localSectionImageFile, setLocalSectionImageFile] =
+    useState<File | null>(null);
+  const [localSectionImagePreview, setLocalSectionImagePreview] =
+    useState<string>("");
 
   // Handler para seleccionar archivo de imagen de sección
-  const handleLocalFileSelectSection = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleLocalFileSelectSection = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = e.target.files?.[0];
     if (!file) return;
     const reader = new FileReader();
-    reader.onload = (ev) => setLocalSectionImagePreview(ev.target?.result as string);
+    reader.onload = (ev) =>
+      setLocalSectionImagePreview(ev.target?.result as string);
     reader.readAsDataURL(file);
     setLocalSectionImageFile(file);
     setSectionForm((prev: any) => ({ ...prev, imageUrl: "" }));
@@ -53,13 +58,20 @@ export default function ConfigSectionsTab({
   const handleDragEnd = (event: any) => {
     const { active, over } = event;
     if (!over || active.id === over.id) return;
-    const oldIndex = form.sections.findIndex((s: any, idx: number) => (s.id || `new-${idx}`) === active.id);
-    const newIndex = form.sections.findIndex((s: any, idx: number) => (s.id || `new-${idx}`) === over.id);
+    const oldIndex = form.sections.findIndex(
+      (s: any, idx: number) => (s.id || `new-${idx}`) === active.id
+    );
+    const newIndex = form.sections.findIndex(
+      (s: any, idx: number) => (s.id || `new-${idx}`) === over.id
+    );
     if (oldIndex === -1 || newIndex === -1) return;
     const newSections = form.sections.slice();
     const moved = newSections.splice(oldIndex, 1)[0];
     newSections.splice(newIndex, 0, moved);
-    const reOrdered = newSections.map((s: any, idx: number) => ({ ...s, order: idx + 1 }));
+    const reOrdered = newSections.map((s: any, idx: number) => ({
+      ...s,
+      order: idx + 1,
+    }));
     setForm((prev: any) => ({ ...prev, sections: reOrdered }));
   };
 
@@ -75,14 +87,18 @@ export default function ConfigSectionsTab({
           name="title"
           placeholder="Título de sección"
           value={sectionForm.title}
-          onChange={(e: any) => setSectionForm({ ...sectionForm, title: e.target.value })}
+          onChange={(e: any) =>
+            setSectionForm({ ...sectionForm, title: e.target.value })
+          }
           required
         />
         <Textarea
           name="body"
           placeholder="Contenido de sección"
           value={sectionForm.body}
-          onChange={(e: any) => setSectionForm({ ...sectionForm, body: e.target.value })}
+          onChange={(e: any) =>
+            setSectionForm({ ...sectionForm, body: e.target.value })
+          }
           required
         />
         <input
@@ -98,10 +114,19 @@ export default function ConfigSectionsTab({
               alt="Imagen sección preview"
               className="h-12 w-24 rounded"
             />
-            <span className="text-sm break-all">{sectionImageFile ? sectionImageFile.name : ""}</span>
-            <Button type="button" color="red" size="1" onClick={handleRemoveImageSection}>Eliminar</Button>
+            <span className="text-sm break-all">
+              {sectionImageFile ? sectionImageFile.name : ""}
+            </span>
+            <Button
+              type="button"
+              color="red"
+              size="1"
+              onClick={handleRemoveImageSection}
+            >
+              Eliminar
+            </Button>
           </div>
-        )} 
+        )}
         <Flex gap="2" className="mt-2">
           <Button
             color="green"
@@ -134,7 +159,11 @@ export default function ConfigSectionsTab({
       ) : (
         <DndProvider onDragEnd={handleDragEnd}>
           <SortableList
-            items={form.sections?.map((s: any, idx: number) => s.id || `new-${idx}`) || []}
+            items={
+              form.sections?.map(
+                (s: any, idx: number) => s.id || `new-${idx}`
+              ) || []
+            }
             className="mt-4 space-y-2"
           >
             {form.sections?.map((sec: any, idx: number) => (
@@ -147,14 +176,29 @@ export default function ConfigSectionsTab({
                   <div className="font-semibold">{sec.title}</div>
                   <div className="text-sm text-gray-600">{sec.body}</div>
                   {sec.imageUrl && (
-                    <Image src={sec.imageUrl} alt="Imagen sección" width={80} height={40} className="h-10 w-20 rounded mt-1" />
+                    <Image
+                      src={sec.imageUrl}
+                      alt="Imagen sección"
+                      width={80}
+                      height={40}
+                      className="h-10 w-20 rounded mt-1"
+                    />
                   )}
                 </div>
                 <Flex gap="2">
-                  <Button type="button" size="1" onClick={() => loadSectionForEdit(sec)}>
+                  <Button
+                    type="button"
+                    size="1"
+                    onClick={() => loadSectionForEdit(sec)}
+                  >
                     Editar
                   </Button>
-                  <Button type="button" color="red" size="1" onClick={() => handleDeleteSection(sec.id)}>
+                  <Button
+                    type="button"
+                    color="red"
+                    size="1"
+                    onClick={() => handleDeleteSection(sec.id)}
+                  >
                     Eliminar
                   </Button>
                 </Flex>

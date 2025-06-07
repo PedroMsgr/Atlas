@@ -8,7 +8,7 @@ import { storage } from "./firebase";
  */
 export async function deleteFirebaseFile(url: string) {
   if (!url) {
-    console.log('[deleteFirebaseFile] No URL provided');
+    console.log("[deleteFirebaseFile] No URL provided");
     return;
   }
   try {
@@ -16,14 +16,14 @@ export async function deleteFirebaseFile(url: string) {
     const matches = url.match(/\/o\/(.+)\?/);
     if (matches && matches[1]) {
       const path = decodeURIComponent(matches[1]);
-      console.log('[deleteFirebaseFile] Deleting from Firebase path:', path);
+      console.log("[deleteFirebaseFile] Deleting from Firebase path:", path);
       const fileRef = storageRef(storage, path);
       await deleteObject(fileRef);
-      console.log('[deleteFirebaseFile] Deleted successfully:', path);
+      console.log("[deleteFirebaseFile] Deleted successfully:", path);
     } else {
-      console.log('[deleteFirebaseFile] No path extracted from URL:', url);
+      console.log("[deleteFirebaseFile] No path extracted from URL:", url);
     }
   } catch (e) {
-    console.error('[deleteFirebaseFile] Error deleting file:', url, e);
+    console.error("[deleteFirebaseFile] Error deleting file:", url, e);
   }
 }

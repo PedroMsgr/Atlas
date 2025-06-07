@@ -1,6 +1,6 @@
 // src/graphql/queries/user.queries.ts
 
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const GET_USERS = gql`
   query GetUsers($role: [Role], $search: String) {
@@ -14,7 +14,6 @@ export const GET_USERS = gql`
     }
   }
 `;
-
 
 export const GET_CLIENTS = gql`
   query GetClients($serverId: ID) {

@@ -7,10 +7,14 @@ export default function CreateServerPage() {
   const router = useRouter();
   return (
     <Box className="p-8">
-      <Button variant="soft" onClick={() => router.push("/admin/servers")} className="mb-4">
+      <Button
+        variant="soft"
+        onClick={() => router.push("/admin/servers")}
+        className="mb-4"
+      >
         &larr; Volver a la lista
       </Button>
-      <ServerCreate onSuccess={id => router.push(`/admin/servers/${id}`)} />
+      <ServerCreate onSuccess={(id) => router.push(`/admin/servers/${id}`)} />
     </Box>
   );
 }

@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { Box, Heading } from '@radix-ui/themes';
+import { Box, Heading } from "@radix-ui/themes";
 
 export default function StatsPage() {
   return (

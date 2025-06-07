@@ -1,6 +1,6 @@
 // src/graphql/queries/configs.queries.ts
 
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const GET_CONFIGURATION_BY_ID = gql`
   query GetConfigurationById($id: ID!) {
@@ -101,7 +101,7 @@ export const GET_CONFIG_BY_UNIT_TOKEN = gql`
       }
     }
   }
-`
+`;
 
 export const LANDING_DATA_QUERY = gql`
   query LandingData($token: String!) {

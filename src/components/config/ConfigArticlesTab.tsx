@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 import { Box, Button, TextField, Heading, Flex } from "@radix-ui/themes";
 import { Textarea } from "@/components/ui-shadcn/textarea";
-import SortableItem from '../dndkit/SortableItem';
-import { DndProvider } from '../dndkit/DndProvider';
-import SortableList from '../dndkit/SortableList';
+import SortableItem from "../dndkit/SortableItem";
+import { DndProvider } from "../dndkit/DndProvider";
+import SortableList from "../dndkit/SortableList";
 
 export default function ConfigArticlesTab({
   form,
@@ -22,13 +22,20 @@ export default function ConfigArticlesTab({
   const handleDragEnd = (event: any) => {
     const { active, over } = event;
     if (!over || active.id === over.id) return;
-    const oldIndex = form.articles.findIndex((a: any, idx: number) => (a.id || `new-${idx}`) === active.id);
-    const newIndex = form.articles.findIndex((a: any, idx: number) => (a.id || `new-${idx}`) === over.id);
+    const oldIndex = form.articles.findIndex(
+      (a: any, idx: number) => (a.id || `new-${idx}`) === active.id
+    );
+    const newIndex = form.articles.findIndex(
+      (a: any, idx: number) => (a.id || `new-${idx}`) === over.id
+    );
     if (oldIndex === -1 || newIndex === -1) return;
     const newArticles = form.articles.slice();
     const moved = newArticles.splice(oldIndex, 1)[0];
     newArticles.splice(newIndex, 0, moved);
-    const reOrdered = newArticles.map((a: any, idx: number) => ({ ...a, order: idx + 1 }));
+    const reOrdered = newArticles.map((a: any, idx: number) => ({
+      ...a,
+      order: idx + 1,
+    }));
     setForm((prev: any) => ({ ...prev, articles: reOrdered }));
   };
 
@@ -44,27 +51,35 @@ export default function ConfigArticlesTab({
           name="title"
           placeholder="Título del artículo"
           value={articleForm.title}
-          onChange={(e: any) => setArticleForm({ ...articleForm, title: e.target.value })}
+          onChange={(e: any) =>
+            setArticleForm({ ...articleForm, title: e.target.value })
+          }
           required
         />
         <Textarea
           name="content"
           placeholder="Contenido del artículo"
           value={articleForm.content}
-          onChange={(e: any) => setArticleForm({ ...articleForm, content: e.target.value })}
+          onChange={(e: any) =>
+            setArticleForm({ ...articleForm, content: e.target.value })
+          }
           required
         />
         <TextField.Root
           name="url"
           placeholder="URL del artículo"
           value={articleForm.url}
-          onChange={(e: any) => setArticleForm({ ...articleForm, url: e.target.value })}
+          onChange={(e: any) =>
+            setArticleForm({ ...articleForm, url: e.target.value })
+          }
         />
         <TextField.Root
           name="publishedAt"
           type="date"
           value={articleForm.publishedAt}
-          onChange={(e: any) => setArticleForm({ ...articleForm, publishedAt: e.target.value })}
+          onChange={(e: any) =>
+            setArticleForm({ ...articleForm, publishedAt: e.target.value })
+          }
         />
         <Flex gap="2" className="mt-2">
           <Button
@@ -100,7 +115,11 @@ export default function ConfigArticlesTab({
       ) : (
         <DndProvider onDragEnd={handleDragEnd}>
           <SortableList
-            items={form.articles?.map((a: any, idx: number) => a.id || `new-${idx}`) || []}
+            items={
+              form.articles?.map(
+                (a: any, idx: number) => a.id || `new-${idx}`
+              ) || []
+            }
             className="mt-4 space-y-2"
           >
             {form.articles?.map((art: any, idx: number) => (
@@ -111,15 +130,28 @@ export default function ConfigArticlesTab({
               >
                 <div>
                   <div className="font-semibold">{art.title}</div>
-                  <div className="text-sm text-gray-600 line-clamp-2">{art.content}</div>
-                  <div className="text-xs text-blue-700 break-all">{art.url}</div>
+                  <div className="text-sm text-gray-600 line-clamp-2">
+                    {art.content}
+                  </div>
+                  <div className="text-xs text-blue-700 break-all">
+                    {art.url}
+                  </div>
                   <div className="text-xs text-gray-500">{art.publishedAt}</div>
                 </div>
                 <Flex gap="2">
-                  <Button type="button" size="1" onClick={() => loadArticleForEdit(art)}>
+                  <Button
+                    type="button"
+                    size="1"
+                    onClick={() => loadArticleForEdit(art)}
+                  >
                     Editar
                   </Button>
-                  <Button type="button" color="red" size="1" onClick={() => handleDeleteArticle(art.id)}>
+                  <Button
+                    type="button"
+                    color="red"
+                    size="1"
+                    onClick={() => handleDeleteArticle(art.id)}
+                  >
                     Eliminar
                   </Button>
                 </Flex>

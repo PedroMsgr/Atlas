@@ -1,6 +1,6 @@
 // src/graphql/queries/server.queries.ts
 
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const GET_SERVERS = gql`
   query GetServers {
@@ -55,5 +55,3 @@ export const GENERATE_SERVER_TOKENS = gql`
     }
   }
 `;
-
-

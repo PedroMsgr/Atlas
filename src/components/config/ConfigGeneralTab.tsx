@@ -17,7 +17,7 @@ export default function ConfigGeneralTab({
 }: any) {
   return (
     <Box className="w-full">
-      <form className="space-y-4 p-4" onSubmit={e => e.preventDefault()}>
+      <form className="space-y-4 p-4" onSubmit={(e) => e.preventDefault()}>
         <Heading size="5">Datos Generales y Configuración</Heading>
         <TextField.Root
           name="name"
@@ -47,7 +47,9 @@ export default function ConfigGeneralTab({
           required
         />
         <Box>
-          <label className="block text-sm font-medium mb-1">Banner principal</label>
+          <label className="block text-sm font-medium mb-1">
+            Banner principal
+          </label>
           <input
             type="file"
             accept="image/*"
@@ -61,7 +63,9 @@ export default function ConfigGeneralTab({
                 alt="Banner preview"
                 className="h-12 w-24 rounded"
               />
-              <span className="text-sm break-all">{bannerFile ? bannerFile.name : ""}</span>
+              <span className="text-sm break-all">
+                {bannerFile ? bannerFile.name : ""}
+              </span>
               <Button
                 type="button"
                 color="red"
@@ -88,7 +92,9 @@ export default function ConfigGeneralTab({
                 alt="Icon preview"
                 className="h-12 w-12 rounded-full"
               />
-              <span className="text-sm break-all">{iconFile ? iconFile.name : ""}</span>
+              <span className="text-sm break-all">
+                {iconFile ? iconFile.name : ""}
+              </span>
               <Button
                 type="button"
                 color="red"
@@ -110,8 +116,19 @@ export default function ConfigGeneralTab({
           <div className="text-red-600 mt-2">{updateError.message}</div>
         )}
         <Flex justify="end" align="center" className="gap-2">
-          <Button type="button" variant="soft" onClick={() => router.push("/admin/configs")}>Cancelar</Button>
-          <Button type="button" color="green" disabled={updating} onClick={handleSubmit}>
+          <Button
+            type="button"
+            variant="soft"
+            onClick={() => router.push("/admin/configs")}
+          >
+            Cancelar
+          </Button>
+          <Button
+            type="button"
+            color="green"
+            disabled={updating}
+            onClick={handleSubmit}
+          >
             Actualizar Configuración
           </Button>
         </Flex>

@@ -1,6 +1,6 @@
 // src/graphql/mutations/file.mutations.ts
 
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const CREATE_FILE = gql`
   mutation CreateFile($input: CreateFileInput!) {

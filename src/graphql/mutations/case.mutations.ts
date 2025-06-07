@@ -1,15 +1,30 @@
 // src/graphql/mutations/case.mutations.ts
 
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const CREATE_CASE = gql`
   mutation CreateCase($data: CaseCreateInput!) {
     createCase(data: $data) {
       id
       status
-      client { id user { firstName lastName } }
-      professional { id user { firstName lastName } }
-      server { id name }
+      client {
+        id
+        user {
+          firstName
+          lastName
+        }
+      }
+      professional {
+        id
+        user {
+          firstName
+          lastName
+        }
+      }
+      server {
+        id
+        name
+      }
       createdAt
     }
   }
@@ -21,7 +36,13 @@ export const UPDATE_CASE = gql`
       id
       status
       updatedAt
-      professional { id user { firstName lastName } }
+      professional {
+        id
+        user {
+          firstName
+          lastName
+        }
+      }
     }
   }
 `;
@@ -46,7 +67,13 @@ export const ASSIGN_PROFESSIONAL = gql`
   mutation AssignProfessional($id: ID!, $professionalId: ID!) {
     assignProfessional(id: $id, professionalId: $professionalId) {
       id
-      professional { id user { firstName lastName } }
+      professional {
+        id
+        user {
+          firstName
+          lastName
+        }
+      }
     }
   }
 `;

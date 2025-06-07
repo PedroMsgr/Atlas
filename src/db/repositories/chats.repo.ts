@@ -1,7 +1,7 @@
 // src/db/repositories/chats.repo.ts
 
-import { Chat, Message, Sender } from '../../generated/prisma';
-import { prisma } from '../prisma-client';
+import { Chat, Message, Sender } from "../../generated/prisma";
+import { prisma } from "../prisma-client";
 
 export class ChatsRepository {
   async findById(id: string): Promise<Chat | null> {
@@ -10,7 +10,7 @@ export class ChatsRepository {
       include: {
         messages: {
           orderBy: {
-            date: 'asc',
+            date: "asc",
           },
         },
         case: true,
@@ -24,7 +24,7 @@ export class ChatsRepository {
       include: {
         messages: {
           orderBy: {
-            date: 'asc',
+            date: "asc",
           },
         },
       },
@@ -63,12 +63,12 @@ export class MessagesRepository {
     return prisma.message.findMany({
       where: { chatId },
       orderBy: {
-        date: 'asc',
+        date: "asc",
       },
     });
   }
 
-  async create(data: Omit<Message, 'id' | 'date'>): Promise<Message> {
+  async create(data: Omit<Message, "id" | "date">): Promise<Message> {
     return prisma.message.create({
       data,
       include: {
@@ -90,8 +90,8 @@ export class MessagesRepository {
         sender,
       },
       orderBy: {
-        date: 'asc',
+        date: "asc",
       },
     });
   }
-} 
+}

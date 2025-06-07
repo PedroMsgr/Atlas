@@ -1,6 +1,6 @@
 // src/graphql/mutations/user.mutations.ts
 
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const CREATE_CLIENT = gql`
   mutation CreateClient($data: ClientCreateInput!) {
@@ -71,7 +71,6 @@ export const UPDATE_PROFESSIONAL = gql`
     }
   }
 `;
-
 
 export const DELETE_USER = gql`
   mutation DeleteUser($id: ID!) {

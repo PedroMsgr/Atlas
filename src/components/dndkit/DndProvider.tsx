@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   DndContext,
   closestCenter,
@@ -6,10 +6,10 @@ import {
   useSensor,
   useSensors,
   type DndContextProps,
-} from '@dnd-kit/core';
+} from "@dnd-kit/core";
 
 interface DndProviderProps {
-  onDragEnd: DndContextProps['onDragEnd'];
+  onDragEnd: DndContextProps["onDragEnd"];
   children: React.ReactNode;
 }
 

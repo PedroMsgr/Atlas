@@ -1,6 +1,6 @@
-import NextAuth, { DefaultSession, NextAuthOptions } from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
-import { authService } from '@/services/auth.service';
+import NextAuth, { DefaultSession, NextAuthOptions } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { authService } from "@/services/auth.service";
 
 declare module "next-auth" {
   interface Session extends DefaultSession {
@@ -24,18 +24,21 @@ declare module "next-auth" {
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
-      name: 'Credentials',
+      name: "Credentials",
       credentials: {
-        email: { label: 'Email', type: 'email' },
-        password: { label: 'Password', type: 'password' },
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
           return null;
         }
-        
+
         const { email, password } = credentials;
-        const authResult = await authService.authenticateUser({ email, password });
+        const authResult = await authService.authenticateUser({
+          email,
+          password,
+        });
 
         if (authResult.success && authResult.user) {
           return {
@@ -53,7 +56,7 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   session: {
-    strategy: 'jwt' as const,
+    strategy: "jwt" as const,
   },
   callbacks: {
     async jwt({ token, user }: { token: any; user: any }) {

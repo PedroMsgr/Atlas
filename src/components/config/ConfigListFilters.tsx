@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from "react";
 import { Box, Flex, Select } from "@radix-ui/themes";
 import { SearchFrontend } from "@/components/ui/SearchFrontend";
-import { UnitConfigBase } from '@/types/config.types';
+import { UnitConfigBase } from "@/types/config.types";
 
 interface Configuration extends UnitConfigBase {
   updatedAt: string;
@@ -21,7 +21,10 @@ const ORDER_OPTIONS = [
   { value: "updated-asc", label: "Actualización más antigua" },
 ];
 
-export default function ConfigListFilters({ data, onChange }: ConfigListFiltersProps) {
+export default function ConfigListFilters({
+  data,
+  onChange,
+}: ConfigListFiltersProps) {
   const [order, setOrder] = useState<string>("name-az");
 
   const processed = useMemo(() => {
@@ -34,10 +37,16 @@ export default function ConfigListFilters({ data, onChange }: ConfigListFiltersP
         result = [...result].sort((a, b) => b.name.localeCompare(a.name));
         break;
       case "updated-desc":
-        result = [...result].sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
+        result = [...result].sort(
+          (a, b) =>
+            new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+        );
         break;
       case "updated-asc":
-        result = [...result].sort((a, b) => new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime());
+        result = [...result].sort(
+          (a, b) =>
+            new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime()
+        );
         break;
     }
     return result;
@@ -49,8 +58,10 @@ export default function ConfigListFilters({ data, onChange }: ConfigListFiltersP
         <Select.Root value={order} onValueChange={setOrder} size="2">
           <Select.Trigger placeholder="Ordenar por" />
           <Select.Content>
-            {ORDER_OPTIONS.map(opt => (
-              <Select.Item key={opt.value} value={opt.value}>{opt.label}</Select.Item>
+            {ORDER_OPTIONS.map((opt) => (
+              <Select.Item key={opt.value} value={opt.value}>
+                {opt.label}
+              </Select.Item>
             ))}
           </Select.Content>
         </Select.Root>

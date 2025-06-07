@@ -1,5 +1,5 @@
-import { redirect } from 'next/navigation';
+import { redirect } from "next/navigation";
 
 export default function LoginRedirect() {
-  redirect('/auth/signin');
+  redirect("/auth/signin");
 }

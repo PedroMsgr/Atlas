@@ -1,8 +1,7 @@
 // src/db/repositories/images.repo.ts
 
-import { prisma } from '../prisma-client';
-import { Image } from '../../generated/prisma';
-
+import { prisma } from "../prisma-client";
+import { Image } from "../../generated/prisma";
 
 export class ImagesRepository {
   async findAll(): Promise<Image[]> {
@@ -26,12 +25,14 @@ export class ImagesRepository {
     return prisma.image.findMany({
       where: { configId },
       orderBy: {
-        order: 'asc',
+        order: "asc",
       },
     });
   }
 
-  async create(data: Omit<Image, 'id'> & { sectionId?: string | null }): Promise<Image> {
+  async create(
+    data: Omit<Image, "id"> & { sectionId?: string | null }
+  ): Promise<Image> {
     return prisma.image.create({
       data,
       include: {
@@ -77,7 +78,7 @@ export class ImagesRepository {
       where: {
         altText: {
           contains: altText,
-          mode: 'insensitive',
+          mode: "insensitive",
         },
       },
       include: {

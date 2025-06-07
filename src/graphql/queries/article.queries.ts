@@ -1,6 +1,6 @@
 // src/graphql/queries/article.querys.ts
 
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const GET_ARTICLE_BY_ID = gql`
   query GetArticleById($id: ID!) {

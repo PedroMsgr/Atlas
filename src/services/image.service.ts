@@ -32,7 +32,9 @@ class ImageService {
       });
       return image;
     } catch (error) {
-      throw new Error("Error al registrar la imagen: " + (error as Error).message);
+      throw new Error(
+        "Error al registrar la imagen: " + (error as Error).message
+      );
     }
   }
 
@@ -46,7 +48,9 @@ class ImageService {
       }
       return await this.imagesRepo.delete(id);
     } catch (error) {
-      throw new Error("Error al eliminar la imagen: " + (error as Error).message);
+      throw new Error(
+        "Error al eliminar la imagen: " + (error as Error).message
+      );
     }
   }
 
@@ -68,18 +72,31 @@ class ImageService {
     try {
       return await this.imagesRepo.findByType(type);
     } catch (error) {
-      throw new Error("Error al obtener imágenes por tipo: " + (error as Error).message);
+      throw new Error(
+        "Error al obtener imágenes por tipo: " + (error as Error).message
+      );
     }
   }
 
   /**
    * Actualiza una imagen
    */
-  async updateImage(id: string, data: Partial<{ url: string; altText: string; type: string; order: number; sectionId: string; }>) {
+  async updateImage(
+    id: string,
+    data: Partial<{
+      url: string;
+      altText: string;
+      type: string;
+      order: number;
+      sectionId: string;
+    }>
+  ) {
     try {
       return await this.imagesRepo.update(id, data);
     } catch (error) {
-      throw new Error("Error al actualizar la imagen: " + (error as Error).message);
+      throw new Error(
+        "Error al actualizar la imagen: " + (error as Error).message
+      );
     }
   }
 }

@@ -1,6 +1,6 @@
 // src/graphql/mutations/constellation.mutations.ts
 
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const CREATE_CONSTELLATION = gql`
   mutation CreateConstellation($name: String!, $description: String) {

@@ -1,10 +1,9 @@
 // src/db/repositories/servers.repo.ts
 
-import { UnitServer } from '../../generated/prisma';
-import { prisma } from '../prisma-client';
+import { UnitServer } from "../../generated/prisma";
+import { prisma } from "../prisma-client";
 
 export class ServersRepository {
-
   async findAll(): Promise<UnitServer[]> {
     return prisma.unitServer.findMany({
       select: {
@@ -15,22 +14,22 @@ export class ServersRepository {
         constellation: {
           select: {
             id: true,
-            name: true
-          }
+            name: true,
+          },
         },
         configId: true,
         config: {
           select: {
             id: true,
-            name: true
-          }
+            name: true,
+          },
         },
         updatedAt: true,
         createdAt: true,
         orchestratorToken: true,
         unitToken: true,
-        constellationId: true
-      }
+        constellationId: true,
+      },
     });
   }
 
@@ -59,17 +58,16 @@ export class ServersRepository {
    */
   async findByDomain(domain: string): Promise<UnitServer | null> {
     return prisma.unitServer.findUnique({
-      where: { domain }
+      where: { domain },
     });
   }
-
 
   /**
    * Crea un nuevo servidor en la base de datos
    * @param data Los datos del servidor a crear
    * @returns El servidor creado
-  */
-  async create(data: Omit<UnitServer, 'id'>): Promise<UnitServer> {
+   */
+  async create(data: Omit<UnitServer, "id">): Promise<UnitServer> {
     return prisma.unitServer.create({
       data,
     });
@@ -80,7 +78,7 @@ export class ServersRepository {
    * @param id El ID del servidor a actualizar
    * @param data Los datos a actualizar
    * @returns El servidor actualizado
-  */
+   */
   async update(id: string, data: Partial<UnitServer>): Promise<UnitServer> {
     return prisma.unitServer.update({
       where: { id },
@@ -106,11 +104,11 @@ export class ServersRepository {
    */
   async orchestratorTokenExists(token: string): Promise<boolean> {
     const count = await prisma.unitServer.count({
-      where: { orchestratorToken: token }
+      where: { orchestratorToken: token },
     });
     return count > 0;
   }
-  
+
   /**
    * Verifica si un token de unidad ya existe en la base de datos
    * @param token El token a verificar
@@ -118,7 +116,7 @@ export class ServersRepository {
    */
   async unitTokenExists(token: string): Promise<boolean> {
     const count = await prisma.unitServer.count({
-      where: { unitToken: token }
+      where: { unitToken: token },
     });
     return count > 0;
   }
@@ -162,22 +160,24 @@ export class ServersRepository {
    * @returns El número de servidores asociados a esa configuración
    */
   async countByConfigId(configId: string): Promise<number> {
-  return prisma.unitServer.count({
-    where: { configId }
-  });
-}
+    return prisma.unitServer.count({
+      where: { configId },
+    });
+  }
 
-async findByConfigId(configId: string): Promise<{ id: string; name: string }[]> {
-  return prisma.unitServer.findMany({
-    where: { configId },
-    select: {
-      id: true,
-      name: true
-    }
-  });
-}
+  async findByConfigId(
+    configId: string
+  ): Promise<{ id: string; name: string }[]> {
+    return prisma.unitServer.findMany({
+      where: { configId },
+      select: {
+        id: true,
+        name: true,
+      },
+    });
+  }
 
-/**
+  /**
    * Busca un servidor por unitToken
    * @param token unitToken a buscar
    * @returns El servidor encontrado o null si no existe
@@ -197,5 +197,4 @@ async findByConfigId(configId: string): Promise<{ id: string; name: string }[]> 
       data,
     });
   }
-
 }

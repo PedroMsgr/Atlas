@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { Theme, Box, Heading } from '@radix-ui/themes';
-import CaseList from '@/components/case/CaseList';
+import { Theme, Box, Heading } from "@radix-ui/themes";
+import CaseList from "@/components/case/CaseList";
 
 export default function CasesPage() {
   return (

@@ -1,7 +1,7 @@
 // src/db/repositories/sections.repo.ts
 
-import { Section } from '../../generated/prisma';
-import { prisma } from '../prisma-client';
+import { Section } from "../../generated/prisma";
+import { prisma } from "../prisma-client";
 
 export class SectionsRepository {
   async findAll(): Promise<Section[]> {
@@ -20,12 +20,12 @@ export class SectionsRepository {
   async findByConfigId(configId: string): Promise<Section[]> {
     return prisma.section.findMany({
       where: { configId },
-      orderBy: { order: 'asc' },
+      orderBy: { order: "asc" },
       include: { config: true, images: true },
     });
   }
 
-  async create(data: Omit<Section, 'id'>): Promise<Section> {
+  async create(data: Omit<Section, "id">): Promise<Section> {
     return prisma.section.create({
       data,
       include: { config: true, images: true },

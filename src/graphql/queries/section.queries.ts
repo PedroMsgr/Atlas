@@ -1,6 +1,6 @@
 // src/graphql/queries/section.querys.ts
 
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const GET_SECTION_BY_ID = gql`
   query GetSectionById($id: ID!) {

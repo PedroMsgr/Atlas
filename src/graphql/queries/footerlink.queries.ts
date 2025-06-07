@@ -1,5 +1,5 @@
 // src/graphql/queries/footerlink.querys.ts
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const GET_FOOTERLINK_BY_ID = gql`
   query GetFooterLinkById($id: ID!) {

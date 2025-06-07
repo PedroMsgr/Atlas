@@ -5,7 +5,9 @@ import { useState } from "react";
 
 export default function EmulatorGeneratorPage() {
   const [token, setToken] = useState("");
-  const [status, setStatus] = useState<null | "idle" | "loading" | "success" | "error">(null);
+  const [status, setStatus] = useState<
+    null | "idle" | "loading" | "success" | "error"
+  >(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   const handleGenerate = async () => {
@@ -39,7 +41,9 @@ export default function EmulatorGeneratorPage() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6">
-        <h1 className="text-2xl font-bold mb-4 text-center">Generar Landing Estática</h1>
+        <h1 className="text-2xl font-bold mb-4 text-center">
+          Generar Landing Estática
+        </h1>
 
         <label htmlFor="token" className="block text-sm font-medium mb-1">
           Token del servidor unitario
@@ -53,15 +57,15 @@ export default function EmulatorGeneratorPage() {
           placeholder="Ingresa aquí el unitToken"
         />
 
-        {errorMsg && (
-          <p className="text-red-600 text-sm mb-3">{errorMsg}</p>
-        )}
+        {errorMsg && <p className="text-red-600 text-sm mb-3">{errorMsg}</p>}
 
         <button
           onClick={handleGenerate}
           disabled={status === "loading"}
           className={`w-full py-2 rounded text-white ${
-            status === "loading" ? "bg-gray-400" : "bg-blue-600 hover:bg-blue-700"
+            status === "loading"
+              ? "bg-gray-400"
+              : "bg-blue-600 hover:bg-blue-700"
           }`}
         >
           {status === "loading" ? "Generando..." : "Generar Landing"}
@@ -81,8 +85,10 @@ export default function EmulatorGeneratorPage() {
         <div className="mt-6 text-center">
           <button
             type="button"
-            className={`w-full py-2 rounded text-blue-700 border border-blue-600 bg-white hover:bg-blue-50 transition disabled:opacity-60 disabled:cursor-not-allowed ${status === "loading" ? "opacity-60 cursor-not-allowed" : ""}`}
-            onClick={() => window.location.href = "/emulator"}
+            className={`w-full py-2 rounded text-blue-700 border border-blue-600 bg-white hover:bg-blue-50 transition disabled:opacity-60 disabled:cursor-not-allowed ${
+              status === "loading" ? "opacity-60 cursor-not-allowed" : ""
+            }`}
+            onClick={() => (window.location.href = "/emulator")}
             disabled={status === "loading"}
           >
             Ir a la página del emulador

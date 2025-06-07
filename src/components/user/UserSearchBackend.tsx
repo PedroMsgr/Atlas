@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { TextField, Button, Flex } from '@radix-ui/themes';
+import { useState, useEffect } from "react";
+import { TextField, Button, Flex } from "@radix-ui/themes";
 
 interface UserSearchBackendProps {
   search: string;
@@ -8,7 +8,12 @@ interface UserSearchBackendProps {
   autoFocus?: boolean;
 }
 
-export default function UserSearchBackend({ search: initialSearch, onChange, onManualSearch, autoFocus }: UserSearchBackendProps) {
+export default function UserSearchBackend({
+  search: initialSearch,
+  onChange,
+  onManualSearch,
+  autoFocus,
+}: UserSearchBackendProps) {
   const [search, setSearch] = useState(initialSearch);
 
   useEffect(() => {
@@ -23,7 +28,7 @@ export default function UserSearchBackend({ search: initialSearch, onChange, onM
       <TextField.Root
         placeholder="Buscar por nombre o email..."
         value={search}
-        onChange={e => setSearch(e.target.value)}
+        onChange={(e) => setSearch(e.target.value)}
         autoFocus={autoFocus}
         style={{ minWidth: 220 }}
       />

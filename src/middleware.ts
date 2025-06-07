@@ -62,12 +62,17 @@ export default withAuth(
     },
     // CAMBIO: Redirigir a /auth/signin en vez de /api/auth/signin
     pages: {
-      signIn: '/auth/signin',
+      signIn: "/auth/signin",
     },
   }
 );
 
 export const config = {
   // Aplica middleware a estas rutas
-  matcher: ["/admin/:path*", "/pro/:path*", "/client/:path*", "/profile/:path*"],
+  matcher: [
+    "/admin/:path*",
+    "/pro/:path*",
+    "/client/:path*",
+    "/profile/:path*",
+  ],
 };

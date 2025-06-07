@@ -1,7 +1,7 @@
 // src/db/repositories/cases.repo.ts
 
-import { prisma } from '../prisma-client';
-import { Case, CaseStatus } from  '../../generated/prisma';
+import { prisma } from "../prisma-client";
+import { Case, CaseStatus } from "../../generated/prisma";
 
 export class CasesRepository {
   async findAll(): Promise<Case[]> {
@@ -24,7 +24,7 @@ export class CasesRepository {
     professionalId,
     clientId,
     serverId,
-    search
+    search,
   }: {
     page?: number;
     pageSize?: number;
@@ -40,17 +40,41 @@ export class CasesRepository {
     if (clientId) where.clientId = clientId;
     if (serverId) where.serverId = serverId;
     if (search) {
-      const isEmail = search.includes('@');
+      const isEmail = search.includes("@");
       where.OR = [
-        { client: { user: { firstName: { contains: search, mode: 'insensitive' } } } },
-        { client: { user: { lastName: { contains: search, mode: 'insensitive' } } } },
-        { professional: { user: { firstName: { contains: search, mode: 'insensitive' } } } },
-        { professional: { user: { lastName: { contains: search, mode: 'insensitive' } } } },
+        {
+          client: {
+            user: { firstName: { contains: search, mode: "insensitive" } },
+          },
+        },
+        {
+          client: {
+            user: { lastName: { contains: search, mode: "insensitive" } },
+          },
+        },
+        {
+          professional: {
+            user: { firstName: { contains: search, mode: "insensitive" } },
+          },
+        },
+        {
+          professional: {
+            user: { lastName: { contains: search, mode: "insensitive" } },
+          },
+        },
       ];
       if (isEmail) {
         where.OR.push(
-          { client: { user: { email: { contains: search, mode: 'insensitive' } } } },
-          { professional: { user: { email: { contains: search, mode: 'insensitive' } } } }
+          {
+            client: {
+              user: { email: { contains: search, mode: "insensitive" } },
+            },
+          },
+          {
+            professional: {
+              user: { email: { contains: search, mode: "insensitive" } },
+            },
+          }
         );
       }
     }
@@ -66,10 +90,10 @@ export class CasesRepository {
           files: true,
           reports: true,
         },
-        orderBy: { updatedAt: 'desc' },
+        orderBy: { updatedAt: "desc" },
         skip: (page - 1) * pageSize,
         take: pageSize,
-      })
+      }),
     ]);
 
     // LOG de depuración: mostrar cliente, profesional y usuarios asociados
@@ -139,7 +163,9 @@ export class CasesRepository {
     });
   }
 
-  async create(data: Omit<Case, 'id' | 'createdAt' | 'updatedAt'>): Promise<Case> {
+  async create(
+    data: Omit<Case, "id" | "createdAt" | "updatedAt">
+  ): Promise<Case> {
     return prisma.case.create({
       data,
       include: {

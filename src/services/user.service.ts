@@ -1,7 +1,7 @@
-import { UsersRepository } from '../db/repositories/users.repo';
-import { Role, User } from '../generated/prisma';
+import { UsersRepository } from "../db/repositories/users.repo";
+import { Role, User } from "../generated/prisma";
 
-type CreateUserInput = Omit<User, 'id' | 'createdAt' | 'updatedAt'>;
+type CreateUserInput = Omit<User, "id" | "createdAt" | "updatedAt">;
 type UpdateUserInput = Partial<CreateUserInput>;
 
 class UserService {
@@ -14,13 +14,24 @@ class UserService {
       if (Array.isArray(role)) {
         for (const r of role) {
           if (!validRoles.includes(r as Role)) {
-            throw new Error(`El valor de role '${r}' no es válido. Debe ser uno de: ${validRoles.join(', ')}`);
+            throw new Error(
+              `El valor de role '${r}' no es válido. Debe ser uno de: ${validRoles.join(
+                ", "
+              )}`
+            );
           }
         }
-        return this.usersRepo.findAll(role.map(r => r as Role), search);
+        return this.usersRepo.findAll(
+          role.map((r) => r as Role),
+          search
+        );
       } else {
         if (!validRoles.includes(role as Role)) {
-          throw new Error(`El valor de role '${role}' no es válido. Debe ser uno de: ${validRoles.join(', ')}`);
+          throw new Error(
+            `El valor de role '${role}' no es válido. Debe ser uno de: ${validRoles.join(
+              ", "
+            )}`
+          );
         }
         return this.usersRepo.findAll(role as Role, search);
       }

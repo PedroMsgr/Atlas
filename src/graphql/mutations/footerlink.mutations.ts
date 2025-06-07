@@ -1,5 +1,5 @@
 // src/graphql/mutations/footerlink.mutations.ts
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const CREATE_FOOTERLINK = gql`
   mutation CreateFooterLink($data: FooterLinkInput!) {

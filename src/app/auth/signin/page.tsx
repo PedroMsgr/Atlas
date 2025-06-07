@@ -1,12 +1,12 @@
-'use client';
+"use client";
 // src/app/auth/signin/page.tsx
 
-import { useState, useEffect } from 'react';
-import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
-import { Text } from '@radix-ui/themes';
-import LoginForm from '@/components/auth/LoginForm';
-import Layout from '@/components/layout/Layout';
+import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { Text } from "@radix-ui/themes";
+import LoginForm from "@/components/auth/LoginForm";
+import Layout from "@/components/layout/Layout";
 
 // Extender el tipo Session para incluir role
 interface UserWithRole {
@@ -31,20 +31,20 @@ export default function SignIn() {
 
   // Redirección automática si ya está autenticado
   useEffect(() => {
-    if (status === 'authenticated') {
-      if (user?.role === 'admin') {
-        router.push('/admin');
-      } else if (user?.role === 'professional') {
-        router.push('/pro');
+    if (status === "authenticated") {
+      if (user?.role === "admin") {
+        router.push("/admin");
+      } else if (user?.role === "professional") {
+        router.push("/pro");
       } else {
         // Cualquier otro (cliente u otro) va a la home
-        router.push('/');
+        router.push("/");
       }
     }
   }, [status, user, router]);
 
   // Mientras carga la sesión o no estamos en cliente, mostramos cargando
-  if (!pageReady || status === 'loading') {
+  if (!pageReady || status === "loading") {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-100 to-blue-100 dark:from-gray-900 dark:to-blue-950">
         <Text>Cargando...</Text>
@@ -53,7 +53,7 @@ export default function SignIn() {
   }
 
   // Evitar parpadeo: si ya está autenticado, mostramos mensaje de redirección
-  if (status === 'authenticated') {
+  if (status === "authenticated") {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-100 to-blue-100 dark:from-gray-900 dark:to-blue-950">
         <Text>Redirigiendo...</Text>

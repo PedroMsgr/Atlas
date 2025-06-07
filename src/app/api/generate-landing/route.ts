@@ -11,7 +11,10 @@ export async function POST(req: NextRequest) {
   try {
     const { token } = (await req.json()) as { token?: string };
     if (!token) {
-      return NextResponse.json({ error: 'Falta el campo "token" en el body' }, { status: 400 });
+      return NextResponse.json(
+        { error: 'Falta el campo "token" en el body' },
+        { status: 400 }
+      );
     }
 
     // 1) Creamos cliente Apollo
@@ -33,11 +36,45 @@ export async function POST(req: NextRequest) {
               iconUrl
               footerInfo
               bannerUrl
-              sections { id title body order images { id url altText order } }
-              articles { id title content url order publishedAt }
-              images { id url altText type order }
-              legalSteps { id title description order }
-              footerLinks { id label url order }
+              sections {
+                id
+                title
+                body
+                order
+                images {
+                  id
+                  url
+                  altText
+                  order
+                }
+              }
+              articles {
+                id
+                title
+                content
+                url
+                order
+                publishedAt
+              }
+              images {
+                id
+                url
+                altText
+                type
+                order
+              }
+              legalSteps {
+                id
+                title
+                description
+                order
+              }
+              footerLinks {
+                id
+                label
+                url
+                order
+              }
             }
           }
         `,
@@ -45,20 +82,35 @@ export async function POST(req: NextRequest) {
       });
       data = result.data;
       errors = result.errors;
-      console.log("[generate-landing] Data recibida de GraphQL", JSON.stringify(data));
+      console.log(
+        "[generate-landing] Data recibida de GraphQL",
+        JSON.stringify(data)
+      );
     } catch (gqlErr) {
       console.error("[generate-landing] Error en Apollo query:", gqlErr);
-      return NextResponse.json({ error: "Error consultando datos de landing: " + (gqlErr as any).message }, { status: 500 });
+      return NextResponse.json(
+        {
+          error:
+            "Error consultando datos de landing: " + (gqlErr as any).message,
+        },
+        { status: 500 }
+      );
     }
 
     if (errors && errors.length > 0) {
       console.error("Errores GraphQL en landingData:", errors);
-      return NextResponse.json({ error: "Error generando landing desde GraphQL" }, { status: 500 });
+      return NextResponse.json(
+        { error: "Error generando landing desde GraphQL" },
+        { status: 500 }
+      );
     }
 
     const config = data?.landingData;
     if (!config) {
-      return NextResponse.json({ error: "No se encontró configuración para ese token" }, { status: 404 });
+      return NextResponse.json(
+        { error: "No se encontró configuración para ese token" },
+        { status: 404 }
+      );
     }
 
     // 3) Generamos el TSX con la función que definimos
@@ -68,7 +120,10 @@ export async function POST(req: NextRequest) {
       console.log("[generate-landing] TSX generado correctamente");
     } catch (genErr) {
       console.error("[generate-landing] Error generando TSX:", genErr);
-      return NextResponse.json({ error: "Error generando el archivo TSX: " + (genErr as any).message }, { status: 500 });
+      return NextResponse.json(
+        { error: "Error generando el archivo TSX: " + (genErr as any).message },
+        { status: 500 }
+      );
     }
 
     // 4) Grabamos page.tsx en /src/app/emulator/page.tsx
@@ -79,25 +134,52 @@ export async function POST(req: NextRequest) {
       await fs.writeFile(emulatorPagePath, tsxString, "utf8");
       console.log(`[generate-landing] Archivo escrito en ${emulatorPagePath}`);
     } catch (fsErr: any) {
-      console.error("[generate-landing] Error escribiendo archivo en ruta de proyecto:", fsErr);
+      console.error(
+        "[generate-landing] Error escribiendo archivo en ruta de proyecto:",
+        fsErr
+      );
       // Si estamos en Vercel y hay error de permisos, intentamos en /tmp
-      if (fsErr.code === "EACCES" || fsErr.code === "EROFS" || (fsErr.message && fsErr.message.includes("read-only"))) {
+      if (
+        fsErr.code === "EACCES" ||
+        fsErr.code === "EROFS" ||
+        (fsErr.message && fsErr.message.includes("read-only"))
+      ) {
         try {
           const tmpPath = path.join("/tmp", "page.tsx");
           await fs.writeFile(tmpPath, tsxString, "utf8");
           console.log(`[generate-landing] Archivo escrito en /tmp/page.tsx`);
-          return NextResponse.json({ success: true, tmpPath, warning: "Archivo escrito en /tmp por error de permisos en ruta de proyecto" });
+          return NextResponse.json({
+            success: true,
+            tmpPath,
+            warning:
+              "Archivo escrito en /tmp por error de permisos en ruta de proyecto",
+          });
         } catch (tmpErr) {
-          console.error("[generate-landing] Error escribiendo archivo en /tmp:", tmpErr);
-          return NextResponse.json({ error: "Error escribiendo archivo en /tmp: " + (tmpErr as any).message }, { status: 500 });
+          console.error(
+            "[generate-landing] Error escribiendo archivo en /tmp:",
+            tmpErr
+          );
+          return NextResponse.json(
+            {
+              error:
+                "Error escribiendo archivo en /tmp: " + (tmpErr as any).message,
+            },
+            { status: 500 }
+          );
         }
       }
-      return NextResponse.json({ error: "Error escribiendo archivo: " + fsErr.message }, { status: 500 });
+      return NextResponse.json(
+        { error: "Error escribiendo archivo: " + fsErr.message },
+        { status: 500 }
+      );
     }
 
     return NextResponse.json({ success: true });
   } catch (err: any) {
     console.error("Error en /api/generate-landing:", err);
-    return NextResponse.json({ error: "Error interno: " + err.message }, { status: 500 });
+    return NextResponse.json(
+      { error: "Error interno: " + err.message },
+      { status: 500 }
+    );
   }
 }

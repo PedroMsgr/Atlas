@@ -1,6 +1,6 @@
 // src/graphql/queries/image.querys.ts
 
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const GET_IMAGE_BY_ID = gql`
   query GetImageById($id: ID!) {

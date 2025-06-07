@@ -1,5 +1,5 @@
-import React, { useState, useMemo, useEffect } from 'react';
-import { Box, TextField, Flex, Button, Text } from '@radix-ui/themes';
+import React, { useState, useMemo, useEffect } from "react";
+import { Box, TextField, Flex, Button, Text } from "@radix-ui/themes";
 
 interface SearchFrontendProps<T> {
   data: T[];
@@ -7,19 +7,24 @@ interface SearchFrontendProps<T> {
   searchFields?: (keyof T & string)[]; // Nuevo: permite múltiples campos
   placeholder?: string;
   pageSize?: number;
-  onChange: (filtered: T[], paginated: T[], page: number, totalPages: number) => void;
+  onChange: (
+    filtered: T[],
+    paginated: T[],
+    page: number,
+    totalPages: number
+  ) => void;
 }
 
 export function SearchFrontend<T>({
   data,
   searchField,
   searchFields,
-  placeholder = 'Buscar...',
+  placeholder = "Buscar...",
   pageSize = 10,
   onChange,
 }: SearchFrontendProps<T>) {
-  const [search, setSearch] = useState('');
-  const [debouncedSearch, setDebouncedSearch] = useState('');
+  const [search, setSearch] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
   const [page, setPage] = useState(1);
 
   // Debounce: actualiza debouncedSearch solo si el usuario deja de escribir 800ms
@@ -36,7 +41,7 @@ export function SearchFrontend<T>({
       return data.filter((item) =>
         searchFields.some((field) => {
           const value = item[field];
-          if (typeof value === 'string') {
+          if (typeof value === "string") {
             return value.toLowerCase().includes(debouncedSearch.toLowerCase());
           }
           return false;
@@ -46,7 +51,7 @@ export function SearchFrontend<T>({
     if (searchField) {
       return data.filter((item) => {
         const value = item[searchField];
-        if (typeof value === 'string') {
+        if (typeof value === "string") {
           return value.toLowerCase().includes(debouncedSearch.toLowerCase());
         }
         return false;
@@ -84,11 +89,21 @@ export function SearchFrontend<T>({
       </Flex>
       {totalPages > 1 && (
         <Flex gap="2" align="center" justify="center" className="mt-4">
-          <Button size="1" onClick={() => setPage(page - 1)} disabled={page === 1}>
+          <Button
+            size="1"
+            onClick={() => setPage(page - 1)}
+            disabled={page === 1}
+          >
             Anterior
           </Button>
-          <Text size="2">Página {page} de {totalPages}</Text>
-          <Button size="1" onClick={() => setPage(page + 1)} disabled={page === totalPages}>
+          <Text size="2">
+            Página {page} de {totalPages}
+          </Text>
+          <Button
+            size="1"
+            onClick={() => setPage(page + 1)}
+            disabled={page === totalPages}
+          >
             Siguiente
           </Button>
         </Flex>

@@ -1,26 +1,25 @@
 // src/services/server-service.ts
 
-import { ServersRepository } from '@/db/repositories/servers.repo';
-import { ConstellationsRepository } from '@/db/repositories/constellations.repo';
-import { tokenService } from '@/services/token.service';
+import { ServersRepository } from "@/db/repositories/servers.repo";
+import { ConstellationsRepository } from "@/db/repositories/constellations.repo";
+import { tokenService } from "@/services/token.service";
 
 class ServerService {
-  
   private serversRepo: ServersRepository;
   private constellationsRepo: ConstellationsRepository;
-  
+
   constructor() {
     this.serversRepo = new ServersRepository();
     this.constellationsRepo = new ConstellationsRepository();
   }
   async getAllServers() {
     const servers = await this.serversRepo.findAll();
-    return servers.map(server => ({
+    return servers.map((server) => ({
       ...server,
       isActive: true,
       // Asegurarse de que las fechas estén en formato ISO
       createdAt: server.createdAt ? server.createdAt.toISOString() : null,
-      updatedAt: server.updatedAt ? server.updatedAt.toISOString() : null
+      updatedAt: server.updatedAt ? server.updatedAt.toISOString() : null,
     }));
   }
 
@@ -32,13 +31,17 @@ class ServerService {
         isActive: true,
         // Asegurarse de que las fechas estén en formato ISO
         createdAt: server.createdAt ? server.createdAt.toISOString() : null,
-        updatedAt: server.updatedAt ? server.updatedAt.toISOString() : null
+        updatedAt: server.updatedAt ? server.updatedAt.toISOString() : null,
       };
     }
     return null;
   }
 
-  async createServer(data: { name: string; domain: string; constellationId?: string }) {
+  async createServer(data: {
+    name: string;
+    domain: string;
+    constellationId?: string;
+  }) {
     const { name, domain, constellationId } = data;
 
     // Verificar si el dominio ya existe
@@ -66,7 +69,7 @@ class ServerService {
     }
 
     const createdServer = await this.serversRepo.create(serverData);
-    
+
     // Obtener el servidor con sus relaciones
     const server = await this.serversRepo.findById(createdServer.id);
     if (server) {
@@ -74,18 +77,21 @@ class ServerService {
         ...server,
         isActive: true, // Siempre devolvemos true por ahora
         createdAt: server.createdAt ? server.createdAt.toISOString() : null,
-        updatedAt: server.updatedAt ? server.updatedAt.toISOString() : null
+        updatedAt: server.updatedAt ? server.updatedAt.toISOString() : null,
       };
     }
     return null;
   }
-  async updateServer(id: string, data: { 
-    name?: string; 
-    domain?: string; 
-    constellationId?: string;
-    isActive?: boolean;
-    activeConfigId?: string; // <-- Añadido
-  }) {
+  async updateServer(
+    id: string,
+    data: {
+      name?: string;
+      domain?: string;
+      constellationId?: string;
+      isActive?: boolean;
+      activeConfigId?: string; // <-- Añadido
+    }
+  ) {
     // Si se está actualizando el dominio, verificar que no exista
     if (data.domain) {
       const existingServer = await this.serversRepo.findByDomain(data.domain);
@@ -97,7 +103,7 @@ class ServerService {
     // Mapeo de activeConfigId a configId para Prisma
     const updateData: any = {
       ...data,
-      updatedAt: new Date()
+      updatedAt: new Date(),
     };
     if (data.activeConfigId !== undefined) {
       updateData.configId = data.activeConfigId;
@@ -106,46 +112,58 @@ class ServerService {
 
     // Actualizamos el servidor con los nuevos datos
     const updatedServer = await this.serversRepo.update(id, updateData);
-    
+
     // Obtenemos el servidor con sus relaciones actualizadas
     const serverWithRelations = await this.serversRepo.findById(id);
-    
+
     // Si el servidor existe, lo devolvemos con las relaciones
     if (serverWithRelations) {
       return {
         ...serverWithRelations,
         isActive: true,
         // Asegurarse de que las fechas estén en formato ISO
-        createdAt: serverWithRelations.createdAt ? serverWithRelations.createdAt.toISOString() : null, 
-        updatedAt: serverWithRelations.updatedAt ? serverWithRelations.updatedAt.toISOString() : null
+        createdAt: serverWithRelations.createdAt
+          ? serverWithRelations.createdAt.toISOString()
+          : null,
+        updatedAt: serverWithRelations.updatedAt
+          ? serverWithRelations.updatedAt.toISOString()
+          : null,
       };
     }
-    
+
     return updatedServer;
   }
   async deleteServer(id: string) {
     return await this.serversRepo.delete(id);
   }
-  
-  async updateServerTokens(id: string, orchestratorToken: string, unitToken: string) {
+
+  async updateServerTokens(
+    id: string,
+    orchestratorToken: string,
+    unitToken: string
+  ) {
     // Verificar que el servidor exista
     const server = await this.serversRepo.findById(id);
     if (!server) {
       throw new Error(`No se encontró el servidor con ID: ${id}`);
     }
-    
+
     // Actualizar los tokens y la fecha de actualización
     const updatedServer = await this.serversRepo.update(id, {
       orchestratorToken,
       unitToken,
-      updatedAt: new Date()
+      updatedAt: new Date(),
     });
-    
+
     return {
       ...updatedServer,
       isActive: true,
-      createdAt: updatedServer.createdAt ? updatedServer.createdAt.toISOString() : null,
-      updatedAt: updatedServer.updatedAt ? updatedServer.updatedAt.toISOString() : null
+      createdAt: updatedServer.createdAt
+        ? updatedServer.createdAt.toISOString()
+        : null,
+      updatedAt: updatedServer.updatedAt
+        ? updatedServer.updatedAt.toISOString()
+        : null,
     };
   }
   async getAllConstellations() {
@@ -163,13 +181,16 @@ class ServerService {
   async createConstellation(data: { name: string; description?: string }) {
     return this.constellationsRepo.create({
       name: data.name,
-      description: data.description ?? null
+      description: data.description ?? null,
     });
   }
-  async updateConstellation(id: string, data: { name?: string; description?: string }) {
+  async updateConstellation(
+    id: string,
+    data: { name?: string; description?: string }
+  ) {
     return this.constellationsRepo.update(id, {
       ...data,
-      description: data.description ?? null
+      description: data.description ?? null,
     });
   }
   async deleteConstellation(id: string) {

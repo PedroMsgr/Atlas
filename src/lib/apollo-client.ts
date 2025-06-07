@@ -1,7 +1,7 @@
 // src/lib/apollo-client.ts
 
-import { ApolloClient, InMemoryCache, HttpLink, from } from '@apollo/client';
-import { onError } from '@apollo/client/link/error';
+import { ApolloClient, InMemoryCache, HttpLink, from } from "@apollo/client";
+import { onError } from "@apollo/client/link/error";
 
 // Manejo de errores
 const errorLink = onError(({ graphQLErrors, networkError, operation }) => {
@@ -11,27 +11,29 @@ const errorLink = onError(({ graphQLErrors, networkError, operation }) => {
       console.error(
         `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
       );
-      
+
       // Si es un error de autenticación, podemos redirigir al login
       if (
-        extensions?.code === 'UNAUTHENTICATED' || 
-        message.includes('no tienes permisos') || 
-        message.includes('no autenticado')
+        extensions?.code === "UNAUTHENTICATED" ||
+        message.includes("no tienes permisos") ||
+        message.includes("no autenticado")
       ) {
         // Redirigir solo si estamos en el cliente
-        if (typeof window !== 'undefined') {
-          window.location.href = `/auth/signin?callbackUrl=${encodeURIComponent(window.location.href)}&error=SessionRequired`;
+        if (typeof window !== "undefined") {
+          window.location.href = `/auth/signin?callbackUrl=${encodeURIComponent(
+            window.location.href
+          )}&error=SessionRequired`;
         }
       }
     });
   }
-  
+
   if (networkError) {
     console.error(`[Network error]: ${networkError}`);
     // También manejamos errores de red como timeouts o servidor caído
     if ((networkError as any).statusCode === 401) {
-      if (typeof window !== 'undefined') {
-        window.location.href = '/auth/signin?error=SessionRequired';
+      if (typeof window !== "undefined") {
+        window.location.href = "/auth/signin?error=SessionRequired";
       }
     }
   }
@@ -41,7 +43,8 @@ const errorLink = onError(({ graphQLErrors, networkError, operation }) => {
 const httpLink = new HttpLink({
   uri:
     typeof window === "undefined"
-      ? process.env.NEXT_PUBLIC_GRAPHQL_URL || "http://localhost:3000/api/graphql"
+      ? process.env.NEXT_PUBLIC_GRAPHQL_URL ||
+        "http://localhost:3000/api/graphql"
       : "/api/graphql",
   credentials: "same-origin",
 });
@@ -51,10 +54,10 @@ export function createApolloClient() {
   return new ApolloClient({
     link: from([errorLink, httpLink]),
     cache: new InMemoryCache(),
-    ssrMode: typeof window === 'undefined',
+    ssrMode: typeof window === "undefined",
     defaultOptions: {
       watchQuery: {
-        fetchPolicy: 'cache-and-network',
+        fetchPolicy: "cache-and-network",
       },
     },
   });

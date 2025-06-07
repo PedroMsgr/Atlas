@@ -1,19 +1,31 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Link from "next/link"
-import { ArrowLeft, FileText, Download, Upload, Calendar, FileIcon, Search } from "lucide-react"
+import { useState } from "react";
+import Link from "next/link";
+import {
+  ArrowLeft,
+  FileText,
+  Download,
+  Upload,
+  Calendar,
+  FileIcon,
+  Search,
+} from "lucide-react";
 
-import { Button } from "@/components/ui-shadcn/button"
-import { Input } from "@/components/ui-shadcn/input"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui-shadcn/tabs"
-import { Card, CardContent } from "@/components/ui-shadcn/card"
-import { Separator } from "@/components/ui-shadcn/separator"
-import { Badge } from "@/components/ui-shadcn/badge"
+import { Button } from "@/components/ui-shadcn/button";
+import { Input } from "@/components/ui-shadcn/input";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui-shadcn/tabs";
+import { Card, CardContent } from "@/components/ui-shadcn/card";
+import { Separator } from "@/components/ui-shadcn/separator";
+import { Badge } from "@/components/ui-shadcn/badge";
 
 // Datos de ejemplo para los archivos compartidos
 const abogadoFiles = [
-
   {
     id: 1,
     name: "Reclamación inicial.docx",
@@ -53,7 +65,7 @@ const abogadoFiles = [
     size: "2.4 MB",
     date: "05/04/2025",
     category: "Informes",
-  }
+  },
 ];
 
 const clienteFiles = [
@@ -80,28 +92,32 @@ const clienteFiles = [
     size: "190 KB",
     date: "05/04/2025",
     category: "Facturas",
-  }
+  },
 ];
 
 export default function ArchivosPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedTab, setSelectedTab] = useState("recibidos");
-  
+
   // Filtrar archivos basados en la búsqueda
-  const filteredAbogadoFiles = abogadoFiles.filter(file => 
-    file.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-    file.category.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredAbogadoFiles = abogadoFiles.filter(
+    (file) =>
+      file.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      file.category.toLowerCase().includes(searchQuery.toLowerCase())
   );
-  
-  const filteredClienteFiles = clienteFiles.filter(file => 
-    file.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-    file.category.toLowerCase().includes(searchQuery.toLowerCase())
+
+  const filteredClienteFiles = clienteFiles.filter(
+    (file) =>
+      file.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      file.category.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   // Función para manejar la subida de archivos (simulada)
   const handleFileUpload = () => {
     // Esto sería implementado con una función real de subida de archivos
-    alert("Esta funcionalidad estaría conectada a un sistema de almacenamiento en la versión final");
+    alert(
+      "Esta funcionalidad estaría conectada a un sistema de almacenamiento en la versión final"
+    );
   };
 
   return (
@@ -110,14 +126,16 @@ export default function ArchivosPage() {
       <header className="border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4">
         <div className="container mx-auto">
           <div className="flex items-center gap-4">
-            <Link 
-              href="/emulator" 
+            <Link
+              href="/emulator"
               className="text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
             >
               <ArrowLeft className="h-5 w-5" />
               <span className="sr-only">Volver</span>
             </Link>
-            <h1 className="text-xl font-bold text-slate-900 dark:text-white">Archivos compartidos</h1>
+            <h1 className="text-xl font-bold text-slate-900 dark:text-white">
+              Archivos compartidos
+            </h1>
           </div>
         </div>
       </header>
@@ -135,7 +153,7 @@ export default function ArchivosPage() {
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
-            <Button 
+            <Button
               onClick={handleFileUpload}
               className="bg-blue-700 hover:bg-blue-800 dark:bg-blue-800 dark:hover:bg-blue-900 gap-2"
             >
@@ -145,9 +163,9 @@ export default function ArchivosPage() {
           </div>
 
           {/* Pestañas */}
-          <Tabs 
-            defaultValue="recibidos" 
-            value={selectedTab} 
+          <Tabs
+            defaultValue="recibidos"
+            value={selectedTab}
             onValueChange={setSelectedTab}
             className="w-full"
           >
@@ -155,29 +173,39 @@ export default function ArchivosPage() {
               <TabsTrigger value="recibidos">Archivos del abogado</TabsTrigger>
               <TabsTrigger value="enviados">Mis archivos</TabsTrigger>
             </TabsList>
-            
+
             <TabsContent value="recibidos" className="space-y-4">
               <div className="flex justify-between items-center mb-2">
-                <h2 className="text-lg font-medium text-slate-900 dark:text-white">Documentos del abogado</h2>
+                <h2 className="text-lg font-medium text-slate-900 dark:text-white">
+                  Documentos del abogado
+                </h2>
                 <div className="flex items-center text-sm text-slate-500 dark:text-slate-400">
                   <span>{filteredAbogadoFiles.length} archivos</span>
                 </div>
               </div>
-              
+
               {/* Lista de archivos */}
               <div className="bg-white dark:bg-slate-800 rounded-lg shadow">
                 {filteredAbogadoFiles.length > 0 ? (
                   <div className="divide-y divide-slate-200 dark:divide-slate-700">
                     {filteredAbogadoFiles.map((file) => (
-                      <div key={file.id} className="p-4 hover:bg-slate-50 dark:hover:bg-slate-750 transition-colors">
+                      <div
+                        key={file.id}
+                        className="p-4 hover:bg-slate-50 dark:hover:bg-slate-750 transition-colors"
+                      >
                         <div className="flex items-start gap-3">
                           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded bg-slate-100 dark:bg-slate-700">
                             <FileText className="h-5 w-5 text-blue-600 dark:text-blue-400" />
                           </div>
                           <div className="flex-1 min-w-0">
                             <div className="flex flex-col">
-                              <p className="font-medium text-slate-900 dark:text-white truncate">{file.name}</p>
-                              <Badge variant="outline" className="w-fit mt-1 text-xs bg-slate-50 dark:bg-slate-700">
+                              <p className="font-medium text-slate-900 dark:text-white truncate">
+                                {file.name}
+                              </p>
+                              <Badge
+                                variant="outline"
+                                className="w-fit mt-1 text-xs bg-slate-50 dark:bg-slate-700"
+                              >
                                 {file.category}
                               </Badge>
                               <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mt-1.5">
@@ -190,7 +218,11 @@ export default function ArchivosPage() {
                               </div>
                             </div>
                           </div>
-                          <Button variant="ghost" size="icon" className="h-8 w-8 shrink-0 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300">
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-8 w-8 shrink-0 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300"
+                          >
                             <Download className="h-4 w-4" />
                             <span className="sr-only">Descargar</span>
                           </Button>
@@ -205,35 +237,49 @@ export default function ArchivosPage() {
                         <FileIcon className="h-6 w-6 text-slate-500 dark:text-slate-400" />
                       </div>
                     </div>
-                    <h3 className="mb-1 text-lg font-medium text-slate-900 dark:text-white">No se han encontrado archivos</h3>
-                    <p className="text-sm text-slate-500 dark:text-slate-400">Intenta con otra búsqueda</p>
+                    <h3 className="mb-1 text-lg font-medium text-slate-900 dark:text-white">
+                      No se han encontrado archivos
+                    </h3>
+                    <p className="text-sm text-slate-500 dark:text-slate-400">
+                      Intenta con otra búsqueda
+                    </p>
                   </div>
                 )}
               </div>
             </TabsContent>
-            
+
             <TabsContent value="enviados" className="space-y-4">
               <div className="flex justify-between items-center mb-2">
-                <h2 className="text-lg font-medium text-slate-900 dark:text-white">Mis documentos compartidos</h2>
+                <h2 className="text-lg font-medium text-slate-900 dark:text-white">
+                  Mis documentos compartidos
+                </h2>
                 <div className="flex items-center text-sm text-slate-500 dark:text-slate-400">
                   <span>{filteredClienteFiles.length} archivos</span>
                 </div>
               </div>
-              
+
               {/* Lista de archivos */}
               <div className="bg-white dark:bg-slate-800 rounded-lg shadow">
                 {filteredClienteFiles.length > 0 ? (
                   <div className="divide-y divide-slate-200 dark:divide-slate-700">
                     {filteredClienteFiles.map((file) => (
-                      <div key={file.id} className="p-4 hover:bg-slate-50 dark:hover:bg-slate-750 transition-colors">
+                      <div
+                        key={file.id}
+                        className="p-4 hover:bg-slate-50 dark:hover:bg-slate-750 transition-colors"
+                      >
                         <div className="flex items-start gap-3">
                           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded bg-slate-100 dark:bg-slate-700">
                             <FileText className="h-5 w-5 text-blue-600 dark:text-blue-400" />
                           </div>
                           <div className="flex-1 min-w-0">
                             <div className="flex flex-col">
-                              <p className="font-medium text-slate-900 dark:text-white truncate">{file.name}</p>
-                              <Badge variant="outline" className="w-fit mt-1 text-xs bg-slate-50 dark:bg-slate-700">
+                              <p className="font-medium text-slate-900 dark:text-white truncate">
+                                {file.name}
+                              </p>
+                              <Badge
+                                variant="outline"
+                                className="w-fit mt-1 text-xs bg-slate-50 dark:bg-slate-700"
+                              >
                                 {file.category}
                               </Badge>
                               <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mt-1.5">
@@ -246,7 +292,11 @@ export default function ArchivosPage() {
                               </div>
                             </div>
                           </div>
-                          <Button variant="ghost" size="icon" className="h-8 w-8 shrink-0 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300">
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-8 w-8 shrink-0 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300"
+                          >
                             <Download className="h-4 w-4" />
                             <span className="sr-only">Descargar</span>
                           </Button>
@@ -261,21 +311,28 @@ export default function ArchivosPage() {
                         <FileIcon className="h-6 w-6 text-slate-500 dark:text-slate-400" />
                       </div>
                     </div>
-                    <h3 className="mb-1 text-lg font-medium text-slate-900 dark:text-white">No se han encontrado archivos</h3>
-                    <p className="text-sm text-slate-500 dark:text-slate-400">Intenta con otra búsqueda</p>
+                    <h3 className="mb-1 text-lg font-medium text-slate-900 dark:text-white">
+                      No se han encontrado archivos
+                    </h3>
+                    <p className="text-sm text-slate-500 dark:text-slate-400">
+                      Intenta con otra búsqueda
+                    </p>
                   </div>
                 )}
               </div>
             </TabsContent>
           </Tabs>
-          
+
           {/* Sección de instrucciones */}
           <Card className="mt-6">
             <CardContent className="pt-6">
-              <h3 className="text-lg font-medium text-slate-900 dark:text-white mb-2">Compartir documentos</h3>
+              <h3 className="text-lg font-medium text-slate-900 dark:text-white mb-2">
+                Compartir documentos
+              </h3>
               <p className="text-sm text-slate-500 dark:text-slate-400">
-                En esta sección puede ver los documentos compartidos por su abogado y también subir documentos 
-                relacionados con su caso para que sean revisados por el equipo legal.
+                En esta sección puede ver los documentos compartidos por su
+                abogado y también subir documentos relacionados con su caso para
+                que sean revisados por el equipo legal.
               </p>
               <Separator className="my-4" />
               <div className="flex flex-col space-y-2">
@@ -283,16 +340,18 @@ export default function ArchivosPage() {
                   <div className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300">
                     <span className="text-xs font-medium">1</span>
                   </div>
-                    <span className="text-sm text-slate-700 dark:text-slate-300">
-                    Use el botón &quot;Subir archivo&quot; para añadir documentos
-                    </span>
+                  <span className="text-sm text-slate-700 dark:text-slate-300">
+                    Use el botón &quot;Subir archivo&quot; para añadir
+                    documentos
+                  </span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300">
                     <span className="text-xs font-medium">2</span>
                   </div>
                   <span className="text-sm text-slate-700 dark:text-slate-300">
-                    Los documentos compartidos por su abogado están en la pestaña &quot;Archivos del abogado&quot;
+                    Los documentos compartidos por su abogado están en la
+                    pestaña &quot;Archivos del abogado&quot;
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
@@ -300,7 +359,8 @@ export default function ArchivosPage() {
                     <span className="text-xs font-medium">3</span>
                   </div>
                   <span className="text-sm text-slate-700 dark:text-slate-300">
-                    Los documentos que ha subido están en la pestaña &quot;Mis archivos&quot;
+                    Los documentos que ha subido están en la pestaña &quot;Mis
+                    archivos&quot;
                   </span>
                 </div>
               </div>
@@ -308,13 +368,11 @@ export default function ArchivosPage() {
           </Card>
         </div>
       </main>
-      
+
       {/* Footer minimalista */}
       <footer className="border-t border-slate-200 py-4 text-center text-sm text-slate-500 dark:border-slate-800 dark:text-slate-400">
-        <p>
-          © {new Date().getFullYear()} AsesoLegal Patinetes
-        </p>
+        <p>© {new Date().getFullYear()} AsesoLegal Patinetes</p>
       </footer>
     </div>
-  )
+  );
 }

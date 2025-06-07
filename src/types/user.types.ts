@@ -2,11 +2,11 @@ import { User } from "@/generated/prisma";
 
 // Enums
 export enum ClientStatus {
-  New = 'new',
-  Reviewing = 'reviewing',
-  Active = 'active',
-  Inactive = 'inactive',
-  Suspended = 'suspended'
+  New = "new",
+  Reviewing = "reviewing",
+  Active = "active",
+  Inactive = "inactive",
+  Suspended = "suspended",
 }
 
 // Client types
@@ -39,10 +39,10 @@ export interface ProfessionalWithRelations extends ProfessionalBase {
 
 // Case types
 export enum CaseStatus {
-  Open = 'open',
-  InProgress = 'inProgress',
-  Pending = 'pending',
-  Closed = 'closed'
+  Open = "open",
+  InProgress = "inProgress",
+  Pending = "pending",
+  Closed = "closed",
 }
 
 export interface CaseBase {
@@ -71,8 +71,8 @@ export interface ChatBase {
 }
 
 export enum Sender {
-  Client = 'client',
-  Professional = 'professional'
+  Client = "client",
+  Professional = "professional",
 }
 
 export interface MessageBase {
@@ -122,7 +122,7 @@ export interface UserBase {
 }
 
 export enum Role {
-  CLIENT = 'client',
-  PROFESSIONAL = 'professional',
-  ADMIN = 'admin',
+  CLIENT = "client",
+  PROFESSIONAL = "professional",
+  ADMIN = "admin",
 }

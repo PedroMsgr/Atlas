@@ -1,6 +1,6 @@
 // src/graphql/mutations/section.mutations.ts
 
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const CREATE_SECTION = gql`
   mutation CreateSection($data: SectionInput!) {

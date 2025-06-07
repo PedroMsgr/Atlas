@@ -45,38 +45,37 @@ enum ClientStatus {
 
 /// Tipos de sesión: local para el orquestador, api para servidores unitarios
 enum SessionType {
-  local       // sesión en el orquestador (administrador)
-  api         // sesión en un servidor unitario (cliente/profesional)
+  local // sesión en el orquestador (administrador)
+  api // sesión en un servidor unitario (cliente/profesional)
 }
 
 /// Tipos de sección mostrados en la landing del servidor unitario
 enum SectionType {
-  text         // párrafo o bloque HTML
-  legalGuide   // listado de pasos/FAQ legales
-  manual       // contenido curado manualmente
-  newsConfig   // bloque de noticias automáticas
+  text // párrafo o bloque HTML
+  legalGuide // listado de pasos/FAQ legales
+  manual // contenido curado manualmente
+  newsConfig // bloque de noticias automáticas
 }
 
 // ---------- Modelos de identidad ----------
 model User {
-  id           String          @id @default(uuid())
-  email        String          @unique
-  password     String
-  role         Role
-  firstName    String
-  lastName     String
-  phone        String?
-  address      String?
-  avatarUrl    String?
-  isActive     Boolean         @default(true)
-  createdAt    DateTime        @default(now())
-  updatedAt    DateTime        @updatedAt
-  lastLoginAt  DateTime?
+  id          String    @id @default(uuid())
+  email       String    @unique
+  password    String
+  role        Role
+  firstName   String
+  lastName    String
+  phone       String?
+  address     String?
+  avatarUrl   String?
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  lastLoginAt DateTime?
 
-  clients      Client[]
+  clients       Client[]
   professionals Professional[]
 }
-
 
 model Client {
   id       String       @id @default(uuid())
@@ -93,67 +92,67 @@ model Client {
 }
 
 model Professional {
-  id          String      @id @default(uuid())
-  userId      String
-  serverId    String
+  id       String @id @default(uuid())
+  userId   String
+  serverId String
 
-  user        User        @relation(fields: [userId], references: [id])
-  server      UnitServer  @relation(fields: [serverId], references: [id])
+  user   User       @relation(fields: [userId], references: [id])
+  server UnitServer @relation(fields: [serverId], references: [id])
 
-  cases       Case[]
-  files       File[]
+  cases Case[]
+  files File[]
 }
 
 // ---------- Casos y comunicación ----------
 model Case {
-  id             String         @id @default(uuid())
+  id             String     @id @default(uuid())
   clientId       String
   professionalId String
   serverId       String
-  status         CaseStatus     @default(open)
-  createdAt      DateTime       @default(now())
-  updatedAt      DateTime       @updatedAt
+  status         CaseStatus @default(open)
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
 
-  client        Client         @relation(fields: [clientId], references: [id])
-  professional  Professional   @relation(fields: [professionalId], references: [id])
-  server        UnitServer     @relation(fields: [serverId], references: [id])
+  client       Client       @relation(fields: [clientId], references: [id])
+  professional Professional @relation(fields: [professionalId], references: [id])
+  server       UnitServer   @relation(fields: [serverId], references: [id])
 
-  chat          Chat?
-  files         File[]
-  reports       Report[]
+  chat    Chat?
+  files   File[]
+  reports Report[]
 }
 
 model Chat {
-  id       String     @id @default(uuid())
-  caseId   String     @unique
+  id     String @id @default(uuid())
+  caseId String @unique
 
-  case     Case       @relation(fields: [caseId], references: [id])
+  case     Case      @relation(fields: [caseId], references: [id])
   messages Message[]
 }
 
 model Message {
-  id       String    @id @default(uuid())
-  chatId   String
-  sender   Sender
-  content  String
-  date     DateTime  @default(now())
+  id      String   @id @default(uuid())
+  chatId  String
+  sender  Sender
+  content String
+  date    DateTime @default(now())
 
-  chat     Chat      @relation(fields: [chatId], references: [id])
+  chat Chat @relation(fields: [chatId], references: [id])
 }
 
 model File {
-  id              String        @id @default(uuid())
-  caseId          String
-  clientId        String?
-  professionalId  String?
-  name            String
-  url             String
-  type            String
-  date            DateTime      @default(now())
+  id             String   @id @default(uuid())
+  caseId         String
+  clientId       String?
+  professionalId String?
+  name           String
+  url            String
+  type           String
+  date           DateTime @default(now())
 
-  case           Case           @relation(fields: [caseId], references: [id])
-  client         Client?        @relation(fields: [clientId], references: [id])
-  professional   Professional?  @relation(fields: [professionalId], references: [id])
+  case         Case          @relation(fields: [caseId], references: [id])
+  client       Client?       @relation(fields: [clientId], references: [id])
+  professional Professional? @relation(fields: [professionalId], references: [id])
 }
 
 model Report {
@@ -163,41 +162,41 @@ model Report {
   reason    String
   createdAt DateTime @default(now())
 
-  case      Case     @relation(fields: [caseId], references: [id])
-  client    Client   @relation(fields: [clientId], references: [id])
+  case   Case   @relation(fields: [caseId], references: [id])
+  client Client @relation(fields: [clientId], references: [id])
 }
 
 // ---------- Estructura de servidores ----------
 model Constellation {
-  id          String       @id @default(uuid())
-  name        String       @unique
+  id          String  @id @default(uuid())
+  name        String  @unique
   description String?
 
-  servers     UnitServer[]
+  servers UnitServer[]
 }
 
 model UnitConfig {
-  id                String      @id @default(uuid())
-  name              String      @unique
-  pageTitle         String
-  pageDescription   String
-  iconUrl           String?
+  id                  String       @id @default(uuid())
+  name                String       @unique
+  pageTitle           String
+  pageDescription     String
+  iconUrl             String?
   servicesDescription String
-  bannerUrl         String?
-  footerInfo        String?
-  legalSteps        LegalStep[]
-  articles          Article[]
-  sections          Section[]
-  images            Image[]
-  footerLinks       FooterLink[]
-  createdAt        DateTime     @default(now())
-  updatedAt        DateTime     @default(now())
+  bannerUrl           String?
+  footerInfo          String?
+  legalSteps          LegalStep[]
+  articles            Article[]
+  sections            Section[]
+  images              Image[]
+  footerLinks         FooterLink[]
+  createdAt           DateTime     @default(now())
+  updatedAt           DateTime     @default(now())
 
-  servers          UnitServer[] @relation("UnitServerConfig") // Relación inversa
+  servers UnitServer[] @relation("UnitServerConfig") // Relación inversa
 }
 
 model LegalStep {
-  id          String   @id @default(uuid())
+  id          String     @id @default(uuid())
   title       String
   description String
   order       Int
@@ -206,7 +205,7 @@ model LegalStep {
 }
 
 model FooterLink {
-  id       String   @id @default(uuid())
+  id       String     @id @default(uuid())
   label    String
   url      String
   order    Int
@@ -216,7 +215,7 @@ model FooterLink {
 
 // ---------- Contenido de las landings ----------
 model Section {
-  id       String   @id @default(uuid())
+  id       String     @id @default(uuid())
   title    String
   body     String
   imageUrl String?
@@ -227,16 +226,16 @@ model Section {
 }
 
 model Image {
-  id       String     @id @default(uuid())
-  configId String
-  url      String
-  altText  String?
-  type     String     // hero, gallery, icon…
-  order    Int?
+  id        String  @id @default(uuid())
+  configId  String
+  url       String
+  altText   String?
+  type      String // hero, gallery, icon…
+  order     Int?
   sectionId String?
 
-  config   UnitConfig @relation(fields: [configId], references: [id])
-  section  Section?   @relation("SectionImages", fields: [sectionId], references: [id])
+  config  UnitConfig @relation(fields: [configId], references: [id])
+  section Section?   @relation("SectionImages", fields: [sectionId], references: [id])
 }
 
 model Article {
@@ -251,36 +250,35 @@ model Article {
 }
 
 model UnitServer {
-  id               String       @id @default(uuid())
-  domain           String       @unique
-  name             String
-  orchestratorToken String      @unique
-  unitToken        String      @unique
-  isActive         Boolean      @default(true)
-  constellationId  String
-  configId         String?      // Relación a la configuración activa
-  createdAt        DateTime    @default(now())
-  updatedAt        DateTime    @default(now())
+  id                String   @id @default(uuid())
+  domain            String   @unique
+  name              String
+  orchestratorToken String   @unique
+  unitToken         String   @unique
+  isActive          Boolean  @default(true)
+  constellationId   String
+  configId          String? // Relación a la configuración activa
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @default(now())
 
-  constellation    Constellation @relation(fields: [constellationId], references: [id])
-  config           UnitConfig?   @relation("UnitServerConfig", fields: [configId], references: [id])
-  clients          Client[]
-  professionals    Professional[]
-  cases            Case[]
-  serverLogs       ServerLog[]
+  constellation Constellation  @relation(fields: [constellationId], references: [id])
+  config        UnitConfig?    @relation("UnitServerConfig", fields: [configId], references: [id])
+  clients       Client[]
+  professionals Professional[]
+  cases         Case[]
+  serverLogs    ServerLog[]
 }
 
 // ---------- Logs y notificaciones ----------
 model ServerLog {
-  id        String   @id @default(cuid())
+  id        String     @id @default(cuid())
   serverId  String
   type      String
   message   String
-  timestamp DateTime @default(now())
+  timestamp DateTime   @default(now())
   metadata  Json?
   server    UnitServer @relation(fields: [serverId], references: [id])
 
   @@index([serverId])
   @@index([timestamp])
 }
-

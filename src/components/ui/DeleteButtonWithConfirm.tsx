@@ -1,7 +1,7 @@
-import ConfirmDeleteDialog from '@/components/ui/ConfirmDeleteDialog';
-import { Button as RadixButton } from '@radix-ui/themes';
-import { TrashIcon } from '@radix-ui/react-icons';
-import { useState } from 'react';
+import ConfirmDeleteDialog from "@/components/ui/ConfirmDeleteDialog";
+import { Button as RadixButton } from "@radix-ui/themes";
+import { TrashIcon } from "@radix-ui/react-icons";
+import { useState } from "react";
 
 interface DeleteButtonWithConfirmProps {
   id: string;
@@ -18,9 +18,9 @@ export default function DeleteButtonWithConfirm({
   name,
   loading,
   onConfirm,
-  title = '¿Eliminar elemento?',
+  title = "¿Eliminar elemento?",
   description,
-  ariaLabel
+  ariaLabel,
 }: DeleteButtonWithConfirmProps) {
   const [open, setOpen] = useState(false);
   return (
@@ -37,7 +37,10 @@ export default function DeleteButtonWithConfirm({
         color="red"
         variant="soft"
         size="1"
-        onClick={e => { e.stopPropagation?.(); setOpen(true); }}
+        onClick={(e) => {
+          e.stopPropagation?.();
+          setOpen(true);
+        }}
         disabled={loading}
         aria-label={ariaLabel || `Eliminar ${name}`}
       >

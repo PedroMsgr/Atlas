@@ -13,7 +13,6 @@ import { LegalStep, FooterLink } from "@/generated/prisma";
 import { imageService } from "@/services/image.service";
 
 class ConfigService {
-  
   private configsRepo: ConfigsRepository;
   private serversRepo: ServersRepository;
   private sectionsRepo: SectionsRepository;
@@ -269,7 +268,7 @@ class ConfigService {
     // Verificar existencia antes de actualizar para evitar error de prisma
     const section = await this.sectionsRepo.findById(id);
     if (!section) {
-      throw new Error('No se encontró la sección a actualizar');
+      throw new Error("No se encontró la sección a actualizar");
     }
     return this.sectionsRepo.update(id, data);
   }

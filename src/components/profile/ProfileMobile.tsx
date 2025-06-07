@@ -4,7 +4,15 @@ import { useState, useEffect, useRef } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_ME } from "@/graphql/queries/me.queries";
 import { UPDATE_ME } from "@/graphql/mutations/me.mutations";
-import { Box, Heading, Text, Button, TextField, Flex, Spinner } from "@radix-ui/themes";
+import {
+  Box,
+  Heading,
+  Text,
+  Button,
+  TextField,
+  Flex,
+  Spinner,
+} from "@radix-ui/themes";
 import { signOut } from "next-auth/react";
 
 export default function ProfileMobile() {
@@ -59,7 +67,8 @@ export default function ProfileMobile() {
 
   const passwordValid =
     !form.newPassword ||
-    (/^(?=.*\d).{6,}$/.test(form.newPassword) && form.newPassword === form.confirmNewPassword);
+    (/^(?=.*\d).{6,}$/.test(form.newPassword) &&
+      form.newPassword === form.confirmNewPassword);
 
   const passwordError =
     form.newPassword && form.newPassword.length < 6
@@ -101,7 +110,12 @@ export default function ProfileMobile() {
         setSuccess(true);
         setMessage(result.updateMe.message);
         setEditing(false);
-        setForm((f) => ({ ...f, oldPassword: "", newPassword: "", confirmNewPassword: "" }));
+        setForm((f) => ({
+          ...f,
+          oldPassword: "",
+          newPassword: "",
+          confirmNewPassword: "",
+        }));
         refetch();
         if (form.newPassword) {
           setTimeout(() => signOut({ callbackUrl: "/auth/signin" }), 2000);
@@ -129,7 +143,9 @@ export default function ProfileMobile() {
         <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center text-2xl text-blue-600 border border-blue-200 shadow-sm mb-3">
           {user?.firstName ? user.firstName[0] : ""}
         </div>
-        <Heading size="6" className="mb-0 text-center w-full font-bold">Mi perfil</Heading>
+        <Heading size="6" className="mb-0 text-center w-full font-bold">
+          Mi perfil
+        </Heading>
         <Text color="gray" size="2" className="mb-3 w-full text-center">
           Rol: <b className="uppercase">{user?.role}</b>
         </Text>
@@ -152,13 +168,17 @@ export default function ProfileMobile() {
       {/* Formulario o vista solo lectura */}
       <form
         onSubmit={handleSave}
-        className={`w-full max-w-sm mx-auto flex flex-col ${editing ? "gap-4" : "gap-3"} mb-8`}
+        className={`w-full max-w-sm mx-auto flex flex-col ${
+          editing ? "gap-4" : "gap-3"
+        } mb-8`}
         autoComplete="off"
       >
         <TextField.Root
           ref={firstInputRef}
           value={form.firstName}
-          onChange={(e) => setForm((f) => ({ ...f, firstName: e.target.value }))}
+          onChange={(e) =>
+            setForm((f) => ({ ...f, firstName: e.target.value }))
+          }
           onKeyDown={handleKeyDown}
           placeholder="Nombre"
           disabled={!editing}
@@ -188,7 +208,9 @@ export default function ProfileMobile() {
           <>
             <TextField.Root
               value={form.oldPassword}
-              onChange={(e) => setForm((f) => ({ ...f, oldPassword: e.target.value }))}
+              onChange={(e) =>
+                setForm((f) => ({ ...f, oldPassword: e.target.value }))
+              }
               onKeyDown={handleKeyDown}
               placeholder="Contraseña actual"
               type="password"
@@ -200,7 +222,9 @@ export default function ProfileMobile() {
             />
             <TextField.Root
               value={form.newPassword}
-              onChange={(e) => setForm((f) => ({ ...f, newPassword: e.target.value }))}
+              onChange={(e) =>
+                setForm((f) => ({ ...f, newPassword: e.target.value }))
+              }
               onKeyDown={handleKeyDown}
               placeholder="Nueva contraseña"
               type="password"
@@ -211,7 +235,9 @@ export default function ProfileMobile() {
             />
             <TextField.Root
               value={form.confirmNewPassword}
-              onChange={(e) => setForm((f) => ({ ...f, confirmNewPassword: e.target.value }))}
+              onChange={(e) =>
+                setForm((f) => ({ ...f, confirmNewPassword: e.target.value }))
+              }
               onKeyDown={handleKeyDown}
               placeholder="Confirmar nueva contraseña"
               type="password"
@@ -222,9 +248,21 @@ export default function ProfileMobile() {
             />
           </>
         )}
-        {passwordError && <Text color="red" size="1">{passwordError}</Text>}
-        {error && <Text color="red" size="1">{error}</Text>}
-        {success && <Text color="green" size="1">{message}</Text>}
+        {passwordError && (
+          <Text color="red" size="1">
+            {passwordError}
+          </Text>
+        )}
+        {error && (
+          <Text color="red" size="1">
+            {error}
+          </Text>
+        )}
+        {success && (
+          <Text color="green" size="1">
+            {message}
+          </Text>
+        )}
 
         {editing && (
           <div className="flex gap-2 pt-2">

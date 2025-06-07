@@ -1,6 +1,6 @@
 // src/graphql/mutations/config.mutations.ts
 
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const CREATE_CONFIG = gql`
   mutation CreateConfig($data: CreateConfigInput!) {

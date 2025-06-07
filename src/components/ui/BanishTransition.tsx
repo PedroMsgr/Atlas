@@ -1,7 +1,12 @@
-import { AnimatePresence, motion, AnimatePresenceProps, MotionProps } from 'framer-motion';
-import React from 'react';
+import {
+  AnimatePresence,
+  motion,
+  AnimatePresenceProps,
+  MotionProps,
+} from "framer-motion";
+import React from "react";
 
-interface BanishTransitionProps extends Omit<AnimatePresenceProps, 'children'> {
+interface BanishTransitionProps extends Omit<AnimatePresenceProps, "children"> {
   children: React.ReactNode;
   show: boolean; // Condición para mostrar/ocultar
   /**
@@ -26,7 +31,7 @@ export default function BanishTransition({
   show,
   duration = 1,
   motionProps = {},
-  className = '',
+  className = "",
   ...presenceProps
 }: BanishTransitionProps) {
   return (
@@ -37,7 +42,7 @@ export default function BanishTransition({
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -30 }}
-          transition={{ duration, ease: 'easeOut' }}
+          transition={{ duration, ease: "easeOut" }}
           className={className}
           {...motionProps}
         >
