@@ -40,7 +40,7 @@ export const UPDATE_SERVER = gql`
 `;
 
 export const UPDATE_SERVER_CONFIG = gql`
-  mutation UpdateServerConfig($id: ID!, $configId: String!) {
+  mutation UpdateServerConfig($id: ID!, $configId: ID!) {
     updateServer(id: $id, data: { configId: $configId }) {
       id
       name

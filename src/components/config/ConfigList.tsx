@@ -12,12 +12,11 @@ import {
   Table,
   Text,
   Flex,
+  Card,
 } from "@radix-ui/themes";
-import { TrashIcon } from "@radix-ui/react-icons";
 import DeleteButtonWithConfirm from "@/components/ui/DeleteButtonWithConfirm";
-import ConfigListFilters from "./ConfigListFilters";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
 interface Server {
   id: string;
@@ -32,10 +31,10 @@ interface Configuration extends UnitConfigBase {
 
 export default function ConfigList() {
   const router = useRouter();
+  const [search, setSearch] = useState("");
   const [selectedConfig, setSelectedConfig] = useState<Configuration | null>(
     null
   );
-  const [paginated, setPaginated] = useState<Configuration[]>([]);
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [deleteName, setDeleteName] = useState<string | null>(null);
   const [showDialog, setShowDialog] = useState(false);
@@ -60,6 +59,15 @@ export default function ConfigList() {
       console.error("Error al eliminar configuración:", error);
     },
   });
+
+  const configurations = data?.configurations || [];
+  // Filtro local por nombre
+  const filtered = useMemo(() => {
+    if (!search.trim()) return configurations;
+    return configurations.filter((c: any) =>
+      c.name.toLowerCase().includes(search.trim().toLowerCase())
+    );
+  }, [configurations, search]);
 
   const handleRefresh = async () => {
     try {
@@ -91,99 +99,117 @@ export default function ConfigList() {
   }
 
   return (
-    <Box className="p-4">
-      <Flex justify="between" align="center" className="mb-4">
-        <Heading size="5">Configuraciones disponibles</Heading>
-        <RadixButton onClick={handleRefresh} variant="outline">
-          Actualizar lista
-        </RadixButton>
-      </Flex>
-      <ConfigListFilters
-        data={data?.configurations || []}
-        onChange={(_filtered, paginated) => setPaginated(paginated)}
-      />
-      <Table.Root variant="surface">
-        <Table.Header>
-          <Table.Row>
-            <Table.ColumnHeaderCell>Nombre</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>
-              Servidores asignados
-            </Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>
-              Última actualización
-            </Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>Acciones</Table.ColumnHeaderCell>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          {paginated.length === 0 ? (
+    <Box>
+      <Card>
+        <Flex mb="4" align="center" gap="3">
+          <input
+            type="text"
+            placeholder="Buscar por nombre..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            style={{
+              minWidth: 220,
+              background: "#fff",
+              border: "1px solid #ddd",
+              borderRadius: 6,
+              padding: "8px 12px",
+            }}
+          />
+          <RadixButton
+            color="green"
+            onClick={() => router.push("/admin/configs/create")}
+          >
+            Crear configuración
+          </RadixButton>
+        </Flex>
+        <Table.Root
+          variant="surface"
+          className="border rounded-lg overflow-hidden"
+        >
+          <Table.Header>
             <Table.Row>
-              <Table.Cell colSpan={4} align="center">
-                <Text color="gray">No hay resultados.</Text>
-              </Table.Cell>
+              <Table.ColumnHeaderCell>Nombre</Table.ColumnHeaderCell>
+              <Table.ColumnHeaderCell>
+                Servidores asignados
+              </Table.ColumnHeaderCell>
+              <Table.ColumnHeaderCell>
+                Última actualización
+              </Table.ColumnHeaderCell>
+              <Table.ColumnHeaderCell>Acciones</Table.ColumnHeaderCell>
             </Table.Row>
-          ) : (
-            paginated.map((config) => {
-              const servers = config.servers ?? [];
-              return (
-                <Table.Row
-                  key={config.id}
-                  onClick={() => router.push(`/admin/configs/${config.id}`)}
-                  style={{
-                    cursor: "pointer",
-                    background:
-                      selectedConfig?.id === config.id ? "#f0f4ff" : undefined,
-                  }}
-                  onMouseEnter={() => setSelectedConfig(config)}
-                  onMouseLeave={() => setSelectedConfig(null)}
-                >
-                  <Table.Cell>
-                    <Text weight="bold">{config.name}</Text>
-                  </Table.Cell>
-                  <Table.Cell>
-                    {servers.length === 0 ? (
-                      <Text size="2" color="gray">
-                        No asignada
+          </Table.Header>
+          <Table.Body>
+            {filtered.length === 0 ? (
+              <Table.Row>
+                <Table.Cell colSpan={4} align="center">
+                  <Text color="gray">No hay resultados.</Text>
+                </Table.Cell>
+              </Table.Row>
+            ) : (
+              filtered.map((config: any) => {
+                const servers = config.servers ?? [];
+                return (
+                  <Table.Row
+                    key={config.id}
+                    onClick={() => router.push(`/admin/configs/${config.id}`)}
+                    style={{
+                      cursor: "pointer",
+                      background:
+                        selectedConfig?.id === config.id
+                          ? "#f0f4ff"
+                          : undefined,
+                    }}
+                    onMouseEnter={() => setSelectedConfig(config)}
+                    onMouseLeave={() => setSelectedConfig(null)}
+                  >
+                    <Table.Cell>
+                      <Text weight="bold">{config.name}</Text>
+                    </Table.Cell>
+                    <Table.Cell>
+                      {servers.length === 0 ? (
+                        <Text size="2" color="gray">
+                          No asignada
+                        </Text>
+                      ) : servers.length === 1 ? (
+                        <Text size="2">{servers[0].name}</Text>
+                      ) : (
+                        <RadixButton
+                          variant="ghost"
+                          size="1"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setSelectedConfig(config);
+                          }}
+                        >
+                          {servers.length} servidores
+                        </RadixButton>
+                      )}
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Text size="2">
+                        {new Date(config.updatedAt).toLocaleString()}
                       </Text>
-                    ) : servers.length === 1 ? (
-                      <Text size="2">{servers[0].name}</Text>
-                    ) : (
-                      <RadixButton
-                        variant="ghost"
-                        size="1"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setSelectedConfig(config);
-                        }}
-                      >
-                        {servers.length} servidores
-                      </RadixButton>
-                    )}
-                  </Table.Cell>
-                  <Table.Cell>
-                    <Text size="2">
-                      {new Date(config.updatedAt).toLocaleString()}
-                    </Text>
-                  </Table.Cell>
-                  <Table.Cell onClick={(e) => e.stopPropagation()}>
-                    <DeleteButtonWithConfirm
-                      id={config.id}
-                      name={config.name}
-                      loading={deleting}
-                      onConfirm={() =>
-                        deleteConfig({ variables: { id: config.id } })
-                      }
-                      title="¿Eliminar configuración?"
-                      description={`¿Estás seguro de que deseas eliminar la configuración \"${config.name}\"? Esta acción no se puede deshacer.`}
-                      ariaLabel={`Eliminar configuración ${config.name}`}
-                    />
-                  </Table.Cell>
-                </Table.Row>
-              );
-            })
-          )}
-        </Table.Body>
-      </Table.Root>
+                    </Table.Cell>
+                    <Table.Cell onClick={(e) => e.stopPropagation()}>
+                      <DeleteButtonWithConfirm
+                        id={config.id}
+                        name={config.name}
+                        loading={deleting}
+                        onConfirm={() =>
+                          deleteConfig({ variables: { id: config.id } })
+                        }
+                        title="¿Eliminar configuración?"
+                        description={`¿Estás seguro de que deseas eliminar la configuración \"${config.name}\"? Esta acción no se puede deshacer.`}
+                        ariaLabel={`Eliminar configuración ${config.name}`}
+                      />
+                    </Table.Cell>
+                  </Table.Row>
+                );
+              })
+            )}
+          </Table.Body>
+        </Table.Root>
+      </Card>
     </Box>
   );
 }

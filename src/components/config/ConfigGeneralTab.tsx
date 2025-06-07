@@ -49,17 +49,32 @@ export default function ConfigGeneralTab({
           required
         />
         <Box>
-          <label className="block text-sm font-medium mb-1">
+          <label
+            className="block text-sm font-medium mb-1"
+            htmlFor="config-bannerUrl"
+          >
             Banner principal
           </label>
           <input
+            id="config-bannerUrl"
             type="file"
             accept="image/*"
             onChange={(e) => handleFileSelect(e, "bannerUrl")}
-            className="mb-2"
+            className="hidden"
           />
+          <label htmlFor="config-bannerUrl">
+            <Button
+              asChild
+              type="button"
+              color="blue"
+              size="1"
+              className="mb-2 cursor-pointer"
+            >
+              <span>{bannerFile ? "Cambiar imagen" : "Subir imagen"}</span>
+            </Button>
+          </label>
           {(bannerPreview || bannerFile) && bannerPreview && (
-            <div className="flex items-center space-x-2">
+            <Flex align="center" gap="2">
               <img
                 src={bannerPreview}
                 alt="Banner preview"
@@ -76,19 +91,36 @@ export default function ConfigGeneralTab({
               >
                 Eliminar
               </Button>
-            </div>
+            </Flex>
           )}
         </Box>
         <Box>
-          <label className="block text-sm font-medium mb-1">Icono</label>
+          <label
+            className="block text-sm font-medium mb-1"
+            htmlFor="config-iconUrl"
+          >
+            Icono
+          </label>
           <input
+            id="config-iconUrl"
             type="file"
             accept="image/*"
             onChange={(e) => handleFileSelect(e, "iconUrl")}
-            className="mb-2"
+            className="hidden"
           />
+          <label htmlFor="config-iconUrl">
+            <Button
+              asChild
+              type="button"
+              color="blue"
+              size="1"
+              className="mb-2 cursor-pointer"
+            >
+              <span>{iconFile ? "Cambiar icono" : "Subir icono"}</span>
+            </Button>
+          </label>
           {(iconPreview || iconFile) && iconPreview && (
-            <div className="flex items-center space-x-2">
+            <Flex align="center" gap="2">
               <img
                 src={iconPreview}
                 alt="Icon preview"
@@ -105,7 +137,7 @@ export default function ConfigGeneralTab({
               >
                 Eliminar
               </Button>
-            </div>
+            </Flex>
           )}
         </Box>
         <TextField.Root

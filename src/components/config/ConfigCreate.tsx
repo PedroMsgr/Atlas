@@ -189,61 +189,101 @@ export default function ConfigCreate({ onSuccess }: ConfigCreateProps) {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-1">
+          <Text
+            as="label"
+            size="2"
+            weight="bold"
+            htmlFor="config-bannerUrl"
+            className="block mb-1"
+          >
             Banner principal
-          </label>
+          </Text>
           <input
+            id="config-bannerUrl"
             type="file"
             accept="image/*"
             onChange={(e) => handleFileSelect(e, "bannerUrl")}
-            className="mb-2"
+            className="hidden"
           />
+          <label htmlFor="config-bannerUrl">
+            <Button
+              asChild
+              type="button"
+              color="blue"
+              size="1"
+              className="mb-2 cursor-pointer"
+            >
+              <span>{bannerFile ? "Cambiar imagen" : "Subir imagen"}</span>
+            </Button>
+          </label>
           {(bannerPreview || bannerFile) && bannerPreview && (
-            <div className="flex items-center space-x-2">
+            <Flex align="center" gap="2">
               <img
                 src={bannerPreview}
                 alt="Banner preview"
-                className="h-16 w-auto rounded shadow mb-2"
+                className="h-12 w-24 rounded"
               />
               <span className="text-sm break-all">
                 {bannerFile ? bannerFile.name : ""}
               </span>
-              <button
+              <Button
                 type="button"
-                className="text-red-600 ml-2"
+                color="red"
+                size="1"
                 onClick={() => handleRemoveImage("bannerUrl")}
               >
                 Eliminar
-              </button>
-            </div>
+              </Button>
+            </Flex>
           )}
         </div>
         <div>
-          <label className="block text-sm font-medium mb-1">Icono</label>
+          <Text
+            as="label"
+            size="2"
+            weight="bold"
+            htmlFor="config-iconUrl"
+            className="block mb-1"
+          >
+            Icono
+          </Text>
           <input
+            id="config-iconUrl"
             type="file"
             accept="image/*"
             onChange={(e) => handleFileSelect(e, "iconUrl")}
-            className="mb-2"
+            className="hidden"
           />
+          <label htmlFor="config-iconUrl">
+            <Button
+              asChild
+              type="button"
+              color="blue"
+              size="1"
+              className="mb-2 cursor-pointer"
+            >
+              <span>{iconFile ? "Cambiar icono" : "Subir icono"}</span>
+            </Button>
+          </label>
           {(iconPreview || iconFile) && iconPreview && (
-            <div className="flex items-center space-x-2">
+            <Flex align="center" gap="2">
               <img
                 src={iconPreview}
                 alt="Icon preview"
-                className="h-12 w-12 rounded-full shadow mb-2"
+                className="h-12 w-12 rounded-full"
               />
               <span className="text-sm break-all">
                 {iconFile ? iconFile.name : ""}
               </span>
-              <button
+              <Button
                 type="button"
-                className="text-red-600 ml-2"
+                color="red"
+                size="1"
                 onClick={() => handleRemoveImage("iconUrl")}
               >
                 Eliminar
-              </button>
-            </div>
+              </Button>
+            </Flex>
           )}
         </div>
         <div>

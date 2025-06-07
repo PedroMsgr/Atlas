@@ -55,6 +55,10 @@ class UserService {
   async deleteUser(id: string) {
     return this.usersRepo.delete(id);
   }
+
+  async countClients() {
+    return this.usersRepo.countClients();
+  }
 }
 
 export const userService = new UserService();

@@ -58,4 +58,8 @@ export class UsersRepository {
       return false;
     }
   }
+
+  async countClients(): Promise<number> {
+    return prisma.user.count({ where: { role: "client" } });
+  }
 }

@@ -1,7 +1,7 @@
 "use client";
 // src/app/admin/configs/page.tsx
 
-import { Box, Heading, Flex, Button } from "@radix-ui/themes";
+import { Box, Heading } from "@radix-ui/themes";
 import ConfigList from "@/components/config/ConfigList";
 import { useRouter } from "next/navigation";
 
@@ -10,16 +10,9 @@ export default function ConfigsPage() {
 
   return (
     <Box className="p-8">
-      <Flex justify="between" align="center" className="mb-6">
-        <Heading size="6">Gestión de Configuraciones</Heading>
-        <Button
-          color="green"
-          onClick={() => router.push("/admin/configs/create")}
-        >
-          Nueva Configuración
-        </Button>
-      </Flex>
-
+      <Heading size="6" mb="4">
+        Gestión de Configuraciones
+      </Heading>
       <ConfigList />
     </Box>
   );

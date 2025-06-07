@@ -50,6 +50,18 @@ class CaseService {
   async removeReport(reportId: string) {
     return this.repo.removeReport(reportId);
   }
+
+  async countAllCases() {
+    return this.repo.countCases();
+  }
+
+  async countActiveCases() {
+    return this.repo.countActiveCases();
+  }
+
+  async getRecentCases(limit: number = 5) {
+    return this.repo.findRecentUpdated(limit);
+  }
 }
 
 export const caseService = new CaseService();

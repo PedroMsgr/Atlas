@@ -267,4 +267,26 @@ export class CasesRepository {
   async removeReport(reportId: string) {
     return prisma.report.delete({ where: { id: reportId } });
   }
+
+  async countCases(): Promise<number> {
+    return prisma.case.count();
+  }
+
+  async countActiveCases(): Promise<number> {
+    return prisma.case.count({
+      where: { status: "inProgress" },
+    });
+  }
+
+  async findRecentUpdated(limit: number = 5): Promise<Case[]> {
+    return prisma.case.findMany({
+      orderBy: { updatedAt: "desc" },
+      take: limit,
+      include: {
+        client: { include: { user: true } },
+        professional: { include: { user: true } },
+        server: true,
+      },
+    });
+  }
 }

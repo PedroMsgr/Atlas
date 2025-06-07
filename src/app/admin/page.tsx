@@ -2,13 +2,40 @@
 
 import { Card, Flex, Heading, Text, Box, Grid, Button } from "@radix-ui/themes";
 import { useSession } from "next-auth/react";
+import { useQuery } from "@apollo/client";
 import {
-  buttonVariants,
-  Button as ButtonSh,
-} from "@/components/ui-shadcn/button";
+  GET_DASHBOARD_STATS,
+  GET_RECENT_CASES,
+  GET_SYSTEM_STATUS,
+} from "@/graphql/queries/dashboard.queries";
+import { useRouter } from "next/navigation";
+import { formatDate } from "@/lib/date-formatter";
+import { useState } from "react";
 
 export default function AdminDashboard() {
   const { data: session } = useSession();
+  const router = useRouter();
+  const { data: statsData, loading: statsLoading } =
+    useQuery(GET_DASHBOARD_STATS);
+  const { data: recentData, loading: recentLoading } = useQuery(
+    GET_RECENT_CASES,
+    { variables: { limit: 5 } }
+  );
+  const { data: systemData, loading: systemLoading } =
+    useQuery(GET_SYSTEM_STATUS);
+
+  const stats = statsData?.dashboardStats;
+  const recentCases = recentData?.recentCases || [];
+  const systemStatus = systemData?.systemStatus;
+
+  // Estado para paginación de actividad reciente
+  const [recentPage, setRecentPage] = useState(1);
+  const recentPerPage = 3;
+  const paginatedCases = recentCases.slice(
+    (recentPage - 1) * recentPerPage,
+    recentPage * recentPerPage
+  );
+  const totalRecentPages = Math.ceil(recentCases.length / recentPerPage);
 
   return (
     <Box className="p-4 md:p-8">
@@ -23,12 +50,6 @@ export default function AdminDashboard() {
         <Text size="2" color="gray">
           Bienvenido, {session?.user?.name}
         </Text>
-        <ButtonSh
-          variant="link"
-          onClick={() => alert("Funcionalidad en desarrollo")}
-        >
-          Funcionalidad en desarrollo
-        </ButtonSh>
       </Flex>
 
       {/* Quick Stats */}
@@ -38,10 +59,9 @@ export default function AdminDashboard() {
             <Text size="2" color="gray">
               Servidores Activos
             </Text>
-            <Heading size="5">12</Heading>
-            <Text size="1" color="green">
-              +2 este mes
-            </Text>
+            <Heading size="5">
+              {statsLoading ? "..." : stats?.activeServers ?? "-"}
+            </Heading>
           </Flex>
         </Card>
         <Card>
@@ -49,10 +69,9 @@ export default function AdminDashboard() {
             <Text size="2" color="gray">
               Casos Activos
             </Text>
-            <Heading size="5">156</Heading>
-            <Text size="1" color="blue">
-              +23 esta semana
-            </Text>
+            <Heading size="5">
+              {statsLoading ? "..." : stats?.activeCases ?? "-"}
+            </Heading>
           </Flex>
         </Card>
         <Card>
@@ -60,10 +79,9 @@ export default function AdminDashboard() {
             <Text size="2" color="gray">
               Clientes Totales
             </Text>
-            <Heading size="5">1,234</Heading>
-            <Text size="1" color="green">
-              +45 este mes
-            </Text>
+            <Heading size="5">
+              {statsLoading ? "..." : stats?.totalClients ?? "-"}
+            </Heading>
           </Flex>
         </Card>
       </Grid>
@@ -77,30 +95,53 @@ export default function AdminDashboard() {
               Actividad Reciente
             </Heading>
             <Flex direction="column" gap="3">
-              <Box className="p-3 bg-gray-50 rounded-md">
-                <Text size="2" weight="bold">
-                  Nuevo caso creado
-                </Text>
-                <Text size="1" color="gray">
-                  Hace 5 minutos
-                </Text>
-              </Box>
-              <Box className="p-3 bg-gray-50 rounded-md">
-                <Text size="2" weight="bold">
-                  Actualización de servidor
-                </Text>
-                <Text size="1" color="gray">
-                  Hace 1 hora
-                </Text>
-              </Box>
-              <Box className="p-3 bg-gray-50 rounded-md">
-                <Text size="2" weight="bold">
-                  Nuevo profesional registrado
-                </Text>
-                <Text size="1" color="gray">
-                  Hace 2 horas
-                </Text>
-              </Box>
+              {recentLoading ? (
+                <Text>Cargando...</Text>
+              ) : paginatedCases.length === 0 ? (
+                <Text color="gray">Sin actividad reciente</Text>
+              ) : (
+                paginatedCases.map((c: any) => (
+                  <Box key={c.id} className="p-3 bg-gray-50 rounded-md">
+                    <Text as="div" size="2" weight="bold" mb="1">
+                      {c.status === "open"
+                        ? "Nuevo caso abierto"
+                        : `Caso actualizado (${c.status})`}
+                    </Text>
+                    <Text as="div" size="1" color="gray" mb="1">
+                      {c.client?.user?.firstName} {c.client?.user?.lastName} |{" "}
+                      {c.professional?.user?.firstName}{" "}
+                      {c.professional?.user?.lastName}
+                    </Text>
+                    <Text as="div" size="1" color="gray">
+                      {formatDate(c.updatedAt, "full")}
+                    </Text>
+                  </Box>
+                ))
+              )}
+              {/* Paginación */}
+              {totalRecentPages > 1 && (
+                <Flex mt="2" gap="2" align="center" justify="center">
+                  <Button
+                    size="1"
+                    variant="soft"
+                    disabled={recentPage === 1}
+                    onClick={() => setRecentPage(recentPage - 1)}
+                  >
+                    Anterior
+                  </Button>
+                  <Text size="1">
+                    Página {recentPage} de {totalRecentPages}
+                  </Text>
+                  <Button
+                    size="1"
+                    variant="soft"
+                    disabled={recentPage === totalRecentPages}
+                    onClick={() => setRecentPage(recentPage + 1)}
+                  >
+                    Siguiente
+                  </Button>
+                </Flex>
+              )}
             </Flex>
           </Box>
         </Card>
@@ -112,14 +153,19 @@ export default function AdminDashboard() {
               Acciones Rápidas
             </Heading>
             <Flex direction="column" gap="3">
-              <Button variant="soft" color="blue">
+              <Button
+                variant="soft"
+                color="blue"
+                onClick={() => router.push("/admin/servers/create")}
+              >
                 Crear Nuevo Servidor
               </Button>
-              <Button variant="soft" color="green">
-                Añadir Profesional
-              </Button>
-              <Button variant="soft" color="purple">
-                Generar Reporte
+              <Button
+                variant="soft"
+                color="green"
+                onClick={() => router.push("/admin/configs/create")}
+              >
+                Crear Nueva Configuración
               </Button>
             </Flex>
           </Box>
@@ -138,8 +184,12 @@ export default function AdminDashboard() {
                 className="p-2 bg-gray-50 rounded-md"
               >
                 <Text size="2">API Status</Text>
-                <Text size="2" color="green">
-                  Operativo
+                <Text size="2" color={systemStatus?.api ? "green" : "red"}>
+                  {systemLoading
+                    ? "..."
+                    : systemStatus?.api
+                    ? "Operativo"
+                    : "Caído"}
                 </Text>
               </Flex>
               <Flex
@@ -148,8 +198,12 @@ export default function AdminDashboard() {
                 className="p-2 bg-gray-50 rounded-md"
               >
                 <Text size="2">Base de Datos</Text>
-                <Text size="2" color="green">
-                  Conectado
+                <Text size="2" color={systemStatus?.db ? "green" : "red"}>
+                  {systemLoading
+                    ? "..."
+                    : systemStatus?.db
+                    ? "Conectado"
+                    : "Desconectado"}
                 </Text>
               </Flex>
               <Flex
@@ -157,16 +211,20 @@ export default function AdminDashboard() {
                 align="center"
                 className="p-2 bg-gray-50 rounded-md"
               >
-                <Text size="2">Servicios de Scraping</Text>
-                <Text size="2" color="green">
-                  Activo
+                <Text size="2">Fecha/Hora</Text>
+                <Text size="2">
+                  {systemLoading
+                    ? "..."
+                    : systemStatus?.time
+                    ? new Date(systemStatus.time).toLocaleString()
+                    : "-"}
                 </Text>
               </Flex>
             </Flex>
           </Box>
         </Card>
 
-        {/* Notifications */}
+        {/* Notifications (maqueta) */}
         <Card>
           <Box p="4">
             <Heading size="4" mb="4">

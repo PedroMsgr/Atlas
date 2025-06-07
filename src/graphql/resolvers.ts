@@ -205,6 +205,47 @@ const resolvers = {
       if (!context.user?.id) throw new Error("No autorizado");
       return await context.authService.getCurrentUserById(context.user.id);
     }),
+
+    // --- Dashboard Stats ---
+    dashboardStats: requireAuth(async (_parent, _args, context) => {
+      const [
+        totalServers,
+        activeServers,
+        totalCases,
+        activeCases,
+        totalClients,
+      ] = await Promise.all([
+        context.serverService.countAllServers(),
+        context.serverService.countActiveServers(),
+        context.caseService.countAllCases(),
+        context.caseService.countActiveCases(),
+        context.userService.countClients(),
+      ]);
+      return {
+        totalServers,
+        activeServers,
+        totalCases,
+        activeCases,
+        totalClients,
+      };
+    }),
+    recentCases: requireAuth(async (_parent, args, context) => {
+      const limit = args.limit || 5;
+      return context.caseService.getRecentCases(limit);
+    }),
+    systemStatus: async () => {
+      // API always true if resolver runs
+      let db = false;
+      try {
+        // Simple DB check: count users
+        db = !!(await (
+          await import("@/services/user.service")
+        ).userService.countClients());
+      } catch (e) {
+        db = false;
+      }
+      return { api: true, db, time: new Date().toISOString() };
+    },
   },
 
   // MUTATION RESOLVERS

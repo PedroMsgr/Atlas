@@ -251,6 +251,22 @@ const typeDefs = gql`
     cases: [Case!]!
   }
 
+  # --------- Estadísticas del dashboard ---------
+  type DashboardStats {
+    totalServers: Int!
+    activeServers: Int!
+    totalCases: Int!
+    activeCases: Int!
+    totalClients: Int!
+  }
+
+  # --------- Estado del sistema ---------
+  type SystemStatus {
+    api: Boolean!
+    db: Boolean!
+    time: String!
+  }
+
   #########################
   #       INPUTS          #
   #########################
@@ -418,6 +434,11 @@ const typeDefs = gql`
     # Usuarios
     users(role: [Role], search: String): [User!]!
     me: User!
+
+    # Dashboard
+    dashboardStats: DashboardStats!
+    recentCases(limit: Int): [Case!]!
+    systemStatus: SystemStatus!
   }
 
   input UpdateMeInput {

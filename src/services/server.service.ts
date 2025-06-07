@@ -89,7 +89,8 @@ class ServerService {
       domain?: string;
       constellationId?: string;
       isActive?: boolean;
-      activeConfigId?: string; // <-- Añadido
+      activeConfigId?: string;
+      configId?: string;
     }
   ) {
     // Si se está actualizando el dominio, verificar que no exista
@@ -100,7 +101,7 @@ class ServerService {
       }
     }
 
-    // Mapeo de activeConfigId a configId para Prisma
+    // Mapeo de activeConfigId o configId a configId para Prisma
     const updateData: any = {
       ...data,
       updatedAt: new Date(),
@@ -108,6 +109,10 @@ class ServerService {
     if (data.activeConfigId !== undefined) {
       updateData.configId = data.activeConfigId;
       delete updateData.activeConfigId;
+    }
+    if (data.configId !== undefined) {
+      updateData.configId = data.configId;
+      delete updateData.configId;
     }
 
     // Actualizamos el servidor con los nuevos datos
@@ -195,6 +200,13 @@ class ServerService {
   }
   async deleteConstellation(id: string) {
     return this.constellationsRepo.delete(id);
+  }
+
+  async countAllServers() {
+    return this.serversRepo.countServers();
+  }
+  async countActiveServers() {
+    return this.serversRepo.countActiveServers();
   }
 }
 
