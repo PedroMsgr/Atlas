@@ -58,6 +58,7 @@ export default function Home() {
             <Heading
               size="6"
               className="mb-12 md:mb-16 text-center text-2xl md:text-3xl"
+              style={{ marginBottom: "1em" }}
             >
               ¿Qué ofrecemos?
             </Heading>

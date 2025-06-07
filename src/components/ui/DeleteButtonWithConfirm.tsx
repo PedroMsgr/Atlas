@@ -23,16 +23,9 @@ export default function DeleteButtonWithConfirm({
   ariaLabel,
 }: DeleteButtonWithConfirmProps) {
   const [open, setOpen] = useState(false);
+  // El trigger (botón) siempre está fuera del modal para máxima compatibilidad
   return (
-    <ConfirmDeleteDialog
-      open={open}
-      name={name}
-      loading={loading}
-      onCancel={() => setOpen(false)}
-      onConfirm={onConfirm}
-      title={title}
-      description={description}
-    >
+    <>
       <RadixButton
         color="red"
         variant="soft"
@@ -46,6 +39,18 @@ export default function DeleteButtonWithConfirm({
       >
         <TrashIcon />
       </RadixButton>
-    </ConfirmDeleteDialog>
+      <ConfirmDeleteDialog
+        open={open}
+        name={name}
+        loading={loading}
+        onCancel={() => setOpen(false)}
+        onConfirm={() => {
+          onConfirm();
+          setOpen(false);
+        }}
+        title={title}
+        description={description}
+      />
+    </>
   );
 }

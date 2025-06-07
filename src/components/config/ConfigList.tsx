@@ -139,9 +139,6 @@ export default function ConfigList() {
                 >
                   <Table.Cell>
                     <Text weight="bold">{config.name}</Text>
-                    <Text size="1" color="gray">
-                      {config.pageTitle}
-                    </Text>
                   </Table.Cell>
                   <Table.Cell>
                     {servers.length === 0 ? (

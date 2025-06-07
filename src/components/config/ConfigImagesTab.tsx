@@ -35,10 +35,29 @@ export default function ImagesTab({
   };
 
   return (
-    <Box className="p-4">
-      <Heading size="5">Imágenes globales</Heading>
+    <Box className="p-4 bg-white dark:bg-zinc-900 rounded-lg shadow-md">
+      <Heading size="5" style={{ marginBottom: "1em" }}>
+        Imágenes globales
+      </Heading>
       <Box className="mt-4 space-y-2 border p-4 rounded-lg">
-        <input type="file" accept="image/*" onChange={handleAddImageGlobal} />
+        <input
+          id="global-image-upload"
+          type="file"
+          accept="image/*"
+          onChange={handleAddImageGlobal}
+          className="hidden"
+        />
+        <label htmlFor="global-image-upload">
+          <Button
+            asChild
+            type="button"
+            color="blue"
+            size="1"
+            className="mb-2 cursor-pointer"
+          >
+            <span>Subir imagen</span>
+          </Button>
+        </label>
       </Box>
       {loadingImages ? (
         <Box className="mt-4">Cargando imágenes...</Box>

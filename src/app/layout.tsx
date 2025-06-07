@@ -1,22 +1,8 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ClientProviders from "@/components/layout/ClientProviders";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-export const metadata: Metadata = {
-  title: "Universo Legal Platform",
-  description: "Plataforma de gestión legal y micrositios para profesionales",
-};
+import { metadata } from "./metadata";
+import { geistSans, geistMono } from "./fonts";
 
 export default function RootLayout({
   children,

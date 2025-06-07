@@ -724,9 +724,9 @@ export default function ConfigUpdate({ config, onSuccess }: ConfigUpdateProps) {
       <Tabs.Root
         value={tab}
         onValueChange={(value) => setTab(value as typeof tab)}
-        className="w-full"
+        className="w-full rounded-lg"
       >
-        <Tabs.List>
+        <Tabs.List className="atlas-tabs-list">
           <Tabs.Trigger value="general">General</Tabs.Trigger>
           {form.id && (
             <>

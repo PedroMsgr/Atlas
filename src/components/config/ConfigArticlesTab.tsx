@@ -40,8 +40,10 @@ export default function ConfigArticlesTab({
   };
 
   return (
-    <Box className="p-4">
-      <Heading size="5">Artículos</Heading>
+    <Box className="p-4 bg-white dark:bg-zinc-900 rounded-lg shadow-md">
+      <Heading size="5" style={{ marginBottom: "1em" }}>
+        Artículos
+      </Heading>
       {/* Formulario para crear/editar artículo */}
       <Box className="mt-4 space-y-2 border p-4 rounded-lg">
         <Heading size="6">

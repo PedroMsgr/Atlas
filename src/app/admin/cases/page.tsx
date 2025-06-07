@@ -7,7 +7,9 @@ export default function CasesPage() {
   return (
     <Theme>
       <Box className="p-8">
-        <Heading size="6">Supervisión de Casos</Heading>
+        <Heading size="6" style={{ marginBottom: "1em" }}>
+          Supervisión de Casos
+        </Heading>
         <CaseList />
       </Box>
     </Theme>

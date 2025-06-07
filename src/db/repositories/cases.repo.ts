@@ -25,6 +25,8 @@ export class CasesRepository {
     clientId,
     serverId,
     search,
+    userId, // Nuevo filtro opcional para filtrar por Professional.userId
+    onlyClient, // <-- Añadido para distinguir filtro pro
   }: {
     page?: number;
     pageSize?: number;
@@ -33,49 +35,85 @@ export class CasesRepository {
     clientId?: string;
     serverId?: string;
     search?: string;
+    userId?: string;
+    onlyClient?: boolean;
   }) {
     const where: any = {};
     if (status) where.status = status;
     if (professionalId) where.professionalId = professionalId;
     if (clientId) where.clientId = clientId;
     if (serverId) where.serverId = serverId;
+    if (userId) {
+      // Buscar el Professional vinculado a este userId
+      const professional = await prisma.professional.findFirst({
+        where: { userId },
+      });
+      if (professional) {
+        where.professionalId = professional.id;
+      } else {
+        // Si no existe, devolver lista vacía
+        return { total: 0, cases: [] };
+      }
+    }
     if (search) {
       const isEmail = search.includes("@");
-      where.OR = [
-        {
-          client: {
-            user: { firstName: { contains: search, mode: "insensitive" } },
-          },
-        },
-        {
-          client: {
-            user: { lastName: { contains: search, mode: "insensitive" } },
-          },
-        },
-        {
-          professional: {
-            user: { firstName: { contains: search, mode: "insensitive" } },
-          },
-        },
-        {
-          professional: {
-            user: { lastName: { contains: search, mode: "insensitive" } },
-          },
-        },
-      ];
-      if (isEmail) {
-        where.OR.push(
+      if (onlyClient) {
+        where.OR = [
           {
             client: {
+              user: { firstName: { contains: search, mode: "insensitive" } },
+            },
+          },
+          {
+            client: {
+              user: { lastName: { contains: search, mode: "insensitive" } },
+            },
+          },
+        ];
+        if (isEmail) {
+          where.OR.push({
+            client: {
               user: { email: { contains: search, mode: "insensitive" } },
+            },
+          });
+        }
+      } else {
+        where.OR = [
+          {
+            client: {
+              user: { firstName: { contains: search, mode: "insensitive" } },
+            },
+          },
+          {
+            client: {
+              user: { lastName: { contains: search, mode: "insensitive" } },
             },
           },
           {
             professional: {
-              user: { email: { contains: search, mode: "insensitive" } },
+              user: { firstName: { contains: search, mode: "insensitive" } },
             },
-          }
-        );
+          },
+          {
+            professional: {
+              user: { lastName: { contains: search, mode: "insensitive" } },
+            },
+          },
+        ];
+        if (isEmail) {
+          where.OR.push(
+            {
+              client: {
+                user: { email: { contains: search, mode: "insensitive" } },
+              },
+            },
+            {
+              professional: {
+                user: { email: { contains: search, mode: "insensitive" } },
+              },
+            }
+          );
+        }
       }
     }
     const [total, cases] = await Promise.all([

@@ -76,8 +76,10 @@ export default function ConfigSectionsTab({
   };
 
   return (
-    <Box className="p-4">
-      <Heading size="5">Secciones</Heading>
+    <Box className="p-4 bg-white dark:bg-zinc-900 rounded-lg shadow-md">
+      <Heading size="5" style={{ marginBottom: "1em" }}>
+        Secciones
+      </Heading>
       {/* Formulario para crear/editar sección */}
       <Box className="mt-4 space-y-2 border p-4 rounded-lg">
         <Heading size="6">
@@ -102,11 +104,23 @@ export default function ConfigSectionsTab({
           required
         />
         <input
+          id="section-image-upload"
           type="file"
           accept="image/*"
           onChange={handleFileSelectSection}
-          className="mb-2"
+          className="hidden"
         />
+        <label htmlFor="section-image-upload">
+          <Button
+            asChild
+            type="button"
+            color="blue"
+            size="1"
+            className="mb-2 cursor-pointer"
+          >
+            <span>{sectionImageFile ? "Cambiar imagen" : "Subir imagen"}</span>
+          </Button>
+        </label>
         {(sectionImagePreview || sectionImageFile) && sectionImagePreview && (
           <div className="flex items-center space-x-2">
             <img

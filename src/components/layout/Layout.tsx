@@ -1,4 +1,5 @@
 "use client";
+//src/components/layout/Layout.tsx
 
 import { Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";

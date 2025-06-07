@@ -2,6 +2,10 @@
 
 import { Card, Flex, Heading, Text, Box, Grid, Button } from "@radix-ui/themes";
 import { useSession } from "next-auth/react";
+import {
+  buttonVariants,
+  Button as ButtonSh,
+} from "@/components/ui-shadcn/button";
 
 export default function AdminDashboard() {
   const { data: session } = useSession();
@@ -19,6 +23,12 @@ export default function AdminDashboard() {
         <Text size="2" color="gray">
           Bienvenido, {session?.user?.name}
         </Text>
+        <ButtonSh
+          variant="link"
+          onClick={() => alert("Funcionalidad en desarrollo")}
+        >
+          Funcionalidad en desarrollo
+        </ButtonSh>
       </Flex>
 
       {/* Quick Stats */}

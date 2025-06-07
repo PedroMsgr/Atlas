@@ -16,9 +16,11 @@ export default function ConfigGeneralTab({
   router,
 }: any) {
   return (
-    <Box className="w-full">
+    <Box className="w-full bg-white dark:bg-zinc-900 rounded-lg shadow-md">
       <form className="space-y-4 p-4" onSubmit={(e) => e.preventDefault()}>
-        <Heading size="5">Datos Generales y Configuración</Heading>
+        <Heading size="5" style={{ marginBottom: "1em" }}>
+          Datos Generales y Configuración
+        </Heading>
         <TextField.Root
           name="name"
           placeholder="Nombre único de configuración"

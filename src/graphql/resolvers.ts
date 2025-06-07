@@ -178,7 +178,15 @@ const resolvers = {
         _parent: unknown,
         args: { filters: any },
         context: GraphQLContext
-      ) => context.caseService.getCasesPaginated(args.filters)
+      ) => {
+        // Si el usuario es profesional, forzar el filtro por su id de usuario (que corresponde a Professional.userId)
+        if (context.user?.role === "professional") {
+          // Buscar el Professional vinculado a este usuario
+          // Suponemos que el id de usuario es igual al userId de Professional
+          args.filters = { ...args.filters, userId: context.user.id };
+        }
+        return context.caseService.getCasesPaginated(args.filters);
+      }
     ),
     case: requireAuth(
       async (_parent: unknown, args: { id: string }, context: GraphQLContext) =>

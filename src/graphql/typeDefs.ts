@@ -349,6 +349,7 @@ const typeDefs = gql`
     clientId: ID
     serverId: ID
     search: String
+    onlyClient: Boolean
   }
 
   # Input para crear un caso
