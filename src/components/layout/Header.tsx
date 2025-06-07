@@ -32,11 +32,14 @@ export default function Header() {
               {session ? (
                 <>
                   {/* Avatar como botón de perfil */}
-                  <Link href="/" className="block">
-                    <Button variant="soft" size="2" className="rounded-full p-0 w-9 h-9 flex items-center justify-center" aria-label="Perfil">
-                      <Avatar fallback={((user?.name?.[0]) || 'A')} color="blue" variant="solid" size="2" />
-                    </Button>
-                  </Link>
+                  {(user?.role === 'admin' || user?.role === 'professional') && (
+                    <Link href="/profile" className="block">
+                      <div className="w-9 h-9 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 font-bold text-lg border border-gray-300">
+                        {/* Iniciales del usuario o icono estándar */}
+                        {user?.name ? user.name[0] : <span>P</span>}
+                      </div>
+                    </Link>
+                  )}
                   {/* Botón solo icono para admin/professional */}
                   {user?.role === 'admin' && (
                     <Link href="/admin">

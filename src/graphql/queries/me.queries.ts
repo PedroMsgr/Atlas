@@ -1,0 +1,17 @@
+import { gql } from '@apollo/client';
+
+export const GET_ME = gql`
+  query Me {
+    me {
+      id
+      firstName
+      lastName
+      email
+      role
+      avatarUrl
+      isActive
+      createdAt
+      updatedAt
+    }
+  }
+`;

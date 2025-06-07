@@ -87,6 +87,10 @@ const resolvers = {
 
     // --- Usuarios ---
     users: requireAuth(async (_parent: unknown, args: { role?: string[]; search?: string }, context: GraphQLContext) => context.userService.getUsers(args.role, args.search)),
+    me: requireAuth(async (_parent, _args, context) => {
+      if (!context.user?.id) throw new Error('No autorizado');
+      return await context.authService.getCurrentUserById(context.user.id);
+    }),
   },
 
   // MUTATION RESOLVERS
@@ -206,6 +210,41 @@ const resolvers = {
       }
     }),
     deleteUser: requireAuth(async (_parent: unknown, args: { id: string }, context: GraphQLContext) => context.userService.deleteUser(args.id)),
+    updateMe: requireAuth(async (_parent, { data }, context) => {
+      if (!context.user?.id) {
+        return {
+          status: false,
+          message: 'No autorizado',
+          user: null,
+        };
+      }
+      try {
+        const updatedUser = await context.authService.updateCurrentUser(context.user.id, data);
+        return {
+          status: true,
+          message: data.newPassword
+            ? 'Perfil actualizado correctamente. Debes volver a iniciar sesión por seguridad.'
+            : 'Perfil actualizado correctamente.',
+          user: {
+            id: updatedUser.id,
+            email: updatedUser.email,
+            firstName: updatedUser.firstName,
+            lastName: updatedUser.lastName,
+            role: updatedUser.role,
+            avatarUrl: updatedUser.avatarUrl,
+            isActive: updatedUser.isActive,
+            createdAt: updatedUser.createdAt,
+            updatedAt: updatedUser.updatedAt,
+          },
+        };
+      } catch (error: any) {
+        return {
+          status: false,
+          message: error.message || 'Error al actualizar el perfil',
+          user: null,
+        };
+      }
+    }),
   },
 
   // TYPE-LEVEL RESOLVERS

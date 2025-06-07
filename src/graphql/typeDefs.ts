@@ -416,6 +416,21 @@ const typeDefs = gql`
 
     # Usuarios
     users(role: [Role], search: String): [User!]!
+    me: User!
+  }
+
+  input UpdateMeInput {
+    firstName: String
+    lastName: String
+    email: String
+    oldPassword: String
+    newPassword: String
+  }
+
+  type UpdateMeResult {
+    status: Boolean!
+    message: String!
+    user: User
   }
 
   #########################
@@ -482,6 +497,7 @@ const typeDefs = gql`
 
     # -- Usuario CRUD --
     deleteUser(id: ID!): Boolean!
+    updateMe(data: UpdateMeInput!): UpdateMeResult!
   }
 `;
 

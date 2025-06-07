@@ -144,6 +144,63 @@ class AuthService {
       return false;
     }
   }
+
+  /**
+   * Obtener el usuario actual por ID
+   */
+  async getCurrentUserById(id: string) {
+    const user = await this.usersRepo.findById(id);
+    if (!user || !user.isActive) return null;
+    return {
+      id: user.id,
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      role: user.role,
+      avatarUrl: user.avatarUrl,
+      isActive: user.isActive,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+    };
+  }
+
+  /**
+   * Actualizar datos del usuario autenticado
+   */
+  async updateCurrentUser(id: string, data: { firstName?: string; lastName?: string; email?: string; oldPassword?: string; newPassword?: string }) {
+    const user = await this.usersRepo.findById(id);
+    if (!user || !user.isActive) {
+      throw new Error('Usuario no encontrado o inactivo');
+    }
+
+    // Validar email único si se cambia
+    if (data.email && data.email !== user.email) {
+      const existing = await this.usersRepo.findByEmail(data.email);
+      if (existing && existing.id !== id) {
+        throw new Error('El email ya está en uso por otro usuario');
+      }
+    }
+
+    // Validar cambio de contraseña
+    if (data.newPassword) {
+      if (!data.oldPassword) {
+        throw new Error('Debes ingresar tu contraseña actual para cambiar la contraseña');
+      }
+      const valid = await bcrypt.compare(data.oldPassword, user.password);
+      if (!valid) {
+        throw new Error('La contraseña actual es incorrecta');
+      }
+    }
+
+    const updateData: any = {};
+    if (data.firstName) updateData.firstName = data.firstName;
+    if (data.lastName) updateData.lastName = data.lastName;
+    if (data.email) updateData.email = data.email;
+    if (data.newPassword) updateData.password = await bcrypt.hash(data.newPassword, 10);
+
+    const updated = await this.usersRepo.update(id, updateData);
+    return updated;
+  }
 }
 
 export const authService = new AuthService();

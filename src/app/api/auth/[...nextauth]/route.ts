@@ -78,6 +78,9 @@ export const authOptions: NextAuthOptions = {
     },
   },
   secret: process.env.JWT_SECRET,
+  pages: {
+    signIn: "/auth/signin", // Redirige a la página de login personalizada
+  },
 };
 
 const handler = NextAuth(authOptions);

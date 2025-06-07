@@ -43,6 +43,15 @@ export default withAuth(
       return NextResponse.redirect(new URL("/", req.url));
     }
 
+    // Rutas de perfil (solo admin y profesional)
+    if (
+      pathname.startsWith("/profile") &&
+      token?.role !== "admin" &&
+      token?.role !== "professional"
+    ) {
+      return NextResponse.redirect(new URL("/", req.url));
+    }
+
     // Si pasa todas las comprobaciones, continúa
     return NextResponse.next();
   },
@@ -51,10 +60,14 @@ export default withAuth(
       // Solo permite avanzar a usuarios autenticados
       authorized: ({ token }) => !!token,
     },
+    // CAMBIO: Redirigir a /auth/signin en vez de /api/auth/signin
+    pages: {
+      signIn: '/auth/signin',
+    },
   }
 );
 
 export const config = {
   // Aplica middleware a estas rutas
-  matcher: ["/admin/:path*", "/pro/:path*", "/client/:path*"],
+  matcher: ["/admin/:path*", "/pro/:path*", "/client/:path*", "/profile/:path*"],
 };

@@ -1,10 +1,17 @@
-import { Heading, Box, Text } from '@radix-ui/themes';
+"use client";
+
+import dynamic from "next/dynamic";
+import useIsMobile from "@/hooks/useIsMobile";
+
+
+const ProfileMobile = dynamic(() => import("./ProfileMobile"), { ssr: false });
+const ProfileDesktop = dynamic(() => import("./ProfileDesktop"), { ssr: false });
 
 export default function ProfilePage() {
+  const isMobile = useIsMobile();
   return (
-    <Box className="p-8 text-center">
-      <Heading size="5" mb="2">Página de perfil en construcción</Heading>
-      <Text size="3" color="gray">Esta sección estará disponible próximamente.</Text>
-    </Box>
+    <>
+        {isMobile ? <ProfileMobile /> : <ProfileDesktop />}
+    </>
   );
 }
