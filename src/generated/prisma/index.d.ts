@@ -15,87 +15,87 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 /**
  * Model User
- * 
+ * Usuario base del sistema (admin, profesional, cliente)
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
  * Model Client
- * 
+ * Cliente final (usuario con rol client, vinculado a un servidor unitario)
  */
 export type Client = $Result.DefaultSelection<Prisma.$ClientPayload>
 /**
  * Model Professional
- * 
+ * Profesional (usuario con rol professional, vinculado a un servidor unitario)
  */
 export type Professional = $Result.DefaultSelection<Prisma.$ProfessionalPayload>
 /**
- * Model Case
- * 
- */
-export type Case = $Result.DefaultSelection<Prisma.$CasePayload>
-/**
- * Model Chat
- * 
- */
-export type Chat = $Result.DefaultSelection<Prisma.$ChatPayload>
-/**
- * Model Message
- * 
- */
-export type Message = $Result.DefaultSelection<Prisma.$MessagePayload>
-/**
- * Model File
- * 
- */
-export type File = $Result.DefaultSelection<Prisma.$FilePayload>
-/**
- * Model Report
- * 
- */
-export type Report = $Result.DefaultSelection<Prisma.$ReportPayload>
-/**
  * Model Constellation
- * 
+ * Agrupación lógica de servidores unitarios
  */
 export type Constellation = $Result.DefaultSelection<Prisma.$ConstellationPayload>
 /**
  * Model UnitConfig
- * 
+ * Configuración de landing y parámetros de un servidor unitario
  */
 export type UnitConfig = $Result.DefaultSelection<Prisma.$UnitConfigPayload>
 /**
- * Model LegalStep
- * 
+ * Model UnitServer
+ * Servidor unitario (instancia de landing/config)
  */
-export type LegalStep = $Result.DefaultSelection<Prisma.$LegalStepPayload>
+export type UnitServer = $Result.DefaultSelection<Prisma.$UnitServerPayload>
 /**
- * Model FooterLink
- * 
+ * Model Case
+ * Caso legal gestionado en el sistema
  */
-export type FooterLink = $Result.DefaultSelection<Prisma.$FooterLinkPayload>
+export type Case = $Result.DefaultSelection<Prisma.$CasePayload>
+/**
+ * Model Chat
+ * Chat asociado a un caso
+ */
+export type Chat = $Result.DefaultSelection<Prisma.$ChatPayload>
+/**
+ * Model Message
+ * Mensaje dentro de un chat
+ */
+export type Message = $Result.DefaultSelection<Prisma.$MessagePayload>
+/**
+ * Model File
+ * Archivo subido a un caso (por cliente o profesional)
+ */
+export type File = $Result.DefaultSelection<Prisma.$FilePayload>
+/**
+ * Model Report
+ * Reporte de abuso o incidencia en un caso
+ */
+export type Report = $Result.DefaultSelection<Prisma.$ReportPayload>
 /**
  * Model Section
- * 
+ * Sección de contenido en la landing
  */
 export type Section = $Result.DefaultSelection<Prisma.$SectionPayload>
 /**
  * Model Image
- * 
+ * Imagen asociada a una configuración o sección
  */
 export type Image = $Result.DefaultSelection<Prisma.$ImagePayload>
 /**
  * Model Article
- * 
+ * Artículo o noticia en la landing
  */
 export type Article = $Result.DefaultSelection<Prisma.$ArticlePayload>
 /**
- * Model UnitServer
- * 
+ * Model LegalStep
+ * Paso legal mostrado en la landing
  */
-export type UnitServer = $Result.DefaultSelection<Prisma.$UnitServerPayload>
+export type LegalStep = $Result.DefaultSelection<Prisma.$LegalStepPayload>
+/**
+ * Model FooterLink
+ * Enlace de footer personalizado
+ */
+export type FooterLink = $Result.DefaultSelection<Prisma.$FooterLinkPayload>
 /**
  * Model ServerLog
- * 
+ * Log de actividad de servidor unitario
  */
 export type ServerLog = $Result.DefaultSelection<Prisma.$ServerLogPayload>
 
@@ -141,19 +141,10 @@ export const ClientStatus: {
 export type ClientStatus = (typeof ClientStatus)[keyof typeof ClientStatus]
 
 
-export const SessionType: {
-  local: 'local',
-  api: 'api'
-};
-
-export type SessionType = (typeof SessionType)[keyof typeof SessionType]
-
-
 export const SectionType: {
   text: 'text',
   legalGuide: 'legalGuide',
-  manual: 'manual',
-  newsConfig: 'newsConfig'
+  manual: 'manual'
 };
 
 export type SectionType = (typeof SectionType)[keyof typeof SectionType]
@@ -175,10 +166,6 @@ export const CaseStatus: typeof $Enums.CaseStatus
 export type ClientStatus = $Enums.ClientStatus
 
 export const ClientStatus: typeof $Enums.ClientStatus
-
-export type SessionType = $Enums.SessionType
-
-export const SessionType: typeof $Enums.SessionType
 
 export type SectionType = $Enums.SectionType
 
@@ -340,6 +327,36 @@ export class PrismaClient<
   get professional(): Prisma.ProfessionalDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.constellation`: Exposes CRUD operations for the **Constellation** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Constellations
+    * const constellations = await prisma.constellation.findMany()
+    * ```
+    */
+  get constellation(): Prisma.ConstellationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.unitConfig`: Exposes CRUD operations for the **UnitConfig** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UnitConfigs
+    * const unitConfigs = await prisma.unitConfig.findMany()
+    * ```
+    */
+  get unitConfig(): Prisma.UnitConfigDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.unitServer`: Exposes CRUD operations for the **UnitServer** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UnitServers
+    * const unitServers = await prisma.unitServer.findMany()
+    * ```
+    */
+  get unitServer(): Prisma.UnitServerDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.case`: Exposes CRUD operations for the **Case** model.
     * Example usage:
     * ```ts
@@ -390,46 +407,6 @@ export class PrismaClient<
   get report(): Prisma.ReportDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.constellation`: Exposes CRUD operations for the **Constellation** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Constellations
-    * const constellations = await prisma.constellation.findMany()
-    * ```
-    */
-  get constellation(): Prisma.ConstellationDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.unitConfig`: Exposes CRUD operations for the **UnitConfig** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more UnitConfigs
-    * const unitConfigs = await prisma.unitConfig.findMany()
-    * ```
-    */
-  get unitConfig(): Prisma.UnitConfigDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.legalStep`: Exposes CRUD operations for the **LegalStep** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more LegalSteps
-    * const legalSteps = await prisma.legalStep.findMany()
-    * ```
-    */
-  get legalStep(): Prisma.LegalStepDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.footerLink`: Exposes CRUD operations for the **FooterLink** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more FooterLinks
-    * const footerLinks = await prisma.footerLink.findMany()
-    * ```
-    */
-  get footerLink(): Prisma.FooterLinkDelegate<ExtArgs, ClientOptions>;
-
-  /**
    * `prisma.section`: Exposes CRUD operations for the **Section** model.
     * Example usage:
     * ```ts
@@ -460,14 +437,24 @@ export class PrismaClient<
   get article(): Prisma.ArticleDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.unitServer`: Exposes CRUD operations for the **UnitServer** model.
+   * `prisma.legalStep`: Exposes CRUD operations for the **LegalStep** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more UnitServers
-    * const unitServers = await prisma.unitServer.findMany()
+    * // Fetch zero or more LegalSteps
+    * const legalSteps = await prisma.legalStep.findMany()
     * ```
     */
-  get unitServer(): Prisma.UnitServerDelegate<ExtArgs, ClientOptions>;
+  get legalStep(): Prisma.LegalStepDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.footerLink`: Exposes CRUD operations for the **FooterLink** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more FooterLinks
+    * const footerLinks = await prisma.footerLink.findMany()
+    * ```
+    */
+  get footerLink(): Prisma.FooterLinkDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.serverLog`: Exposes CRUD operations for the **ServerLog** model.
@@ -921,19 +908,19 @@ export namespace Prisma {
     User: 'User',
     Client: 'Client',
     Professional: 'Professional',
+    Constellation: 'Constellation',
+    UnitConfig: 'UnitConfig',
+    UnitServer: 'UnitServer',
     Case: 'Case',
     Chat: 'Chat',
     Message: 'Message',
     File: 'File',
     Report: 'Report',
-    Constellation: 'Constellation',
-    UnitConfig: 'UnitConfig',
-    LegalStep: 'LegalStep',
-    FooterLink: 'FooterLink',
     Section: 'Section',
     Image: 'Image',
     Article: 'Article',
-    UnitServer: 'UnitServer',
+    LegalStep: 'LegalStep',
+    FooterLink: 'FooterLink',
     ServerLog: 'ServerLog'
   };
 
@@ -953,7 +940,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "client" | "professional" | "case" | "chat" | "message" | "file" | "report" | "constellation" | "unitConfig" | "legalStep" | "footerLink" | "section" | "image" | "article" | "unitServer" | "serverLog"
+      modelProps: "user" | "client" | "professional" | "constellation" | "unitConfig" | "unitServer" | "case" | "chat" | "message" | "file" | "report" | "section" | "image" | "article" | "legalStep" | "footerLink" | "serverLog"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1176,6 +1163,228 @@ export namespace Prisma {
           count: {
             args: Prisma.ProfessionalCountArgs<ExtArgs>
             result: $Utils.Optional<ProfessionalCountAggregateOutputType> | number
+          }
+        }
+      }
+      Constellation: {
+        payload: Prisma.$ConstellationPayload<ExtArgs>
+        fields: Prisma.ConstellationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ConstellationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConstellationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ConstellationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConstellationPayload>
+          }
+          findFirst: {
+            args: Prisma.ConstellationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConstellationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ConstellationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConstellationPayload>
+          }
+          findMany: {
+            args: Prisma.ConstellationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConstellationPayload>[]
+          }
+          create: {
+            args: Prisma.ConstellationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConstellationPayload>
+          }
+          createMany: {
+            args: Prisma.ConstellationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ConstellationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConstellationPayload>[]
+          }
+          delete: {
+            args: Prisma.ConstellationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConstellationPayload>
+          }
+          update: {
+            args: Prisma.ConstellationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConstellationPayload>
+          }
+          deleteMany: {
+            args: Prisma.ConstellationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ConstellationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ConstellationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConstellationPayload>[]
+          }
+          upsert: {
+            args: Prisma.ConstellationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConstellationPayload>
+          }
+          aggregate: {
+            args: Prisma.ConstellationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateConstellation>
+          }
+          groupBy: {
+            args: Prisma.ConstellationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ConstellationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ConstellationCountArgs<ExtArgs>
+            result: $Utils.Optional<ConstellationCountAggregateOutputType> | number
+          }
+        }
+      }
+      UnitConfig: {
+        payload: Prisma.$UnitConfigPayload<ExtArgs>
+        fields: Prisma.UnitConfigFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UnitConfigFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UnitConfigPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UnitConfigFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UnitConfigPayload>
+          }
+          findFirst: {
+            args: Prisma.UnitConfigFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UnitConfigPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UnitConfigFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UnitConfigPayload>
+          }
+          findMany: {
+            args: Prisma.UnitConfigFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UnitConfigPayload>[]
+          }
+          create: {
+            args: Prisma.UnitConfigCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UnitConfigPayload>
+          }
+          createMany: {
+            args: Prisma.UnitConfigCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UnitConfigCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UnitConfigPayload>[]
+          }
+          delete: {
+            args: Prisma.UnitConfigDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UnitConfigPayload>
+          }
+          update: {
+            args: Prisma.UnitConfigUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UnitConfigPayload>
+          }
+          deleteMany: {
+            args: Prisma.UnitConfigDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UnitConfigUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UnitConfigUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UnitConfigPayload>[]
+          }
+          upsert: {
+            args: Prisma.UnitConfigUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UnitConfigPayload>
+          }
+          aggregate: {
+            args: Prisma.UnitConfigAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUnitConfig>
+          }
+          groupBy: {
+            args: Prisma.UnitConfigGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UnitConfigGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UnitConfigCountArgs<ExtArgs>
+            result: $Utils.Optional<UnitConfigCountAggregateOutputType> | number
+          }
+        }
+      }
+      UnitServer: {
+        payload: Prisma.$UnitServerPayload<ExtArgs>
+        fields: Prisma.UnitServerFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UnitServerFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UnitServerPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UnitServerFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UnitServerPayload>
+          }
+          findFirst: {
+            args: Prisma.UnitServerFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UnitServerPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UnitServerFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UnitServerPayload>
+          }
+          findMany: {
+            args: Prisma.UnitServerFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UnitServerPayload>[]
+          }
+          create: {
+            args: Prisma.UnitServerCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UnitServerPayload>
+          }
+          createMany: {
+            args: Prisma.UnitServerCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UnitServerCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UnitServerPayload>[]
+          }
+          delete: {
+            args: Prisma.UnitServerDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UnitServerPayload>
+          }
+          update: {
+            args: Prisma.UnitServerUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UnitServerPayload>
+          }
+          deleteMany: {
+            args: Prisma.UnitServerDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UnitServerUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UnitServerUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UnitServerPayload>[]
+          }
+          upsert: {
+            args: Prisma.UnitServerUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UnitServerPayload>
+          }
+          aggregate: {
+            args: Prisma.UnitServerAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUnitServer>
+          }
+          groupBy: {
+            args: Prisma.UnitServerGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UnitServerGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UnitServerCountArgs<ExtArgs>
+            result: $Utils.Optional<UnitServerCountAggregateOutputType> | number
           }
         }
       }
@@ -1549,302 +1758,6 @@ export namespace Prisma {
           }
         }
       }
-      Constellation: {
-        payload: Prisma.$ConstellationPayload<ExtArgs>
-        fields: Prisma.ConstellationFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.ConstellationFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ConstellationPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.ConstellationFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ConstellationPayload>
-          }
-          findFirst: {
-            args: Prisma.ConstellationFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ConstellationPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.ConstellationFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ConstellationPayload>
-          }
-          findMany: {
-            args: Prisma.ConstellationFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ConstellationPayload>[]
-          }
-          create: {
-            args: Prisma.ConstellationCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ConstellationPayload>
-          }
-          createMany: {
-            args: Prisma.ConstellationCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.ConstellationCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ConstellationPayload>[]
-          }
-          delete: {
-            args: Prisma.ConstellationDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ConstellationPayload>
-          }
-          update: {
-            args: Prisma.ConstellationUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ConstellationPayload>
-          }
-          deleteMany: {
-            args: Prisma.ConstellationDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.ConstellationUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.ConstellationUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ConstellationPayload>[]
-          }
-          upsert: {
-            args: Prisma.ConstellationUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ConstellationPayload>
-          }
-          aggregate: {
-            args: Prisma.ConstellationAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateConstellation>
-          }
-          groupBy: {
-            args: Prisma.ConstellationGroupByArgs<ExtArgs>
-            result: $Utils.Optional<ConstellationGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.ConstellationCountArgs<ExtArgs>
-            result: $Utils.Optional<ConstellationCountAggregateOutputType> | number
-          }
-        }
-      }
-      UnitConfig: {
-        payload: Prisma.$UnitConfigPayload<ExtArgs>
-        fields: Prisma.UnitConfigFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.UnitConfigFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UnitConfigPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.UnitConfigFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UnitConfigPayload>
-          }
-          findFirst: {
-            args: Prisma.UnitConfigFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UnitConfigPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.UnitConfigFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UnitConfigPayload>
-          }
-          findMany: {
-            args: Prisma.UnitConfigFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UnitConfigPayload>[]
-          }
-          create: {
-            args: Prisma.UnitConfigCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UnitConfigPayload>
-          }
-          createMany: {
-            args: Prisma.UnitConfigCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.UnitConfigCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UnitConfigPayload>[]
-          }
-          delete: {
-            args: Prisma.UnitConfigDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UnitConfigPayload>
-          }
-          update: {
-            args: Prisma.UnitConfigUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UnitConfigPayload>
-          }
-          deleteMany: {
-            args: Prisma.UnitConfigDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.UnitConfigUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.UnitConfigUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UnitConfigPayload>[]
-          }
-          upsert: {
-            args: Prisma.UnitConfigUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UnitConfigPayload>
-          }
-          aggregate: {
-            args: Prisma.UnitConfigAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateUnitConfig>
-          }
-          groupBy: {
-            args: Prisma.UnitConfigGroupByArgs<ExtArgs>
-            result: $Utils.Optional<UnitConfigGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.UnitConfigCountArgs<ExtArgs>
-            result: $Utils.Optional<UnitConfigCountAggregateOutputType> | number
-          }
-        }
-      }
-      LegalStep: {
-        payload: Prisma.$LegalStepPayload<ExtArgs>
-        fields: Prisma.LegalStepFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.LegalStepFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LegalStepPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.LegalStepFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LegalStepPayload>
-          }
-          findFirst: {
-            args: Prisma.LegalStepFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LegalStepPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.LegalStepFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LegalStepPayload>
-          }
-          findMany: {
-            args: Prisma.LegalStepFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LegalStepPayload>[]
-          }
-          create: {
-            args: Prisma.LegalStepCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LegalStepPayload>
-          }
-          createMany: {
-            args: Prisma.LegalStepCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.LegalStepCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LegalStepPayload>[]
-          }
-          delete: {
-            args: Prisma.LegalStepDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LegalStepPayload>
-          }
-          update: {
-            args: Prisma.LegalStepUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LegalStepPayload>
-          }
-          deleteMany: {
-            args: Prisma.LegalStepDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.LegalStepUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.LegalStepUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LegalStepPayload>[]
-          }
-          upsert: {
-            args: Prisma.LegalStepUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$LegalStepPayload>
-          }
-          aggregate: {
-            args: Prisma.LegalStepAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateLegalStep>
-          }
-          groupBy: {
-            args: Prisma.LegalStepGroupByArgs<ExtArgs>
-            result: $Utils.Optional<LegalStepGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.LegalStepCountArgs<ExtArgs>
-            result: $Utils.Optional<LegalStepCountAggregateOutputType> | number
-          }
-        }
-      }
-      FooterLink: {
-        payload: Prisma.$FooterLinkPayload<ExtArgs>
-        fields: Prisma.FooterLinkFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.FooterLinkFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FooterLinkPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.FooterLinkFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FooterLinkPayload>
-          }
-          findFirst: {
-            args: Prisma.FooterLinkFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FooterLinkPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.FooterLinkFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FooterLinkPayload>
-          }
-          findMany: {
-            args: Prisma.FooterLinkFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FooterLinkPayload>[]
-          }
-          create: {
-            args: Prisma.FooterLinkCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FooterLinkPayload>
-          }
-          createMany: {
-            args: Prisma.FooterLinkCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.FooterLinkCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FooterLinkPayload>[]
-          }
-          delete: {
-            args: Prisma.FooterLinkDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FooterLinkPayload>
-          }
-          update: {
-            args: Prisma.FooterLinkUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FooterLinkPayload>
-          }
-          deleteMany: {
-            args: Prisma.FooterLinkDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.FooterLinkUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.FooterLinkUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FooterLinkPayload>[]
-          }
-          upsert: {
-            args: Prisma.FooterLinkUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FooterLinkPayload>
-          }
-          aggregate: {
-            args: Prisma.FooterLinkAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateFooterLink>
-          }
-          groupBy: {
-            args: Prisma.FooterLinkGroupByArgs<ExtArgs>
-            result: $Utils.Optional<FooterLinkGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.FooterLinkCountArgs<ExtArgs>
-            result: $Utils.Optional<FooterLinkCountAggregateOutputType> | number
-          }
-        }
-      }
       Section: {
         payload: Prisma.$SectionPayload<ExtArgs>
         fields: Prisma.SectionFieldRefs
@@ -2067,77 +1980,151 @@ export namespace Prisma {
           }
         }
       }
-      UnitServer: {
-        payload: Prisma.$UnitServerPayload<ExtArgs>
-        fields: Prisma.UnitServerFieldRefs
+      LegalStep: {
+        payload: Prisma.$LegalStepPayload<ExtArgs>
+        fields: Prisma.LegalStepFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.UnitServerFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UnitServerPayload> | null
+            args: Prisma.LegalStepFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegalStepPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.UnitServerFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UnitServerPayload>
+            args: Prisma.LegalStepFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegalStepPayload>
           }
           findFirst: {
-            args: Prisma.UnitServerFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UnitServerPayload> | null
+            args: Prisma.LegalStepFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegalStepPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.UnitServerFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UnitServerPayload>
+            args: Prisma.LegalStepFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegalStepPayload>
           }
           findMany: {
-            args: Prisma.UnitServerFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UnitServerPayload>[]
+            args: Prisma.LegalStepFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegalStepPayload>[]
           }
           create: {
-            args: Prisma.UnitServerCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UnitServerPayload>
+            args: Prisma.LegalStepCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegalStepPayload>
           }
           createMany: {
-            args: Prisma.UnitServerCreateManyArgs<ExtArgs>
+            args: Prisma.LegalStepCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.UnitServerCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UnitServerPayload>[]
+            args: Prisma.LegalStepCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegalStepPayload>[]
           }
           delete: {
-            args: Prisma.UnitServerDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UnitServerPayload>
+            args: Prisma.LegalStepDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegalStepPayload>
           }
           update: {
-            args: Prisma.UnitServerUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UnitServerPayload>
+            args: Prisma.LegalStepUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegalStepPayload>
           }
           deleteMany: {
-            args: Prisma.UnitServerDeleteManyArgs<ExtArgs>
+            args: Prisma.LegalStepDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.UnitServerUpdateManyArgs<ExtArgs>
+            args: Prisma.LegalStepUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.UnitServerUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UnitServerPayload>[]
+            args: Prisma.LegalStepUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegalStepPayload>[]
           }
           upsert: {
-            args: Prisma.UnitServerUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UnitServerPayload>
+            args: Prisma.LegalStepUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LegalStepPayload>
           }
           aggregate: {
-            args: Prisma.UnitServerAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateUnitServer>
+            args: Prisma.LegalStepAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLegalStep>
           }
           groupBy: {
-            args: Prisma.UnitServerGroupByArgs<ExtArgs>
-            result: $Utils.Optional<UnitServerGroupByOutputType>[]
+            args: Prisma.LegalStepGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LegalStepGroupByOutputType>[]
           }
           count: {
-            args: Prisma.UnitServerCountArgs<ExtArgs>
-            result: $Utils.Optional<UnitServerCountAggregateOutputType> | number
+            args: Prisma.LegalStepCountArgs<ExtArgs>
+            result: $Utils.Optional<LegalStepCountAggregateOutputType> | number
+          }
+        }
+      }
+      FooterLink: {
+        payload: Prisma.$FooterLinkPayload<ExtArgs>
+        fields: Prisma.FooterLinkFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.FooterLinkFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FooterLinkPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.FooterLinkFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FooterLinkPayload>
+          }
+          findFirst: {
+            args: Prisma.FooterLinkFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FooterLinkPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.FooterLinkFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FooterLinkPayload>
+          }
+          findMany: {
+            args: Prisma.FooterLinkFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FooterLinkPayload>[]
+          }
+          create: {
+            args: Prisma.FooterLinkCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FooterLinkPayload>
+          }
+          createMany: {
+            args: Prisma.FooterLinkCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.FooterLinkCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FooterLinkPayload>[]
+          }
+          delete: {
+            args: Prisma.FooterLinkDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FooterLinkPayload>
+          }
+          update: {
+            args: Prisma.FooterLinkUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FooterLinkPayload>
+          }
+          deleteMany: {
+            args: Prisma.FooterLinkDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.FooterLinkUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.FooterLinkUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FooterLinkPayload>[]
+          }
+          upsert: {
+            args: Prisma.FooterLinkUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FooterLinkPayload>
+          }
+          aggregate: {
+            args: Prisma.FooterLinkAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateFooterLink>
+          }
+          groupBy: {
+            args: Prisma.FooterLinkGroupByArgs<ExtArgs>
+            result: $Utils.Optional<FooterLinkGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.FooterLinkCountArgs<ExtArgs>
+            result: $Utils.Optional<FooterLinkCountAggregateOutputType> | number
           }
         }
       }
@@ -2302,19 +2289,19 @@ export namespace Prisma {
     user?: UserOmit
     client?: ClientOmit
     professional?: ProfessionalOmit
+    constellation?: ConstellationOmit
+    unitConfig?: UnitConfigOmit
+    unitServer?: UnitServerOmit
     case?: CaseOmit
     chat?: ChatOmit
     message?: MessageOmit
     file?: FileOmit
     report?: ReportOmit
-    constellation?: ConstellationOmit
-    unitConfig?: UnitConfigOmit
-    legalStep?: LegalStepOmit
-    footerLink?: FooterLinkOmit
     section?: SectionOmit
     image?: ImageOmit
     article?: ArticleOmit
-    unitServer?: UnitServerOmit
+    legalStep?: LegalStepOmit
+    footerLink?: FooterLinkOmit
     serverLog?: ServerLogOmit
   }
 
@@ -2535,77 +2522,6 @@ export namespace Prisma {
 
 
   /**
-   * Count Type CaseCountOutputType
-   */
-
-  export type CaseCountOutputType = {
-    files: number
-    reports: number
-  }
-
-  export type CaseCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    files?: boolean | CaseCountOutputTypeCountFilesArgs
-    reports?: boolean | CaseCountOutputTypeCountReportsArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * CaseCountOutputType without action
-   */
-  export type CaseCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CaseCountOutputType
-     */
-    select?: CaseCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * CaseCountOutputType without action
-   */
-  export type CaseCountOutputTypeCountFilesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: FileWhereInput
-  }
-
-  /**
-   * CaseCountOutputType without action
-   */
-  export type CaseCountOutputTypeCountReportsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ReportWhereInput
-  }
-
-
-  /**
-   * Count Type ChatCountOutputType
-   */
-
-  export type ChatCountOutputType = {
-    messages: number
-  }
-
-  export type ChatCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    messages?: boolean | ChatCountOutputTypeCountMessagesArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * ChatCountOutputType without action
-   */
-  export type ChatCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ChatCountOutputType
-     */
-    select?: ChatCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * ChatCountOutputType without action
-   */
-  export type ChatCountOutputTypeCountMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: MessageWhereInput
-  }
-
-
-  /**
    * Count Type ConstellationCountOutputType
    */
 
@@ -2713,6 +2629,126 @@ export namespace Prisma {
 
 
   /**
+   * Count Type UnitServerCountOutputType
+   */
+
+  export type UnitServerCountOutputType = {
+    clients: number
+    cases: number
+    serverLogs: number
+  }
+
+  export type UnitServerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    clients?: boolean | UnitServerCountOutputTypeCountClientsArgs
+    cases?: boolean | UnitServerCountOutputTypeCountCasesArgs
+    serverLogs?: boolean | UnitServerCountOutputTypeCountServerLogsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * UnitServerCountOutputType without action
+   */
+  export type UnitServerCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnitServerCountOutputType
+     */
+    select?: UnitServerCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UnitServerCountOutputType without action
+   */
+  export type UnitServerCountOutputTypeCountClientsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ClientWhereInput
+  }
+
+  /**
+   * UnitServerCountOutputType without action
+   */
+  export type UnitServerCountOutputTypeCountCasesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CaseWhereInput
+  }
+
+  /**
+   * UnitServerCountOutputType without action
+   */
+  export type UnitServerCountOutputTypeCountServerLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ServerLogWhereInput
+  }
+
+
+  /**
+   * Count Type CaseCountOutputType
+   */
+
+  export type CaseCountOutputType = {
+    files: number
+    reports: number
+  }
+
+  export type CaseCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    files?: boolean | CaseCountOutputTypeCountFilesArgs
+    reports?: boolean | CaseCountOutputTypeCountReportsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CaseCountOutputType without action
+   */
+  export type CaseCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CaseCountOutputType
+     */
+    select?: CaseCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CaseCountOutputType without action
+   */
+  export type CaseCountOutputTypeCountFilesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FileWhereInput
+  }
+
+  /**
+   * CaseCountOutputType without action
+   */
+  export type CaseCountOutputTypeCountReportsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ReportWhereInput
+  }
+
+
+  /**
+   * Count Type ChatCountOutputType
+   */
+
+  export type ChatCountOutputType = {
+    messages: number
+  }
+
+  export type ChatCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    messages?: boolean | ChatCountOutputTypeCountMessagesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ChatCountOutputType without action
+   */
+  export type ChatCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChatCountOutputType
+     */
+    select?: ChatCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ChatCountOutputType without action
+   */
+  export type ChatCountOutputTypeCountMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessageWhereInput
+  }
+
+
+  /**
    * Count Type SectionCountOutputType
    */
 
@@ -2740,64 +2776,6 @@ export namespace Prisma {
    */
   export type SectionCountOutputTypeCountImagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ImageWhereInput
-  }
-
-
-  /**
-   * Count Type UnitServerCountOutputType
-   */
-
-  export type UnitServerCountOutputType = {
-    clients: number
-    professionals: number
-    cases: number
-    serverLogs: number
-  }
-
-  export type UnitServerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    clients?: boolean | UnitServerCountOutputTypeCountClientsArgs
-    professionals?: boolean | UnitServerCountOutputTypeCountProfessionalsArgs
-    cases?: boolean | UnitServerCountOutputTypeCountCasesArgs
-    serverLogs?: boolean | UnitServerCountOutputTypeCountServerLogsArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * UnitServerCountOutputType without action
-   */
-  export type UnitServerCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the UnitServerCountOutputType
-     */
-    select?: UnitServerCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * UnitServerCountOutputType without action
-   */
-  export type UnitServerCountOutputTypeCountClientsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ClientWhereInput
-  }
-
-  /**
-   * UnitServerCountOutputType without action
-   */
-  export type UnitServerCountOutputTypeCountProfessionalsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ProfessionalWhereInput
-  }
-
-  /**
-   * UnitServerCountOutputType without action
-   */
-  export type UnitServerCountOutputTypeCountCasesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: CaseWhereInput
-  }
-
-  /**
-   * UnitServerCountOutputType without action
-   */
-  export type UnitServerCountOutputTypeCountServerLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ServerLogWhereInput
   }
 
 
@@ -5159,19 +5137,16 @@ export namespace Prisma {
   export type ProfessionalMinAggregateOutputType = {
     id: string | null
     userId: string | null
-    serverId: string | null
   }
 
   export type ProfessionalMaxAggregateOutputType = {
     id: string | null
     userId: string | null
-    serverId: string | null
   }
 
   export type ProfessionalCountAggregateOutputType = {
     id: number
     userId: number
-    serverId: number
     _all: number
   }
 
@@ -5179,19 +5154,16 @@ export namespace Prisma {
   export type ProfessionalMinAggregateInputType = {
     id?: true
     userId?: true
-    serverId?: true
   }
 
   export type ProfessionalMaxAggregateInputType = {
     id?: true
     userId?: true
-    serverId?: true
   }
 
   export type ProfessionalCountAggregateInputType = {
     id?: true
     userId?: true
-    serverId?: true
     _all?: true
   }
 
@@ -5270,7 +5242,6 @@ export namespace Prisma {
   export type ProfessionalGroupByOutputType = {
     id: string
     userId: string
-    serverId: string
     _count: ProfessionalCountAggregateOutputType | null
     _min: ProfessionalMinAggregateOutputType | null
     _max: ProfessionalMaxAggregateOutputType | null
@@ -5293,9 +5264,7 @@ export namespace Prisma {
   export type ProfessionalSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
-    serverId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-    server?: boolean | UnitServerDefaultArgs<ExtArgs>
     cases?: boolean | Professional$casesArgs<ExtArgs>
     files?: boolean | Professional$filesArgs<ExtArgs>
     _count?: boolean | ProfessionalCountOutputTypeDefaultArgs<ExtArgs>
@@ -5304,54 +5273,44 @@ export namespace Prisma {
   export type ProfessionalSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
-    serverId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-    server?: boolean | UnitServerDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["professional"]>
 
   export type ProfessionalSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
-    serverId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-    server?: boolean | UnitServerDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["professional"]>
 
   export type ProfessionalSelectScalar = {
     id?: boolean
     userId?: boolean
-    serverId?: boolean
   }
 
-  export type ProfessionalOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "serverId", ExtArgs["result"]["professional"]>
+  export type ProfessionalOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId", ExtArgs["result"]["professional"]>
   export type ProfessionalInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
-    server?: boolean | UnitServerDefaultArgs<ExtArgs>
     cases?: boolean | Professional$casesArgs<ExtArgs>
     files?: boolean | Professional$filesArgs<ExtArgs>
     _count?: boolean | ProfessionalCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ProfessionalIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
-    server?: boolean | UnitServerDefaultArgs<ExtArgs>
   }
   export type ProfessionalIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
-    server?: boolean | UnitServerDefaultArgs<ExtArgs>
   }
 
   export type $ProfessionalPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Professional"
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
-      server: Prisma.$UnitServerPayload<ExtArgs>
       cases: Prisma.$CasePayload<ExtArgs>[]
       files: Prisma.$FilePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       userId: string
-      serverId: string
     }, ExtArgs["result"]["professional"]>
     composites: {}
   }
@@ -5747,7 +5706,6 @@ export namespace Prisma {
   export interface Prisma__ProfessionalClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    server<T extends UnitServerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UnitServerDefaultArgs<ExtArgs>>): Prisma__UnitServerClient<$Result.GetResult<Prisma.$UnitServerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     cases<T extends Professional$casesArgs<ExtArgs> = {}>(args?: Subset<T, Professional$casesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     files<T extends Professional$filesArgs<ExtArgs> = {}>(args?: Subset<T, Professional$filesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -5781,7 +5739,6 @@ export namespace Prisma {
   interface ProfessionalFieldRefs {
     readonly id: FieldRef<"Professional", 'String'>
     readonly userId: FieldRef<"Professional", 'String'>
-    readonly serverId: FieldRef<"Professional", 'String'>
   }
     
 
@@ -6241,6 +6198,3561 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: ProfessionalInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Constellation
+   */
+
+  export type AggregateConstellation = {
+    _count: ConstellationCountAggregateOutputType | null
+    _min: ConstellationMinAggregateOutputType | null
+    _max: ConstellationMaxAggregateOutputType | null
+  }
+
+  export type ConstellationMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+  }
+
+  export type ConstellationMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+  }
+
+  export type ConstellationCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    _all: number
+  }
+
+
+  export type ConstellationMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+  }
+
+  export type ConstellationMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+  }
+
+  export type ConstellationCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    _all?: true
+  }
+
+  export type ConstellationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Constellation to aggregate.
+     */
+    where?: ConstellationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Constellations to fetch.
+     */
+    orderBy?: ConstellationOrderByWithRelationInput | ConstellationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ConstellationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Constellations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Constellations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Constellations
+    **/
+    _count?: true | ConstellationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ConstellationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ConstellationMaxAggregateInputType
+  }
+
+  export type GetConstellationAggregateType<T extends ConstellationAggregateArgs> = {
+        [P in keyof T & keyof AggregateConstellation]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateConstellation[P]>
+      : GetScalarType<T[P], AggregateConstellation[P]>
+  }
+
+
+
+
+  export type ConstellationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ConstellationWhereInput
+    orderBy?: ConstellationOrderByWithAggregationInput | ConstellationOrderByWithAggregationInput[]
+    by: ConstellationScalarFieldEnum[] | ConstellationScalarFieldEnum
+    having?: ConstellationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ConstellationCountAggregateInputType | true
+    _min?: ConstellationMinAggregateInputType
+    _max?: ConstellationMaxAggregateInputType
+  }
+
+  export type ConstellationGroupByOutputType = {
+    id: string
+    name: string
+    description: string | null
+    _count: ConstellationCountAggregateOutputType | null
+    _min: ConstellationMinAggregateOutputType | null
+    _max: ConstellationMaxAggregateOutputType | null
+  }
+
+  type GetConstellationGroupByPayload<T extends ConstellationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ConstellationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ConstellationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ConstellationGroupByOutputType[P]>
+            : GetScalarType<T[P], ConstellationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ConstellationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    servers?: boolean | Constellation$serversArgs<ExtArgs>
+    _count?: boolean | ConstellationCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["constellation"]>
+
+  export type ConstellationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+  }, ExtArgs["result"]["constellation"]>
+
+  export type ConstellationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+  }, ExtArgs["result"]["constellation"]>
+
+  export type ConstellationSelectScalar = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+  }
+
+  export type ConstellationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description", ExtArgs["result"]["constellation"]>
+  export type ConstellationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    servers?: boolean | Constellation$serversArgs<ExtArgs>
+    _count?: boolean | ConstellationCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ConstellationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type ConstellationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $ConstellationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Constellation"
+    objects: {
+      servers: Prisma.$UnitServerPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      description: string | null
+    }, ExtArgs["result"]["constellation"]>
+    composites: {}
+  }
+
+  type ConstellationGetPayload<S extends boolean | null | undefined | ConstellationDefaultArgs> = $Result.GetResult<Prisma.$ConstellationPayload, S>
+
+  type ConstellationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ConstellationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ConstellationCountAggregateInputType | true
+    }
+
+  export interface ConstellationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Constellation'], meta: { name: 'Constellation' } }
+    /**
+     * Find zero or one Constellation that matches the filter.
+     * @param {ConstellationFindUniqueArgs} args - Arguments to find a Constellation
+     * @example
+     * // Get one Constellation
+     * const constellation = await prisma.constellation.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ConstellationFindUniqueArgs>(args: SelectSubset<T, ConstellationFindUniqueArgs<ExtArgs>>): Prisma__ConstellationClient<$Result.GetResult<Prisma.$ConstellationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Constellation that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ConstellationFindUniqueOrThrowArgs} args - Arguments to find a Constellation
+     * @example
+     * // Get one Constellation
+     * const constellation = await prisma.constellation.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ConstellationFindUniqueOrThrowArgs>(args: SelectSubset<T, ConstellationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ConstellationClient<$Result.GetResult<Prisma.$ConstellationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Constellation that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConstellationFindFirstArgs} args - Arguments to find a Constellation
+     * @example
+     * // Get one Constellation
+     * const constellation = await prisma.constellation.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ConstellationFindFirstArgs>(args?: SelectSubset<T, ConstellationFindFirstArgs<ExtArgs>>): Prisma__ConstellationClient<$Result.GetResult<Prisma.$ConstellationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Constellation that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConstellationFindFirstOrThrowArgs} args - Arguments to find a Constellation
+     * @example
+     * // Get one Constellation
+     * const constellation = await prisma.constellation.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ConstellationFindFirstOrThrowArgs>(args?: SelectSubset<T, ConstellationFindFirstOrThrowArgs<ExtArgs>>): Prisma__ConstellationClient<$Result.GetResult<Prisma.$ConstellationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Constellations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConstellationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Constellations
+     * const constellations = await prisma.constellation.findMany()
+     * 
+     * // Get first 10 Constellations
+     * const constellations = await prisma.constellation.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const constellationWithIdOnly = await prisma.constellation.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ConstellationFindManyArgs>(args?: SelectSubset<T, ConstellationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConstellationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Constellation.
+     * @param {ConstellationCreateArgs} args - Arguments to create a Constellation.
+     * @example
+     * // Create one Constellation
+     * const Constellation = await prisma.constellation.create({
+     *   data: {
+     *     // ... data to create a Constellation
+     *   }
+     * })
+     * 
+     */
+    create<T extends ConstellationCreateArgs>(args: SelectSubset<T, ConstellationCreateArgs<ExtArgs>>): Prisma__ConstellationClient<$Result.GetResult<Prisma.$ConstellationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Constellations.
+     * @param {ConstellationCreateManyArgs} args - Arguments to create many Constellations.
+     * @example
+     * // Create many Constellations
+     * const constellation = await prisma.constellation.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ConstellationCreateManyArgs>(args?: SelectSubset<T, ConstellationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Constellations and returns the data saved in the database.
+     * @param {ConstellationCreateManyAndReturnArgs} args - Arguments to create many Constellations.
+     * @example
+     * // Create many Constellations
+     * const constellation = await prisma.constellation.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Constellations and only return the `id`
+     * const constellationWithIdOnly = await prisma.constellation.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ConstellationCreateManyAndReturnArgs>(args?: SelectSubset<T, ConstellationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConstellationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Constellation.
+     * @param {ConstellationDeleteArgs} args - Arguments to delete one Constellation.
+     * @example
+     * // Delete one Constellation
+     * const Constellation = await prisma.constellation.delete({
+     *   where: {
+     *     // ... filter to delete one Constellation
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ConstellationDeleteArgs>(args: SelectSubset<T, ConstellationDeleteArgs<ExtArgs>>): Prisma__ConstellationClient<$Result.GetResult<Prisma.$ConstellationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Constellation.
+     * @param {ConstellationUpdateArgs} args - Arguments to update one Constellation.
+     * @example
+     * // Update one Constellation
+     * const constellation = await prisma.constellation.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ConstellationUpdateArgs>(args: SelectSubset<T, ConstellationUpdateArgs<ExtArgs>>): Prisma__ConstellationClient<$Result.GetResult<Prisma.$ConstellationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Constellations.
+     * @param {ConstellationDeleteManyArgs} args - Arguments to filter Constellations to delete.
+     * @example
+     * // Delete a few Constellations
+     * const { count } = await prisma.constellation.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ConstellationDeleteManyArgs>(args?: SelectSubset<T, ConstellationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Constellations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConstellationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Constellations
+     * const constellation = await prisma.constellation.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ConstellationUpdateManyArgs>(args: SelectSubset<T, ConstellationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Constellations and returns the data updated in the database.
+     * @param {ConstellationUpdateManyAndReturnArgs} args - Arguments to update many Constellations.
+     * @example
+     * // Update many Constellations
+     * const constellation = await prisma.constellation.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Constellations and only return the `id`
+     * const constellationWithIdOnly = await prisma.constellation.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ConstellationUpdateManyAndReturnArgs>(args: SelectSubset<T, ConstellationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConstellationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Constellation.
+     * @param {ConstellationUpsertArgs} args - Arguments to update or create a Constellation.
+     * @example
+     * // Update or create a Constellation
+     * const constellation = await prisma.constellation.upsert({
+     *   create: {
+     *     // ... data to create a Constellation
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Constellation we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ConstellationUpsertArgs>(args: SelectSubset<T, ConstellationUpsertArgs<ExtArgs>>): Prisma__ConstellationClient<$Result.GetResult<Prisma.$ConstellationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Constellations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConstellationCountArgs} args - Arguments to filter Constellations to count.
+     * @example
+     * // Count the number of Constellations
+     * const count = await prisma.constellation.count({
+     *   where: {
+     *     // ... the filter for the Constellations we want to count
+     *   }
+     * })
+    **/
+    count<T extends ConstellationCountArgs>(
+      args?: Subset<T, ConstellationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ConstellationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Constellation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConstellationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ConstellationAggregateArgs>(args: Subset<T, ConstellationAggregateArgs>): Prisma.PrismaPromise<GetConstellationAggregateType<T>>
+
+    /**
+     * Group by Constellation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConstellationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ConstellationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ConstellationGroupByArgs['orderBy'] }
+        : { orderBy?: ConstellationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ConstellationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetConstellationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Constellation model
+   */
+  readonly fields: ConstellationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Constellation.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ConstellationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    servers<T extends Constellation$serversArgs<ExtArgs> = {}>(args?: Subset<T, Constellation$serversArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UnitServerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Constellation model
+   */
+  interface ConstellationFieldRefs {
+    readonly id: FieldRef<"Constellation", 'String'>
+    readonly name: FieldRef<"Constellation", 'String'>
+    readonly description: FieldRef<"Constellation", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Constellation findUnique
+   */
+  export type ConstellationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Constellation
+     */
+    select?: ConstellationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Constellation
+     */
+    omit?: ConstellationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConstellationInclude<ExtArgs> | null
+    /**
+     * Filter, which Constellation to fetch.
+     */
+    where: ConstellationWhereUniqueInput
+  }
+
+  /**
+   * Constellation findUniqueOrThrow
+   */
+  export type ConstellationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Constellation
+     */
+    select?: ConstellationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Constellation
+     */
+    omit?: ConstellationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConstellationInclude<ExtArgs> | null
+    /**
+     * Filter, which Constellation to fetch.
+     */
+    where: ConstellationWhereUniqueInput
+  }
+
+  /**
+   * Constellation findFirst
+   */
+  export type ConstellationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Constellation
+     */
+    select?: ConstellationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Constellation
+     */
+    omit?: ConstellationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConstellationInclude<ExtArgs> | null
+    /**
+     * Filter, which Constellation to fetch.
+     */
+    where?: ConstellationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Constellations to fetch.
+     */
+    orderBy?: ConstellationOrderByWithRelationInput | ConstellationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Constellations.
+     */
+    cursor?: ConstellationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Constellations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Constellations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Constellations.
+     */
+    distinct?: ConstellationScalarFieldEnum | ConstellationScalarFieldEnum[]
+  }
+
+  /**
+   * Constellation findFirstOrThrow
+   */
+  export type ConstellationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Constellation
+     */
+    select?: ConstellationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Constellation
+     */
+    omit?: ConstellationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConstellationInclude<ExtArgs> | null
+    /**
+     * Filter, which Constellation to fetch.
+     */
+    where?: ConstellationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Constellations to fetch.
+     */
+    orderBy?: ConstellationOrderByWithRelationInput | ConstellationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Constellations.
+     */
+    cursor?: ConstellationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Constellations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Constellations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Constellations.
+     */
+    distinct?: ConstellationScalarFieldEnum | ConstellationScalarFieldEnum[]
+  }
+
+  /**
+   * Constellation findMany
+   */
+  export type ConstellationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Constellation
+     */
+    select?: ConstellationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Constellation
+     */
+    omit?: ConstellationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConstellationInclude<ExtArgs> | null
+    /**
+     * Filter, which Constellations to fetch.
+     */
+    where?: ConstellationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Constellations to fetch.
+     */
+    orderBy?: ConstellationOrderByWithRelationInput | ConstellationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Constellations.
+     */
+    cursor?: ConstellationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Constellations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Constellations.
+     */
+    skip?: number
+    distinct?: ConstellationScalarFieldEnum | ConstellationScalarFieldEnum[]
+  }
+
+  /**
+   * Constellation create
+   */
+  export type ConstellationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Constellation
+     */
+    select?: ConstellationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Constellation
+     */
+    omit?: ConstellationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConstellationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Constellation.
+     */
+    data: XOR<ConstellationCreateInput, ConstellationUncheckedCreateInput>
+  }
+
+  /**
+   * Constellation createMany
+   */
+  export type ConstellationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Constellations.
+     */
+    data: ConstellationCreateManyInput | ConstellationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Constellation createManyAndReturn
+   */
+  export type ConstellationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Constellation
+     */
+    select?: ConstellationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Constellation
+     */
+    omit?: ConstellationOmit<ExtArgs> | null
+    /**
+     * The data used to create many Constellations.
+     */
+    data: ConstellationCreateManyInput | ConstellationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Constellation update
+   */
+  export type ConstellationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Constellation
+     */
+    select?: ConstellationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Constellation
+     */
+    omit?: ConstellationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConstellationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Constellation.
+     */
+    data: XOR<ConstellationUpdateInput, ConstellationUncheckedUpdateInput>
+    /**
+     * Choose, which Constellation to update.
+     */
+    where: ConstellationWhereUniqueInput
+  }
+
+  /**
+   * Constellation updateMany
+   */
+  export type ConstellationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Constellations.
+     */
+    data: XOR<ConstellationUpdateManyMutationInput, ConstellationUncheckedUpdateManyInput>
+    /**
+     * Filter which Constellations to update
+     */
+    where?: ConstellationWhereInput
+    /**
+     * Limit how many Constellations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Constellation updateManyAndReturn
+   */
+  export type ConstellationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Constellation
+     */
+    select?: ConstellationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Constellation
+     */
+    omit?: ConstellationOmit<ExtArgs> | null
+    /**
+     * The data used to update Constellations.
+     */
+    data: XOR<ConstellationUpdateManyMutationInput, ConstellationUncheckedUpdateManyInput>
+    /**
+     * Filter which Constellations to update
+     */
+    where?: ConstellationWhereInput
+    /**
+     * Limit how many Constellations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Constellation upsert
+   */
+  export type ConstellationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Constellation
+     */
+    select?: ConstellationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Constellation
+     */
+    omit?: ConstellationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConstellationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Constellation to update in case it exists.
+     */
+    where: ConstellationWhereUniqueInput
+    /**
+     * In case the Constellation found by the `where` argument doesn't exist, create a new Constellation with this data.
+     */
+    create: XOR<ConstellationCreateInput, ConstellationUncheckedCreateInput>
+    /**
+     * In case the Constellation was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ConstellationUpdateInput, ConstellationUncheckedUpdateInput>
+  }
+
+  /**
+   * Constellation delete
+   */
+  export type ConstellationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Constellation
+     */
+    select?: ConstellationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Constellation
+     */
+    omit?: ConstellationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConstellationInclude<ExtArgs> | null
+    /**
+     * Filter which Constellation to delete.
+     */
+    where: ConstellationWhereUniqueInput
+  }
+
+  /**
+   * Constellation deleteMany
+   */
+  export type ConstellationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Constellations to delete
+     */
+    where?: ConstellationWhereInput
+    /**
+     * Limit how many Constellations to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Constellation.servers
+   */
+  export type Constellation$serversArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnitServer
+     */
+    select?: UnitServerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnitServer
+     */
+    omit?: UnitServerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnitServerInclude<ExtArgs> | null
+    where?: UnitServerWhereInput
+    orderBy?: UnitServerOrderByWithRelationInput | UnitServerOrderByWithRelationInput[]
+    cursor?: UnitServerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UnitServerScalarFieldEnum | UnitServerScalarFieldEnum[]
+  }
+
+  /**
+   * Constellation without action
+   */
+  export type ConstellationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Constellation
+     */
+    select?: ConstellationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Constellation
+     */
+    omit?: ConstellationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConstellationInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model UnitConfig
+   */
+
+  export type AggregateUnitConfig = {
+    _count: UnitConfigCountAggregateOutputType | null
+    _min: UnitConfigMinAggregateOutputType | null
+    _max: UnitConfigMaxAggregateOutputType | null
+  }
+
+  export type UnitConfigMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    pageTitle: string | null
+    pageDescription: string | null
+    iconUrl: string | null
+    servicesDescription: string | null
+    bannerUrl: string | null
+    footerInfo: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UnitConfigMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    pageTitle: string | null
+    pageDescription: string | null
+    iconUrl: string | null
+    servicesDescription: string | null
+    bannerUrl: string | null
+    footerInfo: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UnitConfigCountAggregateOutputType = {
+    id: number
+    name: number
+    pageTitle: number
+    pageDescription: number
+    iconUrl: number
+    servicesDescription: number
+    bannerUrl: number
+    footerInfo: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type UnitConfigMinAggregateInputType = {
+    id?: true
+    name?: true
+    pageTitle?: true
+    pageDescription?: true
+    iconUrl?: true
+    servicesDescription?: true
+    bannerUrl?: true
+    footerInfo?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UnitConfigMaxAggregateInputType = {
+    id?: true
+    name?: true
+    pageTitle?: true
+    pageDescription?: true
+    iconUrl?: true
+    servicesDescription?: true
+    bannerUrl?: true
+    footerInfo?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UnitConfigCountAggregateInputType = {
+    id?: true
+    name?: true
+    pageTitle?: true
+    pageDescription?: true
+    iconUrl?: true
+    servicesDescription?: true
+    bannerUrl?: true
+    footerInfo?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type UnitConfigAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UnitConfig to aggregate.
+     */
+    where?: UnitConfigWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UnitConfigs to fetch.
+     */
+    orderBy?: UnitConfigOrderByWithRelationInput | UnitConfigOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UnitConfigWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UnitConfigs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UnitConfigs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UnitConfigs
+    **/
+    _count?: true | UnitConfigCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UnitConfigMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UnitConfigMaxAggregateInputType
+  }
+
+  export type GetUnitConfigAggregateType<T extends UnitConfigAggregateArgs> = {
+        [P in keyof T & keyof AggregateUnitConfig]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUnitConfig[P]>
+      : GetScalarType<T[P], AggregateUnitConfig[P]>
+  }
+
+
+
+
+  export type UnitConfigGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UnitConfigWhereInput
+    orderBy?: UnitConfigOrderByWithAggregationInput | UnitConfigOrderByWithAggregationInput[]
+    by: UnitConfigScalarFieldEnum[] | UnitConfigScalarFieldEnum
+    having?: UnitConfigScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UnitConfigCountAggregateInputType | true
+    _min?: UnitConfigMinAggregateInputType
+    _max?: UnitConfigMaxAggregateInputType
+  }
+
+  export type UnitConfigGroupByOutputType = {
+    id: string
+    name: string
+    pageTitle: string
+    pageDescription: string
+    iconUrl: string | null
+    servicesDescription: string
+    bannerUrl: string | null
+    footerInfo: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: UnitConfigCountAggregateOutputType | null
+    _min: UnitConfigMinAggregateOutputType | null
+    _max: UnitConfigMaxAggregateOutputType | null
+  }
+
+  type GetUnitConfigGroupByPayload<T extends UnitConfigGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UnitConfigGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UnitConfigGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UnitConfigGroupByOutputType[P]>
+            : GetScalarType<T[P], UnitConfigGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UnitConfigSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    pageTitle?: boolean
+    pageDescription?: boolean
+    iconUrl?: boolean
+    servicesDescription?: boolean
+    bannerUrl?: boolean
+    footerInfo?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    legalSteps?: boolean | UnitConfig$legalStepsArgs<ExtArgs>
+    articles?: boolean | UnitConfig$articlesArgs<ExtArgs>
+    sections?: boolean | UnitConfig$sectionsArgs<ExtArgs>
+    images?: boolean | UnitConfig$imagesArgs<ExtArgs>
+    footerLinks?: boolean | UnitConfig$footerLinksArgs<ExtArgs>
+    servers?: boolean | UnitConfig$serversArgs<ExtArgs>
+    _count?: boolean | UnitConfigCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["unitConfig"]>
+
+  export type UnitConfigSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    pageTitle?: boolean
+    pageDescription?: boolean
+    iconUrl?: boolean
+    servicesDescription?: boolean
+    bannerUrl?: boolean
+    footerInfo?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["unitConfig"]>
+
+  export type UnitConfigSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    pageTitle?: boolean
+    pageDescription?: boolean
+    iconUrl?: boolean
+    servicesDescription?: boolean
+    bannerUrl?: boolean
+    footerInfo?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["unitConfig"]>
+
+  export type UnitConfigSelectScalar = {
+    id?: boolean
+    name?: boolean
+    pageTitle?: boolean
+    pageDescription?: boolean
+    iconUrl?: boolean
+    servicesDescription?: boolean
+    bannerUrl?: boolean
+    footerInfo?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type UnitConfigOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "pageTitle" | "pageDescription" | "iconUrl" | "servicesDescription" | "bannerUrl" | "footerInfo" | "createdAt" | "updatedAt", ExtArgs["result"]["unitConfig"]>
+  export type UnitConfigInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    legalSteps?: boolean | UnitConfig$legalStepsArgs<ExtArgs>
+    articles?: boolean | UnitConfig$articlesArgs<ExtArgs>
+    sections?: boolean | UnitConfig$sectionsArgs<ExtArgs>
+    images?: boolean | UnitConfig$imagesArgs<ExtArgs>
+    footerLinks?: boolean | UnitConfig$footerLinksArgs<ExtArgs>
+    servers?: boolean | UnitConfig$serversArgs<ExtArgs>
+    _count?: boolean | UnitConfigCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type UnitConfigIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type UnitConfigIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $UnitConfigPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UnitConfig"
+    objects: {
+      legalSteps: Prisma.$LegalStepPayload<ExtArgs>[]
+      articles: Prisma.$ArticlePayload<ExtArgs>[]
+      sections: Prisma.$SectionPayload<ExtArgs>[]
+      images: Prisma.$ImagePayload<ExtArgs>[]
+      footerLinks: Prisma.$FooterLinkPayload<ExtArgs>[]
+      servers: Prisma.$UnitServerPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      pageTitle: string
+      pageDescription: string
+      iconUrl: string | null
+      servicesDescription: string
+      bannerUrl: string | null
+      footerInfo: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["unitConfig"]>
+    composites: {}
+  }
+
+  type UnitConfigGetPayload<S extends boolean | null | undefined | UnitConfigDefaultArgs> = $Result.GetResult<Prisma.$UnitConfigPayload, S>
+
+  type UnitConfigCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UnitConfigFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UnitConfigCountAggregateInputType | true
+    }
+
+  export interface UnitConfigDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UnitConfig'], meta: { name: 'UnitConfig' } }
+    /**
+     * Find zero or one UnitConfig that matches the filter.
+     * @param {UnitConfigFindUniqueArgs} args - Arguments to find a UnitConfig
+     * @example
+     * // Get one UnitConfig
+     * const unitConfig = await prisma.unitConfig.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UnitConfigFindUniqueArgs>(args: SelectSubset<T, UnitConfigFindUniqueArgs<ExtArgs>>): Prisma__UnitConfigClient<$Result.GetResult<Prisma.$UnitConfigPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UnitConfig that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UnitConfigFindUniqueOrThrowArgs} args - Arguments to find a UnitConfig
+     * @example
+     * // Get one UnitConfig
+     * const unitConfig = await prisma.unitConfig.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UnitConfigFindUniqueOrThrowArgs>(args: SelectSubset<T, UnitConfigFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UnitConfigClient<$Result.GetResult<Prisma.$UnitConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UnitConfig that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UnitConfigFindFirstArgs} args - Arguments to find a UnitConfig
+     * @example
+     * // Get one UnitConfig
+     * const unitConfig = await prisma.unitConfig.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UnitConfigFindFirstArgs>(args?: SelectSubset<T, UnitConfigFindFirstArgs<ExtArgs>>): Prisma__UnitConfigClient<$Result.GetResult<Prisma.$UnitConfigPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UnitConfig that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UnitConfigFindFirstOrThrowArgs} args - Arguments to find a UnitConfig
+     * @example
+     * // Get one UnitConfig
+     * const unitConfig = await prisma.unitConfig.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UnitConfigFindFirstOrThrowArgs>(args?: SelectSubset<T, UnitConfigFindFirstOrThrowArgs<ExtArgs>>): Prisma__UnitConfigClient<$Result.GetResult<Prisma.$UnitConfigPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UnitConfigs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UnitConfigFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UnitConfigs
+     * const unitConfigs = await prisma.unitConfig.findMany()
+     * 
+     * // Get first 10 UnitConfigs
+     * const unitConfigs = await prisma.unitConfig.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const unitConfigWithIdOnly = await prisma.unitConfig.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UnitConfigFindManyArgs>(args?: SelectSubset<T, UnitConfigFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UnitConfigPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UnitConfig.
+     * @param {UnitConfigCreateArgs} args - Arguments to create a UnitConfig.
+     * @example
+     * // Create one UnitConfig
+     * const UnitConfig = await prisma.unitConfig.create({
+     *   data: {
+     *     // ... data to create a UnitConfig
+     *   }
+     * })
+     * 
+     */
+    create<T extends UnitConfigCreateArgs>(args: SelectSubset<T, UnitConfigCreateArgs<ExtArgs>>): Prisma__UnitConfigClient<$Result.GetResult<Prisma.$UnitConfigPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UnitConfigs.
+     * @param {UnitConfigCreateManyArgs} args - Arguments to create many UnitConfigs.
+     * @example
+     * // Create many UnitConfigs
+     * const unitConfig = await prisma.unitConfig.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UnitConfigCreateManyArgs>(args?: SelectSubset<T, UnitConfigCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many UnitConfigs and returns the data saved in the database.
+     * @param {UnitConfigCreateManyAndReturnArgs} args - Arguments to create many UnitConfigs.
+     * @example
+     * // Create many UnitConfigs
+     * const unitConfig = await prisma.unitConfig.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many UnitConfigs and only return the `id`
+     * const unitConfigWithIdOnly = await prisma.unitConfig.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UnitConfigCreateManyAndReturnArgs>(args?: SelectSubset<T, UnitConfigCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UnitConfigPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a UnitConfig.
+     * @param {UnitConfigDeleteArgs} args - Arguments to delete one UnitConfig.
+     * @example
+     * // Delete one UnitConfig
+     * const UnitConfig = await prisma.unitConfig.delete({
+     *   where: {
+     *     // ... filter to delete one UnitConfig
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UnitConfigDeleteArgs>(args: SelectSubset<T, UnitConfigDeleteArgs<ExtArgs>>): Prisma__UnitConfigClient<$Result.GetResult<Prisma.$UnitConfigPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UnitConfig.
+     * @param {UnitConfigUpdateArgs} args - Arguments to update one UnitConfig.
+     * @example
+     * // Update one UnitConfig
+     * const unitConfig = await prisma.unitConfig.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UnitConfigUpdateArgs>(args: SelectSubset<T, UnitConfigUpdateArgs<ExtArgs>>): Prisma__UnitConfigClient<$Result.GetResult<Prisma.$UnitConfigPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UnitConfigs.
+     * @param {UnitConfigDeleteManyArgs} args - Arguments to filter UnitConfigs to delete.
+     * @example
+     * // Delete a few UnitConfigs
+     * const { count } = await prisma.unitConfig.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UnitConfigDeleteManyArgs>(args?: SelectSubset<T, UnitConfigDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UnitConfigs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UnitConfigUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UnitConfigs
+     * const unitConfig = await prisma.unitConfig.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UnitConfigUpdateManyArgs>(args: SelectSubset<T, UnitConfigUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UnitConfigs and returns the data updated in the database.
+     * @param {UnitConfigUpdateManyAndReturnArgs} args - Arguments to update many UnitConfigs.
+     * @example
+     * // Update many UnitConfigs
+     * const unitConfig = await prisma.unitConfig.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more UnitConfigs and only return the `id`
+     * const unitConfigWithIdOnly = await prisma.unitConfig.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UnitConfigUpdateManyAndReturnArgs>(args: SelectSubset<T, UnitConfigUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UnitConfigPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one UnitConfig.
+     * @param {UnitConfigUpsertArgs} args - Arguments to update or create a UnitConfig.
+     * @example
+     * // Update or create a UnitConfig
+     * const unitConfig = await prisma.unitConfig.upsert({
+     *   create: {
+     *     // ... data to create a UnitConfig
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UnitConfig we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UnitConfigUpsertArgs>(args: SelectSubset<T, UnitConfigUpsertArgs<ExtArgs>>): Prisma__UnitConfigClient<$Result.GetResult<Prisma.$UnitConfigPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of UnitConfigs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UnitConfigCountArgs} args - Arguments to filter UnitConfigs to count.
+     * @example
+     * // Count the number of UnitConfigs
+     * const count = await prisma.unitConfig.count({
+     *   where: {
+     *     // ... the filter for the UnitConfigs we want to count
+     *   }
+     * })
+    **/
+    count<T extends UnitConfigCountArgs>(
+      args?: Subset<T, UnitConfigCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UnitConfigCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UnitConfig.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UnitConfigAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UnitConfigAggregateArgs>(args: Subset<T, UnitConfigAggregateArgs>): Prisma.PrismaPromise<GetUnitConfigAggregateType<T>>
+
+    /**
+     * Group by UnitConfig.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UnitConfigGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UnitConfigGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UnitConfigGroupByArgs['orderBy'] }
+        : { orderBy?: UnitConfigGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UnitConfigGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUnitConfigGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UnitConfig model
+   */
+  readonly fields: UnitConfigFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UnitConfig.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UnitConfigClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    legalSteps<T extends UnitConfig$legalStepsArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfig$legalStepsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LegalStepPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    articles<T extends UnitConfig$articlesArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfig$articlesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    sections<T extends UnitConfig$sectionsArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfig$sectionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    images<T extends UnitConfig$imagesArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfig$imagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    footerLinks<T extends UnitConfig$footerLinksArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfig$footerLinksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FooterLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    servers<T extends UnitConfig$serversArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfig$serversArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UnitServerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UnitConfig model
+   */
+  interface UnitConfigFieldRefs {
+    readonly id: FieldRef<"UnitConfig", 'String'>
+    readonly name: FieldRef<"UnitConfig", 'String'>
+    readonly pageTitle: FieldRef<"UnitConfig", 'String'>
+    readonly pageDescription: FieldRef<"UnitConfig", 'String'>
+    readonly iconUrl: FieldRef<"UnitConfig", 'String'>
+    readonly servicesDescription: FieldRef<"UnitConfig", 'String'>
+    readonly bannerUrl: FieldRef<"UnitConfig", 'String'>
+    readonly footerInfo: FieldRef<"UnitConfig", 'String'>
+    readonly createdAt: FieldRef<"UnitConfig", 'DateTime'>
+    readonly updatedAt: FieldRef<"UnitConfig", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UnitConfig findUnique
+   */
+  export type UnitConfigFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnitConfig
+     */
+    select?: UnitConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnitConfig
+     */
+    omit?: UnitConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnitConfigInclude<ExtArgs> | null
+    /**
+     * Filter, which UnitConfig to fetch.
+     */
+    where: UnitConfigWhereUniqueInput
+  }
+
+  /**
+   * UnitConfig findUniqueOrThrow
+   */
+  export type UnitConfigFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnitConfig
+     */
+    select?: UnitConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnitConfig
+     */
+    omit?: UnitConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnitConfigInclude<ExtArgs> | null
+    /**
+     * Filter, which UnitConfig to fetch.
+     */
+    where: UnitConfigWhereUniqueInput
+  }
+
+  /**
+   * UnitConfig findFirst
+   */
+  export type UnitConfigFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnitConfig
+     */
+    select?: UnitConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnitConfig
+     */
+    omit?: UnitConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnitConfigInclude<ExtArgs> | null
+    /**
+     * Filter, which UnitConfig to fetch.
+     */
+    where?: UnitConfigWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UnitConfigs to fetch.
+     */
+    orderBy?: UnitConfigOrderByWithRelationInput | UnitConfigOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UnitConfigs.
+     */
+    cursor?: UnitConfigWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UnitConfigs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UnitConfigs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UnitConfigs.
+     */
+    distinct?: UnitConfigScalarFieldEnum | UnitConfigScalarFieldEnum[]
+  }
+
+  /**
+   * UnitConfig findFirstOrThrow
+   */
+  export type UnitConfigFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnitConfig
+     */
+    select?: UnitConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnitConfig
+     */
+    omit?: UnitConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnitConfigInclude<ExtArgs> | null
+    /**
+     * Filter, which UnitConfig to fetch.
+     */
+    where?: UnitConfigWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UnitConfigs to fetch.
+     */
+    orderBy?: UnitConfigOrderByWithRelationInput | UnitConfigOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UnitConfigs.
+     */
+    cursor?: UnitConfigWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UnitConfigs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UnitConfigs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UnitConfigs.
+     */
+    distinct?: UnitConfigScalarFieldEnum | UnitConfigScalarFieldEnum[]
+  }
+
+  /**
+   * UnitConfig findMany
+   */
+  export type UnitConfigFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnitConfig
+     */
+    select?: UnitConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnitConfig
+     */
+    omit?: UnitConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnitConfigInclude<ExtArgs> | null
+    /**
+     * Filter, which UnitConfigs to fetch.
+     */
+    where?: UnitConfigWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UnitConfigs to fetch.
+     */
+    orderBy?: UnitConfigOrderByWithRelationInput | UnitConfigOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UnitConfigs.
+     */
+    cursor?: UnitConfigWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UnitConfigs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UnitConfigs.
+     */
+    skip?: number
+    distinct?: UnitConfigScalarFieldEnum | UnitConfigScalarFieldEnum[]
+  }
+
+  /**
+   * UnitConfig create
+   */
+  export type UnitConfigCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnitConfig
+     */
+    select?: UnitConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnitConfig
+     */
+    omit?: UnitConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnitConfigInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UnitConfig.
+     */
+    data: XOR<UnitConfigCreateInput, UnitConfigUncheckedCreateInput>
+  }
+
+  /**
+   * UnitConfig createMany
+   */
+  export type UnitConfigCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UnitConfigs.
+     */
+    data: UnitConfigCreateManyInput | UnitConfigCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * UnitConfig createManyAndReturn
+   */
+  export type UnitConfigCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnitConfig
+     */
+    select?: UnitConfigSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnitConfig
+     */
+    omit?: UnitConfigOmit<ExtArgs> | null
+    /**
+     * The data used to create many UnitConfigs.
+     */
+    data: UnitConfigCreateManyInput | UnitConfigCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * UnitConfig update
+   */
+  export type UnitConfigUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnitConfig
+     */
+    select?: UnitConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnitConfig
+     */
+    omit?: UnitConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnitConfigInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UnitConfig.
+     */
+    data: XOR<UnitConfigUpdateInput, UnitConfigUncheckedUpdateInput>
+    /**
+     * Choose, which UnitConfig to update.
+     */
+    where: UnitConfigWhereUniqueInput
+  }
+
+  /**
+   * UnitConfig updateMany
+   */
+  export type UnitConfigUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UnitConfigs.
+     */
+    data: XOR<UnitConfigUpdateManyMutationInput, UnitConfigUncheckedUpdateManyInput>
+    /**
+     * Filter which UnitConfigs to update
+     */
+    where?: UnitConfigWhereInput
+    /**
+     * Limit how many UnitConfigs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UnitConfig updateManyAndReturn
+   */
+  export type UnitConfigUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnitConfig
+     */
+    select?: UnitConfigSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnitConfig
+     */
+    omit?: UnitConfigOmit<ExtArgs> | null
+    /**
+     * The data used to update UnitConfigs.
+     */
+    data: XOR<UnitConfigUpdateManyMutationInput, UnitConfigUncheckedUpdateManyInput>
+    /**
+     * Filter which UnitConfigs to update
+     */
+    where?: UnitConfigWhereInput
+    /**
+     * Limit how many UnitConfigs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UnitConfig upsert
+   */
+  export type UnitConfigUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnitConfig
+     */
+    select?: UnitConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnitConfig
+     */
+    omit?: UnitConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnitConfigInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UnitConfig to update in case it exists.
+     */
+    where: UnitConfigWhereUniqueInput
+    /**
+     * In case the UnitConfig found by the `where` argument doesn't exist, create a new UnitConfig with this data.
+     */
+    create: XOR<UnitConfigCreateInput, UnitConfigUncheckedCreateInput>
+    /**
+     * In case the UnitConfig was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UnitConfigUpdateInput, UnitConfigUncheckedUpdateInput>
+  }
+
+  /**
+   * UnitConfig delete
+   */
+  export type UnitConfigDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnitConfig
+     */
+    select?: UnitConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnitConfig
+     */
+    omit?: UnitConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnitConfigInclude<ExtArgs> | null
+    /**
+     * Filter which UnitConfig to delete.
+     */
+    where: UnitConfigWhereUniqueInput
+  }
+
+  /**
+   * UnitConfig deleteMany
+   */
+  export type UnitConfigDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UnitConfigs to delete
+     */
+    where?: UnitConfigWhereInput
+    /**
+     * Limit how many UnitConfigs to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UnitConfig.legalSteps
+   */
+  export type UnitConfig$legalStepsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LegalStep
+     */
+    select?: LegalStepSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LegalStep
+     */
+    omit?: LegalStepOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LegalStepInclude<ExtArgs> | null
+    where?: LegalStepWhereInput
+    orderBy?: LegalStepOrderByWithRelationInput | LegalStepOrderByWithRelationInput[]
+    cursor?: LegalStepWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LegalStepScalarFieldEnum | LegalStepScalarFieldEnum[]
+  }
+
+  /**
+   * UnitConfig.articles
+   */
+  export type UnitConfig$articlesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Article
+     */
+    select?: ArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Article
+     */
+    omit?: ArticleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ArticleInclude<ExtArgs> | null
+    where?: ArticleWhereInput
+    orderBy?: ArticleOrderByWithRelationInput | ArticleOrderByWithRelationInput[]
+    cursor?: ArticleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ArticleScalarFieldEnum | ArticleScalarFieldEnum[]
+  }
+
+  /**
+   * UnitConfig.sections
+   */
+  export type UnitConfig$sectionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Section
+     */
+    select?: SectionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Section
+     */
+    omit?: SectionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SectionInclude<ExtArgs> | null
+    where?: SectionWhereInput
+    orderBy?: SectionOrderByWithRelationInput | SectionOrderByWithRelationInput[]
+    cursor?: SectionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SectionScalarFieldEnum | SectionScalarFieldEnum[]
+  }
+
+  /**
+   * UnitConfig.images
+   */
+  export type UnitConfig$imagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Image
+     */
+    select?: ImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Image
+     */
+    omit?: ImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImageInclude<ExtArgs> | null
+    where?: ImageWhereInput
+    orderBy?: ImageOrderByWithRelationInput | ImageOrderByWithRelationInput[]
+    cursor?: ImageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ImageScalarFieldEnum | ImageScalarFieldEnum[]
+  }
+
+  /**
+   * UnitConfig.footerLinks
+   */
+  export type UnitConfig$footerLinksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FooterLink
+     */
+    select?: FooterLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FooterLink
+     */
+    omit?: FooterLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FooterLinkInclude<ExtArgs> | null
+    where?: FooterLinkWhereInput
+    orderBy?: FooterLinkOrderByWithRelationInput | FooterLinkOrderByWithRelationInput[]
+    cursor?: FooterLinkWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FooterLinkScalarFieldEnum | FooterLinkScalarFieldEnum[]
+  }
+
+  /**
+   * UnitConfig.servers
+   */
+  export type UnitConfig$serversArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnitServer
+     */
+    select?: UnitServerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnitServer
+     */
+    omit?: UnitServerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnitServerInclude<ExtArgs> | null
+    where?: UnitServerWhereInput
+    orderBy?: UnitServerOrderByWithRelationInput | UnitServerOrderByWithRelationInput[]
+    cursor?: UnitServerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UnitServerScalarFieldEnum | UnitServerScalarFieldEnum[]
+  }
+
+  /**
+   * UnitConfig without action
+   */
+  export type UnitConfigDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnitConfig
+     */
+    select?: UnitConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnitConfig
+     */
+    omit?: UnitConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnitConfigInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model UnitServer
+   */
+
+  export type AggregateUnitServer = {
+    _count: UnitServerCountAggregateOutputType | null
+    _min: UnitServerMinAggregateOutputType | null
+    _max: UnitServerMaxAggregateOutputType | null
+  }
+
+  export type UnitServerMinAggregateOutputType = {
+    id: string | null
+    domain: string | null
+    name: string | null
+    orchestratorToken: string | null
+    unitToken: string | null
+    isActive: boolean | null
+    constellationId: string | null
+    configId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UnitServerMaxAggregateOutputType = {
+    id: string | null
+    domain: string | null
+    name: string | null
+    orchestratorToken: string | null
+    unitToken: string | null
+    isActive: boolean | null
+    constellationId: string | null
+    configId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UnitServerCountAggregateOutputType = {
+    id: number
+    domain: number
+    name: number
+    orchestratorToken: number
+    unitToken: number
+    isActive: number
+    constellationId: number
+    configId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type UnitServerMinAggregateInputType = {
+    id?: true
+    domain?: true
+    name?: true
+    orchestratorToken?: true
+    unitToken?: true
+    isActive?: true
+    constellationId?: true
+    configId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UnitServerMaxAggregateInputType = {
+    id?: true
+    domain?: true
+    name?: true
+    orchestratorToken?: true
+    unitToken?: true
+    isActive?: true
+    constellationId?: true
+    configId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UnitServerCountAggregateInputType = {
+    id?: true
+    domain?: true
+    name?: true
+    orchestratorToken?: true
+    unitToken?: true
+    isActive?: true
+    constellationId?: true
+    configId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type UnitServerAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UnitServer to aggregate.
+     */
+    where?: UnitServerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UnitServers to fetch.
+     */
+    orderBy?: UnitServerOrderByWithRelationInput | UnitServerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UnitServerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UnitServers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UnitServers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UnitServers
+    **/
+    _count?: true | UnitServerCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UnitServerMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UnitServerMaxAggregateInputType
+  }
+
+  export type GetUnitServerAggregateType<T extends UnitServerAggregateArgs> = {
+        [P in keyof T & keyof AggregateUnitServer]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUnitServer[P]>
+      : GetScalarType<T[P], AggregateUnitServer[P]>
+  }
+
+
+
+
+  export type UnitServerGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UnitServerWhereInput
+    orderBy?: UnitServerOrderByWithAggregationInput | UnitServerOrderByWithAggregationInput[]
+    by: UnitServerScalarFieldEnum[] | UnitServerScalarFieldEnum
+    having?: UnitServerScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UnitServerCountAggregateInputType | true
+    _min?: UnitServerMinAggregateInputType
+    _max?: UnitServerMaxAggregateInputType
+  }
+
+  export type UnitServerGroupByOutputType = {
+    id: string
+    domain: string
+    name: string
+    orchestratorToken: string
+    unitToken: string
+    isActive: boolean
+    constellationId: string
+    configId: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: UnitServerCountAggregateOutputType | null
+    _min: UnitServerMinAggregateOutputType | null
+    _max: UnitServerMaxAggregateOutputType | null
+  }
+
+  type GetUnitServerGroupByPayload<T extends UnitServerGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UnitServerGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UnitServerGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UnitServerGroupByOutputType[P]>
+            : GetScalarType<T[P], UnitServerGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UnitServerSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    domain?: boolean
+    name?: boolean
+    orchestratorToken?: boolean
+    unitToken?: boolean
+    isActive?: boolean
+    constellationId?: boolean
+    configId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    constellation?: boolean | ConstellationDefaultArgs<ExtArgs>
+    config?: boolean | UnitServer$configArgs<ExtArgs>
+    clients?: boolean | UnitServer$clientsArgs<ExtArgs>
+    cases?: boolean | UnitServer$casesArgs<ExtArgs>
+    serverLogs?: boolean | UnitServer$serverLogsArgs<ExtArgs>
+    _count?: boolean | UnitServerCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["unitServer"]>
+
+  export type UnitServerSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    domain?: boolean
+    name?: boolean
+    orchestratorToken?: boolean
+    unitToken?: boolean
+    isActive?: boolean
+    constellationId?: boolean
+    configId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    constellation?: boolean | ConstellationDefaultArgs<ExtArgs>
+    config?: boolean | UnitServer$configArgs<ExtArgs>
+  }, ExtArgs["result"]["unitServer"]>
+
+  export type UnitServerSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    domain?: boolean
+    name?: boolean
+    orchestratorToken?: boolean
+    unitToken?: boolean
+    isActive?: boolean
+    constellationId?: boolean
+    configId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    constellation?: boolean | ConstellationDefaultArgs<ExtArgs>
+    config?: boolean | UnitServer$configArgs<ExtArgs>
+  }, ExtArgs["result"]["unitServer"]>
+
+  export type UnitServerSelectScalar = {
+    id?: boolean
+    domain?: boolean
+    name?: boolean
+    orchestratorToken?: boolean
+    unitToken?: boolean
+    isActive?: boolean
+    constellationId?: boolean
+    configId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type UnitServerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "domain" | "name" | "orchestratorToken" | "unitToken" | "isActive" | "constellationId" | "configId" | "createdAt" | "updatedAt", ExtArgs["result"]["unitServer"]>
+  export type UnitServerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    constellation?: boolean | ConstellationDefaultArgs<ExtArgs>
+    config?: boolean | UnitServer$configArgs<ExtArgs>
+    clients?: boolean | UnitServer$clientsArgs<ExtArgs>
+    cases?: boolean | UnitServer$casesArgs<ExtArgs>
+    serverLogs?: boolean | UnitServer$serverLogsArgs<ExtArgs>
+    _count?: boolean | UnitServerCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type UnitServerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    constellation?: boolean | ConstellationDefaultArgs<ExtArgs>
+    config?: boolean | UnitServer$configArgs<ExtArgs>
+  }
+  export type UnitServerIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    constellation?: boolean | ConstellationDefaultArgs<ExtArgs>
+    config?: boolean | UnitServer$configArgs<ExtArgs>
+  }
+
+  export type $UnitServerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UnitServer"
+    objects: {
+      constellation: Prisma.$ConstellationPayload<ExtArgs>
+      config: Prisma.$UnitConfigPayload<ExtArgs> | null
+      clients: Prisma.$ClientPayload<ExtArgs>[]
+      cases: Prisma.$CasePayload<ExtArgs>[]
+      serverLogs: Prisma.$ServerLogPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      domain: string
+      name: string
+      orchestratorToken: string
+      unitToken: string
+      isActive: boolean
+      constellationId: string
+      configId: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["unitServer"]>
+    composites: {}
+  }
+
+  type UnitServerGetPayload<S extends boolean | null | undefined | UnitServerDefaultArgs> = $Result.GetResult<Prisma.$UnitServerPayload, S>
+
+  type UnitServerCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UnitServerFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UnitServerCountAggregateInputType | true
+    }
+
+  export interface UnitServerDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UnitServer'], meta: { name: 'UnitServer' } }
+    /**
+     * Find zero or one UnitServer that matches the filter.
+     * @param {UnitServerFindUniqueArgs} args - Arguments to find a UnitServer
+     * @example
+     * // Get one UnitServer
+     * const unitServer = await prisma.unitServer.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UnitServerFindUniqueArgs>(args: SelectSubset<T, UnitServerFindUniqueArgs<ExtArgs>>): Prisma__UnitServerClient<$Result.GetResult<Prisma.$UnitServerPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UnitServer that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UnitServerFindUniqueOrThrowArgs} args - Arguments to find a UnitServer
+     * @example
+     * // Get one UnitServer
+     * const unitServer = await prisma.unitServer.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UnitServerFindUniqueOrThrowArgs>(args: SelectSubset<T, UnitServerFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UnitServerClient<$Result.GetResult<Prisma.$UnitServerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UnitServer that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UnitServerFindFirstArgs} args - Arguments to find a UnitServer
+     * @example
+     * // Get one UnitServer
+     * const unitServer = await prisma.unitServer.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UnitServerFindFirstArgs>(args?: SelectSubset<T, UnitServerFindFirstArgs<ExtArgs>>): Prisma__UnitServerClient<$Result.GetResult<Prisma.$UnitServerPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UnitServer that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UnitServerFindFirstOrThrowArgs} args - Arguments to find a UnitServer
+     * @example
+     * // Get one UnitServer
+     * const unitServer = await prisma.unitServer.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UnitServerFindFirstOrThrowArgs>(args?: SelectSubset<T, UnitServerFindFirstOrThrowArgs<ExtArgs>>): Prisma__UnitServerClient<$Result.GetResult<Prisma.$UnitServerPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UnitServers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UnitServerFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UnitServers
+     * const unitServers = await prisma.unitServer.findMany()
+     * 
+     * // Get first 10 UnitServers
+     * const unitServers = await prisma.unitServer.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const unitServerWithIdOnly = await prisma.unitServer.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UnitServerFindManyArgs>(args?: SelectSubset<T, UnitServerFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UnitServerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UnitServer.
+     * @param {UnitServerCreateArgs} args - Arguments to create a UnitServer.
+     * @example
+     * // Create one UnitServer
+     * const UnitServer = await prisma.unitServer.create({
+     *   data: {
+     *     // ... data to create a UnitServer
+     *   }
+     * })
+     * 
+     */
+    create<T extends UnitServerCreateArgs>(args: SelectSubset<T, UnitServerCreateArgs<ExtArgs>>): Prisma__UnitServerClient<$Result.GetResult<Prisma.$UnitServerPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UnitServers.
+     * @param {UnitServerCreateManyArgs} args - Arguments to create many UnitServers.
+     * @example
+     * // Create many UnitServers
+     * const unitServer = await prisma.unitServer.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UnitServerCreateManyArgs>(args?: SelectSubset<T, UnitServerCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many UnitServers and returns the data saved in the database.
+     * @param {UnitServerCreateManyAndReturnArgs} args - Arguments to create many UnitServers.
+     * @example
+     * // Create many UnitServers
+     * const unitServer = await prisma.unitServer.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many UnitServers and only return the `id`
+     * const unitServerWithIdOnly = await prisma.unitServer.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UnitServerCreateManyAndReturnArgs>(args?: SelectSubset<T, UnitServerCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UnitServerPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a UnitServer.
+     * @param {UnitServerDeleteArgs} args - Arguments to delete one UnitServer.
+     * @example
+     * // Delete one UnitServer
+     * const UnitServer = await prisma.unitServer.delete({
+     *   where: {
+     *     // ... filter to delete one UnitServer
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UnitServerDeleteArgs>(args: SelectSubset<T, UnitServerDeleteArgs<ExtArgs>>): Prisma__UnitServerClient<$Result.GetResult<Prisma.$UnitServerPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UnitServer.
+     * @param {UnitServerUpdateArgs} args - Arguments to update one UnitServer.
+     * @example
+     * // Update one UnitServer
+     * const unitServer = await prisma.unitServer.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UnitServerUpdateArgs>(args: SelectSubset<T, UnitServerUpdateArgs<ExtArgs>>): Prisma__UnitServerClient<$Result.GetResult<Prisma.$UnitServerPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UnitServers.
+     * @param {UnitServerDeleteManyArgs} args - Arguments to filter UnitServers to delete.
+     * @example
+     * // Delete a few UnitServers
+     * const { count } = await prisma.unitServer.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UnitServerDeleteManyArgs>(args?: SelectSubset<T, UnitServerDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UnitServers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UnitServerUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UnitServers
+     * const unitServer = await prisma.unitServer.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UnitServerUpdateManyArgs>(args: SelectSubset<T, UnitServerUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UnitServers and returns the data updated in the database.
+     * @param {UnitServerUpdateManyAndReturnArgs} args - Arguments to update many UnitServers.
+     * @example
+     * // Update many UnitServers
+     * const unitServer = await prisma.unitServer.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more UnitServers and only return the `id`
+     * const unitServerWithIdOnly = await prisma.unitServer.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UnitServerUpdateManyAndReturnArgs>(args: SelectSubset<T, UnitServerUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UnitServerPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one UnitServer.
+     * @param {UnitServerUpsertArgs} args - Arguments to update or create a UnitServer.
+     * @example
+     * // Update or create a UnitServer
+     * const unitServer = await prisma.unitServer.upsert({
+     *   create: {
+     *     // ... data to create a UnitServer
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UnitServer we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UnitServerUpsertArgs>(args: SelectSubset<T, UnitServerUpsertArgs<ExtArgs>>): Prisma__UnitServerClient<$Result.GetResult<Prisma.$UnitServerPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of UnitServers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UnitServerCountArgs} args - Arguments to filter UnitServers to count.
+     * @example
+     * // Count the number of UnitServers
+     * const count = await prisma.unitServer.count({
+     *   where: {
+     *     // ... the filter for the UnitServers we want to count
+     *   }
+     * })
+    **/
+    count<T extends UnitServerCountArgs>(
+      args?: Subset<T, UnitServerCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UnitServerCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UnitServer.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UnitServerAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UnitServerAggregateArgs>(args: Subset<T, UnitServerAggregateArgs>): Prisma.PrismaPromise<GetUnitServerAggregateType<T>>
+
+    /**
+     * Group by UnitServer.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UnitServerGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UnitServerGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UnitServerGroupByArgs['orderBy'] }
+        : { orderBy?: UnitServerGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UnitServerGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUnitServerGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UnitServer model
+   */
+  readonly fields: UnitServerFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UnitServer.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UnitServerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    constellation<T extends ConstellationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ConstellationDefaultArgs<ExtArgs>>): Prisma__ConstellationClient<$Result.GetResult<Prisma.$ConstellationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    config<T extends UnitServer$configArgs<ExtArgs> = {}>(args?: Subset<T, UnitServer$configArgs<ExtArgs>>): Prisma__UnitConfigClient<$Result.GetResult<Prisma.$UnitConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    clients<T extends UnitServer$clientsArgs<ExtArgs> = {}>(args?: Subset<T, UnitServer$clientsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClientPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    cases<T extends UnitServer$casesArgs<ExtArgs> = {}>(args?: Subset<T, UnitServer$casesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    serverLogs<T extends UnitServer$serverLogsArgs<ExtArgs> = {}>(args?: Subset<T, UnitServer$serverLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServerLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UnitServer model
+   */
+  interface UnitServerFieldRefs {
+    readonly id: FieldRef<"UnitServer", 'String'>
+    readonly domain: FieldRef<"UnitServer", 'String'>
+    readonly name: FieldRef<"UnitServer", 'String'>
+    readonly orchestratorToken: FieldRef<"UnitServer", 'String'>
+    readonly unitToken: FieldRef<"UnitServer", 'String'>
+    readonly isActive: FieldRef<"UnitServer", 'Boolean'>
+    readonly constellationId: FieldRef<"UnitServer", 'String'>
+    readonly configId: FieldRef<"UnitServer", 'String'>
+    readonly createdAt: FieldRef<"UnitServer", 'DateTime'>
+    readonly updatedAt: FieldRef<"UnitServer", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UnitServer findUnique
+   */
+  export type UnitServerFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnitServer
+     */
+    select?: UnitServerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnitServer
+     */
+    omit?: UnitServerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnitServerInclude<ExtArgs> | null
+    /**
+     * Filter, which UnitServer to fetch.
+     */
+    where: UnitServerWhereUniqueInput
+  }
+
+  /**
+   * UnitServer findUniqueOrThrow
+   */
+  export type UnitServerFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnitServer
+     */
+    select?: UnitServerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnitServer
+     */
+    omit?: UnitServerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnitServerInclude<ExtArgs> | null
+    /**
+     * Filter, which UnitServer to fetch.
+     */
+    where: UnitServerWhereUniqueInput
+  }
+
+  /**
+   * UnitServer findFirst
+   */
+  export type UnitServerFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnitServer
+     */
+    select?: UnitServerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnitServer
+     */
+    omit?: UnitServerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnitServerInclude<ExtArgs> | null
+    /**
+     * Filter, which UnitServer to fetch.
+     */
+    where?: UnitServerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UnitServers to fetch.
+     */
+    orderBy?: UnitServerOrderByWithRelationInput | UnitServerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UnitServers.
+     */
+    cursor?: UnitServerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UnitServers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UnitServers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UnitServers.
+     */
+    distinct?: UnitServerScalarFieldEnum | UnitServerScalarFieldEnum[]
+  }
+
+  /**
+   * UnitServer findFirstOrThrow
+   */
+  export type UnitServerFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnitServer
+     */
+    select?: UnitServerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnitServer
+     */
+    omit?: UnitServerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnitServerInclude<ExtArgs> | null
+    /**
+     * Filter, which UnitServer to fetch.
+     */
+    where?: UnitServerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UnitServers to fetch.
+     */
+    orderBy?: UnitServerOrderByWithRelationInput | UnitServerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UnitServers.
+     */
+    cursor?: UnitServerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UnitServers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UnitServers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UnitServers.
+     */
+    distinct?: UnitServerScalarFieldEnum | UnitServerScalarFieldEnum[]
+  }
+
+  /**
+   * UnitServer findMany
+   */
+  export type UnitServerFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnitServer
+     */
+    select?: UnitServerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnitServer
+     */
+    omit?: UnitServerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnitServerInclude<ExtArgs> | null
+    /**
+     * Filter, which UnitServers to fetch.
+     */
+    where?: UnitServerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UnitServers to fetch.
+     */
+    orderBy?: UnitServerOrderByWithRelationInput | UnitServerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UnitServers.
+     */
+    cursor?: UnitServerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UnitServers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UnitServers.
+     */
+    skip?: number
+    distinct?: UnitServerScalarFieldEnum | UnitServerScalarFieldEnum[]
+  }
+
+  /**
+   * UnitServer create
+   */
+  export type UnitServerCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnitServer
+     */
+    select?: UnitServerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnitServer
+     */
+    omit?: UnitServerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnitServerInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UnitServer.
+     */
+    data: XOR<UnitServerCreateInput, UnitServerUncheckedCreateInput>
+  }
+
+  /**
+   * UnitServer createMany
+   */
+  export type UnitServerCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UnitServers.
+     */
+    data: UnitServerCreateManyInput | UnitServerCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * UnitServer createManyAndReturn
+   */
+  export type UnitServerCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnitServer
+     */
+    select?: UnitServerSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnitServer
+     */
+    omit?: UnitServerOmit<ExtArgs> | null
+    /**
+     * The data used to create many UnitServers.
+     */
+    data: UnitServerCreateManyInput | UnitServerCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnitServerIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UnitServer update
+   */
+  export type UnitServerUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnitServer
+     */
+    select?: UnitServerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnitServer
+     */
+    omit?: UnitServerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnitServerInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UnitServer.
+     */
+    data: XOR<UnitServerUpdateInput, UnitServerUncheckedUpdateInput>
+    /**
+     * Choose, which UnitServer to update.
+     */
+    where: UnitServerWhereUniqueInput
+  }
+
+  /**
+   * UnitServer updateMany
+   */
+  export type UnitServerUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UnitServers.
+     */
+    data: XOR<UnitServerUpdateManyMutationInput, UnitServerUncheckedUpdateManyInput>
+    /**
+     * Filter which UnitServers to update
+     */
+    where?: UnitServerWhereInput
+    /**
+     * Limit how many UnitServers to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UnitServer updateManyAndReturn
+   */
+  export type UnitServerUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnitServer
+     */
+    select?: UnitServerSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnitServer
+     */
+    omit?: UnitServerOmit<ExtArgs> | null
+    /**
+     * The data used to update UnitServers.
+     */
+    data: XOR<UnitServerUpdateManyMutationInput, UnitServerUncheckedUpdateManyInput>
+    /**
+     * Filter which UnitServers to update
+     */
+    where?: UnitServerWhereInput
+    /**
+     * Limit how many UnitServers to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnitServerIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UnitServer upsert
+   */
+  export type UnitServerUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnitServer
+     */
+    select?: UnitServerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnitServer
+     */
+    omit?: UnitServerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnitServerInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UnitServer to update in case it exists.
+     */
+    where: UnitServerWhereUniqueInput
+    /**
+     * In case the UnitServer found by the `where` argument doesn't exist, create a new UnitServer with this data.
+     */
+    create: XOR<UnitServerCreateInput, UnitServerUncheckedCreateInput>
+    /**
+     * In case the UnitServer was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UnitServerUpdateInput, UnitServerUncheckedUpdateInput>
+  }
+
+  /**
+   * UnitServer delete
+   */
+  export type UnitServerDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnitServer
+     */
+    select?: UnitServerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnitServer
+     */
+    omit?: UnitServerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnitServerInclude<ExtArgs> | null
+    /**
+     * Filter which UnitServer to delete.
+     */
+    where: UnitServerWhereUniqueInput
+  }
+
+  /**
+   * UnitServer deleteMany
+   */
+  export type UnitServerDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UnitServers to delete
+     */
+    where?: UnitServerWhereInput
+    /**
+     * Limit how many UnitServers to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UnitServer.config
+   */
+  export type UnitServer$configArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnitConfig
+     */
+    select?: UnitConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnitConfig
+     */
+    omit?: UnitConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnitConfigInclude<ExtArgs> | null
+    where?: UnitConfigWhereInput
+  }
+
+  /**
+   * UnitServer.clients
+   */
+  export type UnitServer$clientsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Client
+     */
+    select?: ClientSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Client
+     */
+    omit?: ClientOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClientInclude<ExtArgs> | null
+    where?: ClientWhereInput
+    orderBy?: ClientOrderByWithRelationInput | ClientOrderByWithRelationInput[]
+    cursor?: ClientWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ClientScalarFieldEnum | ClientScalarFieldEnum[]
+  }
+
+  /**
+   * UnitServer.cases
+   */
+  export type UnitServer$casesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Case
+     */
+    select?: CaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Case
+     */
+    omit?: CaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CaseInclude<ExtArgs> | null
+    where?: CaseWhereInput
+    orderBy?: CaseOrderByWithRelationInput | CaseOrderByWithRelationInput[]
+    cursor?: CaseWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CaseScalarFieldEnum | CaseScalarFieldEnum[]
+  }
+
+  /**
+   * UnitServer.serverLogs
+   */
+  export type UnitServer$serverLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServerLog
+     */
+    select?: ServerLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ServerLog
+     */
+    omit?: ServerLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServerLogInclude<ExtArgs> | null
+    where?: ServerLogWhereInput
+    orderBy?: ServerLogOrderByWithRelationInput | ServerLogOrderByWithRelationInput[]
+    cursor?: ServerLogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ServerLogScalarFieldEnum | ServerLogScalarFieldEnum[]
+  }
+
+  /**
+   * UnitServer without action
+   */
+  export type UnitServerDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UnitServer
+     */
+    select?: UnitServerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UnitServer
+     */
+    omit?: UnitServerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UnitServerInclude<ExtArgs> | null
   }
 
 
@@ -11759,4509 +15271,6 @@ export namespace Prisma {
 
 
   /**
-   * Model Constellation
-   */
-
-  export type AggregateConstellation = {
-    _count: ConstellationCountAggregateOutputType | null
-    _min: ConstellationMinAggregateOutputType | null
-    _max: ConstellationMaxAggregateOutputType | null
-  }
-
-  export type ConstellationMinAggregateOutputType = {
-    id: string | null
-    name: string | null
-    description: string | null
-  }
-
-  export type ConstellationMaxAggregateOutputType = {
-    id: string | null
-    name: string | null
-    description: string | null
-  }
-
-  export type ConstellationCountAggregateOutputType = {
-    id: number
-    name: number
-    description: number
-    _all: number
-  }
-
-
-  export type ConstellationMinAggregateInputType = {
-    id?: true
-    name?: true
-    description?: true
-  }
-
-  export type ConstellationMaxAggregateInputType = {
-    id?: true
-    name?: true
-    description?: true
-  }
-
-  export type ConstellationCountAggregateInputType = {
-    id?: true
-    name?: true
-    description?: true
-    _all?: true
-  }
-
-  export type ConstellationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Constellation to aggregate.
-     */
-    where?: ConstellationWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Constellations to fetch.
-     */
-    orderBy?: ConstellationOrderByWithRelationInput | ConstellationOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: ConstellationWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Constellations from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Constellations.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned Constellations
-    **/
-    _count?: true | ConstellationCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: ConstellationMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: ConstellationMaxAggregateInputType
-  }
-
-  export type GetConstellationAggregateType<T extends ConstellationAggregateArgs> = {
-        [P in keyof T & keyof AggregateConstellation]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateConstellation[P]>
-      : GetScalarType<T[P], AggregateConstellation[P]>
-  }
-
-
-
-
-  export type ConstellationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ConstellationWhereInput
-    orderBy?: ConstellationOrderByWithAggregationInput | ConstellationOrderByWithAggregationInput[]
-    by: ConstellationScalarFieldEnum[] | ConstellationScalarFieldEnum
-    having?: ConstellationScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: ConstellationCountAggregateInputType | true
-    _min?: ConstellationMinAggregateInputType
-    _max?: ConstellationMaxAggregateInputType
-  }
-
-  export type ConstellationGroupByOutputType = {
-    id: string
-    name: string
-    description: string | null
-    _count: ConstellationCountAggregateOutputType | null
-    _min: ConstellationMinAggregateOutputType | null
-    _max: ConstellationMaxAggregateOutputType | null
-  }
-
-  type GetConstellationGroupByPayload<T extends ConstellationGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<ConstellationGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof ConstellationGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], ConstellationGroupByOutputType[P]>
-            : GetScalarType<T[P], ConstellationGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type ConstellationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-    description?: boolean
-    servers?: boolean | Constellation$serversArgs<ExtArgs>
-    _count?: boolean | ConstellationCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["constellation"]>
-
-  export type ConstellationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-    description?: boolean
-  }, ExtArgs["result"]["constellation"]>
-
-  export type ConstellationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-    description?: boolean
-  }, ExtArgs["result"]["constellation"]>
-
-  export type ConstellationSelectScalar = {
-    id?: boolean
-    name?: boolean
-    description?: boolean
-  }
-
-  export type ConstellationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description", ExtArgs["result"]["constellation"]>
-  export type ConstellationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    servers?: boolean | Constellation$serversArgs<ExtArgs>
-    _count?: boolean | ConstellationCountOutputTypeDefaultArgs<ExtArgs>
-  }
-  export type ConstellationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type ConstellationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-
-  export type $ConstellationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Constellation"
-    objects: {
-      servers: Prisma.$UnitServerPayload<ExtArgs>[]
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      name: string
-      description: string | null
-    }, ExtArgs["result"]["constellation"]>
-    composites: {}
-  }
-
-  type ConstellationGetPayload<S extends boolean | null | undefined | ConstellationDefaultArgs> = $Result.GetResult<Prisma.$ConstellationPayload, S>
-
-  type ConstellationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<ConstellationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: ConstellationCountAggregateInputType | true
-    }
-
-  export interface ConstellationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Constellation'], meta: { name: 'Constellation' } }
-    /**
-     * Find zero or one Constellation that matches the filter.
-     * @param {ConstellationFindUniqueArgs} args - Arguments to find a Constellation
-     * @example
-     * // Get one Constellation
-     * const constellation = await prisma.constellation.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends ConstellationFindUniqueArgs>(args: SelectSubset<T, ConstellationFindUniqueArgs<ExtArgs>>): Prisma__ConstellationClient<$Result.GetResult<Prisma.$ConstellationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Constellation that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {ConstellationFindUniqueOrThrowArgs} args - Arguments to find a Constellation
-     * @example
-     * // Get one Constellation
-     * const constellation = await prisma.constellation.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends ConstellationFindUniqueOrThrowArgs>(args: SelectSubset<T, ConstellationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ConstellationClient<$Result.GetResult<Prisma.$ConstellationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Constellation that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ConstellationFindFirstArgs} args - Arguments to find a Constellation
-     * @example
-     * // Get one Constellation
-     * const constellation = await prisma.constellation.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends ConstellationFindFirstArgs>(args?: SelectSubset<T, ConstellationFindFirstArgs<ExtArgs>>): Prisma__ConstellationClient<$Result.GetResult<Prisma.$ConstellationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Constellation that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ConstellationFindFirstOrThrowArgs} args - Arguments to find a Constellation
-     * @example
-     * // Get one Constellation
-     * const constellation = await prisma.constellation.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends ConstellationFindFirstOrThrowArgs>(args?: SelectSubset<T, ConstellationFindFirstOrThrowArgs<ExtArgs>>): Prisma__ConstellationClient<$Result.GetResult<Prisma.$ConstellationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Constellations that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ConstellationFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Constellations
-     * const constellations = await prisma.constellation.findMany()
-     * 
-     * // Get first 10 Constellations
-     * const constellations = await prisma.constellation.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const constellationWithIdOnly = await prisma.constellation.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends ConstellationFindManyArgs>(args?: SelectSubset<T, ConstellationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConstellationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Constellation.
-     * @param {ConstellationCreateArgs} args - Arguments to create a Constellation.
-     * @example
-     * // Create one Constellation
-     * const Constellation = await prisma.constellation.create({
-     *   data: {
-     *     // ... data to create a Constellation
-     *   }
-     * })
-     * 
-     */
-    create<T extends ConstellationCreateArgs>(args: SelectSubset<T, ConstellationCreateArgs<ExtArgs>>): Prisma__ConstellationClient<$Result.GetResult<Prisma.$ConstellationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Constellations.
-     * @param {ConstellationCreateManyArgs} args - Arguments to create many Constellations.
-     * @example
-     * // Create many Constellations
-     * const constellation = await prisma.constellation.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends ConstellationCreateManyArgs>(args?: SelectSubset<T, ConstellationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many Constellations and returns the data saved in the database.
-     * @param {ConstellationCreateManyAndReturnArgs} args - Arguments to create many Constellations.
-     * @example
-     * // Create many Constellations
-     * const constellation = await prisma.constellation.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Constellations and only return the `id`
-     * const constellationWithIdOnly = await prisma.constellation.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends ConstellationCreateManyAndReturnArgs>(args?: SelectSubset<T, ConstellationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConstellationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a Constellation.
-     * @param {ConstellationDeleteArgs} args - Arguments to delete one Constellation.
-     * @example
-     * // Delete one Constellation
-     * const Constellation = await prisma.constellation.delete({
-     *   where: {
-     *     // ... filter to delete one Constellation
-     *   }
-     * })
-     * 
-     */
-    delete<T extends ConstellationDeleteArgs>(args: SelectSubset<T, ConstellationDeleteArgs<ExtArgs>>): Prisma__ConstellationClient<$Result.GetResult<Prisma.$ConstellationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Constellation.
-     * @param {ConstellationUpdateArgs} args - Arguments to update one Constellation.
-     * @example
-     * // Update one Constellation
-     * const constellation = await prisma.constellation.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends ConstellationUpdateArgs>(args: SelectSubset<T, ConstellationUpdateArgs<ExtArgs>>): Prisma__ConstellationClient<$Result.GetResult<Prisma.$ConstellationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Constellations.
-     * @param {ConstellationDeleteManyArgs} args - Arguments to filter Constellations to delete.
-     * @example
-     * // Delete a few Constellations
-     * const { count } = await prisma.constellation.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends ConstellationDeleteManyArgs>(args?: SelectSubset<T, ConstellationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Constellations.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ConstellationUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Constellations
-     * const constellation = await prisma.constellation.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends ConstellationUpdateManyArgs>(args: SelectSubset<T, ConstellationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Constellations and returns the data updated in the database.
-     * @param {ConstellationUpdateManyAndReturnArgs} args - Arguments to update many Constellations.
-     * @example
-     * // Update many Constellations
-     * const constellation = await prisma.constellation.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Constellations and only return the `id`
-     * const constellationWithIdOnly = await prisma.constellation.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends ConstellationUpdateManyAndReturnArgs>(args: SelectSubset<T, ConstellationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConstellationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one Constellation.
-     * @param {ConstellationUpsertArgs} args - Arguments to update or create a Constellation.
-     * @example
-     * // Update or create a Constellation
-     * const constellation = await prisma.constellation.upsert({
-     *   create: {
-     *     // ... data to create a Constellation
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Constellation we want to update
-     *   }
-     * })
-     */
-    upsert<T extends ConstellationUpsertArgs>(args: SelectSubset<T, ConstellationUpsertArgs<ExtArgs>>): Prisma__ConstellationClient<$Result.GetResult<Prisma.$ConstellationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Constellations.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ConstellationCountArgs} args - Arguments to filter Constellations to count.
-     * @example
-     * // Count the number of Constellations
-     * const count = await prisma.constellation.count({
-     *   where: {
-     *     // ... the filter for the Constellations we want to count
-     *   }
-     * })
-    **/
-    count<T extends ConstellationCountArgs>(
-      args?: Subset<T, ConstellationCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], ConstellationCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Constellation.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ConstellationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends ConstellationAggregateArgs>(args: Subset<T, ConstellationAggregateArgs>): Prisma.PrismaPromise<GetConstellationAggregateType<T>>
-
-    /**
-     * Group by Constellation.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ConstellationGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends ConstellationGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: ConstellationGroupByArgs['orderBy'] }
-        : { orderBy?: ConstellationGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, ConstellationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetConstellationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the Constellation model
-   */
-  readonly fields: ConstellationFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for Constellation.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__ConstellationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    servers<T extends Constellation$serversArgs<ExtArgs> = {}>(args?: Subset<T, Constellation$serversArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UnitServerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the Constellation model
-   */
-  interface ConstellationFieldRefs {
-    readonly id: FieldRef<"Constellation", 'String'>
-    readonly name: FieldRef<"Constellation", 'String'>
-    readonly description: FieldRef<"Constellation", 'String'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * Constellation findUnique
-   */
-  export type ConstellationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Constellation
-     */
-    select?: ConstellationSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Constellation
-     */
-    omit?: ConstellationOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ConstellationInclude<ExtArgs> | null
-    /**
-     * Filter, which Constellation to fetch.
-     */
-    where: ConstellationWhereUniqueInput
-  }
-
-  /**
-   * Constellation findUniqueOrThrow
-   */
-  export type ConstellationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Constellation
-     */
-    select?: ConstellationSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Constellation
-     */
-    omit?: ConstellationOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ConstellationInclude<ExtArgs> | null
-    /**
-     * Filter, which Constellation to fetch.
-     */
-    where: ConstellationWhereUniqueInput
-  }
-
-  /**
-   * Constellation findFirst
-   */
-  export type ConstellationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Constellation
-     */
-    select?: ConstellationSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Constellation
-     */
-    omit?: ConstellationOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ConstellationInclude<ExtArgs> | null
-    /**
-     * Filter, which Constellation to fetch.
-     */
-    where?: ConstellationWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Constellations to fetch.
-     */
-    orderBy?: ConstellationOrderByWithRelationInput | ConstellationOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Constellations.
-     */
-    cursor?: ConstellationWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Constellations from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Constellations.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Constellations.
-     */
-    distinct?: ConstellationScalarFieldEnum | ConstellationScalarFieldEnum[]
-  }
-
-  /**
-   * Constellation findFirstOrThrow
-   */
-  export type ConstellationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Constellation
-     */
-    select?: ConstellationSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Constellation
-     */
-    omit?: ConstellationOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ConstellationInclude<ExtArgs> | null
-    /**
-     * Filter, which Constellation to fetch.
-     */
-    where?: ConstellationWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Constellations to fetch.
-     */
-    orderBy?: ConstellationOrderByWithRelationInput | ConstellationOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Constellations.
-     */
-    cursor?: ConstellationWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Constellations from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Constellations.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Constellations.
-     */
-    distinct?: ConstellationScalarFieldEnum | ConstellationScalarFieldEnum[]
-  }
-
-  /**
-   * Constellation findMany
-   */
-  export type ConstellationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Constellation
-     */
-    select?: ConstellationSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Constellation
-     */
-    omit?: ConstellationOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ConstellationInclude<ExtArgs> | null
-    /**
-     * Filter, which Constellations to fetch.
-     */
-    where?: ConstellationWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Constellations to fetch.
-     */
-    orderBy?: ConstellationOrderByWithRelationInput | ConstellationOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing Constellations.
-     */
-    cursor?: ConstellationWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Constellations from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Constellations.
-     */
-    skip?: number
-    distinct?: ConstellationScalarFieldEnum | ConstellationScalarFieldEnum[]
-  }
-
-  /**
-   * Constellation create
-   */
-  export type ConstellationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Constellation
-     */
-    select?: ConstellationSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Constellation
-     */
-    omit?: ConstellationOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ConstellationInclude<ExtArgs> | null
-    /**
-     * The data needed to create a Constellation.
-     */
-    data: XOR<ConstellationCreateInput, ConstellationUncheckedCreateInput>
-  }
-
-  /**
-   * Constellation createMany
-   */
-  export type ConstellationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many Constellations.
-     */
-    data: ConstellationCreateManyInput | ConstellationCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * Constellation createManyAndReturn
-   */
-  export type ConstellationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Constellation
-     */
-    select?: ConstellationSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Constellation
-     */
-    omit?: ConstellationOmit<ExtArgs> | null
-    /**
-     * The data used to create many Constellations.
-     */
-    data: ConstellationCreateManyInput | ConstellationCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * Constellation update
-   */
-  export type ConstellationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Constellation
-     */
-    select?: ConstellationSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Constellation
-     */
-    omit?: ConstellationOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ConstellationInclude<ExtArgs> | null
-    /**
-     * The data needed to update a Constellation.
-     */
-    data: XOR<ConstellationUpdateInput, ConstellationUncheckedUpdateInput>
-    /**
-     * Choose, which Constellation to update.
-     */
-    where: ConstellationWhereUniqueInput
-  }
-
-  /**
-   * Constellation updateMany
-   */
-  export type ConstellationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Constellations.
-     */
-    data: XOR<ConstellationUpdateManyMutationInput, ConstellationUncheckedUpdateManyInput>
-    /**
-     * Filter which Constellations to update
-     */
-    where?: ConstellationWhereInput
-    /**
-     * Limit how many Constellations to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * Constellation updateManyAndReturn
-   */
-  export type ConstellationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Constellation
-     */
-    select?: ConstellationSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Constellation
-     */
-    omit?: ConstellationOmit<ExtArgs> | null
-    /**
-     * The data used to update Constellations.
-     */
-    data: XOR<ConstellationUpdateManyMutationInput, ConstellationUncheckedUpdateManyInput>
-    /**
-     * Filter which Constellations to update
-     */
-    where?: ConstellationWhereInput
-    /**
-     * Limit how many Constellations to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * Constellation upsert
-   */
-  export type ConstellationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Constellation
-     */
-    select?: ConstellationSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Constellation
-     */
-    omit?: ConstellationOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ConstellationInclude<ExtArgs> | null
-    /**
-     * The filter to search for the Constellation to update in case it exists.
-     */
-    where: ConstellationWhereUniqueInput
-    /**
-     * In case the Constellation found by the `where` argument doesn't exist, create a new Constellation with this data.
-     */
-    create: XOR<ConstellationCreateInput, ConstellationUncheckedCreateInput>
-    /**
-     * In case the Constellation was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<ConstellationUpdateInput, ConstellationUncheckedUpdateInput>
-  }
-
-  /**
-   * Constellation delete
-   */
-  export type ConstellationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Constellation
-     */
-    select?: ConstellationSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Constellation
-     */
-    omit?: ConstellationOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ConstellationInclude<ExtArgs> | null
-    /**
-     * Filter which Constellation to delete.
-     */
-    where: ConstellationWhereUniqueInput
-  }
-
-  /**
-   * Constellation deleteMany
-   */
-  export type ConstellationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Constellations to delete
-     */
-    where?: ConstellationWhereInput
-    /**
-     * Limit how many Constellations to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * Constellation.servers
-   */
-  export type Constellation$serversArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the UnitServer
-     */
-    select?: UnitServerSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the UnitServer
-     */
-    omit?: UnitServerOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UnitServerInclude<ExtArgs> | null
-    where?: UnitServerWhereInput
-    orderBy?: UnitServerOrderByWithRelationInput | UnitServerOrderByWithRelationInput[]
-    cursor?: UnitServerWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: UnitServerScalarFieldEnum | UnitServerScalarFieldEnum[]
-  }
-
-  /**
-   * Constellation without action
-   */
-  export type ConstellationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Constellation
-     */
-    select?: ConstellationSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Constellation
-     */
-    omit?: ConstellationOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ConstellationInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model UnitConfig
-   */
-
-  export type AggregateUnitConfig = {
-    _count: UnitConfigCountAggregateOutputType | null
-    _min: UnitConfigMinAggregateOutputType | null
-    _max: UnitConfigMaxAggregateOutputType | null
-  }
-
-  export type UnitConfigMinAggregateOutputType = {
-    id: string | null
-    name: string | null
-    pageTitle: string | null
-    pageDescription: string | null
-    iconUrl: string | null
-    servicesDescription: string | null
-    bannerUrl: string | null
-    footerInfo: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type UnitConfigMaxAggregateOutputType = {
-    id: string | null
-    name: string | null
-    pageTitle: string | null
-    pageDescription: string | null
-    iconUrl: string | null
-    servicesDescription: string | null
-    bannerUrl: string | null
-    footerInfo: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type UnitConfigCountAggregateOutputType = {
-    id: number
-    name: number
-    pageTitle: number
-    pageDescription: number
-    iconUrl: number
-    servicesDescription: number
-    bannerUrl: number
-    footerInfo: number
-    createdAt: number
-    updatedAt: number
-    _all: number
-  }
-
-
-  export type UnitConfigMinAggregateInputType = {
-    id?: true
-    name?: true
-    pageTitle?: true
-    pageDescription?: true
-    iconUrl?: true
-    servicesDescription?: true
-    bannerUrl?: true
-    footerInfo?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type UnitConfigMaxAggregateInputType = {
-    id?: true
-    name?: true
-    pageTitle?: true
-    pageDescription?: true
-    iconUrl?: true
-    servicesDescription?: true
-    bannerUrl?: true
-    footerInfo?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type UnitConfigCountAggregateInputType = {
-    id?: true
-    name?: true
-    pageTitle?: true
-    pageDescription?: true
-    iconUrl?: true
-    servicesDescription?: true
-    bannerUrl?: true
-    footerInfo?: true
-    createdAt?: true
-    updatedAt?: true
-    _all?: true
-  }
-
-  export type UnitConfigAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which UnitConfig to aggregate.
-     */
-    where?: UnitConfigWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of UnitConfigs to fetch.
-     */
-    orderBy?: UnitConfigOrderByWithRelationInput | UnitConfigOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: UnitConfigWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` UnitConfigs from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` UnitConfigs.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned UnitConfigs
-    **/
-    _count?: true | UnitConfigCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: UnitConfigMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: UnitConfigMaxAggregateInputType
-  }
-
-  export type GetUnitConfigAggregateType<T extends UnitConfigAggregateArgs> = {
-        [P in keyof T & keyof AggregateUnitConfig]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateUnitConfig[P]>
-      : GetScalarType<T[P], AggregateUnitConfig[P]>
-  }
-
-
-
-
-  export type UnitConfigGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UnitConfigWhereInput
-    orderBy?: UnitConfigOrderByWithAggregationInput | UnitConfigOrderByWithAggregationInput[]
-    by: UnitConfigScalarFieldEnum[] | UnitConfigScalarFieldEnum
-    having?: UnitConfigScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: UnitConfigCountAggregateInputType | true
-    _min?: UnitConfigMinAggregateInputType
-    _max?: UnitConfigMaxAggregateInputType
-  }
-
-  export type UnitConfigGroupByOutputType = {
-    id: string
-    name: string
-    pageTitle: string
-    pageDescription: string
-    iconUrl: string | null
-    servicesDescription: string
-    bannerUrl: string | null
-    footerInfo: string | null
-    createdAt: Date
-    updatedAt: Date
-    _count: UnitConfigCountAggregateOutputType | null
-    _min: UnitConfigMinAggregateOutputType | null
-    _max: UnitConfigMaxAggregateOutputType | null
-  }
-
-  type GetUnitConfigGroupByPayload<T extends UnitConfigGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<UnitConfigGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof UnitConfigGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], UnitConfigGroupByOutputType[P]>
-            : GetScalarType<T[P], UnitConfigGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type UnitConfigSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-    pageTitle?: boolean
-    pageDescription?: boolean
-    iconUrl?: boolean
-    servicesDescription?: boolean
-    bannerUrl?: boolean
-    footerInfo?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    legalSteps?: boolean | UnitConfig$legalStepsArgs<ExtArgs>
-    articles?: boolean | UnitConfig$articlesArgs<ExtArgs>
-    sections?: boolean | UnitConfig$sectionsArgs<ExtArgs>
-    images?: boolean | UnitConfig$imagesArgs<ExtArgs>
-    footerLinks?: boolean | UnitConfig$footerLinksArgs<ExtArgs>
-    servers?: boolean | UnitConfig$serversArgs<ExtArgs>
-    _count?: boolean | UnitConfigCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["unitConfig"]>
-
-  export type UnitConfigSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-    pageTitle?: boolean
-    pageDescription?: boolean
-    iconUrl?: boolean
-    servicesDescription?: boolean
-    bannerUrl?: boolean
-    footerInfo?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }, ExtArgs["result"]["unitConfig"]>
-
-  export type UnitConfigSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-    pageTitle?: boolean
-    pageDescription?: boolean
-    iconUrl?: boolean
-    servicesDescription?: boolean
-    bannerUrl?: boolean
-    footerInfo?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }, ExtArgs["result"]["unitConfig"]>
-
-  export type UnitConfigSelectScalar = {
-    id?: boolean
-    name?: boolean
-    pageTitle?: boolean
-    pageDescription?: boolean
-    iconUrl?: boolean
-    servicesDescription?: boolean
-    bannerUrl?: boolean
-    footerInfo?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }
-
-  export type UnitConfigOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "pageTitle" | "pageDescription" | "iconUrl" | "servicesDescription" | "bannerUrl" | "footerInfo" | "createdAt" | "updatedAt", ExtArgs["result"]["unitConfig"]>
-  export type UnitConfigInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    legalSteps?: boolean | UnitConfig$legalStepsArgs<ExtArgs>
-    articles?: boolean | UnitConfig$articlesArgs<ExtArgs>
-    sections?: boolean | UnitConfig$sectionsArgs<ExtArgs>
-    images?: boolean | UnitConfig$imagesArgs<ExtArgs>
-    footerLinks?: boolean | UnitConfig$footerLinksArgs<ExtArgs>
-    servers?: boolean | UnitConfig$serversArgs<ExtArgs>
-    _count?: boolean | UnitConfigCountOutputTypeDefaultArgs<ExtArgs>
-  }
-  export type UnitConfigIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type UnitConfigIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-
-  export type $UnitConfigPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "UnitConfig"
-    objects: {
-      legalSteps: Prisma.$LegalStepPayload<ExtArgs>[]
-      articles: Prisma.$ArticlePayload<ExtArgs>[]
-      sections: Prisma.$SectionPayload<ExtArgs>[]
-      images: Prisma.$ImagePayload<ExtArgs>[]
-      footerLinks: Prisma.$FooterLinkPayload<ExtArgs>[]
-      servers: Prisma.$UnitServerPayload<ExtArgs>[]
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      name: string
-      pageTitle: string
-      pageDescription: string
-      iconUrl: string | null
-      servicesDescription: string
-      bannerUrl: string | null
-      footerInfo: string | null
-      createdAt: Date
-      updatedAt: Date
-    }, ExtArgs["result"]["unitConfig"]>
-    composites: {}
-  }
-
-  type UnitConfigGetPayload<S extends boolean | null | undefined | UnitConfigDefaultArgs> = $Result.GetResult<Prisma.$UnitConfigPayload, S>
-
-  type UnitConfigCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<UnitConfigFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: UnitConfigCountAggregateInputType | true
-    }
-
-  export interface UnitConfigDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UnitConfig'], meta: { name: 'UnitConfig' } }
-    /**
-     * Find zero or one UnitConfig that matches the filter.
-     * @param {UnitConfigFindUniqueArgs} args - Arguments to find a UnitConfig
-     * @example
-     * // Get one UnitConfig
-     * const unitConfig = await prisma.unitConfig.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends UnitConfigFindUniqueArgs>(args: SelectSubset<T, UnitConfigFindUniqueArgs<ExtArgs>>): Prisma__UnitConfigClient<$Result.GetResult<Prisma.$UnitConfigPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one UnitConfig that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {UnitConfigFindUniqueOrThrowArgs} args - Arguments to find a UnitConfig
-     * @example
-     * // Get one UnitConfig
-     * const unitConfig = await prisma.unitConfig.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends UnitConfigFindUniqueOrThrowArgs>(args: SelectSubset<T, UnitConfigFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UnitConfigClient<$Result.GetResult<Prisma.$UnitConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first UnitConfig that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {UnitConfigFindFirstArgs} args - Arguments to find a UnitConfig
-     * @example
-     * // Get one UnitConfig
-     * const unitConfig = await prisma.unitConfig.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends UnitConfigFindFirstArgs>(args?: SelectSubset<T, UnitConfigFindFirstArgs<ExtArgs>>): Prisma__UnitConfigClient<$Result.GetResult<Prisma.$UnitConfigPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first UnitConfig that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {UnitConfigFindFirstOrThrowArgs} args - Arguments to find a UnitConfig
-     * @example
-     * // Get one UnitConfig
-     * const unitConfig = await prisma.unitConfig.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends UnitConfigFindFirstOrThrowArgs>(args?: SelectSubset<T, UnitConfigFindFirstOrThrowArgs<ExtArgs>>): Prisma__UnitConfigClient<$Result.GetResult<Prisma.$UnitConfigPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more UnitConfigs that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {UnitConfigFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all UnitConfigs
-     * const unitConfigs = await prisma.unitConfig.findMany()
-     * 
-     * // Get first 10 UnitConfigs
-     * const unitConfigs = await prisma.unitConfig.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const unitConfigWithIdOnly = await prisma.unitConfig.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends UnitConfigFindManyArgs>(args?: SelectSubset<T, UnitConfigFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UnitConfigPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a UnitConfig.
-     * @param {UnitConfigCreateArgs} args - Arguments to create a UnitConfig.
-     * @example
-     * // Create one UnitConfig
-     * const UnitConfig = await prisma.unitConfig.create({
-     *   data: {
-     *     // ... data to create a UnitConfig
-     *   }
-     * })
-     * 
-     */
-    create<T extends UnitConfigCreateArgs>(args: SelectSubset<T, UnitConfigCreateArgs<ExtArgs>>): Prisma__UnitConfigClient<$Result.GetResult<Prisma.$UnitConfigPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many UnitConfigs.
-     * @param {UnitConfigCreateManyArgs} args - Arguments to create many UnitConfigs.
-     * @example
-     * // Create many UnitConfigs
-     * const unitConfig = await prisma.unitConfig.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends UnitConfigCreateManyArgs>(args?: SelectSubset<T, UnitConfigCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many UnitConfigs and returns the data saved in the database.
-     * @param {UnitConfigCreateManyAndReturnArgs} args - Arguments to create many UnitConfigs.
-     * @example
-     * // Create many UnitConfigs
-     * const unitConfig = await prisma.unitConfig.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many UnitConfigs and only return the `id`
-     * const unitConfigWithIdOnly = await prisma.unitConfig.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends UnitConfigCreateManyAndReturnArgs>(args?: SelectSubset<T, UnitConfigCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UnitConfigPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a UnitConfig.
-     * @param {UnitConfigDeleteArgs} args - Arguments to delete one UnitConfig.
-     * @example
-     * // Delete one UnitConfig
-     * const UnitConfig = await prisma.unitConfig.delete({
-     *   where: {
-     *     // ... filter to delete one UnitConfig
-     *   }
-     * })
-     * 
-     */
-    delete<T extends UnitConfigDeleteArgs>(args: SelectSubset<T, UnitConfigDeleteArgs<ExtArgs>>): Prisma__UnitConfigClient<$Result.GetResult<Prisma.$UnitConfigPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one UnitConfig.
-     * @param {UnitConfigUpdateArgs} args - Arguments to update one UnitConfig.
-     * @example
-     * // Update one UnitConfig
-     * const unitConfig = await prisma.unitConfig.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends UnitConfigUpdateArgs>(args: SelectSubset<T, UnitConfigUpdateArgs<ExtArgs>>): Prisma__UnitConfigClient<$Result.GetResult<Prisma.$UnitConfigPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more UnitConfigs.
-     * @param {UnitConfigDeleteManyArgs} args - Arguments to filter UnitConfigs to delete.
-     * @example
-     * // Delete a few UnitConfigs
-     * const { count } = await prisma.unitConfig.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends UnitConfigDeleteManyArgs>(args?: SelectSubset<T, UnitConfigDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more UnitConfigs.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {UnitConfigUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many UnitConfigs
-     * const unitConfig = await prisma.unitConfig.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends UnitConfigUpdateManyArgs>(args: SelectSubset<T, UnitConfigUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more UnitConfigs and returns the data updated in the database.
-     * @param {UnitConfigUpdateManyAndReturnArgs} args - Arguments to update many UnitConfigs.
-     * @example
-     * // Update many UnitConfigs
-     * const unitConfig = await prisma.unitConfig.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more UnitConfigs and only return the `id`
-     * const unitConfigWithIdOnly = await prisma.unitConfig.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends UnitConfigUpdateManyAndReturnArgs>(args: SelectSubset<T, UnitConfigUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UnitConfigPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one UnitConfig.
-     * @param {UnitConfigUpsertArgs} args - Arguments to update or create a UnitConfig.
-     * @example
-     * // Update or create a UnitConfig
-     * const unitConfig = await prisma.unitConfig.upsert({
-     *   create: {
-     *     // ... data to create a UnitConfig
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the UnitConfig we want to update
-     *   }
-     * })
-     */
-    upsert<T extends UnitConfigUpsertArgs>(args: SelectSubset<T, UnitConfigUpsertArgs<ExtArgs>>): Prisma__UnitConfigClient<$Result.GetResult<Prisma.$UnitConfigPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of UnitConfigs.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {UnitConfigCountArgs} args - Arguments to filter UnitConfigs to count.
-     * @example
-     * // Count the number of UnitConfigs
-     * const count = await prisma.unitConfig.count({
-     *   where: {
-     *     // ... the filter for the UnitConfigs we want to count
-     *   }
-     * })
-    **/
-    count<T extends UnitConfigCountArgs>(
-      args?: Subset<T, UnitConfigCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], UnitConfigCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a UnitConfig.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {UnitConfigAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends UnitConfigAggregateArgs>(args: Subset<T, UnitConfigAggregateArgs>): Prisma.PrismaPromise<GetUnitConfigAggregateType<T>>
-
-    /**
-     * Group by UnitConfig.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {UnitConfigGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends UnitConfigGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: UnitConfigGroupByArgs['orderBy'] }
-        : { orderBy?: UnitConfigGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, UnitConfigGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUnitConfigGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the UnitConfig model
-   */
-  readonly fields: UnitConfigFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for UnitConfig.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__UnitConfigClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    legalSteps<T extends UnitConfig$legalStepsArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfig$legalStepsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LegalStepPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    articles<T extends UnitConfig$articlesArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfig$articlesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    sections<T extends UnitConfig$sectionsArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfig$sectionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    images<T extends UnitConfig$imagesArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfig$imagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    footerLinks<T extends UnitConfig$footerLinksArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfig$footerLinksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FooterLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    servers<T extends UnitConfig$serversArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfig$serversArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UnitServerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the UnitConfig model
-   */
-  interface UnitConfigFieldRefs {
-    readonly id: FieldRef<"UnitConfig", 'String'>
-    readonly name: FieldRef<"UnitConfig", 'String'>
-    readonly pageTitle: FieldRef<"UnitConfig", 'String'>
-    readonly pageDescription: FieldRef<"UnitConfig", 'String'>
-    readonly iconUrl: FieldRef<"UnitConfig", 'String'>
-    readonly servicesDescription: FieldRef<"UnitConfig", 'String'>
-    readonly bannerUrl: FieldRef<"UnitConfig", 'String'>
-    readonly footerInfo: FieldRef<"UnitConfig", 'String'>
-    readonly createdAt: FieldRef<"UnitConfig", 'DateTime'>
-    readonly updatedAt: FieldRef<"UnitConfig", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * UnitConfig findUnique
-   */
-  export type UnitConfigFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the UnitConfig
-     */
-    select?: UnitConfigSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the UnitConfig
-     */
-    omit?: UnitConfigOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UnitConfigInclude<ExtArgs> | null
-    /**
-     * Filter, which UnitConfig to fetch.
-     */
-    where: UnitConfigWhereUniqueInput
-  }
-
-  /**
-   * UnitConfig findUniqueOrThrow
-   */
-  export type UnitConfigFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the UnitConfig
-     */
-    select?: UnitConfigSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the UnitConfig
-     */
-    omit?: UnitConfigOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UnitConfigInclude<ExtArgs> | null
-    /**
-     * Filter, which UnitConfig to fetch.
-     */
-    where: UnitConfigWhereUniqueInput
-  }
-
-  /**
-   * UnitConfig findFirst
-   */
-  export type UnitConfigFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the UnitConfig
-     */
-    select?: UnitConfigSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the UnitConfig
-     */
-    omit?: UnitConfigOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UnitConfigInclude<ExtArgs> | null
-    /**
-     * Filter, which UnitConfig to fetch.
-     */
-    where?: UnitConfigWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of UnitConfigs to fetch.
-     */
-    orderBy?: UnitConfigOrderByWithRelationInput | UnitConfigOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for UnitConfigs.
-     */
-    cursor?: UnitConfigWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` UnitConfigs from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` UnitConfigs.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of UnitConfigs.
-     */
-    distinct?: UnitConfigScalarFieldEnum | UnitConfigScalarFieldEnum[]
-  }
-
-  /**
-   * UnitConfig findFirstOrThrow
-   */
-  export type UnitConfigFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the UnitConfig
-     */
-    select?: UnitConfigSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the UnitConfig
-     */
-    omit?: UnitConfigOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UnitConfigInclude<ExtArgs> | null
-    /**
-     * Filter, which UnitConfig to fetch.
-     */
-    where?: UnitConfigWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of UnitConfigs to fetch.
-     */
-    orderBy?: UnitConfigOrderByWithRelationInput | UnitConfigOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for UnitConfigs.
-     */
-    cursor?: UnitConfigWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` UnitConfigs from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` UnitConfigs.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of UnitConfigs.
-     */
-    distinct?: UnitConfigScalarFieldEnum | UnitConfigScalarFieldEnum[]
-  }
-
-  /**
-   * UnitConfig findMany
-   */
-  export type UnitConfigFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the UnitConfig
-     */
-    select?: UnitConfigSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the UnitConfig
-     */
-    omit?: UnitConfigOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UnitConfigInclude<ExtArgs> | null
-    /**
-     * Filter, which UnitConfigs to fetch.
-     */
-    where?: UnitConfigWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of UnitConfigs to fetch.
-     */
-    orderBy?: UnitConfigOrderByWithRelationInput | UnitConfigOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing UnitConfigs.
-     */
-    cursor?: UnitConfigWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` UnitConfigs from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` UnitConfigs.
-     */
-    skip?: number
-    distinct?: UnitConfigScalarFieldEnum | UnitConfigScalarFieldEnum[]
-  }
-
-  /**
-   * UnitConfig create
-   */
-  export type UnitConfigCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the UnitConfig
-     */
-    select?: UnitConfigSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the UnitConfig
-     */
-    omit?: UnitConfigOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UnitConfigInclude<ExtArgs> | null
-    /**
-     * The data needed to create a UnitConfig.
-     */
-    data: XOR<UnitConfigCreateInput, UnitConfigUncheckedCreateInput>
-  }
-
-  /**
-   * UnitConfig createMany
-   */
-  export type UnitConfigCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many UnitConfigs.
-     */
-    data: UnitConfigCreateManyInput | UnitConfigCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * UnitConfig createManyAndReturn
-   */
-  export type UnitConfigCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the UnitConfig
-     */
-    select?: UnitConfigSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the UnitConfig
-     */
-    omit?: UnitConfigOmit<ExtArgs> | null
-    /**
-     * The data used to create many UnitConfigs.
-     */
-    data: UnitConfigCreateManyInput | UnitConfigCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * UnitConfig update
-   */
-  export type UnitConfigUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the UnitConfig
-     */
-    select?: UnitConfigSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the UnitConfig
-     */
-    omit?: UnitConfigOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UnitConfigInclude<ExtArgs> | null
-    /**
-     * The data needed to update a UnitConfig.
-     */
-    data: XOR<UnitConfigUpdateInput, UnitConfigUncheckedUpdateInput>
-    /**
-     * Choose, which UnitConfig to update.
-     */
-    where: UnitConfigWhereUniqueInput
-  }
-
-  /**
-   * UnitConfig updateMany
-   */
-  export type UnitConfigUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update UnitConfigs.
-     */
-    data: XOR<UnitConfigUpdateManyMutationInput, UnitConfigUncheckedUpdateManyInput>
-    /**
-     * Filter which UnitConfigs to update
-     */
-    where?: UnitConfigWhereInput
-    /**
-     * Limit how many UnitConfigs to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * UnitConfig updateManyAndReturn
-   */
-  export type UnitConfigUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the UnitConfig
-     */
-    select?: UnitConfigSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the UnitConfig
-     */
-    omit?: UnitConfigOmit<ExtArgs> | null
-    /**
-     * The data used to update UnitConfigs.
-     */
-    data: XOR<UnitConfigUpdateManyMutationInput, UnitConfigUncheckedUpdateManyInput>
-    /**
-     * Filter which UnitConfigs to update
-     */
-    where?: UnitConfigWhereInput
-    /**
-     * Limit how many UnitConfigs to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * UnitConfig upsert
-   */
-  export type UnitConfigUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the UnitConfig
-     */
-    select?: UnitConfigSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the UnitConfig
-     */
-    omit?: UnitConfigOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UnitConfigInclude<ExtArgs> | null
-    /**
-     * The filter to search for the UnitConfig to update in case it exists.
-     */
-    where: UnitConfigWhereUniqueInput
-    /**
-     * In case the UnitConfig found by the `where` argument doesn't exist, create a new UnitConfig with this data.
-     */
-    create: XOR<UnitConfigCreateInput, UnitConfigUncheckedCreateInput>
-    /**
-     * In case the UnitConfig was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<UnitConfigUpdateInput, UnitConfigUncheckedUpdateInput>
-  }
-
-  /**
-   * UnitConfig delete
-   */
-  export type UnitConfigDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the UnitConfig
-     */
-    select?: UnitConfigSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the UnitConfig
-     */
-    omit?: UnitConfigOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UnitConfigInclude<ExtArgs> | null
-    /**
-     * Filter which UnitConfig to delete.
-     */
-    where: UnitConfigWhereUniqueInput
-  }
-
-  /**
-   * UnitConfig deleteMany
-   */
-  export type UnitConfigDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which UnitConfigs to delete
-     */
-    where?: UnitConfigWhereInput
-    /**
-     * Limit how many UnitConfigs to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * UnitConfig.legalSteps
-   */
-  export type UnitConfig$legalStepsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the LegalStep
-     */
-    select?: LegalStepSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the LegalStep
-     */
-    omit?: LegalStepOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LegalStepInclude<ExtArgs> | null
-    where?: LegalStepWhereInput
-    orderBy?: LegalStepOrderByWithRelationInput | LegalStepOrderByWithRelationInput[]
-    cursor?: LegalStepWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: LegalStepScalarFieldEnum | LegalStepScalarFieldEnum[]
-  }
-
-  /**
-   * UnitConfig.articles
-   */
-  export type UnitConfig$articlesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Article
-     */
-    select?: ArticleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Article
-     */
-    omit?: ArticleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ArticleInclude<ExtArgs> | null
-    where?: ArticleWhereInput
-    orderBy?: ArticleOrderByWithRelationInput | ArticleOrderByWithRelationInput[]
-    cursor?: ArticleWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: ArticleScalarFieldEnum | ArticleScalarFieldEnum[]
-  }
-
-  /**
-   * UnitConfig.sections
-   */
-  export type UnitConfig$sectionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Section
-     */
-    select?: SectionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Section
-     */
-    omit?: SectionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SectionInclude<ExtArgs> | null
-    where?: SectionWhereInput
-    orderBy?: SectionOrderByWithRelationInput | SectionOrderByWithRelationInput[]
-    cursor?: SectionWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: SectionScalarFieldEnum | SectionScalarFieldEnum[]
-  }
-
-  /**
-   * UnitConfig.images
-   */
-  export type UnitConfig$imagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Image
-     */
-    select?: ImageSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Image
-     */
-    omit?: ImageOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ImageInclude<ExtArgs> | null
-    where?: ImageWhereInput
-    orderBy?: ImageOrderByWithRelationInput | ImageOrderByWithRelationInput[]
-    cursor?: ImageWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: ImageScalarFieldEnum | ImageScalarFieldEnum[]
-  }
-
-  /**
-   * UnitConfig.footerLinks
-   */
-  export type UnitConfig$footerLinksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FooterLink
-     */
-    select?: FooterLinkSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the FooterLink
-     */
-    omit?: FooterLinkOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FooterLinkInclude<ExtArgs> | null
-    where?: FooterLinkWhereInput
-    orderBy?: FooterLinkOrderByWithRelationInput | FooterLinkOrderByWithRelationInput[]
-    cursor?: FooterLinkWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: FooterLinkScalarFieldEnum | FooterLinkScalarFieldEnum[]
-  }
-
-  /**
-   * UnitConfig.servers
-   */
-  export type UnitConfig$serversArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the UnitServer
-     */
-    select?: UnitServerSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the UnitServer
-     */
-    omit?: UnitServerOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UnitServerInclude<ExtArgs> | null
-    where?: UnitServerWhereInput
-    orderBy?: UnitServerOrderByWithRelationInput | UnitServerOrderByWithRelationInput[]
-    cursor?: UnitServerWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: UnitServerScalarFieldEnum | UnitServerScalarFieldEnum[]
-  }
-
-  /**
-   * UnitConfig without action
-   */
-  export type UnitConfigDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the UnitConfig
-     */
-    select?: UnitConfigSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the UnitConfig
-     */
-    omit?: UnitConfigOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UnitConfigInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model LegalStep
-   */
-
-  export type AggregateLegalStep = {
-    _count: LegalStepCountAggregateOutputType | null
-    _avg: LegalStepAvgAggregateOutputType | null
-    _sum: LegalStepSumAggregateOutputType | null
-    _min: LegalStepMinAggregateOutputType | null
-    _max: LegalStepMaxAggregateOutputType | null
-  }
-
-  export type LegalStepAvgAggregateOutputType = {
-    order: number | null
-  }
-
-  export type LegalStepSumAggregateOutputType = {
-    order: number | null
-  }
-
-  export type LegalStepMinAggregateOutputType = {
-    id: string | null
-    title: string | null
-    description: string | null
-    order: number | null
-    configId: string | null
-  }
-
-  export type LegalStepMaxAggregateOutputType = {
-    id: string | null
-    title: string | null
-    description: string | null
-    order: number | null
-    configId: string | null
-  }
-
-  export type LegalStepCountAggregateOutputType = {
-    id: number
-    title: number
-    description: number
-    order: number
-    configId: number
-    _all: number
-  }
-
-
-  export type LegalStepAvgAggregateInputType = {
-    order?: true
-  }
-
-  export type LegalStepSumAggregateInputType = {
-    order?: true
-  }
-
-  export type LegalStepMinAggregateInputType = {
-    id?: true
-    title?: true
-    description?: true
-    order?: true
-    configId?: true
-  }
-
-  export type LegalStepMaxAggregateInputType = {
-    id?: true
-    title?: true
-    description?: true
-    order?: true
-    configId?: true
-  }
-
-  export type LegalStepCountAggregateInputType = {
-    id?: true
-    title?: true
-    description?: true
-    order?: true
-    configId?: true
-    _all?: true
-  }
-
-  export type LegalStepAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which LegalStep to aggregate.
-     */
-    where?: LegalStepWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of LegalSteps to fetch.
-     */
-    orderBy?: LegalStepOrderByWithRelationInput | LegalStepOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: LegalStepWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` LegalSteps from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` LegalSteps.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned LegalSteps
-    **/
-    _count?: true | LegalStepCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: LegalStepAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: LegalStepSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: LegalStepMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: LegalStepMaxAggregateInputType
-  }
-
-  export type GetLegalStepAggregateType<T extends LegalStepAggregateArgs> = {
-        [P in keyof T & keyof AggregateLegalStep]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateLegalStep[P]>
-      : GetScalarType<T[P], AggregateLegalStep[P]>
-  }
-
-
-
-
-  export type LegalStepGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: LegalStepWhereInput
-    orderBy?: LegalStepOrderByWithAggregationInput | LegalStepOrderByWithAggregationInput[]
-    by: LegalStepScalarFieldEnum[] | LegalStepScalarFieldEnum
-    having?: LegalStepScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: LegalStepCountAggregateInputType | true
-    _avg?: LegalStepAvgAggregateInputType
-    _sum?: LegalStepSumAggregateInputType
-    _min?: LegalStepMinAggregateInputType
-    _max?: LegalStepMaxAggregateInputType
-  }
-
-  export type LegalStepGroupByOutputType = {
-    id: string
-    title: string
-    description: string
-    order: number
-    configId: string
-    _count: LegalStepCountAggregateOutputType | null
-    _avg: LegalStepAvgAggregateOutputType | null
-    _sum: LegalStepSumAggregateOutputType | null
-    _min: LegalStepMinAggregateOutputType | null
-    _max: LegalStepMaxAggregateOutputType | null
-  }
-
-  type GetLegalStepGroupByPayload<T extends LegalStepGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<LegalStepGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof LegalStepGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], LegalStepGroupByOutputType[P]>
-            : GetScalarType<T[P], LegalStepGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type LegalStepSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    title?: boolean
-    description?: boolean
-    order?: boolean
-    configId?: boolean
-    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["legalStep"]>
-
-  export type LegalStepSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    title?: boolean
-    description?: boolean
-    order?: boolean
-    configId?: boolean
-    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["legalStep"]>
-
-  export type LegalStepSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    title?: boolean
-    description?: boolean
-    order?: boolean
-    configId?: boolean
-    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["legalStep"]>
-
-  export type LegalStepSelectScalar = {
-    id?: boolean
-    title?: boolean
-    description?: boolean
-    order?: boolean
-    configId?: boolean
-  }
-
-  export type LegalStepOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "order" | "configId", ExtArgs["result"]["legalStep"]>
-  export type LegalStepInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
-  }
-  export type LegalStepIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
-  }
-  export type LegalStepIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
-  }
-
-  export type $LegalStepPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "LegalStep"
-    objects: {
-      config: Prisma.$UnitConfigPayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      title: string
-      description: string
-      order: number
-      configId: string
-    }, ExtArgs["result"]["legalStep"]>
-    composites: {}
-  }
-
-  type LegalStepGetPayload<S extends boolean | null | undefined | LegalStepDefaultArgs> = $Result.GetResult<Prisma.$LegalStepPayload, S>
-
-  type LegalStepCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<LegalStepFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: LegalStepCountAggregateInputType | true
-    }
-
-  export interface LegalStepDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['LegalStep'], meta: { name: 'LegalStep' } }
-    /**
-     * Find zero or one LegalStep that matches the filter.
-     * @param {LegalStepFindUniqueArgs} args - Arguments to find a LegalStep
-     * @example
-     * // Get one LegalStep
-     * const legalStep = await prisma.legalStep.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends LegalStepFindUniqueArgs>(args: SelectSubset<T, LegalStepFindUniqueArgs<ExtArgs>>): Prisma__LegalStepClient<$Result.GetResult<Prisma.$LegalStepPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one LegalStep that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {LegalStepFindUniqueOrThrowArgs} args - Arguments to find a LegalStep
-     * @example
-     * // Get one LegalStep
-     * const legalStep = await prisma.legalStep.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends LegalStepFindUniqueOrThrowArgs>(args: SelectSubset<T, LegalStepFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LegalStepClient<$Result.GetResult<Prisma.$LegalStepPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first LegalStep that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {LegalStepFindFirstArgs} args - Arguments to find a LegalStep
-     * @example
-     * // Get one LegalStep
-     * const legalStep = await prisma.legalStep.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends LegalStepFindFirstArgs>(args?: SelectSubset<T, LegalStepFindFirstArgs<ExtArgs>>): Prisma__LegalStepClient<$Result.GetResult<Prisma.$LegalStepPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first LegalStep that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {LegalStepFindFirstOrThrowArgs} args - Arguments to find a LegalStep
-     * @example
-     * // Get one LegalStep
-     * const legalStep = await prisma.legalStep.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends LegalStepFindFirstOrThrowArgs>(args?: SelectSubset<T, LegalStepFindFirstOrThrowArgs<ExtArgs>>): Prisma__LegalStepClient<$Result.GetResult<Prisma.$LegalStepPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more LegalSteps that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {LegalStepFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all LegalSteps
-     * const legalSteps = await prisma.legalStep.findMany()
-     * 
-     * // Get first 10 LegalSteps
-     * const legalSteps = await prisma.legalStep.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const legalStepWithIdOnly = await prisma.legalStep.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends LegalStepFindManyArgs>(args?: SelectSubset<T, LegalStepFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LegalStepPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a LegalStep.
-     * @param {LegalStepCreateArgs} args - Arguments to create a LegalStep.
-     * @example
-     * // Create one LegalStep
-     * const LegalStep = await prisma.legalStep.create({
-     *   data: {
-     *     // ... data to create a LegalStep
-     *   }
-     * })
-     * 
-     */
-    create<T extends LegalStepCreateArgs>(args: SelectSubset<T, LegalStepCreateArgs<ExtArgs>>): Prisma__LegalStepClient<$Result.GetResult<Prisma.$LegalStepPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many LegalSteps.
-     * @param {LegalStepCreateManyArgs} args - Arguments to create many LegalSteps.
-     * @example
-     * // Create many LegalSteps
-     * const legalStep = await prisma.legalStep.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends LegalStepCreateManyArgs>(args?: SelectSubset<T, LegalStepCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many LegalSteps and returns the data saved in the database.
-     * @param {LegalStepCreateManyAndReturnArgs} args - Arguments to create many LegalSteps.
-     * @example
-     * // Create many LegalSteps
-     * const legalStep = await prisma.legalStep.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many LegalSteps and only return the `id`
-     * const legalStepWithIdOnly = await prisma.legalStep.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends LegalStepCreateManyAndReturnArgs>(args?: SelectSubset<T, LegalStepCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LegalStepPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a LegalStep.
-     * @param {LegalStepDeleteArgs} args - Arguments to delete one LegalStep.
-     * @example
-     * // Delete one LegalStep
-     * const LegalStep = await prisma.legalStep.delete({
-     *   where: {
-     *     // ... filter to delete one LegalStep
-     *   }
-     * })
-     * 
-     */
-    delete<T extends LegalStepDeleteArgs>(args: SelectSubset<T, LegalStepDeleteArgs<ExtArgs>>): Prisma__LegalStepClient<$Result.GetResult<Prisma.$LegalStepPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one LegalStep.
-     * @param {LegalStepUpdateArgs} args - Arguments to update one LegalStep.
-     * @example
-     * // Update one LegalStep
-     * const legalStep = await prisma.legalStep.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends LegalStepUpdateArgs>(args: SelectSubset<T, LegalStepUpdateArgs<ExtArgs>>): Prisma__LegalStepClient<$Result.GetResult<Prisma.$LegalStepPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more LegalSteps.
-     * @param {LegalStepDeleteManyArgs} args - Arguments to filter LegalSteps to delete.
-     * @example
-     * // Delete a few LegalSteps
-     * const { count } = await prisma.legalStep.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends LegalStepDeleteManyArgs>(args?: SelectSubset<T, LegalStepDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more LegalSteps.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {LegalStepUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many LegalSteps
-     * const legalStep = await prisma.legalStep.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends LegalStepUpdateManyArgs>(args: SelectSubset<T, LegalStepUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more LegalSteps and returns the data updated in the database.
-     * @param {LegalStepUpdateManyAndReturnArgs} args - Arguments to update many LegalSteps.
-     * @example
-     * // Update many LegalSteps
-     * const legalStep = await prisma.legalStep.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more LegalSteps and only return the `id`
-     * const legalStepWithIdOnly = await prisma.legalStep.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends LegalStepUpdateManyAndReturnArgs>(args: SelectSubset<T, LegalStepUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LegalStepPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one LegalStep.
-     * @param {LegalStepUpsertArgs} args - Arguments to update or create a LegalStep.
-     * @example
-     * // Update or create a LegalStep
-     * const legalStep = await prisma.legalStep.upsert({
-     *   create: {
-     *     // ... data to create a LegalStep
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the LegalStep we want to update
-     *   }
-     * })
-     */
-    upsert<T extends LegalStepUpsertArgs>(args: SelectSubset<T, LegalStepUpsertArgs<ExtArgs>>): Prisma__LegalStepClient<$Result.GetResult<Prisma.$LegalStepPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of LegalSteps.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {LegalStepCountArgs} args - Arguments to filter LegalSteps to count.
-     * @example
-     * // Count the number of LegalSteps
-     * const count = await prisma.legalStep.count({
-     *   where: {
-     *     // ... the filter for the LegalSteps we want to count
-     *   }
-     * })
-    **/
-    count<T extends LegalStepCountArgs>(
-      args?: Subset<T, LegalStepCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], LegalStepCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a LegalStep.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {LegalStepAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends LegalStepAggregateArgs>(args: Subset<T, LegalStepAggregateArgs>): Prisma.PrismaPromise<GetLegalStepAggregateType<T>>
-
-    /**
-     * Group by LegalStep.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {LegalStepGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends LegalStepGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: LegalStepGroupByArgs['orderBy'] }
-        : { orderBy?: LegalStepGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, LegalStepGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLegalStepGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the LegalStep model
-   */
-  readonly fields: LegalStepFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for LegalStep.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__LegalStepClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    config<T extends UnitConfigDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfigDefaultArgs<ExtArgs>>): Prisma__UnitConfigClient<$Result.GetResult<Prisma.$UnitConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the LegalStep model
-   */
-  interface LegalStepFieldRefs {
-    readonly id: FieldRef<"LegalStep", 'String'>
-    readonly title: FieldRef<"LegalStep", 'String'>
-    readonly description: FieldRef<"LegalStep", 'String'>
-    readonly order: FieldRef<"LegalStep", 'Int'>
-    readonly configId: FieldRef<"LegalStep", 'String'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * LegalStep findUnique
-   */
-  export type LegalStepFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the LegalStep
-     */
-    select?: LegalStepSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the LegalStep
-     */
-    omit?: LegalStepOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LegalStepInclude<ExtArgs> | null
-    /**
-     * Filter, which LegalStep to fetch.
-     */
-    where: LegalStepWhereUniqueInput
-  }
-
-  /**
-   * LegalStep findUniqueOrThrow
-   */
-  export type LegalStepFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the LegalStep
-     */
-    select?: LegalStepSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the LegalStep
-     */
-    omit?: LegalStepOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LegalStepInclude<ExtArgs> | null
-    /**
-     * Filter, which LegalStep to fetch.
-     */
-    where: LegalStepWhereUniqueInput
-  }
-
-  /**
-   * LegalStep findFirst
-   */
-  export type LegalStepFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the LegalStep
-     */
-    select?: LegalStepSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the LegalStep
-     */
-    omit?: LegalStepOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LegalStepInclude<ExtArgs> | null
-    /**
-     * Filter, which LegalStep to fetch.
-     */
-    where?: LegalStepWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of LegalSteps to fetch.
-     */
-    orderBy?: LegalStepOrderByWithRelationInput | LegalStepOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for LegalSteps.
-     */
-    cursor?: LegalStepWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` LegalSteps from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` LegalSteps.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of LegalSteps.
-     */
-    distinct?: LegalStepScalarFieldEnum | LegalStepScalarFieldEnum[]
-  }
-
-  /**
-   * LegalStep findFirstOrThrow
-   */
-  export type LegalStepFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the LegalStep
-     */
-    select?: LegalStepSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the LegalStep
-     */
-    omit?: LegalStepOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LegalStepInclude<ExtArgs> | null
-    /**
-     * Filter, which LegalStep to fetch.
-     */
-    where?: LegalStepWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of LegalSteps to fetch.
-     */
-    orderBy?: LegalStepOrderByWithRelationInput | LegalStepOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for LegalSteps.
-     */
-    cursor?: LegalStepWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` LegalSteps from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` LegalSteps.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of LegalSteps.
-     */
-    distinct?: LegalStepScalarFieldEnum | LegalStepScalarFieldEnum[]
-  }
-
-  /**
-   * LegalStep findMany
-   */
-  export type LegalStepFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the LegalStep
-     */
-    select?: LegalStepSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the LegalStep
-     */
-    omit?: LegalStepOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LegalStepInclude<ExtArgs> | null
-    /**
-     * Filter, which LegalSteps to fetch.
-     */
-    where?: LegalStepWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of LegalSteps to fetch.
-     */
-    orderBy?: LegalStepOrderByWithRelationInput | LegalStepOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing LegalSteps.
-     */
-    cursor?: LegalStepWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` LegalSteps from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` LegalSteps.
-     */
-    skip?: number
-    distinct?: LegalStepScalarFieldEnum | LegalStepScalarFieldEnum[]
-  }
-
-  /**
-   * LegalStep create
-   */
-  export type LegalStepCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the LegalStep
-     */
-    select?: LegalStepSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the LegalStep
-     */
-    omit?: LegalStepOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LegalStepInclude<ExtArgs> | null
-    /**
-     * The data needed to create a LegalStep.
-     */
-    data: XOR<LegalStepCreateInput, LegalStepUncheckedCreateInput>
-  }
-
-  /**
-   * LegalStep createMany
-   */
-  export type LegalStepCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many LegalSteps.
-     */
-    data: LegalStepCreateManyInput | LegalStepCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * LegalStep createManyAndReturn
-   */
-  export type LegalStepCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the LegalStep
-     */
-    select?: LegalStepSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the LegalStep
-     */
-    omit?: LegalStepOmit<ExtArgs> | null
-    /**
-     * The data used to create many LegalSteps.
-     */
-    data: LegalStepCreateManyInput | LegalStepCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LegalStepIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * LegalStep update
-   */
-  export type LegalStepUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the LegalStep
-     */
-    select?: LegalStepSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the LegalStep
-     */
-    omit?: LegalStepOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LegalStepInclude<ExtArgs> | null
-    /**
-     * The data needed to update a LegalStep.
-     */
-    data: XOR<LegalStepUpdateInput, LegalStepUncheckedUpdateInput>
-    /**
-     * Choose, which LegalStep to update.
-     */
-    where: LegalStepWhereUniqueInput
-  }
-
-  /**
-   * LegalStep updateMany
-   */
-  export type LegalStepUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update LegalSteps.
-     */
-    data: XOR<LegalStepUpdateManyMutationInput, LegalStepUncheckedUpdateManyInput>
-    /**
-     * Filter which LegalSteps to update
-     */
-    where?: LegalStepWhereInput
-    /**
-     * Limit how many LegalSteps to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * LegalStep updateManyAndReturn
-   */
-  export type LegalStepUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the LegalStep
-     */
-    select?: LegalStepSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the LegalStep
-     */
-    omit?: LegalStepOmit<ExtArgs> | null
-    /**
-     * The data used to update LegalSteps.
-     */
-    data: XOR<LegalStepUpdateManyMutationInput, LegalStepUncheckedUpdateManyInput>
-    /**
-     * Filter which LegalSteps to update
-     */
-    where?: LegalStepWhereInput
-    /**
-     * Limit how many LegalSteps to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LegalStepIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * LegalStep upsert
-   */
-  export type LegalStepUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the LegalStep
-     */
-    select?: LegalStepSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the LegalStep
-     */
-    omit?: LegalStepOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LegalStepInclude<ExtArgs> | null
-    /**
-     * The filter to search for the LegalStep to update in case it exists.
-     */
-    where: LegalStepWhereUniqueInput
-    /**
-     * In case the LegalStep found by the `where` argument doesn't exist, create a new LegalStep with this data.
-     */
-    create: XOR<LegalStepCreateInput, LegalStepUncheckedCreateInput>
-    /**
-     * In case the LegalStep was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<LegalStepUpdateInput, LegalStepUncheckedUpdateInput>
-  }
-
-  /**
-   * LegalStep delete
-   */
-  export type LegalStepDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the LegalStep
-     */
-    select?: LegalStepSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the LegalStep
-     */
-    omit?: LegalStepOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LegalStepInclude<ExtArgs> | null
-    /**
-     * Filter which LegalStep to delete.
-     */
-    where: LegalStepWhereUniqueInput
-  }
-
-  /**
-   * LegalStep deleteMany
-   */
-  export type LegalStepDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which LegalSteps to delete
-     */
-    where?: LegalStepWhereInput
-    /**
-     * Limit how many LegalSteps to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * LegalStep without action
-   */
-  export type LegalStepDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the LegalStep
-     */
-    select?: LegalStepSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the LegalStep
-     */
-    omit?: LegalStepOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LegalStepInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model FooterLink
-   */
-
-  export type AggregateFooterLink = {
-    _count: FooterLinkCountAggregateOutputType | null
-    _avg: FooterLinkAvgAggregateOutputType | null
-    _sum: FooterLinkSumAggregateOutputType | null
-    _min: FooterLinkMinAggregateOutputType | null
-    _max: FooterLinkMaxAggregateOutputType | null
-  }
-
-  export type FooterLinkAvgAggregateOutputType = {
-    order: number | null
-  }
-
-  export type FooterLinkSumAggregateOutputType = {
-    order: number | null
-  }
-
-  export type FooterLinkMinAggregateOutputType = {
-    id: string | null
-    label: string | null
-    url: string | null
-    order: number | null
-    configId: string | null
-  }
-
-  export type FooterLinkMaxAggregateOutputType = {
-    id: string | null
-    label: string | null
-    url: string | null
-    order: number | null
-    configId: string | null
-  }
-
-  export type FooterLinkCountAggregateOutputType = {
-    id: number
-    label: number
-    url: number
-    order: number
-    configId: number
-    _all: number
-  }
-
-
-  export type FooterLinkAvgAggregateInputType = {
-    order?: true
-  }
-
-  export type FooterLinkSumAggregateInputType = {
-    order?: true
-  }
-
-  export type FooterLinkMinAggregateInputType = {
-    id?: true
-    label?: true
-    url?: true
-    order?: true
-    configId?: true
-  }
-
-  export type FooterLinkMaxAggregateInputType = {
-    id?: true
-    label?: true
-    url?: true
-    order?: true
-    configId?: true
-  }
-
-  export type FooterLinkCountAggregateInputType = {
-    id?: true
-    label?: true
-    url?: true
-    order?: true
-    configId?: true
-    _all?: true
-  }
-
-  export type FooterLinkAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which FooterLink to aggregate.
-     */
-    where?: FooterLinkWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of FooterLinks to fetch.
-     */
-    orderBy?: FooterLinkOrderByWithRelationInput | FooterLinkOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: FooterLinkWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` FooterLinks from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` FooterLinks.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned FooterLinks
-    **/
-    _count?: true | FooterLinkCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: FooterLinkAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: FooterLinkSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: FooterLinkMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: FooterLinkMaxAggregateInputType
-  }
-
-  export type GetFooterLinkAggregateType<T extends FooterLinkAggregateArgs> = {
-        [P in keyof T & keyof AggregateFooterLink]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateFooterLink[P]>
-      : GetScalarType<T[P], AggregateFooterLink[P]>
-  }
-
-
-
-
-  export type FooterLinkGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: FooterLinkWhereInput
-    orderBy?: FooterLinkOrderByWithAggregationInput | FooterLinkOrderByWithAggregationInput[]
-    by: FooterLinkScalarFieldEnum[] | FooterLinkScalarFieldEnum
-    having?: FooterLinkScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: FooterLinkCountAggregateInputType | true
-    _avg?: FooterLinkAvgAggregateInputType
-    _sum?: FooterLinkSumAggregateInputType
-    _min?: FooterLinkMinAggregateInputType
-    _max?: FooterLinkMaxAggregateInputType
-  }
-
-  export type FooterLinkGroupByOutputType = {
-    id: string
-    label: string
-    url: string
-    order: number
-    configId: string
-    _count: FooterLinkCountAggregateOutputType | null
-    _avg: FooterLinkAvgAggregateOutputType | null
-    _sum: FooterLinkSumAggregateOutputType | null
-    _min: FooterLinkMinAggregateOutputType | null
-    _max: FooterLinkMaxAggregateOutputType | null
-  }
-
-  type GetFooterLinkGroupByPayload<T extends FooterLinkGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<FooterLinkGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof FooterLinkGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], FooterLinkGroupByOutputType[P]>
-            : GetScalarType<T[P], FooterLinkGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type FooterLinkSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    label?: boolean
-    url?: boolean
-    order?: boolean
-    configId?: boolean
-    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["footerLink"]>
-
-  export type FooterLinkSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    label?: boolean
-    url?: boolean
-    order?: boolean
-    configId?: boolean
-    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["footerLink"]>
-
-  export type FooterLinkSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    label?: boolean
-    url?: boolean
-    order?: boolean
-    configId?: boolean
-    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["footerLink"]>
-
-  export type FooterLinkSelectScalar = {
-    id?: boolean
-    label?: boolean
-    url?: boolean
-    order?: boolean
-    configId?: boolean
-  }
-
-  export type FooterLinkOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "label" | "url" | "order" | "configId", ExtArgs["result"]["footerLink"]>
-  export type FooterLinkInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
-  }
-  export type FooterLinkIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
-  }
-  export type FooterLinkIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
-  }
-
-  export type $FooterLinkPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "FooterLink"
-    objects: {
-      config: Prisma.$UnitConfigPayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      label: string
-      url: string
-      order: number
-      configId: string
-    }, ExtArgs["result"]["footerLink"]>
-    composites: {}
-  }
-
-  type FooterLinkGetPayload<S extends boolean | null | undefined | FooterLinkDefaultArgs> = $Result.GetResult<Prisma.$FooterLinkPayload, S>
-
-  type FooterLinkCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<FooterLinkFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: FooterLinkCountAggregateInputType | true
-    }
-
-  export interface FooterLinkDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['FooterLink'], meta: { name: 'FooterLink' } }
-    /**
-     * Find zero or one FooterLink that matches the filter.
-     * @param {FooterLinkFindUniqueArgs} args - Arguments to find a FooterLink
-     * @example
-     * // Get one FooterLink
-     * const footerLink = await prisma.footerLink.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends FooterLinkFindUniqueArgs>(args: SelectSubset<T, FooterLinkFindUniqueArgs<ExtArgs>>): Prisma__FooterLinkClient<$Result.GetResult<Prisma.$FooterLinkPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one FooterLink that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {FooterLinkFindUniqueOrThrowArgs} args - Arguments to find a FooterLink
-     * @example
-     * // Get one FooterLink
-     * const footerLink = await prisma.footerLink.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends FooterLinkFindUniqueOrThrowArgs>(args: SelectSubset<T, FooterLinkFindUniqueOrThrowArgs<ExtArgs>>): Prisma__FooterLinkClient<$Result.GetResult<Prisma.$FooterLinkPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first FooterLink that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {FooterLinkFindFirstArgs} args - Arguments to find a FooterLink
-     * @example
-     * // Get one FooterLink
-     * const footerLink = await prisma.footerLink.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends FooterLinkFindFirstArgs>(args?: SelectSubset<T, FooterLinkFindFirstArgs<ExtArgs>>): Prisma__FooterLinkClient<$Result.GetResult<Prisma.$FooterLinkPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first FooterLink that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {FooterLinkFindFirstOrThrowArgs} args - Arguments to find a FooterLink
-     * @example
-     * // Get one FooterLink
-     * const footerLink = await prisma.footerLink.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends FooterLinkFindFirstOrThrowArgs>(args?: SelectSubset<T, FooterLinkFindFirstOrThrowArgs<ExtArgs>>): Prisma__FooterLinkClient<$Result.GetResult<Prisma.$FooterLinkPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more FooterLinks that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {FooterLinkFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all FooterLinks
-     * const footerLinks = await prisma.footerLink.findMany()
-     * 
-     * // Get first 10 FooterLinks
-     * const footerLinks = await prisma.footerLink.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const footerLinkWithIdOnly = await prisma.footerLink.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends FooterLinkFindManyArgs>(args?: SelectSubset<T, FooterLinkFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FooterLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a FooterLink.
-     * @param {FooterLinkCreateArgs} args - Arguments to create a FooterLink.
-     * @example
-     * // Create one FooterLink
-     * const FooterLink = await prisma.footerLink.create({
-     *   data: {
-     *     // ... data to create a FooterLink
-     *   }
-     * })
-     * 
-     */
-    create<T extends FooterLinkCreateArgs>(args: SelectSubset<T, FooterLinkCreateArgs<ExtArgs>>): Prisma__FooterLinkClient<$Result.GetResult<Prisma.$FooterLinkPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many FooterLinks.
-     * @param {FooterLinkCreateManyArgs} args - Arguments to create many FooterLinks.
-     * @example
-     * // Create many FooterLinks
-     * const footerLink = await prisma.footerLink.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends FooterLinkCreateManyArgs>(args?: SelectSubset<T, FooterLinkCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many FooterLinks and returns the data saved in the database.
-     * @param {FooterLinkCreateManyAndReturnArgs} args - Arguments to create many FooterLinks.
-     * @example
-     * // Create many FooterLinks
-     * const footerLink = await prisma.footerLink.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many FooterLinks and only return the `id`
-     * const footerLinkWithIdOnly = await prisma.footerLink.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends FooterLinkCreateManyAndReturnArgs>(args?: SelectSubset<T, FooterLinkCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FooterLinkPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a FooterLink.
-     * @param {FooterLinkDeleteArgs} args - Arguments to delete one FooterLink.
-     * @example
-     * // Delete one FooterLink
-     * const FooterLink = await prisma.footerLink.delete({
-     *   where: {
-     *     // ... filter to delete one FooterLink
-     *   }
-     * })
-     * 
-     */
-    delete<T extends FooterLinkDeleteArgs>(args: SelectSubset<T, FooterLinkDeleteArgs<ExtArgs>>): Prisma__FooterLinkClient<$Result.GetResult<Prisma.$FooterLinkPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one FooterLink.
-     * @param {FooterLinkUpdateArgs} args - Arguments to update one FooterLink.
-     * @example
-     * // Update one FooterLink
-     * const footerLink = await prisma.footerLink.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends FooterLinkUpdateArgs>(args: SelectSubset<T, FooterLinkUpdateArgs<ExtArgs>>): Prisma__FooterLinkClient<$Result.GetResult<Prisma.$FooterLinkPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more FooterLinks.
-     * @param {FooterLinkDeleteManyArgs} args - Arguments to filter FooterLinks to delete.
-     * @example
-     * // Delete a few FooterLinks
-     * const { count } = await prisma.footerLink.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends FooterLinkDeleteManyArgs>(args?: SelectSubset<T, FooterLinkDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more FooterLinks.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {FooterLinkUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many FooterLinks
-     * const footerLink = await prisma.footerLink.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends FooterLinkUpdateManyArgs>(args: SelectSubset<T, FooterLinkUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more FooterLinks and returns the data updated in the database.
-     * @param {FooterLinkUpdateManyAndReturnArgs} args - Arguments to update many FooterLinks.
-     * @example
-     * // Update many FooterLinks
-     * const footerLink = await prisma.footerLink.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more FooterLinks and only return the `id`
-     * const footerLinkWithIdOnly = await prisma.footerLink.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends FooterLinkUpdateManyAndReturnArgs>(args: SelectSubset<T, FooterLinkUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FooterLinkPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one FooterLink.
-     * @param {FooterLinkUpsertArgs} args - Arguments to update or create a FooterLink.
-     * @example
-     * // Update or create a FooterLink
-     * const footerLink = await prisma.footerLink.upsert({
-     *   create: {
-     *     // ... data to create a FooterLink
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the FooterLink we want to update
-     *   }
-     * })
-     */
-    upsert<T extends FooterLinkUpsertArgs>(args: SelectSubset<T, FooterLinkUpsertArgs<ExtArgs>>): Prisma__FooterLinkClient<$Result.GetResult<Prisma.$FooterLinkPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of FooterLinks.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {FooterLinkCountArgs} args - Arguments to filter FooterLinks to count.
-     * @example
-     * // Count the number of FooterLinks
-     * const count = await prisma.footerLink.count({
-     *   where: {
-     *     // ... the filter for the FooterLinks we want to count
-     *   }
-     * })
-    **/
-    count<T extends FooterLinkCountArgs>(
-      args?: Subset<T, FooterLinkCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], FooterLinkCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a FooterLink.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {FooterLinkAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends FooterLinkAggregateArgs>(args: Subset<T, FooterLinkAggregateArgs>): Prisma.PrismaPromise<GetFooterLinkAggregateType<T>>
-
-    /**
-     * Group by FooterLink.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {FooterLinkGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends FooterLinkGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: FooterLinkGroupByArgs['orderBy'] }
-        : { orderBy?: FooterLinkGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, FooterLinkGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFooterLinkGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the FooterLink model
-   */
-  readonly fields: FooterLinkFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for FooterLink.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__FooterLinkClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    config<T extends UnitConfigDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfigDefaultArgs<ExtArgs>>): Prisma__UnitConfigClient<$Result.GetResult<Prisma.$UnitConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the FooterLink model
-   */
-  interface FooterLinkFieldRefs {
-    readonly id: FieldRef<"FooterLink", 'String'>
-    readonly label: FieldRef<"FooterLink", 'String'>
-    readonly url: FieldRef<"FooterLink", 'String'>
-    readonly order: FieldRef<"FooterLink", 'Int'>
-    readonly configId: FieldRef<"FooterLink", 'String'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * FooterLink findUnique
-   */
-  export type FooterLinkFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FooterLink
-     */
-    select?: FooterLinkSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the FooterLink
-     */
-    omit?: FooterLinkOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FooterLinkInclude<ExtArgs> | null
-    /**
-     * Filter, which FooterLink to fetch.
-     */
-    where: FooterLinkWhereUniqueInput
-  }
-
-  /**
-   * FooterLink findUniqueOrThrow
-   */
-  export type FooterLinkFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FooterLink
-     */
-    select?: FooterLinkSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the FooterLink
-     */
-    omit?: FooterLinkOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FooterLinkInclude<ExtArgs> | null
-    /**
-     * Filter, which FooterLink to fetch.
-     */
-    where: FooterLinkWhereUniqueInput
-  }
-
-  /**
-   * FooterLink findFirst
-   */
-  export type FooterLinkFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FooterLink
-     */
-    select?: FooterLinkSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the FooterLink
-     */
-    omit?: FooterLinkOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FooterLinkInclude<ExtArgs> | null
-    /**
-     * Filter, which FooterLink to fetch.
-     */
-    where?: FooterLinkWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of FooterLinks to fetch.
-     */
-    orderBy?: FooterLinkOrderByWithRelationInput | FooterLinkOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for FooterLinks.
-     */
-    cursor?: FooterLinkWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` FooterLinks from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` FooterLinks.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of FooterLinks.
-     */
-    distinct?: FooterLinkScalarFieldEnum | FooterLinkScalarFieldEnum[]
-  }
-
-  /**
-   * FooterLink findFirstOrThrow
-   */
-  export type FooterLinkFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FooterLink
-     */
-    select?: FooterLinkSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the FooterLink
-     */
-    omit?: FooterLinkOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FooterLinkInclude<ExtArgs> | null
-    /**
-     * Filter, which FooterLink to fetch.
-     */
-    where?: FooterLinkWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of FooterLinks to fetch.
-     */
-    orderBy?: FooterLinkOrderByWithRelationInput | FooterLinkOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for FooterLinks.
-     */
-    cursor?: FooterLinkWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` FooterLinks from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` FooterLinks.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of FooterLinks.
-     */
-    distinct?: FooterLinkScalarFieldEnum | FooterLinkScalarFieldEnum[]
-  }
-
-  /**
-   * FooterLink findMany
-   */
-  export type FooterLinkFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FooterLink
-     */
-    select?: FooterLinkSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the FooterLink
-     */
-    omit?: FooterLinkOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FooterLinkInclude<ExtArgs> | null
-    /**
-     * Filter, which FooterLinks to fetch.
-     */
-    where?: FooterLinkWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of FooterLinks to fetch.
-     */
-    orderBy?: FooterLinkOrderByWithRelationInput | FooterLinkOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing FooterLinks.
-     */
-    cursor?: FooterLinkWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` FooterLinks from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` FooterLinks.
-     */
-    skip?: number
-    distinct?: FooterLinkScalarFieldEnum | FooterLinkScalarFieldEnum[]
-  }
-
-  /**
-   * FooterLink create
-   */
-  export type FooterLinkCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FooterLink
-     */
-    select?: FooterLinkSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the FooterLink
-     */
-    omit?: FooterLinkOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FooterLinkInclude<ExtArgs> | null
-    /**
-     * The data needed to create a FooterLink.
-     */
-    data: XOR<FooterLinkCreateInput, FooterLinkUncheckedCreateInput>
-  }
-
-  /**
-   * FooterLink createMany
-   */
-  export type FooterLinkCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many FooterLinks.
-     */
-    data: FooterLinkCreateManyInput | FooterLinkCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * FooterLink createManyAndReturn
-   */
-  export type FooterLinkCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FooterLink
-     */
-    select?: FooterLinkSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the FooterLink
-     */
-    omit?: FooterLinkOmit<ExtArgs> | null
-    /**
-     * The data used to create many FooterLinks.
-     */
-    data: FooterLinkCreateManyInput | FooterLinkCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FooterLinkIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * FooterLink update
-   */
-  export type FooterLinkUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FooterLink
-     */
-    select?: FooterLinkSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the FooterLink
-     */
-    omit?: FooterLinkOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FooterLinkInclude<ExtArgs> | null
-    /**
-     * The data needed to update a FooterLink.
-     */
-    data: XOR<FooterLinkUpdateInput, FooterLinkUncheckedUpdateInput>
-    /**
-     * Choose, which FooterLink to update.
-     */
-    where: FooterLinkWhereUniqueInput
-  }
-
-  /**
-   * FooterLink updateMany
-   */
-  export type FooterLinkUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update FooterLinks.
-     */
-    data: XOR<FooterLinkUpdateManyMutationInput, FooterLinkUncheckedUpdateManyInput>
-    /**
-     * Filter which FooterLinks to update
-     */
-    where?: FooterLinkWhereInput
-    /**
-     * Limit how many FooterLinks to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * FooterLink updateManyAndReturn
-   */
-  export type FooterLinkUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FooterLink
-     */
-    select?: FooterLinkSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the FooterLink
-     */
-    omit?: FooterLinkOmit<ExtArgs> | null
-    /**
-     * The data used to update FooterLinks.
-     */
-    data: XOR<FooterLinkUpdateManyMutationInput, FooterLinkUncheckedUpdateManyInput>
-    /**
-     * Filter which FooterLinks to update
-     */
-    where?: FooterLinkWhereInput
-    /**
-     * Limit how many FooterLinks to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FooterLinkIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * FooterLink upsert
-   */
-  export type FooterLinkUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FooterLink
-     */
-    select?: FooterLinkSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the FooterLink
-     */
-    omit?: FooterLinkOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FooterLinkInclude<ExtArgs> | null
-    /**
-     * The filter to search for the FooterLink to update in case it exists.
-     */
-    where: FooterLinkWhereUniqueInput
-    /**
-     * In case the FooterLink found by the `where` argument doesn't exist, create a new FooterLink with this data.
-     */
-    create: XOR<FooterLinkCreateInput, FooterLinkUncheckedCreateInput>
-    /**
-     * In case the FooterLink was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<FooterLinkUpdateInput, FooterLinkUncheckedUpdateInput>
-  }
-
-  /**
-   * FooterLink delete
-   */
-  export type FooterLinkDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FooterLink
-     */
-    select?: FooterLinkSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the FooterLink
-     */
-    omit?: FooterLinkOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FooterLinkInclude<ExtArgs> | null
-    /**
-     * Filter which FooterLink to delete.
-     */
-    where: FooterLinkWhereUniqueInput
-  }
-
-  /**
-   * FooterLink deleteMany
-   */
-  export type FooterLinkDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which FooterLinks to delete
-     */
-    where?: FooterLinkWhereInput
-    /**
-     * Limit how many FooterLinks to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * FooterLink without action
-   */
-  export type FooterLinkDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FooterLink
-     */
-    select?: FooterLinkSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the FooterLink
-     */
-    omit?: FooterLinkOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: FooterLinkInclude<ExtArgs> | null
-  }
-
-
-  /**
    * Model Section
    */
 
@@ -19660,431 +18669,384 @@ export namespace Prisma {
 
 
   /**
-   * Model UnitServer
+   * Model LegalStep
    */
 
-  export type AggregateUnitServer = {
-    _count: UnitServerCountAggregateOutputType | null
-    _min: UnitServerMinAggregateOutputType | null
-    _max: UnitServerMaxAggregateOutputType | null
+  export type AggregateLegalStep = {
+    _count: LegalStepCountAggregateOutputType | null
+    _avg: LegalStepAvgAggregateOutputType | null
+    _sum: LegalStepSumAggregateOutputType | null
+    _min: LegalStepMinAggregateOutputType | null
+    _max: LegalStepMaxAggregateOutputType | null
   }
 
-  export type UnitServerMinAggregateOutputType = {
+  export type LegalStepAvgAggregateOutputType = {
+    order: number | null
+  }
+
+  export type LegalStepSumAggregateOutputType = {
+    order: number | null
+  }
+
+  export type LegalStepMinAggregateOutputType = {
     id: string | null
-    domain: string | null
-    name: string | null
-    orchestratorToken: string | null
-    unitToken: string | null
-    isActive: boolean | null
-    constellationId: string | null
+    title: string | null
+    description: string | null
+    order: number | null
     configId: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
   }
 
-  export type UnitServerMaxAggregateOutputType = {
+  export type LegalStepMaxAggregateOutputType = {
     id: string | null
-    domain: string | null
-    name: string | null
-    orchestratorToken: string | null
-    unitToken: string | null
-    isActive: boolean | null
-    constellationId: string | null
+    title: string | null
+    description: string | null
+    order: number | null
     configId: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
   }
 
-  export type UnitServerCountAggregateOutputType = {
+  export type LegalStepCountAggregateOutputType = {
     id: number
-    domain: number
-    name: number
-    orchestratorToken: number
-    unitToken: number
-    isActive: number
-    constellationId: number
+    title: number
+    description: number
+    order: number
     configId: number
-    createdAt: number
-    updatedAt: number
     _all: number
   }
 
 
-  export type UnitServerMinAggregateInputType = {
-    id?: true
-    domain?: true
-    name?: true
-    orchestratorToken?: true
-    unitToken?: true
-    isActive?: true
-    constellationId?: true
-    configId?: true
-    createdAt?: true
-    updatedAt?: true
+  export type LegalStepAvgAggregateInputType = {
+    order?: true
   }
 
-  export type UnitServerMaxAggregateInputType = {
-    id?: true
-    domain?: true
-    name?: true
-    orchestratorToken?: true
-    unitToken?: true
-    isActive?: true
-    constellationId?: true
-    configId?: true
-    createdAt?: true
-    updatedAt?: true
+  export type LegalStepSumAggregateInputType = {
+    order?: true
   }
 
-  export type UnitServerCountAggregateInputType = {
+  export type LegalStepMinAggregateInputType = {
     id?: true
-    domain?: true
-    name?: true
-    orchestratorToken?: true
-    unitToken?: true
-    isActive?: true
-    constellationId?: true
+    title?: true
+    description?: true
+    order?: true
     configId?: true
-    createdAt?: true
-    updatedAt?: true
+  }
+
+  export type LegalStepMaxAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    order?: true
+    configId?: true
+  }
+
+  export type LegalStepCountAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    order?: true
+    configId?: true
     _all?: true
   }
 
-  export type UnitServerAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type LegalStepAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which UnitServer to aggregate.
+     * Filter which LegalStep to aggregate.
      */
-    where?: UnitServerWhereInput
+    where?: LegalStepWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of UnitServers to fetch.
+     * Determine the order of LegalSteps to fetch.
      */
-    orderBy?: UnitServerOrderByWithRelationInput | UnitServerOrderByWithRelationInput[]
+    orderBy?: LegalStepOrderByWithRelationInput | LegalStepOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: UnitServerWhereUniqueInput
+    cursor?: LegalStepWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` UnitServers from the position of the cursor.
+     * Take `±n` LegalSteps from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` UnitServers.
+     * Skip the first `n` LegalSteps.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned UnitServers
+     * Count returned LegalSteps
     **/
-    _count?: true | UnitServerCountAggregateInputType
+    _count?: true | LegalStepCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: LegalStepAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: LegalStepSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: UnitServerMinAggregateInputType
+    _min?: LegalStepMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: UnitServerMaxAggregateInputType
+    _max?: LegalStepMaxAggregateInputType
   }
 
-  export type GetUnitServerAggregateType<T extends UnitServerAggregateArgs> = {
-        [P in keyof T & keyof AggregateUnitServer]: P extends '_count' | 'count'
+  export type GetLegalStepAggregateType<T extends LegalStepAggregateArgs> = {
+        [P in keyof T & keyof AggregateLegalStep]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateUnitServer[P]>
-      : GetScalarType<T[P], AggregateUnitServer[P]>
+        : GetScalarType<T[P], AggregateLegalStep[P]>
+      : GetScalarType<T[P], AggregateLegalStep[P]>
   }
 
 
 
 
-  export type UnitServerGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UnitServerWhereInput
-    orderBy?: UnitServerOrderByWithAggregationInput | UnitServerOrderByWithAggregationInput[]
-    by: UnitServerScalarFieldEnum[] | UnitServerScalarFieldEnum
-    having?: UnitServerScalarWhereWithAggregatesInput
+  export type LegalStepGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LegalStepWhereInput
+    orderBy?: LegalStepOrderByWithAggregationInput | LegalStepOrderByWithAggregationInput[]
+    by: LegalStepScalarFieldEnum[] | LegalStepScalarFieldEnum
+    having?: LegalStepScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: UnitServerCountAggregateInputType | true
-    _min?: UnitServerMinAggregateInputType
-    _max?: UnitServerMaxAggregateInputType
+    _count?: LegalStepCountAggregateInputType | true
+    _avg?: LegalStepAvgAggregateInputType
+    _sum?: LegalStepSumAggregateInputType
+    _min?: LegalStepMinAggregateInputType
+    _max?: LegalStepMaxAggregateInputType
   }
 
-  export type UnitServerGroupByOutputType = {
+  export type LegalStepGroupByOutputType = {
     id: string
-    domain: string
-    name: string
-    orchestratorToken: string
-    unitToken: string
-    isActive: boolean
-    constellationId: string
-    configId: string | null
-    createdAt: Date
-    updatedAt: Date
-    _count: UnitServerCountAggregateOutputType | null
-    _min: UnitServerMinAggregateOutputType | null
-    _max: UnitServerMaxAggregateOutputType | null
+    title: string
+    description: string
+    order: number
+    configId: string
+    _count: LegalStepCountAggregateOutputType | null
+    _avg: LegalStepAvgAggregateOutputType | null
+    _sum: LegalStepSumAggregateOutputType | null
+    _min: LegalStepMinAggregateOutputType | null
+    _max: LegalStepMaxAggregateOutputType | null
   }
 
-  type GetUnitServerGroupByPayload<T extends UnitServerGroupByArgs> = Prisma.PrismaPromise<
+  type GetLegalStepGroupByPayload<T extends LegalStepGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<UnitServerGroupByOutputType, T['by']> &
+      PickEnumerable<LegalStepGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof UnitServerGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof LegalStepGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], UnitServerGroupByOutputType[P]>
-            : GetScalarType<T[P], UnitServerGroupByOutputType[P]>
+              : GetScalarType<T[P], LegalStepGroupByOutputType[P]>
+            : GetScalarType<T[P], LegalStepGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type UnitServerSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type LegalStepSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    domain?: boolean
-    name?: boolean
-    orchestratorToken?: boolean
-    unitToken?: boolean
-    isActive?: boolean
-    constellationId?: boolean
+    title?: boolean
+    description?: boolean
+    order?: boolean
     configId?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    constellation?: boolean | ConstellationDefaultArgs<ExtArgs>
-    config?: boolean | UnitServer$configArgs<ExtArgs>
-    clients?: boolean | UnitServer$clientsArgs<ExtArgs>
-    professionals?: boolean | UnitServer$professionalsArgs<ExtArgs>
-    cases?: boolean | UnitServer$casesArgs<ExtArgs>
-    serverLogs?: boolean | UnitServer$serverLogsArgs<ExtArgs>
-    _count?: boolean | UnitServerCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["unitServer"]>
+    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["legalStep"]>
 
-  export type UnitServerSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type LegalStepSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    domain?: boolean
-    name?: boolean
-    orchestratorToken?: boolean
-    unitToken?: boolean
-    isActive?: boolean
-    constellationId?: boolean
+    title?: boolean
+    description?: boolean
+    order?: boolean
     configId?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    constellation?: boolean | ConstellationDefaultArgs<ExtArgs>
-    config?: boolean | UnitServer$configArgs<ExtArgs>
-  }, ExtArgs["result"]["unitServer"]>
+    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["legalStep"]>
 
-  export type UnitServerSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type LegalStepSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    domain?: boolean
-    name?: boolean
-    orchestratorToken?: boolean
-    unitToken?: boolean
-    isActive?: boolean
-    constellationId?: boolean
+    title?: boolean
+    description?: boolean
+    order?: boolean
     configId?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    constellation?: boolean | ConstellationDefaultArgs<ExtArgs>
-    config?: boolean | UnitServer$configArgs<ExtArgs>
-  }, ExtArgs["result"]["unitServer"]>
+    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["legalStep"]>
 
-  export type UnitServerSelectScalar = {
+  export type LegalStepSelectScalar = {
     id?: boolean
-    domain?: boolean
-    name?: boolean
-    orchestratorToken?: boolean
-    unitToken?: boolean
-    isActive?: boolean
-    constellationId?: boolean
+    title?: boolean
+    description?: boolean
+    order?: boolean
     configId?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
   }
 
-  export type UnitServerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "domain" | "name" | "orchestratorToken" | "unitToken" | "isActive" | "constellationId" | "configId" | "createdAt" | "updatedAt", ExtArgs["result"]["unitServer"]>
-  export type UnitServerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    constellation?: boolean | ConstellationDefaultArgs<ExtArgs>
-    config?: boolean | UnitServer$configArgs<ExtArgs>
-    clients?: boolean | UnitServer$clientsArgs<ExtArgs>
-    professionals?: boolean | UnitServer$professionalsArgs<ExtArgs>
-    cases?: boolean | UnitServer$casesArgs<ExtArgs>
-    serverLogs?: boolean | UnitServer$serverLogsArgs<ExtArgs>
-    _count?: boolean | UnitServerCountOutputTypeDefaultArgs<ExtArgs>
+  export type LegalStepOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "order" | "configId", ExtArgs["result"]["legalStep"]>
+  export type LegalStepInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
   }
-  export type UnitServerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    constellation?: boolean | ConstellationDefaultArgs<ExtArgs>
-    config?: boolean | UnitServer$configArgs<ExtArgs>
+  export type LegalStepIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
   }
-  export type UnitServerIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    constellation?: boolean | ConstellationDefaultArgs<ExtArgs>
-    config?: boolean | UnitServer$configArgs<ExtArgs>
+  export type LegalStepIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
   }
 
-  export type $UnitServerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "UnitServer"
+  export type $LegalStepPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "LegalStep"
     objects: {
-      constellation: Prisma.$ConstellationPayload<ExtArgs>
-      config: Prisma.$UnitConfigPayload<ExtArgs> | null
-      clients: Prisma.$ClientPayload<ExtArgs>[]
-      professionals: Prisma.$ProfessionalPayload<ExtArgs>[]
-      cases: Prisma.$CasePayload<ExtArgs>[]
-      serverLogs: Prisma.$ServerLogPayload<ExtArgs>[]
+      config: Prisma.$UnitConfigPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      domain: string
-      name: string
-      orchestratorToken: string
-      unitToken: string
-      isActive: boolean
-      constellationId: string
-      configId: string | null
-      createdAt: Date
-      updatedAt: Date
-    }, ExtArgs["result"]["unitServer"]>
+      title: string
+      description: string
+      order: number
+      configId: string
+    }, ExtArgs["result"]["legalStep"]>
     composites: {}
   }
 
-  type UnitServerGetPayload<S extends boolean | null | undefined | UnitServerDefaultArgs> = $Result.GetResult<Prisma.$UnitServerPayload, S>
+  type LegalStepGetPayload<S extends boolean | null | undefined | LegalStepDefaultArgs> = $Result.GetResult<Prisma.$LegalStepPayload, S>
 
-  type UnitServerCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<UnitServerFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: UnitServerCountAggregateInputType | true
+  type LegalStepCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LegalStepFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LegalStepCountAggregateInputType | true
     }
 
-  export interface UnitServerDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UnitServer'], meta: { name: 'UnitServer' } }
+  export interface LegalStepDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['LegalStep'], meta: { name: 'LegalStep' } }
     /**
-     * Find zero or one UnitServer that matches the filter.
-     * @param {UnitServerFindUniqueArgs} args - Arguments to find a UnitServer
+     * Find zero or one LegalStep that matches the filter.
+     * @param {LegalStepFindUniqueArgs} args - Arguments to find a LegalStep
      * @example
-     * // Get one UnitServer
-     * const unitServer = await prisma.unitServer.findUnique({
+     * // Get one LegalStep
+     * const legalStep = await prisma.legalStep.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends UnitServerFindUniqueArgs>(args: SelectSubset<T, UnitServerFindUniqueArgs<ExtArgs>>): Prisma__UnitServerClient<$Result.GetResult<Prisma.$UnitServerPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends LegalStepFindUniqueArgs>(args: SelectSubset<T, LegalStepFindUniqueArgs<ExtArgs>>): Prisma__LegalStepClient<$Result.GetResult<Prisma.$LegalStepPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one UnitServer that matches the filter or throw an error with `error.code='P2025'`
+     * Find one LegalStep that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {UnitServerFindUniqueOrThrowArgs} args - Arguments to find a UnitServer
+     * @param {LegalStepFindUniqueOrThrowArgs} args - Arguments to find a LegalStep
      * @example
-     * // Get one UnitServer
-     * const unitServer = await prisma.unitServer.findUniqueOrThrow({
+     * // Get one LegalStep
+     * const legalStep = await prisma.legalStep.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends UnitServerFindUniqueOrThrowArgs>(args: SelectSubset<T, UnitServerFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UnitServerClient<$Result.GetResult<Prisma.$UnitServerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends LegalStepFindUniqueOrThrowArgs>(args: SelectSubset<T, LegalStepFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LegalStepClient<$Result.GetResult<Prisma.$LegalStepPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first UnitServer that matches the filter.
+     * Find the first LegalStep that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UnitServerFindFirstArgs} args - Arguments to find a UnitServer
+     * @param {LegalStepFindFirstArgs} args - Arguments to find a LegalStep
      * @example
-     * // Get one UnitServer
-     * const unitServer = await prisma.unitServer.findFirst({
+     * // Get one LegalStep
+     * const legalStep = await prisma.legalStep.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends UnitServerFindFirstArgs>(args?: SelectSubset<T, UnitServerFindFirstArgs<ExtArgs>>): Prisma__UnitServerClient<$Result.GetResult<Prisma.$UnitServerPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends LegalStepFindFirstArgs>(args?: SelectSubset<T, LegalStepFindFirstArgs<ExtArgs>>): Prisma__LegalStepClient<$Result.GetResult<Prisma.$LegalStepPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first UnitServer that matches the filter or
+     * Find the first LegalStep that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UnitServerFindFirstOrThrowArgs} args - Arguments to find a UnitServer
+     * @param {LegalStepFindFirstOrThrowArgs} args - Arguments to find a LegalStep
      * @example
-     * // Get one UnitServer
-     * const unitServer = await prisma.unitServer.findFirstOrThrow({
+     * // Get one LegalStep
+     * const legalStep = await prisma.legalStep.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends UnitServerFindFirstOrThrowArgs>(args?: SelectSubset<T, UnitServerFindFirstOrThrowArgs<ExtArgs>>): Prisma__UnitServerClient<$Result.GetResult<Prisma.$UnitServerPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends LegalStepFindFirstOrThrowArgs>(args?: SelectSubset<T, LegalStepFindFirstOrThrowArgs<ExtArgs>>): Prisma__LegalStepClient<$Result.GetResult<Prisma.$LegalStepPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more UnitServers that matches the filter.
+     * Find zero or more LegalSteps that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UnitServerFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {LegalStepFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all UnitServers
-     * const unitServers = await prisma.unitServer.findMany()
+     * // Get all LegalSteps
+     * const legalSteps = await prisma.legalStep.findMany()
      * 
-     * // Get first 10 UnitServers
-     * const unitServers = await prisma.unitServer.findMany({ take: 10 })
+     * // Get first 10 LegalSteps
+     * const legalSteps = await prisma.legalStep.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const unitServerWithIdOnly = await prisma.unitServer.findMany({ select: { id: true } })
+     * const legalStepWithIdOnly = await prisma.legalStep.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends UnitServerFindManyArgs>(args?: SelectSubset<T, UnitServerFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UnitServerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends LegalStepFindManyArgs>(args?: SelectSubset<T, LegalStepFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LegalStepPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a UnitServer.
-     * @param {UnitServerCreateArgs} args - Arguments to create a UnitServer.
+     * Create a LegalStep.
+     * @param {LegalStepCreateArgs} args - Arguments to create a LegalStep.
      * @example
-     * // Create one UnitServer
-     * const UnitServer = await prisma.unitServer.create({
+     * // Create one LegalStep
+     * const LegalStep = await prisma.legalStep.create({
      *   data: {
-     *     // ... data to create a UnitServer
+     *     // ... data to create a LegalStep
      *   }
      * })
      * 
      */
-    create<T extends UnitServerCreateArgs>(args: SelectSubset<T, UnitServerCreateArgs<ExtArgs>>): Prisma__UnitServerClient<$Result.GetResult<Prisma.$UnitServerPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends LegalStepCreateArgs>(args: SelectSubset<T, LegalStepCreateArgs<ExtArgs>>): Prisma__LegalStepClient<$Result.GetResult<Prisma.$LegalStepPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many UnitServers.
-     * @param {UnitServerCreateManyArgs} args - Arguments to create many UnitServers.
+     * Create many LegalSteps.
+     * @param {LegalStepCreateManyArgs} args - Arguments to create many LegalSteps.
      * @example
-     * // Create many UnitServers
-     * const unitServer = await prisma.unitServer.createMany({
+     * // Create many LegalSteps
+     * const legalStep = await prisma.legalStep.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends UnitServerCreateManyArgs>(args?: SelectSubset<T, UnitServerCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends LegalStepCreateManyArgs>(args?: SelectSubset<T, LegalStepCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many UnitServers and returns the data saved in the database.
-     * @param {UnitServerCreateManyAndReturnArgs} args - Arguments to create many UnitServers.
+     * Create many LegalSteps and returns the data saved in the database.
+     * @param {LegalStepCreateManyAndReturnArgs} args - Arguments to create many LegalSteps.
      * @example
-     * // Create many UnitServers
-     * const unitServer = await prisma.unitServer.createManyAndReturn({
+     * // Create many LegalSteps
+     * const legalStep = await prisma.legalStep.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many UnitServers and only return the `id`
-     * const unitServerWithIdOnly = await prisma.unitServer.createManyAndReturn({
+     * // Create many LegalSteps and only return the `id`
+     * const legalStepWithIdOnly = await prisma.legalStep.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -20094,28 +19056,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends UnitServerCreateManyAndReturnArgs>(args?: SelectSubset<T, UnitServerCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UnitServerPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends LegalStepCreateManyAndReturnArgs>(args?: SelectSubset<T, LegalStepCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LegalStepPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a UnitServer.
-     * @param {UnitServerDeleteArgs} args - Arguments to delete one UnitServer.
+     * Delete a LegalStep.
+     * @param {LegalStepDeleteArgs} args - Arguments to delete one LegalStep.
      * @example
-     * // Delete one UnitServer
-     * const UnitServer = await prisma.unitServer.delete({
+     * // Delete one LegalStep
+     * const LegalStep = await prisma.legalStep.delete({
      *   where: {
-     *     // ... filter to delete one UnitServer
+     *     // ... filter to delete one LegalStep
      *   }
      * })
      * 
      */
-    delete<T extends UnitServerDeleteArgs>(args: SelectSubset<T, UnitServerDeleteArgs<ExtArgs>>): Prisma__UnitServerClient<$Result.GetResult<Prisma.$UnitServerPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends LegalStepDeleteArgs>(args: SelectSubset<T, LegalStepDeleteArgs<ExtArgs>>): Prisma__LegalStepClient<$Result.GetResult<Prisma.$LegalStepPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one UnitServer.
-     * @param {UnitServerUpdateArgs} args - Arguments to update one UnitServer.
+     * Update one LegalStep.
+     * @param {LegalStepUpdateArgs} args - Arguments to update one LegalStep.
      * @example
-     * // Update one UnitServer
-     * const unitServer = await prisma.unitServer.update({
+     * // Update one LegalStep
+     * const legalStep = await prisma.legalStep.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -20125,30 +19087,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends UnitServerUpdateArgs>(args: SelectSubset<T, UnitServerUpdateArgs<ExtArgs>>): Prisma__UnitServerClient<$Result.GetResult<Prisma.$UnitServerPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends LegalStepUpdateArgs>(args: SelectSubset<T, LegalStepUpdateArgs<ExtArgs>>): Prisma__LegalStepClient<$Result.GetResult<Prisma.$LegalStepPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more UnitServers.
-     * @param {UnitServerDeleteManyArgs} args - Arguments to filter UnitServers to delete.
+     * Delete zero or more LegalSteps.
+     * @param {LegalStepDeleteManyArgs} args - Arguments to filter LegalSteps to delete.
      * @example
-     * // Delete a few UnitServers
-     * const { count } = await prisma.unitServer.deleteMany({
+     * // Delete a few LegalSteps
+     * const { count } = await prisma.legalStep.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends UnitServerDeleteManyArgs>(args?: SelectSubset<T, UnitServerDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends LegalStepDeleteManyArgs>(args?: SelectSubset<T, LegalStepDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more UnitServers.
+     * Update zero or more LegalSteps.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UnitServerUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {LegalStepUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many UnitServers
-     * const unitServer = await prisma.unitServer.updateMany({
+     * // Update many LegalSteps
+     * const legalStep = await prisma.legalStep.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -20158,14 +19120,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends UnitServerUpdateManyArgs>(args: SelectSubset<T, UnitServerUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends LegalStepUpdateManyArgs>(args: SelectSubset<T, LegalStepUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more UnitServers and returns the data updated in the database.
-     * @param {UnitServerUpdateManyAndReturnArgs} args - Arguments to update many UnitServers.
+     * Update zero or more LegalSteps and returns the data updated in the database.
+     * @param {LegalStepUpdateManyAndReturnArgs} args - Arguments to update many LegalSteps.
      * @example
-     * // Update many UnitServers
-     * const unitServer = await prisma.unitServer.updateManyAndReturn({
+     * // Update many LegalSteps
+     * const legalStep = await prisma.legalStep.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -20174,8 +19136,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more UnitServers and only return the `id`
-     * const unitServerWithIdOnly = await prisma.unitServer.updateManyAndReturn({
+     * // Update zero or more LegalSteps and only return the `id`
+     * const legalStepWithIdOnly = await prisma.legalStep.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -20188,56 +19150,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends UnitServerUpdateManyAndReturnArgs>(args: SelectSubset<T, UnitServerUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UnitServerPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends LegalStepUpdateManyAndReturnArgs>(args: SelectSubset<T, LegalStepUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LegalStepPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one UnitServer.
-     * @param {UnitServerUpsertArgs} args - Arguments to update or create a UnitServer.
+     * Create or update one LegalStep.
+     * @param {LegalStepUpsertArgs} args - Arguments to update or create a LegalStep.
      * @example
-     * // Update or create a UnitServer
-     * const unitServer = await prisma.unitServer.upsert({
+     * // Update or create a LegalStep
+     * const legalStep = await prisma.legalStep.upsert({
      *   create: {
-     *     // ... data to create a UnitServer
+     *     // ... data to create a LegalStep
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the UnitServer we want to update
+     *     // ... the filter for the LegalStep we want to update
      *   }
      * })
      */
-    upsert<T extends UnitServerUpsertArgs>(args: SelectSubset<T, UnitServerUpsertArgs<ExtArgs>>): Prisma__UnitServerClient<$Result.GetResult<Prisma.$UnitServerPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends LegalStepUpsertArgs>(args: SelectSubset<T, LegalStepUpsertArgs<ExtArgs>>): Prisma__LegalStepClient<$Result.GetResult<Prisma.$LegalStepPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of UnitServers.
+     * Count the number of LegalSteps.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UnitServerCountArgs} args - Arguments to filter UnitServers to count.
+     * @param {LegalStepCountArgs} args - Arguments to filter LegalSteps to count.
      * @example
-     * // Count the number of UnitServers
-     * const count = await prisma.unitServer.count({
+     * // Count the number of LegalSteps
+     * const count = await prisma.legalStep.count({
      *   where: {
-     *     // ... the filter for the UnitServers we want to count
+     *     // ... the filter for the LegalSteps we want to count
      *   }
      * })
     **/
-    count<T extends UnitServerCountArgs>(
-      args?: Subset<T, UnitServerCountArgs>,
+    count<T extends LegalStepCountArgs>(
+      args?: Subset<T, LegalStepCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], UnitServerCountAggregateOutputType>
+          : GetScalarType<T['select'], LegalStepCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a UnitServer.
+     * Allows you to perform aggregations operations on a LegalStep.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UnitServerAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {LegalStepAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -20257,13 +19219,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends UnitServerAggregateArgs>(args: Subset<T, UnitServerAggregateArgs>): Prisma.PrismaPromise<GetUnitServerAggregateType<T>>
+    aggregate<T extends LegalStepAggregateArgs>(args: Subset<T, LegalStepAggregateArgs>): Prisma.PrismaPromise<GetLegalStepAggregateType<T>>
 
     /**
-     * Group by UnitServer.
+     * Group by LegalStep.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UnitServerGroupByArgs} args - Group by arguments.
+     * @param {LegalStepGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -20278,14 +19240,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends UnitServerGroupByArgs,
+      T extends LegalStepGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: UnitServerGroupByArgs['orderBy'] }
-        : { orderBy?: UnitServerGroupByArgs['orderBy'] },
+        ? { orderBy: LegalStepGroupByArgs['orderBy'] }
+        : { orderBy?: LegalStepGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -20334,27 +19296,22 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, UnitServerGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUnitServerGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, LegalStepGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLegalStepGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the UnitServer model
+   * Fields of the LegalStep model
    */
-  readonly fields: UnitServerFieldRefs;
+  readonly fields: LegalStepFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for UnitServer.
+   * The delegate class that acts as a "Promise-like" for LegalStep.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__UnitServerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__LegalStepClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    constellation<T extends ConstellationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ConstellationDefaultArgs<ExtArgs>>): Prisma__ConstellationClient<$Result.GetResult<Prisma.$ConstellationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    config<T extends UnitServer$configArgs<ExtArgs> = {}>(args?: Subset<T, UnitServer$configArgs<ExtArgs>>): Prisma__UnitConfigClient<$Result.GetResult<Prisma.$UnitConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    clients<T extends UnitServer$clientsArgs<ExtArgs> = {}>(args?: Subset<T, UnitServer$clientsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClientPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    professionals<T extends UnitServer$professionalsArgs<ExtArgs> = {}>(args?: Subset<T, UnitServer$professionalsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProfessionalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    cases<T extends UnitServer$casesArgs<ExtArgs> = {}>(args?: Subset<T, UnitServer$casesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    serverLogs<T extends UnitServer$serverLogsArgs<ExtArgs> = {}>(args?: Subset<T, UnitServer$serverLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServerLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    config<T extends UnitConfigDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfigDefaultArgs<ExtArgs>>): Prisma__UnitConfigClient<$Result.GetResult<Prisma.$UnitConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -20381,545 +19338,1517 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the UnitServer model
+   * Fields of the LegalStep model
    */
-  interface UnitServerFieldRefs {
-    readonly id: FieldRef<"UnitServer", 'String'>
-    readonly domain: FieldRef<"UnitServer", 'String'>
-    readonly name: FieldRef<"UnitServer", 'String'>
-    readonly orchestratorToken: FieldRef<"UnitServer", 'String'>
-    readonly unitToken: FieldRef<"UnitServer", 'String'>
-    readonly isActive: FieldRef<"UnitServer", 'Boolean'>
-    readonly constellationId: FieldRef<"UnitServer", 'String'>
-    readonly configId: FieldRef<"UnitServer", 'String'>
-    readonly createdAt: FieldRef<"UnitServer", 'DateTime'>
-    readonly updatedAt: FieldRef<"UnitServer", 'DateTime'>
+  interface LegalStepFieldRefs {
+    readonly id: FieldRef<"LegalStep", 'String'>
+    readonly title: FieldRef<"LegalStep", 'String'>
+    readonly description: FieldRef<"LegalStep", 'String'>
+    readonly order: FieldRef<"LegalStep", 'Int'>
+    readonly configId: FieldRef<"LegalStep", 'String'>
   }
     
 
   // Custom InputTypes
   /**
-   * UnitServer findUnique
+   * LegalStep findUnique
    */
-  export type UnitServerFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type LegalStepFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UnitServer
+     * Select specific fields to fetch from the LegalStep
      */
-    select?: UnitServerSelect<ExtArgs> | null
+    select?: LegalStepSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UnitServer
+     * Omit specific fields from the LegalStep
      */
-    omit?: UnitServerOmit<ExtArgs> | null
+    omit?: LegalStepOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UnitServerInclude<ExtArgs> | null
+    include?: LegalStepInclude<ExtArgs> | null
     /**
-     * Filter, which UnitServer to fetch.
+     * Filter, which LegalStep to fetch.
      */
-    where: UnitServerWhereUniqueInput
+    where: LegalStepWhereUniqueInput
   }
 
   /**
-   * UnitServer findUniqueOrThrow
+   * LegalStep findUniqueOrThrow
    */
-  export type UnitServerFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type LegalStepFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UnitServer
+     * Select specific fields to fetch from the LegalStep
      */
-    select?: UnitServerSelect<ExtArgs> | null
+    select?: LegalStepSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UnitServer
+     * Omit specific fields from the LegalStep
      */
-    omit?: UnitServerOmit<ExtArgs> | null
+    omit?: LegalStepOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UnitServerInclude<ExtArgs> | null
+    include?: LegalStepInclude<ExtArgs> | null
     /**
-     * Filter, which UnitServer to fetch.
+     * Filter, which LegalStep to fetch.
      */
-    where: UnitServerWhereUniqueInput
+    where: LegalStepWhereUniqueInput
   }
 
   /**
-   * UnitServer findFirst
+   * LegalStep findFirst
    */
-  export type UnitServerFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type LegalStepFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UnitServer
+     * Select specific fields to fetch from the LegalStep
      */
-    select?: UnitServerSelect<ExtArgs> | null
+    select?: LegalStepSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UnitServer
+     * Omit specific fields from the LegalStep
      */
-    omit?: UnitServerOmit<ExtArgs> | null
+    omit?: LegalStepOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UnitServerInclude<ExtArgs> | null
+    include?: LegalStepInclude<ExtArgs> | null
     /**
-     * Filter, which UnitServer to fetch.
+     * Filter, which LegalStep to fetch.
      */
-    where?: UnitServerWhereInput
+    where?: LegalStepWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of UnitServers to fetch.
+     * Determine the order of LegalSteps to fetch.
      */
-    orderBy?: UnitServerOrderByWithRelationInput | UnitServerOrderByWithRelationInput[]
+    orderBy?: LegalStepOrderByWithRelationInput | LegalStepOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for UnitServers.
+     * Sets the position for searching for LegalSteps.
      */
-    cursor?: UnitServerWhereUniqueInput
+    cursor?: LegalStepWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` UnitServers from the position of the cursor.
+     * Take `±n` LegalSteps from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` UnitServers.
+     * Skip the first `n` LegalSteps.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of UnitServers.
+     * Filter by unique combinations of LegalSteps.
      */
-    distinct?: UnitServerScalarFieldEnum | UnitServerScalarFieldEnum[]
+    distinct?: LegalStepScalarFieldEnum | LegalStepScalarFieldEnum[]
   }
 
   /**
-   * UnitServer findFirstOrThrow
+   * LegalStep findFirstOrThrow
    */
-  export type UnitServerFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type LegalStepFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UnitServer
+     * Select specific fields to fetch from the LegalStep
      */
-    select?: UnitServerSelect<ExtArgs> | null
+    select?: LegalStepSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UnitServer
+     * Omit specific fields from the LegalStep
      */
-    omit?: UnitServerOmit<ExtArgs> | null
+    omit?: LegalStepOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UnitServerInclude<ExtArgs> | null
+    include?: LegalStepInclude<ExtArgs> | null
     /**
-     * Filter, which UnitServer to fetch.
+     * Filter, which LegalStep to fetch.
      */
-    where?: UnitServerWhereInput
+    where?: LegalStepWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of UnitServers to fetch.
+     * Determine the order of LegalSteps to fetch.
      */
-    orderBy?: UnitServerOrderByWithRelationInput | UnitServerOrderByWithRelationInput[]
+    orderBy?: LegalStepOrderByWithRelationInput | LegalStepOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for UnitServers.
+     * Sets the position for searching for LegalSteps.
      */
-    cursor?: UnitServerWhereUniqueInput
+    cursor?: LegalStepWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` UnitServers from the position of the cursor.
+     * Take `±n` LegalSteps from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` UnitServers.
+     * Skip the first `n` LegalSteps.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of UnitServers.
+     * Filter by unique combinations of LegalSteps.
      */
-    distinct?: UnitServerScalarFieldEnum | UnitServerScalarFieldEnum[]
+    distinct?: LegalStepScalarFieldEnum | LegalStepScalarFieldEnum[]
   }
 
   /**
-   * UnitServer findMany
+   * LegalStep findMany
    */
-  export type UnitServerFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type LegalStepFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UnitServer
+     * Select specific fields to fetch from the LegalStep
      */
-    select?: UnitServerSelect<ExtArgs> | null
+    select?: LegalStepSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UnitServer
+     * Omit specific fields from the LegalStep
      */
-    omit?: UnitServerOmit<ExtArgs> | null
+    omit?: LegalStepOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UnitServerInclude<ExtArgs> | null
+    include?: LegalStepInclude<ExtArgs> | null
     /**
-     * Filter, which UnitServers to fetch.
+     * Filter, which LegalSteps to fetch.
      */
-    where?: UnitServerWhereInput
+    where?: LegalStepWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of UnitServers to fetch.
+     * Determine the order of LegalSteps to fetch.
      */
-    orderBy?: UnitServerOrderByWithRelationInput | UnitServerOrderByWithRelationInput[]
+    orderBy?: LegalStepOrderByWithRelationInput | LegalStepOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing UnitServers.
+     * Sets the position for listing LegalSteps.
      */
-    cursor?: UnitServerWhereUniqueInput
+    cursor?: LegalStepWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` UnitServers from the position of the cursor.
+     * Take `±n` LegalSteps from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` UnitServers.
+     * Skip the first `n` LegalSteps.
      */
     skip?: number
-    distinct?: UnitServerScalarFieldEnum | UnitServerScalarFieldEnum[]
+    distinct?: LegalStepScalarFieldEnum | LegalStepScalarFieldEnum[]
   }
 
   /**
-   * UnitServer create
+   * LegalStep create
    */
-  export type UnitServerCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type LegalStepCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UnitServer
+     * Select specific fields to fetch from the LegalStep
      */
-    select?: UnitServerSelect<ExtArgs> | null
+    select?: LegalStepSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UnitServer
+     * Omit specific fields from the LegalStep
      */
-    omit?: UnitServerOmit<ExtArgs> | null
+    omit?: LegalStepOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UnitServerInclude<ExtArgs> | null
+    include?: LegalStepInclude<ExtArgs> | null
     /**
-     * The data needed to create a UnitServer.
+     * The data needed to create a LegalStep.
      */
-    data: XOR<UnitServerCreateInput, UnitServerUncheckedCreateInput>
+    data: XOR<LegalStepCreateInput, LegalStepUncheckedCreateInput>
   }
 
   /**
-   * UnitServer createMany
+   * LegalStep createMany
    */
-  export type UnitServerCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type LegalStepCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many UnitServers.
+     * The data used to create many LegalSteps.
      */
-    data: UnitServerCreateManyInput | UnitServerCreateManyInput[]
+    data: LegalStepCreateManyInput | LegalStepCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * UnitServer createManyAndReturn
+   * LegalStep createManyAndReturn
    */
-  export type UnitServerCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type LegalStepCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UnitServer
+     * Select specific fields to fetch from the LegalStep
      */
-    select?: UnitServerSelectCreateManyAndReturn<ExtArgs> | null
+    select?: LegalStepSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the UnitServer
+     * Omit specific fields from the LegalStep
      */
-    omit?: UnitServerOmit<ExtArgs> | null
+    omit?: LegalStepOmit<ExtArgs> | null
     /**
-     * The data used to create many UnitServers.
+     * The data used to create many LegalSteps.
      */
-    data: UnitServerCreateManyInput | UnitServerCreateManyInput[]
+    data: LegalStepCreateManyInput | LegalStepCreateManyInput[]
     skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UnitServerIncludeCreateManyAndReturn<ExtArgs> | null
+    include?: LegalStepIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * UnitServer update
+   * LegalStep update
    */
-  export type UnitServerUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type LegalStepUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UnitServer
+     * Select specific fields to fetch from the LegalStep
      */
-    select?: UnitServerSelect<ExtArgs> | null
+    select?: LegalStepSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UnitServer
+     * Omit specific fields from the LegalStep
      */
-    omit?: UnitServerOmit<ExtArgs> | null
+    omit?: LegalStepOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UnitServerInclude<ExtArgs> | null
+    include?: LegalStepInclude<ExtArgs> | null
     /**
-     * The data needed to update a UnitServer.
+     * The data needed to update a LegalStep.
      */
-    data: XOR<UnitServerUpdateInput, UnitServerUncheckedUpdateInput>
+    data: XOR<LegalStepUpdateInput, LegalStepUncheckedUpdateInput>
     /**
-     * Choose, which UnitServer to update.
+     * Choose, which LegalStep to update.
      */
-    where: UnitServerWhereUniqueInput
+    where: LegalStepWhereUniqueInput
   }
 
   /**
-   * UnitServer updateMany
+   * LegalStep updateMany
    */
-  export type UnitServerUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type LegalStepUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update UnitServers.
+     * The data used to update LegalSteps.
      */
-    data: XOR<UnitServerUpdateManyMutationInput, UnitServerUncheckedUpdateManyInput>
+    data: XOR<LegalStepUpdateManyMutationInput, LegalStepUncheckedUpdateManyInput>
     /**
-     * Filter which UnitServers to update
+     * Filter which LegalSteps to update
      */
-    where?: UnitServerWhereInput
+    where?: LegalStepWhereInput
     /**
-     * Limit how many UnitServers to update.
+     * Limit how many LegalSteps to update.
      */
     limit?: number
   }
 
   /**
-   * UnitServer updateManyAndReturn
+   * LegalStep updateManyAndReturn
    */
-  export type UnitServerUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type LegalStepUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UnitServer
+     * Select specific fields to fetch from the LegalStep
      */
-    select?: UnitServerSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: LegalStepSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the UnitServer
+     * Omit specific fields from the LegalStep
      */
-    omit?: UnitServerOmit<ExtArgs> | null
+    omit?: LegalStepOmit<ExtArgs> | null
     /**
-     * The data used to update UnitServers.
+     * The data used to update LegalSteps.
      */
-    data: XOR<UnitServerUpdateManyMutationInput, UnitServerUncheckedUpdateManyInput>
+    data: XOR<LegalStepUpdateManyMutationInput, LegalStepUncheckedUpdateManyInput>
     /**
-     * Filter which UnitServers to update
+     * Filter which LegalSteps to update
      */
-    where?: UnitServerWhereInput
+    where?: LegalStepWhereInput
     /**
-     * Limit how many UnitServers to update.
+     * Limit how many LegalSteps to update.
      */
     limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UnitServerIncludeUpdateManyAndReturn<ExtArgs> | null
+    include?: LegalStepIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * UnitServer upsert
+   * LegalStep upsert
    */
-  export type UnitServerUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type LegalStepUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UnitServer
+     * Select specific fields to fetch from the LegalStep
      */
-    select?: UnitServerSelect<ExtArgs> | null
+    select?: LegalStepSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UnitServer
+     * Omit specific fields from the LegalStep
      */
-    omit?: UnitServerOmit<ExtArgs> | null
+    omit?: LegalStepOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UnitServerInclude<ExtArgs> | null
+    include?: LegalStepInclude<ExtArgs> | null
     /**
-     * The filter to search for the UnitServer to update in case it exists.
+     * The filter to search for the LegalStep to update in case it exists.
      */
-    where: UnitServerWhereUniqueInput
+    where: LegalStepWhereUniqueInput
     /**
-     * In case the UnitServer found by the `where` argument doesn't exist, create a new UnitServer with this data.
+     * In case the LegalStep found by the `where` argument doesn't exist, create a new LegalStep with this data.
      */
-    create: XOR<UnitServerCreateInput, UnitServerUncheckedCreateInput>
+    create: XOR<LegalStepCreateInput, LegalStepUncheckedCreateInput>
     /**
-     * In case the UnitServer was found with the provided `where` argument, update it with this data.
+     * In case the LegalStep was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<UnitServerUpdateInput, UnitServerUncheckedUpdateInput>
+    update: XOR<LegalStepUpdateInput, LegalStepUncheckedUpdateInput>
   }
 
   /**
-   * UnitServer delete
+   * LegalStep delete
    */
-  export type UnitServerDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type LegalStepDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UnitServer
+     * Select specific fields to fetch from the LegalStep
      */
-    select?: UnitServerSelect<ExtArgs> | null
+    select?: LegalStepSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UnitServer
+     * Omit specific fields from the LegalStep
      */
-    omit?: UnitServerOmit<ExtArgs> | null
+    omit?: LegalStepOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UnitServerInclude<ExtArgs> | null
+    include?: LegalStepInclude<ExtArgs> | null
     /**
-     * Filter which UnitServer to delete.
+     * Filter which LegalStep to delete.
      */
-    where: UnitServerWhereUniqueInput
+    where: LegalStepWhereUniqueInput
   }
 
   /**
-   * UnitServer deleteMany
+   * LegalStep deleteMany
    */
-  export type UnitServerDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type LegalStepDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which UnitServers to delete
+     * Filter which LegalSteps to delete
      */
-    where?: UnitServerWhereInput
+    where?: LegalStepWhereInput
     /**
-     * Limit how many UnitServers to delete.
+     * Limit how many LegalSteps to delete.
      */
     limit?: number
   }
 
   /**
-   * UnitServer.config
+   * LegalStep without action
    */
-  export type UnitServer$configArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type LegalStepDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UnitConfig
+     * Select specific fields to fetch from the LegalStep
      */
-    select?: UnitConfigSelect<ExtArgs> | null
+    select?: LegalStepSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UnitConfig
+     * Omit specific fields from the LegalStep
      */
-    omit?: UnitConfigOmit<ExtArgs> | null
+    omit?: LegalStepOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UnitConfigInclude<ExtArgs> | null
-    where?: UnitConfigWhereInput
+    include?: LegalStepInclude<ExtArgs> | null
   }
 
+
   /**
-   * UnitServer.clients
+   * Model FooterLink
    */
-  export type UnitServer$clientsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+
+  export type AggregateFooterLink = {
+    _count: FooterLinkCountAggregateOutputType | null
+    _avg: FooterLinkAvgAggregateOutputType | null
+    _sum: FooterLinkSumAggregateOutputType | null
+    _min: FooterLinkMinAggregateOutputType | null
+    _max: FooterLinkMaxAggregateOutputType | null
+  }
+
+  export type FooterLinkAvgAggregateOutputType = {
+    order: number | null
+  }
+
+  export type FooterLinkSumAggregateOutputType = {
+    order: number | null
+  }
+
+  export type FooterLinkMinAggregateOutputType = {
+    id: string | null
+    label: string | null
+    url: string | null
+    order: number | null
+    configId: string | null
+  }
+
+  export type FooterLinkMaxAggregateOutputType = {
+    id: string | null
+    label: string | null
+    url: string | null
+    order: number | null
+    configId: string | null
+  }
+
+  export type FooterLinkCountAggregateOutputType = {
+    id: number
+    label: number
+    url: number
+    order: number
+    configId: number
+    _all: number
+  }
+
+
+  export type FooterLinkAvgAggregateInputType = {
+    order?: true
+  }
+
+  export type FooterLinkSumAggregateInputType = {
+    order?: true
+  }
+
+  export type FooterLinkMinAggregateInputType = {
+    id?: true
+    label?: true
+    url?: true
+    order?: true
+    configId?: true
+  }
+
+  export type FooterLinkMaxAggregateInputType = {
+    id?: true
+    label?: true
+    url?: true
+    order?: true
+    configId?: true
+  }
+
+  export type FooterLinkCountAggregateInputType = {
+    id?: true
+    label?: true
+    url?: true
+    order?: true
+    configId?: true
+    _all?: true
+  }
+
+  export type FooterLinkAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Client
+     * Filter which FooterLink to aggregate.
      */
-    select?: ClientSelect<ExtArgs> | null
+    where?: FooterLinkWhereInput
     /**
-     * Omit specific fields from the Client
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FooterLinks to fetch.
      */
-    omit?: ClientOmit<ExtArgs> | null
+    orderBy?: FooterLinkOrderByWithRelationInput | FooterLinkOrderByWithRelationInput[]
     /**
-     * Choose, which related nodes to fetch as well
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
      */
-    include?: ClientInclude<ExtArgs> | null
-    where?: ClientWhereInput
-    orderBy?: ClientOrderByWithRelationInput | ClientOrderByWithRelationInput[]
-    cursor?: ClientWhereUniqueInput
+    cursor?: FooterLinkWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FooterLinks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FooterLinks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned FooterLinks
+    **/
+    _count?: true | FooterLinkCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: FooterLinkAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: FooterLinkSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FooterLinkMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FooterLinkMaxAggregateInputType
+  }
+
+  export type GetFooterLinkAggregateType<T extends FooterLinkAggregateArgs> = {
+        [P in keyof T & keyof AggregateFooterLink]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFooterLink[P]>
+      : GetScalarType<T[P], AggregateFooterLink[P]>
+  }
+
+
+
+
+  export type FooterLinkGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FooterLinkWhereInput
+    orderBy?: FooterLinkOrderByWithAggregationInput | FooterLinkOrderByWithAggregationInput[]
+    by: FooterLinkScalarFieldEnum[] | FooterLinkScalarFieldEnum
+    having?: FooterLinkScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    distinct?: ClientScalarFieldEnum | ClientScalarFieldEnum[]
+    _count?: FooterLinkCountAggregateInputType | true
+    _avg?: FooterLinkAvgAggregateInputType
+    _sum?: FooterLinkSumAggregateInputType
+    _min?: FooterLinkMinAggregateInputType
+    _max?: FooterLinkMaxAggregateInputType
+  }
+
+  export type FooterLinkGroupByOutputType = {
+    id: string
+    label: string
+    url: string
+    order: number
+    configId: string
+    _count: FooterLinkCountAggregateOutputType | null
+    _avg: FooterLinkAvgAggregateOutputType | null
+    _sum: FooterLinkSumAggregateOutputType | null
+    _min: FooterLinkMinAggregateOutputType | null
+    _max: FooterLinkMaxAggregateOutputType | null
+  }
+
+  type GetFooterLinkGroupByPayload<T extends FooterLinkGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<FooterLinkGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FooterLinkGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FooterLinkGroupByOutputType[P]>
+            : GetScalarType<T[P], FooterLinkGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type FooterLinkSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    label?: boolean
+    url?: boolean
+    order?: boolean
+    configId?: boolean
+    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["footerLink"]>
+
+  export type FooterLinkSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    label?: boolean
+    url?: boolean
+    order?: boolean
+    configId?: boolean
+    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["footerLink"]>
+
+  export type FooterLinkSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    label?: boolean
+    url?: boolean
+    order?: boolean
+    configId?: boolean
+    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["footerLink"]>
+
+  export type FooterLinkSelectScalar = {
+    id?: boolean
+    label?: boolean
+    url?: boolean
+    order?: boolean
+    configId?: boolean
+  }
+
+  export type FooterLinkOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "label" | "url" | "order" | "configId", ExtArgs["result"]["footerLink"]>
+  export type FooterLinkInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
+  }
+  export type FooterLinkIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
+  }
+  export type FooterLinkIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    config?: boolean | UnitConfigDefaultArgs<ExtArgs>
+  }
+
+  export type $FooterLinkPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "FooterLink"
+    objects: {
+      config: Prisma.$UnitConfigPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      label: string
+      url: string
+      order: number
+      configId: string
+    }, ExtArgs["result"]["footerLink"]>
+    composites: {}
+  }
+
+  type FooterLinkGetPayload<S extends boolean | null | undefined | FooterLinkDefaultArgs> = $Result.GetResult<Prisma.$FooterLinkPayload, S>
+
+  type FooterLinkCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<FooterLinkFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: FooterLinkCountAggregateInputType | true
+    }
+
+  export interface FooterLinkDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['FooterLink'], meta: { name: 'FooterLink' } }
+    /**
+     * Find zero or one FooterLink that matches the filter.
+     * @param {FooterLinkFindUniqueArgs} args - Arguments to find a FooterLink
+     * @example
+     * // Get one FooterLink
+     * const footerLink = await prisma.footerLink.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends FooterLinkFindUniqueArgs>(args: SelectSubset<T, FooterLinkFindUniqueArgs<ExtArgs>>): Prisma__FooterLinkClient<$Result.GetResult<Prisma.$FooterLinkPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one FooterLink that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {FooterLinkFindUniqueOrThrowArgs} args - Arguments to find a FooterLink
+     * @example
+     * // Get one FooterLink
+     * const footerLink = await prisma.footerLink.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends FooterLinkFindUniqueOrThrowArgs>(args: SelectSubset<T, FooterLinkFindUniqueOrThrowArgs<ExtArgs>>): Prisma__FooterLinkClient<$Result.GetResult<Prisma.$FooterLinkPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first FooterLink that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FooterLinkFindFirstArgs} args - Arguments to find a FooterLink
+     * @example
+     * // Get one FooterLink
+     * const footerLink = await prisma.footerLink.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends FooterLinkFindFirstArgs>(args?: SelectSubset<T, FooterLinkFindFirstArgs<ExtArgs>>): Prisma__FooterLinkClient<$Result.GetResult<Prisma.$FooterLinkPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first FooterLink that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FooterLinkFindFirstOrThrowArgs} args - Arguments to find a FooterLink
+     * @example
+     * // Get one FooterLink
+     * const footerLink = await prisma.footerLink.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends FooterLinkFindFirstOrThrowArgs>(args?: SelectSubset<T, FooterLinkFindFirstOrThrowArgs<ExtArgs>>): Prisma__FooterLinkClient<$Result.GetResult<Prisma.$FooterLinkPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more FooterLinks that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FooterLinkFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all FooterLinks
+     * const footerLinks = await prisma.footerLink.findMany()
+     * 
+     * // Get first 10 FooterLinks
+     * const footerLinks = await prisma.footerLink.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const footerLinkWithIdOnly = await prisma.footerLink.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends FooterLinkFindManyArgs>(args?: SelectSubset<T, FooterLinkFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FooterLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a FooterLink.
+     * @param {FooterLinkCreateArgs} args - Arguments to create a FooterLink.
+     * @example
+     * // Create one FooterLink
+     * const FooterLink = await prisma.footerLink.create({
+     *   data: {
+     *     // ... data to create a FooterLink
+     *   }
+     * })
+     * 
+     */
+    create<T extends FooterLinkCreateArgs>(args: SelectSubset<T, FooterLinkCreateArgs<ExtArgs>>): Prisma__FooterLinkClient<$Result.GetResult<Prisma.$FooterLinkPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many FooterLinks.
+     * @param {FooterLinkCreateManyArgs} args - Arguments to create many FooterLinks.
+     * @example
+     * // Create many FooterLinks
+     * const footerLink = await prisma.footerLink.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends FooterLinkCreateManyArgs>(args?: SelectSubset<T, FooterLinkCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many FooterLinks and returns the data saved in the database.
+     * @param {FooterLinkCreateManyAndReturnArgs} args - Arguments to create many FooterLinks.
+     * @example
+     * // Create many FooterLinks
+     * const footerLink = await prisma.footerLink.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many FooterLinks and only return the `id`
+     * const footerLinkWithIdOnly = await prisma.footerLink.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends FooterLinkCreateManyAndReturnArgs>(args?: SelectSubset<T, FooterLinkCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FooterLinkPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a FooterLink.
+     * @param {FooterLinkDeleteArgs} args - Arguments to delete one FooterLink.
+     * @example
+     * // Delete one FooterLink
+     * const FooterLink = await prisma.footerLink.delete({
+     *   where: {
+     *     // ... filter to delete one FooterLink
+     *   }
+     * })
+     * 
+     */
+    delete<T extends FooterLinkDeleteArgs>(args: SelectSubset<T, FooterLinkDeleteArgs<ExtArgs>>): Prisma__FooterLinkClient<$Result.GetResult<Prisma.$FooterLinkPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one FooterLink.
+     * @param {FooterLinkUpdateArgs} args - Arguments to update one FooterLink.
+     * @example
+     * // Update one FooterLink
+     * const footerLink = await prisma.footerLink.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends FooterLinkUpdateArgs>(args: SelectSubset<T, FooterLinkUpdateArgs<ExtArgs>>): Prisma__FooterLinkClient<$Result.GetResult<Prisma.$FooterLinkPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more FooterLinks.
+     * @param {FooterLinkDeleteManyArgs} args - Arguments to filter FooterLinks to delete.
+     * @example
+     * // Delete a few FooterLinks
+     * const { count } = await prisma.footerLink.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends FooterLinkDeleteManyArgs>(args?: SelectSubset<T, FooterLinkDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more FooterLinks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FooterLinkUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many FooterLinks
+     * const footerLink = await prisma.footerLink.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends FooterLinkUpdateManyArgs>(args: SelectSubset<T, FooterLinkUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more FooterLinks and returns the data updated in the database.
+     * @param {FooterLinkUpdateManyAndReturnArgs} args - Arguments to update many FooterLinks.
+     * @example
+     * // Update many FooterLinks
+     * const footerLink = await prisma.footerLink.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more FooterLinks and only return the `id`
+     * const footerLinkWithIdOnly = await prisma.footerLink.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends FooterLinkUpdateManyAndReturnArgs>(args: SelectSubset<T, FooterLinkUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FooterLinkPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one FooterLink.
+     * @param {FooterLinkUpsertArgs} args - Arguments to update or create a FooterLink.
+     * @example
+     * // Update or create a FooterLink
+     * const footerLink = await prisma.footerLink.upsert({
+     *   create: {
+     *     // ... data to create a FooterLink
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the FooterLink we want to update
+     *   }
+     * })
+     */
+    upsert<T extends FooterLinkUpsertArgs>(args: SelectSubset<T, FooterLinkUpsertArgs<ExtArgs>>): Prisma__FooterLinkClient<$Result.GetResult<Prisma.$FooterLinkPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of FooterLinks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FooterLinkCountArgs} args - Arguments to filter FooterLinks to count.
+     * @example
+     * // Count the number of FooterLinks
+     * const count = await prisma.footerLink.count({
+     *   where: {
+     *     // ... the filter for the FooterLinks we want to count
+     *   }
+     * })
+    **/
+    count<T extends FooterLinkCountArgs>(
+      args?: Subset<T, FooterLinkCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FooterLinkCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a FooterLink.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FooterLinkAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FooterLinkAggregateArgs>(args: Subset<T, FooterLinkAggregateArgs>): Prisma.PrismaPromise<GetFooterLinkAggregateType<T>>
+
+    /**
+     * Group by FooterLink.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FooterLinkGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends FooterLinkGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: FooterLinkGroupByArgs['orderBy'] }
+        : { orderBy?: FooterLinkGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, FooterLinkGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFooterLinkGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the FooterLink model
+   */
+  readonly fields: FooterLinkFieldRefs;
   }
 
   /**
-   * UnitServer.professionals
+   * The delegate class that acts as a "Promise-like" for FooterLink.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export type UnitServer$professionalsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export interface Prisma__FooterLinkClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    config<T extends UnitConfigDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UnitConfigDefaultArgs<ExtArgs>>): Prisma__UnitConfigClient<$Result.GetResult<Prisma.$UnitConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
-     * Select specific fields to fetch from the Professional
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
      */
-    select?: ProfessionalSelect<ExtArgs> | null
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
     /**
-     * Omit specific fields from the Professional
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
      */
-    omit?: ProfessionalOmit<ExtArgs> | null
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the FooterLink model
+   */
+  interface FooterLinkFieldRefs {
+    readonly id: FieldRef<"FooterLink", 'String'>
+    readonly label: FieldRef<"FooterLink", 'String'>
+    readonly url: FieldRef<"FooterLink", 'String'>
+    readonly order: FieldRef<"FooterLink", 'Int'>
+    readonly configId: FieldRef<"FooterLink", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * FooterLink findUnique
+   */
+  export type FooterLinkFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FooterLink
+     */
+    select?: FooterLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FooterLink
+     */
+    omit?: FooterLinkOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ProfessionalInclude<ExtArgs> | null
-    where?: ProfessionalWhereInput
-    orderBy?: ProfessionalOrderByWithRelationInput | ProfessionalOrderByWithRelationInput[]
-    cursor?: ProfessionalWhereUniqueInput
+    include?: FooterLinkInclude<ExtArgs> | null
+    /**
+     * Filter, which FooterLink to fetch.
+     */
+    where: FooterLinkWhereUniqueInput
+  }
+
+  /**
+   * FooterLink findUniqueOrThrow
+   */
+  export type FooterLinkFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FooterLink
+     */
+    select?: FooterLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FooterLink
+     */
+    omit?: FooterLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FooterLinkInclude<ExtArgs> | null
+    /**
+     * Filter, which FooterLink to fetch.
+     */
+    where: FooterLinkWhereUniqueInput
+  }
+
+  /**
+   * FooterLink findFirst
+   */
+  export type FooterLinkFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FooterLink
+     */
+    select?: FooterLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FooterLink
+     */
+    omit?: FooterLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FooterLinkInclude<ExtArgs> | null
+    /**
+     * Filter, which FooterLink to fetch.
+     */
+    where?: FooterLinkWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FooterLinks to fetch.
+     */
+    orderBy?: FooterLinkOrderByWithRelationInput | FooterLinkOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FooterLinks.
+     */
+    cursor?: FooterLinkWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FooterLinks from the position of the cursor.
+     */
     take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FooterLinks.
+     */
     skip?: number
-    distinct?: ProfessionalScalarFieldEnum | ProfessionalScalarFieldEnum[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FooterLinks.
+     */
+    distinct?: FooterLinkScalarFieldEnum | FooterLinkScalarFieldEnum[]
   }
 
   /**
-   * UnitServer.cases
+   * FooterLink findFirstOrThrow
    */
-  export type UnitServer$casesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type FooterLinkFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Case
+     * Select specific fields to fetch from the FooterLink
      */
-    select?: CaseSelect<ExtArgs> | null
+    select?: FooterLinkSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Case
+     * Omit specific fields from the FooterLink
      */
-    omit?: CaseOmit<ExtArgs> | null
+    omit?: FooterLinkOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CaseInclude<ExtArgs> | null
-    where?: CaseWhereInput
-    orderBy?: CaseOrderByWithRelationInput | CaseOrderByWithRelationInput[]
-    cursor?: CaseWhereUniqueInput
+    include?: FooterLinkInclude<ExtArgs> | null
+    /**
+     * Filter, which FooterLink to fetch.
+     */
+    where?: FooterLinkWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FooterLinks to fetch.
+     */
+    orderBy?: FooterLinkOrderByWithRelationInput | FooterLinkOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FooterLinks.
+     */
+    cursor?: FooterLinkWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FooterLinks from the position of the cursor.
+     */
     take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FooterLinks.
+     */
     skip?: number
-    distinct?: CaseScalarFieldEnum | CaseScalarFieldEnum[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FooterLinks.
+     */
+    distinct?: FooterLinkScalarFieldEnum | FooterLinkScalarFieldEnum[]
   }
 
   /**
-   * UnitServer.serverLogs
+   * FooterLink findMany
    */
-  export type UnitServer$serverLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type FooterLinkFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ServerLog
+     * Select specific fields to fetch from the FooterLink
      */
-    select?: ServerLogSelect<ExtArgs> | null
+    select?: FooterLinkSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ServerLog
+     * Omit specific fields from the FooterLink
      */
-    omit?: ServerLogOmit<ExtArgs> | null
+    omit?: FooterLinkOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServerLogInclude<ExtArgs> | null
-    where?: ServerLogWhereInput
-    orderBy?: ServerLogOrderByWithRelationInput | ServerLogOrderByWithRelationInput[]
-    cursor?: ServerLogWhereUniqueInput
+    include?: FooterLinkInclude<ExtArgs> | null
+    /**
+     * Filter, which FooterLinks to fetch.
+     */
+    where?: FooterLinkWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FooterLinks to fetch.
+     */
+    orderBy?: FooterLinkOrderByWithRelationInput | FooterLinkOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing FooterLinks.
+     */
+    cursor?: FooterLinkWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FooterLinks from the position of the cursor.
+     */
     take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FooterLinks.
+     */
     skip?: number
-    distinct?: ServerLogScalarFieldEnum | ServerLogScalarFieldEnum[]
+    distinct?: FooterLinkScalarFieldEnum | FooterLinkScalarFieldEnum[]
   }
 
   /**
-   * UnitServer without action
+   * FooterLink create
    */
-  export type UnitServerDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type FooterLinkCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UnitServer
+     * Select specific fields to fetch from the FooterLink
      */
-    select?: UnitServerSelect<ExtArgs> | null
+    select?: FooterLinkSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UnitServer
+     * Omit specific fields from the FooterLink
      */
-    omit?: UnitServerOmit<ExtArgs> | null
+    omit?: FooterLinkOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UnitServerInclude<ExtArgs> | null
+    include?: FooterLinkInclude<ExtArgs> | null
+    /**
+     * The data needed to create a FooterLink.
+     */
+    data: XOR<FooterLinkCreateInput, FooterLinkUncheckedCreateInput>
+  }
+
+  /**
+   * FooterLink createMany
+   */
+  export type FooterLinkCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many FooterLinks.
+     */
+    data: FooterLinkCreateManyInput | FooterLinkCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * FooterLink createManyAndReturn
+   */
+  export type FooterLinkCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FooterLink
+     */
+    select?: FooterLinkSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the FooterLink
+     */
+    omit?: FooterLinkOmit<ExtArgs> | null
+    /**
+     * The data used to create many FooterLinks.
+     */
+    data: FooterLinkCreateManyInput | FooterLinkCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FooterLinkIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * FooterLink update
+   */
+  export type FooterLinkUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FooterLink
+     */
+    select?: FooterLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FooterLink
+     */
+    omit?: FooterLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FooterLinkInclude<ExtArgs> | null
+    /**
+     * The data needed to update a FooterLink.
+     */
+    data: XOR<FooterLinkUpdateInput, FooterLinkUncheckedUpdateInput>
+    /**
+     * Choose, which FooterLink to update.
+     */
+    where: FooterLinkWhereUniqueInput
+  }
+
+  /**
+   * FooterLink updateMany
+   */
+  export type FooterLinkUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update FooterLinks.
+     */
+    data: XOR<FooterLinkUpdateManyMutationInput, FooterLinkUncheckedUpdateManyInput>
+    /**
+     * Filter which FooterLinks to update
+     */
+    where?: FooterLinkWhereInput
+    /**
+     * Limit how many FooterLinks to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * FooterLink updateManyAndReturn
+   */
+  export type FooterLinkUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FooterLink
+     */
+    select?: FooterLinkSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the FooterLink
+     */
+    omit?: FooterLinkOmit<ExtArgs> | null
+    /**
+     * The data used to update FooterLinks.
+     */
+    data: XOR<FooterLinkUpdateManyMutationInput, FooterLinkUncheckedUpdateManyInput>
+    /**
+     * Filter which FooterLinks to update
+     */
+    where?: FooterLinkWhereInput
+    /**
+     * Limit how many FooterLinks to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FooterLinkIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * FooterLink upsert
+   */
+  export type FooterLinkUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FooterLink
+     */
+    select?: FooterLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FooterLink
+     */
+    omit?: FooterLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FooterLinkInclude<ExtArgs> | null
+    /**
+     * The filter to search for the FooterLink to update in case it exists.
+     */
+    where: FooterLinkWhereUniqueInput
+    /**
+     * In case the FooterLink found by the `where` argument doesn't exist, create a new FooterLink with this data.
+     */
+    create: XOR<FooterLinkCreateInput, FooterLinkUncheckedCreateInput>
+    /**
+     * In case the FooterLink was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<FooterLinkUpdateInput, FooterLinkUncheckedUpdateInput>
+  }
+
+  /**
+   * FooterLink delete
+   */
+  export type FooterLinkDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FooterLink
+     */
+    select?: FooterLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FooterLink
+     */
+    omit?: FooterLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FooterLinkInclude<ExtArgs> | null
+    /**
+     * Filter which FooterLink to delete.
+     */
+    where: FooterLinkWhereUniqueInput
+  }
+
+  /**
+   * FooterLink deleteMany
+   */
+  export type FooterLinkDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FooterLinks to delete
+     */
+    where?: FooterLinkWhereInput
+    /**
+     * Limit how many FooterLinks to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * FooterLink without action
+   */
+  export type FooterLinkDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FooterLink
+     */
+    select?: FooterLinkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FooterLink
+     */
+    omit?: FooterLinkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FooterLinkInclude<ExtArgs> | null
   }
 
 
@@ -22035,11 +21964,51 @@ export namespace Prisma {
 
   export const ProfessionalScalarFieldEnum: {
     id: 'id',
-    userId: 'userId',
-    serverId: 'serverId'
+    userId: 'userId'
   };
 
   export type ProfessionalScalarFieldEnum = (typeof ProfessionalScalarFieldEnum)[keyof typeof ProfessionalScalarFieldEnum]
+
+
+  export const ConstellationScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description'
+  };
+
+  export type ConstellationScalarFieldEnum = (typeof ConstellationScalarFieldEnum)[keyof typeof ConstellationScalarFieldEnum]
+
+
+  export const UnitConfigScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    pageTitle: 'pageTitle',
+    pageDescription: 'pageDescription',
+    iconUrl: 'iconUrl',
+    servicesDescription: 'servicesDescription',
+    bannerUrl: 'bannerUrl',
+    footerInfo: 'footerInfo',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type UnitConfigScalarFieldEnum = (typeof UnitConfigScalarFieldEnum)[keyof typeof UnitConfigScalarFieldEnum]
+
+
+  export const UnitServerScalarFieldEnum: {
+    id: 'id',
+    domain: 'domain',
+    name: 'name',
+    orchestratorToken: 'orchestratorToken',
+    unitToken: 'unitToken',
+    isActive: 'isActive',
+    constellationId: 'constellationId',
+    configId: 'configId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type UnitServerScalarFieldEnum = (typeof UnitServerScalarFieldEnum)[keyof typeof UnitServerScalarFieldEnum]
 
 
   export const CaseScalarFieldEnum: {
@@ -22100,53 +22069,6 @@ export namespace Prisma {
   export type ReportScalarFieldEnum = (typeof ReportScalarFieldEnum)[keyof typeof ReportScalarFieldEnum]
 
 
-  export const ConstellationScalarFieldEnum: {
-    id: 'id',
-    name: 'name',
-    description: 'description'
-  };
-
-  export type ConstellationScalarFieldEnum = (typeof ConstellationScalarFieldEnum)[keyof typeof ConstellationScalarFieldEnum]
-
-
-  export const UnitConfigScalarFieldEnum: {
-    id: 'id',
-    name: 'name',
-    pageTitle: 'pageTitle',
-    pageDescription: 'pageDescription',
-    iconUrl: 'iconUrl',
-    servicesDescription: 'servicesDescription',
-    bannerUrl: 'bannerUrl',
-    footerInfo: 'footerInfo',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
-  };
-
-  export type UnitConfigScalarFieldEnum = (typeof UnitConfigScalarFieldEnum)[keyof typeof UnitConfigScalarFieldEnum]
-
-
-  export const LegalStepScalarFieldEnum: {
-    id: 'id',
-    title: 'title',
-    description: 'description',
-    order: 'order',
-    configId: 'configId'
-  };
-
-  export type LegalStepScalarFieldEnum = (typeof LegalStepScalarFieldEnum)[keyof typeof LegalStepScalarFieldEnum]
-
-
-  export const FooterLinkScalarFieldEnum: {
-    id: 'id',
-    label: 'label',
-    url: 'url',
-    order: 'order',
-    configId: 'configId'
-  };
-
-  export type FooterLinkScalarFieldEnum = (typeof FooterLinkScalarFieldEnum)[keyof typeof FooterLinkScalarFieldEnum]
-
-
   export const SectionScalarFieldEnum: {
     id: 'id',
     title: 'title',
@@ -22185,20 +22107,26 @@ export namespace Prisma {
   export type ArticleScalarFieldEnum = (typeof ArticleScalarFieldEnum)[keyof typeof ArticleScalarFieldEnum]
 
 
-  export const UnitServerScalarFieldEnum: {
+  export const LegalStepScalarFieldEnum: {
     id: 'id',
-    domain: 'domain',
-    name: 'name',
-    orchestratorToken: 'orchestratorToken',
-    unitToken: 'unitToken',
-    isActive: 'isActive',
-    constellationId: 'constellationId',
-    configId: 'configId',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    title: 'title',
+    description: 'description',
+    order: 'order',
+    configId: 'configId'
   };
 
-  export type UnitServerScalarFieldEnum = (typeof UnitServerScalarFieldEnum)[keyof typeof UnitServerScalarFieldEnum]
+  export type LegalStepScalarFieldEnum = (typeof LegalStepScalarFieldEnum)[keyof typeof LegalStepScalarFieldEnum]
+
+
+  export const FooterLinkScalarFieldEnum: {
+    id: 'id',
+    label: 'label',
+    url: 'url',
+    order: 'order',
+    configId: 'configId'
+  };
+
+  export type FooterLinkScalarFieldEnum = (typeof FooterLinkScalarFieldEnum)[keyof typeof FooterLinkScalarFieldEnum]
 
 
   export const ServerLogScalarFieldEnum: {
@@ -22561,9 +22489,7 @@ export namespace Prisma {
     NOT?: ProfessionalWhereInput | ProfessionalWhereInput[]
     id?: StringFilter<"Professional"> | string
     userId?: StringFilter<"Professional"> | string
-    serverId?: StringFilter<"Professional"> | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    server?: XOR<UnitServerScalarRelationFilter, UnitServerWhereInput>
     cases?: CaseListRelationFilter
     files?: FileListRelationFilter
   }
@@ -22571,9 +22497,7 @@ export namespace Prisma {
   export type ProfessionalOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
-    serverId?: SortOrder
     user?: UserOrderByWithRelationInput
-    server?: UnitServerOrderByWithRelationInput
     cases?: CaseOrderByRelationAggregateInput
     files?: FileOrderByRelationAggregateInput
   }
@@ -22584,9 +22508,7 @@ export namespace Prisma {
     OR?: ProfessionalWhereInput[]
     NOT?: ProfessionalWhereInput | ProfessionalWhereInput[]
     userId?: StringFilter<"Professional"> | string
-    serverId?: StringFilter<"Professional"> | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    server?: XOR<UnitServerScalarRelationFilter, UnitServerWhereInput>
     cases?: CaseListRelationFilter
     files?: FileListRelationFilter
   }, "id">
@@ -22594,7 +22516,6 @@ export namespace Prisma {
   export type ProfessionalOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
-    serverId?: SortOrder
     _count?: ProfessionalCountOrderByAggregateInput
     _max?: ProfessionalMaxOrderByAggregateInput
     _min?: ProfessionalMinOrderByAggregateInput
@@ -22606,7 +22527,238 @@ export namespace Prisma {
     NOT?: ProfessionalScalarWhereWithAggregatesInput | ProfessionalScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Professional"> | string
     userId?: StringWithAggregatesFilter<"Professional"> | string
-    serverId?: StringWithAggregatesFilter<"Professional"> | string
+  }
+
+  export type ConstellationWhereInput = {
+    AND?: ConstellationWhereInput | ConstellationWhereInput[]
+    OR?: ConstellationWhereInput[]
+    NOT?: ConstellationWhereInput | ConstellationWhereInput[]
+    id?: StringFilter<"Constellation"> | string
+    name?: StringFilter<"Constellation"> | string
+    description?: StringNullableFilter<"Constellation"> | string | null
+    servers?: UnitServerListRelationFilter
+  }
+
+  export type ConstellationOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    servers?: UnitServerOrderByRelationAggregateInput
+  }
+
+  export type ConstellationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    name?: string
+    AND?: ConstellationWhereInput | ConstellationWhereInput[]
+    OR?: ConstellationWhereInput[]
+    NOT?: ConstellationWhereInput | ConstellationWhereInput[]
+    description?: StringNullableFilter<"Constellation"> | string | null
+    servers?: UnitServerListRelationFilter
+  }, "id" | "name">
+
+  export type ConstellationOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    _count?: ConstellationCountOrderByAggregateInput
+    _max?: ConstellationMaxOrderByAggregateInput
+    _min?: ConstellationMinOrderByAggregateInput
+  }
+
+  export type ConstellationScalarWhereWithAggregatesInput = {
+    AND?: ConstellationScalarWhereWithAggregatesInput | ConstellationScalarWhereWithAggregatesInput[]
+    OR?: ConstellationScalarWhereWithAggregatesInput[]
+    NOT?: ConstellationScalarWhereWithAggregatesInput | ConstellationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Constellation"> | string
+    name?: StringWithAggregatesFilter<"Constellation"> | string
+    description?: StringNullableWithAggregatesFilter<"Constellation"> | string | null
+  }
+
+  export type UnitConfigWhereInput = {
+    AND?: UnitConfigWhereInput | UnitConfigWhereInput[]
+    OR?: UnitConfigWhereInput[]
+    NOT?: UnitConfigWhereInput | UnitConfigWhereInput[]
+    id?: StringFilter<"UnitConfig"> | string
+    name?: StringFilter<"UnitConfig"> | string
+    pageTitle?: StringFilter<"UnitConfig"> | string
+    pageDescription?: StringFilter<"UnitConfig"> | string
+    iconUrl?: StringNullableFilter<"UnitConfig"> | string | null
+    servicesDescription?: StringFilter<"UnitConfig"> | string
+    bannerUrl?: StringNullableFilter<"UnitConfig"> | string | null
+    footerInfo?: StringNullableFilter<"UnitConfig"> | string | null
+    createdAt?: DateTimeFilter<"UnitConfig"> | Date | string
+    updatedAt?: DateTimeFilter<"UnitConfig"> | Date | string
+    legalSteps?: LegalStepListRelationFilter
+    articles?: ArticleListRelationFilter
+    sections?: SectionListRelationFilter
+    images?: ImageListRelationFilter
+    footerLinks?: FooterLinkListRelationFilter
+    servers?: UnitServerListRelationFilter
+  }
+
+  export type UnitConfigOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    pageTitle?: SortOrder
+    pageDescription?: SortOrder
+    iconUrl?: SortOrderInput | SortOrder
+    servicesDescription?: SortOrder
+    bannerUrl?: SortOrderInput | SortOrder
+    footerInfo?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    legalSteps?: LegalStepOrderByRelationAggregateInput
+    articles?: ArticleOrderByRelationAggregateInput
+    sections?: SectionOrderByRelationAggregateInput
+    images?: ImageOrderByRelationAggregateInput
+    footerLinks?: FooterLinkOrderByRelationAggregateInput
+    servers?: UnitServerOrderByRelationAggregateInput
+  }
+
+  export type UnitConfigWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    name?: string
+    AND?: UnitConfigWhereInput | UnitConfigWhereInput[]
+    OR?: UnitConfigWhereInput[]
+    NOT?: UnitConfigWhereInput | UnitConfigWhereInput[]
+    pageTitle?: StringFilter<"UnitConfig"> | string
+    pageDescription?: StringFilter<"UnitConfig"> | string
+    iconUrl?: StringNullableFilter<"UnitConfig"> | string | null
+    servicesDescription?: StringFilter<"UnitConfig"> | string
+    bannerUrl?: StringNullableFilter<"UnitConfig"> | string | null
+    footerInfo?: StringNullableFilter<"UnitConfig"> | string | null
+    createdAt?: DateTimeFilter<"UnitConfig"> | Date | string
+    updatedAt?: DateTimeFilter<"UnitConfig"> | Date | string
+    legalSteps?: LegalStepListRelationFilter
+    articles?: ArticleListRelationFilter
+    sections?: SectionListRelationFilter
+    images?: ImageListRelationFilter
+    footerLinks?: FooterLinkListRelationFilter
+    servers?: UnitServerListRelationFilter
+  }, "id" | "name">
+
+  export type UnitConfigOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    pageTitle?: SortOrder
+    pageDescription?: SortOrder
+    iconUrl?: SortOrderInput | SortOrder
+    servicesDescription?: SortOrder
+    bannerUrl?: SortOrderInput | SortOrder
+    footerInfo?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: UnitConfigCountOrderByAggregateInput
+    _max?: UnitConfigMaxOrderByAggregateInput
+    _min?: UnitConfigMinOrderByAggregateInput
+  }
+
+  export type UnitConfigScalarWhereWithAggregatesInput = {
+    AND?: UnitConfigScalarWhereWithAggregatesInput | UnitConfigScalarWhereWithAggregatesInput[]
+    OR?: UnitConfigScalarWhereWithAggregatesInput[]
+    NOT?: UnitConfigScalarWhereWithAggregatesInput | UnitConfigScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"UnitConfig"> | string
+    name?: StringWithAggregatesFilter<"UnitConfig"> | string
+    pageTitle?: StringWithAggregatesFilter<"UnitConfig"> | string
+    pageDescription?: StringWithAggregatesFilter<"UnitConfig"> | string
+    iconUrl?: StringNullableWithAggregatesFilter<"UnitConfig"> | string | null
+    servicesDescription?: StringWithAggregatesFilter<"UnitConfig"> | string
+    bannerUrl?: StringNullableWithAggregatesFilter<"UnitConfig"> | string | null
+    footerInfo?: StringNullableWithAggregatesFilter<"UnitConfig"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"UnitConfig"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"UnitConfig"> | Date | string
+  }
+
+  export type UnitServerWhereInput = {
+    AND?: UnitServerWhereInput | UnitServerWhereInput[]
+    OR?: UnitServerWhereInput[]
+    NOT?: UnitServerWhereInput | UnitServerWhereInput[]
+    id?: StringFilter<"UnitServer"> | string
+    domain?: StringFilter<"UnitServer"> | string
+    name?: StringFilter<"UnitServer"> | string
+    orchestratorToken?: StringFilter<"UnitServer"> | string
+    unitToken?: StringFilter<"UnitServer"> | string
+    isActive?: BoolFilter<"UnitServer"> | boolean
+    constellationId?: StringFilter<"UnitServer"> | string
+    configId?: StringNullableFilter<"UnitServer"> | string | null
+    createdAt?: DateTimeFilter<"UnitServer"> | Date | string
+    updatedAt?: DateTimeFilter<"UnitServer"> | Date | string
+    constellation?: XOR<ConstellationScalarRelationFilter, ConstellationWhereInput>
+    config?: XOR<UnitConfigNullableScalarRelationFilter, UnitConfigWhereInput> | null
+    clients?: ClientListRelationFilter
+    cases?: CaseListRelationFilter
+    serverLogs?: ServerLogListRelationFilter
+  }
+
+  export type UnitServerOrderByWithRelationInput = {
+    id?: SortOrder
+    domain?: SortOrder
+    name?: SortOrder
+    orchestratorToken?: SortOrder
+    unitToken?: SortOrder
+    isActive?: SortOrder
+    constellationId?: SortOrder
+    configId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    constellation?: ConstellationOrderByWithRelationInput
+    config?: UnitConfigOrderByWithRelationInput
+    clients?: ClientOrderByRelationAggregateInput
+    cases?: CaseOrderByRelationAggregateInput
+    serverLogs?: ServerLogOrderByRelationAggregateInput
+  }
+
+  export type UnitServerWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    domain?: string
+    orchestratorToken?: string
+    unitToken?: string
+    AND?: UnitServerWhereInput | UnitServerWhereInput[]
+    OR?: UnitServerWhereInput[]
+    NOT?: UnitServerWhereInput | UnitServerWhereInput[]
+    name?: StringFilter<"UnitServer"> | string
+    isActive?: BoolFilter<"UnitServer"> | boolean
+    constellationId?: StringFilter<"UnitServer"> | string
+    configId?: StringNullableFilter<"UnitServer"> | string | null
+    createdAt?: DateTimeFilter<"UnitServer"> | Date | string
+    updatedAt?: DateTimeFilter<"UnitServer"> | Date | string
+    constellation?: XOR<ConstellationScalarRelationFilter, ConstellationWhereInput>
+    config?: XOR<UnitConfigNullableScalarRelationFilter, UnitConfigWhereInput> | null
+    clients?: ClientListRelationFilter
+    cases?: CaseListRelationFilter
+    serverLogs?: ServerLogListRelationFilter
+  }, "id" | "domain" | "orchestratorToken" | "unitToken">
+
+  export type UnitServerOrderByWithAggregationInput = {
+    id?: SortOrder
+    domain?: SortOrder
+    name?: SortOrder
+    orchestratorToken?: SortOrder
+    unitToken?: SortOrder
+    isActive?: SortOrder
+    constellationId?: SortOrder
+    configId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: UnitServerCountOrderByAggregateInput
+    _max?: UnitServerMaxOrderByAggregateInput
+    _min?: UnitServerMinOrderByAggregateInput
+  }
+
+  export type UnitServerScalarWhereWithAggregatesInput = {
+    AND?: UnitServerScalarWhereWithAggregatesInput | UnitServerScalarWhereWithAggregatesInput[]
+    OR?: UnitServerScalarWhereWithAggregatesInput[]
+    NOT?: UnitServerScalarWhereWithAggregatesInput | UnitServerScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"UnitServer"> | string
+    domain?: StringWithAggregatesFilter<"UnitServer"> | string
+    name?: StringWithAggregatesFilter<"UnitServer"> | string
+    orchestratorToken?: StringWithAggregatesFilter<"UnitServer"> | string
+    unitToken?: StringWithAggregatesFilter<"UnitServer"> | string
+    isActive?: BoolWithAggregatesFilter<"UnitServer"> | boolean
+    constellationId?: StringWithAggregatesFilter<"UnitServer"> | string
+    configId?: StringNullableWithAggregatesFilter<"UnitServer"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"UnitServer"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"UnitServer"> | Date | string
   }
 
   export type CaseWhereInput = {
@@ -22926,260 +23078,6 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Report"> | Date | string
   }
 
-  export type ConstellationWhereInput = {
-    AND?: ConstellationWhereInput | ConstellationWhereInput[]
-    OR?: ConstellationWhereInput[]
-    NOT?: ConstellationWhereInput | ConstellationWhereInput[]
-    id?: StringFilter<"Constellation"> | string
-    name?: StringFilter<"Constellation"> | string
-    description?: StringNullableFilter<"Constellation"> | string | null
-    servers?: UnitServerListRelationFilter
-  }
-
-  export type ConstellationOrderByWithRelationInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrderInput | SortOrder
-    servers?: UnitServerOrderByRelationAggregateInput
-  }
-
-  export type ConstellationWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    name?: string
-    AND?: ConstellationWhereInput | ConstellationWhereInput[]
-    OR?: ConstellationWhereInput[]
-    NOT?: ConstellationWhereInput | ConstellationWhereInput[]
-    description?: StringNullableFilter<"Constellation"> | string | null
-    servers?: UnitServerListRelationFilter
-  }, "id" | "name">
-
-  export type ConstellationOrderByWithAggregationInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrderInput | SortOrder
-    _count?: ConstellationCountOrderByAggregateInput
-    _max?: ConstellationMaxOrderByAggregateInput
-    _min?: ConstellationMinOrderByAggregateInput
-  }
-
-  export type ConstellationScalarWhereWithAggregatesInput = {
-    AND?: ConstellationScalarWhereWithAggregatesInput | ConstellationScalarWhereWithAggregatesInput[]
-    OR?: ConstellationScalarWhereWithAggregatesInput[]
-    NOT?: ConstellationScalarWhereWithAggregatesInput | ConstellationScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"Constellation"> | string
-    name?: StringWithAggregatesFilter<"Constellation"> | string
-    description?: StringNullableWithAggregatesFilter<"Constellation"> | string | null
-  }
-
-  export type UnitConfigWhereInput = {
-    AND?: UnitConfigWhereInput | UnitConfigWhereInput[]
-    OR?: UnitConfigWhereInput[]
-    NOT?: UnitConfigWhereInput | UnitConfigWhereInput[]
-    id?: StringFilter<"UnitConfig"> | string
-    name?: StringFilter<"UnitConfig"> | string
-    pageTitle?: StringFilter<"UnitConfig"> | string
-    pageDescription?: StringFilter<"UnitConfig"> | string
-    iconUrl?: StringNullableFilter<"UnitConfig"> | string | null
-    servicesDescription?: StringFilter<"UnitConfig"> | string
-    bannerUrl?: StringNullableFilter<"UnitConfig"> | string | null
-    footerInfo?: StringNullableFilter<"UnitConfig"> | string | null
-    createdAt?: DateTimeFilter<"UnitConfig"> | Date | string
-    updatedAt?: DateTimeFilter<"UnitConfig"> | Date | string
-    legalSteps?: LegalStepListRelationFilter
-    articles?: ArticleListRelationFilter
-    sections?: SectionListRelationFilter
-    images?: ImageListRelationFilter
-    footerLinks?: FooterLinkListRelationFilter
-    servers?: UnitServerListRelationFilter
-  }
-
-  export type UnitConfigOrderByWithRelationInput = {
-    id?: SortOrder
-    name?: SortOrder
-    pageTitle?: SortOrder
-    pageDescription?: SortOrder
-    iconUrl?: SortOrderInput | SortOrder
-    servicesDescription?: SortOrder
-    bannerUrl?: SortOrderInput | SortOrder
-    footerInfo?: SortOrderInput | SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    legalSteps?: LegalStepOrderByRelationAggregateInput
-    articles?: ArticleOrderByRelationAggregateInput
-    sections?: SectionOrderByRelationAggregateInput
-    images?: ImageOrderByRelationAggregateInput
-    footerLinks?: FooterLinkOrderByRelationAggregateInput
-    servers?: UnitServerOrderByRelationAggregateInput
-  }
-
-  export type UnitConfigWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    name?: string
-    AND?: UnitConfigWhereInput | UnitConfigWhereInput[]
-    OR?: UnitConfigWhereInput[]
-    NOT?: UnitConfigWhereInput | UnitConfigWhereInput[]
-    pageTitle?: StringFilter<"UnitConfig"> | string
-    pageDescription?: StringFilter<"UnitConfig"> | string
-    iconUrl?: StringNullableFilter<"UnitConfig"> | string | null
-    servicesDescription?: StringFilter<"UnitConfig"> | string
-    bannerUrl?: StringNullableFilter<"UnitConfig"> | string | null
-    footerInfo?: StringNullableFilter<"UnitConfig"> | string | null
-    createdAt?: DateTimeFilter<"UnitConfig"> | Date | string
-    updatedAt?: DateTimeFilter<"UnitConfig"> | Date | string
-    legalSteps?: LegalStepListRelationFilter
-    articles?: ArticleListRelationFilter
-    sections?: SectionListRelationFilter
-    images?: ImageListRelationFilter
-    footerLinks?: FooterLinkListRelationFilter
-    servers?: UnitServerListRelationFilter
-  }, "id" | "name">
-
-  export type UnitConfigOrderByWithAggregationInput = {
-    id?: SortOrder
-    name?: SortOrder
-    pageTitle?: SortOrder
-    pageDescription?: SortOrder
-    iconUrl?: SortOrderInput | SortOrder
-    servicesDescription?: SortOrder
-    bannerUrl?: SortOrderInput | SortOrder
-    footerInfo?: SortOrderInput | SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    _count?: UnitConfigCountOrderByAggregateInput
-    _max?: UnitConfigMaxOrderByAggregateInput
-    _min?: UnitConfigMinOrderByAggregateInput
-  }
-
-  export type UnitConfigScalarWhereWithAggregatesInput = {
-    AND?: UnitConfigScalarWhereWithAggregatesInput | UnitConfigScalarWhereWithAggregatesInput[]
-    OR?: UnitConfigScalarWhereWithAggregatesInput[]
-    NOT?: UnitConfigScalarWhereWithAggregatesInput | UnitConfigScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"UnitConfig"> | string
-    name?: StringWithAggregatesFilter<"UnitConfig"> | string
-    pageTitle?: StringWithAggregatesFilter<"UnitConfig"> | string
-    pageDescription?: StringWithAggregatesFilter<"UnitConfig"> | string
-    iconUrl?: StringNullableWithAggregatesFilter<"UnitConfig"> | string | null
-    servicesDescription?: StringWithAggregatesFilter<"UnitConfig"> | string
-    bannerUrl?: StringNullableWithAggregatesFilter<"UnitConfig"> | string | null
-    footerInfo?: StringNullableWithAggregatesFilter<"UnitConfig"> | string | null
-    createdAt?: DateTimeWithAggregatesFilter<"UnitConfig"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"UnitConfig"> | Date | string
-  }
-
-  export type LegalStepWhereInput = {
-    AND?: LegalStepWhereInput | LegalStepWhereInput[]
-    OR?: LegalStepWhereInput[]
-    NOT?: LegalStepWhereInput | LegalStepWhereInput[]
-    id?: StringFilter<"LegalStep"> | string
-    title?: StringFilter<"LegalStep"> | string
-    description?: StringFilter<"LegalStep"> | string
-    order?: IntFilter<"LegalStep"> | number
-    configId?: StringFilter<"LegalStep"> | string
-    config?: XOR<UnitConfigScalarRelationFilter, UnitConfigWhereInput>
-  }
-
-  export type LegalStepOrderByWithRelationInput = {
-    id?: SortOrder
-    title?: SortOrder
-    description?: SortOrder
-    order?: SortOrder
-    configId?: SortOrder
-    config?: UnitConfigOrderByWithRelationInput
-  }
-
-  export type LegalStepWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    AND?: LegalStepWhereInput | LegalStepWhereInput[]
-    OR?: LegalStepWhereInput[]
-    NOT?: LegalStepWhereInput | LegalStepWhereInput[]
-    title?: StringFilter<"LegalStep"> | string
-    description?: StringFilter<"LegalStep"> | string
-    order?: IntFilter<"LegalStep"> | number
-    configId?: StringFilter<"LegalStep"> | string
-    config?: XOR<UnitConfigScalarRelationFilter, UnitConfigWhereInput>
-  }, "id">
-
-  export type LegalStepOrderByWithAggregationInput = {
-    id?: SortOrder
-    title?: SortOrder
-    description?: SortOrder
-    order?: SortOrder
-    configId?: SortOrder
-    _count?: LegalStepCountOrderByAggregateInput
-    _avg?: LegalStepAvgOrderByAggregateInput
-    _max?: LegalStepMaxOrderByAggregateInput
-    _min?: LegalStepMinOrderByAggregateInput
-    _sum?: LegalStepSumOrderByAggregateInput
-  }
-
-  export type LegalStepScalarWhereWithAggregatesInput = {
-    AND?: LegalStepScalarWhereWithAggregatesInput | LegalStepScalarWhereWithAggregatesInput[]
-    OR?: LegalStepScalarWhereWithAggregatesInput[]
-    NOT?: LegalStepScalarWhereWithAggregatesInput | LegalStepScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"LegalStep"> | string
-    title?: StringWithAggregatesFilter<"LegalStep"> | string
-    description?: StringWithAggregatesFilter<"LegalStep"> | string
-    order?: IntWithAggregatesFilter<"LegalStep"> | number
-    configId?: StringWithAggregatesFilter<"LegalStep"> | string
-  }
-
-  export type FooterLinkWhereInput = {
-    AND?: FooterLinkWhereInput | FooterLinkWhereInput[]
-    OR?: FooterLinkWhereInput[]
-    NOT?: FooterLinkWhereInput | FooterLinkWhereInput[]
-    id?: StringFilter<"FooterLink"> | string
-    label?: StringFilter<"FooterLink"> | string
-    url?: StringFilter<"FooterLink"> | string
-    order?: IntFilter<"FooterLink"> | number
-    configId?: StringFilter<"FooterLink"> | string
-    config?: XOR<UnitConfigScalarRelationFilter, UnitConfigWhereInput>
-  }
-
-  export type FooterLinkOrderByWithRelationInput = {
-    id?: SortOrder
-    label?: SortOrder
-    url?: SortOrder
-    order?: SortOrder
-    configId?: SortOrder
-    config?: UnitConfigOrderByWithRelationInput
-  }
-
-  export type FooterLinkWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    AND?: FooterLinkWhereInput | FooterLinkWhereInput[]
-    OR?: FooterLinkWhereInput[]
-    NOT?: FooterLinkWhereInput | FooterLinkWhereInput[]
-    label?: StringFilter<"FooterLink"> | string
-    url?: StringFilter<"FooterLink"> | string
-    order?: IntFilter<"FooterLink"> | number
-    configId?: StringFilter<"FooterLink"> | string
-    config?: XOR<UnitConfigScalarRelationFilter, UnitConfigWhereInput>
-  }, "id">
-
-  export type FooterLinkOrderByWithAggregationInput = {
-    id?: SortOrder
-    label?: SortOrder
-    url?: SortOrder
-    order?: SortOrder
-    configId?: SortOrder
-    _count?: FooterLinkCountOrderByAggregateInput
-    _avg?: FooterLinkAvgOrderByAggregateInput
-    _max?: FooterLinkMaxOrderByAggregateInput
-    _min?: FooterLinkMinOrderByAggregateInput
-    _sum?: FooterLinkSumOrderByAggregateInput
-  }
-
-  export type FooterLinkScalarWhereWithAggregatesInput = {
-    AND?: FooterLinkScalarWhereWithAggregatesInput | FooterLinkScalarWhereWithAggregatesInput[]
-    OR?: FooterLinkScalarWhereWithAggregatesInput[]
-    NOT?: FooterLinkScalarWhereWithAggregatesInput | FooterLinkScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"FooterLink"> | string
-    label?: StringWithAggregatesFilter<"FooterLink"> | string
-    url?: StringWithAggregatesFilter<"FooterLink"> | string
-    order?: IntWithAggregatesFilter<"FooterLink"> | number
-    configId?: StringWithAggregatesFilter<"FooterLink"> | string
-  }
-
   export type SectionWhereInput = {
     AND?: SectionWhereInput | SectionWhereInput[]
     OR?: SectionWhereInput[]
@@ -23382,99 +23280,118 @@ export namespace Prisma {
     configId?: StringWithAggregatesFilter<"Article"> | string
   }
 
-  export type UnitServerWhereInput = {
-    AND?: UnitServerWhereInput | UnitServerWhereInput[]
-    OR?: UnitServerWhereInput[]
-    NOT?: UnitServerWhereInput | UnitServerWhereInput[]
-    id?: StringFilter<"UnitServer"> | string
-    domain?: StringFilter<"UnitServer"> | string
-    name?: StringFilter<"UnitServer"> | string
-    orchestratorToken?: StringFilter<"UnitServer"> | string
-    unitToken?: StringFilter<"UnitServer"> | string
-    isActive?: BoolFilter<"UnitServer"> | boolean
-    constellationId?: StringFilter<"UnitServer"> | string
-    configId?: StringNullableFilter<"UnitServer"> | string | null
-    createdAt?: DateTimeFilter<"UnitServer"> | Date | string
-    updatedAt?: DateTimeFilter<"UnitServer"> | Date | string
-    constellation?: XOR<ConstellationScalarRelationFilter, ConstellationWhereInput>
-    config?: XOR<UnitConfigNullableScalarRelationFilter, UnitConfigWhereInput> | null
-    clients?: ClientListRelationFilter
-    professionals?: ProfessionalListRelationFilter
-    cases?: CaseListRelationFilter
-    serverLogs?: ServerLogListRelationFilter
+  export type LegalStepWhereInput = {
+    AND?: LegalStepWhereInput | LegalStepWhereInput[]
+    OR?: LegalStepWhereInput[]
+    NOT?: LegalStepWhereInput | LegalStepWhereInput[]
+    id?: StringFilter<"LegalStep"> | string
+    title?: StringFilter<"LegalStep"> | string
+    description?: StringFilter<"LegalStep"> | string
+    order?: IntFilter<"LegalStep"> | number
+    configId?: StringFilter<"LegalStep"> | string
+    config?: XOR<UnitConfigScalarRelationFilter, UnitConfigWhereInput>
   }
 
-  export type UnitServerOrderByWithRelationInput = {
+  export type LegalStepOrderByWithRelationInput = {
     id?: SortOrder
-    domain?: SortOrder
-    name?: SortOrder
-    orchestratorToken?: SortOrder
-    unitToken?: SortOrder
-    isActive?: SortOrder
-    constellationId?: SortOrder
-    configId?: SortOrderInput | SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    constellation?: ConstellationOrderByWithRelationInput
+    title?: SortOrder
+    description?: SortOrder
+    order?: SortOrder
+    configId?: SortOrder
     config?: UnitConfigOrderByWithRelationInput
-    clients?: ClientOrderByRelationAggregateInput
-    professionals?: ProfessionalOrderByRelationAggregateInput
-    cases?: CaseOrderByRelationAggregateInput
-    serverLogs?: ServerLogOrderByRelationAggregateInput
   }
 
-  export type UnitServerWhereUniqueInput = Prisma.AtLeast<{
+  export type LegalStepWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    domain?: string
-    orchestratorToken?: string
-    unitToken?: string
-    AND?: UnitServerWhereInput | UnitServerWhereInput[]
-    OR?: UnitServerWhereInput[]
-    NOT?: UnitServerWhereInput | UnitServerWhereInput[]
-    name?: StringFilter<"UnitServer"> | string
-    isActive?: BoolFilter<"UnitServer"> | boolean
-    constellationId?: StringFilter<"UnitServer"> | string
-    configId?: StringNullableFilter<"UnitServer"> | string | null
-    createdAt?: DateTimeFilter<"UnitServer"> | Date | string
-    updatedAt?: DateTimeFilter<"UnitServer"> | Date | string
-    constellation?: XOR<ConstellationScalarRelationFilter, ConstellationWhereInput>
-    config?: XOR<UnitConfigNullableScalarRelationFilter, UnitConfigWhereInput> | null
-    clients?: ClientListRelationFilter
-    professionals?: ProfessionalListRelationFilter
-    cases?: CaseListRelationFilter
-    serverLogs?: ServerLogListRelationFilter
-  }, "id" | "domain" | "orchestratorToken" | "unitToken">
+    AND?: LegalStepWhereInput | LegalStepWhereInput[]
+    OR?: LegalStepWhereInput[]
+    NOT?: LegalStepWhereInput | LegalStepWhereInput[]
+    title?: StringFilter<"LegalStep"> | string
+    description?: StringFilter<"LegalStep"> | string
+    order?: IntFilter<"LegalStep"> | number
+    configId?: StringFilter<"LegalStep"> | string
+    config?: XOR<UnitConfigScalarRelationFilter, UnitConfigWhereInput>
+  }, "id">
 
-  export type UnitServerOrderByWithAggregationInput = {
+  export type LegalStepOrderByWithAggregationInput = {
     id?: SortOrder
-    domain?: SortOrder
-    name?: SortOrder
-    orchestratorToken?: SortOrder
-    unitToken?: SortOrder
-    isActive?: SortOrder
-    constellationId?: SortOrder
-    configId?: SortOrderInput | SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    _count?: UnitServerCountOrderByAggregateInput
-    _max?: UnitServerMaxOrderByAggregateInput
-    _min?: UnitServerMinOrderByAggregateInput
+    title?: SortOrder
+    description?: SortOrder
+    order?: SortOrder
+    configId?: SortOrder
+    _count?: LegalStepCountOrderByAggregateInput
+    _avg?: LegalStepAvgOrderByAggregateInput
+    _max?: LegalStepMaxOrderByAggregateInput
+    _min?: LegalStepMinOrderByAggregateInput
+    _sum?: LegalStepSumOrderByAggregateInput
   }
 
-  export type UnitServerScalarWhereWithAggregatesInput = {
-    AND?: UnitServerScalarWhereWithAggregatesInput | UnitServerScalarWhereWithAggregatesInput[]
-    OR?: UnitServerScalarWhereWithAggregatesInput[]
-    NOT?: UnitServerScalarWhereWithAggregatesInput | UnitServerScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"UnitServer"> | string
-    domain?: StringWithAggregatesFilter<"UnitServer"> | string
-    name?: StringWithAggregatesFilter<"UnitServer"> | string
-    orchestratorToken?: StringWithAggregatesFilter<"UnitServer"> | string
-    unitToken?: StringWithAggregatesFilter<"UnitServer"> | string
-    isActive?: BoolWithAggregatesFilter<"UnitServer"> | boolean
-    constellationId?: StringWithAggregatesFilter<"UnitServer"> | string
-    configId?: StringNullableWithAggregatesFilter<"UnitServer"> | string | null
-    createdAt?: DateTimeWithAggregatesFilter<"UnitServer"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"UnitServer"> | Date | string
+  export type LegalStepScalarWhereWithAggregatesInput = {
+    AND?: LegalStepScalarWhereWithAggregatesInput | LegalStepScalarWhereWithAggregatesInput[]
+    OR?: LegalStepScalarWhereWithAggregatesInput[]
+    NOT?: LegalStepScalarWhereWithAggregatesInput | LegalStepScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"LegalStep"> | string
+    title?: StringWithAggregatesFilter<"LegalStep"> | string
+    description?: StringWithAggregatesFilter<"LegalStep"> | string
+    order?: IntWithAggregatesFilter<"LegalStep"> | number
+    configId?: StringWithAggregatesFilter<"LegalStep"> | string
+  }
+
+  export type FooterLinkWhereInput = {
+    AND?: FooterLinkWhereInput | FooterLinkWhereInput[]
+    OR?: FooterLinkWhereInput[]
+    NOT?: FooterLinkWhereInput | FooterLinkWhereInput[]
+    id?: StringFilter<"FooterLink"> | string
+    label?: StringFilter<"FooterLink"> | string
+    url?: StringFilter<"FooterLink"> | string
+    order?: IntFilter<"FooterLink"> | number
+    configId?: StringFilter<"FooterLink"> | string
+    config?: XOR<UnitConfigScalarRelationFilter, UnitConfigWhereInput>
+  }
+
+  export type FooterLinkOrderByWithRelationInput = {
+    id?: SortOrder
+    label?: SortOrder
+    url?: SortOrder
+    order?: SortOrder
+    configId?: SortOrder
+    config?: UnitConfigOrderByWithRelationInput
+  }
+
+  export type FooterLinkWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: FooterLinkWhereInput | FooterLinkWhereInput[]
+    OR?: FooterLinkWhereInput[]
+    NOT?: FooterLinkWhereInput | FooterLinkWhereInput[]
+    label?: StringFilter<"FooterLink"> | string
+    url?: StringFilter<"FooterLink"> | string
+    order?: IntFilter<"FooterLink"> | number
+    configId?: StringFilter<"FooterLink"> | string
+    config?: XOR<UnitConfigScalarRelationFilter, UnitConfigWhereInput>
+  }, "id">
+
+  export type FooterLinkOrderByWithAggregationInput = {
+    id?: SortOrder
+    label?: SortOrder
+    url?: SortOrder
+    order?: SortOrder
+    configId?: SortOrder
+    _count?: FooterLinkCountOrderByAggregateInput
+    _avg?: FooterLinkAvgOrderByAggregateInput
+    _max?: FooterLinkMaxOrderByAggregateInput
+    _min?: FooterLinkMinOrderByAggregateInput
+    _sum?: FooterLinkSumOrderByAggregateInput
+  }
+
+  export type FooterLinkScalarWhereWithAggregatesInput = {
+    AND?: FooterLinkScalarWhereWithAggregatesInput | FooterLinkScalarWhereWithAggregatesInput[]
+    OR?: FooterLinkScalarWhereWithAggregatesInput[]
+    NOT?: FooterLinkScalarWhereWithAggregatesInput | FooterLinkScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"FooterLink"> | string
+    label?: StringWithAggregatesFilter<"FooterLink"> | string
+    url?: StringWithAggregatesFilter<"FooterLink"> | string
+    order?: IntWithAggregatesFilter<"FooterLink"> | number
+    configId?: StringWithAggregatesFilter<"FooterLink"> | string
   }
 
   export type ServerLogWhereInput = {
@@ -23719,7 +23636,6 @@ export namespace Prisma {
   export type ProfessionalCreateInput = {
     id?: string
     user: UserCreateNestedOneWithoutProfessionalsInput
-    server: UnitServerCreateNestedOneWithoutProfessionalsInput
     cases?: CaseCreateNestedManyWithoutProfessionalInput
     files?: FileCreateNestedManyWithoutProfessionalInput
   }
@@ -23727,7 +23643,6 @@ export namespace Prisma {
   export type ProfessionalUncheckedCreateInput = {
     id?: string
     userId: string
-    serverId: string
     cases?: CaseUncheckedCreateNestedManyWithoutProfessionalInput
     files?: FileUncheckedCreateNestedManyWithoutProfessionalInput
   }
@@ -23735,7 +23650,6 @@ export namespace Prisma {
   export type ProfessionalUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     user?: UserUpdateOneRequiredWithoutProfessionalsNestedInput
-    server?: UnitServerUpdateOneRequiredWithoutProfessionalsNestedInput
     cases?: CaseUpdateManyWithoutProfessionalNestedInput
     files?: FileUpdateManyWithoutProfessionalNestedInput
   }
@@ -23743,7 +23657,6 @@ export namespace Prisma {
   export type ProfessionalUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    serverId?: StringFieldUpdateOperationsInput | string
     cases?: CaseUncheckedUpdateManyWithoutProfessionalNestedInput
     files?: FileUncheckedUpdateManyWithoutProfessionalNestedInput
   }
@@ -23751,7 +23664,6 @@ export namespace Prisma {
   export type ProfessionalCreateManyInput = {
     id?: string
     userId: string
-    serverId: string
   }
 
   export type ProfessionalUpdateManyMutationInput = {
@@ -23761,7 +23673,268 @@ export namespace Prisma {
   export type ProfessionalUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    serverId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ConstellationCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    servers?: UnitServerCreateNestedManyWithoutConstellationInput
+  }
+
+  export type ConstellationUncheckedCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    servers?: UnitServerUncheckedCreateNestedManyWithoutConstellationInput
+  }
+
+  export type ConstellationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    servers?: UnitServerUpdateManyWithoutConstellationNestedInput
+  }
+
+  export type ConstellationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    servers?: UnitServerUncheckedUpdateManyWithoutConstellationNestedInput
+  }
+
+  export type ConstellationCreateManyInput = {
+    id?: string
+    name: string
+    description?: string | null
+  }
+
+  export type ConstellationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ConstellationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type UnitConfigCreateInput = {
+    id?: string
+    name: string
+    pageTitle: string
+    pageDescription: string
+    iconUrl?: string | null
+    servicesDescription: string
+    bannerUrl?: string | null
+    footerInfo?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    legalSteps?: LegalStepCreateNestedManyWithoutConfigInput
+    articles?: ArticleCreateNestedManyWithoutConfigInput
+    sections?: SectionCreateNestedManyWithoutConfigInput
+    images?: ImageCreateNestedManyWithoutConfigInput
+    footerLinks?: FooterLinkCreateNestedManyWithoutConfigInput
+    servers?: UnitServerCreateNestedManyWithoutConfigInput
+  }
+
+  export type UnitConfigUncheckedCreateInput = {
+    id?: string
+    name: string
+    pageTitle: string
+    pageDescription: string
+    iconUrl?: string | null
+    servicesDescription: string
+    bannerUrl?: string | null
+    footerInfo?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    legalSteps?: LegalStepUncheckedCreateNestedManyWithoutConfigInput
+    articles?: ArticleUncheckedCreateNestedManyWithoutConfigInput
+    sections?: SectionUncheckedCreateNestedManyWithoutConfigInput
+    images?: ImageUncheckedCreateNestedManyWithoutConfigInput
+    footerLinks?: FooterLinkUncheckedCreateNestedManyWithoutConfigInput
+    servers?: UnitServerUncheckedCreateNestedManyWithoutConfigInput
+  }
+
+  export type UnitConfigUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    pageTitle?: StringFieldUpdateOperationsInput | string
+    pageDescription?: StringFieldUpdateOperationsInput | string
+    iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    servicesDescription?: StringFieldUpdateOperationsInput | string
+    bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    legalSteps?: LegalStepUpdateManyWithoutConfigNestedInput
+    articles?: ArticleUpdateManyWithoutConfigNestedInput
+    sections?: SectionUpdateManyWithoutConfigNestedInput
+    images?: ImageUpdateManyWithoutConfigNestedInput
+    footerLinks?: FooterLinkUpdateManyWithoutConfigNestedInput
+    servers?: UnitServerUpdateManyWithoutConfigNestedInput
+  }
+
+  export type UnitConfigUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    pageTitle?: StringFieldUpdateOperationsInput | string
+    pageDescription?: StringFieldUpdateOperationsInput | string
+    iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    servicesDescription?: StringFieldUpdateOperationsInput | string
+    bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    legalSteps?: LegalStepUncheckedUpdateManyWithoutConfigNestedInput
+    articles?: ArticleUncheckedUpdateManyWithoutConfigNestedInput
+    sections?: SectionUncheckedUpdateManyWithoutConfigNestedInput
+    images?: ImageUncheckedUpdateManyWithoutConfigNestedInput
+    footerLinks?: FooterLinkUncheckedUpdateManyWithoutConfigNestedInput
+    servers?: UnitServerUncheckedUpdateManyWithoutConfigNestedInput
+  }
+
+  export type UnitConfigCreateManyInput = {
+    id?: string
+    name: string
+    pageTitle: string
+    pageDescription: string
+    iconUrl?: string | null
+    servicesDescription: string
+    bannerUrl?: string | null
+    footerInfo?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UnitConfigUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    pageTitle?: StringFieldUpdateOperationsInput | string
+    pageDescription?: StringFieldUpdateOperationsInput | string
+    iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    servicesDescription?: StringFieldUpdateOperationsInput | string
+    bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UnitConfigUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    pageTitle?: StringFieldUpdateOperationsInput | string
+    pageDescription?: StringFieldUpdateOperationsInput | string
+    iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    servicesDescription?: StringFieldUpdateOperationsInput | string
+    bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UnitServerCreateInput = {
+    id?: string
+    domain: string
+    name: string
+    orchestratorToken: string
+    unitToken: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    constellation: ConstellationCreateNestedOneWithoutServersInput
+    config?: UnitConfigCreateNestedOneWithoutServersInput
+    clients?: ClientCreateNestedManyWithoutServerInput
+    cases?: CaseCreateNestedManyWithoutServerInput
+    serverLogs?: ServerLogCreateNestedManyWithoutServerInput
+  }
+
+  export type UnitServerUncheckedCreateInput = {
+    id?: string
+    domain: string
+    name: string
+    orchestratorToken: string
+    unitToken: string
+    isActive?: boolean
+    constellationId: string
+    configId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    clients?: ClientUncheckedCreateNestedManyWithoutServerInput
+    cases?: CaseUncheckedCreateNestedManyWithoutServerInput
+    serverLogs?: ServerLogUncheckedCreateNestedManyWithoutServerInput
+  }
+
+  export type UnitServerUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    domain?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    orchestratorToken?: StringFieldUpdateOperationsInput | string
+    unitToken?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    constellation?: ConstellationUpdateOneRequiredWithoutServersNestedInput
+    config?: UnitConfigUpdateOneWithoutServersNestedInput
+    clients?: ClientUpdateManyWithoutServerNestedInput
+    cases?: CaseUpdateManyWithoutServerNestedInput
+    serverLogs?: ServerLogUpdateManyWithoutServerNestedInput
+  }
+
+  export type UnitServerUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    domain?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    orchestratorToken?: StringFieldUpdateOperationsInput | string
+    unitToken?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    constellationId?: StringFieldUpdateOperationsInput | string
+    configId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clients?: ClientUncheckedUpdateManyWithoutServerNestedInput
+    cases?: CaseUncheckedUpdateManyWithoutServerNestedInput
+    serverLogs?: ServerLogUncheckedUpdateManyWithoutServerNestedInput
+  }
+
+  export type UnitServerCreateManyInput = {
+    id?: string
+    domain: string
+    name: string
+    orchestratorToken: string
+    unitToken: string
+    isActive?: boolean
+    constellationId: string
+    configId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UnitServerUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    domain?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    orchestratorToken?: StringFieldUpdateOperationsInput | string
+    unitToken?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UnitServerUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    domain?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    orchestratorToken?: StringFieldUpdateOperationsInput | string
+    unitToken?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    constellationId?: StringFieldUpdateOperationsInput | string
+    configId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CaseCreateInput = {
@@ -24071,277 +24244,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ConstellationCreateInput = {
-    id?: string
-    name: string
-    description?: string | null
-    servers?: UnitServerCreateNestedManyWithoutConstellationInput
-  }
-
-  export type ConstellationUncheckedCreateInput = {
-    id?: string
-    name: string
-    description?: string | null
-    servers?: UnitServerUncheckedCreateNestedManyWithoutConstellationInput
-  }
-
-  export type ConstellationUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    servers?: UnitServerUpdateManyWithoutConstellationNestedInput
-  }
-
-  export type ConstellationUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    servers?: UnitServerUncheckedUpdateManyWithoutConstellationNestedInput
-  }
-
-  export type ConstellationCreateManyInput = {
-    id?: string
-    name: string
-    description?: string | null
-  }
-
-  export type ConstellationUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type ConstellationUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type UnitConfigCreateInput = {
-    id?: string
-    name: string
-    pageTitle: string
-    pageDescription: string
-    iconUrl?: string | null
-    servicesDescription: string
-    bannerUrl?: string | null
-    footerInfo?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    legalSteps?: LegalStepCreateNestedManyWithoutConfigInput
-    articles?: ArticleCreateNestedManyWithoutConfigInput
-    sections?: SectionCreateNestedManyWithoutConfigInput
-    images?: ImageCreateNestedManyWithoutConfigInput
-    footerLinks?: FooterLinkCreateNestedManyWithoutConfigInput
-    servers?: UnitServerCreateNestedManyWithoutConfigInput
-  }
-
-  export type UnitConfigUncheckedCreateInput = {
-    id?: string
-    name: string
-    pageTitle: string
-    pageDescription: string
-    iconUrl?: string | null
-    servicesDescription: string
-    bannerUrl?: string | null
-    footerInfo?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    legalSteps?: LegalStepUncheckedCreateNestedManyWithoutConfigInput
-    articles?: ArticleUncheckedCreateNestedManyWithoutConfigInput
-    sections?: SectionUncheckedCreateNestedManyWithoutConfigInput
-    images?: ImageUncheckedCreateNestedManyWithoutConfigInput
-    footerLinks?: FooterLinkUncheckedCreateNestedManyWithoutConfigInput
-    servers?: UnitServerUncheckedCreateNestedManyWithoutConfigInput
-  }
-
-  export type UnitConfigUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    pageTitle?: StringFieldUpdateOperationsInput | string
-    pageDescription?: StringFieldUpdateOperationsInput | string
-    iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    servicesDescription?: StringFieldUpdateOperationsInput | string
-    bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    legalSteps?: LegalStepUpdateManyWithoutConfigNestedInput
-    articles?: ArticleUpdateManyWithoutConfigNestedInput
-    sections?: SectionUpdateManyWithoutConfigNestedInput
-    images?: ImageUpdateManyWithoutConfigNestedInput
-    footerLinks?: FooterLinkUpdateManyWithoutConfigNestedInput
-    servers?: UnitServerUpdateManyWithoutConfigNestedInput
-  }
-
-  export type UnitConfigUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    pageTitle?: StringFieldUpdateOperationsInput | string
-    pageDescription?: StringFieldUpdateOperationsInput | string
-    iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    servicesDescription?: StringFieldUpdateOperationsInput | string
-    bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    legalSteps?: LegalStepUncheckedUpdateManyWithoutConfigNestedInput
-    articles?: ArticleUncheckedUpdateManyWithoutConfigNestedInput
-    sections?: SectionUncheckedUpdateManyWithoutConfigNestedInput
-    images?: ImageUncheckedUpdateManyWithoutConfigNestedInput
-    footerLinks?: FooterLinkUncheckedUpdateManyWithoutConfigNestedInput
-    servers?: UnitServerUncheckedUpdateManyWithoutConfigNestedInput
-  }
-
-  export type UnitConfigCreateManyInput = {
-    id?: string
-    name: string
-    pageTitle: string
-    pageDescription: string
-    iconUrl?: string | null
-    servicesDescription: string
-    bannerUrl?: string | null
-    footerInfo?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type UnitConfigUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    pageTitle?: StringFieldUpdateOperationsInput | string
-    pageDescription?: StringFieldUpdateOperationsInput | string
-    iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    servicesDescription?: StringFieldUpdateOperationsInput | string
-    bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type UnitConfigUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    pageTitle?: StringFieldUpdateOperationsInput | string
-    pageDescription?: StringFieldUpdateOperationsInput | string
-    iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    servicesDescription?: StringFieldUpdateOperationsInput | string
-    bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type LegalStepCreateInput = {
-    id?: string
-    title: string
-    description: string
-    order: number
-    config: UnitConfigCreateNestedOneWithoutLegalStepsInput
-  }
-
-  export type LegalStepUncheckedCreateInput = {
-    id?: string
-    title: string
-    description: string
-    order: number
-    configId: string
-  }
-
-  export type LegalStepUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    order?: IntFieldUpdateOperationsInput | number
-    config?: UnitConfigUpdateOneRequiredWithoutLegalStepsNestedInput
-  }
-
-  export type LegalStepUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    order?: IntFieldUpdateOperationsInput | number
-    configId?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type LegalStepCreateManyInput = {
-    id?: string
-    title: string
-    description: string
-    order: number
-    configId: string
-  }
-
-  export type LegalStepUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    order?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type LegalStepUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    order?: IntFieldUpdateOperationsInput | number
-    configId?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type FooterLinkCreateInput = {
-    id?: string
-    label: string
-    url: string
-    order: number
-    config: UnitConfigCreateNestedOneWithoutFooterLinksInput
-  }
-
-  export type FooterLinkUncheckedCreateInput = {
-    id?: string
-    label: string
-    url: string
-    order: number
-    configId: string
-  }
-
-  export type FooterLinkUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    label?: StringFieldUpdateOperationsInput | string
-    url?: StringFieldUpdateOperationsInput | string
-    order?: IntFieldUpdateOperationsInput | number
-    config?: UnitConfigUpdateOneRequiredWithoutFooterLinksNestedInput
-  }
-
-  export type FooterLinkUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    label?: StringFieldUpdateOperationsInput | string
-    url?: StringFieldUpdateOperationsInput | string
-    order?: IntFieldUpdateOperationsInput | number
-    configId?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type FooterLinkCreateManyInput = {
-    id?: string
-    label: string
-    url: string
-    order: number
-    configId: string
-  }
-
-  export type FooterLinkUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    label?: StringFieldUpdateOperationsInput | string
-    url?: StringFieldUpdateOperationsInput | string
-    order?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type FooterLinkUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    label?: StringFieldUpdateOperationsInput | string
-    url?: StringFieldUpdateOperationsInput | string
-    order?: IntFieldUpdateOperationsInput | number
-    configId?: StringFieldUpdateOperationsInput | string
-  }
-
   export type SectionCreateInput = {
     id?: string
     title: string
@@ -24545,109 +24447,114 @@ export namespace Prisma {
     configId?: StringFieldUpdateOperationsInput | string
   }
 
-  export type UnitServerCreateInput = {
+  export type LegalStepCreateInput = {
     id?: string
-    domain: string
-    name: string
-    orchestratorToken: string
-    unitToken: string
-    isActive?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    constellation: ConstellationCreateNestedOneWithoutServersInput
-    config?: UnitConfigCreateNestedOneWithoutServersInput
-    clients?: ClientCreateNestedManyWithoutServerInput
-    professionals?: ProfessionalCreateNestedManyWithoutServerInput
-    cases?: CaseCreateNestedManyWithoutServerInput
-    serverLogs?: ServerLogCreateNestedManyWithoutServerInput
+    title: string
+    description: string
+    order: number
+    config: UnitConfigCreateNestedOneWithoutLegalStepsInput
   }
 
-  export type UnitServerUncheckedCreateInput = {
+  export type LegalStepUncheckedCreateInput = {
     id?: string
-    domain: string
-    name: string
-    orchestratorToken: string
-    unitToken: string
-    isActive?: boolean
-    constellationId: string
-    configId?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    clients?: ClientUncheckedCreateNestedManyWithoutServerInput
-    professionals?: ProfessionalUncheckedCreateNestedManyWithoutServerInput
-    cases?: CaseUncheckedCreateNestedManyWithoutServerInput
-    serverLogs?: ServerLogUncheckedCreateNestedManyWithoutServerInput
+    title: string
+    description: string
+    order: number
+    configId: string
   }
 
-  export type UnitServerUpdateInput = {
+  export type LegalStepUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    domain?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    orchestratorToken?: StringFieldUpdateOperationsInput | string
-    unitToken?: StringFieldUpdateOperationsInput | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    constellation?: ConstellationUpdateOneRequiredWithoutServersNestedInput
-    config?: UnitConfigUpdateOneWithoutServersNestedInput
-    clients?: ClientUpdateManyWithoutServerNestedInput
-    professionals?: ProfessionalUpdateManyWithoutServerNestedInput
-    cases?: CaseUpdateManyWithoutServerNestedInput
-    serverLogs?: ServerLogUpdateManyWithoutServerNestedInput
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    config?: UnitConfigUpdateOneRequiredWithoutLegalStepsNestedInput
   }
 
-  export type UnitServerUncheckedUpdateInput = {
+  export type LegalStepUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    domain?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    orchestratorToken?: StringFieldUpdateOperationsInput | string
-    unitToken?: StringFieldUpdateOperationsInput | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    constellationId?: StringFieldUpdateOperationsInput | string
-    configId?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    clients?: ClientUncheckedUpdateManyWithoutServerNestedInput
-    professionals?: ProfessionalUncheckedUpdateManyWithoutServerNestedInput
-    cases?: CaseUncheckedUpdateManyWithoutServerNestedInput
-    serverLogs?: ServerLogUncheckedUpdateManyWithoutServerNestedInput
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    configId?: StringFieldUpdateOperationsInput | string
   }
 
-  export type UnitServerCreateManyInput = {
+  export type LegalStepCreateManyInput = {
     id?: string
-    domain: string
-    name: string
-    orchestratorToken: string
-    unitToken: string
-    isActive?: boolean
-    constellationId: string
-    configId?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    title: string
+    description: string
+    order: number
+    configId: string
   }
 
-  export type UnitServerUpdateManyMutationInput = {
+  export type LegalStepUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    domain?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    orchestratorToken?: StringFieldUpdateOperationsInput | string
-    unitToken?: StringFieldUpdateOperationsInput | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
   }
 
-  export type UnitServerUncheckedUpdateManyInput = {
+  export type LegalStepUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    domain?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    orchestratorToken?: StringFieldUpdateOperationsInput | string
-    unitToken?: StringFieldUpdateOperationsInput | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    constellationId?: StringFieldUpdateOperationsInput | string
-    configId?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    configId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type FooterLinkCreateInput = {
+    id?: string
+    label: string
+    url: string
+    order: number
+    config: UnitConfigCreateNestedOneWithoutFooterLinksInput
+  }
+
+  export type FooterLinkUncheckedCreateInput = {
+    id?: string
+    label: string
+    url: string
+    order: number
+    configId: string
+  }
+
+  export type FooterLinkUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    config?: UnitConfigUpdateOneRequiredWithoutFooterLinksNestedInput
+  }
+
+  export type FooterLinkUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    configId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type FooterLinkCreateManyInput = {
+    id?: string
+    label: string
+    url: string
+    order: number
+    configId: string
+  }
+
+  export type FooterLinkUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type FooterLinkUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    configId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ServerLogCreateInput = {
@@ -25012,19 +24919,192 @@ export namespace Prisma {
   export type ProfessionalCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    serverId?: SortOrder
   }
 
   export type ProfessionalMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    serverId?: SortOrder
   }
 
   export type ProfessionalMinOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    serverId?: SortOrder
+  }
+
+  export type UnitServerListRelationFilter = {
+    every?: UnitServerWhereInput
+    some?: UnitServerWhereInput
+    none?: UnitServerWhereInput
+  }
+
+  export type UnitServerOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ConstellationCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+  }
+
+  export type ConstellationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+  }
+
+  export type ConstellationMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+  }
+
+  export type LegalStepListRelationFilter = {
+    every?: LegalStepWhereInput
+    some?: LegalStepWhereInput
+    none?: LegalStepWhereInput
+  }
+
+  export type ArticleListRelationFilter = {
+    every?: ArticleWhereInput
+    some?: ArticleWhereInput
+    none?: ArticleWhereInput
+  }
+
+  export type SectionListRelationFilter = {
+    every?: SectionWhereInput
+    some?: SectionWhereInput
+    none?: SectionWhereInput
+  }
+
+  export type ImageListRelationFilter = {
+    every?: ImageWhereInput
+    some?: ImageWhereInput
+    none?: ImageWhereInput
+  }
+
+  export type FooterLinkListRelationFilter = {
+    every?: FooterLinkWhereInput
+    some?: FooterLinkWhereInput
+    none?: FooterLinkWhereInput
+  }
+
+  export type LegalStepOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ArticleOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SectionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ImageOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type FooterLinkOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UnitConfigCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    pageTitle?: SortOrder
+    pageDescription?: SortOrder
+    iconUrl?: SortOrder
+    servicesDescription?: SortOrder
+    bannerUrl?: SortOrder
+    footerInfo?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UnitConfigMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    pageTitle?: SortOrder
+    pageDescription?: SortOrder
+    iconUrl?: SortOrder
+    servicesDescription?: SortOrder
+    bannerUrl?: SortOrder
+    footerInfo?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UnitConfigMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    pageTitle?: SortOrder
+    pageDescription?: SortOrder
+    iconUrl?: SortOrder
+    servicesDescription?: SortOrder
+    bannerUrl?: SortOrder
+    footerInfo?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ConstellationScalarRelationFilter = {
+    is?: ConstellationWhereInput
+    isNot?: ConstellationWhereInput
+  }
+
+  export type UnitConfigNullableScalarRelationFilter = {
+    is?: UnitConfigWhereInput | null
+    isNot?: UnitConfigWhereInput | null
+  }
+
+  export type ServerLogListRelationFilter = {
+    every?: ServerLogWhereInput
+    some?: ServerLogWhereInput
+    none?: ServerLogWhereInput
+  }
+
+  export type ServerLogOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UnitServerCountOrderByAggregateInput = {
+    id?: SortOrder
+    domain?: SortOrder
+    name?: SortOrder
+    orchestratorToken?: SortOrder
+    unitToken?: SortOrder
+    isActive?: SortOrder
+    constellationId?: SortOrder
+    configId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UnitServerMaxOrderByAggregateInput = {
+    id?: SortOrder
+    domain?: SortOrder
+    name?: SortOrder
+    orchestratorToken?: SortOrder
+    unitToken?: SortOrder
+    isActive?: SortOrder
+    constellationId?: SortOrder
+    configId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UnitServerMinOrderByAggregateInput = {
+    id?: SortOrder
+    domain?: SortOrder
+    name?: SortOrder
+    orchestratorToken?: SortOrder
+    unitToken?: SortOrder
+    isActive?: SortOrder
+    constellationId?: SortOrder
+    configId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type EnumCaseStatusFilter<$PrismaModel = never> = {
@@ -25241,123 +25321,6 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
-  export type UnitServerListRelationFilter = {
-    every?: UnitServerWhereInput
-    some?: UnitServerWhereInput
-    none?: UnitServerWhereInput
-  }
-
-  export type UnitServerOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type ConstellationCountOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-  }
-
-  export type ConstellationMaxOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-  }
-
-  export type ConstellationMinOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-  }
-
-  export type LegalStepListRelationFilter = {
-    every?: LegalStepWhereInput
-    some?: LegalStepWhereInput
-    none?: LegalStepWhereInput
-  }
-
-  export type ArticleListRelationFilter = {
-    every?: ArticleWhereInput
-    some?: ArticleWhereInput
-    none?: ArticleWhereInput
-  }
-
-  export type SectionListRelationFilter = {
-    every?: SectionWhereInput
-    some?: SectionWhereInput
-    none?: SectionWhereInput
-  }
-
-  export type ImageListRelationFilter = {
-    every?: ImageWhereInput
-    some?: ImageWhereInput
-    none?: ImageWhereInput
-  }
-
-  export type FooterLinkListRelationFilter = {
-    every?: FooterLinkWhereInput
-    some?: FooterLinkWhereInput
-    none?: FooterLinkWhereInput
-  }
-
-  export type LegalStepOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type ArticleOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type SectionOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type ImageOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type FooterLinkOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type UnitConfigCountOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    pageTitle?: SortOrder
-    pageDescription?: SortOrder
-    iconUrl?: SortOrder
-    servicesDescription?: SortOrder
-    bannerUrl?: SortOrder
-    footerInfo?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type UnitConfigMaxOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    pageTitle?: SortOrder
-    pageDescription?: SortOrder
-    iconUrl?: SortOrder
-    servicesDescription?: SortOrder
-    bannerUrl?: SortOrder
-    footerInfo?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type UnitConfigMinOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    pageTitle?: SortOrder
-    pageDescription?: SortOrder
-    iconUrl?: SortOrder
-    servicesDescription?: SortOrder
-    bannerUrl?: SortOrder
-    footerInfo?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -25372,86 +25335,6 @@ export namespace Prisma {
   export type UnitConfigScalarRelationFilter = {
     is?: UnitConfigWhereInput
     isNot?: UnitConfigWhereInput
-  }
-
-  export type LegalStepCountOrderByAggregateInput = {
-    id?: SortOrder
-    title?: SortOrder
-    description?: SortOrder
-    order?: SortOrder
-    configId?: SortOrder
-  }
-
-  export type LegalStepAvgOrderByAggregateInput = {
-    order?: SortOrder
-  }
-
-  export type LegalStepMaxOrderByAggregateInput = {
-    id?: SortOrder
-    title?: SortOrder
-    description?: SortOrder
-    order?: SortOrder
-    configId?: SortOrder
-  }
-
-  export type LegalStepMinOrderByAggregateInput = {
-    id?: SortOrder
-    title?: SortOrder
-    description?: SortOrder
-    order?: SortOrder
-    configId?: SortOrder
-  }
-
-  export type LegalStepSumOrderByAggregateInput = {
-    order?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type FooterLinkCountOrderByAggregateInput = {
-    id?: SortOrder
-    label?: SortOrder
-    url?: SortOrder
-    order?: SortOrder
-    configId?: SortOrder
-  }
-
-  export type FooterLinkAvgOrderByAggregateInput = {
-    order?: SortOrder
-  }
-
-  export type FooterLinkMaxOrderByAggregateInput = {
-    id?: SortOrder
-    label?: SortOrder
-    url?: SortOrder
-    order?: SortOrder
-    configId?: SortOrder
-  }
-
-  export type FooterLinkMinOrderByAggregateInput = {
-    id?: SortOrder
-    label?: SortOrder
-    url?: SortOrder
-    order?: SortOrder
-    configId?: SortOrder
-  }
-
-  export type FooterLinkSumOrderByAggregateInput = {
-    order?: SortOrder
   }
 
   export type SectionCountOrderByAggregateInput = {
@@ -25487,6 +25370,22 @@ export namespace Prisma {
 
   export type SectionSumOrderByAggregateInput = {
     order?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type IntNullableFilter<$PrismaModel = never> = {
@@ -25597,63 +25496,68 @@ export namespace Prisma {
     order?: SortOrder
   }
 
-  export type ConstellationScalarRelationFilter = {
-    is?: ConstellationWhereInput
-    isNot?: ConstellationWhereInput
-  }
-
-  export type UnitConfigNullableScalarRelationFilter = {
-    is?: UnitConfigWhereInput | null
-    isNot?: UnitConfigWhereInput | null
-  }
-
-  export type ServerLogListRelationFilter = {
-    every?: ServerLogWhereInput
-    some?: ServerLogWhereInput
-    none?: ServerLogWhereInput
-  }
-
-  export type ServerLogOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type UnitServerCountOrderByAggregateInput = {
+  export type LegalStepCountOrderByAggregateInput = {
     id?: SortOrder
-    domain?: SortOrder
-    name?: SortOrder
-    orchestratorToken?: SortOrder
-    unitToken?: SortOrder
-    isActive?: SortOrder
-    constellationId?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    order?: SortOrder
     configId?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
   }
 
-  export type UnitServerMaxOrderByAggregateInput = {
-    id?: SortOrder
-    domain?: SortOrder
-    name?: SortOrder
-    orchestratorToken?: SortOrder
-    unitToken?: SortOrder
-    isActive?: SortOrder
-    constellationId?: SortOrder
-    configId?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
+  export type LegalStepAvgOrderByAggregateInput = {
+    order?: SortOrder
   }
 
-  export type UnitServerMinOrderByAggregateInput = {
+  export type LegalStepMaxOrderByAggregateInput = {
     id?: SortOrder
-    domain?: SortOrder
-    name?: SortOrder
-    orchestratorToken?: SortOrder
-    unitToken?: SortOrder
-    isActive?: SortOrder
-    constellationId?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    order?: SortOrder
     configId?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
+  }
+
+  export type LegalStepMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    order?: SortOrder
+    configId?: SortOrder
+  }
+
+  export type LegalStepSumOrderByAggregateInput = {
+    order?: SortOrder
+  }
+
+  export type FooterLinkCountOrderByAggregateInput = {
+    id?: SortOrder
+    label?: SortOrder
+    url?: SortOrder
+    order?: SortOrder
+    configId?: SortOrder
+  }
+
+  export type FooterLinkAvgOrderByAggregateInput = {
+    order?: SortOrder
+  }
+
+  export type FooterLinkMaxOrderByAggregateInput = {
+    id?: SortOrder
+    label?: SortOrder
+    url?: SortOrder
+    order?: SortOrder
+    configId?: SortOrder
+  }
+
+  export type FooterLinkMinOrderByAggregateInput = {
+    id?: SortOrder
+    label?: SortOrder
+    url?: SortOrder
+    order?: SortOrder
+    configId?: SortOrder
+  }
+
+  export type FooterLinkSumOrderByAggregateInput = {
+    order?: SortOrder
   }
   export type JsonNullableFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -26002,12 +25906,6 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type UnitServerCreateNestedOneWithoutProfessionalsInput = {
-    create?: XOR<UnitServerCreateWithoutProfessionalsInput, UnitServerUncheckedCreateWithoutProfessionalsInput>
-    connectOrCreate?: UnitServerCreateOrConnectWithoutProfessionalsInput
-    connect?: UnitServerWhereUniqueInput
-  }
-
   export type CaseCreateNestedManyWithoutProfessionalInput = {
     create?: XOR<CaseCreateWithoutProfessionalInput, CaseUncheckedCreateWithoutProfessionalInput> | CaseCreateWithoutProfessionalInput[] | CaseUncheckedCreateWithoutProfessionalInput[]
     connectOrCreate?: CaseCreateOrConnectWithoutProfessionalInput | CaseCreateOrConnectWithoutProfessionalInput[]
@@ -26042,14 +25940,6 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutProfessionalsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutProfessionalsInput, UserUpdateWithoutProfessionalsInput>, UserUncheckedUpdateWithoutProfessionalsInput>
-  }
-
-  export type UnitServerUpdateOneRequiredWithoutProfessionalsNestedInput = {
-    create?: XOR<UnitServerCreateWithoutProfessionalsInput, UnitServerUncheckedCreateWithoutProfessionalsInput>
-    connectOrCreate?: UnitServerCreateOrConnectWithoutProfessionalsInput
-    upsert?: UnitServerUpsertWithoutProfessionalsInput
-    connect?: UnitServerWhereUniqueInput
-    update?: XOR<XOR<UnitServerUpdateToOneWithWhereWithoutProfessionalsInput, UnitServerUpdateWithoutProfessionalsInput>, UnitServerUncheckedUpdateWithoutProfessionalsInput>
   }
 
   export type CaseUpdateManyWithoutProfessionalNestedInput = {
@@ -26106,6 +25996,456 @@ export namespace Prisma {
     update?: FileUpdateWithWhereUniqueWithoutProfessionalInput | FileUpdateWithWhereUniqueWithoutProfessionalInput[]
     updateMany?: FileUpdateManyWithWhereWithoutProfessionalInput | FileUpdateManyWithWhereWithoutProfessionalInput[]
     deleteMany?: FileScalarWhereInput | FileScalarWhereInput[]
+  }
+
+  export type UnitServerCreateNestedManyWithoutConstellationInput = {
+    create?: XOR<UnitServerCreateWithoutConstellationInput, UnitServerUncheckedCreateWithoutConstellationInput> | UnitServerCreateWithoutConstellationInput[] | UnitServerUncheckedCreateWithoutConstellationInput[]
+    connectOrCreate?: UnitServerCreateOrConnectWithoutConstellationInput | UnitServerCreateOrConnectWithoutConstellationInput[]
+    createMany?: UnitServerCreateManyConstellationInputEnvelope
+    connect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
+  }
+
+  export type UnitServerUncheckedCreateNestedManyWithoutConstellationInput = {
+    create?: XOR<UnitServerCreateWithoutConstellationInput, UnitServerUncheckedCreateWithoutConstellationInput> | UnitServerCreateWithoutConstellationInput[] | UnitServerUncheckedCreateWithoutConstellationInput[]
+    connectOrCreate?: UnitServerCreateOrConnectWithoutConstellationInput | UnitServerCreateOrConnectWithoutConstellationInput[]
+    createMany?: UnitServerCreateManyConstellationInputEnvelope
+    connect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
+  }
+
+  export type UnitServerUpdateManyWithoutConstellationNestedInput = {
+    create?: XOR<UnitServerCreateWithoutConstellationInput, UnitServerUncheckedCreateWithoutConstellationInput> | UnitServerCreateWithoutConstellationInput[] | UnitServerUncheckedCreateWithoutConstellationInput[]
+    connectOrCreate?: UnitServerCreateOrConnectWithoutConstellationInput | UnitServerCreateOrConnectWithoutConstellationInput[]
+    upsert?: UnitServerUpsertWithWhereUniqueWithoutConstellationInput | UnitServerUpsertWithWhereUniqueWithoutConstellationInput[]
+    createMany?: UnitServerCreateManyConstellationInputEnvelope
+    set?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
+    disconnect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
+    delete?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
+    connect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
+    update?: UnitServerUpdateWithWhereUniqueWithoutConstellationInput | UnitServerUpdateWithWhereUniqueWithoutConstellationInput[]
+    updateMany?: UnitServerUpdateManyWithWhereWithoutConstellationInput | UnitServerUpdateManyWithWhereWithoutConstellationInput[]
+    deleteMany?: UnitServerScalarWhereInput | UnitServerScalarWhereInput[]
+  }
+
+  export type UnitServerUncheckedUpdateManyWithoutConstellationNestedInput = {
+    create?: XOR<UnitServerCreateWithoutConstellationInput, UnitServerUncheckedCreateWithoutConstellationInput> | UnitServerCreateWithoutConstellationInput[] | UnitServerUncheckedCreateWithoutConstellationInput[]
+    connectOrCreate?: UnitServerCreateOrConnectWithoutConstellationInput | UnitServerCreateOrConnectWithoutConstellationInput[]
+    upsert?: UnitServerUpsertWithWhereUniqueWithoutConstellationInput | UnitServerUpsertWithWhereUniqueWithoutConstellationInput[]
+    createMany?: UnitServerCreateManyConstellationInputEnvelope
+    set?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
+    disconnect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
+    delete?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
+    connect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
+    update?: UnitServerUpdateWithWhereUniqueWithoutConstellationInput | UnitServerUpdateWithWhereUniqueWithoutConstellationInput[]
+    updateMany?: UnitServerUpdateManyWithWhereWithoutConstellationInput | UnitServerUpdateManyWithWhereWithoutConstellationInput[]
+    deleteMany?: UnitServerScalarWhereInput | UnitServerScalarWhereInput[]
+  }
+
+  export type LegalStepCreateNestedManyWithoutConfigInput = {
+    create?: XOR<LegalStepCreateWithoutConfigInput, LegalStepUncheckedCreateWithoutConfigInput> | LegalStepCreateWithoutConfigInput[] | LegalStepUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: LegalStepCreateOrConnectWithoutConfigInput | LegalStepCreateOrConnectWithoutConfigInput[]
+    createMany?: LegalStepCreateManyConfigInputEnvelope
+    connect?: LegalStepWhereUniqueInput | LegalStepWhereUniqueInput[]
+  }
+
+  export type ArticleCreateNestedManyWithoutConfigInput = {
+    create?: XOR<ArticleCreateWithoutConfigInput, ArticleUncheckedCreateWithoutConfigInput> | ArticleCreateWithoutConfigInput[] | ArticleUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: ArticleCreateOrConnectWithoutConfigInput | ArticleCreateOrConnectWithoutConfigInput[]
+    createMany?: ArticleCreateManyConfigInputEnvelope
+    connect?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
+  }
+
+  export type SectionCreateNestedManyWithoutConfigInput = {
+    create?: XOR<SectionCreateWithoutConfigInput, SectionUncheckedCreateWithoutConfigInput> | SectionCreateWithoutConfigInput[] | SectionUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: SectionCreateOrConnectWithoutConfigInput | SectionCreateOrConnectWithoutConfigInput[]
+    createMany?: SectionCreateManyConfigInputEnvelope
+    connect?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
+  }
+
+  export type ImageCreateNestedManyWithoutConfigInput = {
+    create?: XOR<ImageCreateWithoutConfigInput, ImageUncheckedCreateWithoutConfigInput> | ImageCreateWithoutConfigInput[] | ImageUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: ImageCreateOrConnectWithoutConfigInput | ImageCreateOrConnectWithoutConfigInput[]
+    createMany?: ImageCreateManyConfigInputEnvelope
+    connect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+  }
+
+  export type FooterLinkCreateNestedManyWithoutConfigInput = {
+    create?: XOR<FooterLinkCreateWithoutConfigInput, FooterLinkUncheckedCreateWithoutConfigInput> | FooterLinkCreateWithoutConfigInput[] | FooterLinkUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: FooterLinkCreateOrConnectWithoutConfigInput | FooterLinkCreateOrConnectWithoutConfigInput[]
+    createMany?: FooterLinkCreateManyConfigInputEnvelope
+    connect?: FooterLinkWhereUniqueInput | FooterLinkWhereUniqueInput[]
+  }
+
+  export type UnitServerCreateNestedManyWithoutConfigInput = {
+    create?: XOR<UnitServerCreateWithoutConfigInput, UnitServerUncheckedCreateWithoutConfigInput> | UnitServerCreateWithoutConfigInput[] | UnitServerUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: UnitServerCreateOrConnectWithoutConfigInput | UnitServerCreateOrConnectWithoutConfigInput[]
+    createMany?: UnitServerCreateManyConfigInputEnvelope
+    connect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
+  }
+
+  export type LegalStepUncheckedCreateNestedManyWithoutConfigInput = {
+    create?: XOR<LegalStepCreateWithoutConfigInput, LegalStepUncheckedCreateWithoutConfigInput> | LegalStepCreateWithoutConfigInput[] | LegalStepUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: LegalStepCreateOrConnectWithoutConfigInput | LegalStepCreateOrConnectWithoutConfigInput[]
+    createMany?: LegalStepCreateManyConfigInputEnvelope
+    connect?: LegalStepWhereUniqueInput | LegalStepWhereUniqueInput[]
+  }
+
+  export type ArticleUncheckedCreateNestedManyWithoutConfigInput = {
+    create?: XOR<ArticleCreateWithoutConfigInput, ArticleUncheckedCreateWithoutConfigInput> | ArticleCreateWithoutConfigInput[] | ArticleUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: ArticleCreateOrConnectWithoutConfigInput | ArticleCreateOrConnectWithoutConfigInput[]
+    createMany?: ArticleCreateManyConfigInputEnvelope
+    connect?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
+  }
+
+  export type SectionUncheckedCreateNestedManyWithoutConfigInput = {
+    create?: XOR<SectionCreateWithoutConfigInput, SectionUncheckedCreateWithoutConfigInput> | SectionCreateWithoutConfigInput[] | SectionUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: SectionCreateOrConnectWithoutConfigInput | SectionCreateOrConnectWithoutConfigInput[]
+    createMany?: SectionCreateManyConfigInputEnvelope
+    connect?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
+  }
+
+  export type ImageUncheckedCreateNestedManyWithoutConfigInput = {
+    create?: XOR<ImageCreateWithoutConfigInput, ImageUncheckedCreateWithoutConfigInput> | ImageCreateWithoutConfigInput[] | ImageUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: ImageCreateOrConnectWithoutConfigInput | ImageCreateOrConnectWithoutConfigInput[]
+    createMany?: ImageCreateManyConfigInputEnvelope
+    connect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+  }
+
+  export type FooterLinkUncheckedCreateNestedManyWithoutConfigInput = {
+    create?: XOR<FooterLinkCreateWithoutConfigInput, FooterLinkUncheckedCreateWithoutConfigInput> | FooterLinkCreateWithoutConfigInput[] | FooterLinkUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: FooterLinkCreateOrConnectWithoutConfigInput | FooterLinkCreateOrConnectWithoutConfigInput[]
+    createMany?: FooterLinkCreateManyConfigInputEnvelope
+    connect?: FooterLinkWhereUniqueInput | FooterLinkWhereUniqueInput[]
+  }
+
+  export type UnitServerUncheckedCreateNestedManyWithoutConfigInput = {
+    create?: XOR<UnitServerCreateWithoutConfigInput, UnitServerUncheckedCreateWithoutConfigInput> | UnitServerCreateWithoutConfigInput[] | UnitServerUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: UnitServerCreateOrConnectWithoutConfigInput | UnitServerCreateOrConnectWithoutConfigInput[]
+    createMany?: UnitServerCreateManyConfigInputEnvelope
+    connect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
+  }
+
+  export type LegalStepUpdateManyWithoutConfigNestedInput = {
+    create?: XOR<LegalStepCreateWithoutConfigInput, LegalStepUncheckedCreateWithoutConfigInput> | LegalStepCreateWithoutConfigInput[] | LegalStepUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: LegalStepCreateOrConnectWithoutConfigInput | LegalStepCreateOrConnectWithoutConfigInput[]
+    upsert?: LegalStepUpsertWithWhereUniqueWithoutConfigInput | LegalStepUpsertWithWhereUniqueWithoutConfigInput[]
+    createMany?: LegalStepCreateManyConfigInputEnvelope
+    set?: LegalStepWhereUniqueInput | LegalStepWhereUniqueInput[]
+    disconnect?: LegalStepWhereUniqueInput | LegalStepWhereUniqueInput[]
+    delete?: LegalStepWhereUniqueInput | LegalStepWhereUniqueInput[]
+    connect?: LegalStepWhereUniqueInput | LegalStepWhereUniqueInput[]
+    update?: LegalStepUpdateWithWhereUniqueWithoutConfigInput | LegalStepUpdateWithWhereUniqueWithoutConfigInput[]
+    updateMany?: LegalStepUpdateManyWithWhereWithoutConfigInput | LegalStepUpdateManyWithWhereWithoutConfigInput[]
+    deleteMany?: LegalStepScalarWhereInput | LegalStepScalarWhereInput[]
+  }
+
+  export type ArticleUpdateManyWithoutConfigNestedInput = {
+    create?: XOR<ArticleCreateWithoutConfigInput, ArticleUncheckedCreateWithoutConfigInput> | ArticleCreateWithoutConfigInput[] | ArticleUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: ArticleCreateOrConnectWithoutConfigInput | ArticleCreateOrConnectWithoutConfigInput[]
+    upsert?: ArticleUpsertWithWhereUniqueWithoutConfigInput | ArticleUpsertWithWhereUniqueWithoutConfigInput[]
+    createMany?: ArticleCreateManyConfigInputEnvelope
+    set?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
+    disconnect?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
+    delete?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
+    connect?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
+    update?: ArticleUpdateWithWhereUniqueWithoutConfigInput | ArticleUpdateWithWhereUniqueWithoutConfigInput[]
+    updateMany?: ArticleUpdateManyWithWhereWithoutConfigInput | ArticleUpdateManyWithWhereWithoutConfigInput[]
+    deleteMany?: ArticleScalarWhereInput | ArticleScalarWhereInput[]
+  }
+
+  export type SectionUpdateManyWithoutConfigNestedInput = {
+    create?: XOR<SectionCreateWithoutConfigInput, SectionUncheckedCreateWithoutConfigInput> | SectionCreateWithoutConfigInput[] | SectionUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: SectionCreateOrConnectWithoutConfigInput | SectionCreateOrConnectWithoutConfigInput[]
+    upsert?: SectionUpsertWithWhereUniqueWithoutConfigInput | SectionUpsertWithWhereUniqueWithoutConfigInput[]
+    createMany?: SectionCreateManyConfigInputEnvelope
+    set?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
+    disconnect?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
+    delete?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
+    connect?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
+    update?: SectionUpdateWithWhereUniqueWithoutConfigInput | SectionUpdateWithWhereUniqueWithoutConfigInput[]
+    updateMany?: SectionUpdateManyWithWhereWithoutConfigInput | SectionUpdateManyWithWhereWithoutConfigInput[]
+    deleteMany?: SectionScalarWhereInput | SectionScalarWhereInput[]
+  }
+
+  export type ImageUpdateManyWithoutConfigNestedInput = {
+    create?: XOR<ImageCreateWithoutConfigInput, ImageUncheckedCreateWithoutConfigInput> | ImageCreateWithoutConfigInput[] | ImageUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: ImageCreateOrConnectWithoutConfigInput | ImageCreateOrConnectWithoutConfigInput[]
+    upsert?: ImageUpsertWithWhereUniqueWithoutConfigInput | ImageUpsertWithWhereUniqueWithoutConfigInput[]
+    createMany?: ImageCreateManyConfigInputEnvelope
+    set?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+    disconnect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+    delete?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+    connect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+    update?: ImageUpdateWithWhereUniqueWithoutConfigInput | ImageUpdateWithWhereUniqueWithoutConfigInput[]
+    updateMany?: ImageUpdateManyWithWhereWithoutConfigInput | ImageUpdateManyWithWhereWithoutConfigInput[]
+    deleteMany?: ImageScalarWhereInput | ImageScalarWhereInput[]
+  }
+
+  export type FooterLinkUpdateManyWithoutConfigNestedInput = {
+    create?: XOR<FooterLinkCreateWithoutConfigInput, FooterLinkUncheckedCreateWithoutConfigInput> | FooterLinkCreateWithoutConfigInput[] | FooterLinkUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: FooterLinkCreateOrConnectWithoutConfigInput | FooterLinkCreateOrConnectWithoutConfigInput[]
+    upsert?: FooterLinkUpsertWithWhereUniqueWithoutConfigInput | FooterLinkUpsertWithWhereUniqueWithoutConfigInput[]
+    createMany?: FooterLinkCreateManyConfigInputEnvelope
+    set?: FooterLinkWhereUniqueInput | FooterLinkWhereUniqueInput[]
+    disconnect?: FooterLinkWhereUniqueInput | FooterLinkWhereUniqueInput[]
+    delete?: FooterLinkWhereUniqueInput | FooterLinkWhereUniqueInput[]
+    connect?: FooterLinkWhereUniqueInput | FooterLinkWhereUniqueInput[]
+    update?: FooterLinkUpdateWithWhereUniqueWithoutConfigInput | FooterLinkUpdateWithWhereUniqueWithoutConfigInput[]
+    updateMany?: FooterLinkUpdateManyWithWhereWithoutConfigInput | FooterLinkUpdateManyWithWhereWithoutConfigInput[]
+    deleteMany?: FooterLinkScalarWhereInput | FooterLinkScalarWhereInput[]
+  }
+
+  export type UnitServerUpdateManyWithoutConfigNestedInput = {
+    create?: XOR<UnitServerCreateWithoutConfigInput, UnitServerUncheckedCreateWithoutConfigInput> | UnitServerCreateWithoutConfigInput[] | UnitServerUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: UnitServerCreateOrConnectWithoutConfigInput | UnitServerCreateOrConnectWithoutConfigInput[]
+    upsert?: UnitServerUpsertWithWhereUniqueWithoutConfigInput | UnitServerUpsertWithWhereUniqueWithoutConfigInput[]
+    createMany?: UnitServerCreateManyConfigInputEnvelope
+    set?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
+    disconnect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
+    delete?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
+    connect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
+    update?: UnitServerUpdateWithWhereUniqueWithoutConfigInput | UnitServerUpdateWithWhereUniqueWithoutConfigInput[]
+    updateMany?: UnitServerUpdateManyWithWhereWithoutConfigInput | UnitServerUpdateManyWithWhereWithoutConfigInput[]
+    deleteMany?: UnitServerScalarWhereInput | UnitServerScalarWhereInput[]
+  }
+
+  export type LegalStepUncheckedUpdateManyWithoutConfigNestedInput = {
+    create?: XOR<LegalStepCreateWithoutConfigInput, LegalStepUncheckedCreateWithoutConfigInput> | LegalStepCreateWithoutConfigInput[] | LegalStepUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: LegalStepCreateOrConnectWithoutConfigInput | LegalStepCreateOrConnectWithoutConfigInput[]
+    upsert?: LegalStepUpsertWithWhereUniqueWithoutConfigInput | LegalStepUpsertWithWhereUniqueWithoutConfigInput[]
+    createMany?: LegalStepCreateManyConfigInputEnvelope
+    set?: LegalStepWhereUniqueInput | LegalStepWhereUniqueInput[]
+    disconnect?: LegalStepWhereUniqueInput | LegalStepWhereUniqueInput[]
+    delete?: LegalStepWhereUniqueInput | LegalStepWhereUniqueInput[]
+    connect?: LegalStepWhereUniqueInput | LegalStepWhereUniqueInput[]
+    update?: LegalStepUpdateWithWhereUniqueWithoutConfigInput | LegalStepUpdateWithWhereUniqueWithoutConfigInput[]
+    updateMany?: LegalStepUpdateManyWithWhereWithoutConfigInput | LegalStepUpdateManyWithWhereWithoutConfigInput[]
+    deleteMany?: LegalStepScalarWhereInput | LegalStepScalarWhereInput[]
+  }
+
+  export type ArticleUncheckedUpdateManyWithoutConfigNestedInput = {
+    create?: XOR<ArticleCreateWithoutConfigInput, ArticleUncheckedCreateWithoutConfigInput> | ArticleCreateWithoutConfigInput[] | ArticleUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: ArticleCreateOrConnectWithoutConfigInput | ArticleCreateOrConnectWithoutConfigInput[]
+    upsert?: ArticleUpsertWithWhereUniqueWithoutConfigInput | ArticleUpsertWithWhereUniqueWithoutConfigInput[]
+    createMany?: ArticleCreateManyConfigInputEnvelope
+    set?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
+    disconnect?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
+    delete?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
+    connect?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
+    update?: ArticleUpdateWithWhereUniqueWithoutConfigInput | ArticleUpdateWithWhereUniqueWithoutConfigInput[]
+    updateMany?: ArticleUpdateManyWithWhereWithoutConfigInput | ArticleUpdateManyWithWhereWithoutConfigInput[]
+    deleteMany?: ArticleScalarWhereInput | ArticleScalarWhereInput[]
+  }
+
+  export type SectionUncheckedUpdateManyWithoutConfigNestedInput = {
+    create?: XOR<SectionCreateWithoutConfigInput, SectionUncheckedCreateWithoutConfigInput> | SectionCreateWithoutConfigInput[] | SectionUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: SectionCreateOrConnectWithoutConfigInput | SectionCreateOrConnectWithoutConfigInput[]
+    upsert?: SectionUpsertWithWhereUniqueWithoutConfigInput | SectionUpsertWithWhereUniqueWithoutConfigInput[]
+    createMany?: SectionCreateManyConfigInputEnvelope
+    set?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
+    disconnect?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
+    delete?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
+    connect?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
+    update?: SectionUpdateWithWhereUniqueWithoutConfigInput | SectionUpdateWithWhereUniqueWithoutConfigInput[]
+    updateMany?: SectionUpdateManyWithWhereWithoutConfigInput | SectionUpdateManyWithWhereWithoutConfigInput[]
+    deleteMany?: SectionScalarWhereInput | SectionScalarWhereInput[]
+  }
+
+  export type ImageUncheckedUpdateManyWithoutConfigNestedInput = {
+    create?: XOR<ImageCreateWithoutConfigInput, ImageUncheckedCreateWithoutConfigInput> | ImageCreateWithoutConfigInput[] | ImageUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: ImageCreateOrConnectWithoutConfigInput | ImageCreateOrConnectWithoutConfigInput[]
+    upsert?: ImageUpsertWithWhereUniqueWithoutConfigInput | ImageUpsertWithWhereUniqueWithoutConfigInput[]
+    createMany?: ImageCreateManyConfigInputEnvelope
+    set?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+    disconnect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+    delete?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+    connect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+    update?: ImageUpdateWithWhereUniqueWithoutConfigInput | ImageUpdateWithWhereUniqueWithoutConfigInput[]
+    updateMany?: ImageUpdateManyWithWhereWithoutConfigInput | ImageUpdateManyWithWhereWithoutConfigInput[]
+    deleteMany?: ImageScalarWhereInput | ImageScalarWhereInput[]
+  }
+
+  export type FooterLinkUncheckedUpdateManyWithoutConfigNestedInput = {
+    create?: XOR<FooterLinkCreateWithoutConfigInput, FooterLinkUncheckedCreateWithoutConfigInput> | FooterLinkCreateWithoutConfigInput[] | FooterLinkUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: FooterLinkCreateOrConnectWithoutConfigInput | FooterLinkCreateOrConnectWithoutConfigInput[]
+    upsert?: FooterLinkUpsertWithWhereUniqueWithoutConfigInput | FooterLinkUpsertWithWhereUniqueWithoutConfigInput[]
+    createMany?: FooterLinkCreateManyConfigInputEnvelope
+    set?: FooterLinkWhereUniqueInput | FooterLinkWhereUniqueInput[]
+    disconnect?: FooterLinkWhereUniqueInput | FooterLinkWhereUniqueInput[]
+    delete?: FooterLinkWhereUniqueInput | FooterLinkWhereUniqueInput[]
+    connect?: FooterLinkWhereUniqueInput | FooterLinkWhereUniqueInput[]
+    update?: FooterLinkUpdateWithWhereUniqueWithoutConfigInput | FooterLinkUpdateWithWhereUniqueWithoutConfigInput[]
+    updateMany?: FooterLinkUpdateManyWithWhereWithoutConfigInput | FooterLinkUpdateManyWithWhereWithoutConfigInput[]
+    deleteMany?: FooterLinkScalarWhereInput | FooterLinkScalarWhereInput[]
+  }
+
+  export type UnitServerUncheckedUpdateManyWithoutConfigNestedInput = {
+    create?: XOR<UnitServerCreateWithoutConfigInput, UnitServerUncheckedCreateWithoutConfigInput> | UnitServerCreateWithoutConfigInput[] | UnitServerUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: UnitServerCreateOrConnectWithoutConfigInput | UnitServerCreateOrConnectWithoutConfigInput[]
+    upsert?: UnitServerUpsertWithWhereUniqueWithoutConfigInput | UnitServerUpsertWithWhereUniqueWithoutConfigInput[]
+    createMany?: UnitServerCreateManyConfigInputEnvelope
+    set?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
+    disconnect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
+    delete?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
+    connect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
+    update?: UnitServerUpdateWithWhereUniqueWithoutConfigInput | UnitServerUpdateWithWhereUniqueWithoutConfigInput[]
+    updateMany?: UnitServerUpdateManyWithWhereWithoutConfigInput | UnitServerUpdateManyWithWhereWithoutConfigInput[]
+    deleteMany?: UnitServerScalarWhereInput | UnitServerScalarWhereInput[]
+  }
+
+  export type ConstellationCreateNestedOneWithoutServersInput = {
+    create?: XOR<ConstellationCreateWithoutServersInput, ConstellationUncheckedCreateWithoutServersInput>
+    connectOrCreate?: ConstellationCreateOrConnectWithoutServersInput
+    connect?: ConstellationWhereUniqueInput
+  }
+
+  export type UnitConfigCreateNestedOneWithoutServersInput = {
+    create?: XOR<UnitConfigCreateWithoutServersInput, UnitConfigUncheckedCreateWithoutServersInput>
+    connectOrCreate?: UnitConfigCreateOrConnectWithoutServersInput
+    connect?: UnitConfigWhereUniqueInput
+  }
+
+  export type ClientCreateNestedManyWithoutServerInput = {
+    create?: XOR<ClientCreateWithoutServerInput, ClientUncheckedCreateWithoutServerInput> | ClientCreateWithoutServerInput[] | ClientUncheckedCreateWithoutServerInput[]
+    connectOrCreate?: ClientCreateOrConnectWithoutServerInput | ClientCreateOrConnectWithoutServerInput[]
+    createMany?: ClientCreateManyServerInputEnvelope
+    connect?: ClientWhereUniqueInput | ClientWhereUniqueInput[]
+  }
+
+  export type CaseCreateNestedManyWithoutServerInput = {
+    create?: XOR<CaseCreateWithoutServerInput, CaseUncheckedCreateWithoutServerInput> | CaseCreateWithoutServerInput[] | CaseUncheckedCreateWithoutServerInput[]
+    connectOrCreate?: CaseCreateOrConnectWithoutServerInput | CaseCreateOrConnectWithoutServerInput[]
+    createMany?: CaseCreateManyServerInputEnvelope
+    connect?: CaseWhereUniqueInput | CaseWhereUniqueInput[]
+  }
+
+  export type ServerLogCreateNestedManyWithoutServerInput = {
+    create?: XOR<ServerLogCreateWithoutServerInput, ServerLogUncheckedCreateWithoutServerInput> | ServerLogCreateWithoutServerInput[] | ServerLogUncheckedCreateWithoutServerInput[]
+    connectOrCreate?: ServerLogCreateOrConnectWithoutServerInput | ServerLogCreateOrConnectWithoutServerInput[]
+    createMany?: ServerLogCreateManyServerInputEnvelope
+    connect?: ServerLogWhereUniqueInput | ServerLogWhereUniqueInput[]
+  }
+
+  export type ClientUncheckedCreateNestedManyWithoutServerInput = {
+    create?: XOR<ClientCreateWithoutServerInput, ClientUncheckedCreateWithoutServerInput> | ClientCreateWithoutServerInput[] | ClientUncheckedCreateWithoutServerInput[]
+    connectOrCreate?: ClientCreateOrConnectWithoutServerInput | ClientCreateOrConnectWithoutServerInput[]
+    createMany?: ClientCreateManyServerInputEnvelope
+    connect?: ClientWhereUniqueInput | ClientWhereUniqueInput[]
+  }
+
+  export type CaseUncheckedCreateNestedManyWithoutServerInput = {
+    create?: XOR<CaseCreateWithoutServerInput, CaseUncheckedCreateWithoutServerInput> | CaseCreateWithoutServerInput[] | CaseUncheckedCreateWithoutServerInput[]
+    connectOrCreate?: CaseCreateOrConnectWithoutServerInput | CaseCreateOrConnectWithoutServerInput[]
+    createMany?: CaseCreateManyServerInputEnvelope
+    connect?: CaseWhereUniqueInput | CaseWhereUniqueInput[]
+  }
+
+  export type ServerLogUncheckedCreateNestedManyWithoutServerInput = {
+    create?: XOR<ServerLogCreateWithoutServerInput, ServerLogUncheckedCreateWithoutServerInput> | ServerLogCreateWithoutServerInput[] | ServerLogUncheckedCreateWithoutServerInput[]
+    connectOrCreate?: ServerLogCreateOrConnectWithoutServerInput | ServerLogCreateOrConnectWithoutServerInput[]
+    createMany?: ServerLogCreateManyServerInputEnvelope
+    connect?: ServerLogWhereUniqueInput | ServerLogWhereUniqueInput[]
+  }
+
+  export type ConstellationUpdateOneRequiredWithoutServersNestedInput = {
+    create?: XOR<ConstellationCreateWithoutServersInput, ConstellationUncheckedCreateWithoutServersInput>
+    connectOrCreate?: ConstellationCreateOrConnectWithoutServersInput
+    upsert?: ConstellationUpsertWithoutServersInput
+    connect?: ConstellationWhereUniqueInput
+    update?: XOR<XOR<ConstellationUpdateToOneWithWhereWithoutServersInput, ConstellationUpdateWithoutServersInput>, ConstellationUncheckedUpdateWithoutServersInput>
+  }
+
+  export type UnitConfigUpdateOneWithoutServersNestedInput = {
+    create?: XOR<UnitConfigCreateWithoutServersInput, UnitConfigUncheckedCreateWithoutServersInput>
+    connectOrCreate?: UnitConfigCreateOrConnectWithoutServersInput
+    upsert?: UnitConfigUpsertWithoutServersInput
+    disconnect?: UnitConfigWhereInput | boolean
+    delete?: UnitConfigWhereInput | boolean
+    connect?: UnitConfigWhereUniqueInput
+    update?: XOR<XOR<UnitConfigUpdateToOneWithWhereWithoutServersInput, UnitConfigUpdateWithoutServersInput>, UnitConfigUncheckedUpdateWithoutServersInput>
+  }
+
+  export type ClientUpdateManyWithoutServerNestedInput = {
+    create?: XOR<ClientCreateWithoutServerInput, ClientUncheckedCreateWithoutServerInput> | ClientCreateWithoutServerInput[] | ClientUncheckedCreateWithoutServerInput[]
+    connectOrCreate?: ClientCreateOrConnectWithoutServerInput | ClientCreateOrConnectWithoutServerInput[]
+    upsert?: ClientUpsertWithWhereUniqueWithoutServerInput | ClientUpsertWithWhereUniqueWithoutServerInput[]
+    createMany?: ClientCreateManyServerInputEnvelope
+    set?: ClientWhereUniqueInput | ClientWhereUniqueInput[]
+    disconnect?: ClientWhereUniqueInput | ClientWhereUniqueInput[]
+    delete?: ClientWhereUniqueInput | ClientWhereUniqueInput[]
+    connect?: ClientWhereUniqueInput | ClientWhereUniqueInput[]
+    update?: ClientUpdateWithWhereUniqueWithoutServerInput | ClientUpdateWithWhereUniqueWithoutServerInput[]
+    updateMany?: ClientUpdateManyWithWhereWithoutServerInput | ClientUpdateManyWithWhereWithoutServerInput[]
+    deleteMany?: ClientScalarWhereInput | ClientScalarWhereInput[]
+  }
+
+  export type CaseUpdateManyWithoutServerNestedInput = {
+    create?: XOR<CaseCreateWithoutServerInput, CaseUncheckedCreateWithoutServerInput> | CaseCreateWithoutServerInput[] | CaseUncheckedCreateWithoutServerInput[]
+    connectOrCreate?: CaseCreateOrConnectWithoutServerInput | CaseCreateOrConnectWithoutServerInput[]
+    upsert?: CaseUpsertWithWhereUniqueWithoutServerInput | CaseUpsertWithWhereUniqueWithoutServerInput[]
+    createMany?: CaseCreateManyServerInputEnvelope
+    set?: CaseWhereUniqueInput | CaseWhereUniqueInput[]
+    disconnect?: CaseWhereUniqueInput | CaseWhereUniqueInput[]
+    delete?: CaseWhereUniqueInput | CaseWhereUniqueInput[]
+    connect?: CaseWhereUniqueInput | CaseWhereUniqueInput[]
+    update?: CaseUpdateWithWhereUniqueWithoutServerInput | CaseUpdateWithWhereUniqueWithoutServerInput[]
+    updateMany?: CaseUpdateManyWithWhereWithoutServerInput | CaseUpdateManyWithWhereWithoutServerInput[]
+    deleteMany?: CaseScalarWhereInput | CaseScalarWhereInput[]
+  }
+
+  export type ServerLogUpdateManyWithoutServerNestedInput = {
+    create?: XOR<ServerLogCreateWithoutServerInput, ServerLogUncheckedCreateWithoutServerInput> | ServerLogCreateWithoutServerInput[] | ServerLogUncheckedCreateWithoutServerInput[]
+    connectOrCreate?: ServerLogCreateOrConnectWithoutServerInput | ServerLogCreateOrConnectWithoutServerInput[]
+    upsert?: ServerLogUpsertWithWhereUniqueWithoutServerInput | ServerLogUpsertWithWhereUniqueWithoutServerInput[]
+    createMany?: ServerLogCreateManyServerInputEnvelope
+    set?: ServerLogWhereUniqueInput | ServerLogWhereUniqueInput[]
+    disconnect?: ServerLogWhereUniqueInput | ServerLogWhereUniqueInput[]
+    delete?: ServerLogWhereUniqueInput | ServerLogWhereUniqueInput[]
+    connect?: ServerLogWhereUniqueInput | ServerLogWhereUniqueInput[]
+    update?: ServerLogUpdateWithWhereUniqueWithoutServerInput | ServerLogUpdateWithWhereUniqueWithoutServerInput[]
+    updateMany?: ServerLogUpdateManyWithWhereWithoutServerInput | ServerLogUpdateManyWithWhereWithoutServerInput[]
+    deleteMany?: ServerLogScalarWhereInput | ServerLogScalarWhereInput[]
+  }
+
+  export type ClientUncheckedUpdateManyWithoutServerNestedInput = {
+    create?: XOR<ClientCreateWithoutServerInput, ClientUncheckedCreateWithoutServerInput> | ClientCreateWithoutServerInput[] | ClientUncheckedCreateWithoutServerInput[]
+    connectOrCreate?: ClientCreateOrConnectWithoutServerInput | ClientCreateOrConnectWithoutServerInput[]
+    upsert?: ClientUpsertWithWhereUniqueWithoutServerInput | ClientUpsertWithWhereUniqueWithoutServerInput[]
+    createMany?: ClientCreateManyServerInputEnvelope
+    set?: ClientWhereUniqueInput | ClientWhereUniqueInput[]
+    disconnect?: ClientWhereUniqueInput | ClientWhereUniqueInput[]
+    delete?: ClientWhereUniqueInput | ClientWhereUniqueInput[]
+    connect?: ClientWhereUniqueInput | ClientWhereUniqueInput[]
+    update?: ClientUpdateWithWhereUniqueWithoutServerInput | ClientUpdateWithWhereUniqueWithoutServerInput[]
+    updateMany?: ClientUpdateManyWithWhereWithoutServerInput | ClientUpdateManyWithWhereWithoutServerInput[]
+    deleteMany?: ClientScalarWhereInput | ClientScalarWhereInput[]
+  }
+
+  export type CaseUncheckedUpdateManyWithoutServerNestedInput = {
+    create?: XOR<CaseCreateWithoutServerInput, CaseUncheckedCreateWithoutServerInput> | CaseCreateWithoutServerInput[] | CaseUncheckedCreateWithoutServerInput[]
+    connectOrCreate?: CaseCreateOrConnectWithoutServerInput | CaseCreateOrConnectWithoutServerInput[]
+    upsert?: CaseUpsertWithWhereUniqueWithoutServerInput | CaseUpsertWithWhereUniqueWithoutServerInput[]
+    createMany?: CaseCreateManyServerInputEnvelope
+    set?: CaseWhereUniqueInput | CaseWhereUniqueInput[]
+    disconnect?: CaseWhereUniqueInput | CaseWhereUniqueInput[]
+    delete?: CaseWhereUniqueInput | CaseWhereUniqueInput[]
+    connect?: CaseWhereUniqueInput | CaseWhereUniqueInput[]
+    update?: CaseUpdateWithWhereUniqueWithoutServerInput | CaseUpdateWithWhereUniqueWithoutServerInput[]
+    updateMany?: CaseUpdateManyWithWhereWithoutServerInput | CaseUpdateManyWithWhereWithoutServerInput[]
+    deleteMany?: CaseScalarWhereInput | CaseScalarWhereInput[]
+  }
+
+  export type ServerLogUncheckedUpdateManyWithoutServerNestedInput = {
+    create?: XOR<ServerLogCreateWithoutServerInput, ServerLogUncheckedCreateWithoutServerInput> | ServerLogCreateWithoutServerInput[] | ServerLogUncheckedCreateWithoutServerInput[]
+    connectOrCreate?: ServerLogCreateOrConnectWithoutServerInput | ServerLogCreateOrConnectWithoutServerInput[]
+    upsert?: ServerLogUpsertWithWhereUniqueWithoutServerInput | ServerLogUpsertWithWhereUniqueWithoutServerInput[]
+    createMany?: ServerLogCreateManyServerInputEnvelope
+    set?: ServerLogWhereUniqueInput | ServerLogWhereUniqueInput[]
+    disconnect?: ServerLogWhereUniqueInput | ServerLogWhereUniqueInput[]
+    delete?: ServerLogWhereUniqueInput | ServerLogWhereUniqueInput[]
+    connect?: ServerLogWhereUniqueInput | ServerLogWhereUniqueInput[]
+    update?: ServerLogUpdateWithWhereUniqueWithoutServerInput | ServerLogUpdateWithWhereUniqueWithoutServerInput[]
+    updateMany?: ServerLogUpdateManyWithWhereWithoutServerInput | ServerLogUpdateManyWithWhereWithoutServerInput[]
+    deleteMany?: ServerLogScalarWhereInput | ServerLogScalarWhereInput[]
   }
 
   export type CaseCreatetagsInput = {
@@ -26427,336 +26767,6 @@ export namespace Prisma {
     update?: XOR<XOR<ClientUpdateToOneWithWhereWithoutReportsInput, ClientUpdateWithoutReportsInput>, ClientUncheckedUpdateWithoutReportsInput>
   }
 
-  export type UnitServerCreateNestedManyWithoutConstellationInput = {
-    create?: XOR<UnitServerCreateWithoutConstellationInput, UnitServerUncheckedCreateWithoutConstellationInput> | UnitServerCreateWithoutConstellationInput[] | UnitServerUncheckedCreateWithoutConstellationInput[]
-    connectOrCreate?: UnitServerCreateOrConnectWithoutConstellationInput | UnitServerCreateOrConnectWithoutConstellationInput[]
-    createMany?: UnitServerCreateManyConstellationInputEnvelope
-    connect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
-  }
-
-  export type UnitServerUncheckedCreateNestedManyWithoutConstellationInput = {
-    create?: XOR<UnitServerCreateWithoutConstellationInput, UnitServerUncheckedCreateWithoutConstellationInput> | UnitServerCreateWithoutConstellationInput[] | UnitServerUncheckedCreateWithoutConstellationInput[]
-    connectOrCreate?: UnitServerCreateOrConnectWithoutConstellationInput | UnitServerCreateOrConnectWithoutConstellationInput[]
-    createMany?: UnitServerCreateManyConstellationInputEnvelope
-    connect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
-  }
-
-  export type UnitServerUpdateManyWithoutConstellationNestedInput = {
-    create?: XOR<UnitServerCreateWithoutConstellationInput, UnitServerUncheckedCreateWithoutConstellationInput> | UnitServerCreateWithoutConstellationInput[] | UnitServerUncheckedCreateWithoutConstellationInput[]
-    connectOrCreate?: UnitServerCreateOrConnectWithoutConstellationInput | UnitServerCreateOrConnectWithoutConstellationInput[]
-    upsert?: UnitServerUpsertWithWhereUniqueWithoutConstellationInput | UnitServerUpsertWithWhereUniqueWithoutConstellationInput[]
-    createMany?: UnitServerCreateManyConstellationInputEnvelope
-    set?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
-    disconnect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
-    delete?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
-    connect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
-    update?: UnitServerUpdateWithWhereUniqueWithoutConstellationInput | UnitServerUpdateWithWhereUniqueWithoutConstellationInput[]
-    updateMany?: UnitServerUpdateManyWithWhereWithoutConstellationInput | UnitServerUpdateManyWithWhereWithoutConstellationInput[]
-    deleteMany?: UnitServerScalarWhereInput | UnitServerScalarWhereInput[]
-  }
-
-  export type UnitServerUncheckedUpdateManyWithoutConstellationNestedInput = {
-    create?: XOR<UnitServerCreateWithoutConstellationInput, UnitServerUncheckedCreateWithoutConstellationInput> | UnitServerCreateWithoutConstellationInput[] | UnitServerUncheckedCreateWithoutConstellationInput[]
-    connectOrCreate?: UnitServerCreateOrConnectWithoutConstellationInput | UnitServerCreateOrConnectWithoutConstellationInput[]
-    upsert?: UnitServerUpsertWithWhereUniqueWithoutConstellationInput | UnitServerUpsertWithWhereUniqueWithoutConstellationInput[]
-    createMany?: UnitServerCreateManyConstellationInputEnvelope
-    set?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
-    disconnect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
-    delete?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
-    connect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
-    update?: UnitServerUpdateWithWhereUniqueWithoutConstellationInput | UnitServerUpdateWithWhereUniqueWithoutConstellationInput[]
-    updateMany?: UnitServerUpdateManyWithWhereWithoutConstellationInput | UnitServerUpdateManyWithWhereWithoutConstellationInput[]
-    deleteMany?: UnitServerScalarWhereInput | UnitServerScalarWhereInput[]
-  }
-
-  export type LegalStepCreateNestedManyWithoutConfigInput = {
-    create?: XOR<LegalStepCreateWithoutConfigInput, LegalStepUncheckedCreateWithoutConfigInput> | LegalStepCreateWithoutConfigInput[] | LegalStepUncheckedCreateWithoutConfigInput[]
-    connectOrCreate?: LegalStepCreateOrConnectWithoutConfigInput | LegalStepCreateOrConnectWithoutConfigInput[]
-    createMany?: LegalStepCreateManyConfigInputEnvelope
-    connect?: LegalStepWhereUniqueInput | LegalStepWhereUniqueInput[]
-  }
-
-  export type ArticleCreateNestedManyWithoutConfigInput = {
-    create?: XOR<ArticleCreateWithoutConfigInput, ArticleUncheckedCreateWithoutConfigInput> | ArticleCreateWithoutConfigInput[] | ArticleUncheckedCreateWithoutConfigInput[]
-    connectOrCreate?: ArticleCreateOrConnectWithoutConfigInput | ArticleCreateOrConnectWithoutConfigInput[]
-    createMany?: ArticleCreateManyConfigInputEnvelope
-    connect?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
-  }
-
-  export type SectionCreateNestedManyWithoutConfigInput = {
-    create?: XOR<SectionCreateWithoutConfigInput, SectionUncheckedCreateWithoutConfigInput> | SectionCreateWithoutConfigInput[] | SectionUncheckedCreateWithoutConfigInput[]
-    connectOrCreate?: SectionCreateOrConnectWithoutConfigInput | SectionCreateOrConnectWithoutConfigInput[]
-    createMany?: SectionCreateManyConfigInputEnvelope
-    connect?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
-  }
-
-  export type ImageCreateNestedManyWithoutConfigInput = {
-    create?: XOR<ImageCreateWithoutConfigInput, ImageUncheckedCreateWithoutConfigInput> | ImageCreateWithoutConfigInput[] | ImageUncheckedCreateWithoutConfigInput[]
-    connectOrCreate?: ImageCreateOrConnectWithoutConfigInput | ImageCreateOrConnectWithoutConfigInput[]
-    createMany?: ImageCreateManyConfigInputEnvelope
-    connect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
-  }
-
-  export type FooterLinkCreateNestedManyWithoutConfigInput = {
-    create?: XOR<FooterLinkCreateWithoutConfigInput, FooterLinkUncheckedCreateWithoutConfigInput> | FooterLinkCreateWithoutConfigInput[] | FooterLinkUncheckedCreateWithoutConfigInput[]
-    connectOrCreate?: FooterLinkCreateOrConnectWithoutConfigInput | FooterLinkCreateOrConnectWithoutConfigInput[]
-    createMany?: FooterLinkCreateManyConfigInputEnvelope
-    connect?: FooterLinkWhereUniqueInput | FooterLinkWhereUniqueInput[]
-  }
-
-  export type UnitServerCreateNestedManyWithoutConfigInput = {
-    create?: XOR<UnitServerCreateWithoutConfigInput, UnitServerUncheckedCreateWithoutConfigInput> | UnitServerCreateWithoutConfigInput[] | UnitServerUncheckedCreateWithoutConfigInput[]
-    connectOrCreate?: UnitServerCreateOrConnectWithoutConfigInput | UnitServerCreateOrConnectWithoutConfigInput[]
-    createMany?: UnitServerCreateManyConfigInputEnvelope
-    connect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
-  }
-
-  export type LegalStepUncheckedCreateNestedManyWithoutConfigInput = {
-    create?: XOR<LegalStepCreateWithoutConfigInput, LegalStepUncheckedCreateWithoutConfigInput> | LegalStepCreateWithoutConfigInput[] | LegalStepUncheckedCreateWithoutConfigInput[]
-    connectOrCreate?: LegalStepCreateOrConnectWithoutConfigInput | LegalStepCreateOrConnectWithoutConfigInput[]
-    createMany?: LegalStepCreateManyConfigInputEnvelope
-    connect?: LegalStepWhereUniqueInput | LegalStepWhereUniqueInput[]
-  }
-
-  export type ArticleUncheckedCreateNestedManyWithoutConfigInput = {
-    create?: XOR<ArticleCreateWithoutConfigInput, ArticleUncheckedCreateWithoutConfigInput> | ArticleCreateWithoutConfigInput[] | ArticleUncheckedCreateWithoutConfigInput[]
-    connectOrCreate?: ArticleCreateOrConnectWithoutConfigInput | ArticleCreateOrConnectWithoutConfigInput[]
-    createMany?: ArticleCreateManyConfigInputEnvelope
-    connect?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
-  }
-
-  export type SectionUncheckedCreateNestedManyWithoutConfigInput = {
-    create?: XOR<SectionCreateWithoutConfigInput, SectionUncheckedCreateWithoutConfigInput> | SectionCreateWithoutConfigInput[] | SectionUncheckedCreateWithoutConfigInput[]
-    connectOrCreate?: SectionCreateOrConnectWithoutConfigInput | SectionCreateOrConnectWithoutConfigInput[]
-    createMany?: SectionCreateManyConfigInputEnvelope
-    connect?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
-  }
-
-  export type ImageUncheckedCreateNestedManyWithoutConfigInput = {
-    create?: XOR<ImageCreateWithoutConfigInput, ImageUncheckedCreateWithoutConfigInput> | ImageCreateWithoutConfigInput[] | ImageUncheckedCreateWithoutConfigInput[]
-    connectOrCreate?: ImageCreateOrConnectWithoutConfigInput | ImageCreateOrConnectWithoutConfigInput[]
-    createMany?: ImageCreateManyConfigInputEnvelope
-    connect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
-  }
-
-  export type FooterLinkUncheckedCreateNestedManyWithoutConfigInput = {
-    create?: XOR<FooterLinkCreateWithoutConfigInput, FooterLinkUncheckedCreateWithoutConfigInput> | FooterLinkCreateWithoutConfigInput[] | FooterLinkUncheckedCreateWithoutConfigInput[]
-    connectOrCreate?: FooterLinkCreateOrConnectWithoutConfigInput | FooterLinkCreateOrConnectWithoutConfigInput[]
-    createMany?: FooterLinkCreateManyConfigInputEnvelope
-    connect?: FooterLinkWhereUniqueInput | FooterLinkWhereUniqueInput[]
-  }
-
-  export type UnitServerUncheckedCreateNestedManyWithoutConfigInput = {
-    create?: XOR<UnitServerCreateWithoutConfigInput, UnitServerUncheckedCreateWithoutConfigInput> | UnitServerCreateWithoutConfigInput[] | UnitServerUncheckedCreateWithoutConfigInput[]
-    connectOrCreate?: UnitServerCreateOrConnectWithoutConfigInput | UnitServerCreateOrConnectWithoutConfigInput[]
-    createMany?: UnitServerCreateManyConfigInputEnvelope
-    connect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
-  }
-
-  export type LegalStepUpdateManyWithoutConfigNestedInput = {
-    create?: XOR<LegalStepCreateWithoutConfigInput, LegalStepUncheckedCreateWithoutConfigInput> | LegalStepCreateWithoutConfigInput[] | LegalStepUncheckedCreateWithoutConfigInput[]
-    connectOrCreate?: LegalStepCreateOrConnectWithoutConfigInput | LegalStepCreateOrConnectWithoutConfigInput[]
-    upsert?: LegalStepUpsertWithWhereUniqueWithoutConfigInput | LegalStepUpsertWithWhereUniqueWithoutConfigInput[]
-    createMany?: LegalStepCreateManyConfigInputEnvelope
-    set?: LegalStepWhereUniqueInput | LegalStepWhereUniqueInput[]
-    disconnect?: LegalStepWhereUniqueInput | LegalStepWhereUniqueInput[]
-    delete?: LegalStepWhereUniqueInput | LegalStepWhereUniqueInput[]
-    connect?: LegalStepWhereUniqueInput | LegalStepWhereUniqueInput[]
-    update?: LegalStepUpdateWithWhereUniqueWithoutConfigInput | LegalStepUpdateWithWhereUniqueWithoutConfigInput[]
-    updateMany?: LegalStepUpdateManyWithWhereWithoutConfigInput | LegalStepUpdateManyWithWhereWithoutConfigInput[]
-    deleteMany?: LegalStepScalarWhereInput | LegalStepScalarWhereInput[]
-  }
-
-  export type ArticleUpdateManyWithoutConfigNestedInput = {
-    create?: XOR<ArticleCreateWithoutConfigInput, ArticleUncheckedCreateWithoutConfigInput> | ArticleCreateWithoutConfigInput[] | ArticleUncheckedCreateWithoutConfigInput[]
-    connectOrCreate?: ArticleCreateOrConnectWithoutConfigInput | ArticleCreateOrConnectWithoutConfigInput[]
-    upsert?: ArticleUpsertWithWhereUniqueWithoutConfigInput | ArticleUpsertWithWhereUniqueWithoutConfigInput[]
-    createMany?: ArticleCreateManyConfigInputEnvelope
-    set?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
-    disconnect?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
-    delete?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
-    connect?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
-    update?: ArticleUpdateWithWhereUniqueWithoutConfigInput | ArticleUpdateWithWhereUniqueWithoutConfigInput[]
-    updateMany?: ArticleUpdateManyWithWhereWithoutConfigInput | ArticleUpdateManyWithWhereWithoutConfigInput[]
-    deleteMany?: ArticleScalarWhereInput | ArticleScalarWhereInput[]
-  }
-
-  export type SectionUpdateManyWithoutConfigNestedInput = {
-    create?: XOR<SectionCreateWithoutConfigInput, SectionUncheckedCreateWithoutConfigInput> | SectionCreateWithoutConfigInput[] | SectionUncheckedCreateWithoutConfigInput[]
-    connectOrCreate?: SectionCreateOrConnectWithoutConfigInput | SectionCreateOrConnectWithoutConfigInput[]
-    upsert?: SectionUpsertWithWhereUniqueWithoutConfigInput | SectionUpsertWithWhereUniqueWithoutConfigInput[]
-    createMany?: SectionCreateManyConfigInputEnvelope
-    set?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
-    disconnect?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
-    delete?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
-    connect?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
-    update?: SectionUpdateWithWhereUniqueWithoutConfigInput | SectionUpdateWithWhereUniqueWithoutConfigInput[]
-    updateMany?: SectionUpdateManyWithWhereWithoutConfigInput | SectionUpdateManyWithWhereWithoutConfigInput[]
-    deleteMany?: SectionScalarWhereInput | SectionScalarWhereInput[]
-  }
-
-  export type ImageUpdateManyWithoutConfigNestedInput = {
-    create?: XOR<ImageCreateWithoutConfigInput, ImageUncheckedCreateWithoutConfigInput> | ImageCreateWithoutConfigInput[] | ImageUncheckedCreateWithoutConfigInput[]
-    connectOrCreate?: ImageCreateOrConnectWithoutConfigInput | ImageCreateOrConnectWithoutConfigInput[]
-    upsert?: ImageUpsertWithWhereUniqueWithoutConfigInput | ImageUpsertWithWhereUniqueWithoutConfigInput[]
-    createMany?: ImageCreateManyConfigInputEnvelope
-    set?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
-    disconnect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
-    delete?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
-    connect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
-    update?: ImageUpdateWithWhereUniqueWithoutConfigInput | ImageUpdateWithWhereUniqueWithoutConfigInput[]
-    updateMany?: ImageUpdateManyWithWhereWithoutConfigInput | ImageUpdateManyWithWhereWithoutConfigInput[]
-    deleteMany?: ImageScalarWhereInput | ImageScalarWhereInput[]
-  }
-
-  export type FooterLinkUpdateManyWithoutConfigNestedInput = {
-    create?: XOR<FooterLinkCreateWithoutConfigInput, FooterLinkUncheckedCreateWithoutConfigInput> | FooterLinkCreateWithoutConfigInput[] | FooterLinkUncheckedCreateWithoutConfigInput[]
-    connectOrCreate?: FooterLinkCreateOrConnectWithoutConfigInput | FooterLinkCreateOrConnectWithoutConfigInput[]
-    upsert?: FooterLinkUpsertWithWhereUniqueWithoutConfigInput | FooterLinkUpsertWithWhereUniqueWithoutConfigInput[]
-    createMany?: FooterLinkCreateManyConfigInputEnvelope
-    set?: FooterLinkWhereUniqueInput | FooterLinkWhereUniqueInput[]
-    disconnect?: FooterLinkWhereUniqueInput | FooterLinkWhereUniqueInput[]
-    delete?: FooterLinkWhereUniqueInput | FooterLinkWhereUniqueInput[]
-    connect?: FooterLinkWhereUniqueInput | FooterLinkWhereUniqueInput[]
-    update?: FooterLinkUpdateWithWhereUniqueWithoutConfigInput | FooterLinkUpdateWithWhereUniqueWithoutConfigInput[]
-    updateMany?: FooterLinkUpdateManyWithWhereWithoutConfigInput | FooterLinkUpdateManyWithWhereWithoutConfigInput[]
-    deleteMany?: FooterLinkScalarWhereInput | FooterLinkScalarWhereInput[]
-  }
-
-  export type UnitServerUpdateManyWithoutConfigNestedInput = {
-    create?: XOR<UnitServerCreateWithoutConfigInput, UnitServerUncheckedCreateWithoutConfigInput> | UnitServerCreateWithoutConfigInput[] | UnitServerUncheckedCreateWithoutConfigInput[]
-    connectOrCreate?: UnitServerCreateOrConnectWithoutConfigInput | UnitServerCreateOrConnectWithoutConfigInput[]
-    upsert?: UnitServerUpsertWithWhereUniqueWithoutConfigInput | UnitServerUpsertWithWhereUniqueWithoutConfigInput[]
-    createMany?: UnitServerCreateManyConfigInputEnvelope
-    set?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
-    disconnect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
-    delete?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
-    connect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
-    update?: UnitServerUpdateWithWhereUniqueWithoutConfigInput | UnitServerUpdateWithWhereUniqueWithoutConfigInput[]
-    updateMany?: UnitServerUpdateManyWithWhereWithoutConfigInput | UnitServerUpdateManyWithWhereWithoutConfigInput[]
-    deleteMany?: UnitServerScalarWhereInput | UnitServerScalarWhereInput[]
-  }
-
-  export type LegalStepUncheckedUpdateManyWithoutConfigNestedInput = {
-    create?: XOR<LegalStepCreateWithoutConfigInput, LegalStepUncheckedCreateWithoutConfigInput> | LegalStepCreateWithoutConfigInput[] | LegalStepUncheckedCreateWithoutConfigInput[]
-    connectOrCreate?: LegalStepCreateOrConnectWithoutConfigInput | LegalStepCreateOrConnectWithoutConfigInput[]
-    upsert?: LegalStepUpsertWithWhereUniqueWithoutConfigInput | LegalStepUpsertWithWhereUniqueWithoutConfigInput[]
-    createMany?: LegalStepCreateManyConfigInputEnvelope
-    set?: LegalStepWhereUniqueInput | LegalStepWhereUniqueInput[]
-    disconnect?: LegalStepWhereUniqueInput | LegalStepWhereUniqueInput[]
-    delete?: LegalStepWhereUniqueInput | LegalStepWhereUniqueInput[]
-    connect?: LegalStepWhereUniqueInput | LegalStepWhereUniqueInput[]
-    update?: LegalStepUpdateWithWhereUniqueWithoutConfigInput | LegalStepUpdateWithWhereUniqueWithoutConfigInput[]
-    updateMany?: LegalStepUpdateManyWithWhereWithoutConfigInput | LegalStepUpdateManyWithWhereWithoutConfigInput[]
-    deleteMany?: LegalStepScalarWhereInput | LegalStepScalarWhereInput[]
-  }
-
-  export type ArticleUncheckedUpdateManyWithoutConfigNestedInput = {
-    create?: XOR<ArticleCreateWithoutConfigInput, ArticleUncheckedCreateWithoutConfigInput> | ArticleCreateWithoutConfigInput[] | ArticleUncheckedCreateWithoutConfigInput[]
-    connectOrCreate?: ArticleCreateOrConnectWithoutConfigInput | ArticleCreateOrConnectWithoutConfigInput[]
-    upsert?: ArticleUpsertWithWhereUniqueWithoutConfigInput | ArticleUpsertWithWhereUniqueWithoutConfigInput[]
-    createMany?: ArticleCreateManyConfigInputEnvelope
-    set?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
-    disconnect?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
-    delete?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
-    connect?: ArticleWhereUniqueInput | ArticleWhereUniqueInput[]
-    update?: ArticleUpdateWithWhereUniqueWithoutConfigInput | ArticleUpdateWithWhereUniqueWithoutConfigInput[]
-    updateMany?: ArticleUpdateManyWithWhereWithoutConfigInput | ArticleUpdateManyWithWhereWithoutConfigInput[]
-    deleteMany?: ArticleScalarWhereInput | ArticleScalarWhereInput[]
-  }
-
-  export type SectionUncheckedUpdateManyWithoutConfigNestedInput = {
-    create?: XOR<SectionCreateWithoutConfigInput, SectionUncheckedCreateWithoutConfigInput> | SectionCreateWithoutConfigInput[] | SectionUncheckedCreateWithoutConfigInput[]
-    connectOrCreate?: SectionCreateOrConnectWithoutConfigInput | SectionCreateOrConnectWithoutConfigInput[]
-    upsert?: SectionUpsertWithWhereUniqueWithoutConfigInput | SectionUpsertWithWhereUniqueWithoutConfigInput[]
-    createMany?: SectionCreateManyConfigInputEnvelope
-    set?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
-    disconnect?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
-    delete?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
-    connect?: SectionWhereUniqueInput | SectionWhereUniqueInput[]
-    update?: SectionUpdateWithWhereUniqueWithoutConfigInput | SectionUpdateWithWhereUniqueWithoutConfigInput[]
-    updateMany?: SectionUpdateManyWithWhereWithoutConfigInput | SectionUpdateManyWithWhereWithoutConfigInput[]
-    deleteMany?: SectionScalarWhereInput | SectionScalarWhereInput[]
-  }
-
-  export type ImageUncheckedUpdateManyWithoutConfigNestedInput = {
-    create?: XOR<ImageCreateWithoutConfigInput, ImageUncheckedCreateWithoutConfigInput> | ImageCreateWithoutConfigInput[] | ImageUncheckedCreateWithoutConfigInput[]
-    connectOrCreate?: ImageCreateOrConnectWithoutConfigInput | ImageCreateOrConnectWithoutConfigInput[]
-    upsert?: ImageUpsertWithWhereUniqueWithoutConfigInput | ImageUpsertWithWhereUniqueWithoutConfigInput[]
-    createMany?: ImageCreateManyConfigInputEnvelope
-    set?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
-    disconnect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
-    delete?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
-    connect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
-    update?: ImageUpdateWithWhereUniqueWithoutConfigInput | ImageUpdateWithWhereUniqueWithoutConfigInput[]
-    updateMany?: ImageUpdateManyWithWhereWithoutConfigInput | ImageUpdateManyWithWhereWithoutConfigInput[]
-    deleteMany?: ImageScalarWhereInput | ImageScalarWhereInput[]
-  }
-
-  export type FooterLinkUncheckedUpdateManyWithoutConfigNestedInput = {
-    create?: XOR<FooterLinkCreateWithoutConfigInput, FooterLinkUncheckedCreateWithoutConfigInput> | FooterLinkCreateWithoutConfigInput[] | FooterLinkUncheckedCreateWithoutConfigInput[]
-    connectOrCreate?: FooterLinkCreateOrConnectWithoutConfigInput | FooterLinkCreateOrConnectWithoutConfigInput[]
-    upsert?: FooterLinkUpsertWithWhereUniqueWithoutConfigInput | FooterLinkUpsertWithWhereUniqueWithoutConfigInput[]
-    createMany?: FooterLinkCreateManyConfigInputEnvelope
-    set?: FooterLinkWhereUniqueInput | FooterLinkWhereUniqueInput[]
-    disconnect?: FooterLinkWhereUniqueInput | FooterLinkWhereUniqueInput[]
-    delete?: FooterLinkWhereUniqueInput | FooterLinkWhereUniqueInput[]
-    connect?: FooterLinkWhereUniqueInput | FooterLinkWhereUniqueInput[]
-    update?: FooterLinkUpdateWithWhereUniqueWithoutConfigInput | FooterLinkUpdateWithWhereUniqueWithoutConfigInput[]
-    updateMany?: FooterLinkUpdateManyWithWhereWithoutConfigInput | FooterLinkUpdateManyWithWhereWithoutConfigInput[]
-    deleteMany?: FooterLinkScalarWhereInput | FooterLinkScalarWhereInput[]
-  }
-
-  export type UnitServerUncheckedUpdateManyWithoutConfigNestedInput = {
-    create?: XOR<UnitServerCreateWithoutConfigInput, UnitServerUncheckedCreateWithoutConfigInput> | UnitServerCreateWithoutConfigInput[] | UnitServerUncheckedCreateWithoutConfigInput[]
-    connectOrCreate?: UnitServerCreateOrConnectWithoutConfigInput | UnitServerCreateOrConnectWithoutConfigInput[]
-    upsert?: UnitServerUpsertWithWhereUniqueWithoutConfigInput | UnitServerUpsertWithWhereUniqueWithoutConfigInput[]
-    createMany?: UnitServerCreateManyConfigInputEnvelope
-    set?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
-    disconnect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
-    delete?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
-    connect?: UnitServerWhereUniqueInput | UnitServerWhereUniqueInput[]
-    update?: UnitServerUpdateWithWhereUniqueWithoutConfigInput | UnitServerUpdateWithWhereUniqueWithoutConfigInput[]
-    updateMany?: UnitServerUpdateManyWithWhereWithoutConfigInput | UnitServerUpdateManyWithWhereWithoutConfigInput[]
-    deleteMany?: UnitServerScalarWhereInput | UnitServerScalarWhereInput[]
-  }
-
-  export type UnitConfigCreateNestedOneWithoutLegalStepsInput = {
-    create?: XOR<UnitConfigCreateWithoutLegalStepsInput, UnitConfigUncheckedCreateWithoutLegalStepsInput>
-    connectOrCreate?: UnitConfigCreateOrConnectWithoutLegalStepsInput
-    connect?: UnitConfigWhereUniqueInput
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
-  export type UnitConfigUpdateOneRequiredWithoutLegalStepsNestedInput = {
-    create?: XOR<UnitConfigCreateWithoutLegalStepsInput, UnitConfigUncheckedCreateWithoutLegalStepsInput>
-    connectOrCreate?: UnitConfigCreateOrConnectWithoutLegalStepsInput
-    upsert?: UnitConfigUpsertWithoutLegalStepsInput
-    connect?: UnitConfigWhereUniqueInput
-    update?: XOR<XOR<UnitConfigUpdateToOneWithWhereWithoutLegalStepsInput, UnitConfigUpdateWithoutLegalStepsInput>, UnitConfigUncheckedUpdateWithoutLegalStepsInput>
-  }
-
-  export type UnitConfigCreateNestedOneWithoutFooterLinksInput = {
-    create?: XOR<UnitConfigCreateWithoutFooterLinksInput, UnitConfigUncheckedCreateWithoutFooterLinksInput>
-    connectOrCreate?: UnitConfigCreateOrConnectWithoutFooterLinksInput
-    connect?: UnitConfigWhereUniqueInput
-  }
-
-  export type UnitConfigUpdateOneRequiredWithoutFooterLinksNestedInput = {
-    create?: XOR<UnitConfigCreateWithoutFooterLinksInput, UnitConfigUncheckedCreateWithoutFooterLinksInput>
-    connectOrCreate?: UnitConfigCreateOrConnectWithoutFooterLinksInput
-    upsert?: UnitConfigUpsertWithoutFooterLinksInput
-    connect?: UnitConfigWhereUniqueInput
-    update?: XOR<XOR<UnitConfigUpdateToOneWithWhereWithoutFooterLinksInput, UnitConfigUpdateWithoutFooterLinksInput>, UnitConfigUncheckedUpdateWithoutFooterLinksInput>
-  }
-
   export type UnitConfigCreateNestedOneWithoutSectionsInput = {
     create?: XOR<UnitConfigCreateWithoutSectionsInput, UnitConfigUncheckedCreateWithoutSectionsInput>
     connectOrCreate?: UnitConfigCreateOrConnectWithoutSectionsInput
@@ -26775,6 +26785,14 @@ export namespace Prisma {
     connectOrCreate?: ImageCreateOrConnectWithoutSectionInput | ImageCreateOrConnectWithoutSectionInput[]
     createMany?: ImageCreateManySectionInputEnvelope
     connect?: ImageWhereUniqueInput | ImageWhereUniqueInput[]
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type UnitConfigUpdateOneRequiredWithoutSectionsNestedInput = {
@@ -26865,202 +26883,32 @@ export namespace Prisma {
     update?: XOR<XOR<UnitConfigUpdateToOneWithWhereWithoutArticlesInput, UnitConfigUpdateWithoutArticlesInput>, UnitConfigUncheckedUpdateWithoutArticlesInput>
   }
 
-  export type ConstellationCreateNestedOneWithoutServersInput = {
-    create?: XOR<ConstellationCreateWithoutServersInput, ConstellationUncheckedCreateWithoutServersInput>
-    connectOrCreate?: ConstellationCreateOrConnectWithoutServersInput
-    connect?: ConstellationWhereUniqueInput
-  }
-
-  export type UnitConfigCreateNestedOneWithoutServersInput = {
-    create?: XOR<UnitConfigCreateWithoutServersInput, UnitConfigUncheckedCreateWithoutServersInput>
-    connectOrCreate?: UnitConfigCreateOrConnectWithoutServersInput
+  export type UnitConfigCreateNestedOneWithoutLegalStepsInput = {
+    create?: XOR<UnitConfigCreateWithoutLegalStepsInput, UnitConfigUncheckedCreateWithoutLegalStepsInput>
+    connectOrCreate?: UnitConfigCreateOrConnectWithoutLegalStepsInput
     connect?: UnitConfigWhereUniqueInput
   }
 
-  export type ClientCreateNestedManyWithoutServerInput = {
-    create?: XOR<ClientCreateWithoutServerInput, ClientUncheckedCreateWithoutServerInput> | ClientCreateWithoutServerInput[] | ClientUncheckedCreateWithoutServerInput[]
-    connectOrCreate?: ClientCreateOrConnectWithoutServerInput | ClientCreateOrConnectWithoutServerInput[]
-    createMany?: ClientCreateManyServerInputEnvelope
-    connect?: ClientWhereUniqueInput | ClientWhereUniqueInput[]
-  }
-
-  export type ProfessionalCreateNestedManyWithoutServerInput = {
-    create?: XOR<ProfessionalCreateWithoutServerInput, ProfessionalUncheckedCreateWithoutServerInput> | ProfessionalCreateWithoutServerInput[] | ProfessionalUncheckedCreateWithoutServerInput[]
-    connectOrCreate?: ProfessionalCreateOrConnectWithoutServerInput | ProfessionalCreateOrConnectWithoutServerInput[]
-    createMany?: ProfessionalCreateManyServerInputEnvelope
-    connect?: ProfessionalWhereUniqueInput | ProfessionalWhereUniqueInput[]
-  }
-
-  export type CaseCreateNestedManyWithoutServerInput = {
-    create?: XOR<CaseCreateWithoutServerInput, CaseUncheckedCreateWithoutServerInput> | CaseCreateWithoutServerInput[] | CaseUncheckedCreateWithoutServerInput[]
-    connectOrCreate?: CaseCreateOrConnectWithoutServerInput | CaseCreateOrConnectWithoutServerInput[]
-    createMany?: CaseCreateManyServerInputEnvelope
-    connect?: CaseWhereUniqueInput | CaseWhereUniqueInput[]
-  }
-
-  export type ServerLogCreateNestedManyWithoutServerInput = {
-    create?: XOR<ServerLogCreateWithoutServerInput, ServerLogUncheckedCreateWithoutServerInput> | ServerLogCreateWithoutServerInput[] | ServerLogUncheckedCreateWithoutServerInput[]
-    connectOrCreate?: ServerLogCreateOrConnectWithoutServerInput | ServerLogCreateOrConnectWithoutServerInput[]
-    createMany?: ServerLogCreateManyServerInputEnvelope
-    connect?: ServerLogWhereUniqueInput | ServerLogWhereUniqueInput[]
-  }
-
-  export type ClientUncheckedCreateNestedManyWithoutServerInput = {
-    create?: XOR<ClientCreateWithoutServerInput, ClientUncheckedCreateWithoutServerInput> | ClientCreateWithoutServerInput[] | ClientUncheckedCreateWithoutServerInput[]
-    connectOrCreate?: ClientCreateOrConnectWithoutServerInput | ClientCreateOrConnectWithoutServerInput[]
-    createMany?: ClientCreateManyServerInputEnvelope
-    connect?: ClientWhereUniqueInput | ClientWhereUniqueInput[]
-  }
-
-  export type ProfessionalUncheckedCreateNestedManyWithoutServerInput = {
-    create?: XOR<ProfessionalCreateWithoutServerInput, ProfessionalUncheckedCreateWithoutServerInput> | ProfessionalCreateWithoutServerInput[] | ProfessionalUncheckedCreateWithoutServerInput[]
-    connectOrCreate?: ProfessionalCreateOrConnectWithoutServerInput | ProfessionalCreateOrConnectWithoutServerInput[]
-    createMany?: ProfessionalCreateManyServerInputEnvelope
-    connect?: ProfessionalWhereUniqueInput | ProfessionalWhereUniqueInput[]
-  }
-
-  export type CaseUncheckedCreateNestedManyWithoutServerInput = {
-    create?: XOR<CaseCreateWithoutServerInput, CaseUncheckedCreateWithoutServerInput> | CaseCreateWithoutServerInput[] | CaseUncheckedCreateWithoutServerInput[]
-    connectOrCreate?: CaseCreateOrConnectWithoutServerInput | CaseCreateOrConnectWithoutServerInput[]
-    createMany?: CaseCreateManyServerInputEnvelope
-    connect?: CaseWhereUniqueInput | CaseWhereUniqueInput[]
-  }
-
-  export type ServerLogUncheckedCreateNestedManyWithoutServerInput = {
-    create?: XOR<ServerLogCreateWithoutServerInput, ServerLogUncheckedCreateWithoutServerInput> | ServerLogCreateWithoutServerInput[] | ServerLogUncheckedCreateWithoutServerInput[]
-    connectOrCreate?: ServerLogCreateOrConnectWithoutServerInput | ServerLogCreateOrConnectWithoutServerInput[]
-    createMany?: ServerLogCreateManyServerInputEnvelope
-    connect?: ServerLogWhereUniqueInput | ServerLogWhereUniqueInput[]
-  }
-
-  export type ConstellationUpdateOneRequiredWithoutServersNestedInput = {
-    create?: XOR<ConstellationCreateWithoutServersInput, ConstellationUncheckedCreateWithoutServersInput>
-    connectOrCreate?: ConstellationCreateOrConnectWithoutServersInput
-    upsert?: ConstellationUpsertWithoutServersInput
-    connect?: ConstellationWhereUniqueInput
-    update?: XOR<XOR<ConstellationUpdateToOneWithWhereWithoutServersInput, ConstellationUpdateWithoutServersInput>, ConstellationUncheckedUpdateWithoutServersInput>
-  }
-
-  export type UnitConfigUpdateOneWithoutServersNestedInput = {
-    create?: XOR<UnitConfigCreateWithoutServersInput, UnitConfigUncheckedCreateWithoutServersInput>
-    connectOrCreate?: UnitConfigCreateOrConnectWithoutServersInput
-    upsert?: UnitConfigUpsertWithoutServersInput
-    disconnect?: UnitConfigWhereInput | boolean
-    delete?: UnitConfigWhereInput | boolean
+  export type UnitConfigUpdateOneRequiredWithoutLegalStepsNestedInput = {
+    create?: XOR<UnitConfigCreateWithoutLegalStepsInput, UnitConfigUncheckedCreateWithoutLegalStepsInput>
+    connectOrCreate?: UnitConfigCreateOrConnectWithoutLegalStepsInput
+    upsert?: UnitConfigUpsertWithoutLegalStepsInput
     connect?: UnitConfigWhereUniqueInput
-    update?: XOR<XOR<UnitConfigUpdateToOneWithWhereWithoutServersInput, UnitConfigUpdateWithoutServersInput>, UnitConfigUncheckedUpdateWithoutServersInput>
+    update?: XOR<XOR<UnitConfigUpdateToOneWithWhereWithoutLegalStepsInput, UnitConfigUpdateWithoutLegalStepsInput>, UnitConfigUncheckedUpdateWithoutLegalStepsInput>
   }
 
-  export type ClientUpdateManyWithoutServerNestedInput = {
-    create?: XOR<ClientCreateWithoutServerInput, ClientUncheckedCreateWithoutServerInput> | ClientCreateWithoutServerInput[] | ClientUncheckedCreateWithoutServerInput[]
-    connectOrCreate?: ClientCreateOrConnectWithoutServerInput | ClientCreateOrConnectWithoutServerInput[]
-    upsert?: ClientUpsertWithWhereUniqueWithoutServerInput | ClientUpsertWithWhereUniqueWithoutServerInput[]
-    createMany?: ClientCreateManyServerInputEnvelope
-    set?: ClientWhereUniqueInput | ClientWhereUniqueInput[]
-    disconnect?: ClientWhereUniqueInput | ClientWhereUniqueInput[]
-    delete?: ClientWhereUniqueInput | ClientWhereUniqueInput[]
-    connect?: ClientWhereUniqueInput | ClientWhereUniqueInput[]
-    update?: ClientUpdateWithWhereUniqueWithoutServerInput | ClientUpdateWithWhereUniqueWithoutServerInput[]
-    updateMany?: ClientUpdateManyWithWhereWithoutServerInput | ClientUpdateManyWithWhereWithoutServerInput[]
-    deleteMany?: ClientScalarWhereInput | ClientScalarWhereInput[]
+  export type UnitConfigCreateNestedOneWithoutFooterLinksInput = {
+    create?: XOR<UnitConfigCreateWithoutFooterLinksInput, UnitConfigUncheckedCreateWithoutFooterLinksInput>
+    connectOrCreate?: UnitConfigCreateOrConnectWithoutFooterLinksInput
+    connect?: UnitConfigWhereUniqueInput
   }
 
-  export type ProfessionalUpdateManyWithoutServerNestedInput = {
-    create?: XOR<ProfessionalCreateWithoutServerInput, ProfessionalUncheckedCreateWithoutServerInput> | ProfessionalCreateWithoutServerInput[] | ProfessionalUncheckedCreateWithoutServerInput[]
-    connectOrCreate?: ProfessionalCreateOrConnectWithoutServerInput | ProfessionalCreateOrConnectWithoutServerInput[]
-    upsert?: ProfessionalUpsertWithWhereUniqueWithoutServerInput | ProfessionalUpsertWithWhereUniqueWithoutServerInput[]
-    createMany?: ProfessionalCreateManyServerInputEnvelope
-    set?: ProfessionalWhereUniqueInput | ProfessionalWhereUniqueInput[]
-    disconnect?: ProfessionalWhereUniqueInput | ProfessionalWhereUniqueInput[]
-    delete?: ProfessionalWhereUniqueInput | ProfessionalWhereUniqueInput[]
-    connect?: ProfessionalWhereUniqueInput | ProfessionalWhereUniqueInput[]
-    update?: ProfessionalUpdateWithWhereUniqueWithoutServerInput | ProfessionalUpdateWithWhereUniqueWithoutServerInput[]
-    updateMany?: ProfessionalUpdateManyWithWhereWithoutServerInput | ProfessionalUpdateManyWithWhereWithoutServerInput[]
-    deleteMany?: ProfessionalScalarWhereInput | ProfessionalScalarWhereInput[]
-  }
-
-  export type CaseUpdateManyWithoutServerNestedInput = {
-    create?: XOR<CaseCreateWithoutServerInput, CaseUncheckedCreateWithoutServerInput> | CaseCreateWithoutServerInput[] | CaseUncheckedCreateWithoutServerInput[]
-    connectOrCreate?: CaseCreateOrConnectWithoutServerInput | CaseCreateOrConnectWithoutServerInput[]
-    upsert?: CaseUpsertWithWhereUniqueWithoutServerInput | CaseUpsertWithWhereUniqueWithoutServerInput[]
-    createMany?: CaseCreateManyServerInputEnvelope
-    set?: CaseWhereUniqueInput | CaseWhereUniqueInput[]
-    disconnect?: CaseWhereUniqueInput | CaseWhereUniqueInput[]
-    delete?: CaseWhereUniqueInput | CaseWhereUniqueInput[]
-    connect?: CaseWhereUniqueInput | CaseWhereUniqueInput[]
-    update?: CaseUpdateWithWhereUniqueWithoutServerInput | CaseUpdateWithWhereUniqueWithoutServerInput[]
-    updateMany?: CaseUpdateManyWithWhereWithoutServerInput | CaseUpdateManyWithWhereWithoutServerInput[]
-    deleteMany?: CaseScalarWhereInput | CaseScalarWhereInput[]
-  }
-
-  export type ServerLogUpdateManyWithoutServerNestedInput = {
-    create?: XOR<ServerLogCreateWithoutServerInput, ServerLogUncheckedCreateWithoutServerInput> | ServerLogCreateWithoutServerInput[] | ServerLogUncheckedCreateWithoutServerInput[]
-    connectOrCreate?: ServerLogCreateOrConnectWithoutServerInput | ServerLogCreateOrConnectWithoutServerInput[]
-    upsert?: ServerLogUpsertWithWhereUniqueWithoutServerInput | ServerLogUpsertWithWhereUniqueWithoutServerInput[]
-    createMany?: ServerLogCreateManyServerInputEnvelope
-    set?: ServerLogWhereUniqueInput | ServerLogWhereUniqueInput[]
-    disconnect?: ServerLogWhereUniqueInput | ServerLogWhereUniqueInput[]
-    delete?: ServerLogWhereUniqueInput | ServerLogWhereUniqueInput[]
-    connect?: ServerLogWhereUniqueInput | ServerLogWhereUniqueInput[]
-    update?: ServerLogUpdateWithWhereUniqueWithoutServerInput | ServerLogUpdateWithWhereUniqueWithoutServerInput[]
-    updateMany?: ServerLogUpdateManyWithWhereWithoutServerInput | ServerLogUpdateManyWithWhereWithoutServerInput[]
-    deleteMany?: ServerLogScalarWhereInput | ServerLogScalarWhereInput[]
-  }
-
-  export type ClientUncheckedUpdateManyWithoutServerNestedInput = {
-    create?: XOR<ClientCreateWithoutServerInput, ClientUncheckedCreateWithoutServerInput> | ClientCreateWithoutServerInput[] | ClientUncheckedCreateWithoutServerInput[]
-    connectOrCreate?: ClientCreateOrConnectWithoutServerInput | ClientCreateOrConnectWithoutServerInput[]
-    upsert?: ClientUpsertWithWhereUniqueWithoutServerInput | ClientUpsertWithWhereUniqueWithoutServerInput[]
-    createMany?: ClientCreateManyServerInputEnvelope
-    set?: ClientWhereUniqueInput | ClientWhereUniqueInput[]
-    disconnect?: ClientWhereUniqueInput | ClientWhereUniqueInput[]
-    delete?: ClientWhereUniqueInput | ClientWhereUniqueInput[]
-    connect?: ClientWhereUniqueInput | ClientWhereUniqueInput[]
-    update?: ClientUpdateWithWhereUniqueWithoutServerInput | ClientUpdateWithWhereUniqueWithoutServerInput[]
-    updateMany?: ClientUpdateManyWithWhereWithoutServerInput | ClientUpdateManyWithWhereWithoutServerInput[]
-    deleteMany?: ClientScalarWhereInput | ClientScalarWhereInput[]
-  }
-
-  export type ProfessionalUncheckedUpdateManyWithoutServerNestedInput = {
-    create?: XOR<ProfessionalCreateWithoutServerInput, ProfessionalUncheckedCreateWithoutServerInput> | ProfessionalCreateWithoutServerInput[] | ProfessionalUncheckedCreateWithoutServerInput[]
-    connectOrCreate?: ProfessionalCreateOrConnectWithoutServerInput | ProfessionalCreateOrConnectWithoutServerInput[]
-    upsert?: ProfessionalUpsertWithWhereUniqueWithoutServerInput | ProfessionalUpsertWithWhereUniqueWithoutServerInput[]
-    createMany?: ProfessionalCreateManyServerInputEnvelope
-    set?: ProfessionalWhereUniqueInput | ProfessionalWhereUniqueInput[]
-    disconnect?: ProfessionalWhereUniqueInput | ProfessionalWhereUniqueInput[]
-    delete?: ProfessionalWhereUniqueInput | ProfessionalWhereUniqueInput[]
-    connect?: ProfessionalWhereUniqueInput | ProfessionalWhereUniqueInput[]
-    update?: ProfessionalUpdateWithWhereUniqueWithoutServerInput | ProfessionalUpdateWithWhereUniqueWithoutServerInput[]
-    updateMany?: ProfessionalUpdateManyWithWhereWithoutServerInput | ProfessionalUpdateManyWithWhereWithoutServerInput[]
-    deleteMany?: ProfessionalScalarWhereInput | ProfessionalScalarWhereInput[]
-  }
-
-  export type CaseUncheckedUpdateManyWithoutServerNestedInput = {
-    create?: XOR<CaseCreateWithoutServerInput, CaseUncheckedCreateWithoutServerInput> | CaseCreateWithoutServerInput[] | CaseUncheckedCreateWithoutServerInput[]
-    connectOrCreate?: CaseCreateOrConnectWithoutServerInput | CaseCreateOrConnectWithoutServerInput[]
-    upsert?: CaseUpsertWithWhereUniqueWithoutServerInput | CaseUpsertWithWhereUniqueWithoutServerInput[]
-    createMany?: CaseCreateManyServerInputEnvelope
-    set?: CaseWhereUniqueInput | CaseWhereUniqueInput[]
-    disconnect?: CaseWhereUniqueInput | CaseWhereUniqueInput[]
-    delete?: CaseWhereUniqueInput | CaseWhereUniqueInput[]
-    connect?: CaseWhereUniqueInput | CaseWhereUniqueInput[]
-    update?: CaseUpdateWithWhereUniqueWithoutServerInput | CaseUpdateWithWhereUniqueWithoutServerInput[]
-    updateMany?: CaseUpdateManyWithWhereWithoutServerInput | CaseUpdateManyWithWhereWithoutServerInput[]
-    deleteMany?: CaseScalarWhereInput | CaseScalarWhereInput[]
-  }
-
-  export type ServerLogUncheckedUpdateManyWithoutServerNestedInput = {
-    create?: XOR<ServerLogCreateWithoutServerInput, ServerLogUncheckedCreateWithoutServerInput> | ServerLogCreateWithoutServerInput[] | ServerLogUncheckedCreateWithoutServerInput[]
-    connectOrCreate?: ServerLogCreateOrConnectWithoutServerInput | ServerLogCreateOrConnectWithoutServerInput[]
-    upsert?: ServerLogUpsertWithWhereUniqueWithoutServerInput | ServerLogUpsertWithWhereUniqueWithoutServerInput[]
-    createMany?: ServerLogCreateManyServerInputEnvelope
-    set?: ServerLogWhereUniqueInput | ServerLogWhereUniqueInput[]
-    disconnect?: ServerLogWhereUniqueInput | ServerLogWhereUniqueInput[]
-    delete?: ServerLogWhereUniqueInput | ServerLogWhereUniqueInput[]
-    connect?: ServerLogWhereUniqueInput | ServerLogWhereUniqueInput[]
-    update?: ServerLogUpdateWithWhereUniqueWithoutServerInput | ServerLogUpdateWithWhereUniqueWithoutServerInput[]
-    updateMany?: ServerLogUpdateManyWithWhereWithoutServerInput | ServerLogUpdateManyWithWhereWithoutServerInput[]
-    deleteMany?: ServerLogScalarWhereInput | ServerLogScalarWhereInput[]
+  export type UnitConfigUpdateOneRequiredWithoutFooterLinksNestedInput = {
+    create?: XOR<UnitConfigCreateWithoutFooterLinksInput, UnitConfigUncheckedCreateWithoutFooterLinksInput>
+    connectOrCreate?: UnitConfigCreateOrConnectWithoutFooterLinksInput
+    upsert?: UnitConfigUpsertWithoutFooterLinksInput
+    connect?: UnitConfigWhereUniqueInput
+    update?: XOR<XOR<UnitConfigUpdateToOneWithWhereWithoutFooterLinksInput, UnitConfigUpdateWithoutFooterLinksInput>, UnitConfigUncheckedUpdateWithoutFooterLinksInput>
   }
 
   export type UnitServerCreateNestedOneWithoutServerLogsInput = {
@@ -27399,14 +27247,12 @@ export namespace Prisma {
 
   export type ProfessionalCreateWithoutUserInput = {
     id?: string
-    server: UnitServerCreateNestedOneWithoutProfessionalsInput
     cases?: CaseCreateNestedManyWithoutProfessionalInput
     files?: FileCreateNestedManyWithoutProfessionalInput
   }
 
   export type ProfessionalUncheckedCreateWithoutUserInput = {
     id?: string
-    serverId: string
     cases?: CaseUncheckedCreateNestedManyWithoutProfessionalInput
     files?: FileUncheckedCreateNestedManyWithoutProfessionalInput
   }
@@ -27469,7 +27315,6 @@ export namespace Prisma {
     NOT?: ProfessionalScalarWhereInput | ProfessionalScalarWhereInput[]
     id?: StringFilter<"Professional"> | string
     userId?: StringFilter<"Professional"> | string
-    serverId?: StringFilter<"Professional"> | string
   }
 
   export type UserCreateWithoutClientsInput = {
@@ -27522,7 +27367,6 @@ export namespace Prisma {
     updatedAt?: Date | string
     constellation: ConstellationCreateNestedOneWithoutServersInput
     config?: UnitConfigCreateNestedOneWithoutServersInput
-    professionals?: ProfessionalCreateNestedManyWithoutServerInput
     cases?: CaseCreateNestedManyWithoutServerInput
     serverLogs?: ServerLogCreateNestedManyWithoutServerInput
   }
@@ -27538,7 +27382,6 @@ export namespace Prisma {
     configId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    professionals?: ProfessionalUncheckedCreateNestedManyWithoutServerInput
     cases?: CaseUncheckedCreateNestedManyWithoutServerInput
     serverLogs?: ServerLogUncheckedCreateNestedManyWithoutServerInput
   }
@@ -27705,7 +27548,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     constellation?: ConstellationUpdateOneRequiredWithoutServersNestedInput
     config?: UnitConfigUpdateOneWithoutServersNestedInput
-    professionals?: ProfessionalUpdateManyWithoutServerNestedInput
     cases?: CaseUpdateManyWithoutServerNestedInput
     serverLogs?: ServerLogUpdateManyWithoutServerNestedInput
   }
@@ -27721,7 +27563,6 @@ export namespace Prisma {
     configId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    professionals?: ProfessionalUncheckedUpdateManyWithoutServerNestedInput
     cases?: CaseUncheckedUpdateManyWithoutServerNestedInput
     serverLogs?: ServerLogUncheckedUpdateManyWithoutServerNestedInput
   }
@@ -27852,43 +27693,6 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutProfessionalsInput, UserUncheckedCreateWithoutProfessionalsInput>
   }
 
-  export type UnitServerCreateWithoutProfessionalsInput = {
-    id?: string
-    domain: string
-    name: string
-    orchestratorToken: string
-    unitToken: string
-    isActive?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    constellation: ConstellationCreateNestedOneWithoutServersInput
-    config?: UnitConfigCreateNestedOneWithoutServersInput
-    clients?: ClientCreateNestedManyWithoutServerInput
-    cases?: CaseCreateNestedManyWithoutServerInput
-    serverLogs?: ServerLogCreateNestedManyWithoutServerInput
-  }
-
-  export type UnitServerUncheckedCreateWithoutProfessionalsInput = {
-    id?: string
-    domain: string
-    name: string
-    orchestratorToken: string
-    unitToken: string
-    isActive?: boolean
-    constellationId: string
-    configId?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    clients?: ClientUncheckedCreateNestedManyWithoutServerInput
-    cases?: CaseUncheckedCreateNestedManyWithoutServerInput
-    serverLogs?: ServerLogUncheckedCreateNestedManyWithoutServerInput
-  }
-
-  export type UnitServerCreateOrConnectWithoutProfessionalsInput = {
-    where: UnitServerWhereUniqueInput
-    create: XOR<UnitServerCreateWithoutProfessionalsInput, UnitServerUncheckedCreateWithoutProfessionalsInput>
-  }
-
   export type CaseCreateWithoutProfessionalInput = {
     id?: string
     status?: $Enums.CaseStatus
@@ -28000,49 +27804,6 @@ export namespace Prisma {
     clients?: ClientUncheckedUpdateManyWithoutUserNestedInput
   }
 
-  export type UnitServerUpsertWithoutProfessionalsInput = {
-    update: XOR<UnitServerUpdateWithoutProfessionalsInput, UnitServerUncheckedUpdateWithoutProfessionalsInput>
-    create: XOR<UnitServerCreateWithoutProfessionalsInput, UnitServerUncheckedCreateWithoutProfessionalsInput>
-    where?: UnitServerWhereInput
-  }
-
-  export type UnitServerUpdateToOneWithWhereWithoutProfessionalsInput = {
-    where?: UnitServerWhereInput
-    data: XOR<UnitServerUpdateWithoutProfessionalsInput, UnitServerUncheckedUpdateWithoutProfessionalsInput>
-  }
-
-  export type UnitServerUpdateWithoutProfessionalsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    domain?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    orchestratorToken?: StringFieldUpdateOperationsInput | string
-    unitToken?: StringFieldUpdateOperationsInput | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    constellation?: ConstellationUpdateOneRequiredWithoutServersNestedInput
-    config?: UnitConfigUpdateOneWithoutServersNestedInput
-    clients?: ClientUpdateManyWithoutServerNestedInput
-    cases?: CaseUpdateManyWithoutServerNestedInput
-    serverLogs?: ServerLogUpdateManyWithoutServerNestedInput
-  }
-
-  export type UnitServerUncheckedUpdateWithoutProfessionalsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    domain?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    orchestratorToken?: StringFieldUpdateOperationsInput | string
-    unitToken?: StringFieldUpdateOperationsInput | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    constellationId?: StringFieldUpdateOperationsInput | string
-    configId?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    clients?: ClientUncheckedUpdateManyWithoutServerNestedInput
-    cases?: CaseUncheckedUpdateManyWithoutServerNestedInput
-    serverLogs?: ServerLogUncheckedUpdateManyWithoutServerNestedInput
-  }
-
   export type CaseUpsertWithWhereUniqueWithoutProfessionalInput = {
     where: CaseWhereUniqueInput
     update: XOR<CaseUpdateWithoutProfessionalInput, CaseUncheckedUpdateWithoutProfessionalInput>
@@ -28075,6 +27836,684 @@ export namespace Prisma {
     data: XOR<FileUpdateManyMutationInput, FileUncheckedUpdateManyWithoutProfessionalInput>
   }
 
+  export type UnitServerCreateWithoutConstellationInput = {
+    id?: string
+    domain: string
+    name: string
+    orchestratorToken: string
+    unitToken: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    config?: UnitConfigCreateNestedOneWithoutServersInput
+    clients?: ClientCreateNestedManyWithoutServerInput
+    cases?: CaseCreateNestedManyWithoutServerInput
+    serverLogs?: ServerLogCreateNestedManyWithoutServerInput
+  }
+
+  export type UnitServerUncheckedCreateWithoutConstellationInput = {
+    id?: string
+    domain: string
+    name: string
+    orchestratorToken: string
+    unitToken: string
+    isActive?: boolean
+    configId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    clients?: ClientUncheckedCreateNestedManyWithoutServerInput
+    cases?: CaseUncheckedCreateNestedManyWithoutServerInput
+    serverLogs?: ServerLogUncheckedCreateNestedManyWithoutServerInput
+  }
+
+  export type UnitServerCreateOrConnectWithoutConstellationInput = {
+    where: UnitServerWhereUniqueInput
+    create: XOR<UnitServerCreateWithoutConstellationInput, UnitServerUncheckedCreateWithoutConstellationInput>
+  }
+
+  export type UnitServerCreateManyConstellationInputEnvelope = {
+    data: UnitServerCreateManyConstellationInput | UnitServerCreateManyConstellationInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UnitServerUpsertWithWhereUniqueWithoutConstellationInput = {
+    where: UnitServerWhereUniqueInput
+    update: XOR<UnitServerUpdateWithoutConstellationInput, UnitServerUncheckedUpdateWithoutConstellationInput>
+    create: XOR<UnitServerCreateWithoutConstellationInput, UnitServerUncheckedCreateWithoutConstellationInput>
+  }
+
+  export type UnitServerUpdateWithWhereUniqueWithoutConstellationInput = {
+    where: UnitServerWhereUniqueInput
+    data: XOR<UnitServerUpdateWithoutConstellationInput, UnitServerUncheckedUpdateWithoutConstellationInput>
+  }
+
+  export type UnitServerUpdateManyWithWhereWithoutConstellationInput = {
+    where: UnitServerScalarWhereInput
+    data: XOR<UnitServerUpdateManyMutationInput, UnitServerUncheckedUpdateManyWithoutConstellationInput>
+  }
+
+  export type UnitServerScalarWhereInput = {
+    AND?: UnitServerScalarWhereInput | UnitServerScalarWhereInput[]
+    OR?: UnitServerScalarWhereInput[]
+    NOT?: UnitServerScalarWhereInput | UnitServerScalarWhereInput[]
+    id?: StringFilter<"UnitServer"> | string
+    domain?: StringFilter<"UnitServer"> | string
+    name?: StringFilter<"UnitServer"> | string
+    orchestratorToken?: StringFilter<"UnitServer"> | string
+    unitToken?: StringFilter<"UnitServer"> | string
+    isActive?: BoolFilter<"UnitServer"> | boolean
+    constellationId?: StringFilter<"UnitServer"> | string
+    configId?: StringNullableFilter<"UnitServer"> | string | null
+    createdAt?: DateTimeFilter<"UnitServer"> | Date | string
+    updatedAt?: DateTimeFilter<"UnitServer"> | Date | string
+  }
+
+  export type LegalStepCreateWithoutConfigInput = {
+    id?: string
+    title: string
+    description: string
+    order: number
+  }
+
+  export type LegalStepUncheckedCreateWithoutConfigInput = {
+    id?: string
+    title: string
+    description: string
+    order: number
+  }
+
+  export type LegalStepCreateOrConnectWithoutConfigInput = {
+    where: LegalStepWhereUniqueInput
+    create: XOR<LegalStepCreateWithoutConfigInput, LegalStepUncheckedCreateWithoutConfigInput>
+  }
+
+  export type LegalStepCreateManyConfigInputEnvelope = {
+    data: LegalStepCreateManyConfigInput | LegalStepCreateManyConfigInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ArticleCreateWithoutConfigInput = {
+    id?: string
+    title: string
+    content: string
+    url?: string | null
+    publishedAt?: Date | string
+    order: number
+  }
+
+  export type ArticleUncheckedCreateWithoutConfigInput = {
+    id?: string
+    title: string
+    content: string
+    url?: string | null
+    publishedAt?: Date | string
+    order: number
+  }
+
+  export type ArticleCreateOrConnectWithoutConfigInput = {
+    where: ArticleWhereUniqueInput
+    create: XOR<ArticleCreateWithoutConfigInput, ArticleUncheckedCreateWithoutConfigInput>
+  }
+
+  export type ArticleCreateManyConfigInputEnvelope = {
+    data: ArticleCreateManyConfigInput | ArticleCreateManyConfigInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SectionCreateWithoutConfigInput = {
+    id?: string
+    title: string
+    body: string
+    imageUrl?: string | null
+    order: number
+    images?: ImageCreateNestedManyWithoutSectionInput
+  }
+
+  export type SectionUncheckedCreateWithoutConfigInput = {
+    id?: string
+    title: string
+    body: string
+    imageUrl?: string | null
+    order: number
+    images?: ImageUncheckedCreateNestedManyWithoutSectionInput
+  }
+
+  export type SectionCreateOrConnectWithoutConfigInput = {
+    where: SectionWhereUniqueInput
+    create: XOR<SectionCreateWithoutConfigInput, SectionUncheckedCreateWithoutConfigInput>
+  }
+
+  export type SectionCreateManyConfigInputEnvelope = {
+    data: SectionCreateManyConfigInput | SectionCreateManyConfigInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ImageCreateWithoutConfigInput = {
+    id?: string
+    url: string
+    altText?: string | null
+    type: string
+    order?: number | null
+    section?: SectionCreateNestedOneWithoutImagesInput
+  }
+
+  export type ImageUncheckedCreateWithoutConfigInput = {
+    id?: string
+    url: string
+    altText?: string | null
+    type: string
+    order?: number | null
+    sectionId?: string | null
+  }
+
+  export type ImageCreateOrConnectWithoutConfigInput = {
+    where: ImageWhereUniqueInput
+    create: XOR<ImageCreateWithoutConfigInput, ImageUncheckedCreateWithoutConfigInput>
+  }
+
+  export type ImageCreateManyConfigInputEnvelope = {
+    data: ImageCreateManyConfigInput | ImageCreateManyConfigInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type FooterLinkCreateWithoutConfigInput = {
+    id?: string
+    label: string
+    url: string
+    order: number
+  }
+
+  export type FooterLinkUncheckedCreateWithoutConfigInput = {
+    id?: string
+    label: string
+    url: string
+    order: number
+  }
+
+  export type FooterLinkCreateOrConnectWithoutConfigInput = {
+    where: FooterLinkWhereUniqueInput
+    create: XOR<FooterLinkCreateWithoutConfigInput, FooterLinkUncheckedCreateWithoutConfigInput>
+  }
+
+  export type FooterLinkCreateManyConfigInputEnvelope = {
+    data: FooterLinkCreateManyConfigInput | FooterLinkCreateManyConfigInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UnitServerCreateWithoutConfigInput = {
+    id?: string
+    domain: string
+    name: string
+    orchestratorToken: string
+    unitToken: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    constellation: ConstellationCreateNestedOneWithoutServersInput
+    clients?: ClientCreateNestedManyWithoutServerInput
+    cases?: CaseCreateNestedManyWithoutServerInput
+    serverLogs?: ServerLogCreateNestedManyWithoutServerInput
+  }
+
+  export type UnitServerUncheckedCreateWithoutConfigInput = {
+    id?: string
+    domain: string
+    name: string
+    orchestratorToken: string
+    unitToken: string
+    isActive?: boolean
+    constellationId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    clients?: ClientUncheckedCreateNestedManyWithoutServerInput
+    cases?: CaseUncheckedCreateNestedManyWithoutServerInput
+    serverLogs?: ServerLogUncheckedCreateNestedManyWithoutServerInput
+  }
+
+  export type UnitServerCreateOrConnectWithoutConfigInput = {
+    where: UnitServerWhereUniqueInput
+    create: XOR<UnitServerCreateWithoutConfigInput, UnitServerUncheckedCreateWithoutConfigInput>
+  }
+
+  export type UnitServerCreateManyConfigInputEnvelope = {
+    data: UnitServerCreateManyConfigInput | UnitServerCreateManyConfigInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type LegalStepUpsertWithWhereUniqueWithoutConfigInput = {
+    where: LegalStepWhereUniqueInput
+    update: XOR<LegalStepUpdateWithoutConfigInput, LegalStepUncheckedUpdateWithoutConfigInput>
+    create: XOR<LegalStepCreateWithoutConfigInput, LegalStepUncheckedCreateWithoutConfigInput>
+  }
+
+  export type LegalStepUpdateWithWhereUniqueWithoutConfigInput = {
+    where: LegalStepWhereUniqueInput
+    data: XOR<LegalStepUpdateWithoutConfigInput, LegalStepUncheckedUpdateWithoutConfigInput>
+  }
+
+  export type LegalStepUpdateManyWithWhereWithoutConfigInput = {
+    where: LegalStepScalarWhereInput
+    data: XOR<LegalStepUpdateManyMutationInput, LegalStepUncheckedUpdateManyWithoutConfigInput>
+  }
+
+  export type LegalStepScalarWhereInput = {
+    AND?: LegalStepScalarWhereInput | LegalStepScalarWhereInput[]
+    OR?: LegalStepScalarWhereInput[]
+    NOT?: LegalStepScalarWhereInput | LegalStepScalarWhereInput[]
+    id?: StringFilter<"LegalStep"> | string
+    title?: StringFilter<"LegalStep"> | string
+    description?: StringFilter<"LegalStep"> | string
+    order?: IntFilter<"LegalStep"> | number
+    configId?: StringFilter<"LegalStep"> | string
+  }
+
+  export type ArticleUpsertWithWhereUniqueWithoutConfigInput = {
+    where: ArticleWhereUniqueInput
+    update: XOR<ArticleUpdateWithoutConfigInput, ArticleUncheckedUpdateWithoutConfigInput>
+    create: XOR<ArticleCreateWithoutConfigInput, ArticleUncheckedCreateWithoutConfigInput>
+  }
+
+  export type ArticleUpdateWithWhereUniqueWithoutConfigInput = {
+    where: ArticleWhereUniqueInput
+    data: XOR<ArticleUpdateWithoutConfigInput, ArticleUncheckedUpdateWithoutConfigInput>
+  }
+
+  export type ArticleUpdateManyWithWhereWithoutConfigInput = {
+    where: ArticleScalarWhereInput
+    data: XOR<ArticleUpdateManyMutationInput, ArticleUncheckedUpdateManyWithoutConfigInput>
+  }
+
+  export type ArticleScalarWhereInput = {
+    AND?: ArticleScalarWhereInput | ArticleScalarWhereInput[]
+    OR?: ArticleScalarWhereInput[]
+    NOT?: ArticleScalarWhereInput | ArticleScalarWhereInput[]
+    id?: StringFilter<"Article"> | string
+    title?: StringFilter<"Article"> | string
+    content?: StringFilter<"Article"> | string
+    url?: StringNullableFilter<"Article"> | string | null
+    publishedAt?: DateTimeFilter<"Article"> | Date | string
+    order?: IntFilter<"Article"> | number
+    configId?: StringFilter<"Article"> | string
+  }
+
+  export type SectionUpsertWithWhereUniqueWithoutConfigInput = {
+    where: SectionWhereUniqueInput
+    update: XOR<SectionUpdateWithoutConfigInput, SectionUncheckedUpdateWithoutConfigInput>
+    create: XOR<SectionCreateWithoutConfigInput, SectionUncheckedCreateWithoutConfigInput>
+  }
+
+  export type SectionUpdateWithWhereUniqueWithoutConfigInput = {
+    where: SectionWhereUniqueInput
+    data: XOR<SectionUpdateWithoutConfigInput, SectionUncheckedUpdateWithoutConfigInput>
+  }
+
+  export type SectionUpdateManyWithWhereWithoutConfigInput = {
+    where: SectionScalarWhereInput
+    data: XOR<SectionUpdateManyMutationInput, SectionUncheckedUpdateManyWithoutConfigInput>
+  }
+
+  export type SectionScalarWhereInput = {
+    AND?: SectionScalarWhereInput | SectionScalarWhereInput[]
+    OR?: SectionScalarWhereInput[]
+    NOT?: SectionScalarWhereInput | SectionScalarWhereInput[]
+    id?: StringFilter<"Section"> | string
+    title?: StringFilter<"Section"> | string
+    body?: StringFilter<"Section"> | string
+    imageUrl?: StringNullableFilter<"Section"> | string | null
+    order?: IntFilter<"Section"> | number
+    configId?: StringFilter<"Section"> | string
+  }
+
+  export type ImageUpsertWithWhereUniqueWithoutConfigInput = {
+    where: ImageWhereUniqueInput
+    update: XOR<ImageUpdateWithoutConfigInput, ImageUncheckedUpdateWithoutConfigInput>
+    create: XOR<ImageCreateWithoutConfigInput, ImageUncheckedCreateWithoutConfigInput>
+  }
+
+  export type ImageUpdateWithWhereUniqueWithoutConfigInput = {
+    where: ImageWhereUniqueInput
+    data: XOR<ImageUpdateWithoutConfigInput, ImageUncheckedUpdateWithoutConfigInput>
+  }
+
+  export type ImageUpdateManyWithWhereWithoutConfigInput = {
+    where: ImageScalarWhereInput
+    data: XOR<ImageUpdateManyMutationInput, ImageUncheckedUpdateManyWithoutConfigInput>
+  }
+
+  export type ImageScalarWhereInput = {
+    AND?: ImageScalarWhereInput | ImageScalarWhereInput[]
+    OR?: ImageScalarWhereInput[]
+    NOT?: ImageScalarWhereInput | ImageScalarWhereInput[]
+    id?: StringFilter<"Image"> | string
+    configId?: StringFilter<"Image"> | string
+    url?: StringFilter<"Image"> | string
+    altText?: StringNullableFilter<"Image"> | string | null
+    type?: StringFilter<"Image"> | string
+    order?: IntNullableFilter<"Image"> | number | null
+    sectionId?: StringNullableFilter<"Image"> | string | null
+  }
+
+  export type FooterLinkUpsertWithWhereUniqueWithoutConfigInput = {
+    where: FooterLinkWhereUniqueInput
+    update: XOR<FooterLinkUpdateWithoutConfigInput, FooterLinkUncheckedUpdateWithoutConfigInput>
+    create: XOR<FooterLinkCreateWithoutConfigInput, FooterLinkUncheckedCreateWithoutConfigInput>
+  }
+
+  export type FooterLinkUpdateWithWhereUniqueWithoutConfigInput = {
+    where: FooterLinkWhereUniqueInput
+    data: XOR<FooterLinkUpdateWithoutConfigInput, FooterLinkUncheckedUpdateWithoutConfigInput>
+  }
+
+  export type FooterLinkUpdateManyWithWhereWithoutConfigInput = {
+    where: FooterLinkScalarWhereInput
+    data: XOR<FooterLinkUpdateManyMutationInput, FooterLinkUncheckedUpdateManyWithoutConfigInput>
+  }
+
+  export type FooterLinkScalarWhereInput = {
+    AND?: FooterLinkScalarWhereInput | FooterLinkScalarWhereInput[]
+    OR?: FooterLinkScalarWhereInput[]
+    NOT?: FooterLinkScalarWhereInput | FooterLinkScalarWhereInput[]
+    id?: StringFilter<"FooterLink"> | string
+    label?: StringFilter<"FooterLink"> | string
+    url?: StringFilter<"FooterLink"> | string
+    order?: IntFilter<"FooterLink"> | number
+    configId?: StringFilter<"FooterLink"> | string
+  }
+
+  export type UnitServerUpsertWithWhereUniqueWithoutConfigInput = {
+    where: UnitServerWhereUniqueInput
+    update: XOR<UnitServerUpdateWithoutConfigInput, UnitServerUncheckedUpdateWithoutConfigInput>
+    create: XOR<UnitServerCreateWithoutConfigInput, UnitServerUncheckedCreateWithoutConfigInput>
+  }
+
+  export type UnitServerUpdateWithWhereUniqueWithoutConfigInput = {
+    where: UnitServerWhereUniqueInput
+    data: XOR<UnitServerUpdateWithoutConfigInput, UnitServerUncheckedUpdateWithoutConfigInput>
+  }
+
+  export type UnitServerUpdateManyWithWhereWithoutConfigInput = {
+    where: UnitServerScalarWhereInput
+    data: XOR<UnitServerUpdateManyMutationInput, UnitServerUncheckedUpdateManyWithoutConfigInput>
+  }
+
+  export type ConstellationCreateWithoutServersInput = {
+    id?: string
+    name: string
+    description?: string | null
+  }
+
+  export type ConstellationUncheckedCreateWithoutServersInput = {
+    id?: string
+    name: string
+    description?: string | null
+  }
+
+  export type ConstellationCreateOrConnectWithoutServersInput = {
+    where: ConstellationWhereUniqueInput
+    create: XOR<ConstellationCreateWithoutServersInput, ConstellationUncheckedCreateWithoutServersInput>
+  }
+
+  export type UnitConfigCreateWithoutServersInput = {
+    id?: string
+    name: string
+    pageTitle: string
+    pageDescription: string
+    iconUrl?: string | null
+    servicesDescription: string
+    bannerUrl?: string | null
+    footerInfo?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    legalSteps?: LegalStepCreateNestedManyWithoutConfigInput
+    articles?: ArticleCreateNestedManyWithoutConfigInput
+    sections?: SectionCreateNestedManyWithoutConfigInput
+    images?: ImageCreateNestedManyWithoutConfigInput
+    footerLinks?: FooterLinkCreateNestedManyWithoutConfigInput
+  }
+
+  export type UnitConfigUncheckedCreateWithoutServersInput = {
+    id?: string
+    name: string
+    pageTitle: string
+    pageDescription: string
+    iconUrl?: string | null
+    servicesDescription: string
+    bannerUrl?: string | null
+    footerInfo?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    legalSteps?: LegalStepUncheckedCreateNestedManyWithoutConfigInput
+    articles?: ArticleUncheckedCreateNestedManyWithoutConfigInput
+    sections?: SectionUncheckedCreateNestedManyWithoutConfigInput
+    images?: ImageUncheckedCreateNestedManyWithoutConfigInput
+    footerLinks?: FooterLinkUncheckedCreateNestedManyWithoutConfigInput
+  }
+
+  export type UnitConfigCreateOrConnectWithoutServersInput = {
+    where: UnitConfigWhereUniqueInput
+    create: XOR<UnitConfigCreateWithoutServersInput, UnitConfigUncheckedCreateWithoutServersInput>
+  }
+
+  export type ClientCreateWithoutServerInput = {
+    id?: string
+    status?: $Enums.ClientStatus
+    user: UserCreateNestedOneWithoutClientsInput
+    cases?: CaseCreateNestedManyWithoutClientInput
+    files?: FileCreateNestedManyWithoutClientInput
+    reports?: ReportCreateNestedManyWithoutClientInput
+  }
+
+  export type ClientUncheckedCreateWithoutServerInput = {
+    id?: string
+    userId: string
+    status?: $Enums.ClientStatus
+    cases?: CaseUncheckedCreateNestedManyWithoutClientInput
+    files?: FileUncheckedCreateNestedManyWithoutClientInput
+    reports?: ReportUncheckedCreateNestedManyWithoutClientInput
+  }
+
+  export type ClientCreateOrConnectWithoutServerInput = {
+    where: ClientWhereUniqueInput
+    create: XOR<ClientCreateWithoutServerInput, ClientUncheckedCreateWithoutServerInput>
+  }
+
+  export type ClientCreateManyServerInputEnvelope = {
+    data: ClientCreateManyServerInput | ClientCreateManyServerInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CaseCreateWithoutServerInput = {
+    id?: string
+    status?: $Enums.CaseStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tags?: CaseCreatetagsInput | string[]
+    client: ClientCreateNestedOneWithoutCasesInput
+    professional: ProfessionalCreateNestedOneWithoutCasesInput
+    chat?: ChatCreateNestedOneWithoutCaseInput
+    files?: FileCreateNestedManyWithoutCaseInput
+    reports?: ReportCreateNestedManyWithoutCaseInput
+  }
+
+  export type CaseUncheckedCreateWithoutServerInput = {
+    id?: string
+    clientId: string
+    professionalId: string
+    status?: $Enums.CaseStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tags?: CaseCreatetagsInput | string[]
+    chat?: ChatUncheckedCreateNestedOneWithoutCaseInput
+    files?: FileUncheckedCreateNestedManyWithoutCaseInput
+    reports?: ReportUncheckedCreateNestedManyWithoutCaseInput
+  }
+
+  export type CaseCreateOrConnectWithoutServerInput = {
+    where: CaseWhereUniqueInput
+    create: XOR<CaseCreateWithoutServerInput, CaseUncheckedCreateWithoutServerInput>
+  }
+
+  export type CaseCreateManyServerInputEnvelope = {
+    data: CaseCreateManyServerInput | CaseCreateManyServerInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ServerLogCreateWithoutServerInput = {
+    id?: string
+    type: string
+    message: string
+    timestamp?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type ServerLogUncheckedCreateWithoutServerInput = {
+    id?: string
+    type: string
+    message: string
+    timestamp?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type ServerLogCreateOrConnectWithoutServerInput = {
+    where: ServerLogWhereUniqueInput
+    create: XOR<ServerLogCreateWithoutServerInput, ServerLogUncheckedCreateWithoutServerInput>
+  }
+
+  export type ServerLogCreateManyServerInputEnvelope = {
+    data: ServerLogCreateManyServerInput | ServerLogCreateManyServerInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ConstellationUpsertWithoutServersInput = {
+    update: XOR<ConstellationUpdateWithoutServersInput, ConstellationUncheckedUpdateWithoutServersInput>
+    create: XOR<ConstellationCreateWithoutServersInput, ConstellationUncheckedCreateWithoutServersInput>
+    where?: ConstellationWhereInput
+  }
+
+  export type ConstellationUpdateToOneWithWhereWithoutServersInput = {
+    where?: ConstellationWhereInput
+    data: XOR<ConstellationUpdateWithoutServersInput, ConstellationUncheckedUpdateWithoutServersInput>
+  }
+
+  export type ConstellationUpdateWithoutServersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ConstellationUncheckedUpdateWithoutServersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type UnitConfigUpsertWithoutServersInput = {
+    update: XOR<UnitConfigUpdateWithoutServersInput, UnitConfigUncheckedUpdateWithoutServersInput>
+    create: XOR<UnitConfigCreateWithoutServersInput, UnitConfigUncheckedCreateWithoutServersInput>
+    where?: UnitConfigWhereInput
+  }
+
+  export type UnitConfigUpdateToOneWithWhereWithoutServersInput = {
+    where?: UnitConfigWhereInput
+    data: XOR<UnitConfigUpdateWithoutServersInput, UnitConfigUncheckedUpdateWithoutServersInput>
+  }
+
+  export type UnitConfigUpdateWithoutServersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    pageTitle?: StringFieldUpdateOperationsInput | string
+    pageDescription?: StringFieldUpdateOperationsInput | string
+    iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    servicesDescription?: StringFieldUpdateOperationsInput | string
+    bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    legalSteps?: LegalStepUpdateManyWithoutConfigNestedInput
+    articles?: ArticleUpdateManyWithoutConfigNestedInput
+    sections?: SectionUpdateManyWithoutConfigNestedInput
+    images?: ImageUpdateManyWithoutConfigNestedInput
+    footerLinks?: FooterLinkUpdateManyWithoutConfigNestedInput
+  }
+
+  export type UnitConfigUncheckedUpdateWithoutServersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    pageTitle?: StringFieldUpdateOperationsInput | string
+    pageDescription?: StringFieldUpdateOperationsInput | string
+    iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    servicesDescription?: StringFieldUpdateOperationsInput | string
+    bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    legalSteps?: LegalStepUncheckedUpdateManyWithoutConfigNestedInput
+    articles?: ArticleUncheckedUpdateManyWithoutConfigNestedInput
+    sections?: SectionUncheckedUpdateManyWithoutConfigNestedInput
+    images?: ImageUncheckedUpdateManyWithoutConfigNestedInput
+    footerLinks?: FooterLinkUncheckedUpdateManyWithoutConfigNestedInput
+  }
+
+  export type ClientUpsertWithWhereUniqueWithoutServerInput = {
+    where: ClientWhereUniqueInput
+    update: XOR<ClientUpdateWithoutServerInput, ClientUncheckedUpdateWithoutServerInput>
+    create: XOR<ClientCreateWithoutServerInput, ClientUncheckedCreateWithoutServerInput>
+  }
+
+  export type ClientUpdateWithWhereUniqueWithoutServerInput = {
+    where: ClientWhereUniqueInput
+    data: XOR<ClientUpdateWithoutServerInput, ClientUncheckedUpdateWithoutServerInput>
+  }
+
+  export type ClientUpdateManyWithWhereWithoutServerInput = {
+    where: ClientScalarWhereInput
+    data: XOR<ClientUpdateManyMutationInput, ClientUncheckedUpdateManyWithoutServerInput>
+  }
+
+  export type CaseUpsertWithWhereUniqueWithoutServerInput = {
+    where: CaseWhereUniqueInput
+    update: XOR<CaseUpdateWithoutServerInput, CaseUncheckedUpdateWithoutServerInput>
+    create: XOR<CaseCreateWithoutServerInput, CaseUncheckedCreateWithoutServerInput>
+  }
+
+  export type CaseUpdateWithWhereUniqueWithoutServerInput = {
+    where: CaseWhereUniqueInput
+    data: XOR<CaseUpdateWithoutServerInput, CaseUncheckedUpdateWithoutServerInput>
+  }
+
+  export type CaseUpdateManyWithWhereWithoutServerInput = {
+    where: CaseScalarWhereInput
+    data: XOR<CaseUpdateManyMutationInput, CaseUncheckedUpdateManyWithoutServerInput>
+  }
+
+  export type ServerLogUpsertWithWhereUniqueWithoutServerInput = {
+    where: ServerLogWhereUniqueInput
+    update: XOR<ServerLogUpdateWithoutServerInput, ServerLogUncheckedUpdateWithoutServerInput>
+    create: XOR<ServerLogCreateWithoutServerInput, ServerLogUncheckedCreateWithoutServerInput>
+  }
+
+  export type ServerLogUpdateWithWhereUniqueWithoutServerInput = {
+    where: ServerLogWhereUniqueInput
+    data: XOR<ServerLogUpdateWithoutServerInput, ServerLogUncheckedUpdateWithoutServerInput>
+  }
+
+  export type ServerLogUpdateManyWithWhereWithoutServerInput = {
+    where: ServerLogScalarWhereInput
+    data: XOR<ServerLogUpdateManyMutationInput, ServerLogUncheckedUpdateManyWithoutServerInput>
+  }
+
+  export type ServerLogScalarWhereInput = {
+    AND?: ServerLogScalarWhereInput | ServerLogScalarWhereInput[]
+    OR?: ServerLogScalarWhereInput[]
+    NOT?: ServerLogScalarWhereInput | ServerLogScalarWhereInput[]
+    id?: StringFilter<"ServerLog"> | string
+    serverId?: StringFilter<"ServerLog"> | string
+    type?: StringFilter<"ServerLog"> | string
+    message?: StringFilter<"ServerLog"> | string
+    timestamp?: DateTimeFilter<"ServerLog"> | Date | string
+    metadata?: JsonNullableFilter<"ServerLog">
+  }
+
   export type ClientCreateWithoutCasesInput = {
     id?: string
     status?: $Enums.ClientStatus
@@ -28101,14 +28540,12 @@ export namespace Prisma {
   export type ProfessionalCreateWithoutCasesInput = {
     id?: string
     user: UserCreateNestedOneWithoutProfessionalsInput
-    server: UnitServerCreateNestedOneWithoutProfessionalsInput
     files?: FileCreateNestedManyWithoutProfessionalInput
   }
 
   export type ProfessionalUncheckedCreateWithoutCasesInput = {
     id?: string
     userId: string
-    serverId: string
     files?: FileUncheckedCreateNestedManyWithoutProfessionalInput
   }
 
@@ -28129,7 +28566,6 @@ export namespace Prisma {
     constellation: ConstellationCreateNestedOneWithoutServersInput
     config?: UnitConfigCreateNestedOneWithoutServersInput
     clients?: ClientCreateNestedManyWithoutServerInput
-    professionals?: ProfessionalCreateNestedManyWithoutServerInput
     serverLogs?: ServerLogCreateNestedManyWithoutServerInput
   }
 
@@ -28145,7 +28581,6 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     clients?: ClientUncheckedCreateNestedManyWithoutServerInput
-    professionals?: ProfessionalUncheckedCreateNestedManyWithoutServerInput
     serverLogs?: ServerLogUncheckedCreateNestedManyWithoutServerInput
   }
 
@@ -28266,14 +28701,12 @@ export namespace Prisma {
   export type ProfessionalUpdateWithoutCasesInput = {
     id?: StringFieldUpdateOperationsInput | string
     user?: UserUpdateOneRequiredWithoutProfessionalsNestedInput
-    server?: UnitServerUpdateOneRequiredWithoutProfessionalsNestedInput
     files?: FileUpdateManyWithoutProfessionalNestedInput
   }
 
   export type ProfessionalUncheckedUpdateWithoutCasesInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    serverId?: StringFieldUpdateOperationsInput | string
     files?: FileUncheckedUpdateManyWithoutProfessionalNestedInput
   }
 
@@ -28300,7 +28733,6 @@ export namespace Prisma {
     constellation?: ConstellationUpdateOneRequiredWithoutServersNestedInput
     config?: UnitConfigUpdateOneWithoutServersNestedInput
     clients?: ClientUpdateManyWithoutServerNestedInput
-    professionals?: ProfessionalUpdateManyWithoutServerNestedInput
     serverLogs?: ServerLogUpdateManyWithoutServerNestedInput
   }
 
@@ -28316,7 +28748,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     clients?: ClientUncheckedUpdateManyWithoutServerNestedInput
-    professionals?: ProfessionalUncheckedUpdateManyWithoutServerNestedInput
     serverLogs?: ServerLogUncheckedUpdateManyWithoutServerNestedInput
   }
 
@@ -28585,14 +29016,12 @@ export namespace Prisma {
   export type ProfessionalCreateWithoutFilesInput = {
     id?: string
     user: UserCreateNestedOneWithoutProfessionalsInput
-    server: UnitServerCreateNestedOneWithoutProfessionalsInput
     cases?: CaseCreateNestedManyWithoutProfessionalInput
   }
 
   export type ProfessionalUncheckedCreateWithoutFilesInput = {
     id?: string
     userId: string
-    serverId: string
     cases?: CaseUncheckedCreateNestedManyWithoutProfessionalInput
   }
 
@@ -28681,14 +29110,12 @@ export namespace Prisma {
   export type ProfessionalUpdateWithoutFilesInput = {
     id?: StringFieldUpdateOperationsInput | string
     user?: UserUpdateOneRequiredWithoutProfessionalsNestedInput
-    server?: UnitServerUpdateOneRequiredWithoutProfessionalsNestedInput
     cases?: CaseUpdateManyWithoutProfessionalNestedInput
   }
 
   export type ProfessionalUncheckedUpdateWithoutFilesInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    serverId?: StringFieldUpdateOperationsInput | string
     cases?: CaseUncheckedUpdateManyWithoutProfessionalNestedInput
   }
 
@@ -28810,586 +29237,6 @@ export namespace Prisma {
     status?: EnumClientStatusFieldUpdateOperationsInput | $Enums.ClientStatus
     cases?: CaseUncheckedUpdateManyWithoutClientNestedInput
     files?: FileUncheckedUpdateManyWithoutClientNestedInput
-  }
-
-  export type UnitServerCreateWithoutConstellationInput = {
-    id?: string
-    domain: string
-    name: string
-    orchestratorToken: string
-    unitToken: string
-    isActive?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    config?: UnitConfigCreateNestedOneWithoutServersInput
-    clients?: ClientCreateNestedManyWithoutServerInput
-    professionals?: ProfessionalCreateNestedManyWithoutServerInput
-    cases?: CaseCreateNestedManyWithoutServerInput
-    serverLogs?: ServerLogCreateNestedManyWithoutServerInput
-  }
-
-  export type UnitServerUncheckedCreateWithoutConstellationInput = {
-    id?: string
-    domain: string
-    name: string
-    orchestratorToken: string
-    unitToken: string
-    isActive?: boolean
-    configId?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    clients?: ClientUncheckedCreateNestedManyWithoutServerInput
-    professionals?: ProfessionalUncheckedCreateNestedManyWithoutServerInput
-    cases?: CaseUncheckedCreateNestedManyWithoutServerInput
-    serverLogs?: ServerLogUncheckedCreateNestedManyWithoutServerInput
-  }
-
-  export type UnitServerCreateOrConnectWithoutConstellationInput = {
-    where: UnitServerWhereUniqueInput
-    create: XOR<UnitServerCreateWithoutConstellationInput, UnitServerUncheckedCreateWithoutConstellationInput>
-  }
-
-  export type UnitServerCreateManyConstellationInputEnvelope = {
-    data: UnitServerCreateManyConstellationInput | UnitServerCreateManyConstellationInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type UnitServerUpsertWithWhereUniqueWithoutConstellationInput = {
-    where: UnitServerWhereUniqueInput
-    update: XOR<UnitServerUpdateWithoutConstellationInput, UnitServerUncheckedUpdateWithoutConstellationInput>
-    create: XOR<UnitServerCreateWithoutConstellationInput, UnitServerUncheckedCreateWithoutConstellationInput>
-  }
-
-  export type UnitServerUpdateWithWhereUniqueWithoutConstellationInput = {
-    where: UnitServerWhereUniqueInput
-    data: XOR<UnitServerUpdateWithoutConstellationInput, UnitServerUncheckedUpdateWithoutConstellationInput>
-  }
-
-  export type UnitServerUpdateManyWithWhereWithoutConstellationInput = {
-    where: UnitServerScalarWhereInput
-    data: XOR<UnitServerUpdateManyMutationInput, UnitServerUncheckedUpdateManyWithoutConstellationInput>
-  }
-
-  export type UnitServerScalarWhereInput = {
-    AND?: UnitServerScalarWhereInput | UnitServerScalarWhereInput[]
-    OR?: UnitServerScalarWhereInput[]
-    NOT?: UnitServerScalarWhereInput | UnitServerScalarWhereInput[]
-    id?: StringFilter<"UnitServer"> | string
-    domain?: StringFilter<"UnitServer"> | string
-    name?: StringFilter<"UnitServer"> | string
-    orchestratorToken?: StringFilter<"UnitServer"> | string
-    unitToken?: StringFilter<"UnitServer"> | string
-    isActive?: BoolFilter<"UnitServer"> | boolean
-    constellationId?: StringFilter<"UnitServer"> | string
-    configId?: StringNullableFilter<"UnitServer"> | string | null
-    createdAt?: DateTimeFilter<"UnitServer"> | Date | string
-    updatedAt?: DateTimeFilter<"UnitServer"> | Date | string
-  }
-
-  export type LegalStepCreateWithoutConfigInput = {
-    id?: string
-    title: string
-    description: string
-    order: number
-  }
-
-  export type LegalStepUncheckedCreateWithoutConfigInput = {
-    id?: string
-    title: string
-    description: string
-    order: number
-  }
-
-  export type LegalStepCreateOrConnectWithoutConfigInput = {
-    where: LegalStepWhereUniqueInput
-    create: XOR<LegalStepCreateWithoutConfigInput, LegalStepUncheckedCreateWithoutConfigInput>
-  }
-
-  export type LegalStepCreateManyConfigInputEnvelope = {
-    data: LegalStepCreateManyConfigInput | LegalStepCreateManyConfigInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type ArticleCreateWithoutConfigInput = {
-    id?: string
-    title: string
-    content: string
-    url?: string | null
-    publishedAt?: Date | string
-    order: number
-  }
-
-  export type ArticleUncheckedCreateWithoutConfigInput = {
-    id?: string
-    title: string
-    content: string
-    url?: string | null
-    publishedAt?: Date | string
-    order: number
-  }
-
-  export type ArticleCreateOrConnectWithoutConfigInput = {
-    where: ArticleWhereUniqueInput
-    create: XOR<ArticleCreateWithoutConfigInput, ArticleUncheckedCreateWithoutConfigInput>
-  }
-
-  export type ArticleCreateManyConfigInputEnvelope = {
-    data: ArticleCreateManyConfigInput | ArticleCreateManyConfigInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type SectionCreateWithoutConfigInput = {
-    id?: string
-    title: string
-    body: string
-    imageUrl?: string | null
-    order: number
-    images?: ImageCreateNestedManyWithoutSectionInput
-  }
-
-  export type SectionUncheckedCreateWithoutConfigInput = {
-    id?: string
-    title: string
-    body: string
-    imageUrl?: string | null
-    order: number
-    images?: ImageUncheckedCreateNestedManyWithoutSectionInput
-  }
-
-  export type SectionCreateOrConnectWithoutConfigInput = {
-    where: SectionWhereUniqueInput
-    create: XOR<SectionCreateWithoutConfigInput, SectionUncheckedCreateWithoutConfigInput>
-  }
-
-  export type SectionCreateManyConfigInputEnvelope = {
-    data: SectionCreateManyConfigInput | SectionCreateManyConfigInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type ImageCreateWithoutConfigInput = {
-    id?: string
-    url: string
-    altText?: string | null
-    type: string
-    order?: number | null
-    section?: SectionCreateNestedOneWithoutImagesInput
-  }
-
-  export type ImageUncheckedCreateWithoutConfigInput = {
-    id?: string
-    url: string
-    altText?: string | null
-    type: string
-    order?: number | null
-    sectionId?: string | null
-  }
-
-  export type ImageCreateOrConnectWithoutConfigInput = {
-    where: ImageWhereUniqueInput
-    create: XOR<ImageCreateWithoutConfigInput, ImageUncheckedCreateWithoutConfigInput>
-  }
-
-  export type ImageCreateManyConfigInputEnvelope = {
-    data: ImageCreateManyConfigInput | ImageCreateManyConfigInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type FooterLinkCreateWithoutConfigInput = {
-    id?: string
-    label: string
-    url: string
-    order: number
-  }
-
-  export type FooterLinkUncheckedCreateWithoutConfigInput = {
-    id?: string
-    label: string
-    url: string
-    order: number
-  }
-
-  export type FooterLinkCreateOrConnectWithoutConfigInput = {
-    where: FooterLinkWhereUniqueInput
-    create: XOR<FooterLinkCreateWithoutConfigInput, FooterLinkUncheckedCreateWithoutConfigInput>
-  }
-
-  export type FooterLinkCreateManyConfigInputEnvelope = {
-    data: FooterLinkCreateManyConfigInput | FooterLinkCreateManyConfigInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type UnitServerCreateWithoutConfigInput = {
-    id?: string
-    domain: string
-    name: string
-    orchestratorToken: string
-    unitToken: string
-    isActive?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    constellation: ConstellationCreateNestedOneWithoutServersInput
-    clients?: ClientCreateNestedManyWithoutServerInput
-    professionals?: ProfessionalCreateNestedManyWithoutServerInput
-    cases?: CaseCreateNestedManyWithoutServerInput
-    serverLogs?: ServerLogCreateNestedManyWithoutServerInput
-  }
-
-  export type UnitServerUncheckedCreateWithoutConfigInput = {
-    id?: string
-    domain: string
-    name: string
-    orchestratorToken: string
-    unitToken: string
-    isActive?: boolean
-    constellationId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    clients?: ClientUncheckedCreateNestedManyWithoutServerInput
-    professionals?: ProfessionalUncheckedCreateNestedManyWithoutServerInput
-    cases?: CaseUncheckedCreateNestedManyWithoutServerInput
-    serverLogs?: ServerLogUncheckedCreateNestedManyWithoutServerInput
-  }
-
-  export type UnitServerCreateOrConnectWithoutConfigInput = {
-    where: UnitServerWhereUniqueInput
-    create: XOR<UnitServerCreateWithoutConfigInput, UnitServerUncheckedCreateWithoutConfigInput>
-  }
-
-  export type UnitServerCreateManyConfigInputEnvelope = {
-    data: UnitServerCreateManyConfigInput | UnitServerCreateManyConfigInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type LegalStepUpsertWithWhereUniqueWithoutConfigInput = {
-    where: LegalStepWhereUniqueInput
-    update: XOR<LegalStepUpdateWithoutConfigInput, LegalStepUncheckedUpdateWithoutConfigInput>
-    create: XOR<LegalStepCreateWithoutConfigInput, LegalStepUncheckedCreateWithoutConfigInput>
-  }
-
-  export type LegalStepUpdateWithWhereUniqueWithoutConfigInput = {
-    where: LegalStepWhereUniqueInput
-    data: XOR<LegalStepUpdateWithoutConfigInput, LegalStepUncheckedUpdateWithoutConfigInput>
-  }
-
-  export type LegalStepUpdateManyWithWhereWithoutConfigInput = {
-    where: LegalStepScalarWhereInput
-    data: XOR<LegalStepUpdateManyMutationInput, LegalStepUncheckedUpdateManyWithoutConfigInput>
-  }
-
-  export type LegalStepScalarWhereInput = {
-    AND?: LegalStepScalarWhereInput | LegalStepScalarWhereInput[]
-    OR?: LegalStepScalarWhereInput[]
-    NOT?: LegalStepScalarWhereInput | LegalStepScalarWhereInput[]
-    id?: StringFilter<"LegalStep"> | string
-    title?: StringFilter<"LegalStep"> | string
-    description?: StringFilter<"LegalStep"> | string
-    order?: IntFilter<"LegalStep"> | number
-    configId?: StringFilter<"LegalStep"> | string
-  }
-
-  export type ArticleUpsertWithWhereUniqueWithoutConfigInput = {
-    where: ArticleWhereUniqueInput
-    update: XOR<ArticleUpdateWithoutConfigInput, ArticleUncheckedUpdateWithoutConfigInput>
-    create: XOR<ArticleCreateWithoutConfigInput, ArticleUncheckedCreateWithoutConfigInput>
-  }
-
-  export type ArticleUpdateWithWhereUniqueWithoutConfigInput = {
-    where: ArticleWhereUniqueInput
-    data: XOR<ArticleUpdateWithoutConfigInput, ArticleUncheckedUpdateWithoutConfigInput>
-  }
-
-  export type ArticleUpdateManyWithWhereWithoutConfigInput = {
-    where: ArticleScalarWhereInput
-    data: XOR<ArticleUpdateManyMutationInput, ArticleUncheckedUpdateManyWithoutConfigInput>
-  }
-
-  export type ArticleScalarWhereInput = {
-    AND?: ArticleScalarWhereInput | ArticleScalarWhereInput[]
-    OR?: ArticleScalarWhereInput[]
-    NOT?: ArticleScalarWhereInput | ArticleScalarWhereInput[]
-    id?: StringFilter<"Article"> | string
-    title?: StringFilter<"Article"> | string
-    content?: StringFilter<"Article"> | string
-    url?: StringNullableFilter<"Article"> | string | null
-    publishedAt?: DateTimeFilter<"Article"> | Date | string
-    order?: IntFilter<"Article"> | number
-    configId?: StringFilter<"Article"> | string
-  }
-
-  export type SectionUpsertWithWhereUniqueWithoutConfigInput = {
-    where: SectionWhereUniqueInput
-    update: XOR<SectionUpdateWithoutConfigInput, SectionUncheckedUpdateWithoutConfigInput>
-    create: XOR<SectionCreateWithoutConfigInput, SectionUncheckedCreateWithoutConfigInput>
-  }
-
-  export type SectionUpdateWithWhereUniqueWithoutConfigInput = {
-    where: SectionWhereUniqueInput
-    data: XOR<SectionUpdateWithoutConfigInput, SectionUncheckedUpdateWithoutConfigInput>
-  }
-
-  export type SectionUpdateManyWithWhereWithoutConfigInput = {
-    where: SectionScalarWhereInput
-    data: XOR<SectionUpdateManyMutationInput, SectionUncheckedUpdateManyWithoutConfigInput>
-  }
-
-  export type SectionScalarWhereInput = {
-    AND?: SectionScalarWhereInput | SectionScalarWhereInput[]
-    OR?: SectionScalarWhereInput[]
-    NOT?: SectionScalarWhereInput | SectionScalarWhereInput[]
-    id?: StringFilter<"Section"> | string
-    title?: StringFilter<"Section"> | string
-    body?: StringFilter<"Section"> | string
-    imageUrl?: StringNullableFilter<"Section"> | string | null
-    order?: IntFilter<"Section"> | number
-    configId?: StringFilter<"Section"> | string
-  }
-
-  export type ImageUpsertWithWhereUniqueWithoutConfigInput = {
-    where: ImageWhereUniqueInput
-    update: XOR<ImageUpdateWithoutConfigInput, ImageUncheckedUpdateWithoutConfigInput>
-    create: XOR<ImageCreateWithoutConfigInput, ImageUncheckedCreateWithoutConfigInput>
-  }
-
-  export type ImageUpdateWithWhereUniqueWithoutConfigInput = {
-    where: ImageWhereUniqueInput
-    data: XOR<ImageUpdateWithoutConfigInput, ImageUncheckedUpdateWithoutConfigInput>
-  }
-
-  export type ImageUpdateManyWithWhereWithoutConfigInput = {
-    where: ImageScalarWhereInput
-    data: XOR<ImageUpdateManyMutationInput, ImageUncheckedUpdateManyWithoutConfigInput>
-  }
-
-  export type ImageScalarWhereInput = {
-    AND?: ImageScalarWhereInput | ImageScalarWhereInput[]
-    OR?: ImageScalarWhereInput[]
-    NOT?: ImageScalarWhereInput | ImageScalarWhereInput[]
-    id?: StringFilter<"Image"> | string
-    configId?: StringFilter<"Image"> | string
-    url?: StringFilter<"Image"> | string
-    altText?: StringNullableFilter<"Image"> | string | null
-    type?: StringFilter<"Image"> | string
-    order?: IntNullableFilter<"Image"> | number | null
-    sectionId?: StringNullableFilter<"Image"> | string | null
-  }
-
-  export type FooterLinkUpsertWithWhereUniqueWithoutConfigInput = {
-    where: FooterLinkWhereUniqueInput
-    update: XOR<FooterLinkUpdateWithoutConfigInput, FooterLinkUncheckedUpdateWithoutConfigInput>
-    create: XOR<FooterLinkCreateWithoutConfigInput, FooterLinkUncheckedCreateWithoutConfigInput>
-  }
-
-  export type FooterLinkUpdateWithWhereUniqueWithoutConfigInput = {
-    where: FooterLinkWhereUniqueInput
-    data: XOR<FooterLinkUpdateWithoutConfigInput, FooterLinkUncheckedUpdateWithoutConfigInput>
-  }
-
-  export type FooterLinkUpdateManyWithWhereWithoutConfigInput = {
-    where: FooterLinkScalarWhereInput
-    data: XOR<FooterLinkUpdateManyMutationInput, FooterLinkUncheckedUpdateManyWithoutConfigInput>
-  }
-
-  export type FooterLinkScalarWhereInput = {
-    AND?: FooterLinkScalarWhereInput | FooterLinkScalarWhereInput[]
-    OR?: FooterLinkScalarWhereInput[]
-    NOT?: FooterLinkScalarWhereInput | FooterLinkScalarWhereInput[]
-    id?: StringFilter<"FooterLink"> | string
-    label?: StringFilter<"FooterLink"> | string
-    url?: StringFilter<"FooterLink"> | string
-    order?: IntFilter<"FooterLink"> | number
-    configId?: StringFilter<"FooterLink"> | string
-  }
-
-  export type UnitServerUpsertWithWhereUniqueWithoutConfigInput = {
-    where: UnitServerWhereUniqueInput
-    update: XOR<UnitServerUpdateWithoutConfigInput, UnitServerUncheckedUpdateWithoutConfigInput>
-    create: XOR<UnitServerCreateWithoutConfigInput, UnitServerUncheckedCreateWithoutConfigInput>
-  }
-
-  export type UnitServerUpdateWithWhereUniqueWithoutConfigInput = {
-    where: UnitServerWhereUniqueInput
-    data: XOR<UnitServerUpdateWithoutConfigInput, UnitServerUncheckedUpdateWithoutConfigInput>
-  }
-
-  export type UnitServerUpdateManyWithWhereWithoutConfigInput = {
-    where: UnitServerScalarWhereInput
-    data: XOR<UnitServerUpdateManyMutationInput, UnitServerUncheckedUpdateManyWithoutConfigInput>
-  }
-
-  export type UnitConfigCreateWithoutLegalStepsInput = {
-    id?: string
-    name: string
-    pageTitle: string
-    pageDescription: string
-    iconUrl?: string | null
-    servicesDescription: string
-    bannerUrl?: string | null
-    footerInfo?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    articles?: ArticleCreateNestedManyWithoutConfigInput
-    sections?: SectionCreateNestedManyWithoutConfigInput
-    images?: ImageCreateNestedManyWithoutConfigInput
-    footerLinks?: FooterLinkCreateNestedManyWithoutConfigInput
-    servers?: UnitServerCreateNestedManyWithoutConfigInput
-  }
-
-  export type UnitConfigUncheckedCreateWithoutLegalStepsInput = {
-    id?: string
-    name: string
-    pageTitle: string
-    pageDescription: string
-    iconUrl?: string | null
-    servicesDescription: string
-    bannerUrl?: string | null
-    footerInfo?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    articles?: ArticleUncheckedCreateNestedManyWithoutConfigInput
-    sections?: SectionUncheckedCreateNestedManyWithoutConfigInput
-    images?: ImageUncheckedCreateNestedManyWithoutConfigInput
-    footerLinks?: FooterLinkUncheckedCreateNestedManyWithoutConfigInput
-    servers?: UnitServerUncheckedCreateNestedManyWithoutConfigInput
-  }
-
-  export type UnitConfigCreateOrConnectWithoutLegalStepsInput = {
-    where: UnitConfigWhereUniqueInput
-    create: XOR<UnitConfigCreateWithoutLegalStepsInput, UnitConfigUncheckedCreateWithoutLegalStepsInput>
-  }
-
-  export type UnitConfigUpsertWithoutLegalStepsInput = {
-    update: XOR<UnitConfigUpdateWithoutLegalStepsInput, UnitConfigUncheckedUpdateWithoutLegalStepsInput>
-    create: XOR<UnitConfigCreateWithoutLegalStepsInput, UnitConfigUncheckedCreateWithoutLegalStepsInput>
-    where?: UnitConfigWhereInput
-  }
-
-  export type UnitConfigUpdateToOneWithWhereWithoutLegalStepsInput = {
-    where?: UnitConfigWhereInput
-    data: XOR<UnitConfigUpdateWithoutLegalStepsInput, UnitConfigUncheckedUpdateWithoutLegalStepsInput>
-  }
-
-  export type UnitConfigUpdateWithoutLegalStepsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    pageTitle?: StringFieldUpdateOperationsInput | string
-    pageDescription?: StringFieldUpdateOperationsInput | string
-    iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    servicesDescription?: StringFieldUpdateOperationsInput | string
-    bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    articles?: ArticleUpdateManyWithoutConfigNestedInput
-    sections?: SectionUpdateManyWithoutConfigNestedInput
-    images?: ImageUpdateManyWithoutConfigNestedInput
-    footerLinks?: FooterLinkUpdateManyWithoutConfigNestedInput
-    servers?: UnitServerUpdateManyWithoutConfigNestedInput
-  }
-
-  export type UnitConfigUncheckedUpdateWithoutLegalStepsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    pageTitle?: StringFieldUpdateOperationsInput | string
-    pageDescription?: StringFieldUpdateOperationsInput | string
-    iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    servicesDescription?: StringFieldUpdateOperationsInput | string
-    bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    articles?: ArticleUncheckedUpdateManyWithoutConfigNestedInput
-    sections?: SectionUncheckedUpdateManyWithoutConfigNestedInput
-    images?: ImageUncheckedUpdateManyWithoutConfigNestedInput
-    footerLinks?: FooterLinkUncheckedUpdateManyWithoutConfigNestedInput
-    servers?: UnitServerUncheckedUpdateManyWithoutConfigNestedInput
-  }
-
-  export type UnitConfigCreateWithoutFooterLinksInput = {
-    id?: string
-    name: string
-    pageTitle: string
-    pageDescription: string
-    iconUrl?: string | null
-    servicesDescription: string
-    bannerUrl?: string | null
-    footerInfo?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    legalSteps?: LegalStepCreateNestedManyWithoutConfigInput
-    articles?: ArticleCreateNestedManyWithoutConfigInput
-    sections?: SectionCreateNestedManyWithoutConfigInput
-    images?: ImageCreateNestedManyWithoutConfigInput
-    servers?: UnitServerCreateNestedManyWithoutConfigInput
-  }
-
-  export type UnitConfigUncheckedCreateWithoutFooterLinksInput = {
-    id?: string
-    name: string
-    pageTitle: string
-    pageDescription: string
-    iconUrl?: string | null
-    servicesDescription: string
-    bannerUrl?: string | null
-    footerInfo?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    legalSteps?: LegalStepUncheckedCreateNestedManyWithoutConfigInput
-    articles?: ArticleUncheckedCreateNestedManyWithoutConfigInput
-    sections?: SectionUncheckedCreateNestedManyWithoutConfigInput
-    images?: ImageUncheckedCreateNestedManyWithoutConfigInput
-    servers?: UnitServerUncheckedCreateNestedManyWithoutConfigInput
-  }
-
-  export type UnitConfigCreateOrConnectWithoutFooterLinksInput = {
-    where: UnitConfigWhereUniqueInput
-    create: XOR<UnitConfigCreateWithoutFooterLinksInput, UnitConfigUncheckedCreateWithoutFooterLinksInput>
-  }
-
-  export type UnitConfigUpsertWithoutFooterLinksInput = {
-    update: XOR<UnitConfigUpdateWithoutFooterLinksInput, UnitConfigUncheckedUpdateWithoutFooterLinksInput>
-    create: XOR<UnitConfigCreateWithoutFooterLinksInput, UnitConfigUncheckedCreateWithoutFooterLinksInput>
-    where?: UnitConfigWhereInput
-  }
-
-  export type UnitConfigUpdateToOneWithWhereWithoutFooterLinksInput = {
-    where?: UnitConfigWhereInput
-    data: XOR<UnitConfigUpdateWithoutFooterLinksInput, UnitConfigUncheckedUpdateWithoutFooterLinksInput>
-  }
-
-  export type UnitConfigUpdateWithoutFooterLinksInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    pageTitle?: StringFieldUpdateOperationsInput | string
-    pageDescription?: StringFieldUpdateOperationsInput | string
-    iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    servicesDescription?: StringFieldUpdateOperationsInput | string
-    bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    legalSteps?: LegalStepUpdateManyWithoutConfigNestedInput
-    articles?: ArticleUpdateManyWithoutConfigNestedInput
-    sections?: SectionUpdateManyWithoutConfigNestedInput
-    images?: ImageUpdateManyWithoutConfigNestedInput
-    servers?: UnitServerUpdateManyWithoutConfigNestedInput
-  }
-
-  export type UnitConfigUncheckedUpdateWithoutFooterLinksInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    pageTitle?: StringFieldUpdateOperationsInput | string
-    pageDescription?: StringFieldUpdateOperationsInput | string
-    iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    servicesDescription?: StringFieldUpdateOperationsInput | string
-    bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    legalSteps?: LegalStepUncheckedUpdateManyWithoutConfigNestedInput
-    articles?: ArticleUncheckedUpdateManyWithoutConfigNestedInput
-    sections?: SectionUncheckedUpdateManyWithoutConfigNestedInput
-    images?: ImageUncheckedUpdateManyWithoutConfigNestedInput
-    servers?: UnitServerUncheckedUpdateManyWithoutConfigNestedInput
   }
 
   export type UnitConfigCreateWithoutSectionsInput = {
@@ -29752,24 +29599,95 @@ export namespace Prisma {
     servers?: UnitServerUncheckedUpdateManyWithoutConfigNestedInput
   }
 
-  export type ConstellationCreateWithoutServersInput = {
+  export type UnitConfigCreateWithoutLegalStepsInput = {
     id?: string
     name: string
-    description?: string | null
+    pageTitle: string
+    pageDescription: string
+    iconUrl?: string | null
+    servicesDescription: string
+    bannerUrl?: string | null
+    footerInfo?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    articles?: ArticleCreateNestedManyWithoutConfigInput
+    sections?: SectionCreateNestedManyWithoutConfigInput
+    images?: ImageCreateNestedManyWithoutConfigInput
+    footerLinks?: FooterLinkCreateNestedManyWithoutConfigInput
+    servers?: UnitServerCreateNestedManyWithoutConfigInput
   }
 
-  export type ConstellationUncheckedCreateWithoutServersInput = {
+  export type UnitConfigUncheckedCreateWithoutLegalStepsInput = {
     id?: string
     name: string
-    description?: string | null
+    pageTitle: string
+    pageDescription: string
+    iconUrl?: string | null
+    servicesDescription: string
+    bannerUrl?: string | null
+    footerInfo?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    articles?: ArticleUncheckedCreateNestedManyWithoutConfigInput
+    sections?: SectionUncheckedCreateNestedManyWithoutConfigInput
+    images?: ImageUncheckedCreateNestedManyWithoutConfigInput
+    footerLinks?: FooterLinkUncheckedCreateNestedManyWithoutConfigInput
+    servers?: UnitServerUncheckedCreateNestedManyWithoutConfigInput
   }
 
-  export type ConstellationCreateOrConnectWithoutServersInput = {
-    where: ConstellationWhereUniqueInput
-    create: XOR<ConstellationCreateWithoutServersInput, ConstellationUncheckedCreateWithoutServersInput>
+  export type UnitConfigCreateOrConnectWithoutLegalStepsInput = {
+    where: UnitConfigWhereUniqueInput
+    create: XOR<UnitConfigCreateWithoutLegalStepsInput, UnitConfigUncheckedCreateWithoutLegalStepsInput>
   }
 
-  export type UnitConfigCreateWithoutServersInput = {
+  export type UnitConfigUpsertWithoutLegalStepsInput = {
+    update: XOR<UnitConfigUpdateWithoutLegalStepsInput, UnitConfigUncheckedUpdateWithoutLegalStepsInput>
+    create: XOR<UnitConfigCreateWithoutLegalStepsInput, UnitConfigUncheckedCreateWithoutLegalStepsInput>
+    where?: UnitConfigWhereInput
+  }
+
+  export type UnitConfigUpdateToOneWithWhereWithoutLegalStepsInput = {
+    where?: UnitConfigWhereInput
+    data: XOR<UnitConfigUpdateWithoutLegalStepsInput, UnitConfigUncheckedUpdateWithoutLegalStepsInput>
+  }
+
+  export type UnitConfigUpdateWithoutLegalStepsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    pageTitle?: StringFieldUpdateOperationsInput | string
+    pageDescription?: StringFieldUpdateOperationsInput | string
+    iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    servicesDescription?: StringFieldUpdateOperationsInput | string
+    bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    articles?: ArticleUpdateManyWithoutConfigNestedInput
+    sections?: SectionUpdateManyWithoutConfigNestedInput
+    images?: ImageUpdateManyWithoutConfigNestedInput
+    footerLinks?: FooterLinkUpdateManyWithoutConfigNestedInput
+    servers?: UnitServerUpdateManyWithoutConfigNestedInput
+  }
+
+  export type UnitConfigUncheckedUpdateWithoutLegalStepsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    pageTitle?: StringFieldUpdateOperationsInput | string
+    pageDescription?: StringFieldUpdateOperationsInput | string
+    iconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    servicesDescription?: StringFieldUpdateOperationsInput | string
+    bannerUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    footerInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    articles?: ArticleUncheckedUpdateManyWithoutConfigNestedInput
+    sections?: SectionUncheckedUpdateManyWithoutConfigNestedInput
+    images?: ImageUncheckedUpdateManyWithoutConfigNestedInput
+    footerLinks?: FooterLinkUncheckedUpdateManyWithoutConfigNestedInput
+    servers?: UnitServerUncheckedUpdateManyWithoutConfigNestedInput
+  }
+
+  export type UnitConfigCreateWithoutFooterLinksInput = {
     id?: string
     name: string
     pageTitle: string
@@ -29784,10 +29702,10 @@ export namespace Prisma {
     articles?: ArticleCreateNestedManyWithoutConfigInput
     sections?: SectionCreateNestedManyWithoutConfigInput
     images?: ImageCreateNestedManyWithoutConfigInput
-    footerLinks?: FooterLinkCreateNestedManyWithoutConfigInput
+    servers?: UnitServerCreateNestedManyWithoutConfigInput
   }
 
-  export type UnitConfigUncheckedCreateWithoutServersInput = {
+  export type UnitConfigUncheckedCreateWithoutFooterLinksInput = {
     id?: string
     name: string
     pageTitle: string
@@ -29802,163 +29720,26 @@ export namespace Prisma {
     articles?: ArticleUncheckedCreateNestedManyWithoutConfigInput
     sections?: SectionUncheckedCreateNestedManyWithoutConfigInput
     images?: ImageUncheckedCreateNestedManyWithoutConfigInput
-    footerLinks?: FooterLinkUncheckedCreateNestedManyWithoutConfigInput
+    servers?: UnitServerUncheckedCreateNestedManyWithoutConfigInput
   }
 
-  export type UnitConfigCreateOrConnectWithoutServersInput = {
+  export type UnitConfigCreateOrConnectWithoutFooterLinksInput = {
     where: UnitConfigWhereUniqueInput
-    create: XOR<UnitConfigCreateWithoutServersInput, UnitConfigUncheckedCreateWithoutServersInput>
+    create: XOR<UnitConfigCreateWithoutFooterLinksInput, UnitConfigUncheckedCreateWithoutFooterLinksInput>
   }
 
-  export type ClientCreateWithoutServerInput = {
-    id?: string
-    status?: $Enums.ClientStatus
-    user: UserCreateNestedOneWithoutClientsInput
-    cases?: CaseCreateNestedManyWithoutClientInput
-    files?: FileCreateNestedManyWithoutClientInput
-    reports?: ReportCreateNestedManyWithoutClientInput
-  }
-
-  export type ClientUncheckedCreateWithoutServerInput = {
-    id?: string
-    userId: string
-    status?: $Enums.ClientStatus
-    cases?: CaseUncheckedCreateNestedManyWithoutClientInput
-    files?: FileUncheckedCreateNestedManyWithoutClientInput
-    reports?: ReportUncheckedCreateNestedManyWithoutClientInput
-  }
-
-  export type ClientCreateOrConnectWithoutServerInput = {
-    where: ClientWhereUniqueInput
-    create: XOR<ClientCreateWithoutServerInput, ClientUncheckedCreateWithoutServerInput>
-  }
-
-  export type ClientCreateManyServerInputEnvelope = {
-    data: ClientCreateManyServerInput | ClientCreateManyServerInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type ProfessionalCreateWithoutServerInput = {
-    id?: string
-    user: UserCreateNestedOneWithoutProfessionalsInput
-    cases?: CaseCreateNestedManyWithoutProfessionalInput
-    files?: FileCreateNestedManyWithoutProfessionalInput
-  }
-
-  export type ProfessionalUncheckedCreateWithoutServerInput = {
-    id?: string
-    userId: string
-    cases?: CaseUncheckedCreateNestedManyWithoutProfessionalInput
-    files?: FileUncheckedCreateNestedManyWithoutProfessionalInput
-  }
-
-  export type ProfessionalCreateOrConnectWithoutServerInput = {
-    where: ProfessionalWhereUniqueInput
-    create: XOR<ProfessionalCreateWithoutServerInput, ProfessionalUncheckedCreateWithoutServerInput>
-  }
-
-  export type ProfessionalCreateManyServerInputEnvelope = {
-    data: ProfessionalCreateManyServerInput | ProfessionalCreateManyServerInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type CaseCreateWithoutServerInput = {
-    id?: string
-    status?: $Enums.CaseStatus
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    tags?: CaseCreatetagsInput | string[]
-    client: ClientCreateNestedOneWithoutCasesInput
-    professional: ProfessionalCreateNestedOneWithoutCasesInput
-    chat?: ChatCreateNestedOneWithoutCaseInput
-    files?: FileCreateNestedManyWithoutCaseInput
-    reports?: ReportCreateNestedManyWithoutCaseInput
-  }
-
-  export type CaseUncheckedCreateWithoutServerInput = {
-    id?: string
-    clientId: string
-    professionalId: string
-    status?: $Enums.CaseStatus
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    tags?: CaseCreatetagsInput | string[]
-    chat?: ChatUncheckedCreateNestedOneWithoutCaseInput
-    files?: FileUncheckedCreateNestedManyWithoutCaseInput
-    reports?: ReportUncheckedCreateNestedManyWithoutCaseInput
-  }
-
-  export type CaseCreateOrConnectWithoutServerInput = {
-    where: CaseWhereUniqueInput
-    create: XOR<CaseCreateWithoutServerInput, CaseUncheckedCreateWithoutServerInput>
-  }
-
-  export type CaseCreateManyServerInputEnvelope = {
-    data: CaseCreateManyServerInput | CaseCreateManyServerInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type ServerLogCreateWithoutServerInput = {
-    id?: string
-    type: string
-    message: string
-    timestamp?: Date | string
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-  }
-
-  export type ServerLogUncheckedCreateWithoutServerInput = {
-    id?: string
-    type: string
-    message: string
-    timestamp?: Date | string
-    metadata?: NullableJsonNullValueInput | InputJsonValue
-  }
-
-  export type ServerLogCreateOrConnectWithoutServerInput = {
-    where: ServerLogWhereUniqueInput
-    create: XOR<ServerLogCreateWithoutServerInput, ServerLogUncheckedCreateWithoutServerInput>
-  }
-
-  export type ServerLogCreateManyServerInputEnvelope = {
-    data: ServerLogCreateManyServerInput | ServerLogCreateManyServerInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type ConstellationUpsertWithoutServersInput = {
-    update: XOR<ConstellationUpdateWithoutServersInput, ConstellationUncheckedUpdateWithoutServersInput>
-    create: XOR<ConstellationCreateWithoutServersInput, ConstellationUncheckedCreateWithoutServersInput>
-    where?: ConstellationWhereInput
-  }
-
-  export type ConstellationUpdateToOneWithWhereWithoutServersInput = {
-    where?: ConstellationWhereInput
-    data: XOR<ConstellationUpdateWithoutServersInput, ConstellationUncheckedUpdateWithoutServersInput>
-  }
-
-  export type ConstellationUpdateWithoutServersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type ConstellationUncheckedUpdateWithoutServersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type UnitConfigUpsertWithoutServersInput = {
-    update: XOR<UnitConfigUpdateWithoutServersInput, UnitConfigUncheckedUpdateWithoutServersInput>
-    create: XOR<UnitConfigCreateWithoutServersInput, UnitConfigUncheckedCreateWithoutServersInput>
+  export type UnitConfigUpsertWithoutFooterLinksInput = {
+    update: XOR<UnitConfigUpdateWithoutFooterLinksInput, UnitConfigUncheckedUpdateWithoutFooterLinksInput>
+    create: XOR<UnitConfigCreateWithoutFooterLinksInput, UnitConfigUncheckedCreateWithoutFooterLinksInput>
     where?: UnitConfigWhereInput
   }
 
-  export type UnitConfigUpdateToOneWithWhereWithoutServersInput = {
+  export type UnitConfigUpdateToOneWithWhereWithoutFooterLinksInput = {
     where?: UnitConfigWhereInput
-    data: XOR<UnitConfigUpdateWithoutServersInput, UnitConfigUncheckedUpdateWithoutServersInput>
+    data: XOR<UnitConfigUpdateWithoutFooterLinksInput, UnitConfigUncheckedUpdateWithoutFooterLinksInput>
   }
 
-  export type UnitConfigUpdateWithoutServersInput = {
+  export type UnitConfigUpdateWithoutFooterLinksInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     pageTitle?: StringFieldUpdateOperationsInput | string
@@ -29973,10 +29754,10 @@ export namespace Prisma {
     articles?: ArticleUpdateManyWithoutConfigNestedInput
     sections?: SectionUpdateManyWithoutConfigNestedInput
     images?: ImageUpdateManyWithoutConfigNestedInput
-    footerLinks?: FooterLinkUpdateManyWithoutConfigNestedInput
+    servers?: UnitServerUpdateManyWithoutConfigNestedInput
   }
 
-  export type UnitConfigUncheckedUpdateWithoutServersInput = {
+  export type UnitConfigUncheckedUpdateWithoutFooterLinksInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     pageTitle?: StringFieldUpdateOperationsInput | string
@@ -29991,83 +29772,7 @@ export namespace Prisma {
     articles?: ArticleUncheckedUpdateManyWithoutConfigNestedInput
     sections?: SectionUncheckedUpdateManyWithoutConfigNestedInput
     images?: ImageUncheckedUpdateManyWithoutConfigNestedInput
-    footerLinks?: FooterLinkUncheckedUpdateManyWithoutConfigNestedInput
-  }
-
-  export type ClientUpsertWithWhereUniqueWithoutServerInput = {
-    where: ClientWhereUniqueInput
-    update: XOR<ClientUpdateWithoutServerInput, ClientUncheckedUpdateWithoutServerInput>
-    create: XOR<ClientCreateWithoutServerInput, ClientUncheckedCreateWithoutServerInput>
-  }
-
-  export type ClientUpdateWithWhereUniqueWithoutServerInput = {
-    where: ClientWhereUniqueInput
-    data: XOR<ClientUpdateWithoutServerInput, ClientUncheckedUpdateWithoutServerInput>
-  }
-
-  export type ClientUpdateManyWithWhereWithoutServerInput = {
-    where: ClientScalarWhereInput
-    data: XOR<ClientUpdateManyMutationInput, ClientUncheckedUpdateManyWithoutServerInput>
-  }
-
-  export type ProfessionalUpsertWithWhereUniqueWithoutServerInput = {
-    where: ProfessionalWhereUniqueInput
-    update: XOR<ProfessionalUpdateWithoutServerInput, ProfessionalUncheckedUpdateWithoutServerInput>
-    create: XOR<ProfessionalCreateWithoutServerInput, ProfessionalUncheckedCreateWithoutServerInput>
-  }
-
-  export type ProfessionalUpdateWithWhereUniqueWithoutServerInput = {
-    where: ProfessionalWhereUniqueInput
-    data: XOR<ProfessionalUpdateWithoutServerInput, ProfessionalUncheckedUpdateWithoutServerInput>
-  }
-
-  export type ProfessionalUpdateManyWithWhereWithoutServerInput = {
-    where: ProfessionalScalarWhereInput
-    data: XOR<ProfessionalUpdateManyMutationInput, ProfessionalUncheckedUpdateManyWithoutServerInput>
-  }
-
-  export type CaseUpsertWithWhereUniqueWithoutServerInput = {
-    where: CaseWhereUniqueInput
-    update: XOR<CaseUpdateWithoutServerInput, CaseUncheckedUpdateWithoutServerInput>
-    create: XOR<CaseCreateWithoutServerInput, CaseUncheckedCreateWithoutServerInput>
-  }
-
-  export type CaseUpdateWithWhereUniqueWithoutServerInput = {
-    where: CaseWhereUniqueInput
-    data: XOR<CaseUpdateWithoutServerInput, CaseUncheckedUpdateWithoutServerInput>
-  }
-
-  export type CaseUpdateManyWithWhereWithoutServerInput = {
-    where: CaseScalarWhereInput
-    data: XOR<CaseUpdateManyMutationInput, CaseUncheckedUpdateManyWithoutServerInput>
-  }
-
-  export type ServerLogUpsertWithWhereUniqueWithoutServerInput = {
-    where: ServerLogWhereUniqueInput
-    update: XOR<ServerLogUpdateWithoutServerInput, ServerLogUncheckedUpdateWithoutServerInput>
-    create: XOR<ServerLogCreateWithoutServerInput, ServerLogUncheckedCreateWithoutServerInput>
-  }
-
-  export type ServerLogUpdateWithWhereUniqueWithoutServerInput = {
-    where: ServerLogWhereUniqueInput
-    data: XOR<ServerLogUpdateWithoutServerInput, ServerLogUncheckedUpdateWithoutServerInput>
-  }
-
-  export type ServerLogUpdateManyWithWhereWithoutServerInput = {
-    where: ServerLogScalarWhereInput
-    data: XOR<ServerLogUpdateManyMutationInput, ServerLogUncheckedUpdateManyWithoutServerInput>
-  }
-
-  export type ServerLogScalarWhereInput = {
-    AND?: ServerLogScalarWhereInput | ServerLogScalarWhereInput[]
-    OR?: ServerLogScalarWhereInput[]
-    NOT?: ServerLogScalarWhereInput | ServerLogScalarWhereInput[]
-    id?: StringFilter<"ServerLog"> | string
-    serverId?: StringFilter<"ServerLog"> | string
-    type?: StringFilter<"ServerLog"> | string
-    message?: StringFilter<"ServerLog"> | string
-    timestamp?: DateTimeFilter<"ServerLog"> | Date | string
-    metadata?: JsonNullableFilter<"ServerLog">
+    servers?: UnitServerUncheckedUpdateManyWithoutConfigNestedInput
   }
 
   export type UnitServerCreateWithoutServerLogsInput = {
@@ -30082,7 +29787,6 @@ export namespace Prisma {
     constellation: ConstellationCreateNestedOneWithoutServersInput
     config?: UnitConfigCreateNestedOneWithoutServersInput
     clients?: ClientCreateNestedManyWithoutServerInput
-    professionals?: ProfessionalCreateNestedManyWithoutServerInput
     cases?: CaseCreateNestedManyWithoutServerInput
   }
 
@@ -30098,7 +29802,6 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     clients?: ClientUncheckedCreateNestedManyWithoutServerInput
-    professionals?: ProfessionalUncheckedCreateNestedManyWithoutServerInput
     cases?: CaseUncheckedCreateNestedManyWithoutServerInput
   }
 
@@ -30130,7 +29833,6 @@ export namespace Prisma {
     constellation?: ConstellationUpdateOneRequiredWithoutServersNestedInput
     config?: UnitConfigUpdateOneWithoutServersNestedInput
     clients?: ClientUpdateManyWithoutServerNestedInput
-    professionals?: ProfessionalUpdateManyWithoutServerNestedInput
     cases?: CaseUpdateManyWithoutServerNestedInput
   }
 
@@ -30146,7 +29848,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     clients?: ClientUncheckedUpdateManyWithoutServerNestedInput
-    professionals?: ProfessionalUncheckedUpdateManyWithoutServerNestedInput
     cases?: CaseUncheckedUpdateManyWithoutServerNestedInput
   }
 
@@ -30158,7 +29859,6 @@ export namespace Prisma {
 
   export type ProfessionalCreateManyUserInput = {
     id?: string
-    serverId: string
   }
 
   export type ClientUpdateWithoutUserInput = {
@@ -30187,21 +29887,18 @@ export namespace Prisma {
 
   export type ProfessionalUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    server?: UnitServerUpdateOneRequiredWithoutProfessionalsNestedInput
     cases?: CaseUpdateManyWithoutProfessionalNestedInput
     files?: FileUpdateManyWithoutProfessionalNestedInput
   }
 
   export type ProfessionalUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    serverId?: StringFieldUpdateOperationsInput | string
     cases?: CaseUncheckedUpdateManyWithoutProfessionalNestedInput
     files?: FileUncheckedUpdateManyWithoutProfessionalNestedInput
   }
 
   export type ProfessionalUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    serverId?: StringFieldUpdateOperationsInput | string
   }
 
   export type CaseCreateManyClientInput = {
@@ -30404,102 +30101,6 @@ export namespace Prisma {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type FileCreateManyCaseInput = {
-    id?: string
-    clientId?: string | null
-    professionalId?: string | null
-    name: string
-    url: string
-    type: string
-    date?: Date | string
-  }
-
-  export type ReportCreateManyCaseInput = {
-    id?: string
-    clientId: string
-    reason: string
-    createdAt?: Date | string
-  }
-
-  export type FileUpdateWithoutCaseInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    url?: StringFieldUpdateOperationsInput | string
-    type?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    client?: ClientUpdateOneWithoutFilesNestedInput
-    professional?: ProfessionalUpdateOneWithoutFilesNestedInput
-  }
-
-  export type FileUncheckedUpdateWithoutCaseInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    clientId?: NullableStringFieldUpdateOperationsInput | string | null
-    professionalId?: NullableStringFieldUpdateOperationsInput | string | null
-    name?: StringFieldUpdateOperationsInput | string
-    url?: StringFieldUpdateOperationsInput | string
-    type?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type FileUncheckedUpdateManyWithoutCaseInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    clientId?: NullableStringFieldUpdateOperationsInput | string | null
-    professionalId?: NullableStringFieldUpdateOperationsInput | string | null
-    name?: StringFieldUpdateOperationsInput | string
-    url?: StringFieldUpdateOperationsInput | string
-    type?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ReportUpdateWithoutCaseInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    reason?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    client?: ClientUpdateOneRequiredWithoutReportsNestedInput
-  }
-
-  export type ReportUncheckedUpdateWithoutCaseInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    clientId?: StringFieldUpdateOperationsInput | string
-    reason?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ReportUncheckedUpdateManyWithoutCaseInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    clientId?: StringFieldUpdateOperationsInput | string
-    reason?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type MessageCreateManyChatInput = {
-    id?: string
-    sender: $Enums.Sender
-    content: string
-    date?: Date | string
-  }
-
-  export type MessageUpdateWithoutChatInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    sender?: EnumSenderFieldUpdateOperationsInput | $Enums.Sender
-    content?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type MessageUncheckedUpdateWithoutChatInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    sender?: EnumSenderFieldUpdateOperationsInput | $Enums.Sender
-    content?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type MessageUncheckedUpdateManyWithoutChatInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    sender?: EnumSenderFieldUpdateOperationsInput | $Enums.Sender
-    content?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type UnitServerCreateManyConstellationInput = {
     id?: string
     domain: string
@@ -30523,7 +30124,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     config?: UnitConfigUpdateOneWithoutServersNestedInput
     clients?: ClientUpdateManyWithoutServerNestedInput
-    professionals?: ProfessionalUpdateManyWithoutServerNestedInput
     cases?: CaseUpdateManyWithoutServerNestedInput
     serverLogs?: ServerLogUpdateManyWithoutServerNestedInput
   }
@@ -30539,7 +30139,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     clients?: ClientUncheckedUpdateManyWithoutServerNestedInput
-    professionals?: ProfessionalUncheckedUpdateManyWithoutServerNestedInput
     cases?: CaseUncheckedUpdateManyWithoutServerNestedInput
     serverLogs?: ServerLogUncheckedUpdateManyWithoutServerNestedInput
   }
@@ -30741,7 +30340,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     constellation?: ConstellationUpdateOneRequiredWithoutServersNestedInput
     clients?: ClientUpdateManyWithoutServerNestedInput
-    professionals?: ProfessionalUpdateManyWithoutServerNestedInput
     cases?: CaseUpdateManyWithoutServerNestedInput
     serverLogs?: ServerLogUpdateManyWithoutServerNestedInput
   }
@@ -30757,7 +30355,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     clients?: ClientUncheckedUpdateManyWithoutServerNestedInput
-    professionals?: ProfessionalUncheckedUpdateManyWithoutServerNestedInput
     cases?: CaseUncheckedUpdateManyWithoutServerNestedInput
     serverLogs?: ServerLogUncheckedUpdateManyWithoutServerNestedInput
   }
@@ -30774,51 +30371,10 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ImageCreateManySectionInput = {
-    id?: string
-    configId: string
-    url: string
-    altText?: string | null
-    type: string
-    order?: number | null
-  }
-
-  export type ImageUpdateWithoutSectionInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    url?: StringFieldUpdateOperationsInput | string
-    altText?: NullableStringFieldUpdateOperationsInput | string | null
-    type?: StringFieldUpdateOperationsInput | string
-    order?: NullableIntFieldUpdateOperationsInput | number | null
-    config?: UnitConfigUpdateOneRequiredWithoutImagesNestedInput
-  }
-
-  export type ImageUncheckedUpdateWithoutSectionInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    configId?: StringFieldUpdateOperationsInput | string
-    url?: StringFieldUpdateOperationsInput | string
-    altText?: NullableStringFieldUpdateOperationsInput | string | null
-    type?: StringFieldUpdateOperationsInput | string
-    order?: NullableIntFieldUpdateOperationsInput | number | null
-  }
-
-  export type ImageUncheckedUpdateManyWithoutSectionInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    configId?: StringFieldUpdateOperationsInput | string
-    url?: StringFieldUpdateOperationsInput | string
-    altText?: NullableStringFieldUpdateOperationsInput | string | null
-    type?: StringFieldUpdateOperationsInput | string
-    order?: NullableIntFieldUpdateOperationsInput | number | null
-  }
-
   export type ClientCreateManyServerInput = {
     id?: string
     userId: string
     status?: $Enums.ClientStatus
-  }
-
-  export type ProfessionalCreateManyServerInput = {
-    id?: string
-    userId: string
   }
 
   export type CaseCreateManyServerInput = {
@@ -30861,25 +30417,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     status?: EnumClientStatusFieldUpdateOperationsInput | $Enums.ClientStatus
-  }
-
-  export type ProfessionalUpdateWithoutServerInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    user?: UserUpdateOneRequiredWithoutProfessionalsNestedInput
-    cases?: CaseUpdateManyWithoutProfessionalNestedInput
-    files?: FileUpdateManyWithoutProfessionalNestedInput
-  }
-
-  export type ProfessionalUncheckedUpdateWithoutServerInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    cases?: CaseUncheckedUpdateManyWithoutProfessionalNestedInput
-    files?: FileUncheckedUpdateManyWithoutProfessionalNestedInput
-  }
-
-  export type ProfessionalUncheckedUpdateManyWithoutServerInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
   }
 
   export type CaseUpdateWithoutServerInput = {
@@ -30940,6 +30477,138 @@ export namespace Prisma {
     message?: StringFieldUpdateOperationsInput | string
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type FileCreateManyCaseInput = {
+    id?: string
+    clientId?: string | null
+    professionalId?: string | null
+    name: string
+    url: string
+    type: string
+    date?: Date | string
+  }
+
+  export type ReportCreateManyCaseInput = {
+    id?: string
+    clientId: string
+    reason: string
+    createdAt?: Date | string
+  }
+
+  export type FileUpdateWithoutCaseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    client?: ClientUpdateOneWithoutFilesNestedInput
+    professional?: ProfessionalUpdateOneWithoutFilesNestedInput
+  }
+
+  export type FileUncheckedUpdateWithoutCaseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clientId?: NullableStringFieldUpdateOperationsInput | string | null
+    professionalId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FileUncheckedUpdateManyWithoutCaseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clientId?: NullableStringFieldUpdateOperationsInput | string | null
+    professionalId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReportUpdateWithoutCaseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    client?: ClientUpdateOneRequiredWithoutReportsNestedInput
+  }
+
+  export type ReportUncheckedUpdateWithoutCaseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clientId?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReportUncheckedUpdateManyWithoutCaseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    clientId?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageCreateManyChatInput = {
+    id?: string
+    sender: $Enums.Sender
+    content: string
+    date?: Date | string
+  }
+
+  export type MessageUpdateWithoutChatInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sender?: EnumSenderFieldUpdateOperationsInput | $Enums.Sender
+    content?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageUncheckedUpdateWithoutChatInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sender?: EnumSenderFieldUpdateOperationsInput | $Enums.Sender
+    content?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageUncheckedUpdateManyWithoutChatInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sender?: EnumSenderFieldUpdateOperationsInput | $Enums.Sender
+    content?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ImageCreateManySectionInput = {
+    id?: string
+    configId: string
+    url: string
+    altText?: string | null
+    type: string
+    order?: number | null
+  }
+
+  export type ImageUpdateWithoutSectionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    altText?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: StringFieldUpdateOperationsInput | string
+    order?: NullableIntFieldUpdateOperationsInput | number | null
+    config?: UnitConfigUpdateOneRequiredWithoutImagesNestedInput
+  }
+
+  export type ImageUncheckedUpdateWithoutSectionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    configId?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    altText?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: StringFieldUpdateOperationsInput | string
+    order?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type ImageUncheckedUpdateManyWithoutSectionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    configId?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    altText?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: StringFieldUpdateOperationsInput | string
+    order?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
 

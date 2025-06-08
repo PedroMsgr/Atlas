@@ -91,7 +91,7 @@ export default function LoginForm() {
                     type="submit"
                     className="w-full max-w-xs"
                     disabled={loading}
-                    variant="login"
+                    variant="primary"
                   >
                     {loading ? "Iniciando sesión..." : "Iniciar sesión"}
                   </AtlasButton>
@@ -111,9 +111,9 @@ export default function LoginForm() {
         {!isMobile && (
           <div className="min-h-screen flex items-center justify-center">
             <div className="w-full max-w-2xl">
-              <Card className="flex flex-col items-center p-0 bg-white dark:bg-gray-900 rounded-[2.5rem] shadow-2xl overflow-hidden border-none min-h-[600px]">
+              <Card className="flex flex-col items-center p-0 bg-blue-200 dark:bg-gray-900 rounded-[2.5rem] shadow-2xl overflow-hidden border-none min-h-[600px]">
                 {/* Fila superior: Logo y branding */}
-                <div className="flex flex-col justify-center items-center w-full py-12 bg-gradient-to-t from-blue-900 via-blue-700 to-white dark:from-blue-950 dark:via-blue-900 dark:to-gray-900 rounded-t-[2.5rem]">
+                <div className="flex flex-col justify-center items-center w-full py-12 bg-gradient-to-t from-blue-900 via-blue-700 to-white dark:from-blue-950 dark:via-blue-900 dark:to-gray-900">
                   <AtlasLogo width={140} height={140} className="mb-6" />
                   <Heading
                     size="8"
@@ -131,7 +131,11 @@ export default function LoginForm() {
                 {/* Fila inferior: Formulario */}
                 <div className="flex-1 flex flex-col justify-center bg-white items-center w-full px-8 py-12 rounded-b-[2.5rem]">
                   <div className="w-full max-w-md mx-auto">
-                    <Heading size="7" className="text-center w-full mb-4">
+                    <Heading
+                      size="7"
+                      className="text-center w-full mb-4"
+                      style={{ marginBottom: "1.5em" }}
+                    >
                       Iniciar sesión
                     </Heading>
                     {error && (
@@ -179,7 +183,7 @@ export default function LoginForm() {
                           type="submit"
                           className="w-full max-w-xs"
                           disabled={loading}
-                          variant="login"
+                          variant="primary"
                         >
                           {loading ? "Iniciando sesión..." : "Iniciar sesión"}
                         </AtlasButton>

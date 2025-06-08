@@ -87,7 +87,7 @@ export default function Header() {
                 </>
               ) : (
                 <Link href="/auth/signin">
-                  <AtlasButton variant="login" style={{ minWidth: 120 }}>
+                  <AtlasButton variant="primary" style={{ minWidth: 120 }}>
                     Iniciar sesión
                   </AtlasButton>
                 </Link>

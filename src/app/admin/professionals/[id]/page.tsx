@@ -1,5 +1,9 @@
 import { Heading, Box, Text } from "@radix-ui/themes";
 
+/**
+ * Página de detalle de profesional en el panel de administración.
+ * (En construcción, mostrará información y acciones sobre un profesional específico.)
+ */
 export default function Page() {
   return (
     <Box className="p-8 text-center">

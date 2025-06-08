@@ -3,11 +3,12 @@
 
 import { Box, Flex, Text } from "@radix-ui/themes";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname } from "next/navigation"; // Obtiene la ruta actual
 import Layout from "@/components/layout/Layout";
 import { useState, useEffect } from "react";
-import useIsMobile from "@/hooks/useIsMobile";
+import useIsMobile from "@/hooks/useIsMobile"; // Hook para detectar si es móvil
 
+// Define los elementos del menú de navegación del panel de administración
 const menuItems = [
   { name: "Dashboard", path: "/admin", icon: "📊" },
   { name: "Servidores", path: "/admin/servers", icon: "🌐" },
@@ -21,13 +22,20 @@ const menuItems = [
   { name: "Emulador", path: "/admin/emulator", icon: "🖥️" },
 ];
 
+/**
+ * Layout principal del panel de administración.
+ * Incluye sidebar responsivo, menú colapsable y navegación principal para admins.
+ * El sidebar se adapta a móvil y desktop, permitiendo fijar o colapsar en desktop.
+ * El contenido principal se muestra a la derecha del menú.
+ */
+
 export default function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false); // Estado para abrir/cerrar sidebar en móvil
   const [sidebarPinned, setSidebarPinned] = useState(true); // Estado de fijar/colapsar en desktop
   const isMobile = useIsMobile(768);
 
@@ -62,7 +70,7 @@ export default function AdminLayout({
             type="button"
           >
             {sidebarPinned ? (
-              // Flecha hacia la izquierda (colapsar)
+              // svg de flecha hacia la izquierda (colapsar)
               <svg
                 width="24"
                 height="24"
@@ -75,7 +83,7 @@ export default function AdminLayout({
                 <polyline points="15 18 9 12 15 6" />
               </svg>
             ) : (
-              // Flecha hacia la derecha (expandir)
+              // svg de flecha hacia la derecha (expandir)
               <svg
                 width="24"
                 height="24"
@@ -89,33 +97,30 @@ export default function AdminLayout({
               </svg>
             )}
           </button>
-          <div>
-            <Flex direction="column" gap="4" className={`mt-14 md:mt-4`}>
-              {menuItems.map((item) => (
-                <Link
-                  key={item.path}
-                  href={item.path}
-                  className={`flex items-center gap-2 p-2 rounded-lg transition-colors whitespace-nowrap overflow-hidden ${
-                    pathname === item.path
-                      ? "bg-blue-50 text-blue-600"
-                      : "hover:bg-gray-100"
-                  } ${
-                    !isMobile && !sidebarPinned
-                      ? "md:justify-center md:px-0"
-                      : ""
-                  } md:transition-all`}
-                  onClick={() => {
-                    if (isMobile) setSidebarOpen(false);
-                  }}
-                >
-                  <Text size="2">{item.icon}</Text>
-                  {(sidebarPinned || isMobile) && (
-                    <Text size="2">{item.name}</Text>
-                  )}
-                </Link>
-              ))}
-            </Flex>
-          </div>
+          {/* Logo y título del panel */}
+          <Flex direction="column" gap="4" className={`mt-14 md:mt-4`}>
+            {menuItems.map((item) => (
+              <Link
+                key={item.path}
+                href={item.path}
+                className={`flex items-center gap-2 p-2 rounded-lg transition-colors whitespace-nowrap overflow-hidden ${
+                  pathname === item.path
+                    ? "bg-blue-50 text-blue-600"
+                    : "hover:bg-gray-100"
+                } ${
+                  !isMobile && !sidebarPinned ? "md:justify-center md:px-0" : ""
+                } md:transition-all`}
+                onClick={() => {
+                  if (isMobile) setSidebarOpen(false);
+                }}
+              >
+                <Text size="2">{item.icon}</Text>
+                {(sidebarPinned || isMobile) && (
+                  <Text size="2">{item.name}</Text>
+                )}
+              </Link>
+            ))}
+          </Flex>
         </Box>
         {/* Overlay para sidebar en móvil */}
         {sidebarOpen && isMobile && (
@@ -126,7 +131,7 @@ export default function AdminLayout({
         )}
         {/* Botón menú hamburguesa solo en móvil */}
         <button
-          className="fixed top-4 left-4 z-50 p-2 rounded-md bg-blue-600 text-white shadow-md md:hidden"
+          className="fixed top-20 left-2 z-50 p-2 rounded-md bg-blue-600 text-white shadow-md md:hidden"
           onClick={() => setSidebarOpen((v) => !v)}
           aria-label="Abrir menú"
         >

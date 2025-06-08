@@ -12,8 +12,7 @@ export type AtlasButtonVariant =
   | "dashboard-secondary"
   | "next"
   | "back"
-  | "upload"
-  | "login";
+  | "upload";
 
 export interface AtlasButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -24,10 +23,8 @@ export interface AtlasButtonProps
 const variantStyles: Record<AtlasButtonVariant, string> = {
   primary:
     "bg-gradient-to-r from-blue-700 via-blue-600 to-blue-500 text-white hover:from-blue-800 hover:to-blue-600 focus:ring-blue-400 rounded-2xl py-2.5 px-5 text-base font-semibold shadow-md",
-  login:
-    "bg-gradient-to-r from-blue-700 via-blue-600 to-blue-500 text-white hover:from-blue-800 hover:to-blue-600 focus:ring-blue-400 rounded-2xl py-2.5 px-5 text-base font-semibold shadow-md",
   success:
-    "bg-green-600 text-white hover:bg-green-700 focus:ring-green-500 rounded-2xl py-2 px-4 text-sm font-medium",
+    "bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500 rounded-2xl py-2 px-4 text-sm font-medium",
   cancel:
     "bg-gray-300 text-gray-800 hover:bg-gray-400 focus:ring-gray-400 rounded-2xl py-2 px-4 text-sm font-medium",
   delete:

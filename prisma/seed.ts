@@ -5,7 +5,6 @@ import {
   Role,
   CaseStatus,
   Sender,
-  SectionType,
   ClientStatus,
 } from "../src/generated/prisma";
 import bcrypt from "bcryptjs";
@@ -13,7 +12,7 @@ import bcrypt from "bcryptjs";
 const prisma = new PrismaClient();
 
 /**
- * Convierte un texto a slug sencillo (lowercase-kebab) eliminando tildes.
+ * Convierte un texto a slug sencillo (lowercase-kebab), eliminando diacríticos y caracteres especiales.
  */
 function slug(text: string): string {
   return text
@@ -24,6 +23,12 @@ function slug(text: string): string {
     .replace(/(^-|-$)/g, "");
 }
 
+/**
+ * @function main
+ * @description Limpia la base de datos y genera datos de prueba para el entorno de desarrollo.
+ * @returns {Promise<void>} Promesa que se resuelve cuando se completa la inserción de datos.
+ * @throws {Error} Si ocurre un error durante la conexión a la base de datos o la inserción de datos.
+ */
 async function main() {
   console.info("⏳  Limpiando la base de datos…");
   // Elimina datos respetando dependencias
@@ -108,6 +113,7 @@ async function main() {
     )
   );
 
+  // Crear servidores unitarios y configuraciones
   const unitServers: any[] = [];
   const unitConfigs: any[] = [];
   for (const constellation of constellations) {
@@ -150,7 +156,6 @@ async function main() {
       prisma.professional.create({
         data: {
           userId: u.id,
-          serverId: unitServers[idx % unitServers.length].id,
         },
       })
     )
@@ -350,5 +355,6 @@ main()
     process.exit(1);
   })
   .finally(async () => {
-    await prisma.$disconnect();
+    await prisma.$disconnect(); // Cierra la conexión a la base de datos
+    console.info("🔌  Conexión a la base de datos cerrada");
   });

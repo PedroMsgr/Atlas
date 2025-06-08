@@ -44,7 +44,6 @@ export class ServersRepository {
       include: {
         constellation: true,
         clients: true,
-        professionals: true,
         cases: true,
         config: true,
       },

@@ -28,7 +28,6 @@ export interface ClientWithRelations extends ClientBase {
 export interface ProfessionalBase {
   id: string;
   userId: string;
-  serverId: string;
 }
 
 export interface ProfessionalWithRelations extends ProfessionalBase {

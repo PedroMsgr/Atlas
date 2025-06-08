@@ -1,5 +1,10 @@
 "use client";
 
+/**
+ * Página de listado de profesionales y administradores para administración.
+ * Muestra la lista de profesionales y permite su gestión.
+ */
+
 import { Box, Heading } from "@radix-ui/themes";
 import ProfessionalList from "@/components/user/ProfessionalList";
 

@@ -12,6 +12,10 @@ interface ServerDetailPageProps {
   }>;
 }
 
+/**
+ * Página de detalle de servidor unitario en el panel de administración.
+ * Muestra información y acciones sobre un servidor específico.
+ */
 export default function ServerDetailPage({ params }: ServerDetailPageProps) {
   const resolvedParams = use(params);
 

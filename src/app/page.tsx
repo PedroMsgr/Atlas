@@ -5,7 +5,6 @@ import {
   Section,
   Text,
   Card,
-  Box,
 } from "@radix-ui/themes";
 import Link from "next/link";
 import MainLayout from "@/components/layout/MainLayout";
@@ -17,7 +16,7 @@ export default function Home() {
   return (
     <MainLayout>
       <main className="">
-        {/* Hero Section */}
+        {/* Seccion de bienvenida */}
         <Section
           size="3"
           className="bg-gradient-to-b from-blue-50 to-white py-8 md:py-12"
@@ -42,7 +41,7 @@ export default function Home() {
               </Text>
               <Link href="/auth/signin">
                 <AtlasButton
-                  variant="login"
+                  variant="primary"
                   className="mt-6 px-6 py-3 md:px-8 md:py-4 w-full sm:w-auto"
                 >
                   Iniciar sesión
@@ -52,7 +51,7 @@ export default function Home() {
           </Container>
         </Section>
 
-        {/* Features Section */}
+        {/* Seccion de información */}
         <Section size="3">
           <Container size="4">
             <Heading
@@ -112,7 +111,6 @@ export default function Home() {
           </Container>
         </Section>
 
-        {/* CTA Section */}
         <Section size="3" className="bg-blue-50">
           <Container size="4">
             <Flex
@@ -135,7 +133,7 @@ export default function Home() {
                 className="flex-col sm:flex-row w-full sm:w-auto"
               >
                 <Link href="/auth/signin" className="w-full sm:w-auto">
-                  <AtlasButton variant="login" className="w-full sm:w-auto">
+                  <AtlasButton variant="primary" className="w-full sm:w-auto">
                     Iniciar sesión
                   </AtlasButton>
                 </Link>
@@ -153,45 +151,6 @@ export default function Home() {
         </Section>
 
         {/* Footer */}
-        <footer className="bg-gray-100 py-8 mt-8">
-          <Container size="4">
-            <Flex
-              justify="between"
-              wrap="wrap"
-              gap="4"
-              className="flex-col md:flex-row items-center md:items-start text-center md:text-left"
-            >
-              <Box className="mb-4 md:mb-0">
-                <Text size="2" weight="bold">
-                  © 2025 Atlas Legal Platform
-                </Text>
-              </Box>
-              <Flex
-                gap="4"
-                className="flex-col sm:flex-row items-center md:items-start"
-              >
-                <Link
-                  href="/privacy"
-                  className="text-sm text-gray-600 hover:text-blue-600 mb-2 sm:mb-0"
-                >
-                  Privacidad
-                </Link>
-                <Link
-                  href="/terms"
-                  className="text-sm text-gray-600 hover:text-blue-600 mb-2 sm:mb-0"
-                >
-                  Términos
-                </Link>
-                <Link
-                  href="/contact"
-                  className="text-sm text-gray-600 hover:text-blue-600"
-                >
-                  Contacto
-                </Link>
-              </Flex>
-            </Flex>
-          </Container>
-        </footer>
       </main>
     </MainLayout>
   );

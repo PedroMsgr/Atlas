@@ -1,5 +1,9 @@
 import { Heading, Box, Text } from "@radix-ui/themes";
 
+/**
+ * Página de detalle de cliente en el panel de administración.
+ * (En construcción, mostrará información y acciones sobre un cliente específico.)
+ */
 export default function Page() {
   return (
     <Box className="p-8 text-center">

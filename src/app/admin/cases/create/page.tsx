@@ -1,5 +1,9 @@
 import { Box, Heading } from "@radix-ui/themes";
 
+/**
+ * Página de creación de un nuevo caso en el panel de administración.
+ * (Pendiente de implementar el formulario de creación de caso.)
+ */
 export default function CreateCasePage() {
   // Aquí irá el formulario de creación de caso
   return (

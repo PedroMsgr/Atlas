@@ -9,6 +9,10 @@ import { GET_CONFIGURATION_BY_ID } from "@/graphql/queries/config.queries";
 import ConfigUpdate from "@/components/config/ConfigUpdate";
 import { AtlasButton } from "@/components/ui/AtlasButton";
 
+/**
+ * Página de edición de configuración de servidor unitario.
+ * Permite editar la configuración seleccionada y volver al listado.
+ */
 export default function EditConfigPage({ params }: { params: any }) {
   const router = useRouter();
   const { id } = React.use(params) as { id: string };
@@ -18,7 +22,7 @@ export default function EditConfigPage({ params }: { params: any }) {
   });
 
   // DEBUG: Mostrar la data recibida de la query
-  console.log("CONFIG QUERY DATA:", data);
+  // console.log("CONFIG QUERY DATA:", data);
 
   if (loading) {
     return <Box className="p-4">Cargando configuración...</Box>;

@@ -4,20 +4,25 @@
 import { Box, Button } from "@radix-ui/themes";
 import { useRouter } from "next/navigation";
 import ConfigCreate from "@/components/config/ConfigCreate";
+import { AtlasButton } from "@/components/ui/AtlasButton";
 
+/**
+ * Página de creación de configuración de servidor unitario.
+ * Permite crear una nueva configuración y navegar al detalle tras crearla.
+ */
 export default function CreateConfigPage() {
   const router = useRouter();
 
   return (
     <Box className="p-8">
-      <Button
-        variant="soft"
-        onClick={() => router.push("/admin/configs")}
+      <AtlasButton
+        variant="back"
+        onClick={() => router.back()}
         className="mb-4"
       >
         &larr; Volver a la lista
-      </Button>
-      {/* Usar el formulario básico para crear la configuración */}
+      </AtlasButton>
+      {/* Fomrulario de creación de configuración con la información básica */}
       <ConfigCreate onSuccess={(id) => router.push(`/admin/configs/${id}`)} />
     </Box>
   );

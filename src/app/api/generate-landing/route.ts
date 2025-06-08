@@ -1,11 +1,24 @@
+/**
+ * API Route para generación dinámica de landing TSX a partir de datos de configuración.
+ * - Recibe un token unitario por POST y consulta la API GraphQL para obtener la configuración.
+ * - Genera un archivo page.tsx con la landing personalizada usando la función generateLandingTSX.
+ * - Intenta guardar el archivo en la ruta del proyecto, y si falla por permisos, lo guarda en /tmp.
+ * - Devuelve JSON con éxito o error detallado.
+ *
+ * Seguridad y manejo de errores:
+ * - Valida la presencia del token.
+ * - Maneja errores de consulta GraphQL, generación de TSX y escritura de archivos.
+ * - Soporta fallback para entornos de solo lectura (ej: Vercel).
+ */
+
 // src/app/api/generate-landing/route.ts
 
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs/promises";
 import path from "path";
 import { createApolloClient } from "@/lib/apollo-client";
-import { gql } from "@apollo/client";
 import { generateLandingTSX } from "@/lib/landing-generator";
+import { LANDING_DATA_QUERY } from "@/graphql/queries/config.queries";
 
 export async function POST(req: NextRequest) {
   try {
@@ -25,67 +38,15 @@ export async function POST(req: NextRequest) {
     let data, errors;
     try {
       const result = await apollo.query<{ landingData: any }>({
-        query: gql`
-          query LandingData($token: String!) {
-            landingData(token: $token) {
-              id
-              name
-              pageTitle
-              pageDescription
-              servicesDescription
-              iconUrl
-              footerInfo
-              bannerUrl
-              sections {
-                id
-                title
-                body
-                order
-                images {
-                  id
-                  url
-                  altText
-                  order
-                }
-              }
-              articles {
-                id
-                title
-                content
-                url
-                order
-                publishedAt
-              }
-              images {
-                id
-                url
-                altText
-                type
-                order
-              }
-              legalSteps {
-                id
-                title
-                description
-                order
-              }
-              footerLinks {
-                id
-                label
-                url
-                order
-              }
-            }
-          }
-        `,
+        query: LANDING_DATA_QUERY,
         variables: { token },
       });
       data = result.data;
       errors = result.errors;
-      console.log(
-        "[generate-landing] Data recibida de GraphQL",
-        JSON.stringify(data)
-      );
+      // console.log(
+      //   "[generate-landing] Data recibida de GraphQL",
+      //   JSON.stringify(data)
+      // );
     } catch (gqlErr) {
       console.error("[generate-landing] Error en Apollo query:", gqlErr);
       return NextResponse.json(
@@ -127,6 +88,7 @@ export async function POST(req: NextRequest) {
     }
 
     // 4) Grabamos page.tsx en /src/app/emulator/page.tsx
+    // En vercel no fuciona la escritura de archivos en el sistema de archivos del proyecto
     const emulatorDir = path.join(process.cwd(), "src", "app", "emulator");
     const emulatorPagePath = path.join(emulatorDir, "page.tsx");
     try {

@@ -58,51 +58,6 @@ export const GET_ALL_CONFIGURATIONS = gql`
   }
 `;
 
-export const GET_CONFIG_BY_UNIT_TOKEN = gql`
-  query GetConfigByUnitToken($token: String!) {
-    landingData(token: $token) {
-      id
-      name
-      pageTitle
-      footerInfo
-      description
-      bannerUrl
-      seoTitle
-      seoDescription
-      seoKeywords
-      sections {
-        id
-        title
-        content
-        order
-        sectionKey
-        mainImageId
-        images {
-          id
-          url
-          altText
-          type
-          order
-        }
-      }
-      articles {
-        id
-        title
-        content
-        publishedAt
-      }
-      images {
-        id
-        url
-        altText
-        type
-        order
-        sectionId
-      }
-    }
-  }
-`;
-
 export const LANDING_DATA_QUERY = gql`
   query LandingData($token: String!) {
     landingData(token: $token) {

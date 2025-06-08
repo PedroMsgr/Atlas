@@ -145,8 +145,39 @@ exports.Prisma.ClientScalarFieldEnum = {
 
 exports.Prisma.ProfessionalScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
-  serverId: 'serverId'
+  userId: 'userId'
+};
+
+exports.Prisma.ConstellationScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description'
+};
+
+exports.Prisma.UnitConfigScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  pageTitle: 'pageTitle',
+  pageDescription: 'pageDescription',
+  iconUrl: 'iconUrl',
+  servicesDescription: 'servicesDescription',
+  bannerUrl: 'bannerUrl',
+  footerInfo: 'footerInfo',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.UnitServerScalarFieldEnum = {
+  id: 'id',
+  domain: 'domain',
+  name: 'name',
+  orchestratorToken: 'orchestratorToken',
+  unitToken: 'unitToken',
+  isActive: 'isActive',
+  constellationId: 'constellationId',
+  configId: 'configId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.CaseScalarFieldEnum = {
@@ -192,41 +223,6 @@ exports.Prisma.ReportScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
-exports.Prisma.ConstellationScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  description: 'description'
-};
-
-exports.Prisma.UnitConfigScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  pageTitle: 'pageTitle',
-  pageDescription: 'pageDescription',
-  iconUrl: 'iconUrl',
-  servicesDescription: 'servicesDescription',
-  bannerUrl: 'bannerUrl',
-  footerInfo: 'footerInfo',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.LegalStepScalarFieldEnum = {
-  id: 'id',
-  title: 'title',
-  description: 'description',
-  order: 'order',
-  configId: 'configId'
-};
-
-exports.Prisma.FooterLinkScalarFieldEnum = {
-  id: 'id',
-  label: 'label',
-  url: 'url',
-  order: 'order',
-  configId: 'configId'
-};
-
 exports.Prisma.SectionScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -256,17 +252,20 @@ exports.Prisma.ArticleScalarFieldEnum = {
   configId: 'configId'
 };
 
-exports.Prisma.UnitServerScalarFieldEnum = {
+exports.Prisma.LegalStepScalarFieldEnum = {
   id: 'id',
-  domain: 'domain',
-  name: 'name',
-  orchestratorToken: 'orchestratorToken',
-  unitToken: 'unitToken',
-  isActive: 'isActive',
-  constellationId: 'constellationId',
-  configId: 'configId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  title: 'title',
+  description: 'description',
+  order: 'order',
+  configId: 'configId'
+};
+
+exports.Prisma.FooterLinkScalarFieldEnum = {
+  id: 'id',
+  label: 'label',
+  url: 'url',
+  order: 'order',
+  configId: 'configId'
 };
 
 exports.Prisma.ServerLogScalarFieldEnum = {
@@ -333,19 +332,19 @@ exports.Prisma.ModelName = {
   User: 'User',
   Client: 'Client',
   Professional: 'Professional',
+  Constellation: 'Constellation',
+  UnitConfig: 'UnitConfig',
+  UnitServer: 'UnitServer',
   Case: 'Case',
   Chat: 'Chat',
   Message: 'Message',
   File: 'File',
   Report: 'Report',
-  Constellation: 'Constellation',
-  UnitConfig: 'UnitConfig',
-  LegalStep: 'LegalStep',
-  FooterLink: 'FooterLink',
   Section: 'Section',
   Image: 'Image',
   Article: 'Article',
-  UnitServer: 'UnitServer',
+  LegalStep: 'LegalStep',
+  FooterLink: 'FooterLink',
   ServerLog: 'ServerLog'
 };
 

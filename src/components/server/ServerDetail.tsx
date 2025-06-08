@@ -323,13 +323,6 @@ export default function ServerDetail({ serverId }: ServerDetailProps) {
             >
               {isRestarting ? "Reiniciando..." : "Reiniciar servidor"}
             </AtlasButton>
-            <AtlasButton
-              variant="back"
-              className="w-full"
-              onClick={() => router.push("/admin/servers")}
-            >
-              Volver a la lista
-            </AtlasButton>
           </Flex>
         </Flex>
       </Card>

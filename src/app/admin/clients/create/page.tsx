@@ -1,5 +1,9 @@
 import { Heading, Box, Text } from "@radix-ui/themes";
 
+/**
+ * Página de creación de cliente en el panel de administración.
+ * (En construcción, contendrá el formulario para crear un nuevo cliente.)
+ */
 export default function Page() {
   return (
     <Box className="p-8 text-center">

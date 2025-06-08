@@ -703,8 +703,7 @@ const resolvers = {
   },
 
   Professional: {
-    server: (parent: any, _args: unknown, context: GraphQLContext) =>
-      context.serverService.getServerById(parent.serverId),
+    // Eliminar el resolver de server, ya que Professional ya no tiene serverId
   },
 
   Chat: {

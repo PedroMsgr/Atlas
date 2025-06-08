@@ -4,6 +4,10 @@
 import { useState } from "react";
 import { AtlasButton } from "@/components/ui/AtlasButton";
 
+/**
+ * Página del emulador de landing para administración.
+ * Permite generar landings de prueba a partir de un token unitario.
+ */
 export default function EmulatorGeneratorPage() {
   const [token, setToken] = useState("");
   const [status, setStatus] = useState<
@@ -22,10 +26,14 @@ export default function EmulatorGeneratorPage() {
       const res = await fetch("/api/generate-landing", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json", // Asegura que el servidor entienda el cuerpo como JSON
         },
         body: JSON.stringify({ token: token.trim() }),
       });
+      if (!res.ok) {
+        throw new Error("Error al generar la landing");
+      }
+      // Procesar la respuesta del servidor
       const data = await res.json();
       if (!res.ok) {
         setErrorMsg(data.error || "Error desconocido");
@@ -39,7 +47,7 @@ export default function EmulatorGeneratorPage() {
     }
   };
 
-  // Layout responsivo: dos tarjetas, sin fondo exterior, hover de elevación en desktop
+  // Layout responsivo: dos tarjetas horizontales en desktop, vertcales en mobile
   return (
     <div className="min-h-screen flex items-center top-0 justify-center p-4 md:p-8">
       <div className="flex flex-col md:flex-row gap-4 md:gap-8 w-full max-w-4xl">

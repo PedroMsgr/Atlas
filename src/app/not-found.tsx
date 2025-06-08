@@ -1,6 +1,10 @@
 import React from "react";
 import Link from "next/link";
 
+/**
+ * Componente de página 404 - No encontrado.
+ * Muestra un mensaje de error y un enlace para volver al inicio.
+ */
 export default function NotFound() {
   return (
     <div

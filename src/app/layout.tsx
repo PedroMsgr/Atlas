@@ -10,7 +10,7 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased `}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased `} // Establece las fuentes variables y el antialiased
       >
         <ClientProviders>{children}</ClientProviders>
       </body>

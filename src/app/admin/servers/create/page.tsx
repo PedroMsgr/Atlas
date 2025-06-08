@@ -3,6 +3,10 @@ import { Box, Button } from "@radix-ui/themes";
 import { useRouter } from "next/navigation";
 import ServerCreate from "@/components/server/ServerCreate";
 
+/**
+ * Página de creación de servidor unitario en el panel de administración.
+ * Permite crear un nuevo servidor y navegar al detalle tras crearlo.
+ */
 export default function CreateServerPage() {
   const router = useRouter();
   return (

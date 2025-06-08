@@ -1,5 +1,10 @@
 "use client";
 
+/**
+ * Página de listado de clientes para administración.
+ * Muestra la lista de clientes y permite su gestión.
+ */
+
 import { Box, Heading } from "@radix-ui/themes";
 import ClientList from "@/components/user/ClientList";
 

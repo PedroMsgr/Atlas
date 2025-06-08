@@ -43,21 +43,15 @@ enum ClientStatus {
   suspended
 }
 
-/// Tipos de sesión: local para el orquestador, api para servidores unitarios
-enum SessionType {
-  local // sesión en el orquestador (administrador)
-  api // sesión en un servidor unitario (cliente/profesional)
-}
-
-/// Tipos de sección mostrados en la landing del servidor unitario
+/// Futura implementacion pra que las secciones tenga tipos específicos que cambien el modo en el que se renderizan o se gestionan
 enum SectionType {
-  text // párrafo o bloque HTML
-  legalGuide // listado de pasos/FAQ legales
-  manual // contenido curado manualmente
-  newsConfig // bloque de noticias automáticas
+  text
+  legalGuide
+  manual
 }
 
-// ---------- Modelos de identidad ----------
+// ---------- MODELOS DE IDENTIDAD Y USUARIOS ----------
+/// Usuario base del sistema (admin, profesional, cliente)
 model User {
   id          String    @id @default(uuid())
   email       String    @unique
@@ -77,6 +71,7 @@ model User {
   professionals Professional[]
 }
 
+/// Cliente final (usuario con rol client, vinculado a un servidor unitario)
 model Client {
   id       String       @id @default(uuid())
   userId   String
@@ -91,19 +86,129 @@ model Client {
   reports Report[]
 }
 
+/// Profesional (usuario con rol professional, vinculado a un servidor unitario)
 model Professional {
-  id       String @id @default(uuid())
-  userId   String
-  serverId String
+  id     String @id @default(uuid())
+  userId String
 
-  user   User       @relation(fields: [userId], references: [id])
-  server UnitServer @relation(fields: [serverId], references: [id])
+  user User @relation(fields: [userId], references: [id])
 
   cases Case[]
   files File[]
 }
 
-// ---------- Casos y comunicación ----------
+// ---------- ESTRUCTURA DE SERVIDORES Y CONFIGURACIÓN ----------
+/// Agrupación lógica de servidores unitarios
+model Constellation {
+  id          String  @id @default(uuid())
+  name        String  @unique
+  description String?
+
+  servers UnitServer[]
+}
+
+/// Configuración de landing y parámetros de un servidor unitario
+model UnitConfig {
+  id                  String       @id @default(uuid())
+  name                String       @unique
+  pageTitle           String
+  pageDescription     String
+  iconUrl             String?
+  servicesDescription String
+  bannerUrl           String?
+  footerInfo          String?
+  legalSteps          LegalStep[]
+  articles            Article[]
+  sections            Section[]
+  images              Image[]
+  footerLinks         FooterLink[]
+  createdAt           DateTime     @default(now())
+  updatedAt           DateTime     @default(now())
+
+  servers UnitServer[] @relation("UnitServerConfig")
+}
+
+// ---------- CONTENIDO DE LANDINGS Y SECCIONES ----------
+/// Sección de contenido en la landing
+model Section {
+  id       String     @id @default(uuid())
+  title    String
+  body     String
+  imageUrl String?
+  order    Int
+  config   UnitConfig @relation(fields: [configId], references: [id])
+  configId String
+  images   Image[]    @relation("SectionImages")
+}
+
+/// Imagen asociada a una configuración o sección
+model Image {
+  id        String  @id @default(uuid())
+  configId  String
+  url       String
+  altText   String?
+  type      String // hero, gallery, icon…
+  order     Int?
+  sectionId String?
+
+  config  UnitConfig @relation(fields: [configId], references: [id])
+  section Section?   @relation("SectionImages", fields: [sectionId], references: [id])
+}
+
+/// Artículo o noticia en la landing
+model Article {
+  id          String     @id @default(uuid())
+  title       String
+  content     String
+  url         String?
+  publishedAt DateTime   @default(now())
+  order       Int
+  config      UnitConfig @relation(fields: [configId], references: [id])
+  configId    String
+}
+
+/// Paso legal mostrado en la landing
+model LegalStep {
+  id          String     @id @default(uuid())
+  title       String
+  description String
+  order       Int
+  config      UnitConfig @relation(fields: [configId], references: [id])
+  configId    String
+}
+
+/// Enlace de footer personalizado
+model FooterLink {
+  id       String     @id @default(uuid())
+  label    String
+  url      String
+  order    Int
+  config   UnitConfig @relation(fields: [configId], references: [id])
+  configId String
+}
+
+/// Servidor unitario (instancia de landing/config)
+model UnitServer {
+  id                String   @id @default(uuid())
+  domain            String   @unique
+  name              String
+  orchestratorToken String   @unique
+  unitToken         String   @unique
+  isActive          Boolean  @default(true)
+  constellationId   String
+  configId          String? // Relación a la configuración activa
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @default(now())
+
+  constellation Constellation @relation(fields: [constellationId], references: [id])
+  config        UnitConfig?   @relation("UnitServerConfig", fields: [configId], references: [id])
+  clients       Client[]
+  cases         Case[]
+  serverLogs    ServerLog[]
+}
+
+// ---------- CASOS, CHAT Y ARCHIVOS ----------
+/// Caso legal gestionado en el sistema
 model Case {
   id             String     @id @default(uuid())
   clientId       String
@@ -123,6 +228,7 @@ model Case {
   reports Report[]
 }
 
+/// Chat asociado a un caso
 model Chat {
   id     String @id @default(uuid())
   caseId String @unique
@@ -131,6 +237,7 @@ model Chat {
   messages Message[]
 }
 
+/// Mensaje dentro de un chat
 model Message {
   id      String   @id @default(uuid())
   chatId  String
@@ -141,6 +248,7 @@ model Message {
   chat Chat @relation(fields: [chatId], references: [id])
 }
 
+/// Archivo subido a un caso (por cliente o profesional) - por implemetar
 model File {
   id             String   @id @default(uuid())
   caseId         String
@@ -156,6 +264,7 @@ model File {
   professional Professional? @relation(fields: [professionalId], references: [id])
 }
 
+/// Reporte de abuso o incidencia en un caso
 model Report {
   id        String   @id @default(uuid())
   caseId    String
@@ -167,110 +276,8 @@ model Report {
   client Client @relation(fields: [clientId], references: [id])
 }
 
-// ---------- Estructura de servidores ----------
-model Constellation {
-  id          String  @id @default(uuid())
-  name        String  @unique
-  description String?
-
-  servers UnitServer[]
-}
-
-model UnitConfig {
-  id                  String       @id @default(uuid())
-  name                String       @unique
-  pageTitle           String
-  pageDescription     String
-  iconUrl             String?
-  servicesDescription String
-  bannerUrl           String?
-  footerInfo          String?
-  legalSteps          LegalStep[]
-  articles            Article[]
-  sections            Section[]
-  images              Image[]
-  footerLinks         FooterLink[]
-  createdAt           DateTime     @default(now())
-  updatedAt           DateTime     @default(now())
-
-  servers UnitServer[] @relation("UnitServerConfig") // Relación inversa
-}
-
-model LegalStep {
-  id          String     @id @default(uuid())
-  title       String
-  description String
-  order       Int
-  config      UnitConfig @relation(fields: [configId], references: [id])
-  configId    String
-}
-
-model FooterLink {
-  id       String     @id @default(uuid())
-  label    String
-  url      String
-  order    Int
-  config   UnitConfig @relation(fields: [configId], references: [id])
-  configId String
-}
-
-// ---------- Contenido de las landings ----------
-model Section {
-  id       String     @id @default(uuid())
-  title    String
-  body     String
-  imageUrl String?
-  order    Int
-  config   UnitConfig @relation(fields: [configId], references: [id])
-  configId String
-  images   Image[]    @relation("SectionImages")
-}
-
-model Image {
-  id        String  @id @default(uuid())
-  configId  String
-  url       String
-  altText   String?
-  type      String // hero, gallery, icon…
-  order     Int?
-  sectionId String?
-
-  config  UnitConfig @relation(fields: [configId], references: [id])
-  section Section?   @relation("SectionImages", fields: [sectionId], references: [id])
-}
-
-model Article {
-  id          String     @id @default(uuid())
-  title       String
-  content     String
-  url         String?
-  publishedAt DateTime   @default(now())
-  order       Int
-  config      UnitConfig @relation(fields: [configId], references: [id])
-  configId    String
-}
-
-model UnitServer {
-  id                String   @id @default(uuid())
-  domain            String   @unique
-  name              String
-  orchestratorToken String   @unique
-  unitToken         String   @unique
-  isActive          Boolean  @default(true)
-  constellationId   String
-  configId          String? // Relación a la configuración activa
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @default(now())
-
-  constellation Constellation  @relation(fields: [constellationId], references: [id])
-  config        UnitConfig?    @relation("UnitServerConfig", fields: [configId], references: [id])
-  clients       Client[]
-  professionals Professional[]
-  cases         Case[]
-  serverLogs    ServerLog[]
-}
-
-// ---------- Logs y notificaciones ----------
+// ---------- LOGS Y AUDITORÍA ----------
+/// Log de actividad de servidor unitario
 model ServerLog {
   id        String     @id @default(cuid())
   serverId  String

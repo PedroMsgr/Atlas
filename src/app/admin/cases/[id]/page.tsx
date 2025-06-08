@@ -1,5 +1,11 @@
 "use client";
 
+/**
+ * Página de detalle de un caso en el panel de administración.
+ * Permite ver y editar el estado y los tags del caso seleccionado.
+ * Incluye sincronización de tags, manejo de inputs y feedback de carga/errores.
+ */
+
 import { useParams, useRouter } from "next/navigation";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_CASE } from "@/graphql/queries/case.queries";
@@ -17,6 +23,9 @@ import {
 import { useState, useEffect } from "react";
 import { AtlasButton } from "@/components/ui/AtlasButton";
 
+/**
+ * Estados posibles de un caso con sus etiquetas y colores.
+ */
 const CASE_STATUS = [
   { value: "open", label: "Abierto", color: "blue" },
   { value: "inProgress", label: "En progreso", color: "orange" },
@@ -24,6 +33,12 @@ const CASE_STATUS = [
   { value: "closed", label: "Cerrado", color: "gray" },
 ];
 
+/**
+ * @alias AdminCaseDetailPage
+ * @description
+ * Página de detalle de un caso en el panel de administración.
+ * @returns
+ */
 export default function AdminCaseDetailPage() {
   const params = useParams();
   const router = useRouter();
@@ -35,9 +50,10 @@ export default function AdminCaseDetailPage() {
   const [updateCase, { loading: updating }] = useMutation(UPDATE_CASE, {
     onCompleted: () => refetch(),
   });
+  // Extrae el caso de los datos obtenidos
   const c = data?.case;
   const [status, setStatus] = useState<string | undefined>(undefined);
-  const [tags, setTags] = useState<string[]>(c?.tags || []);
+  const [tags, setTags] = useState<string[]>(c?.tags || []); // Inicializa tags desde el caso
   const [tagInput, setTagInput] = useState("");
 
   // Sincroniza tags cuando cambia el caso
@@ -52,6 +68,7 @@ export default function AdminCaseDetailPage() {
       </Flex>
     );
   }
+  // Si hay error o no se encuentra el caso, muestra mensaje de error
   if (error || !c) {
     return (
       <Flex align="center" justify="center" className="min-h-screen">
@@ -85,8 +102,10 @@ export default function AdminCaseDetailPage() {
   };
 
   return (
-    <main className="min-h-screen">
+    <>
+      {/* Contenedor principal con padding y max-width */}
       <Box className="p-8 max-w-xl mx-auto">
+        {/* Tarjeta principal con título y contenido */}
         <Card>
           <Heading size="5" mb="4">
             Detalle del Caso
@@ -110,6 +129,7 @@ export default function AdminCaseDetailPage() {
                 </Select.Content>
               </Select.Root>
             </Flex>
+            {/* Etiquetas del caso */}
             <Flex gap="2" align="center" wrap="wrap">
               <Text weight="bold">Tags:</Text>
               <Flex gap="1" align="center" wrap="wrap">
@@ -125,6 +145,7 @@ export default function AdminCaseDetailPage() {
                     }}
                   >
                     {tag}
+                    {/* Botón para eliminar tag personalizado */}
                     <button
                       type="button"
                       aria-label={`Eliminar tag ${tag}`}
@@ -171,7 +192,7 @@ export default function AdminCaseDetailPage() {
               disabled={
                 updating ||
                 (currentStatus === c.status &&
-                  JSON.stringify(tags) === JSON.stringify(c.tags))
+                  JSON.stringify(tags) === JSON.stringify(c.tags)) // Formatea para comparar correctamente
               }
               onClick={() =>
                 updateCase({
@@ -208,6 +229,6 @@ export default function AdminCaseDetailPage() {
           </Flex>
         </Card>
       </Box>
-    </main>
+    </>
   );
 }

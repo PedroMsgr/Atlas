@@ -5,6 +5,11 @@ import { PrismaClient } from "../src/generated/prisma";
 
 const prisma = new PrismaClient();
 
+/**
+ * @function main
+ * @description Elimina todas las filas de las tablas principales de la base de datos Atlas.
+ */
+
 async function main() {
   console.info("⏳  Borrando todas las filas de la base de datos…");
   await prisma.$transaction([
@@ -35,5 +40,6 @@ main()
     process.exit(1);
   })
   .finally(async () => {
-    await prisma.$disconnect();
+    await prisma.$disconnect(); // Cierra la conexión a la base de datos
+    console.info("🔌  Conexión a la base de datos cerrada");
   });

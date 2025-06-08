@@ -1,5 +1,11 @@
 "use client";
 
+/**
+ * Dashboard principal del panel de administración.
+ * Muestra estadísticas rápidas, actividad reciente, acciones rápidas, estado del sistema y notificaciones.
+ * Permite navegar a detalles de casos recientes y acceder a acciones administrativas frecuentes.
+ */
+
 import { Card, Flex, Heading, Text, Box, Grid } from "@radix-ui/themes";
 import { useSession } from "next-auth/react";
 import { useQuery } from "@apollo/client";
@@ -20,12 +26,12 @@ export default function AdminDashboard() {
     useQuery(GET_DASHBOARD_STATS);
   const { data: recentData, loading: recentLoading } = useQuery(
     GET_RECENT_CASES,
-    { variables: { limit: 9 } }
+    { variables: { limit: 9 } } // Limite de 9 casos recientes para paginación
   );
   const { data: systemData, loading: systemLoading } =
-    useQuery(GET_SYSTEM_STATUS);
+    useQuery(GET_SYSTEM_STATUS); // Estado del sistema
 
-  const stats = statsData?.dashboardStats;
+  const stats = statsData?.dashboardStats; // Estadísticas del dashboard
   const recentCases = recentData?.recentCases || [];
   const systemStatus = systemData?.systemStatus;
 
@@ -53,7 +59,7 @@ export default function AdminDashboard() {
         </Text>
       </Flex>
 
-      {/* Quick Stats */}
+      {/* Activos Stats */}
       <Grid columns={{ initial: "1", md: "3" }} gap="4" mb="6">
         <Card>
           <Flex direction="column" gap="2" p="4">
@@ -87,9 +93,9 @@ export default function AdminDashboard() {
         </Card>
       </Grid>
 
-      {/* Main Content */}
+      {/* Contenido Principal */}
       <Grid columns={{ initial: "1", md: "2" }} gap="6">
-        {/* Recent Activity */}
+        {/* Casos Recientes */}
         <Card>
           <Box p="4">
             <Heading size="4" mb="4">
@@ -102,7 +108,17 @@ export default function AdminDashboard() {
                 <Text color="gray">Sin actividad reciente</Text>
               ) : (
                 paginatedCases.map((c: any) => (
-                  <Box key={c.id} className="p-3 bg-gray-50 rounded-md">
+                  <Box
+                    key={c.id}
+                    className="p-3 bg-gray-50 rounded-md cursor-pointer hover:bg-blue-50 transition"
+                    onClick={() => router.push(`/admin/cases/${c.id}`)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter")
+                        router.push(`/admin/cases/${c.id}`);
+                    }}
+                  >
                     <Text as="div" size="2" weight="bold" mb="1">
                       {c.status === "open"
                         ? "Nuevo caso abierto"
@@ -156,7 +172,7 @@ export default function AdminDashboard() {
           </Box>
         </Card>
 
-        {/* Quick Actions */}
+        {/* Acciones Rápidas */}
         <Card>
           <Box p="4">
             <Heading size="4" mb="4">
@@ -179,7 +195,7 @@ export default function AdminDashboard() {
           </Box>
         </Card>
 
-        {/* System Status */}
+        {/* Estado del Sistema */}
         <Card>
           <Box p="4">
             <Heading size="4" mb="4">
