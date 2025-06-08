@@ -8,8 +8,6 @@
  * - El contexto se construye por request, permitiendo autenticación y autorización por request.
  */
 
-// src/app/api/graphql/route.ts
-
 import { ApolloServer } from "@apollo/server";
 import { startServerAndCreateNextHandler } from "@as-integrations/next";
 import { schema } from "../../../graphql/schema";

@@ -1,5 +1,9 @@
 "use client";
 
+// Layout para el portal profesional (/pro).
+// Incluye sidebar con navegación, menú hamburguesa en móvil y soporte para colapsar/expandir el menú.
+// Usa el layout global y adapta la experiencia según el tamaño de pantalla.
+
 import { Box, Flex, Text } from "@radix-ui/themes";
 import Link from "next/link";
 import { usePathname } from "next/navigation";

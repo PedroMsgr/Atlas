@@ -1,5 +1,8 @@
 "use client";
-// src/app/auth/signin/page.tsx
+
+// Página de inicio de sesión personalizada.
+// Muestra el formulario de login y redirige automáticamente según el rol si ya está autenticado.
+// Muestra mensajes de carga y redirección para evitar parpadeos.
 
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";

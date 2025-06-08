@@ -11,8 +11,6 @@
  * - Soporta fallback para entornos de solo lectura (ej: Vercel).
  */
 
-// src/app/api/generate-landing/route.ts
-
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs/promises";
 import path from "path";

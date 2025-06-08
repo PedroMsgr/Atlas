@@ -1,3 +1,6 @@
+// Página de detalle de caso para profesionales.
+// Permite ver y editar el estado y tags del caso, mostrando feedback de carga y error.
+
 "use client";
 
 import { useParams, useRouter } from "next/navigation";

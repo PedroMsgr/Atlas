@@ -3,6 +3,10 @@
 import { Flex, Text, Card, Heading } from "@radix-ui/themes";
 import { useSession } from "next-auth/react";
 
+// Página principal del portal profesional.
+// Muestra información básica del usuario profesional autenticado (email y rol).
+// El control de acceso se realiza por middleware, no aquí.
+
 export default function ProfessionalDashboard() {
   // El control de acceso lo hace el middleware, no es necesario aquí
   const { data: session } = useSession();
