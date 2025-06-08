@@ -37,13 +37,6 @@ export default function EditConfigPage({ params }: { params: any }) {
 
   return (
     <Box className="p-8">
-      <AtlasButton
-        variant="back"
-        onClick={() => router.push("/admin/configs")}
-        className="mb-4"
-      >
-        &larr; Volver a la lista
-      </AtlasButton>
       {data?.configuration && (
         <ConfigUpdate
           config={data.configuration}

@@ -54,7 +54,8 @@ class ServerService {
     }
 
     // Usar generación asíncrona de tokens para garantizar unicidad
-    const orchestratorToken = await tokenService.generateOrchestratorTokenAsync();
+    const orchestratorToken =
+      await tokenService.generateOrchestratorTokenAsync();
     const unitToken = await tokenService.generateUnitTokenAsync();
 
     // Crear servidor con los campos básicos y tokens seguros
@@ -116,9 +117,9 @@ class ServerService {
       updateData.configId = data.activeConfigId;
       delete updateData.activeConfigId;
     }
+    // Si viene configId, usarlo (sobrescribe si ambos vienen)
     if (data.configId !== undefined) {
       updateData.configId = data.configId;
-      delete updateData.configId;
     }
 
     // Actualizamos el servidor con los nuevos datos
@@ -132,7 +133,6 @@ class ServerService {
       return {
         ...serverWithRelations,
         isActive: true,
-        // Asegurarse de que las fechas estén en formato ISO
         createdAt: serverWithRelations.createdAt
           ? serverWithRelations.createdAt.toISOString()
           : null,
