@@ -18,6 +18,7 @@ import {
 } from "@radix-ui/themes";
 import { signOut } from "next-auth/react";
 import BanishTransition from "@/components/ui/BanishTransition";
+import { AtlasButton } from "@/components/ui/AtlasButton";
 
 export default function ProfileDesktop() {
   const { data, loading: loadingMe, refetch } = useQuery(GET_ME);
@@ -156,12 +157,12 @@ export default function ProfileDesktop() {
           <Text color="gray" size="3">
             Rol: <b>{user?.role}</b>
           </Text>
-          {/* Botón Editar fuera del form para máxima robustez */}
+          {/* Botón Editar fuera del form para euvtar problemas de propación */}
           {!editing && (
             <Flex gap="3" justify="end" className="w-full mb-2">
-              <Button onClick={() => setEditing(true)} type="button">
+              <AtlasButton onClick={() => setEditing(true)} type="button">
                 Editar
-              </Button>
+              </AtlasButton>
             </Flex>
           )}
           <form
@@ -262,17 +263,18 @@ export default function ProfileDesktop() {
             )}
             {editing && (
               <Flex gap="3" justify="end">
-                <Button
+                <AtlasButton
                   type="submit"
                   disabled={
                     updating || (form.newPassword ? !passwordValid : false)
                   }
+                  variant="success"
                 >
                   {updating ? "Guardando..." : "Guardar"}
-                </Button>
-                <Button
+                </AtlasButton>
+                <AtlasButton
                   type="button"
-                  variant="soft"
+                  variant="cancel"
                   onClick={() => {
                     setEditing(false);
                     setError("");
@@ -286,7 +288,7 @@ export default function ProfileDesktop() {
                   }}
                 >
                   Cancelar
-                </Button>
+                </AtlasButton>
               </Flex>
             )}
             <input type="submit" style={{ display: "none" }} />

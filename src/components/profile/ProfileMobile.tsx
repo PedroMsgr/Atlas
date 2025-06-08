@@ -7,15 +7,9 @@ import { useState, useEffect, useRef } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_ME } from "@/graphql/queries/me.queries";
 import { UPDATE_ME } from "@/graphql/mutations/me.mutations";
-import {
-  Heading,
-  Text,
-  Button,
-  TextField,
-  Flex,
-  Spinner,
-} from "@radix-ui/themes";
+import { Heading, Text, TextField, Flex, Spinner } from "@radix-ui/themes";
 import { signOut } from "next-auth/react";
+import { AtlasButton } from "@/components/ui/AtlasButton";
 
 export default function ProfileMobile() {
   const { data, loading: loadingMe, refetch } = useQuery(GET_ME);
@@ -156,14 +150,14 @@ export default function ProfileMobile() {
       {/* Botón Editar visible solo en modo visualización */}
       {!editing && (
         <div className="w-full flex justify-end mb-2">
-          <Button
+          <AtlasButton
             onClick={() => setEditing(true)}
             type="button"
-            size="3"
-            className="bg-blue-600 text-white font-semibold rounded-lg px-6 py-2"
+            variant="primary"
+            className="px-6 py-2"
           >
             Editar
-          </Button>
+          </AtlasButton>
         </div>
       )}
 
@@ -268,19 +262,18 @@ export default function ProfileMobile() {
 
         {editing && (
           <div className="flex gap-2 pt-2">
-            <Button
+            <AtlasButton
               type="submit"
-              size="3"
-              className="flex-1 bg-blue-600 text-white font-semibold rounded-lg"
+              variant="success"
+              className="flex-1"
               disabled={updating || (form.newPassword ? !passwordValid : false)}
             >
               {updating ? "Guardando..." : "Guardar"}
-            </Button>
-            <Button
+            </AtlasButton>
+            <AtlasButton
               type="button"
-              variant="soft"
-              size="3"
-              className="flex-1 rounded-lg"
+              variant="cancel"
+              className="flex-1"
               onClick={() => {
                 setEditing(false);
                 setError("");
@@ -294,7 +287,7 @@ export default function ProfileMobile() {
               }}
             >
               Cancelar
-            </Button>
+            </AtlasButton>
           </div>
         )}
         <input type="submit" style={{ display: "none" }} />

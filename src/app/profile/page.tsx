@@ -4,21 +4,10 @@
 
 "use client";
 
-import dynamic from "next/dynamic";
 import useIsMobile from "@/hooks/useIsMobile";
 import { useEffect, useState } from "react";
-
-// Importa los componentes de perfil dinámicamente para evitar problemas de hidratación en Next.js
-const ProfileMobile = dynamic(
-  () => import("../../components/profile/ProfileMobile"),
-  { ssr: false }
-);
-const ProfileDesktop = dynamic(
-  () => import("../../components/profile/ProfileDesktop"),
-  {
-    ssr: false,
-  }
-);
+import ProfileDesktop from "../../components/profile/ProfileDesktop";
+import ProfileMobile from "../../components/profile/ProfileMobile";
 
 export default function ProfilePage() {
   const isMobile = useIsMobile();
