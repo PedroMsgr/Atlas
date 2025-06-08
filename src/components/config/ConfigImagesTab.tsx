@@ -1,3 +1,6 @@
+// Componente para gestionar y ordenar imágenes globales de la configuración.
+// Permite agregar, eliminar y reordenar imágenes mediante drag & drop.
+
 import React from "react";
 import { Box, Heading, Flex } from "@radix-ui/themes";
 import SortableItem from "../dndkit/SortableItem";

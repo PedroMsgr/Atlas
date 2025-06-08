@@ -1,3 +1,7 @@
+// Tipos y enums para usuarios, clientes, profesionales, casos, chats, archivos y reportes.
+// Permiten tipar todas las entidades principales del sistema y sus relaciones, facilitando la validación y el uso seguro de datos en toda la app.
+// Incluyen enums para roles, estados y remitentes, y tipos base y extendidos para cada entidad.
+
 import { User } from "@/generated/prisma";
 
 // Enums
@@ -9,7 +13,6 @@ export enum ClientStatus {
   Suspended = "suspended",
 }
 
-// Client types
 export interface ClientBase {
   id: string;
   userId: string;

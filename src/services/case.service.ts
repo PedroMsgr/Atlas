@@ -1,3 +1,7 @@
+// Servicio para la gestión de casos legales.
+// Centraliza la lógica de negocio para crear, actualizar, eliminar, asignar profesionales, gestionar archivos y reportes, y obtener listados o estadísticas de casos.
+// Utiliza el repositorio de casos para acceder a la base de datos y expone métodos de alto nivel para los resolvers y controladores.
+
 import { CasesRepository } from "@/db/repositories/cases.repo";
 
 class CaseService {

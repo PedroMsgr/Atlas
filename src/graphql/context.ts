@@ -1,4 +1,6 @@
 // src/graphql/context.ts
+// Contexto GraphQL: provee dependencias y servicios a los resolvers
+// Incluye Prisma, sesión de usuario, y servicios de dominio (case, server, config, etc.)
 
 import { NextRequest } from "next/server";
 import { getServerSession } from "next-auth";
@@ -13,12 +15,19 @@ import { authService } from "@/services/auth.service";
 import { userService } from "@/services/user.service";
 import { GraphQLContext } from "@/types/context.types";
 
+/**
+ * Crea el contexto para cada request GraphQL.
+ * - Incluye sesión autenticada (si existe)
+ * - Inyecta Prisma y todos los servicios de dominio
+ * - Permite acceso a datos y lógica de negocio en los resolvers
+ */
 export async function createContext({
   req,
 }: {
   req: NextRequest;
 }): Promise<GraphQLContext> {
   try {
+    // Obtiene la sesión autenticada (si existe)
     const session = await getServerSession(authOptions);
     return {
       prisma,
@@ -31,6 +40,7 @@ export async function createContext({
               null,
           }
         : null,
+      // Servicios de dominio
       caseService,
       serverService,
       configService,

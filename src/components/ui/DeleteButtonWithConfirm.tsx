@@ -1,3 +1,15 @@
+// Botón de borrado con confirmación reutilizable.
+// Muestra un botón con icono y abre un diálogo de confirmación antes de ejecutar la acción.
+// Usa ConfirmDeleteDialog y AtlasButton para consistencia visual.
+// Props:
+//   - id: identificador del elemento a eliminar.
+//   - name: nombre del elemento (para mostrar en el diálogo).
+//   - loading: estado de carga para deshabilitar el botón.
+//   - onConfirm: callback al confirmar borrado.
+//   - title, description: personalización del diálogo.
+//   - ariaLabel: accesibilidad para lectores de pantalla.
+// El trigger es un botón con icono de papelera, siempre visible fuera del modal.
+
 import ConfirmDeleteDialog from "@/components/ui/ConfirmDeleteDialog";
 import { Button as RadixButton } from "@radix-ui/themes";
 import { TrashIcon } from "@radix-ui/react-icons";

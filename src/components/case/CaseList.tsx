@@ -1,3 +1,6 @@
+// Componente de listado de casos para administración.
+// Permite filtrar, buscar, paginar y eliminar casos. Utiliza Apollo Client para queries y mutations.
+
 import { useQuery, useMutation } from "@apollo/client";
 import {
   Box,

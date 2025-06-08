@@ -1,6 +1,9 @@
 "use client";
 // src/components/config-components/CreateConfigForm.tsx
 
+// Componente para actualizar una configuración de unidad y gestionar sus pestañas (general, secciones, artículos, imágenes, pasos legales, enlaces).
+// Permite editar todos los datos y relaciones de la configuración de forma centralizada.
+
 import { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { Tabs, Box, Flex } from "@radix-ui/themes";

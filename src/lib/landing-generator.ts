@@ -12,7 +12,7 @@
  * Genera un string con el contenido de src/app/emulator/page.tsx
  * que:
  *  - importa Head, Link, y los iconos necesarios de Next.js y lucide-react
- *  - importa tu CSS de Tailwind (globals.css)
+ *  - importa CSS de Tailwind (globals.css)
  *  - monta todos los bloques en JSX recorriendo config.sections, config.articles, etc.
  */
 export function generateLandingTSX(config: any): string {

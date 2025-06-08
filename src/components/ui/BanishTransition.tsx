@@ -1,3 +1,12 @@
+// Componente de transición animada condicional (fade in/out y desplazamiento).
+// Permite mostrar u ocultar contenido con animación usando Framer Motion.
+// Props:
+//   - show: booleano para mostrar/ocultar el contenido.
+//   - duration: duración de la animación en segundos (default 1).
+//   - motionProps: props adicionales para personalizar la animación de motion.div.
+//   - className: estilos extra para el contenedor animado.
+// Uso: ideal para transiciones de formularios, modales, banners, etc.
+
 import {
   AnimatePresence,
   motion,

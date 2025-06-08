@@ -1,9 +1,12 @@
 // src/graphql/resolvers.ts
+// Resolvers principales del esquema GraphQL
+// Aquí se implementa la lógica de cada query y mutation, usando los servicios del contexto
 
 import GraphQLJSON from "graphql-type-json";
 import { GraphQLContext } from "@/types/context.types";
 
 // Helper para exigir autenticación en resolvers privados
+// Envuelve un resolver y lanza error si no hay usuario autenticado en el contexto
 function requireAuth(
   resolver: (
     parent: unknown,
@@ -23,34 +26,48 @@ const resolvers = {
 
   Query: {
     // --- Servidores y constelaciones ---
+    // Todas las queries de esta sección requieren autenticación de usuario admin o profesional.
+    // Permiten consultar servidores y agrupaciones (constelaciones) para administración y despliegue multi-tenant.
+    // Obtiene todos los servidores (requiere autenticación)
     servers: requireAuth(
       async (_parent: unknown, _args: any, context: GraphQLContext) =>
         context.serverService.getAllServers()
     ),
+    // Obtiene un servidor por ID
     server: requireAuth(
       async (_parent: unknown, args: { id: string }, context: GraphQLContext) =>
         context.serverService.getServerById(args.id)
     ),
+    // Obtiene todas las constelaciones
     constellations: requireAuth(
       async (_parent: unknown, _args: any, context: GraphQLContext) =>
         context.serverService.getAllConstellations()
     ),
+    // Obtiene una constelación por ID
     constellation: requireAuth(
       async (_parent: unknown, args: { id: string }, context: GraphQLContext) =>
         context.serverService.getConstellationById(args.id)
     ),
 
     // --- Configuraciones ---
+    // Solo accesibles para usuarios autenticados (admin/profesional). Permiten gestionar landings y unidades.
+    // Obtiene todas las configuraciones
     configurations: requireAuth(
       async (_parent: unknown, _args: any, context: GraphQLContext) =>
         context.configService.getAllConfigs()
     ),
+    // Obtiene una configuración por ID
     configuration: requireAuth(
       async (_parent: unknown, args: { id: string }, context: GraphQLContext) =>
         context.configService.getConfigById(args.id)
     ),
 
     // --- Landing pública por token ---
+    /**
+     * landingData: Permite obtener la configuración de landing pública a partir de un token único (unitToken).
+     * No requiere autenticación. Usado para renderizar landings públicas personalizadas.
+     * Si el token es inválido o el servidor no tiene configuración, lanza error.
+     */
     landingData: async (
       _parent: unknown,
       args: { token: string },
@@ -70,6 +87,7 @@ const resolvers = {
     },
 
     // --- Secciones ---
+    // CRUD de secciones de landing, solo para usuarios autenticados.
     sections: requireAuth(
       async (_parent: unknown, _args: any, context: GraphQLContext) =>
         context.configService.getAllSections()
@@ -87,6 +105,7 @@ const resolvers = {
     ),
 
     // --- Artículos ---
+    // CRUD de artículos de landing, solo para usuarios autenticados.
     articles: requireAuth(
       async (_parent: unknown, _args: any, context: GraphQLContext) =>
         context.configService.getAllArticles()
@@ -104,6 +123,7 @@ const resolvers = {
     ),
 
     // --- Imágenes ---
+    // CRUD de imágenes de landing, solo para usuarios autenticados.
     images: requireAuth(
       async (_parent: unknown, _args: any, context: GraphQLContext) =>
         context.configService.getAllImages()
@@ -121,6 +141,7 @@ const resolvers = {
     ),
 
     // --- Pasos legales ---
+    // CRUD de pasos legales de landing, solo para usuarios autenticados.
     legalSteps: requireAuth(
       async (_parent: unknown, _args: any, context: GraphQLContext) =>
         context.configService.getAllLegalSteps()
@@ -155,6 +176,7 @@ const resolvers = {
     ),
 
     // --- Generación de tokens de servidor ---
+    // Solo para administración avanzada. Permite regenerar tokens de acceso para servidores.
     generateServerTokens: requireAuth(
       async (
         _parent: unknown,
@@ -173,6 +195,12 @@ const resolvers = {
     ),
 
     // --- Casos legales ---
+    /**
+     * cases: Devuelve una lista paginada de casos legales.
+     * - Si el usuario es profesional, solo ve sus propios casos.
+     * - Si es admin, puede ver todos los casos.
+     * - Si es cliente, no tiene acceso a esta query.
+     */
     cases: requireAuth(
       async (
         _parent: unknown,
@@ -194,6 +222,13 @@ const resolvers = {
     ),
 
     // --- Usuarios ---
+    /**
+     * users: Devuelve una lista de usuarios filtrados por rol o búsqueda.
+     * Solo accesible para admin/profesional.
+     *
+     * me: Devuelve los datos del usuario autenticado actual.
+     * Útil para mostrar perfil y datos personales.
+     */
     users: requireAuth(
       async (
         _parent: unknown,
@@ -207,6 +242,12 @@ const resolvers = {
     }),
 
     // --- Dashboard Stats ---
+    /**
+     * dashboardStats: Devuelve métricas globales del sistema (servidores, casos, clientes activos, etc).
+     * recentCases: Devuelve los casos legales más recientes para mostrar en el dashboard.
+     * systemStatus: Devuelve el estado de la API y la base de datos.
+     * Solo accesibles para usuarios autenticados.
+     */
     dashboardStats: requireAuth(async (_parent, _args, context) => {
       const [
         totalServers,
@@ -250,7 +291,10 @@ const resolvers = {
 
   // MUTATION RESOLVERS
   Mutation: {
-    // ---- UnitConfig CRUD ----
+    // --- CRUD de configuraciones, servidores, secciones, artículos, imágenes, pasos legales, enlaces de footer, casos legales, usuarios ---
+    // Todas las mutations requieren autenticación y privilegios adecuados.
+    // Devuelven true/false según éxito, o el objeto creado/actualizado.
+
     createConfig: requireAuth(
       async (_parent: unknown, args: { data: any }, context: GraphQLContext) =>
         context.configService.createConfig(args.data)
@@ -579,6 +623,10 @@ const resolvers = {
       async (_parent: unknown, args: { id: string }, context: GraphQLContext) =>
         context.userService.deleteUser(args.id)
     ),
+    /**
+     * updateMe: Permite al usuario autenticado actualizar su propio perfil y contraseña.
+     * Devuelve mensaje de éxito o error y el usuario actualizado.
+     */
     updateMe: requireAuth(async (_parent, { data }, context) => {
       if (!context.user?.id) {
         return {
@@ -620,6 +668,12 @@ const resolvers = {
   },
 
   // TYPE-LEVEL RESOLVERS
+  /**
+   * Resolvers a nivel de tipo:
+   * - Permiten resolver relaciones entre entidades (por ejemplo, obtener las secciones de una configuración, o el servidor de un caso).
+   * - Se ejecutan automáticamente cuando se solicitan campos anidados en las queries.
+   * - Usan los servicios del contexto para obtener los datos relacionados.
+   */
   UnitConfig: {
     sections: (parent: any, _args: unknown, context: GraphQLContext) =>
       context.configService.getSectionsByConfigId(parent.id),

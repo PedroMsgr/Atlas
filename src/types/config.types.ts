@@ -1,10 +1,12 @@
-// src/types/config.types.ts
+// Tipos para la configuración de unidades y landings.
+// Permiten tipar la configuración visual, SEO y de contenido de cada unidad, así como las relaciones con secciones, artículos, imágenes y servidores.
+// Incluyen tipos para la estructura de datos que se utiliza en la generación y renderizado de landings dinámicas.
 
 export interface UnitConfigBase {
   id: string;
   name: string;
   pageTitle: string;
-  footerInfo?: string | null;
+  servicesDescription?: string | null;
   seoTitle?: string | null;
   seoDescription?: string | null;
   seoKeywords?: string | null;
@@ -36,6 +38,7 @@ export interface LandingData {
   pageTitle: string;
   subtitle?: string | null;
   description?: string | null;
+  servicesDescription?: string | null;
   iconUrl?: string | null;
   bannerUrl?: string | null;
   seoTitle?: string | null;

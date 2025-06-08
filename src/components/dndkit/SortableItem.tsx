@@ -1,3 +1,6 @@
+// Componente para hacer un elemento ordenable dentro de una lista con DnD Kit.
+// Permite arrastrar y soltar el elemento, mostrando feedback visual durante el drag.
+
 import React from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";

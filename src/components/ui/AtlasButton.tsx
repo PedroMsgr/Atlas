@@ -1,3 +1,22 @@
+// Botón personalizado Atlas con variantes de color y estilos para toda la app.
+// Permite usar diferentes variantes (primary, success, delete, etc) y soporta asChild para integración flexible.
+// Las variantes definen colores, tamaños y estilos para distintos contextos de uso (acciones principales, secundarias, dashboard, navegación, subida de archivos, etc).
+//
+// Variantes disponibles:
+//   - primary: Botón principal con gradiente azul, para acciones destacadas.
+//   - success: Botón de confirmación/aceptar, azul sólido.
+//   - cancel: Botón de cancelar, gris claro.
+//   - delete: Botón de eliminar, rojo.
+//   - update: Botón de actualizar, amarillo.
+//   - next: Botón de avanzar/siguiente, azul claro.
+//   - back: Botón de retroceder, gris.
+//   - upload: Botón para subir archivos, morado.
+//   - dashboard-primary: Botón principal para dashboard, índigo.
+//   - dashboard-secondary: Botón secundario para dashboard, gris azulado.
+//
+// El prop asChild permite renderizar el botón como otro componente (por ejemplo, un <a> o <label>), manteniendo los estilos.
+// El prop variant selecciona el estilo visual.
+
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import clsx from "clsx";

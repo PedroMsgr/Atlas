@@ -1,3 +1,6 @@
+// Proveedor global de contexto para sesión y Apollo Client.
+// Permite que toda la aplicación acceda a la sesión de usuario y a la cache de Apollo para GraphQL.
+
 "use client";
 
 import { SessionProvider } from "next-auth/react";

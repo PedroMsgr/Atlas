@@ -1,4 +1,6 @@
-// src/services/image.service.ts
+// Servicio para la gestión de imágenes asociadas a configuraciones y secciones.
+// Permite registrar, eliminar, actualizar y consultar imágenes, así como eliminar archivos asociados en Firebase.
+// Centraliza la lógica de negocio relacionada con imágenes para su uso en resolvers y controladores.
 
 import { ImagesRepository } from "@/db/repositories/images.repo";
 import { deleteFirebaseFile } from "@/lib/deleteFirebaseFile";

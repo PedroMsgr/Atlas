@@ -1,5 +1,7 @@
 "use client";
-//src/components/layout/Layout.tsx
+
+// Componente de layout principal para la app Atlas.
+// Aplica el tema global, estructura la página con header, main y footer.
 
 import { Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";

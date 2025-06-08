@@ -1,5 +1,8 @@
 "use client";
 
+// Componente de perfil de usuario para escritorio.
+// Permite ver y editar los datos del usuario autenticado, incluyendo cambio de contraseña en formato PC
+
 import { useState, useEffect, useRef } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_ME } from "@/graphql/queries/me.queries";

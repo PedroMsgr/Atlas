@@ -1,7 +1,9 @@
 // src/graphql/queries/case.queries.ts
+// Queries para gestión de casos legales (Case)
 
 import { gql } from "@apollo/client";
 
+// Obtiene una lista de casos con filtros opcionales
 export const GET_CASES = gql`
   query GetCases($filters: CaseFilters) {
     cases(filters: $filters) {
@@ -37,6 +39,7 @@ export const GET_CASES = gql`
   }
 `;
 
+// Obtiene un caso por su ID, incluyendo detalles y relaciones
 export const GET_CASE = gql`
   query GetCase($id: ID!) {
     case(id: $id) {

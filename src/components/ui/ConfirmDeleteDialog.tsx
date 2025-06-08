@@ -1,3 +1,16 @@
+// Diálogo de confirmación de borrado reutilizable para escritorio y móvil.
+// Usa MobileModal en móvil y AlertDialog (shadcn) en escritorio, mostrando botones Atlas personalizados.
+// Props:
+//   - open: controla la visibilidad del diálogo.
+//   - name: nombre del elemento a eliminar (se muestra en el mensaje).
+//   - loading: muestra estado de carga en los botones.
+//   - onCancel: callback al cancelar.
+//   - onConfirm: callback al confirmar borrado.
+//   - description: mensaje personalizado opcional.
+//   - title: título del diálogo.
+//   - children: permite renderizar contenido adicional dentro del modal.
+// Internamente, adapta el diseño y controles según el dispositivo (mobile/desktop).
+
 import {
   AlertDialog,
   AlertDialogContent,

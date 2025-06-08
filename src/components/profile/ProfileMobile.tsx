@@ -1,5 +1,8 @@
 "use client";
 
+// Componente de perfil de usuario para móvil.
+// Permite ver y editar los datos del usuario autenticado, con validación de contraseña y feedback visual.
+
 import { useState, useEffect, useRef } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_ME } from "@/graphql/queries/me.queries";

@@ -1,9 +1,12 @@
 // src/db/repositories/configs.repo.ts
+// Repositorio para gestión de configuraciones de landing (UnitConfig) y sus relaciones.
+// Permite obtener, crear, actualizar y eliminar configuraciones, incluyendo secciones, artículos, imágenes, pasos legales, enlaces de footer y servidores asociados.
 
 import { UnitConfig, Prisma } from "../../generated/prisma";
 import { prisma } from "../prisma-client";
 
 export class ConfigsRepository {
+  // Obtiene todas las configuraciones, incluyendo relaciones completas
   async findAll(): Promise<UnitConfig[]> {
     return prisma.unitConfig.findMany({
       include: {
@@ -17,6 +20,7 @@ export class ConfigsRepository {
     });
   }
 
+  // Busca una configuración por su ID, incluyendo relaciones completas
   async findById(id: string): Promise<UnitConfig | null> {
     return prisma.unitConfig.findUnique({
       where: { id },
@@ -31,6 +35,7 @@ export class ConfigsRepository {
     });
   }
 
+  // Busca una configuración por su nombre
   async findByName(name: string): Promise<UnitConfig | null> {
     return prisma.unitConfig.findUnique({
       where: { name },
@@ -44,6 +49,7 @@ export class ConfigsRepository {
     });
   }
 
+  // Crea una nueva configuración
   async create(data: Prisma.UnitConfigCreateInput): Promise<UnitConfig> {
     return prisma.unitConfig.create({
       data,
@@ -57,6 +63,7 @@ export class ConfigsRepository {
     });
   }
 
+  // Actualiza una configuración existente
   async update(
     id: string,
     data: Prisma.UnitConfigUpdateInput
@@ -74,6 +81,7 @@ export class ConfigsRepository {
     });
   }
 
+  // Elimina una configuración por su ID
   async delete(id: string): Promise<UnitConfig> {
     return prisma.unitConfig.delete({ where: { id } });
   }

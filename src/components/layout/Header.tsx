@@ -1,5 +1,8 @@
 "use client";
 
+// Componente de cabecera global para la plataforma Atlas.
+// Muestra el logo, navegación y controles de usuario según la sesión activa.
+
 import { Button, Flex, Avatar, Box } from "@radix-ui/themes";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";

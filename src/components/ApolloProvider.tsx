@@ -1,3 +1,6 @@
+// Proveedor de Apollo Client para GraphQL.
+// Permite que los componentes hijos accedan al cliente Apollo y su caché, reiniciando la store al cambiar de sesión.
+
 import { ApolloProvider as ApolloClientProvider } from "@apollo/client";
 import { createApolloClient } from "../lib/apollo-client";
 import { ReactNode, useEffect, useState } from "react";

@@ -3,147 +3,136 @@ import Head from "next/head";
 import { useState, useEffect } from "react";
 import { LogIn, MessageSquare, FileText } from "lucide-react";
 import { useSwipeable } from "react-swipeable";
-import Image from "next/image";
+import Image from 'next/image';
 import "../globals.css";
 
 export default function EmulatorPage() {
   const config = {
-    __typename: "UnitConfig",
-    id: "8d0ab95b-8cd9-4514-8544-399e6033d54e",
-    name: "Config Portal Accidentes 1",
-    pageTitle: "Abogados especialistas en Accidentes",
-    pageDescription: "Portal especializado en derecho accidentes.",
-    servicesDescription: "Servicios legales para casos de accidentes.",
-    iconUrl: "",
-    footerInfo: "ATALAS UNIVERSO LEGAL",
-    bannerUrl: "",
-    sections: [
-      {
-        __typename: "Section",
-        id: "50f5173a-753b-4f1a-8601-689123081d71",
-        title: "Artículo Destacado",
-        body: "Contenido curado manualmente.",
-        order: 3,
-        images: [],
-      },
-      {
-        __typename: "Section",
-        id: "7e12de95-f26c-4a38-9594-207ea2104cb3",
-        title: "Noticias",
-        body: "Noticias legales relevantes.",
-        order: 4,
-        images: [],
-      },
-    ],
-    articles: [
-      {
-        __typename: "Article",
-        id: "904a9e9d-7aa8-4726-be57-3927deb8ef87",
-        title: "Artículo destacado de Portal Accidentes 1",
-        content: "Este es un artículo de ejemplo para la landing.",
-        url: "youtube.com",
-        order: 1,
-        publishedAt: "2025-06-04T00:00:00.000Z",
-      },
-      {
-        __typename: "Article",
-        id: "bdabefc8-2298-490b-8211-4ee55e669ac3",
-        title: "Guía rápida de Portal Accidentes 1",
-        content: "Guía rápida para usuarios del portal.",
-        url: "youtube.com",
-        order: 1,
-        publishedAt: "2025-06-04T00:00:00.000Z",
-      },
-    ],
-    images: [
-      {
-        __typename: "Image",
-        id: "80e7e6ef-744b-4a2f-8fa5-2812e85f5202",
-        url: "https://firebasestorage.googleapis.com/v0/b/universo-legal-4dace.firebasestorage.app/o/images%2F1749070673096-675016-5.jpg?alt=media&token=6736b3db-031f-402f-bf25-cc157afb6ec1",
-        altText: "675016-5.jpg",
-        type: "global",
-        order: 1,
-      },
-    ],
-    legalSteps: [
-      {
-        __typename: "LegalStep",
-        id: "58d4e87b-8c5d-4d4f-84de-01d83fa169a1",
-        title: "Negociación",
-        description: "Negociamos con la parte contraria.",
-        order: 1,
-      },
-      {
-        __typename: "LegalStep",
-        id: "7adff5c0-8980-4829-8fc5-eaa1d55ff7cc",
-        title: "Revisión documental",
-        description: "Revisamos toda la documentación relevante.",
-        order: 2,
-      },
-      {
-        __typename: "LegalStep",
-        id: "11731a19-131b-46b3-a18e-dfbd41982918",
-        title: "tewhwrth",
-        description: "wrthbwrynberynetyn",
-        order: 3,
-      },
-      {
-        __typename: "LegalStep",
-        id: "c1d7b5a3-1c7d-4640-ba5a-30ed7340747c",
-        title: "qw",
-        description: "qweqwerwargergstegstbsfgb",
-        order: 4,
-      },
-      {
-        __typename: "LegalStep",
-        id: "bbb8b974-7e3d-4bc3-955b-f26fd7db7337",
-        title: "Evaluación inicial",
-        description: "Analizamos tu caso y te orientamos.",
-        order: 5,
-      },
-      {
-        __typename: "LegalStep",
-        id: "7b33e906-dd37-4df5-ae47-00b2b3622e26",
-        title: "wrtnrwtnrty",
-        description: "wrynwrynetryne",
-        order: 6,
-      },
-    ],
-    footerLinks: [
-      {
-        __typename: "FooterLink",
-        id: "6c0e267e-6853-4489-bbd7-3a433f1f3cd1",
-        label: "Aviso Legal",
-        url: "/aviso-legal",
-        order: 1,
-      },
-      {
-        __typename: "FooterLink",
-        id: "aa6fa841-6021-4a21-bc77-c22984a03350",
-        label: "Política de Privacidad",
-        url: "/privacidad",
-        order: 2,
-      },
-      {
-        __typename: "FooterLink",
-        id: "7a13353a-6c5a-4753-b4a9-1cc91635d282",
-        label: "Contacto",
-        url: "/contacto",
-        order: 3,
-      },
-    ],
-  };
+  "__typename": "UnitConfig",
+  "name": "Config Portal Accidentes 1",
+  "pageTitle": "Abogados especialistas en Accidentes",
+  "pageDescription": "Portal especializado en derecho accidentes.",
+  "servicesDescription": "Servicios legales para casos de accidentes.",
+  "iconUrl": "",
+  "footerInfo": "© 2025 Atlas Legal",
+  "bannerUrl": "https://firebasestorage.googleapis.com/v0/b/universo-legal-4dace.firebasestorage.app/o/images%2F1749379136788-erd.png?alt=media&token=98ca2710-2792-4796-9637-2ebdaab5ac20",
+  "sections": [
+    {
+      "__typename": "Section",
+      "id": "4c7c6419-78dd-4eb3-9789-1d42c955cf44",
+      "title": "Bienvenida",
+      "body": "Bienvenido a nuestro portal.",
+      "order": 1,
+      "images": []
+    },
+    {
+      "__typename": "Section",
+      "id": "186d07d3-4ac0-4518-b41c-07798dcb31fd",
+      "title": "Guía Legal",
+      "body": "Te guiamos paso a paso en tu proceso legal.",
+      "order": 2,
+      "images": []
+    },
+    {
+      "__typename": "Section",
+      "id": "abecf1ed-1051-4f10-bbcd-50dd8d7b56a1",
+      "title": "Artículo Destacado",
+      "body": "Contenido curado manualmente.",
+      "order": 3,
+      "images": []
+    },
+    {
+      "__typename": "Section",
+      "id": "76b8a05e-ccf2-4119-acac-95b8df820be8",
+      "title": "Noticias",
+      "body": "Noticias legales relevantes.",
+      "order": 4,
+      "images": []
+    }
+  ],
+  "articles": [
+    {
+      "__typename": "Article",
+      "id": "314e1e78-2c1f-4a82-b93c-ed87171ca54d",
+      "title": "Guía rápida de Portal Accidentes 1",
+      "content": "Guía rápida para usuarios del portal.",
+      "url": null,
+      "order": 2,
+      "publishedAt": "2025-06-08T01:22:22.540Z"
+    }
+  ],
+  "images": [],
+  "legalSteps": [
+    {
+      "__typename": "LegalStep",
+      "id": "28527519-07b7-48d8-886b-dd9350ef8b03",
+      "title": "Evaluación inicial",
+      "description": "Analizamos tu caso y te orientamos.",
+      "order": 1
+    },
+    {
+      "__typename": "LegalStep",
+      "id": "0c08cf57-1eda-462b-a075-b366f7bd07c8",
+      "title": "Revisión documental",
+      "description": "Revisamos toda la documentación relevante.",
+      "order": 2
+    },
+    {
+      "__typename": "LegalStep",
+      "id": "d79f321d-dae3-4d05-b641-abc8937eab75",
+      "title": "Negociación",
+      "description": "Negociamos con la parte contraria.",
+      "order": 3
+    },
+    {
+      "__typename": "LegalStep",
+      "id": "eced6fc5-5b04-4b16-99af-23629927089e",
+      "title": "Acción legal",
+      "description": "Si es necesario, iniciamos acciones legales.",
+      "order": 4
+    },
+    {
+      "__typename": "LegalStep",
+      "id": "24cefce3-4111-4f0d-9a20-f732e1016fde",
+      "title": "Resolución",
+      "description": "Te acompañamos hasta la resolución del caso.",
+      "order": 5
+    }
+  ],
+  "footerLinks": [
+    {
+      "__typename": "FooterLink",
+      "id": "4884ef33-b9f6-4ac6-9ac1-2f050fa53497",
+      "label": "Aviso Legal",
+      "url": "/aviso-legal",
+      "order": 1
+    },
+    {
+      "__typename": "FooterLink",
+      "id": "c98b6295-d3f8-4e9f-bb98-9a8a72bdbfff",
+      "label": "Política de Privacidad",
+      "url": "/privacidad",
+      "order": 2
+    },
+    {
+      "__typename": "FooterLink",
+      "id": "1c7101c9-493c-4f30-86af-e536104c7ead",
+      "label": "Contacto",
+      "url": "/contacto",
+      "order": 3
+    }
+  ]
+};
   // Modo oscuro
   const [dark, setDark] = useState(false);
   useEffect(() => {
-    const saved =
-      typeof window !== "undefined" ? localStorage.getItem("theme") : null;
-    setDark(saved === "dark");
+    const saved = typeof window !== 'undefined' ? localStorage.getItem('theme') : null;
+    setDark(saved === 'dark');
   }, []);
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      document.documentElement.classList.toggle("dark", dark);
-      localStorage.setItem("theme", dark ? "dark" : "light");
+    if (typeof window !== 'undefined') {
+      document.documentElement.classList.toggle('dark', dark);
+      localStorage.setItem('theme', dark ? 'dark' : 'light');
     }
   }, [dark]);
   // Menú hamburguesa
@@ -153,8 +142,7 @@ export default function EmulatorPage() {
   // Swipe handlers para pasos legales
   const legalStepsCount = config.legalSteps?.length || 0;
   const swipeHandlers = useSwipeable({
-    onSwipedLeft: () =>
-      setActiveTab((prev) => Math.min(prev + 1, legalStepsCount - 1)),
+    onSwipedLeft: () => setActiveTab((prev) => Math.min(prev + 1, legalStepsCount - 1)),
     onSwipedRight: () => setActiveTab((prev) => Math.max(prev - 1, 0)),
     trackMouse: true,
   });
@@ -195,18 +183,12 @@ export default function EmulatorPage() {
                 stroke="currentColor"
                 strokeWidth={2}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>
             {/* Contenido del menú */}
             <nav
-              className={`absolute top-16 left-4 right-4 ${
-                menuOpen ? "" : "hidden"
-              } flex-col gap-2 rounded-lg bg-white p-4 shadow-md dark:bg-slate-800 dark:text-white md:static md:flex md:flex-row md:items-center md:gap-1 md:p-0 md:shadow-none`}
+              className={`absolute top-16 left-4 right-4 ${menuOpen ? '' : 'hidden'} flex-col gap-2 rounded-lg bg-white p-4 shadow-md dark:bg-slate-800 dark:text-white md:static md:flex md:flex-row md:items-center md:gap-1 md:p-0 md:shadow-none`}
               onClick={() => setMenuOpen(false)}
             >
               {/* Botón alternar tema (móvil, dentro del menú) */}
@@ -232,141 +214,85 @@ export default function EmulatorPage() {
                 Modo oscuro
               </button>
               {/* Menú público (no logueado) */}
-              {!isClient && (
-                <>
-                  <a
-                    href="#inicio"
-                    className="hidden md:inline-block px-2 py-1 rounded shadow-sm bg-white dark:bg-slate-900 dark:shadow md:mx-0.5 font-medium text-blue-800 dark:text-blue-300 hover:shadow-lg hover:bg-blue-50 dark:hover:bg-slate-800 transition-all"
-                  >
-                    Inicio
-                  </a>
-                  <a
-                    href="#servicios"
-                    className="hidden md:inline-block px-2 py-1 rounded shadow-sm bg-white dark:bg-slate-900 dark:shadow md:mx-0.5 font-medium text-blue-800 dark:text-blue-300 hover:shadow-lg hover:bg-blue-50 dark:hover:bg-slate-800 transition-all"
-                  >
-                    Servicios
-                  </a>
-                  <a
-                    href="#proceso"
-                    className="hidden md:inline-block px-2 py-1 rounded shadow-sm bg-white dark:bg-slate-900 dark:shadow md:mx-0.5 font-medium text-blue-800 dark:text-blue-300 hover:shadow-lg hover:bg-blue-50 dark:hover:bg-slate-800 transition-all"
-                  >
-                    Proceso Legal
-                  </a>
-                  <a
-                    href="#contacto"
-                    className="hidden md:inline-block px-2 py-1 rounded shadow-sm bg-white dark:bg-slate-900 dark:shadow md:mx-0.5 font-medium text-blue-800 dark:text-blue-300 hover:shadow-lg hover:bg-blue-50 dark:hover:bg-slate-800 transition-all"
-                  >
-                    Contacto
-                  </a>
-                  <button
-                    type="button"
-                    className="hidden md:inline-block px-2 py-1 rounded shadow-sm bg-green-50 dark:bg-slate-900 dark:shadow md:mx-0.5 font-medium text-green-700 dark:text-green-300 hover:shadow-lg hover:bg-green-100 dark:hover:bg-slate-800 transition-all"
-                    onClick={() => setIsClient(true)}
-                  >
-                    Acceso
-                  </button>
-                  {/* Móvil */}
-                  <a
-                    href="#inicio"
-                    className="md:hidden flex items-center gap-2 text-lg font-medium text-blue-700 dark:text-blue-400 px-2 py-2"
-                  >
-                    <LogIn className="h-5 w-5" /> Inicio
-                  </a>
-                  <a
-                    href="#servicios"
-                    className="md:hidden flex items-center gap-2 text-lg font-medium text-blue-700 dark:text-blue-400 px-2 py-2"
-                  >
-                    <FileText className="h-5 w-5" /> Servicios
-                  </a>
-                  <a
-                    href="#proceso"
-                    className="md:hidden flex items-center gap-2 text-lg font-medium text-blue-700 dark:text-blue-400 px-2 py-2"
-                  >
-                    <MessageSquare className="h-5 w-5" /> Proceso Legal
-                  </a>
-                  <a
-                    href="#contacto"
-                    className="md:hidden flex items-center gap-2 text-lg font-medium text-blue-700 dark:text-blue-400 px-2 py-2"
-                  >
-                    <LogIn className="h-5 w-5" /> Contacto
-                  </a>
-                  <button
-                    type="button"
-                    className="md:hidden flex items-center gap-2 text-lg font-medium text-green-700 dark:text-green-300 px-2 py-2"
-                    onClick={() => setIsClient(true)}
-                  >
-                    <LogIn className="h-5 w-5" /> Acceso
-                  </button>
-                </>
-              )}
+              {!isClient && <>
+                <a
+                  href="#inicio"
+                  className="hidden md:inline-block px-2 py-1 rounded shadow-sm bg-white dark:bg-slate-900 dark:shadow md:mx-0.5 font-medium text-blue-800 dark:text-blue-300 hover:shadow-lg hover:bg-blue-50 dark:hover:bg-slate-800 transition-all"
+                >
+                  Inicio
+                </a>
+                <a
+                  href="#servicios"
+                  className="hidden md:inline-block px-2 py-1 rounded shadow-sm bg-white dark:bg-slate-900 dark:shadow md:mx-0.5 font-medium text-blue-800 dark:text-blue-300 hover:shadow-lg hover:bg-blue-50 dark:hover:bg-slate-800 transition-all"
+                >
+                  Servicios
+                </a>
+                <a
+                  href="#proceso"
+                  className="hidden md:inline-block px-2 py-1 rounded shadow-sm bg-white dark:bg-slate-900 dark:shadow md:mx-0.5 font-medium text-blue-800 dark:text-blue-300 hover:shadow-lg hover:bg-blue-50 dark:hover:bg-slate-800 transition-all"
+                >
+                  Proceso Legal
+                </a>
+                <a
+                  href="#contacto"
+                  className="hidden md:inline-block px-2 py-1 rounded shadow-sm bg-white dark:bg-slate-900 dark:shadow md:mx-0.5 font-medium text-blue-800 dark:text-blue-300 hover:shadow-lg hover:bg-blue-50 dark:hover:bg-slate-800 transition-all"
+                >
+                  Contacto
+                </a>
+                <button
+                  type="button"
+                  className="hidden md:inline-block px-2 py-1 rounded shadow-sm bg-green-50 dark:bg-slate-900 dark:shadow md:mx-0.5 font-medium text-green-700 dark:text-green-300 hover:shadow-lg hover:bg-green-100 dark:hover:bg-slate-800 transition-all"
+                  onClick={() => setIsClient(true)}
+                >
+                  Acceso
+                </button>
+                {/* Móvil */}
+                <a href="#inicio" className="md:hidden flex items-center gap-2 text-lg font-medium text-blue-700 dark:text-blue-400 px-2 py-2"><LogIn className="h-5 w-5" /> Inicio</a>
+                <a href="#servicios" className="md:hidden flex items-center gap-2 text-lg font-medium text-blue-700 dark:text-blue-400 px-2 py-2"><FileText className="h-5 w-5" /> Servicios</a>
+                <a href="#proceso" className="md:hidden flex items-center gap-2 text-lg font-medium text-blue-700 dark:text-blue-400 px-2 py-2"><MessageSquare className="h-5 w-5" /> Proceso Legal</a>
+                <a href="#contacto" className="md:hidden flex items-center gap-2 text-lg font-medium text-blue-700 dark:text-blue-400 px-2 py-2"><LogIn className="h-5 w-5" /> Contacto</a>
+                <button type="button" className="md:hidden flex items-center gap-2 text-lg font-medium text-green-700 dark:text-green-300 px-2 py-2" onClick={() => setIsClient(true)}><LogIn className="h-5 w-5" /> Acceso</button>
+              </>}
               {/* Menú privado (cliente logueado) */}
-              {isClient && (
-                <>
-                  <a
-                    href="/emulator/chat"
-                    className="hidden md:inline-block px-2 py-1 rounded shadow-sm bg-white dark:bg-slate-900 dark:shadow md:mx-0.5 font-medium text-blue-800 dark:text-blue-300 hover:shadow-lg hover:bg-blue-50 dark:hover:bg-slate-800 transition-all"
-                  >
-                    Mi Chat
-                  </a>
-                  <a
-                    href="/emulator/archivos"
-                    className="hidden md:inline-block px-2 py-1 rounded shadow-sm bg-white dark:bg-slate-900 dark:shadow md:mx-0.5 font-medium text-blue-800 dark:text-blue-300 hover:shadow-lg hover:bg-blue-50 dark:hover:bg-slate-800 transition-all"
-                  >
-                    Archivos
-                  </a>
-                  <a
-                    href="/emulator/perfil"
-                    className="hidden md:inline-block px-2 py-1 rounded shadow-sm bg-white dark:bg-slate-900 dark:shadow md:mx-0.5 font-medium text-blue-800 dark:text-blue-300 hover:shadow-lg hover:bg-blue-50 dark:hover:bg-slate-800 transition-all"
-                  >
-                    Mi Perfil
-                  </a>
-                  <button
-                    type="button"
-                    className="hidden md:inline-block px-2 py-1 rounded shadow-sm bg-red-50 dark:bg-slate-900 dark:shadow md:mx-0.5 font-medium text-red-700 dark:text-red-300 hover:shadow-lg hover:bg-red-100 dark:hover:bg-slate-800 transition-all"
-                    onClick={() => setIsClient(false)}
-                  >
-                    Cerrar sesión
-                  </button>
-                  <a
-                    href="/admin/emulator/login"
-                    className="hidden md:inline-block px-2 py-1 rounded shadow-sm bg-yellow-50 dark:bg-slate-900 dark:shadow md:mx-0.5 font-medium text-yellow-700 dark:text-yellow-300 hover:shadow-lg hover:bg-yellow-100 dark:hover:bg-slate-800 transition-all"
-                  >
-                    Login
-                  </a>
-                  {/* Móvil */}
-                  <a
-                    href="#chat"
-                    className="md:hidden flex items-center gap-2 text-lg font-medium text-blue-700 dark:text-blue-400 px-2 py-2"
-                  >
-                    <MessageSquare className="h-5 w-5" /> Mi Chat
-                  </a>
-                  <a
-                    href="/emulator/archivos"
-                    className="md:hidden flex items-center gap-2 text-lg font-medium text-blue-700 dark:text-blue-400 px-2 py-2"
-                  >
-                    <FileText className="h-5 w-5" /> Archivos
-                  </a>
-                  <a
-                    href="/emulator/perfil"
-                    className="md:hidden flex items-center gap-2 text-lg font-medium text-blue-700 dark:text-blue-400 px-2 py-2"
-                  >
-                    <LogIn className="h-5 w-5" /> Mi Perfil
-                  </a>
-                  <button
-                    type="button"
-                    className="md:hidden flex items-center gap-2 text-lg font-medium text-red-700 dark:text-red-300 px-2 py-2"
-                    onClick={() => setIsClient(false)}
-                  >
-                    <LogIn className="h-5 w-5" /> Cerrar sesión
-                  </button>
-                  <a
-                    href="/admin/emulator/login"
-                    className="md:hidden flex items-center gap-2 text-lg font-medium text-yellow-700 dark:text-yellow-300 px-2 py-2"
-                  >
-                    <LogIn className="h-5 w-5" /> Login
-                  </a>
-                </>
-              )}
+              {isClient && <>
+                <a
+                  href="/emulator/chat"
+                  className="hidden md:inline-block px-2 py-1 rounded shadow-sm bg-white dark:bg-slate-900 dark:shadow md:mx-0.5 font-medium text-blue-800 dark:text-blue-300 hover:shadow-lg hover:bg-blue-50 dark:hover:bg-slate-800 transition-all"
+                >
+                  Mi Chat
+                </a>
+                <a
+                  href="/emulator/archivos"
+                  className="hidden md:inline-block px-2 py-1 rounded shadow-sm bg-white dark:bg-slate-900 dark:shadow md:mx-0.5 font-medium text-blue-800 dark:text-blue-300 hover:shadow-lg hover:bg-blue-50 dark:hover:bg-slate-800 transition-all"
+                >
+                  Archivos
+                </a>
+                <a
+                  href="/emulator/perfil"
+                  className="hidden md:inline-block px-2 py-1 rounded shadow-sm bg-white dark:bg-slate-900 dark:shadow md:mx-0.5 font-medium text-blue-800 dark:text-blue-300 hover:shadow-lg hover:bg-blue-50 dark:hover:bg-slate-800 transition-all"
+                >
+                  Mi Perfil
+                </a>
+                <button
+                  type="button"
+                  className="hidden md:inline-block px-2 py-1 rounded shadow-sm bg-red-50 dark:bg-slate-900 dark:shadow md:mx-0.5 font-medium text-red-700 dark:text-red-300 hover:shadow-lg hover:bg-red-100 dark:hover:bg-slate-800 transition-all"
+                  onClick={() => setIsClient(false)}
+                >
+                  Cerrar sesión
+                </button>
+                <a
+                  href="/admin/emulator/login"
+                  className="hidden md:inline-block px-2 py-1 rounded shadow-sm bg-yellow-50 dark:bg-slate-900 dark:shadow md:mx-0.5 font-medium text-yellow-700 dark:text-yellow-300 hover:shadow-lg hover:bg-yellow-100 dark:hover:bg-slate-800 transition-all"
+                >
+                  Login
+                </a>
+                {/* Móvil */}
+                <a href="#chat" className="md:hidden flex items-center gap-2 text-lg font-medium text-blue-700 dark:text-blue-400 px-2 py-2"><MessageSquare className="h-5 w-5" /> Mi Chat</a>
+                <a href="/emulator/archivos" className="md:hidden flex items-center gap-2 text-lg font-medium text-blue-700 dark:text-blue-400 px-2 py-2"><FileText className="h-5 w-5" /> Archivos</a>
+                <a href="/emulator/perfil" className="md:hidden flex items-center gap-2 text-lg font-medium text-blue-700 dark:text-blue-400 px-2 py-2"><LogIn className="h-5 w-5" /> Mi Perfil</a>
+                <button type="button" className="md:hidden flex items-center gap-2 text-lg font-medium text-red-700 dark:text-red-300 px-2 py-2" onClick={() => setIsClient(false)}><LogIn className="h-5 w-5" /> Cerrar sesión</button>
+                <a href="/admin/emulator/login" className="md:hidden flex items-center gap-2 text-lg font-medium text-yellow-700 dark:text-yellow-300 px-2 py-2"><LogIn className="h-5 w-5" /> Login</a>
+              </>}
             </nav>
             {/* Botón alternar tema (desktop, extremo derecho) */}
             <div className="hidden md:flex items-center ml-2">
@@ -397,19 +323,17 @@ export default function EmulatorPage() {
         {config.bannerUrl && (
           <section id="inicio" className="flex justify-center py-8 px-2">
             <div className="w-full max-w-2xl bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 flex flex-col items-center">
-              <h1 className="text-3xl font-bold text-center mb-4 dark:text-white">
-                {config.pageTitle}
-              </h1>
-              <img
+              <h1 className="text-3xl font-bold text-center mb-4 dark:text-white">{config.pageTitle}</h1>
+              <Image
                 src={config.bannerUrl}
                 alt="Banner principal"
                 className="w-full max-h-64 object-cover rounded mb-4 shadow"
-                style={{ objectPosition: "center" }}
+                style={{ objectPosition: 'center' }}
+                width={768}
+                height={384}
               />
               {config.servicesDescription && (
-                <p className="text-lg text-slate-700 dark:text-slate-200 text-center">
-                  {config.servicesDescription}
-                </p>
+                <p className="text-lg text-slate-700 dark:text-slate-200 text-center">{config.servicesDescription}</p>
               )}
             </div>
           </section>
@@ -418,121 +342,57 @@ export default function EmulatorPage() {
         {/* CONTENIDO PRINCIPAL */}
         <main className="container mx-auto px-4 py-6">
           {/* Secciones */}
-          {Array.isArray(config.sections) &&
-            config.sections
-              .sort((a: any, b: any) => a.order - b.order)
-              .map((sec: any) => (
-                <section
-                  key={sec.id}
-                  className="mb-8 p-4 bg-white rounded-lg shadow dark:bg-slate-800"
-                >
-                  <h2 className="text-2xl font-semibold mb-2 dark:text-white">
-                    {sec.title}
-                  </h2>
-                  {sec.body && (
-                    <p className="mb-4 text-slate-600 dark:text-slate-300">
-                      {sec.body}
-                    </p>
-                  )}
-                  {Array.isArray(sec.images) && sec.images.length > 0 && (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                      {sec.images
-                        .sort(
-                          (a: any, b: any) => (a.order || 0) - (b.order || 0)
-                        )
-                        .map((img: any) => (
-                          <Image
-                            key={img.id}
-                            src={img.url}
-                            alt={img.altText || ""}
-                            width={768}
-                            height={384}
-                            className="w-full h-48 object-cover rounded shadow"
-                          />
-                        ))}
-                    </div>
-                  )}
-                </section>
-              ))}
+          {Array.isArray(config.sections) && config.sections.sort((a: any, b: any) => a.order - b.order).map((sec: any) => (
+            <section key={sec.id} className="mb-8 p-4 bg-white rounded-lg shadow dark:bg-slate-800">
+              <h2 className="text-2xl font-semibold mb-2 dark:text-white">{sec.title}</h2>
+              {sec.body && <p className="mb-4 text-slate-600 dark:text-slate-300">{sec.body}</p>}
+              {Array.isArray(sec.images) && sec.images.length > 0 && (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {sec.images.sort((a: any, b: any) => (a.order || 0) - (b.order || 0)).map((img: any) => (
+                    <Image key={img.id} src={img.url} alt={img.altText || ''} width={768} height={384} className="w-full h-48 object-cover rounded shadow" />
+                  ))}
+                </div>
+              )}
+            </section>
+          ))}
 
           {/* Artículos  */}
           {Array.isArray(config.articles) && config.articles.length > 0 && (
             <section id="articulos" className="mb-8">
-              <h2 className="text-2xl font-bold mb-4 dark:text-white">
-                Noticias
-              </h2>
-              {config.articles
-                .sort((a: any, b: any) => a.order - b.order)
-                .map((art: any) => (
-                  <article
-                    key={art.id}
-                    className="mb-6 p-4 bg-slate-100 rounded-lg dark:bg-slate-700"
-                  >
-                    <h3 className="text-xl font-medium mb-1 dark:text-white">
-                      {art.title}
-                    </h3>
-                    {art.publishedAt && (
-                      <p className="text-sm text-gray-500 mb-2">
-                        {new Date(art.publishedAt).toLocaleDateString()}
-                      </p>
-                    )}
-                    <p className="mb-3 text-slate-600 dark:text-slate-300">
-                      {art.content}
-                    </p>
-                    {art.url && (
-                      <a
-                        href={art.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-600 hover:underline"
-                      >
-                        Leer noticia completa
-                      </a>
-                    )}
-                  </article>
-                ))}
+              <h2 className="text-2xl font-bold mb-4 dark:text-white">Noticias</h2>
+              {config.articles.sort((a: any, b: any) => a.order - b.order).map((art: any) => (
+                <article key={art.id} className="mb-6 p-4 bg-slate-100 rounded-lg dark:bg-slate-700">
+                  <h3 className="text-xl font-medium mb-1 dark:text-white">{art.title}</h3>
+                  {art.publishedAt && <p className="text-sm text-gray-500 mb-2">{new Date(art.publishedAt).toLocaleDateString()}</p>}
+                  <p className="mb-3 text-slate-600 dark:text-slate-300">{art.content}</p>
+                  {art.url && <a href={art.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Leer noticia completa</a>}
+                </article>
+              ))}
             </section>
           )}
 
           {/* Galería global */}
           {Array.isArray(config.images) && config.images.length > 0 && (
             <section id="galeria" className="mb-8">
-              <h2 className="text-2xl font-bold mb-4 dark:text-white">
-                Galería
-              </h2>
+              <h2 className="text-2xl font-bold mb-4 dark:text-white">Galería</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {config.images
-                  .sort((a: any, b: any) => (a.order || 0) - (b.order || 0))
-                  .map((img: any) => (
-                    <div key={img.id} className="mb-4">
-                      <Image
-                        src={img.url}
-                        alt={img.altText || ""}
-                        width={768}
-                        height={384}
-                        className="w-full h-48 object-cover rounded shadow"
-                      />
-                    </div>
-                  ))}
+                {config.images.sort((a: any, b: any) => (a.order || 0) - (b.order || 0)).map((img: any) => (
+                  <div key={img.id} className="mb-4">
+                    <Image src={img.url} alt={img.altText || ''} width={768} height={384} className="w-full h-48 object-cover rounded shadow" />
+                  </div>
+                ))}
               </div>
             </section>
           )}
 
           {/* Proceso Legal (swipeable) */}
           {Array.isArray(config.legalSteps) && config.legalSteps.length > 0 && (
-            <section
-              id="proceso"
-              className="mb-8 bg-white p-6 rounded-lg shadow-md dark:bg-slate-800"
-            >
-              <h2 className="text-2xl font-bold mb-4 dark:text-white">
-                Proceso Legal
-              </h2>
+            <section id="proceso" className="mb-8 bg-white p-6 rounded-lg shadow-md dark:bg-slate-800">
+              <h2 className="text-2xl font-bold mb-4 dark:text-white">Proceso Legal</h2>
               <div className="relative mb-6">
                 {/* Distribuir los botones de pasos en filas de 3 (o menos si es la última) */}
                 {(() => {
-                  const steps = config.legalSteps
-                    .slice()
-                    .sort((a, b) => a.order - b.order);
+                  const steps = config.legalSteps.slice().sort((a, b) => a.order - b.order);
                   const perRow = 3;
                   const rows = [];
                   for (let i = 0; i < steps.length; i += perRow) {
@@ -541,20 +401,12 @@ export default function EmulatorPage() {
                   return (
                     <div className="flex flex-col gap-2">
                       {rows.map((row, rowIdx) => {
-                        let colClass = "";
-                        if (row.length === 1) colClass = "grid-cols-1";
-                        else if (row.length === 2) colClass = "grid-cols-2";
-                        else colClass = "grid-cols-3";
+                        let colClass = '';
+                        if (row.length === 1) colClass = 'grid-cols-1';
+                        else if (row.length === 2) colClass = 'grid-cols-2';
+                        else colClass = 'grid-cols-3';
                         return (
-                          <div
-                            key={rowIdx}
-                            className={[
-                              "grid",
-                              "w-full",
-                              colClass,
-                              "gap-2",
-                            ].join(" ")}
-                          >
+                          <div key={rowIdx} className={["grid", "w-full", colClass, "gap-2"].join(" ")}>
                             {row.map((step, idx) => {
                               const globalIdx = rowIdx * perRow + idx;
                               const isActive = activeTab === globalIdx;
@@ -565,14 +417,10 @@ export default function EmulatorPage() {
                                   className={
                                     "relative z-10 px-3 py-1 text-sm font-medium cursor-pointer transition-all duration-300 rounded-lg " +
                                     (isActive
-                                      ? "text-blue-700 dark:text-blue-400 bg-white dark:bg-slate-900 scale-105 -translate-y-1 shadow"
-                                      : "text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 bg-transparent scale-100 translate-y-0")
+                                      ? 'text-blue-700 dark:text-blue-400 bg-white dark:bg-slate-900 scale-105 -translate-y-1 shadow'
+                                      : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 bg-transparent scale-100 translate-y-0')
                                   }
-                                  style={{
-                                    boxShadow: isActive
-                                      ? "0 2px 8px 0 rgba(37, 99, 235, 0.10)"
-                                      : undefined,
-                                  }}
+                                  style={{ boxShadow: isActive ? '0 2px 8px 0 rgba(37, 99, 235, 0.10)' : undefined }}
                                   aria-selected={isActive}
                                   aria-controls={"tab-" + step.id}
                                   tabIndex={0}
@@ -591,45 +439,30 @@ export default function EmulatorPage() {
                 <div className="absolute bottom-0 left-0 right-0 h-px bg-slate-200 dark:bg-slate-700"></div>
               </div>
               <div {...swipeHandlers}>
-                {config.legalSteps
-                  .slice()
-                  .sort((a, b) => a.order - b.order)
-                  .map((step, idx) => (
-                    <div
-                      key={step.id}
-                      id={"tab-" + step.id}
-                      className={
-                        "tab-content transition-all duration-300 " +
-                        (activeTab === idx ? "block" : "hidden")
-                      }
-                      aria-hidden={activeTab !== idx}
-                    >
-                      <div className="overflow-hidden border-0 shadow-md rounded-lg">
-                        <div className="bg-gradient-to-r from-slate-50 to-slate-100 p-4 dark:from-slate-800 dark:to-slate-750">
-                          <h3 className="text-xl text-slate-800 dark:text-white">
-                            {step.title}
-                          </h3>
-                        </div>
-                        <div className="p-6">
-                          <p className="text-slate-600 dark:text-slate-300">
-                            {step.description}
-                          </p>
-                        </div>
+                {config.legalSteps.slice().sort((a, b) => a.order - b.order).map((step, idx) => (
+                  <div
+                    key={step.id}
+                    id={"tab-" + step.id}
+                    className={"tab-content transition-all duration-300 " + (activeTab === idx ? 'block' : 'hidden')}
+                    aria-hidden={activeTab !== idx}
+                  >
+                    <div className="overflow-hidden border-0 shadow-md rounded-lg">
+                      <div className="bg-gradient-to-r from-slate-50 to-slate-100 p-4 dark:from-slate-800 dark:to-slate-750">
+                        <h3 className="text-xl text-slate-800 dark:text-white">{step.title}</h3>
+                      </div>
+                      <div className="p-6">
+                        <p className="text-slate-600 dark:text-slate-300">{step.description}</p>
                       </div>
                     </div>
-                  ))}
+                  </div>
+                ))}
               </div>
             </section>
           )}
 
           {/* Contacto */}
-          <section
-            id="contacto"
-            className="mb-12 rounded-lg bg-white p-6 shadow dark:bg-slate-800"
-          >
-            <h2 className="mb-6 text-2xl font-bold dark:text-white">
-              Contacto
-            </h2>
+          <section id="contacto" className="mb-12 rounded-lg bg-white p-6 shadow dark:bg-slate-800">
+            <h2 className="mb-6 text-2xl font-bold dark:text-white">Contacto</h2>
             <form className="space-y-4">
               <div>
                 <input
@@ -669,18 +502,15 @@ export default function EmulatorPage() {
         <footer className="bg-slate-800 px-4 py-8 text-white dark:bg-slate-900">
           <div className="container mx-auto">
             <div className="mb-6 flex flex-wrap justify-center">
-              {Array.isArray(config.footerLinks) &&
-                config.footerLinks
-                  .sort((a: any, b: any) => a.order - b.order)
-                  .map((link: any) => (
-                    <a
-                      key={link.id}
-                      href={link.url}
-                      className="mx-2 text-blue-400 hover:underline"
-                    >
-                      {link.label}
-                    </a>
-                  ))}
+              {Array.isArray(config.footerLinks) && config.footerLinks.sort((a: any, b: any) => a.order - b.order).map((link: any) => (
+                <a
+                  key={link.id}
+                  href={link.url}
+                  className="mx-2 text-blue-400 hover:underline"
+                >
+                  {link.label}
+                </a>
+              ))}
             </div>
             <div className="mt-6 text-center text-sm text-slate-400">
               © 2025 {config.pageTitle}

@@ -1,3 +1,12 @@
+// Modal personalizado para móviles, usado en confirmaciones y formularios.
+// Muestra el contenido centrado y permite cerrar tocando fuera o con botón.
+// Props:
+//   - open: controla la visibilidad del modal.
+//   - onClose: callback para cerrar el modal.
+//   - title: título opcional en la cabecera.
+//   - children: contenido del modal.
+// El modal cubre toda la pantalla con fondo semitransparente y animación de entrada.
+
 import { ReactNode } from "react";
 
 interface MobileModalProps {

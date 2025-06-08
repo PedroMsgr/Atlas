@@ -1,3 +1,6 @@
+// Componente de listado y filtrado de servidores unitarios.
+// Permite buscar, filtrar, ordenar y eliminar servidores, mostrando constelaciones y configuraciones asociadas.
+
 import { Box, Table, Text, Flex, Select, Card } from "@radix-ui/themes";
 import DeleteButtonWithConfirm from "@/components/ui/DeleteButtonWithConfirm";
 import { useState, useMemo } from "react";

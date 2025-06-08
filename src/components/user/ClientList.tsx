@@ -1,5 +1,7 @@
-// src/components/user/ClientList.tsx
 "use client";
+
+// Componente de lista de clientes para administración.
+// Permite buscar, filtrar y eliminar usuarios con rol cliente.
 
 import { useState, useMemo } from "react";
 import { Box, Table, Text, Spinner, Flex, Card } from "@radix-ui/themes";

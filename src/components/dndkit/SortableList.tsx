@@ -1,3 +1,6 @@
+// Componente para crear una lista ordenable con DnD Kit.
+// Permite envolver elementos hijos y definir la estrategia de ordenación.
+
 import React from "react";
 import {
   SortableContext,

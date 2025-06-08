@@ -1,3 +1,6 @@
+// Logo SVG de Atlas para uso en cabecera, login y branding de la plataforma.
+// Permite personalizar tamaño y color mediante props SVG.
+
 import * as React from "react";
 const AtlasLogo = (
   props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>

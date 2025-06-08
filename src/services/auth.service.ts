@@ -1,4 +1,6 @@
-// src/services/auth-service.ts
+// Servicio de autenticación de usuarios.
+// Gestiona el login, validación de credenciales, generación y validación de tokens JWT, obtención y actualización de datos del usuario autenticado.
+// Centraliza la lógica de autenticación y autorización para toda la aplicación.
 
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -202,6 +204,7 @@ class AuthService {
       }
     }
 
+    // Preparar los datos a actualizar
     const updateData: any = {};
     if (data.firstName) updateData.firstName = data.firstName;
     if (data.lastName) updateData.lastName = data.lastName;

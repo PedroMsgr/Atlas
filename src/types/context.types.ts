@@ -1,3 +1,7 @@
+// Tipos para el contexto de GraphQL en la aplicación.
+// Permiten tipar el contexto que se pasa a los resolvers, incluyendo Prisma, sesión, usuario y servicios de negocio.
+// Facilitan la inyección de dependencias y el acceso seguro a los servicios y datos en resolvers GraphQL.
+
 import { PrismaClient } from "@/db/prisma-client";
 import { Session } from "next-auth";
 import { caseService } from "@/services/case.service";
@@ -9,7 +13,7 @@ import { authService } from "@/services/auth.service";
 import { userService } from "@/services/user.service";
 import type { User } from "@/generated/prisma";
 
-// Utility type to allow null/undefined in user fields
+// Tipos para el usuario en la sesión de NextAuth.
 export type NullableUser = {
   [K in keyof (Session["user"] & Partial<User>)]:
     | (Session["user"] & Partial<User>)[K]
@@ -17,6 +21,8 @@ export type NullableUser = {
     | undefined;
 };
 
+// Contexto de GraphQL que se pasa a los resolvers y pueda
+// acceder a los servicios y datos necesarios para resolver las consultas y mutaciones.
 export interface GraphQLContext {
   prisma: PrismaClient;
   session: Session | null;

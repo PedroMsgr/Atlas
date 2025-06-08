@@ -1,7 +1,9 @@
 // src/graphql/queries/user.queries.ts
+// Queries para gestión de usuarios (User, Client, Professional)
 
 import { gql } from "@apollo/client";
 
+// Obtiene todos los usuarios con filtros opcionales
 export const GET_USERS = gql`
   query GetUsers($role: [Role], $search: String) {
     users(role: $role, search: $search) {
@@ -15,6 +17,7 @@ export const GET_USERS = gql`
   }
 `;
 
+// Obtiene todos los clientes de un servidor
 export const GET_CLIENTS = gql`
   query GetClients($serverId: ID) {
     clients(serverId: $serverId) {
@@ -37,6 +40,7 @@ export const GET_CLIENTS = gql`
   }
 `;
 
+// Obtiene un cliente por su ID
 export const GET_CLIENT = gql`
   query GetClient($id: ID!) {
     client(id: $id) {
@@ -73,6 +77,7 @@ export const GET_CLIENT = gql`
   }
 `;
 
+// Obtiene todos los profesionales de un servidor
 export const GET_PROFESSIONALS = gql`
   query GetProfessionals($serverId: ID) {
     professionals(serverId: $serverId) {
@@ -90,6 +95,7 @@ export const GET_PROFESSIONALS = gql`
   }
 `;
 
+// Obtiene un profesional por su ID
 export const GET_PROFESSIONAL = gql`
   query GetProfessional($id: ID!) {
     professional(id: $id) {

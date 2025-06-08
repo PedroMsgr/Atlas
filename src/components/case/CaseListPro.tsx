@@ -1,3 +1,6 @@
+// Componente de listado de casos para profesionales.
+// Permite filtrar, buscar y paginar casos asignados al profesional autenticado.
+
 import { useQuery } from "@apollo/client";
 import { Box, Table, Spinner, Flex, Select, Badge } from "@radix-ui/themes";
 import { useState } from "react";

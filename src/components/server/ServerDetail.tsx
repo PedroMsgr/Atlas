@@ -1,4 +1,10 @@
 "use client";
+
+// Componente de detalle de servidor unitario.
+// Permite ver información, regenerar tokens y cambiar configuración activa del servidor.
+// Requiere el ID del servidor como prop (`serverId`).
+// Utiliza queries y mutations de Apollo para obtener y modificar datos en el servidor GraphQL.
+
 import { useQuery, useMutation, useLazyQuery } from "@apollo/client";
 import {
   Box,
@@ -268,7 +274,7 @@ export default function ServerDetail({ serverId }: ServerDetailProps) {
               )}
               {!tokensChanged ? (
                 <AtlasButton
-                  variant="dashboard-primary"
+                  variant="success"
                   disabled={isRegeneratingTokens || generatingTokens}
                   onClick={handleRegenerateTokens}
                   className="w-full"
@@ -382,6 +388,7 @@ export default function ServerDetail({ serverId }: ServerDetailProps) {
             <Box className="mb-2">
               <Text weight="bold">Tokens de acceso:</Text>
               <div className="mt-2 space-y-2">
+                {/* Token de orquestador */}
                 <div className="bg-gray-50 p-2 rounded">
                   <Text weight="bold" size="2">
                     Token de Orquestador:
@@ -392,7 +399,7 @@ export default function ServerDetail({ serverId }: ServerDetailProps) {
                       : server.orchestratorToken}
                   </div>
                   <AtlasButton
-                    variant="dashboard-secondary"
+                    variant="upload"
                     className="mt-1"
                     onClick={() =>
                       handleCopyToClipboard(
@@ -414,7 +421,7 @@ export default function ServerDetail({ serverId }: ServerDetailProps) {
                     {tokensChanged ? newTokens.unitToken : server.unitToken}
                   </div>
                   <AtlasButton
-                    variant="dashboard-secondary"
+                    variant="upload"
                     className="mt-1"
                     onClick={() =>
                       handleCopyToClipboard(
@@ -480,12 +487,6 @@ export default function ServerDetail({ serverId }: ServerDetailProps) {
               className="mb-2"
             >
               {isRestarting ? "Reiniciando..." : "Reiniciar servidor"}
-            </AtlasButton>
-            <AtlasButton
-              variant="back"
-              onClick={() => router.push("/admin/servers")}
-            >
-              Volver a la lista
             </AtlasButton>
           </Box>
         </Flex>

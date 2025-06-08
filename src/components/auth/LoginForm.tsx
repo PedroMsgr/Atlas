@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { Card, Flex, Heading, Text, Box } from "@radix-ui/themes";
@@ -7,6 +8,13 @@ import useIsMobile from "@/hooks/useIsMobile"; // Hook para detectar si es móvi
 import AtlasLogo from "@/components/ui/AtlasLogo"; // Asegúrate de que la ruta sea correcta
 import BanishTransition from "@/components/ui/BanishTransition";
 import { AtlasButton } from "@/components/ui/AtlasButton";
+
+/**
+ * Formulario de inicio de sesión para el orquestador Atlas.
+ * Tiene doble diseño: uno para móviles y otro para escritorio que camia según el tamaño de la pantalla.
+ * Son dos estlios independientes, pero comparten la misma lógica de autenticación.
+ * Utiliza NextAuth para la autenticación con credenciales.
+ */
 
 export default function LoginForm() {
   const isMobile = useIsMobile();
@@ -36,9 +44,11 @@ export default function LoginForm() {
 
   return (
     <>
+      {/* Transiciones para mostrar el formulario según el tamaño de pantalla */}
       <BanishTransition show={isMobile} duration={1}>
         {isMobile && (
           <div className="min-h-screen flex items-center justify-center ">
+            {/* Tarjeta de inicio de sesión para móviles */}
             <Card className="p-6 bg-white dark:bg-gray-900 rounded-3xl shadow-2xl flex flex-col items-center border-none">
               <div className="flex flex-col items-center w-full mb-2 mt-2">
                 <AtlasLogo width={80} height={80} className="mb-3" />
@@ -111,6 +121,7 @@ export default function LoginForm() {
         {!isMobile && (
           <div className="min-h-screen flex items-center justify-center">
             <div className="w-full max-w-2xl">
+              {/* Tarjeta de inicio de sesión para escritorio */}
               <Card className="flex flex-col items-center p-0 bg-blue-200 dark:bg-gray-900 rounded-[2.5rem] shadow-2xl overflow-hidden border-none min-h-[600px]">
                 {/* Fila superior: Logo y branding */}
                 <div className="flex flex-col justify-center items-center w-full py-12 bg-gradient-to-t from-blue-900 via-blue-700 to-white dark:from-blue-950 dark:via-blue-900 dark:to-gray-900">

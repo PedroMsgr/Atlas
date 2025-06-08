@@ -1,9 +1,12 @@
 // src/db/repositories/images.repo.ts
+// Repositorio para gestión de imágenes (Image) en la base de datos.
+// Permite obtener, crear, actualizar y eliminar imágenes, así como filtrar por configuración, tipo o texto alternativo.
 
 import { prisma } from "../prisma-client";
 import { Image } from "../../generated/prisma";
 
 export class ImagesRepository {
+  // Obtiene todas las imágenes, incluyendo la configuración asociada
   async findAll(): Promise<Image[]> {
     return prisma.image.findMany({
       include: {
@@ -12,6 +15,7 @@ export class ImagesRepository {
     });
   }
 
+  // Busca una imagen por su ID
   async findById(id: string): Promise<Image | null> {
     return prisma.image.findUnique({
       where: { id },
@@ -21,6 +25,7 @@ export class ImagesRepository {
     });
   }
 
+  // Busca imágenes asociadas a una configuración, ordenadas por 'order'
   async findByConfigId(configId: string): Promise<Image[]> {
     return prisma.image.findMany({
       where: { configId },
@@ -30,6 +35,7 @@ export class ImagesRepository {
     });
   }
 
+  // Crea una nueva imagen (puede asociarse a una sección)
   async create(
     data: Omit<Image, "id"> & { sectionId?: string | null }
   ): Promise<Image> {
@@ -41,6 +47,7 @@ export class ImagesRepository {
     });
   }
 
+  // Actualiza una imagen existente
   async update(id: string, data: Partial<Image>): Promise<Image> {
     return prisma.image.update({
       where: { id },
@@ -51,12 +58,14 @@ export class ImagesRepository {
     });
   }
 
+  // Elimina una imagen por su ID
   async delete(id: string): Promise<Image> {
     return prisma.image.delete({
       where: { id },
     });
   }
 
+  // Busca imágenes por tipo
   async findByType(type: string): Promise<Image[]> {
     return prisma.image.findMany({
       where: { type },
@@ -66,6 +75,7 @@ export class ImagesRepository {
     });
   }
 
+  // Actualiza el orden de una imagen
   async updateOrder(id: string, order: number): Promise<Image> {
     return prisma.image.update({
       where: { id },
@@ -73,6 +83,7 @@ export class ImagesRepository {
     });
   }
 
+  // Busca imágenes por texto alternativo (altText)
   async findByAltText(altText: string): Promise<Image[]> {
     return prisma.image.findMany({
       where: {

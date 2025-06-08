@@ -1,3 +1,6 @@
+// Componente para gestionar y ordenar secciones de la configuración.
+// Permite crear, editar, eliminar y reordenar secciones, así como asociar imágenes a cada sección.
+
 import React, { useState } from "react";
 import { Box, TextField, Heading, Flex } from "@radix-ui/themes";
 import { Textarea } from "@/components/ui-shadcn/textarea";

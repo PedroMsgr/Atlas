@@ -1,5 +1,9 @@
+// src/graphql/queries/dashboard.queries.ts
+// Queries para dashboard y estadísticas del sistema
+
 import { gql } from "@apollo/client";
 
+// Obtiene estadísticas generales del sistema
 export const GET_DASHBOARD_STATS = gql`
   query GetDashboardStats {
     dashboardStats {
@@ -12,6 +16,7 @@ export const GET_DASHBOARD_STATS = gql`
   }
 `;
 
+// Obtiene los casos recientes para el dashboard
 export const GET_RECENT_CASES = gql`
   query GetRecentCases($limit: Int) {
     recentCases(limit: $limit) {
@@ -39,6 +44,7 @@ export const GET_RECENT_CASES = gql`
   }
 `;
 
+// Obtiene el estado del sistema (API, DB, hora)
 export const GET_SYSTEM_STATUS = gql`
   query GetSystemStatus {
     systemStatus {

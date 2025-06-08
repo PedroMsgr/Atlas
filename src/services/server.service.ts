@@ -1,4 +1,6 @@
-// src/services/server-service.ts
+// Servicio para la gestión de servidores unitarios y constelaciones.
+// Centraliza la lógica para crear, actualizar, eliminar y consultar servidores y constelaciones, así como la generación y actualización de tokens.
+// Permite validar unicidad de dominios y tokens, y expone métodos de alto nivel para resolvers y controladores.
 
 import { ServersRepository } from "@/db/repositories/servers.repo";
 import { ConstellationsRepository } from "@/db/repositories/constellations.repo";
@@ -51,12 +53,16 @@ class ServerService {
       throw new Error(`Ya existe un servidor con el dominio ${domain}`);
     }
 
+    // Usar generación asíncrona de tokens para garantizar unicidad
+    const orchestratorToken = await tokenService.generateOrchestratorTokenAsync();
+    const unitToken = await tokenService.generateUnitTokenAsync();
+
     // Crear servidor con los campos básicos y tokens seguros
     const serverData: any = {
       name,
       domain,
-      orchestratorToken: tokenService.generateOrchestratorToken(),
-      unitToken: tokenService.generateUnitToken(),
+      orchestratorToken,
+      unitToken,
       isActive: true,
       constellationId: null,
       updatedAt: new Date().toISOString(),

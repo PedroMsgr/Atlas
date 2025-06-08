@@ -1,3 +1,6 @@
+// Proveedor de contexto DnD Kit para drag & drop en listas y elementos ordenables.
+// Permite envolver componentes hijos y manejar eventos de arrastre con sensores personalizados.
+
 import React from "react";
 import {
   DndContext,

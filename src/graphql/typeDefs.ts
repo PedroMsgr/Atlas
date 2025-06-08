@@ -1,4 +1,6 @@
 // src/graphql/typeDefs.ts
+// Archivo principal de definición de tipos GraphQL (typeDefs)
+// Importa y exporta los typeDefs para el esquema GraphQL
 
 import gql from "graphql-tag";
 

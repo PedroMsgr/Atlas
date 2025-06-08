@@ -1,3 +1,10 @@
+// Componente para crear un nuevo servidor unitario.
+// Permite ingresar nombre, dominio y constelación, validando el dominio antes de crear.
+// Al enviar el formulario, se llama a la mutación CREATE_SERVER con los datos ingresados.
+// Si la creación es exitosa, se limpian los campos y se llama a la función onSuccess
+// con el ID del nuevo servidor. Si ocurre un error, se muestra un mensaje de error
+// correspondiente.
+
 import { useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { CREATE_SERVER } from "@/graphql/mutations/server.mutations";

@@ -1,3 +1,14 @@
+// Hook personalizado para gestionar la apertura y cierre de un diálogo de confirmación de borrado.
+// Proporciona el estado de visibilidad, el id y nombre del elemento a eliminar, y funciones para abrir/cerrar el diálogo.
+// Útil para componentes que requieren confirmación antes de eliminar un recurso.
+//
+// Retorna:
+//   open: booleano que indica si el diálogo está abierto
+//   id: id del elemento a eliminar
+//   name: nombre del elemento a eliminar
+//   openDialog: función para abrir el diálogo con id y nombre
+//   closeDialog: función para cerrar el diálogo y limpiar el estado
+
 import { useState, useCallback } from "react";
 
 interface UseConfirmDelete {

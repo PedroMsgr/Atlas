@@ -1,3 +1,6 @@
+// Componente para gestionar y ordenar enlaces de pie de página de la configuración.
+// Permite crear, editar, eliminar y reordenar enlaces mediante drag & drop.
+
 import React from "react";
 import { Box, TextField, Heading, Flex } from "@radix-ui/themes";
 import SortableItem from "../dndkit/SortableItem";

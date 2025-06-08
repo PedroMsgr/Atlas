@@ -1,3 +1,7 @@
+// Tipos para servidores unitarios y sus relaciones.
+// Permiten tipar los datos de servidores, incluyendo información básica, relaciones con constelaciones y configuraciones, y listados parciales para consultas específicas.
+// Facilitan la gestión y consulta de servidores en la aplicación.
+
 import { Constellation, UnitConfig } from "@/generated/prisma";
 
 // Interfaces para los servidores unitarios
@@ -19,7 +23,6 @@ export interface UnitServerWithRelations extends UnitServerBase {
   activeConfig?: UnitConfig | null;
 }
 
-// Para consultas específicas donde solo necesitas datos parciales
 export interface UnitServerListItem {
   id: string;
   name: string;

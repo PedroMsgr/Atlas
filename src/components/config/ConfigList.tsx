@@ -1,5 +1,7 @@
 "use client";
-// src/components/config-components/ConfigurationList.tsx
+
+// Componente para listar, buscar y seleccionar configuraciones de unidad.
+// Permite filtrar por nombre, eliminar y refrescar la lista de configuraciones.
 
 import { UnitConfigBase } from "@/types/config.types";
 import { useQuery, useMutation } from "@apollo/client";

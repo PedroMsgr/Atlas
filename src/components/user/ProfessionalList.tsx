@@ -1,5 +1,7 @@
-// src/components/user/ProfessionalList.tsx
 "use client";
+
+// Componente de lista de profesionales y administradores.
+// Permite buscar, filtrar y eliminar usuarios con rol profesional o admin.
 
 import { useState, useMemo } from "react";
 import { Box, Table, Text, Spinner, Flex, Card } from "@radix-ui/themes";

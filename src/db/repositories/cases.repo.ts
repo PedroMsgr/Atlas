@@ -1,9 +1,13 @@
 // src/db/repositories/cases.repo.ts
+// Repositorio para gestión de casos legales (Case) en la base de datos.
+// Proporciona métodos CRUD, paginación avanzada y filtros por usuario, estado, tags, etc.
+// Incluye lógica para búsquedas complejas y relaciones con cliente, profesional, archivos, reportes, etc.
 
 import { prisma } from "../prisma-client";
 import { Case, CaseStatus } from "../../generated/prisma";
 
 export class CasesRepository {
+  // Obtiene todos los casos legales, incluyendo relaciones principales
   async findAll(): Promise<Case[]> {
     return prisma.case.findMany({
       include: {
@@ -17,6 +21,12 @@ export class CasesRepository {
     });
   }
 
+  /**
+   * Obtiene casos paginados y filtrados por múltiples criterios.
+   * Permite filtrar por estado, profesional, cliente, servidor, tags, búsqueda textual y usuario profesional (userId).
+   * El filtro 'onlyClient' permite distinguir si el filtro es exclusivo para clientes.
+   * Devuelve el total de casos y la lista paginada, incluyendo relaciones anidadas.
+   */
   async findAllPaginated({
     page = 1,
     pageSize = 20,
@@ -25,9 +35,9 @@ export class CasesRepository {
     clientId,
     serverId,
     search,
-    userId, // Nuevo filtro opcional para filtrar por Professional.userId
-    onlyClient, // <-- Añadido para distinguir filtro pro
-    tags, // <-- Añadido para filtrar por tags
+    userId, // Filtro para filtrar por Professional.userId unicamente sus casos
+    onlyClient, // <-- Añadido para distinguir filtro profesional/clientee
+    tags,
   }: {
     page?: number;
     pageSize?: number;
@@ -38,13 +48,15 @@ export class CasesRepository {
     search?: string;
     userId?: string;
     onlyClient?: boolean;
-    tags?: string[]; // <-- Añadido tipo para tags
+    tags?: string[];
   }) {
     const where: any = {};
+    // Filtros principales
     if (status) where.status = status;
     if (professionalId) where.professionalId = professionalId;
     if (clientId) where.clientId = clientId;
     if (serverId) where.serverId = serverId;
+    // Filtro por usuario profesional (userId)
     if (userId) {
       // Buscar el Professional vinculado a este userId
       const professional = await prisma.professional.findFirst({
@@ -57,6 +69,7 @@ export class CasesRepository {
         return { total: 0, cases: [] };
       }
     }
+    // Filtro de búsqueda textual (nombre, email, etc)
     if (search) {
       const isEmail = search.includes("@");
       if (onlyClient) {
@@ -118,8 +131,10 @@ export class CasesRepository {
         }
       }
     }
+    // Filtro por tags (array)
     if (tags && Array.isArray(tags) && tags.length > 0)
       where.tags = { hasSome: tags };
+    // Consulta paginada y total
     const [total, cases] = await Promise.all([
       prisma.case.count({ where }),
       prisma.case.findMany({
@@ -138,7 +153,7 @@ export class CasesRepository {
       }),
     ]);
 
-    // LOG de depuración: mostrar cliente, profesional y usuarios asociados
+    // LOG de depuración: muestra la estructura de cliente, profesional y usuarios asociados
     // console.log('--- Casos recuperados ---');
     // cases.forEach(c => {
     //   console.log({

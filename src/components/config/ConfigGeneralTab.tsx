@@ -1,3 +1,6 @@
+// Componente para editar los datos generales de una configuración de unidad.
+// Permite modificar textos, imágenes y metadatos principales.
+
 import React from "react";
 import { Box, TextField, Heading, Flex } from "@radix-ui/themes";
 import { AtlasButton } from "../ui/AtlasButton";

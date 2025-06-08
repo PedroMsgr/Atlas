@@ -1,7 +1,9 @@
 // src/graphql/mutations/server.mutations.ts
+// Mutations para gestión de servidores y tokens
 
 import { gql } from "@apollo/client";
 
+// Crea un nuevo servidor
 export const CREATE_SERVER = gql`
   mutation CreateServer(
     $name: String!
@@ -27,6 +29,7 @@ export const CREATE_SERVER = gql`
   }
 `;
 
+// Actualiza un servidor existente
 export const UPDATE_SERVER = gql`
   mutation UpdateServer($id: ID!, $data: ServerUpdateInput!) {
     updateServer(id: $id, data: $data) {
@@ -39,6 +42,7 @@ export const UPDATE_SERVER = gql`
   }
 `;
 
+// Actualiza la configuración asociada a un servidor
 export const UPDATE_SERVER_CONFIG = gql`
   mutation UpdateServerConfig($id: ID!, $configId: ID!) {
     updateServer(id: $id, data: { configId: $configId }) {
@@ -53,6 +57,7 @@ export const UPDATE_SERVER_CONFIG = gql`
   }
 `;
 
+// Actualiza los tokens de un servidor
 export const UPDATE_SERVER_TOKENS = gql`
   mutation UpdateServerTokens(
     $id: ID!
@@ -72,6 +77,7 @@ export const UPDATE_SERVER_TOKENS = gql`
   }
 `;
 
+// Elimina un servidor por su ID
 export const DELETE_SERVER = gql`
   mutation DeleteServer($id: ID!) {
     deleteServer(id: $id)

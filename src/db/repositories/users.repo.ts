@@ -1,9 +1,13 @@
 // src/db/repositories/users.repo.ts
+// Repositorio para gestión de usuarios (User) en la base de datos.
+// Permite obtener, crear, actualizar y eliminar usuarios, así como filtrar por rol y búsqueda textual.
+// Incluye conteo de clientes y búsquedas por email.
 
 import { User, Role } from "../../generated/prisma";
 import { prisma } from "../prisma-client";
 
 export class UsersRepository {
+  // Obtiene todos los usuarios, con filtros opcionales por rol y búsqueda textual
   async findAll(role?: Role | Role[], search?: string): Promise<User[]> {
     const where: any = {};
     if (role) {
@@ -23,18 +27,21 @@ export class UsersRepository {
     return prisma.user.findMany({ where });
   }
 
+  // Busca un usuario por su ID
   async findById(id: string): Promise<User | null> {
     return prisma.user.findUnique({
       where: { id },
     });
   }
 
+  // Busca un usuario por su email
   async findByEmail(email: string): Promise<User | null> {
     return prisma.user.findUnique({
       where: { email },
     });
   }
 
+  // Crea un nuevo usuario
   async create(
     data: Omit<User, "id" | "createdAt" | "updatedAt">
   ): Promise<User> {
@@ -43,6 +50,7 @@ export class UsersRepository {
     });
   }
 
+  // Actualiza un usuario existente
   async update(id: string, data: Partial<User>): Promise<User> {
     return prisma.user.update({
       where: { id },
@@ -50,6 +58,7 @@ export class UsersRepository {
     });
   }
 
+  // Elimina un usuario por su ID. Devuelve true si se elimina correctamente, false si no existe.
   async delete(id: string): Promise<boolean> {
     try {
       await prisma.user.delete({ where: { id } });
@@ -59,6 +68,7 @@ export class UsersRepository {
     }
   }
 
+  // Cuenta el número de usuarios con rol 'client'
   async countClients(): Promise<number> {
     return prisma.user.count({ where: { role: "client" } });
   }

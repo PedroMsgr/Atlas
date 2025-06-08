@@ -1,5 +1,8 @@
-// src/components/config-components/CreateConfigBasicForm.tsx
 "use client";
+
+// Componente para crear una configuración básica de unidad.
+// Permite ingresar los datos principales y subir imágenes, redirigiendo a la edición avanzada tras crear.
+
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@apollo/client";
@@ -207,15 +210,15 @@ export default function ConfigCreate({ onSuccess }: ConfigCreateProps) {
             className="hidden"
           />
           <label htmlFor="config-bannerUrl">
-            <Button
-              asChild
+            <AtlasButton
               type="button"
-              color="blue"
-              size="1"
+              variant="upload"
               className="mb-2 cursor-pointer"
+              asChild={false}
+              disabled={loading}
             >
-              <span>{bannerFile ? "Cambiar imagen" : "Subir imagen"}</span>
-            </Button>
+              {bannerFile ? "Cambiar imagen" : "Subir imagen"}
+            </AtlasButton>
           </label>
           {(bannerPreview || bannerFile) && bannerPreview && (
             <Flex align="center" gap="2">
@@ -227,14 +230,14 @@ export default function ConfigCreate({ onSuccess }: ConfigCreateProps) {
               <span className="text-sm break-all">
                 {bannerFile ? bannerFile.name : ""}
               </span>
-              <Button
+              <AtlasButton
                 type="button"
-                color="red"
-                size="1"
+                variant="delete"
                 onClick={() => handleRemoveImage("bannerUrl")}
+                disabled={loading}
               >
                 Eliminar
-              </Button>
+              </AtlasButton>
             </Flex>
           )}
         </div>
@@ -256,15 +259,15 @@ export default function ConfigCreate({ onSuccess }: ConfigCreateProps) {
             className="hidden"
           />
           <label htmlFor="config-iconUrl">
-            <Button
-              asChild
+            <AtlasButton
               type="button"
-              color="blue"
-              size="1"
+              variant="upload"
               className="mb-2 cursor-pointer"
+              asChild={false}
+              disabled={loading}
             >
-              <span>{iconFile ? "Cambiar icono" : "Subir icono"}</span>
-            </Button>
+              {iconFile ? "Cambiar icono" : "Subir icono"}
+            </AtlasButton>
           </label>
           {(iconPreview || iconFile) && iconPreview && (
             <Flex align="center" gap="2">
@@ -276,14 +279,14 @@ export default function ConfigCreate({ onSuccess }: ConfigCreateProps) {
               <span className="text-sm break-all">
                 {iconFile ? iconFile.name : ""}
               </span>
-              <Button
+              <AtlasButton
                 type="button"
-                color="red"
-                size="1"
+                variant="delete"
                 onClick={() => handleRemoveImage("iconUrl")}
+                disabled={loading}
               >
                 Eliminar
-              </Button>
+              </AtlasButton>
             </Flex>
           )}
         </div>

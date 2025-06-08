@@ -1,9 +1,12 @@
 // src/db/repositories/files.repo.ts
+// Repositorio para gestión de archivos (File) en la base de datos.
+// Permite obtener, crear, actualizar y eliminar archivos, así como filtrar por caso, cliente, profesional o tipo.
 
 import { File } from "../../generated/prisma";
 import { prisma } from "../prisma-client";
 
 export class FilesRepository {
+  // Obtiene todos los archivos, incluyendo relaciones principales
   async findAll(): Promise<File[]> {
     return prisma.file.findMany({
       include: {
@@ -14,6 +17,7 @@ export class FilesRepository {
     });
   }
 
+  // Busca un archivo por su ID
   async findById(id: string): Promise<File | null> {
     return prisma.file.findUnique({
       where: { id },
@@ -25,6 +29,7 @@ export class FilesRepository {
     });
   }
 
+  // Busca archivos asociados a un caso
   async findByCaseId(caseId: string): Promise<File[]> {
     return prisma.file.findMany({
       where: { caseId },
@@ -35,6 +40,7 @@ export class FilesRepository {
     });
   }
 
+  // Busca archivos asociados a un cliente
   async findByClientId(clientId: string): Promise<File[]> {
     return prisma.file.findMany({
       where: { clientId },
@@ -45,6 +51,7 @@ export class FilesRepository {
     });
   }
 
+  // Busca archivos asociados a un profesional
   async findByProfessionalId(professionalId: string): Promise<File[]> {
     return prisma.file.findMany({
       where: { professionalId },
@@ -55,6 +62,7 @@ export class FilesRepository {
     });
   }
 
+  // Crea un nuevo archivo
   async create(data: Omit<File, "id" | "date">): Promise<File> {
     return prisma.file.create({
       data,
@@ -66,6 +74,7 @@ export class FilesRepository {
     });
   }
 
+  // Actualiza un archivo existente
   async update(id: string, data: Partial<File>): Promise<File> {
     return prisma.file.update({
       where: { id },
@@ -78,12 +87,14 @@ export class FilesRepository {
     });
   }
 
+  // Elimina un archivo por su ID
   async delete(id: string): Promise<File> {
     return prisma.file.delete({
       where: { id },
     });
   }
 
+  // Busca archivos por tipo
   async findByType(type: string): Promise<File[]> {
     return prisma.file.findMany({
       where: { type },

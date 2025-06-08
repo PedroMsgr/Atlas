@@ -1,3 +1,6 @@
+// Componente para gestionar y ordenar artículos de la configuración.
+// Permite crear, editar, eliminar y reordenar artículos mediante drag & drop.
+
 import React from "react";
 import { Box, TextField, Heading, Flex } from "@radix-ui/themes";
 import { Textarea } from "@/components/ui-shadcn/textarea";

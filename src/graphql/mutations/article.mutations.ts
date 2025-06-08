@@ -1,7 +1,9 @@
 // src/graphql/mutations/article.mutations.ts
+// Mutations para gestión de artículos (Article)
 
 import { gql } from "@apollo/client";
 
+// Crea un nuevo artículo asociado a una configuración
 export const CREATE_ARTICLE = gql`
   mutation CreateArticle($data: ArticleInput!) {
     createArticle(data: $data) {
@@ -15,6 +17,7 @@ export const CREATE_ARTICLE = gql`
   }
 `;
 
+// Actualiza un artículo existente
 export const UPDATE_ARTICLE = gql`
   mutation UpdateArticle($id: ID!, $data: ArticleInput!) {
     updateArticle(id: $id, data: $data) {
@@ -28,6 +31,7 @@ export const UPDATE_ARTICLE = gql`
   }
 `;
 
+// Elimina un artículo por su ID
 export const DELETE_ARTICLE = gql`
   mutation DeleteArticle($id: ID!) {
     deleteArticle(id: $id)

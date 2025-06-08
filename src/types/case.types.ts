@@ -1,4 +1,6 @@
-// src/types/case.types.ts
+// Tipos para casos, usuarios, profesionales, clientes y servidores usados en la gestión de casos.
+// Permiten tipar las respuestas y entidades relacionadas con los casos legales en la aplicación.
+// Incluyen los datos mínimos para listados y relaciones básicas.
 
 import { CaseStatus } from "@/generated/prisma";
 

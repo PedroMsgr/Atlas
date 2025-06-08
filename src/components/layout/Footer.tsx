@@ -1,5 +1,8 @@
 "use client";
 
+// Componente de pie de página global para la plataforma Atlas.
+// Muestra enlaces de privacidad, términos y contacto, y el copyright.
+
 import { Box, Container, Flex, Text } from "@radix-ui/themes";
 import Link from "next/link";
 

@@ -1,3 +1,7 @@
+// Servicio para la gestión de usuarios.
+// Centraliza la lógica para crear, actualizar, eliminar y consultar usuarios, así como filtrar por rol y realizar búsquedas.
+// Facilita la gestión de usuarios y clientes en la aplicación, y expone métodos de alto nivel para resolvers y controladores.
+
 import { UsersRepository } from "../db/repositories/users.repo";
 import { Role, User } from "../generated/prisma";
 

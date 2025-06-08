@@ -1,4 +1,6 @@
-// src/services/config-service.ts
+// Servicio para la gestión de configuraciones de unidades y landings.
+// Centraliza la lógica para crear, actualizar, eliminar y consultar configuraciones, secciones, artículos, imágenes, pasos legales y enlaces de pie de página.
+// Permite operaciones completas sobre la configuración y su estructura anidada, y gestiona el borrado en cascada manual.
 
 import {
   ConfigsRepository,
