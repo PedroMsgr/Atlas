@@ -1,17 +1,9 @@
 import { useQuery } from "@apollo/client";
-import {
-  Box,
-  Table,
-  Spinner,
-  Flex,
-  Select,
-  Button,
-  Badge,
-  Heading,
-} from "@radix-ui/themes";
+import { Box, Table, Spinner, Flex, Select, Badge } from "@radix-ui/themes";
 import { useState } from "react";
 import { GET_CASES } from "@/graphql/queries/case.queries";
 import type { CaseListItem, CaseListResponse } from "@/types/case.types";
+import { AtlasButton } from "../ui/AtlasButton";
 
 const CASE_STATUS = [
   { value: "open", label: "Abierto", color: "blue" },
@@ -28,22 +20,19 @@ export default function CaseListPro({ user }: { user: any }) {
   // Solo filtrar por professionalId si el usuario es profesional
   const professionalId = user?.role === "professional" ? user.id : undefined;
 
-  const { data, loading, refetch } = useQuery<{ cases: CaseListResponse }>(
-    GET_CASES,
-    {
-      variables: {
-        filters: {
-          search: filters.search,
-          status: filters.status === "all" ? undefined : filters.status,
-          professionalId,
-          page,
-          pageSize,
-          onlyClient: true, // Solo filtrar por cliente en pro
-        },
+  const { data, loading } = useQuery<{ cases: CaseListResponse }>(GET_CASES, {
+    variables: {
+      filters: {
+        search: filters.search,
+        status: filters.status === "all" ? undefined : filters.status,
+        professionalId,
+        page,
+        pageSize,
+        onlyClient: true, // Solo filtrar por cliente en pro
       },
-      fetchPolicy: "cache-and-network",
-    }
-  );
+    },
+    fetchPolicy: "cache-and-network",
+  });
 
   const cases = data?.cases?.cases || [];
   const total = data?.cases?.total || 0;
@@ -51,7 +40,12 @@ export default function CaseListPro({ user }: { user: any }) {
 
   return (
     <Box>
-      <Flex mb="4" align="center" gap="3">
+      <Flex
+        mb="4"
+        align="center"
+        gap="3"
+        className="flex flex-col gap-2 sm:flex-row sm:items-center"
+      >
         <input
           type="text"
           placeholder="Buscar por cliente..."
@@ -59,6 +53,7 @@ export default function CaseListPro({ user }: { user: any }) {
           onChange={(e) =>
             setFilters((f) => ({ ...f, search: e.target.value }))
           }
+          className="w-full sm:w-auto"
           style={{
             minWidth: 220,
             background: "#fff",
@@ -71,7 +66,10 @@ export default function CaseListPro({ user }: { user: any }) {
           value={filters.status}
           onValueChange={(status) => setFilters((f) => ({ ...f, status }))}
         >
-          <Select.Trigger style={{ minWidth: 120 }} />
+          <Select.Trigger
+            style={{ minWidth: 120 }}
+            className="w-full sm:w-auto"
+          />
           <Select.Content>
             <Select.Item value="all">Todos</Select.Item>
             {CASE_STATUS.map((s) => (
@@ -141,18 +139,23 @@ export default function CaseListPro({ user }: { user: any }) {
         </Table.Root>
       )}
       <Flex mt="4" gap="2" align="center">
-        <Button disabled={page === 1} onClick={() => setPage(page - 1)}>
+        <AtlasButton
+          variant="back"
+          disabled={page === 1}
+          onClick={() => setPage(page - 1)}
+        >
           Anterior
-        </Button>
+        </AtlasButton>
         <span>
           Página {page} de {totalPages}
         </span>
-        <Button
+        <AtlasButton
+          variant="next"
           disabled={page === totalPages}
           onClick={() => setPage(page + 1)}
         >
           Siguiente
-        </Button>
+        </AtlasButton>
       </Flex>
     </Box>
   );

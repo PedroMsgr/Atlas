@@ -156,7 +156,8 @@ exports.Prisma.CaseScalarFieldEnum = {
   serverId: 'serverId',
   status: 'status',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  tags: 'tags'
 };
 
 exports.Prisma.ChatScalarFieldEnum = {

@@ -2,6 +2,7 @@
 // src/app/admin/emulator/page.tsx
 
 import { useState } from "react";
+import { AtlasButton } from "@/components/ui/AtlasButton";
 
 export default function EmulatorGeneratorPage() {
   const [token, setToken] = useState("");
@@ -38,61 +39,75 @@ export default function EmulatorGeneratorPage() {
     }
   };
 
+  // Layout responsivo: dos tarjetas, sin fondo exterior, hover de elevación en desktop
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
-      <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6">
-        <h1 className="text-2xl font-bold mb-4 text-center">
-          Generar Landing Estática
-        </h1>
-
-        <label htmlFor="token" className="block text-sm font-medium mb-1">
-          Token del servidor unitario
-        </label>
-        <input
-          id="token"
-          type="text"
-          value={token}
-          onChange={(e) => setToken(e.target.value)}
-          className="w-full border border-gray-300 rounded px-3 py-2 mb-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          placeholder="Ingresa aquí el unitToken"
-        />
-
-        {errorMsg && <p className="text-red-600 text-sm mb-3">{errorMsg}</p>}
-
-        <button
-          onClick={handleGenerate}
-          disabled={status === "loading"}
-          className={`w-full py-2 rounded text-white ${
-            status === "loading"
-              ? "bg-gray-400"
-              : "bg-blue-600 hover:bg-blue-700"
-          }`}
-        >
-          {status === "loading" ? "Generando..." : "Generar Landing"}
-        </button>
-
-        {status === "success" && (
-          <p className="text-green-600 text-sm mt-3">
-            Landing generada correctamente.
+    <div className="min-h-screen flex items-center top-0 justify-center p-4 md:p-8">
+      <div className="flex flex-col md:flex-row gap-4 md:gap-8 w-full max-w-4xl">
+        {/* Left panel: info */}
+        <div className="flex-1 bg-white rounded-lg shadow-md p-6 md:p-8 flex flex-col justify-center transition-shadow duration-200 hover:shadow-xl">
+          <h1 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6">
+            Generar Landing Estática
+          </h1>
+          <p className="text-gray-700 text-base mb-3 md:mb-4">
+            Ingresa el <span className="font-semibold">unitToken</span> de tu
+            servidor para generar una landing estática personalizada. Este
+            proceso es seguro y no afecta tu servidor.
           </p>
-        )}
-        {status === "error" && !errorMsg && (
-          <p className="text-red-600 text-sm mt-3">
-            Ocurrió un error al generar la landing.
-          </p>
-        )}
-
-        <div className="mt-6 text-center">
-          <button
-            type="button"
-            className={`w-full py-2 rounded text-blue-700 border border-blue-600 bg-white hover:bg-blue-50 transition disabled:opacity-60 disabled:cursor-not-allowed ${
-              status === "loading" ? "opacity-60 cursor-not-allowed" : ""
-            }`}
-            onClick={() => (window.location.href = "/emulator")}
+          <ul className="text-gray-600 text-sm list-disc pl-5 mb-3 md:mb-4">
+            <li>
+              La landing se genera en base a la configuración actual del
+              servidor.
+            </li>
+            <li>El proceso puede tardar unos segundos.</li>
+            <li>Recibirás un mensaje de confirmación al finalizar.</li>
+          </ul>
+          <div className="mt-auto text-xs text-gray-400">
+            Atlas Admin &copy; {new Date().getFullYear()}
+          </div>
+        </div>
+        {/* Right panel: form */}
+        <div className="flex-1 bg-white rounded-lg shadow-md p-6 md:p-8 flex flex-col justify-center transition-shadow duration-200 hover:shadow-xl">
+          <label htmlFor="token" className="block text-sm font-medium mb-1">
+            Token del servidor unitario
+          </label>
+          <input
+            id="token"
+            type="text"
+            value={token}
+            onChange={(e) => setToken(e.target.value)}
+            className="w-full border border-gray-300 rounded px-3 py-2 mb-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-base"
+            placeholder="Ingresa aquí el unitToken"
+          />
+          {errorMsg && <p className="text-red-600 text-sm mb-3">{errorMsg}</p>}
+          <AtlasButton
+            onClick={handleGenerate}
             disabled={status === "loading"}
+            variant="primary"
+            className="w-full mb-2"
           >
-            Ir a la página del emulador
-          </button>
+            {status === "loading" ? "Generando..." : "Generar Landing"}
+          </AtlasButton>
+          {status === "success" && (
+            <p className="text-green-600 text-sm mt-3 text-center">
+              Landing generada correctamente.
+            </p>
+          )}
+          {status === "error" && !errorMsg && (
+            <p className="text-red-600 text-sm mt-3 text-center">
+              Ocurrió un error al generar la landing.
+            </p>
+          )}
+          <div className="mt-6 text-center">
+            <AtlasButton
+              type="button"
+              variant="back"
+              className="w-full"
+              onClick={() => (window.location.href = "/emulator")}
+              disabled={status === "loading"}
+            >
+              Ir a la página del emulador
+            </AtlasButton>
+          </div>
         </div>
       </div>
     </div>

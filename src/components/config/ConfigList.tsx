@@ -5,18 +5,11 @@ import { UnitConfigBase } from "@/types/config.types";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_ALL_CONFIGURATIONS } from "@/graphql/queries/config.queries";
 import { DELETE_CONFIG } from "@/graphql/mutations/config.mutations";
-import {
-  Box,
-  Button as RadixButton,
-  Heading,
-  Table,
-  Text,
-  Flex,
-  Card,
-} from "@radix-ui/themes";
+import { Box, Table, Text, Flex, Card } from "@radix-ui/themes";
 import DeleteButtonWithConfirm from "@/components/ui/DeleteButtonWithConfirm";
 import { useRouter } from "next/navigation";
 import { useState, useMemo } from "react";
+import { AtlasButton } from "../ui/AtlasButton";
 
 interface Server {
   id: string;
@@ -35,9 +28,6 @@ export default function ConfigList() {
   const [selectedConfig, setSelectedConfig] = useState<Configuration | null>(
     null
   );
-  const [deleteId, setDeleteId] = useState<string | null>(null);
-  const [deleteName, setDeleteName] = useState<string | null>(null);
-  const [showDialog, setShowDialog] = useState(false);
 
   const { data, loading, error, refetch } = useQuery<{
     configurations: Configuration[];
@@ -47,15 +37,11 @@ export default function ConfigList() {
 
   const [deleteConfig, { loading: deleting }] = useMutation(DELETE_CONFIG, {
     onCompleted: () => {
-      setShowDialog(false);
-      setDeleteId(null);
-      setDeleteName(null);
+      setSelectedConfig(null);
       refetch();
     },
     onError: (error) => {
-      setShowDialog(false);
-      setDeleteId(null);
-      setDeleteName(null);
+      setSelectedConfig(null);
       console.error("Error al eliminar configuración:", error);
     },
   });
@@ -91,9 +77,9 @@ export default function ConfigList() {
         <Text color="red">
           Error al cargar las configuraciones: {error.message}
         </Text>
-        <RadixButton onClick={handleRefresh} className="mt-2" variant="outline">
+        <AtlasButton variant="update" onClick={handleRefresh} className="mt-2">
           Reintentar
-        </RadixButton>
+        </AtlasButton>
       </Box>
     );
   }
@@ -101,12 +87,18 @@ export default function ConfigList() {
   return (
     <Box>
       <Card>
-        <Flex mb="4" align="center" gap="3">
+        <Flex
+          mb="4"
+          align="center"
+          gap="3"
+          className="flex flex-col gap-2 sm:flex-row sm:items-center"
+        >
           <input
             type="text"
             placeholder="Buscar por nombre..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
+            className="w-full sm:w-auto"
             style={{
               minWidth: 220,
               background: "#fff",
@@ -115,12 +107,13 @@ export default function ConfigList() {
               padding: "8px 12px",
             }}
           />
-          <RadixButton
-            color="green"
+          <AtlasButton
+            variant="success"
             onClick={() => router.push("/admin/configs/create")}
+            className="w-full sm:w-auto"
           >
             Crear configuración
-          </RadixButton>
+          </AtlasButton>
         </Flex>
         <Table.Root
           variant="surface"
@@ -173,16 +166,15 @@ export default function ConfigList() {
                       ) : servers.length === 1 ? (
                         <Text size="2">{servers[0].name}</Text>
                       ) : (
-                        <RadixButton
-                          variant="ghost"
-                          size="1"
+                        <AtlasButton
+                          variant="dashboard-secondary"
                           onClick={(e) => {
                             e.stopPropagation();
                             setSelectedConfig(config);
                           }}
                         >
                           {servers.length} servidores
-                        </RadixButton>
+                        </AtlasButton>
                       )}
                     </Table.Cell>
                     <Table.Cell>

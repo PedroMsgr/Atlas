@@ -29,6 +29,7 @@ export interface CaseListItem {
   status: CaseStatus;
   createdAt: string;
   updatedAt: string;
+  tags: string[];
   client: CaseClient;
   professional: CaseProfessional;
   server: CaseServer;

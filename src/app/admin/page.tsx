@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, Flex, Heading, Text, Box, Grid, Button } from "@radix-ui/themes";
+import { Card, Flex, Heading, Text, Box, Grid } from "@radix-ui/themes";
 import { useSession } from "next-auth/react";
 import { useQuery } from "@apollo/client";
 import {
@@ -11,6 +11,7 @@ import {
 import { useRouter } from "next/navigation";
 import { formatDate } from "@/lib/date-formatter";
 import { useState } from "react";
+import { AtlasButton } from "@/components/ui/AtlasButton";
 
 export default function AdminDashboard() {
   const { data: session } = useSession();
@@ -19,7 +20,7 @@ export default function AdminDashboard() {
     useQuery(GET_DASHBOARD_STATS);
   const { data: recentData, loading: recentLoading } = useQuery(
     GET_RECENT_CASES,
-    { variables: { limit: 5 } }
+    { variables: { limit: 9 } }
   );
   const { data: systemData, loading: systemLoading } =
     useQuery(GET_SYSTEM_STATUS);
@@ -118,28 +119,37 @@ export default function AdminDashboard() {
                   </Box>
                 ))
               )}
+
               {/* Paginación */}
               {totalRecentPages > 1 && (
                 <Flex mt="2" gap="2" align="center" justify="center">
-                  <Button
-                    size="1"
-                    variant="soft"
+                  <AtlasButton
+                    variant="back"
+                    style={{
+                      padding: "0.25rem 1rem",
+                      marginInline: "auto",
+                      fontSize: 14,
+                    }}
                     disabled={recentPage === 1}
                     onClick={() => setRecentPage(recentPage - 1)}
                   >
                     Anterior
-                  </Button>
+                  </AtlasButton>
                   <Text size="1">
                     Página {recentPage} de {totalRecentPages}
                   </Text>
-                  <Button
-                    size="1"
-                    variant="soft"
+                  <AtlasButton
+                    variant="next"
+                    style={{
+                      padding: "0.25rem 1rem",
+                      marginInline: "auto",
+                      fontSize: 14,
+                    }}
                     disabled={recentPage === totalRecentPages}
                     onClick={() => setRecentPage(recentPage + 1)}
                   >
                     Siguiente
-                  </Button>
+                  </AtlasButton>
                 </Flex>
               )}
             </Flex>
@@ -153,20 +163,18 @@ export default function AdminDashboard() {
               Acciones Rápidas
             </Heading>
             <Flex direction="column" gap="3">
-              <Button
-                variant="soft"
-                color="blue"
+              <AtlasButton
+                variant="dashboard-primary"
                 onClick={() => router.push("/admin/servers/create")}
               >
                 Crear Nuevo Servidor
-              </Button>
-              <Button
-                variant="soft"
-                color="green"
+              </AtlasButton>
+              <AtlasButton
+                variant="dashboard-secondary"
                 onClick={() => router.push("/admin/configs/create")}
               >
                 Crear Nueva Configuración
-              </Button>
+              </AtlasButton>
             </Flex>
           </Box>
         </Card>

@@ -1,9 +1,10 @@
 import React from "react";
-import { Box, Button, TextField, Heading, Flex } from "@radix-ui/themes";
+import { Box, TextField, Heading, Flex } from "@radix-ui/themes";
 import { Textarea } from "@/components/ui-shadcn/textarea";
 import SortableItem from "../dndkit/SortableItem";
 import { DndProvider } from "../dndkit/DndProvider";
 import SortableList from "../dndkit/SortableList";
+import { AtlasButton } from "../ui/AtlasButton";
 
 export default function ConfigArticlesTab({
   form,
@@ -84,16 +85,16 @@ export default function ConfigArticlesTab({
           }
         />
         <Flex gap="2" className="mt-2">
-          <Button
-            color="green"
+          <AtlasButton
+            variant="success"
             disabled={!articleForm.title || !articleForm.url}
             onClick={editingArticleId ? handleEditArticle : handleAddArticle}
           >
             {editingArticleId ? "Actualizar" : "Agregar"}
-          </Button>
+          </AtlasButton>
           {editingArticleId && (
-            <Button
-              variant="soft"
+            <AtlasButton
+              variant="cancel"
               onClick={() => {
                 setEditingArticleId(null);
                 setArticleForm({
@@ -107,7 +108,7 @@ export default function ConfigArticlesTab({
               }}
             >
               Cancelar
-            </Button>
+            </AtlasButton>
           )}
         </Flex>
       </Box>
@@ -141,21 +142,20 @@ export default function ConfigArticlesTab({
                   <div className="text-xs text-gray-500">{art.publishedAt}</div>
                 </div>
                 <Flex gap="2">
-                  <Button
+                  <AtlasButton
+                    variant="update"
                     type="button"
-                    size="1"
                     onClick={() => loadArticleForEdit(art)}
                   >
                     Editar
-                  </Button>
-                  <Button
+                  </AtlasButton>
+                  <AtlasButton
+                    variant="delete"
                     type="button"
-                    color="red"
-                    size="1"
                     onClick={() => handleDeleteArticle(art.id)}
                   >
                     Eliminar
-                  </Button>
+                  </AtlasButton>
                 </Flex>
               </SortableItem>
             ))}

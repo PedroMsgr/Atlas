@@ -1,9 +1,10 @@
 import React from "react";
-import { Box, Button, TextField, Heading, Flex } from "@radix-ui/themes";
+import { Box, TextField, Heading, Flex } from "@radix-ui/themes";
 import { Textarea } from "@/components/ui-shadcn/textarea";
 import SortableItem from "../dndkit/SortableItem";
 import { DndProvider } from "../dndkit/DndProvider";
 import SortableList from "../dndkit/SortableList";
+import { AtlasButton } from "../ui/AtlasButton";
 
 export default function ConfigLegalStepsTab({
   legalSteps,
@@ -74,25 +75,25 @@ export default function ConfigLegalStepsTab({
           required
         />
         <Flex gap="2" className="mt-2">
-          <Button
-            color="green"
+          <AtlasButton
+            variant="success"
             disabled={!legalStepForm.title}
             onClick={
               editingLegalStepId ? handleEditLegalStep : handleAddLegalStep
             }
           >
             {editingLegalStepId ? "Actualizar" : "Agregar"}
-          </Button>
+          </AtlasButton>
           {editingLegalStepId && (
-            <Button
-              variant="soft"
+            <AtlasButton
+              variant="cancel"
               onClick={() => {
                 setEditingLegalStepId(null);
                 setLegalStepForm({ id: undefined, title: "", description: "" });
               }}
             >
               Cancelar
-            </Button>
+            </AtlasButton>
           )}
         </Flex>
       </Box>
@@ -123,21 +124,20 @@ export default function ConfigLegalStepsTab({
                   </div>
                 </div>
                 <Flex gap="2">
-                  <Button
+                  <AtlasButton
                     type="button"
-                    size="1"
+                    variant="update"
                     onClick={() => loadLegalStepForEdit(step)}
                   >
                     Editar
-                  </Button>
-                  <Button
+                  </AtlasButton>
+                  <AtlasButton
                     type="button"
-                    color="red"
-                    size="1"
+                    variant="delete"
                     onClick={() => handleDeleteLegalStep(step.id)}
                   >
                     Eliminar
-                  </Button>
+                  </AtlasButton>
                 </Flex>
               </SortableItem>
             ))}

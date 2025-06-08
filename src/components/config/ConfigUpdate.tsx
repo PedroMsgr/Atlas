@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
-import { Tabs, Box, Button, Flex } from "@radix-ui/themes";
+import { Tabs, Box, Flex } from "@radix-ui/themes";
 import { useRouter } from "next/navigation";
 import { UPDATE_CONFIG } from "@/graphql/mutations/config.mutations";
 import { GET_SECTIONS_BY_CONFIG } from "@/graphql/queries/section.queries";
@@ -45,6 +45,7 @@ import ImagesTab from "./ConfigImagesTab";
 import ConfigLegalStepsTab from "./ConfigLegalStepsTab";
 import ConfigFooterLinksTab from "./ConfigFooterLinksTab";
 import Image from "next/image";
+import { AtlasButton } from "../ui/AtlasButton";
 
 interface ConfigUpdateProps {
   config?: any; // UnitConfigWithRelations
@@ -705,21 +706,21 @@ export default function ConfigUpdate({ config, onSuccess }: ConfigUpdateProps) {
   return (
     <Box className="w-full">
       <Flex justify="end" align="center" className="mb-4 gap-2">
-        <Button
+        <AtlasButton
           type="button"
-          variant="soft"
+          variant="cancel"
           onClick={() => router.push("/admin/configs")}
         >
           Cancelar
-        </Button>
-        <Button
+        </AtlasButton>
+        <AtlasButton
           type="button"
-          color="green"
+          variant="success"
           disabled={updating}
           onClick={handleSubmit}
         >
           Actualizar Configuración
-        </Button>
+        </AtlasButton>
       </Flex>
       <Tabs.Root
         value={tab}

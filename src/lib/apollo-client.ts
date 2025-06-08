@@ -4,7 +4,7 @@ import { ApolloClient, InMemoryCache, HttpLink, from } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
 
 // Manejo de errores
-const errorLink = onError(({ graphQLErrors, networkError, operation }) => {
+const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors) {
     // Manejar errores GraphQL
     graphQLErrors.forEach(({ message, locations, path, extensions }) => {

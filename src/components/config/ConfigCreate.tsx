@@ -6,6 +6,7 @@ import { useMutation } from "@apollo/client";
 import { CREATE_CONFIG } from "@/graphql/mutations/config.mutations";
 import { uploadImage } from "@/lib/uploadImage";
 import { Box, Button, Heading, Text, Flex, TextField } from "@radix-ui/themes";
+import { AtlasButton } from "../ui/AtlasButton";
 
 interface ConfigCreateProps {
   onSuccess?: (id: string) => void;
@@ -311,9 +312,9 @@ export default function ConfigCreate({ onSuccess }: ConfigCreateProps) {
           </Text>
         )}
         <Flex justify="end" className="pt-2">
-          <Button type="submit" disabled={loading} color="green">
-            {loading ? "Creando..." : "Crear Configuración"}
-          </Button>
+          <AtlasButton type="submit" disabled={loading} variant="success">
+            {loading ? "Creando..." : "Crear configuración"}
+          </AtlasButton>
         </Flex>
       </form>
     </Box>

@@ -112,6 +112,7 @@ model Case {
   status         CaseStatus @default(open)
   createdAt      DateTime   @default(now())
   updatedAt      DateTime   @updatedAt
+  tags           String[]   @default([])
 
   client       Client       @relation(fields: [clientId], references: [id])
   professional Professional @relation(fields: [professionalId], references: [id])

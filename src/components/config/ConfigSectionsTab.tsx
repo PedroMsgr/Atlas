@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Box, Button, TextField, Heading, Flex } from "@radix-ui/themes";
+import { Box, TextField, Heading, Flex } from "@radix-ui/themes";
 import { Textarea } from "@/components/ui-shadcn/textarea";
 import SortableItem from "../dndkit/SortableItem";
 import { DndProvider } from "../dndkit/DndProvider";
 import SortableList from "../dndkit/SortableList";
 import Image from "next/image";
+import { AtlasButton } from "../ui/AtlasButton";
 
 export default function ConfigSectionsTab({
   form,
@@ -21,39 +22,12 @@ export default function ConfigSectionsTab({
   handleDeleteSection,
   handleAddImageSection,
   handleDeleteImageSection,
-  uploadImage,
   loadingSections,
   sectionImageFile,
   sectionImagePreview,
   handleFileSelectSection,
   handleRemoveImageSection,
 }: any) {
-  // Estado local para imagen de sección
-  const [localSectionImageFile, setLocalSectionImageFile] =
-    useState<File | null>(null);
-  const [localSectionImagePreview, setLocalSectionImagePreview] =
-    useState<string>("");
-
-  // Handler para seleccionar archivo de imagen de sección
-  const handleLocalFileSelectSection = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = (ev) =>
-      setLocalSectionImagePreview(ev.target?.result as string);
-    reader.readAsDataURL(file);
-    setLocalSectionImageFile(file);
-    setSectionForm((prev: any) => ({ ...prev, imageUrl: "" }));
-  };
-  // Handler para eliminar archivo seleccionado
-  const handleLocalRemoveImageSection = () => {
-    setLocalSectionImageFile(null);
-    setLocalSectionImagePreview("");
-    setSectionForm((prev: any) => ({ ...prev, imageUrl: "" }));
-  };
-
   // Handler para drag & drop
   const handleDragEnd = (event: any) => {
     const { active, over } = event;
@@ -111,47 +85,63 @@ export default function ConfigSectionsTab({
           className="hidden"
         />
         <label htmlFor="section-image-upload">
-          <Button
+          <AtlasButton
             asChild
             type="button"
-            color="blue"
-            size="1"
+            variant="upload"
             className="mb-2 cursor-pointer"
           >
-            <span>{sectionImageFile ? "Cambiar imagen" : "Subir imagen"}</span>
-          </Button>
+            <span>Subir imagen</span>
+          </AtlasButton>
         </label>
         {(sectionImagePreview || sectionImageFile) && sectionImagePreview && (
-          <div className="flex items-center space-x-2">
+          <Flex align="center" gap="2">
             <img
               src={sectionImagePreview}
-              alt="Imagen sección preview"
+              alt="Section preview"
               className="h-12 w-24 rounded"
             />
             <span className="text-sm break-all">
               {sectionImageFile ? sectionImageFile.name : ""}
             </span>
-            <Button
+            <AtlasButton
               type="button"
-              color="red"
-              size="1"
+              variant="delete"
               onClick={handleRemoveImageSection}
             >
               Eliminar
-            </Button>
-          </div>
+            </AtlasButton>
+          </Flex>
+        )}
+        {/* Mostrar imagen guardada si no hay preview ni archivo */}
+        {!sectionImagePreview && !sectionImageFile && sectionForm.imageUrl && (
+          <Flex align="center" gap="2">
+            <img
+              src={sectionForm.imageUrl}
+              alt="Imagen guardada"
+              className="h-12 w-24 rounded"
+            />
+            <span className="text-xs text-gray-500">Imagen guardada</span>
+            <AtlasButton
+              type="button"
+              variant="delete"
+              onClick={handleRemoveImageSection}
+            >
+              Eliminar
+            </AtlasButton>
+          </Flex>
         )}
         <Flex gap="2" className="mt-2">
-          <Button
-            color="green"
+          <AtlasButton
+            variant="success"
             disabled={!sectionForm.title}
             onClick={editingSectionId ? handleEditSection : handleAddSection}
           >
             {editingSectionId ? "Actualizar" : "Agregar"}
-          </Button>
+          </AtlasButton>
           {editingSectionId && (
-            <Button
-              variant="soft"
+            <AtlasButton
+              variant="cancel"
               onClick={() => {
                 setEditingSectionId(null);
                 setSectionForm({
@@ -159,11 +149,12 @@ export default function ConfigSectionsTab({
                   title: "",
                   body: "",
                   imageUrl: "",
+                  order: undefined,
                 });
               }}
             >
               Cancelar
-            </Button>
+            </AtlasButton>
           )}
         </Flex>
       </Box>
@@ -200,21 +191,20 @@ export default function ConfigSectionsTab({
                   )}
                 </div>
                 <Flex gap="2">
-                  <Button
+                  <AtlasButton
                     type="button"
-                    size="1"
+                    variant="update"
                     onClick={() => loadSectionForEdit(sec)}
                   >
                     Editar
-                  </Button>
-                  <Button
+                  </AtlasButton>
+                  <AtlasButton
                     type="button"
-                    color="red"
-                    size="1"
+                    variant="delete"
                     onClick={() => handleDeleteSection(sec.id)}
                   >
                     Eliminar
-                  </Button>
+                  </AtlasButton>
                 </Flex>
               </SortableItem>
             ))}
@@ -243,22 +233,22 @@ export default function ConfigSectionsTab({
                     height={48}
                     className="h-12 w-12 rounded"
                   />
-                  <Button
-                    variant="soft"
+                  <AtlasButton
+                    variant="cancel"
                     onClick={() => handleDeleteImageSection(img.id)}
                   >
                     X
-                  </Button>
+                  </AtlasButton>
                 </Flex>
               ))}
           </Box>
-          <Button
-            variant="soft"
+          <AtlasButton
+            variant="cancel"
             className="mt-4"
             onClick={() => setCurrentSectionId(null)}
           >
             Cerrar
-          </Button>
+          </AtlasButton>
         </Box>
       )}
     </Box>

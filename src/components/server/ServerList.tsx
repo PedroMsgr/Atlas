@@ -1,22 +1,12 @@
-import {
-  Box,
-  Button as RadixButton,
-  Heading,
-  Table,
-  Text,
-  Flex,
-  Select,
-  Card,
-} from "@radix-ui/themes";
-import { TrashIcon } from "@radix-ui/react-icons";
+import { Box, Table, Text, Flex, Select, Card } from "@radix-ui/themes";
 import DeleteButtonWithConfirm from "@/components/ui/DeleteButtonWithConfirm";
-import Link from "next/link";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { GET_SERVERS } from "@/graphql/queries/server.queries";
 import { DELETE_SERVER } from "@/graphql/mutations/server.mutations";
 import { UnitServerListItem } from "@/types/server.types";
 import { formatDate } from "@/lib/date-formatter";
 import { useQuery, useMutation } from "@apollo/client";
+import { AtlasButton } from "@/components/ui/AtlasButton";
 
 const ORDER_OPTIONS = [
   { value: "name-az", label: "Nombre A-Z" },
@@ -147,21 +137,27 @@ export default function ServerList() {
             </span>
           )}
         </Text>
-        <RadixButton onClick={handleRefresh} variant="outline">
+        <AtlasButton onClick={handleRefresh} variant="update">
           Reintentar
-        </RadixButton>
+        </AtlasButton>
       </Box>
     );
 
   return (
     <Box>
       <Card>
-        <Flex mb="4" align="center" gap="3">
+        <Flex
+          mb="4"
+          align="center"
+          gap="3"
+          className="flex flex-col gap-2 sm:flex-row sm:items-center"
+        >
           <input
             type="text"
             placeholder="Buscar servidor..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
+            className="w-full sm:w-auto"
             style={{
               minWidth: 220,
               background: "#fff",
@@ -178,6 +174,7 @@ export default function ServerList() {
             <Select.Trigger
               placeholder="Filtrar por constelación"
               style={{ minWidth: 160 }}
+              className="w-full sm:w-auto"
             />
             <Select.Content>
               <Select.Item value="all">Todas las constelaciones</Select.Item>
@@ -192,6 +189,7 @@ export default function ServerList() {
             <Select.Trigger
               placeholder="Filtrar por configuración"
               style={{ minWidth: 160 }}
+              className="w-full sm:w-auto"
             />
             <Select.Content>
               <Select.Item value="all">Todas las configuraciones</Select.Item>
@@ -206,6 +204,7 @@ export default function ServerList() {
             <Select.Trigger
               placeholder="Ordenar por"
               style={{ minWidth: 140 }}
+              className="w-full sm:w-auto"
             />
             <Select.Content>
               {ORDER_OPTIONS.map((opt) => (
@@ -215,12 +214,13 @@ export default function ServerList() {
               ))}
             </Select.Content>
           </Select.Root>
-          <RadixButton
-            color="green"
+          <AtlasButton
+            variant="success"
             onClick={() => window.location.assign("/admin/servers/create")}
+            className="w-full sm:w-auto"
           >
             Nuevo Servidor
-          </RadixButton>
+          </AtlasButton>
         </Flex>
         <Table.Root variant="surface">
           <Table.Header>
@@ -249,15 +249,15 @@ export default function ServerList() {
               processed.map((server) => (
                 <Table.Row
                   key={server.id}
-                  className="hover:bg-gray-50 transition duration-150"
+                  className="hover:bg-gray-50 transition duration-150 cursor-pointer"
+                  onClick={() =>
+                    window.location.assign(`/admin/servers/${server.id}`)
+                  }
                 >
                   <Table.Cell>
-                    <Link
-                      href={`/admin/servers/${server.id}`}
-                      className="text-blue-600 hover:underline"
-                    >
+                    <span className="text-blue-600 hover:underline">
                       {server.name}
-                    </Link>
+                    </span>
                   </Table.Cell>
                   <Table.Cell>{server.domain}</Table.Cell>
                   <Table.Cell>{server.constellation?.name || "-"}</Table.Cell>
@@ -278,7 +278,11 @@ export default function ServerList() {
                     </Text>
                   </Table.Cell>
                   <Table.Cell>{server.config?.name || "-"}</Table.Cell>
-                  <Table.Cell onClick={(e) => e.stopPropagation()}>
+                  <Table.Cell
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
+                  >
                     <DeleteButtonWithConfirm
                       id={server.id}
                       name={server.name}

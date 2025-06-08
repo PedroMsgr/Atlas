@@ -1,5 +1,6 @@
 import React from "react";
-import { Box, Button, TextField, Heading, Flex } from "@radix-ui/themes";
+import { Box, TextField, Heading, Flex } from "@radix-ui/themes";
+import { AtlasButton } from "../ui/AtlasButton";
 
 export default function ConfigGeneralTab({
   form,
@@ -63,15 +64,14 @@ export default function ConfigGeneralTab({
             className="hidden"
           />
           <label htmlFor="config-bannerUrl">
-            <Button
+            <AtlasButton
               asChild
               type="button"
-              color="blue"
-              size="1"
+              variant="upload"
               className="mb-2 cursor-pointer"
             >
               <span>{bannerFile ? "Cambiar imagen" : "Subir imagen"}</span>
-            </Button>
+            </AtlasButton>
           </label>
           {(bannerPreview || bannerFile) && bannerPreview && (
             <Flex align="center" gap="2">
@@ -83,14 +83,31 @@ export default function ConfigGeneralTab({
               <span className="text-sm break-all">
                 {bannerFile ? bannerFile.name : ""}
               </span>
-              <Button
+              <AtlasButton
                 type="button"
-                color="red"
-                size="1"
+                variant="delete"
                 onClick={() => handleRemoveImage("bannerUrl")}
               >
                 Eliminar
-              </Button>
+              </AtlasButton>
+            </Flex>
+          )}
+          {/* Mostrar imagen guardada si no hay preview ni archivo */}
+          {!bannerPreview && !bannerFile && form.bannerUrl && (
+            <Flex align="center" gap="2">
+              <img
+                src={form.bannerUrl}
+                alt="Banner guardado"
+                className="h-12 w-24 rounded"
+              />
+              <span className="text-xs text-gray-500">Imagen guardada</span>
+              <AtlasButton
+                type="button"
+                variant="delete"
+                onClick={() => handleRemoveImage("bannerUrl")}
+              >
+                Eliminar
+              </AtlasButton>
             </Flex>
           )}
         </Box>
@@ -109,15 +126,14 @@ export default function ConfigGeneralTab({
             className="hidden"
           />
           <label htmlFor="config-iconUrl">
-            <Button
+            <AtlasButton
               asChild
               type="button"
-              color="blue"
-              size="1"
+              variant="upload"
               className="mb-2 cursor-pointer"
             >
               <span>{iconFile ? "Cambiar icono" : "Subir icono"}</span>
-            </Button>
+            </AtlasButton>
           </label>
           {(iconPreview || iconFile) && iconPreview && (
             <Flex align="center" gap="2">
@@ -129,14 +145,31 @@ export default function ConfigGeneralTab({
               <span className="text-sm break-all">
                 {iconFile ? iconFile.name : ""}
               </span>
-              <Button
+              <AtlasButton
                 type="button"
-                color="red"
-                size="1"
+                variant="delete"
                 onClick={() => handleRemoveImage("iconUrl")}
               >
                 Eliminar
-              </Button>
+              </AtlasButton>
+            </Flex>
+          )}
+          {/* Mostrar icono guardado si no hay preview ni archivo */}
+          {!iconPreview && !iconFile && form.iconUrl && (
+            <Flex align="center" gap="2">
+              <img
+                src={form.iconUrl}
+                alt="Icono guardado"
+                className="h-12 w-12 rounded-full"
+              />
+              <span className="text-xs text-gray-500">Icono guardado</span>
+              <AtlasButton
+                type="button"
+                variant="delete"
+                onClick={() => handleRemoveImage("iconUrl")}
+              >
+                Eliminar
+              </AtlasButton>
             </Flex>
           )}
         </Box>
@@ -150,21 +183,21 @@ export default function ConfigGeneralTab({
           <div className="text-red-600 mt-2">{updateError.message}</div>
         )}
         <Flex justify="end" align="center" className="gap-2">
-          <Button
+          <AtlasButton
             type="button"
-            variant="soft"
+            variant="cancel"
             onClick={() => router.push("/admin/configs")}
           >
             Cancelar
-          </Button>
-          <Button
+          </AtlasButton>
+          <AtlasButton
             type="button"
-            color="green"
+            variant="success"
             disabled={updating}
             onClick={handleSubmit}
           >
             Actualizar Configuración
-          </Button>
+          </AtlasButton>
         </Flex>
       </form>
     </Box>

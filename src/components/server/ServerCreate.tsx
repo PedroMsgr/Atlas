@@ -2,15 +2,8 @@ import { useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { CREATE_SERVER } from "@/graphql/mutations/server.mutations";
 import { GET_CONSTELLATIONS } from "@/graphql/queries/constellation.queries";
-import {
-  TextField,
-  Select,
-  Button,
-  Text,
-  Box,
-  Heading,
-  Flex,
-} from "@radix-ui/themes";
+import { TextField, Select, Text, Box, Heading, Flex } from "@radix-ui/themes";
+import { AtlasButton } from "../ui/AtlasButton";
 
 interface ServerCreateProps {
   onSuccess?: (id: string) => void;
@@ -168,9 +161,9 @@ export default function ServerCreate({ onSuccess }: ServerCreateProps) {
           </Text>
         )}
         <Flex justify="end" className="pt-2">
-          <Button type="submit" disabled={loading} color="green">
+          <AtlasButton type="submit" disabled={loading} variant="success">
             {loading ? "Creando..." : "Crear Servidor"}
-          </Button>
+          </AtlasButton>
         </Flex>
       </form>
     </Box>

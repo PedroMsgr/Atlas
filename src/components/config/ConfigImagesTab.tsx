@@ -1,9 +1,10 @@
 import React from "react";
-import { Box, Button, Heading, Flex } from "@radix-ui/themes";
+import { Box, Heading, Flex } from "@radix-ui/themes";
 import SortableItem from "../dndkit/SortableItem";
 import { DndProvider } from "../dndkit/DndProvider";
 import SortableList from "../dndkit/SortableList";
 import Image from "next/image";
+import { AtlasButton } from "../ui/AtlasButton";
 
 export default function ImagesTab({
   form,
@@ -48,15 +49,14 @@ export default function ImagesTab({
           className="hidden"
         />
         <label htmlFor="global-image-upload">
-          <Button
+          <AtlasButton
             asChild
             type="button"
-            color="blue"
-            size="1"
+            variant="upload"
             className="mb-2 cursor-pointer"
           >
             <span>Subir imagen</span>
-          </Button>
+          </AtlasButton>
         </label>
       </Box>
       {loadingImages ? (
@@ -89,14 +89,13 @@ export default function ImagesTab({
                     {img.altText}
                   </div>
                 </Flex>
-                <Button
+                <AtlasButton
                   type="button"
-                  color="red"
-                  size="1"
+                  variant="delete"
                   onClick={() => handleDeleteImageGlobal(img.id)}
                 >
                   Eliminar
-                </Button>
+                </AtlasButton>
               </SortableItem>
             ))}
           </SortableList>

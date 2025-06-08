@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { ExitIcon, HomeIcon, GearIcon } from "@radix-ui/react-icons";
 import AtlasLogo from "@/components/ui/AtlasLogo";
+import { AtlasButton } from "@/components/ui/AtlasButton";
 
 // Extender el tipo de sesión para incluir role
 interface CustomUser {
@@ -86,9 +87,9 @@ export default function Header() {
                 </>
               ) : (
                 <Link href="/auth/signin">
-                  <Button variant="solid" size="2">
+                  <AtlasButton variant="login" style={{ minWidth: 120 }}>
                     Iniciar sesión
-                  </Button>
+                  </AtlasButton>
                 </Link>
               )}
             </Flex>

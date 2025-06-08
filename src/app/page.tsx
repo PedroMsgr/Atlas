@@ -1,5 +1,4 @@
 import {
-  Button,
   Container,
   Flex,
   Heading,
@@ -12,6 +11,7 @@ import Link from "next/link";
 import MainLayout from "@/components/layout/MainLayout";
 import AtlasLogo from "@/components/ui/AtlasLogo";
 import Image from "next/image";
+import { AtlasButton } from "@/components/ui/AtlasButton";
 
 export default function Home() {
   return (
@@ -41,12 +41,12 @@ export default function Home() {
                 manera eficiente y transparente
               </Text>
               <Link href="/auth/signin">
-                <Button
-                  size="3"
+                <AtlasButton
+                  variant="login"
                   className="mt-6 px-6 py-3 md:px-8 md:py-4 w-full sm:w-auto"
                 >
                   Iniciar sesión
-                </Button>
+                </AtlasButton>
               </Link>
             </Flex>
           </Container>
@@ -135,21 +135,17 @@ export default function Home() {
                 className="flex-col sm:flex-row w-full sm:w-auto"
               >
                 <Link href="/auth/signin" className="w-full sm:w-auto">
-                  <Button size="3" className="w-full sm:w-auto">
+                  <AtlasButton variant="login" className="w-full sm:w-auto">
                     Iniciar sesión
-                  </Button>
+                  </AtlasButton>
                 </Link>
                 <Link
                   href="mailto:info@atlasnode.com"
                   className="w-full sm:w-auto"
                 >
-                  <Button
-                    size="3"
-                    variant="outline"
-                    className="w-full sm:w-auto"
-                  >
+                  <AtlasButton variant="primary" className="w-full sm:w-auto">
                     Contactar
-                  </Button>
+                  </AtlasButton>
                 </Link>
               </Flex>
             </Flex>

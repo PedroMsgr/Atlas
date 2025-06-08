@@ -2,21 +2,14 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import {
-  Box,
-  Table,
-  Text,
-  Button as RadixButton,
-  Spinner,
-  Flex,
-  Card,
-} from "@radix-ui/themes";
+import { Box, Table, Text, Spinner, Flex, Card } from "@radix-ui/themes";
 import { useQuery, useMutation } from "@apollo/client";
 import { DELETE_USER } from "@/graphql/mutations/user.mutations";
 import { GET_USERS } from "@/graphql/queries";
 import { Role } from "@/types/user.types";
 import DeleteButtonWithConfirm from "@/components/ui/DeleteButtonWithConfirm";
 import { useRouter } from "next/navigation";
+import { AtlasButton } from "../ui/AtlasButton";
 
 export default function ClientList() {
   const router = useRouter();
@@ -25,17 +18,13 @@ export default function ClientList() {
     variables: { role: Role.CLIENT },
     fetchPolicy: "cache-and-network",
   });
-  const [deleteId, setDeleteId] = useState<string | null>(null);
-  const [showDialog, setShowDialog] = useState(false);
   const [deleteUser, { loading: deleting }] = useMutation(DELETE_USER, {
     onCompleted: () => {
-      setShowDialog(false);
-      setDeleteId(null);
       refetch();
     },
     onError: () => {
-      setShowDialog(false);
-      setDeleteId(null);
+      // setShowDialog(false);
+      // setDeleteId(null);
     },
   });
   const users = data?.users || [];
@@ -54,12 +43,18 @@ export default function ClientList() {
   return (
     <Box>
       <Card>
-        <Flex mb="4" align="center" gap="3">
+        <Flex
+          mb="4"
+          align="center"
+          gap="3"
+          className="flex flex-col gap-2 sm:flex-row sm:items-center"
+        >
           <input
             type="text"
             placeholder="Buscar por nombre o email..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
+            className="w-full sm:w-auto"
             style={{
               minWidth: 220,
               background: "#fff",
@@ -68,12 +63,13 @@ export default function ClientList() {
               padding: "8px 12px",
             }}
           />
-          <RadixButton
-            color="green"
+          <AtlasButton
+            variant="success"
             onClick={() => router.push("/admin/clients/create")}
+            className="w-full sm:w-auto"
           >
             Crear cliente
-          </RadixButton>
+          </AtlasButton>
         </Flex>
         {loading ? (
           <Spinner />

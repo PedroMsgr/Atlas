@@ -1,8 +1,9 @@
 import React from "react";
-import { Box, Button, TextField, Heading, Flex } from "@radix-ui/themes";
+import { Box, TextField, Heading, Flex } from "@radix-ui/themes";
 import SortableItem from "../dndkit/SortableItem";
 import { DndProvider } from "../dndkit/DndProvider";
 import SortableList from "../dndkit/SortableList";
+import { AtlasButton } from "../ui/AtlasButton";
 
 export default function ConfigFooterLinksTab({
   footerLinks,
@@ -70,25 +71,25 @@ export default function ConfigFooterLinksTab({
           required
         />
         <Flex gap="2" className="mt-2">
-          <Button
-            color="green"
+          <AtlasButton
+            variant="success"
             disabled={!footerLinkForm.label || !footerLinkForm.url}
             onClick={
               editingFooterLinkId ? handleEditFooterLink : handleAddFooterLink
             }
           >
             {editingFooterLinkId ? "Actualizar" : "Agregar"}
-          </Button>
+          </AtlasButton>
           {editingFooterLinkId && (
-            <Button
-              variant="soft"
+            <AtlasButton
+              variant="cancel"
               onClick={() => {
                 setEditingFooterLinkId(null);
                 setFooterLinkForm({ id: undefined, label: "", url: "" });
               }}
             >
               Cancelar
-            </Button>
+            </AtlasButton>
           )}
         </Flex>
       </Box>
@@ -123,21 +124,20 @@ export default function ConfigFooterLinksTab({
                   </a>
                 </div>
                 <Flex gap="2">
-                  <Button
+                  <AtlasButton
                     type="button"
-                    size="1"
+                    variant="update"
                     onClick={() => loadFooterLinkForEdit(link)}
                   >
                     Editar
-                  </Button>
-                  <Button
+                  </AtlasButton>
+                  <AtlasButton
                     type="button"
-                    color="red"
-                    size="1"
+                    variant="delete"
                     onClick={() => handleDeleteFooterLink(link.id)}
                   >
                     Eliminar
-                  </Button>
+                  </AtlasButton>
                 </Flex>
               </SortableItem>
             ))}

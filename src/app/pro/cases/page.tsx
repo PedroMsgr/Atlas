@@ -1,7 +1,7 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import { Box, Card, Heading, Flex, Text } from "@radix-ui/themes";
+import { Box, Card, Heading } from "@radix-ui/themes";
 import CaseListPro from "@/components/case/CaseListPro";
 
 export default function ProCasesPage() {

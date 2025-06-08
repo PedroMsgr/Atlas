@@ -27,6 +27,7 @@ export class CasesRepository {
     search,
     userId, // Nuevo filtro opcional para filtrar por Professional.userId
     onlyClient, // <-- Añadido para distinguir filtro pro
+    tags, // <-- Añadido para filtrar por tags
   }: {
     page?: number;
     pageSize?: number;
@@ -37,6 +38,7 @@ export class CasesRepository {
     search?: string;
     userId?: string;
     onlyClient?: boolean;
+    tags?: string[]; // <-- Añadido tipo para tags
   }) {
     const where: any = {};
     if (status) where.status = status;
@@ -116,6 +118,8 @@ export class CasesRepository {
         }
       }
     }
+    if (tags && Array.isArray(tags) && tags.length > 0)
+      where.tags = { hasSome: tags };
     const [total, cases] = await Promise.all([
       prisma.case.count({ where }),
       prisma.case.findMany({
@@ -217,7 +221,10 @@ export class CasesRepository {
   async update(id: string, data: Partial<Case>): Promise<Case> {
     return prisma.case.update({
       where: { id },
-      data,
+      data: {
+        ...data,
+        ...(data.tags ? { tags: { set: data.tags } } : {}),
+      },
       include: {
         client: true,
         professional: true,

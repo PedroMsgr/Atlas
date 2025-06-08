@@ -1,7 +1,5 @@
-import type { Metadata } from "next";
 import "./globals.css";
 import ClientProviders from "@/components/layout/ClientProviders";
-import { metadata } from "./metadata";
 import { geistSans, geistMono } from "./fonts";
 
 export default function RootLayout({

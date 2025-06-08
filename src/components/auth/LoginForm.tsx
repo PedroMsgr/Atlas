@@ -1,11 +1,12 @@
 "use client";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
-import { Button, Card, Flex, Heading, Text, Box } from "@radix-ui/themes";
+import { Card, Flex, Heading, Text, Box } from "@radix-ui/themes";
 import Link from "next/link";
 import useIsMobile from "@/hooks/useIsMobile"; // Hook para detectar si es móvil
 import AtlasLogo from "@/components/ui/AtlasLogo"; // Asegúrate de que la ruta sea correcta
 import BanishTransition from "@/components/ui/BanishTransition";
+import { AtlasButton } from "@/components/ui/AtlasButton";
 
 export default function LoginForm() {
   const isMobile = useIsMobile();
@@ -86,15 +87,14 @@ export default function LoginForm() {
                   />
                 </Flex>
                 <div className="flex flex-col items-center w-full gap-2 mt-2">
-                  <Button
+                  <AtlasButton
                     type="submit"
-                    className="w-full rounded-2xl py-3 font-semibold text-base max-w-xs"
+                    className="w-full max-w-xs"
                     disabled={loading}
-                    variant="surface"
-                    radius="full"
+                    variant="login"
                   >
                     {loading ? "Iniciando sesión..." : "Iniciar sesión"}
-                  </Button>
+                  </AtlasButton>
                   <Link
                     href="#"
                     className="text-xs text-blue-600 hover:underline text-center"
@@ -175,15 +175,14 @@ export default function LoginForm() {
                         />
                       </Flex>
                       <div className="flex flex-col items-center w-full gap-2 mt-2">
-                        <Button
+                        <AtlasButton
                           type="submit"
-                          className="w-full rounded-2xl py-3 font-semibold text-lg max-w-xs"
+                          className="w-full max-w-xs"
                           disabled={loading}
-                          variant="surface"
-                          radius="full"
+                          variant="login"
                         >
                           {loading ? "Iniciando sesión..." : "Iniciar sesión"}
-                        </Button>
+                        </AtlasButton>
                         <Link
                           href="#"
                           className="text-xs text-blue-600 hover:underline text-center"

@@ -237,6 +237,7 @@ const typeDefs = gql`
     status: CaseStatus!
     createdAt: DateTime!
     updatedAt: DateTime!
+    tags: [String!]!
     client: Client
     professional: Professional
     server: UnitServer!
@@ -366,6 +367,7 @@ const typeDefs = gql`
     serverId: ID
     search: String
     onlyClient: Boolean
+    tags: [String]
   }
 
   # Input para crear un caso
@@ -374,12 +376,14 @@ const typeDefs = gql`
     professionalId: ID!
     serverId: ID!
     status: CaseStatus
+    tags: [String!]
   }
 
   # Input para actualizar un caso
   input CaseUpdateInput {
     status: CaseStatus
     professionalId: ID
+    tags: [String!]
   }
 
   #########################

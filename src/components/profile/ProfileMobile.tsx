@@ -5,7 +5,6 @@ import { useQuery, useMutation } from "@apollo/client";
 import { GET_ME } from "@/graphql/queries/me.queries";
 import { UPDATE_ME } from "@/graphql/mutations/me.mutations";
 import {
-  Box,
   Heading,
   Text,
   Button,

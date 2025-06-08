@@ -6282,6 +6282,7 @@ export namespace Prisma {
     status: number
     createdAt: number
     updatedAt: number
+    tags: number
     _all: number
   }
 
@@ -6314,6 +6315,7 @@ export namespace Prisma {
     status?: true
     createdAt?: true
     updatedAt?: true
+    tags?: true
     _all?: true
   }
 
@@ -6397,6 +6399,7 @@ export namespace Prisma {
     status: $Enums.CaseStatus
     createdAt: Date
     updatedAt: Date
+    tags: string[]
     _count: CaseCountAggregateOutputType | null
     _min: CaseMinAggregateOutputType | null
     _max: CaseMaxAggregateOutputType | null
@@ -6424,6 +6427,7 @@ export namespace Prisma {
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    tags?: boolean
     client?: boolean | ClientDefaultArgs<ExtArgs>
     professional?: boolean | ProfessionalDefaultArgs<ExtArgs>
     server?: boolean | UnitServerDefaultArgs<ExtArgs>
@@ -6441,6 +6445,7 @@ export namespace Prisma {
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    tags?: boolean
     client?: boolean | ClientDefaultArgs<ExtArgs>
     professional?: boolean | ProfessionalDefaultArgs<ExtArgs>
     server?: boolean | UnitServerDefaultArgs<ExtArgs>
@@ -6454,6 +6459,7 @@ export namespace Prisma {
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    tags?: boolean
     client?: boolean | ClientDefaultArgs<ExtArgs>
     professional?: boolean | ProfessionalDefaultArgs<ExtArgs>
     server?: boolean | UnitServerDefaultArgs<ExtArgs>
@@ -6467,9 +6473,10 @@ export namespace Prisma {
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    tags?: boolean
   }
 
-  export type CaseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "clientId" | "professionalId" | "serverId" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["case"]>
+  export type CaseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "clientId" | "professionalId" | "serverId" | "status" | "createdAt" | "updatedAt" | "tags", ExtArgs["result"]["case"]>
   export type CaseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     client?: boolean | ClientDefaultArgs<ExtArgs>
     professional?: boolean | ProfessionalDefaultArgs<ExtArgs>
@@ -6508,6 +6515,7 @@ export namespace Prisma {
       status: $Enums.CaseStatus
       createdAt: Date
       updatedAt: Date
+      tags: string[]
     }, ExtArgs["result"]["case"]>
     composites: {}
   }
@@ -6944,6 +6952,7 @@ export namespace Prisma {
     readonly status: FieldRef<"Case", 'CaseStatus'>
     readonly createdAt: FieldRef<"Case", 'DateTime'>
     readonly updatedAt: FieldRef<"Case", 'DateTime'>
+    readonly tags: FieldRef<"Case", 'String[]'>
   }
     
 
@@ -22040,7 +22049,8 @@ export namespace Prisma {
     serverId: 'serverId',
     status: 'status',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    tags: 'tags'
   };
 
   export type CaseScalarFieldEnum = (typeof CaseScalarFieldEnum)[keyof typeof CaseScalarFieldEnum]
@@ -22610,6 +22620,7 @@ export namespace Prisma {
     status?: EnumCaseStatusFilter<"Case"> | $Enums.CaseStatus
     createdAt?: DateTimeFilter<"Case"> | Date | string
     updatedAt?: DateTimeFilter<"Case"> | Date | string
+    tags?: StringNullableListFilter<"Case">
     client?: XOR<ClientScalarRelationFilter, ClientWhereInput>
     professional?: XOR<ProfessionalScalarRelationFilter, ProfessionalWhereInput>
     server?: XOR<UnitServerScalarRelationFilter, UnitServerWhereInput>
@@ -22626,6 +22637,7 @@ export namespace Prisma {
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    tags?: SortOrder
     client?: ClientOrderByWithRelationInput
     professional?: ProfessionalOrderByWithRelationInput
     server?: UnitServerOrderByWithRelationInput
@@ -22645,6 +22657,7 @@ export namespace Prisma {
     status?: EnumCaseStatusFilter<"Case"> | $Enums.CaseStatus
     createdAt?: DateTimeFilter<"Case"> | Date | string
     updatedAt?: DateTimeFilter<"Case"> | Date | string
+    tags?: StringNullableListFilter<"Case">
     client?: XOR<ClientScalarRelationFilter, ClientWhereInput>
     professional?: XOR<ProfessionalScalarRelationFilter, ProfessionalWhereInput>
     server?: XOR<UnitServerScalarRelationFilter, UnitServerWhereInput>
@@ -22661,6 +22674,7 @@ export namespace Prisma {
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    tags?: SortOrder
     _count?: CaseCountOrderByAggregateInput
     _max?: CaseMaxOrderByAggregateInput
     _min?: CaseMinOrderByAggregateInput
@@ -22677,6 +22691,7 @@ export namespace Prisma {
     status?: EnumCaseStatusWithAggregatesFilter<"Case"> | $Enums.CaseStatus
     createdAt?: DateTimeWithAggregatesFilter<"Case"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Case"> | Date | string
+    tags?: StringNullableListFilter<"Case">
   }
 
   export type ChatWhereInput = {
@@ -23754,6 +23769,7 @@ export namespace Prisma {
     status?: $Enums.CaseStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    tags?: CaseCreatetagsInput | string[]
     client: ClientCreateNestedOneWithoutCasesInput
     professional: ProfessionalCreateNestedOneWithoutCasesInput
     server: UnitServerCreateNestedOneWithoutCasesInput
@@ -23770,6 +23786,7 @@ export namespace Prisma {
     status?: $Enums.CaseStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    tags?: CaseCreatetagsInput | string[]
     chat?: ChatUncheckedCreateNestedOneWithoutCaseInput
     files?: FileUncheckedCreateNestedManyWithoutCaseInput
     reports?: ReportUncheckedCreateNestedManyWithoutCaseInput
@@ -23780,6 +23797,7 @@ export namespace Prisma {
     status?: EnumCaseStatusFieldUpdateOperationsInput | $Enums.CaseStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tags?: CaseUpdatetagsInput | string[]
     client?: ClientUpdateOneRequiredWithoutCasesNestedInput
     professional?: ProfessionalUpdateOneRequiredWithoutCasesNestedInput
     server?: UnitServerUpdateOneRequiredWithoutCasesNestedInput
@@ -23796,6 +23814,7 @@ export namespace Prisma {
     status?: EnumCaseStatusFieldUpdateOperationsInput | $Enums.CaseStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tags?: CaseUpdatetagsInput | string[]
     chat?: ChatUncheckedUpdateOneWithoutCaseNestedInput
     files?: FileUncheckedUpdateManyWithoutCaseNestedInput
     reports?: ReportUncheckedUpdateManyWithoutCaseNestedInput
@@ -23809,6 +23828,7 @@ export namespace Prisma {
     status?: $Enums.CaseStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    tags?: CaseCreatetagsInput | string[]
   }
 
   export type CaseUpdateManyMutationInput = {
@@ -23816,6 +23836,7 @@ export namespace Prisma {
     status?: EnumCaseStatusFieldUpdateOperationsInput | $Enums.CaseStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tags?: CaseUpdatetagsInput | string[]
   }
 
   export type CaseUncheckedUpdateManyInput = {
@@ -23826,6 +23847,7 @@ export namespace Prisma {
     status?: EnumCaseStatusFieldUpdateOperationsInput | $Enums.CaseStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tags?: CaseUpdatetagsInput | string[]
   }
 
   export type ChatCreateInput = {
@@ -25012,6 +25034,14 @@ export namespace Prisma {
     not?: NestedEnumCaseStatusFilter<$PrismaModel> | $Enums.CaseStatus
   }
 
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
   export type ClientScalarRelationFilter = {
     is?: ClientWhereInput
     isNot?: ClientWhereInput
@@ -25035,6 +25065,7 @@ export namespace Prisma {
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    tags?: SortOrder
   }
 
   export type CaseMaxOrderByAggregateInput = {
@@ -26077,6 +26108,10 @@ export namespace Prisma {
     deleteMany?: FileScalarWhereInput | FileScalarWhereInput[]
   }
 
+  export type CaseCreatetagsInput = {
+    set: string[]
+  }
+
   export type ClientCreateNestedOneWithoutCasesInput = {
     create?: XOR<ClientCreateWithoutCasesInput, ClientUncheckedCreateWithoutCasesInput>
     connectOrCreate?: ClientCreateOrConnectWithoutCasesInput
@@ -26137,6 +26172,11 @@ export namespace Prisma {
 
   export type EnumCaseStatusFieldUpdateOperationsInput = {
     set?: $Enums.CaseStatus
+  }
+
+  export type CaseUpdatetagsInput = {
+    set?: string[]
+    push?: string | string[]
   }
 
   export type ClientUpdateOneRequiredWithoutCasesNestedInput = {
@@ -27513,6 +27553,7 @@ export namespace Prisma {
     status?: $Enums.CaseStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    tags?: CaseCreatetagsInput | string[]
     professional: ProfessionalCreateNestedOneWithoutCasesInput
     server: UnitServerCreateNestedOneWithoutCasesInput
     chat?: ChatCreateNestedOneWithoutCaseInput
@@ -27527,6 +27568,7 @@ export namespace Prisma {
     status?: $Enums.CaseStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    tags?: CaseCreatetagsInput | string[]
     chat?: ChatUncheckedCreateNestedOneWithoutCaseInput
     files?: FileUncheckedCreateNestedManyWithoutCaseInput
     reports?: ReportUncheckedCreateNestedManyWithoutCaseInput
@@ -27711,6 +27753,7 @@ export namespace Prisma {
     status?: EnumCaseStatusFilter<"Case"> | $Enums.CaseStatus
     createdAt?: DateTimeFilter<"Case"> | Date | string
     updatedAt?: DateTimeFilter<"Case"> | Date | string
+    tags?: StringNullableListFilter<"Case">
   }
 
   export type FileUpsertWithWhereUniqueWithoutClientInput = {
@@ -27851,6 +27894,7 @@ export namespace Prisma {
     status?: $Enums.CaseStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    tags?: CaseCreatetagsInput | string[]
     client: ClientCreateNestedOneWithoutCasesInput
     server: UnitServerCreateNestedOneWithoutCasesInput
     chat?: ChatCreateNestedOneWithoutCaseInput
@@ -27865,6 +27909,7 @@ export namespace Prisma {
     status?: $Enums.CaseStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    tags?: CaseCreatetagsInput | string[]
     chat?: ChatUncheckedCreateNestedOneWithoutCaseInput
     files?: FileUncheckedCreateNestedManyWithoutCaseInput
     reports?: ReportUncheckedCreateNestedManyWithoutCaseInput
@@ -28333,6 +28378,7 @@ export namespace Prisma {
     status?: $Enums.CaseStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    tags?: CaseCreatetagsInput | string[]
     client: ClientCreateNestedOneWithoutCasesInput
     professional: ProfessionalCreateNestedOneWithoutCasesInput
     server: UnitServerCreateNestedOneWithoutCasesInput
@@ -28348,6 +28394,7 @@ export namespace Prisma {
     status?: $Enums.CaseStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    tags?: CaseCreatetagsInput | string[]
     files?: FileUncheckedCreateNestedManyWithoutCaseInput
     reports?: ReportUncheckedCreateNestedManyWithoutCaseInput
   }
@@ -28397,6 +28444,7 @@ export namespace Prisma {
     status?: EnumCaseStatusFieldUpdateOperationsInput | $Enums.CaseStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tags?: CaseUpdatetagsInput | string[]
     client?: ClientUpdateOneRequiredWithoutCasesNestedInput
     professional?: ProfessionalUpdateOneRequiredWithoutCasesNestedInput
     server?: UnitServerUpdateOneRequiredWithoutCasesNestedInput
@@ -28412,6 +28460,7 @@ export namespace Prisma {
     status?: EnumCaseStatusFieldUpdateOperationsInput | $Enums.CaseStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tags?: CaseUpdatetagsInput | string[]
     files?: FileUncheckedUpdateManyWithoutCaseNestedInput
     reports?: ReportUncheckedUpdateManyWithoutCaseNestedInput
   }
@@ -28484,6 +28533,7 @@ export namespace Prisma {
     status?: $Enums.CaseStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    tags?: CaseCreatetagsInput | string[]
     client: ClientCreateNestedOneWithoutCasesInput
     professional: ProfessionalCreateNestedOneWithoutCasesInput
     server: UnitServerCreateNestedOneWithoutCasesInput
@@ -28499,6 +28549,7 @@ export namespace Prisma {
     status?: $Enums.CaseStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    tags?: CaseCreatetagsInput | string[]
     chat?: ChatUncheckedCreateNestedOneWithoutCaseInput
     reports?: ReportUncheckedCreateNestedManyWithoutCaseInput
   }
@@ -28566,6 +28617,7 @@ export namespace Prisma {
     status?: EnumCaseStatusFieldUpdateOperationsInput | $Enums.CaseStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tags?: CaseUpdatetagsInput | string[]
     client?: ClientUpdateOneRequiredWithoutCasesNestedInput
     professional?: ProfessionalUpdateOneRequiredWithoutCasesNestedInput
     server?: UnitServerUpdateOneRequiredWithoutCasesNestedInput
@@ -28581,6 +28633,7 @@ export namespace Prisma {
     status?: EnumCaseStatusFieldUpdateOperationsInput | $Enums.CaseStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tags?: CaseUpdatetagsInput | string[]
     chat?: ChatUncheckedUpdateOneWithoutCaseNestedInput
     reports?: ReportUncheckedUpdateManyWithoutCaseNestedInput
   }
@@ -28644,6 +28697,7 @@ export namespace Prisma {
     status?: $Enums.CaseStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    tags?: CaseCreatetagsInput | string[]
     client: ClientCreateNestedOneWithoutCasesInput
     professional: ProfessionalCreateNestedOneWithoutCasesInput
     server: UnitServerCreateNestedOneWithoutCasesInput
@@ -28659,6 +28713,7 @@ export namespace Prisma {
     status?: $Enums.CaseStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    tags?: CaseCreatetagsInput | string[]
     chat?: ChatUncheckedCreateNestedOneWithoutCaseInput
     files?: FileUncheckedCreateNestedManyWithoutCaseInput
   }
@@ -28707,6 +28762,7 @@ export namespace Prisma {
     status?: EnumCaseStatusFieldUpdateOperationsInput | $Enums.CaseStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tags?: CaseUpdatetagsInput | string[]
     client?: ClientUpdateOneRequiredWithoutCasesNestedInput
     professional?: ProfessionalUpdateOneRequiredWithoutCasesNestedInput
     server?: UnitServerUpdateOneRequiredWithoutCasesNestedInput
@@ -28722,6 +28778,7 @@ export namespace Prisma {
     status?: EnumCaseStatusFieldUpdateOperationsInput | $Enums.CaseStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tags?: CaseUpdatetagsInput | string[]
     chat?: ChatUncheckedUpdateOneWithoutCaseNestedInput
     files?: FileUncheckedUpdateManyWithoutCaseNestedInput
   }
@@ -29810,6 +29867,7 @@ export namespace Prisma {
     status?: $Enums.CaseStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    tags?: CaseCreatetagsInput | string[]
     client: ClientCreateNestedOneWithoutCasesInput
     professional: ProfessionalCreateNestedOneWithoutCasesInput
     chat?: ChatCreateNestedOneWithoutCaseInput
@@ -29824,6 +29882,7 @@ export namespace Prisma {
     status?: $Enums.CaseStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    tags?: CaseCreatetagsInput | string[]
     chat?: ChatUncheckedCreateNestedOneWithoutCaseInput
     files?: FileUncheckedCreateNestedManyWithoutCaseInput
     reports?: ReportUncheckedCreateNestedManyWithoutCaseInput
@@ -30152,6 +30211,7 @@ export namespace Prisma {
     status?: $Enums.CaseStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    tags?: CaseCreatetagsInput | string[]
   }
 
   export type FileCreateManyClientInput = {
@@ -30176,6 +30236,7 @@ export namespace Prisma {
     status?: EnumCaseStatusFieldUpdateOperationsInput | $Enums.CaseStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tags?: CaseUpdatetagsInput | string[]
     professional?: ProfessionalUpdateOneRequiredWithoutCasesNestedInput
     server?: UnitServerUpdateOneRequiredWithoutCasesNestedInput
     chat?: ChatUpdateOneWithoutCaseNestedInput
@@ -30190,6 +30251,7 @@ export namespace Prisma {
     status?: EnumCaseStatusFieldUpdateOperationsInput | $Enums.CaseStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tags?: CaseUpdatetagsInput | string[]
     chat?: ChatUncheckedUpdateOneWithoutCaseNestedInput
     files?: FileUncheckedUpdateManyWithoutCaseNestedInput
     reports?: ReportUncheckedUpdateManyWithoutCaseNestedInput
@@ -30202,6 +30264,7 @@ export namespace Prisma {
     status?: EnumCaseStatusFieldUpdateOperationsInput | $Enums.CaseStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tags?: CaseUpdatetagsInput | string[]
   }
 
   export type FileUpdateWithoutClientInput = {
@@ -30262,6 +30325,7 @@ export namespace Prisma {
     status?: $Enums.CaseStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    tags?: CaseCreatetagsInput | string[]
   }
 
   export type FileCreateManyProfessionalInput = {
@@ -30279,6 +30343,7 @@ export namespace Prisma {
     status?: EnumCaseStatusFieldUpdateOperationsInput | $Enums.CaseStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tags?: CaseUpdatetagsInput | string[]
     client?: ClientUpdateOneRequiredWithoutCasesNestedInput
     server?: UnitServerUpdateOneRequiredWithoutCasesNestedInput
     chat?: ChatUpdateOneWithoutCaseNestedInput
@@ -30293,6 +30358,7 @@ export namespace Prisma {
     status?: EnumCaseStatusFieldUpdateOperationsInput | $Enums.CaseStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tags?: CaseUpdatetagsInput | string[]
     chat?: ChatUncheckedUpdateOneWithoutCaseNestedInput
     files?: FileUncheckedUpdateManyWithoutCaseNestedInput
     reports?: ReportUncheckedUpdateManyWithoutCaseNestedInput
@@ -30305,6 +30371,7 @@ export namespace Prisma {
     status?: EnumCaseStatusFieldUpdateOperationsInput | $Enums.CaseStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tags?: CaseUpdatetagsInput | string[]
   }
 
   export type FileUpdateWithoutProfessionalInput = {
@@ -30761,6 +30828,7 @@ export namespace Prisma {
     status?: $Enums.CaseStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    tags?: CaseCreatetagsInput | string[]
   }
 
   export type ServerLogCreateManyServerInput = {
@@ -30819,6 +30887,7 @@ export namespace Prisma {
     status?: EnumCaseStatusFieldUpdateOperationsInput | $Enums.CaseStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tags?: CaseUpdatetagsInput | string[]
     client?: ClientUpdateOneRequiredWithoutCasesNestedInput
     professional?: ProfessionalUpdateOneRequiredWithoutCasesNestedInput
     chat?: ChatUpdateOneWithoutCaseNestedInput
@@ -30833,6 +30902,7 @@ export namespace Prisma {
     status?: EnumCaseStatusFieldUpdateOperationsInput | $Enums.CaseStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tags?: CaseUpdatetagsInput | string[]
     chat?: ChatUncheckedUpdateOneWithoutCaseNestedInput
     files?: FileUncheckedUpdateManyWithoutCaseNestedInput
     reports?: ReportUncheckedUpdateManyWithoutCaseNestedInput
@@ -30845,6 +30915,7 @@ export namespace Prisma {
     status?: EnumCaseStatusFieldUpdateOperationsInput | $Enums.CaseStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tags?: CaseUpdatetagsInput | string[]
   }
 
   export type ServerLogUpdateWithoutServerInput = {

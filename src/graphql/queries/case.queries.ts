@@ -9,6 +9,7 @@ export const GET_CASES = gql`
       cases {
         id
         status
+        tags
         createdAt
         updatedAt
         client {
@@ -41,6 +42,7 @@ export const GET_CASE = gql`
     case(id: $id) {
       id
       status
+      tags
       createdAt
       updatedAt
       client {

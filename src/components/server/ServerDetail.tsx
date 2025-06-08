@@ -8,7 +8,6 @@ import {
   Badge,
   Flex,
   Separator,
-  Button,
   Select,
 } from "@radix-ui/themes";
 import { useRouter } from "next/navigation";
@@ -24,6 +23,7 @@ import {
 } from "@/graphql/mutations/server.mutations";
 import { GET_ALL_CONFIGURATIONS } from "@/graphql/queries/config.queries";
 import { formatDate } from "@/lib/date-formatter";
+import { AtlasButton } from "../ui/AtlasButton";
 
 interface ServerDetailProps {
   serverId: string;
@@ -224,10 +224,9 @@ export default function ServerDetail({ serverId }: ServerDetailProps) {
                     ? newTokens.orchestratorToken
                     : server.orchestratorToken}
                 </div>
-                <Button
-                  size="1"
-                  variant="soft"
-                  className="mt-1"
+                <AtlasButton
+                  variant="dashboard-secondary"
+                  className="mt-1 w-full"
                   onClick={() =>
                     handleCopyToClipboard(
                       tokensChanged
@@ -237,8 +236,8 @@ export default function ServerDetail({ serverId }: ServerDetailProps) {
                     )
                   }
                 >
-                  {isCopied.orchestratorToken ? "✓ Copiado" : "Copiar"}
-                </Button>
+                  {isCopied.orchestratorToken ? "Copiado!" : "Copiar token"}
+                </AtlasButton>
               </div>
               <div className="bg-gray-50 p-2 rounded">
                 <Text weight="bold" size="2">
@@ -247,10 +246,9 @@ export default function ServerDetail({ serverId }: ServerDetailProps) {
                 <div className="bg-white p-1 rounded border mt-1 font-mono text-xs overflow-x-auto">
                   {tokensChanged ? newTokens.unitToken : server.unitToken}
                 </div>
-                <Button
-                  size="1"
-                  variant="soft"
-                  className="mt-1"
+                <AtlasButton
+                  variant="dashboard-secondary"
+                  className="mt-1 w-full"
                   onClick={() =>
                     handleCopyToClipboard(
                       tokensChanged ? newTokens.unitToken! : server.unitToken,
@@ -258,8 +256,8 @@ export default function ServerDetail({ serverId }: ServerDetailProps) {
                     )
                   }
                 >
-                  {isCopied.unitToken ? "✓ Copiado" : "Copiar"}
-                </Button>
+                  {isCopied.unitToken ? "Copiado!" : "Copiar token"}
+                </AtlasButton>
               </div>
             </div>
             <Flex direction="column" gap="2" className="mt-2">
@@ -269,10 +267,8 @@ export default function ServerDetail({ serverId }: ServerDetailProps) {
                 </Text>
               )}
               {!tokensChanged ? (
-                <Button
-                  size="2"
-                  color="amber"
-                  variant="soft"
+                <AtlasButton
+                  variant="dashboard-primary"
                   disabled={isRegeneratingTokens || generatingTokens}
                   onClick={handleRegenerateTokens}
                   className="w-full"
@@ -280,31 +276,28 @@ export default function ServerDetail({ serverId }: ServerDetailProps) {
                   {isRegeneratingTokens || generatingTokens
                     ? "Generando..."
                     : "Regenerar tokens"}
-                </Button>
+                </AtlasButton>
               ) : (
                 <Flex gap="2">
-                  <Button
-                    size="2"
-                    color="green"
+                  <AtlasButton
+                    variant="success"
                     onClick={handleSaveTokens}
                     disabled={updatingTokens}
                     className="w-full"
                   >
-                    {updatingTokens ? "Guardando..." : "Guardar cambios"}
-                  </Button>
-                  <Button
-                    size="2"
-                    variant="soft"
+                    {updatingTokens ? "Guardando..." : "Guardar tokens"}
+                  </AtlasButton>
+                  <AtlasButton
+                    variant="cancel"
                     onClick={() => {
                       setTokensChanged(false);
                       setNewTokens({});
                       setUpdateError(null);
                     }}
-                    disabled={updatingTokens}
                     className="w-full"
                   >
                     Cancelar
-                  </Button>
+                  </AtlasButton>
                 </Flex>
               )}
             </Flex>
@@ -322,21 +315,21 @@ export default function ServerDetail({ serverId }: ServerDetailProps) {
           </Flex>
           <Separator />
           <Flex direction="column" gap="2">
-            <Button
-              color="amber"
+            <AtlasButton
+              variant="update"
               onClick={handleRestart}
               disabled={isRestarting}
               className="w-full"
             >
               {isRestarting ? "Reiniciando..." : "Reiniciar servidor"}
-            </Button>
-            <Button
-              color="blue"
+            </AtlasButton>
+            <AtlasButton
+              variant="back"
               className="w-full"
               onClick={() => router.push("/admin/servers")}
             >
               Volver a la lista
-            </Button>
+            </AtlasButton>
           </Flex>
         </Flex>
       </Card>
@@ -396,7 +389,6 @@ export default function ServerDetail({ serverId }: ServerDetailProps) {
             <Box className="mb-2">
               <Text weight="bold">Tokens de acceso:</Text>
               <div className="mt-2 space-y-2">
-                {/* Token de orquestador */}
                 <div className="bg-gray-50 p-2 rounded">
                   <Text weight="bold" size="2">
                     Token de Orquestador:
@@ -406,9 +398,8 @@ export default function ServerDetail({ serverId }: ServerDetailProps) {
                       ? newTokens.orchestratorToken
                       : server.orchestratorToken}
                   </div>
-                  <Button
-                    size="1"
-                    variant="soft"
+                  <AtlasButton
+                    variant="dashboard-secondary"
                     className="mt-1"
                     onClick={() =>
                       handleCopyToClipboard(
@@ -419,10 +410,9 @@ export default function ServerDetail({ serverId }: ServerDetailProps) {
                       )
                     }
                   >
-                    {isCopied.orchestratorToken ? "✓ Copiado" : "Copiar"}
-                  </Button>
+                    {isCopied.orchestratorToken ? "Copiado!" : "Copiar token"}
+                  </AtlasButton>
                 </div>
-                {/* Token de unidad */}
                 <div className="bg-gray-50 p-2 rounded">
                   <Text weight="bold" size="2">
                     Token de Unidad:
@@ -430,9 +420,8 @@ export default function ServerDetail({ serverId }: ServerDetailProps) {
                   <div className="bg-white p-1 rounded border mt-1 font-mono text-xs overflow-x-auto">
                     {tokensChanged ? newTokens.unitToken : server.unitToken}
                   </div>
-                  <Button
-                    size="1"
-                    variant="soft"
+                  <AtlasButton
+                    variant="dashboard-secondary"
                     className="mt-1"
                     onClick={() =>
                       handleCopyToClipboard(
@@ -441,81 +430,70 @@ export default function ServerDetail({ serverId }: ServerDetailProps) {
                       )
                     }
                   >
-                    {isCopied.unitToken ? "✓ Copiado" : "Copiar"}
-                  </Button>
+                    {isCopied.unitToken ? "Copiado!" : "Copiar token"}
+                  </AtlasButton>
                 </div>
-                {/* Botones para regenerar tokens */}
-                <Flex direction="column" gap="2">
-                  {updateError && (
-                    <Text color="red" size="1">
-                      {updateError}
-                    </Text>
-                  )}
-                  <Flex gap="3" justify="end" className="mt-2">
-                    {!tokensChanged ? (
-                      <Button
-                        size="2"
-                        color="amber"
-                        variant="soft"
-                        disabled={isRegeneratingTokens || generatingTokens}
-                        onClick={handleRegenerateTokens}
-                      >
-                        {isRegeneratingTokens || generatingTokens
-                          ? "Generando..."
-                          : "Regenerar tokens"}
-                      </Button>
-                    ) : (
-                      <Flex gap="2">
-                        <Button
-                          size="2"
-                          color="green"
-                          onClick={handleSaveTokens}
-                          disabled={updatingTokens}
-                        >
-                          {updatingTokens ? "Guardando..." : "Guardar cambios"}
-                        </Button>
-                        <Button
-                          size="2"
-                          variant="soft"
-                          onClick={() => {
-                            setTokensChanged(false);
-                            setNewTokens({});
-                            setUpdateError(null);
-                          }}
-                          disabled={updatingTokens}
-                        >
-                          Cancelar
-                        </Button>
-                      </Flex>
-                    )}
-                  </Flex>
-                </Flex>
               </div>
             </Box>
             <Flex gap="4" className="mt-3">
               <Box>
-                <Text weight="bold">Creado:</Text>
-                <Text size="2"> {dateCreated}</Text>
+                {!tokensChanged ? (
+                  <AtlasButton
+                    variant="dashboard-primary"
+                    disabled={isRegeneratingTokens || generatingTokens}
+                    onClick={handleRegenerateTokens}
+                  >
+                    {isRegeneratingTokens || generatingTokens
+                      ? "Generando..."
+                      : "Regenerar tokens"}
+                  </AtlasButton>
+                ) : (
+                  <Flex gap="2">
+                    <AtlasButton
+                      variant="success"
+                      onClick={handleSaveTokens}
+                      disabled={updatingTokens}
+                    >
+                      {updatingTokens ? "Guardando..." : "Guardar tokens"}
+                    </AtlasButton>
+                    <AtlasButton
+                      variant="cancel"
+                      onClick={() => {
+                        setTokensChanged(false);
+                        setNewTokens({});
+                        setUpdateError(null);
+                      }}
+                    >
+                      Cancelar
+                    </AtlasButton>
+                  </Flex>
+                )}
               </Box>
               <Box>
-                <Text weight="bold">Última actualización:</Text>
-                <Text size="2"> {dateUpdated}</Text>
+                {updateError && (
+                  <Text color="red" size="2">
+                    {updateError}
+                  </Text>
+                )}
               </Box>
             </Flex>
           </Box>
           {/* Columna derecha: Acciones */}
           <Box className="flex flex-col justify-between min-w-[220px] gap-4">
-            <Button
-              color="amber"
+            <AtlasButton
+              variant="update"
               onClick={handleRestart}
               disabled={isRestarting}
               className="mb-2"
             >
               {isRestarting ? "Reiniciando..." : "Reiniciar servidor"}
-            </Button>
-            <Button color="blue" onClick={() => router.push("/admin/servers")}>
+            </AtlasButton>
+            <AtlasButton
+              variant="back"
+              onClick={() => router.push("/admin/servers")}
+            >
               Volver a la lista
-            </Button>
+            </AtlasButton>
           </Box>
         </Flex>
       </Flex>

@@ -7,6 +7,7 @@ export const CREATE_CASE = gql`
     createCase(data: $data) {
       id
       status
+      tags
       client {
         id
         user {
@@ -35,6 +36,7 @@ export const UPDATE_CASE = gql`
     updateCase(id: $id, data: $data) {
       id
       status
+      tags
       updatedAt
       professional {
         id

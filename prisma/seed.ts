@@ -168,6 +168,19 @@ async function main() {
   );
 
   // Casos, chat, mensajes, archivos y reportes
+  const TAGS = [
+    "laboral",
+    "familiar",
+    "accidente",
+    "despido",
+    "herencia",
+    "divorcio",
+    "reclamación",
+    "urgente",
+    "consulta",
+    "penal",
+    "civil",
+  ];
   const cases = await Promise.all(
     clients.map((cl, idx) =>
       prisma.case.create({
@@ -176,6 +189,11 @@ async function main() {
           professionalId: professionals[idx % professionals.length].id,
           serverId: cl.serverId,
           status: idx % 3 === 0 ? CaseStatus.open : CaseStatus.inProgress,
+          tags: [
+            TAGS[idx % TAGS.length],
+            TAGS[(idx + 1) % TAGS.length],
+            ...(idx % 4 === 0 ? ["urgente"] : []),
+          ],
         },
       })
     )

@@ -2,21 +2,19 @@ import { useQuery, useMutation } from "@apollo/client";
 import {
   Box,
   Table,
-  Button,
   Spinner,
   Flex,
   Select,
-  Heading,
   Badge,
   Card,
 } from "@radix-ui/themes";
 import { useState } from "react";
 import { GET_CASES } from "@/graphql/queries/case.queries";
 import type { CaseListItem, CaseListResponse } from "@/types/case.types";
-import { TrashIcon } from "@radix-ui/react-icons";
 import { DELETE_CASE } from "@/graphql/mutations/case.mutations";
 import { useRouter } from "next/navigation";
 import DeleteButtonWithConfirm from "@/components/ui/DeleteButtonWithConfirm";
+import { AtlasButton } from "../ui/AtlasButton";
 
 const CASE_STATUS = [
   { value: "all", label: "Todos", color: "gray" },
@@ -71,12 +69,18 @@ export default function CaseList() {
   return (
     <Box>
       <Card>
-        <Flex mb="4" align="center" gap="3">
+        <Flex
+          mb="4"
+          align="center"
+          gap="3"
+          className="flex flex-col gap-2 sm:flex-row sm:items-center"
+        >
           <input
             type="text"
             placeholder="Buscar por cliente o profesional..."
             value={filters.search}
             onChange={handleInputChange}
+            className="w-full sm:w-auto"
             style={{
               minWidth: 220,
               background: "#fff",
@@ -89,7 +93,10 @@ export default function CaseList() {
             value={filters.status}
             onValueChange={handleStatusChange}
           >
-            <Select.Trigger style={{ minWidth: 120 }} />
+            <Select.Trigger
+              style={{ minWidth: 120 }}
+              className="w-full sm:w-auto"
+            />
             <Select.Content>
               {CASE_STATUS.map((s) => (
                 <Select.Item key={s.value} value={s.value}>
@@ -98,12 +105,13 @@ export default function CaseList() {
               ))}
             </Select.Content>
           </Select.Root>
-          <Button
-            color="green"
+          <AtlasButton
+            variant="success"
             onClick={() => router.push("/admin/cases/create")}
+            className="w-full sm:w-auto"
           >
             Crear caso
-          </Button>
+          </AtlasButton>
         </Flex>
         {loading ? (
           <Spinner />
@@ -182,18 +190,23 @@ export default function CaseList() {
           </Table.Root>
         )}
         <Flex mt="4" gap="2" align="center">
-          <Button disabled={page === 1} onClick={() => setPage(page - 1)}>
+          <AtlasButton
+            variant="back"
+            disabled={page === 1}
+            onClick={() => setPage(page - 1)}
+          >
             Anterior
-          </Button>
+          </AtlasButton>
           <span>
             Página {page} de {totalPages}
           </span>
-          <Button
+          <AtlasButton
+            variant="next"
             disabled={page === totalPages}
             onClick={() => setPage(page + 1)}
           >
             Siguiente
-          </Button>
+          </AtlasButton>
         </Flex>
       </Card>
     </Box>

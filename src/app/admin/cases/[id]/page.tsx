@@ -1,104 +1,213 @@
 "use client";
 
-import { useParams } from "next/navigation";
-import { useQuery } from "@apollo/client";
+import { useParams, useRouter } from "next/navigation";
+import { useQuery, useMutation } from "@apollo/client";
+import { GET_CASE } from "@/graphql/queries/case.queries";
+import { UPDATE_CASE } from "@/graphql/mutations/case.mutations";
 import {
   Box,
-  Heading,
-  Spinner,
-  Text,
   Card,
+  Heading,
   Flex,
-  Button,
+  Text,
+  Select,
+  Badge,
+  Spinner,
 } from "@radix-ui/themes";
-import { GET_CASE } from "@/graphql/queries/case.queries";
+import { useState, useEffect } from "react";
+import { AtlasButton } from "@/components/ui/AtlasButton";
 
-export default function CaseDetailPage() {
+const CASE_STATUS = [
+  { value: "open", label: "Abierto", color: "blue" },
+  { value: "inProgress", label: "En progreso", color: "orange" },
+  { value: "pending", label: "Pendiente", color: "yellow" },
+  { value: "closed", label: "Cerrado", color: "gray" },
+];
+
+export default function AdminCaseDetailPage() {
   const params = useParams();
-  const id = Array.isArray(params.id) ? params.id[0] : params.id;
+  const router = useRouter();
+  const caseId = Array.isArray(params.id) ? params.id[0] : params.id;
   const { data, loading, error, refetch } = useQuery(GET_CASE, {
-    variables: { id },
+    variables: { id: caseId },
+    fetchPolicy: "cache-and-network",
+  });
+  const [updateCase, { loading: updating }] = useMutation(UPDATE_CASE, {
+    onCompleted: () => refetch(),
   });
   const c = data?.case;
+  const [status, setStatus] = useState<string | undefined>(undefined);
+  const [tags, setTags] = useState<string[]>(c?.tags || []);
+  const [tagInput, setTagInput] = useState("");
 
-  if (loading)
+  // Sincroniza tags cuando cambia el caso
+  useEffect(() => {
+    if (c?.tags) setTags(c.tags);
+  }, [c?.tags]);
+
+  if (loading) {
     return (
-      <Box className="p-8">
+      <Flex align="center" justify="center" className="min-h-screen">
         <Spinner />
-      </Box>
+      </Flex>
     );
-  if (error)
+  }
+  if (error || !c) {
     return (
-      <Box className="p-8">
-        <Text color="red">Error: {error.message}</Text>
-      </Box>
+      <Flex align="center" justify="center" className="min-h-screen">
+        <Text color="red">No se pudo cargar el caso.</Text>
+      </Flex>
     );
-  if (!c)
-    return (
-      <Box className="p-8">
-        <Text color="gray">No se encontró el caso.</Text>
-      </Box>
-    );
+  }
+
+  const currentStatus = status || c.status;
+  const statusObj =
+    CASE_STATUS.find((s) => s.value === currentStatus) || CASE_STATUS[0];
+
+  // Añadir tag
+  const handleAddTag = () => {
+    const newTag = tagInput.trim();
+    if (newTag && !tags.includes(newTag)) {
+      setTags([...tags, newTag]);
+    }
+    setTagInput("");
+  };
+  // Eliminar tag
+  const handleRemoveTag = (tag: string) => {
+    setTags(tags.filter((t) => t !== tag));
+  };
+  // Añadir con Enter
+  const handleTagInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleAddTag();
+    }
+  };
 
   return (
-    <Box className="p-8">
-      <Flex justify="between" align="center" mb="4">
-        <Heading size="5">Detalle del caso</Heading>
-        <Button onClick={() => refetch()}>Refrescar</Button>
-      </Flex>
-      <Card mb="4">
-        <Text as="div">
-          <b>Estado:</b> {c.status}
-        </Text>
-        <Text as="div">
-          <b>Cliente:</b>{" "}
-          {c.client?.user ? (
-            `${c.client.user.firstName} ${c.client.user.lastName} (${c.client.user.email})`
-          ) : (
-            <span style={{ color: "red" }}>Sin usuario asignado</span>
-          )}
-        </Text>
-        <Text as="div">
-          <b>Profesional:</b>{" "}
-          {c.professional?.user ? (
-            `${c.professional.user.firstName} ${c.professional.user.lastName} (${c.professional.user.email})`
-          ) : (
-            <span style={{ color: "red" }}>Sin usuario asignado</span>
-          )}
-        </Text>
-        <Text as="div">
-          <b>Servidor:</b> {c.server?.name}
-        </Text>
-        <Text as="div">
-          <b>Creado:</b> {new Date(c.createdAt).toLocaleString()}
-        </Text>
-        <Text as="div">
-          <b>Actualizado:</b> {new Date(c.updatedAt).toLocaleString()}
-        </Text>
-        <Text as="div" mt="2">
-          <b>Archivos:</b>{" "}
-          {Array.isArray(c.files) && c.files.length > 0
-            ? `${c.files.length} archivo(s)`
-            : "Sin archivos"}
-        </Text>
-        <Text as="div" mt="2">
-          <b>Chat:</b>{" "}
-          {c.chat
-            ? Array.isArray(c.chat.messages) && c.chat.messages.length > 0
-              ? `Con mensajes (${c.chat.messages.length})`
-              : "Sin mensajes"
-            : "Sin chat"}
-        </Text>
-      </Card>
-
-      <Text as="div" mb="4">
-        Futuras seccionnes por implementar
-      </Text>
-      <Flex justify="end">
-        <Button color="blue" onClick={() => window.history.back()}>
-          Volver
-        </Button>
-      </Flex>
-    </Box>
+    <main className="min-h-screen">
+      <Box className="p-8 max-w-xl mx-auto">
+        <Card>
+          <Heading size="5" mb="4">
+            Detalle del Caso
+          </Heading>
+          <Flex direction="column" gap="4" p="2">
+            <Flex gap="2" align="center" wrap="wrap">
+              <Text weight="bold">Estado:</Text>
+              <Badge color={statusObj.color as any}>{statusObj.label}</Badge>
+              <Select.Root
+                value={currentStatus}
+                onValueChange={(val) => setStatus(val)}
+                disabled={updating}
+              >
+                <Select.Trigger style={{ minWidth: 120 }} />
+                <Select.Content>
+                  {CASE_STATUS.map((s) => (
+                    <Select.Item key={s.value} value={s.value}>
+                      {s.label}
+                    </Select.Item>
+                  ))}
+                </Select.Content>
+              </Select.Root>
+            </Flex>
+            <Flex gap="2" align="center" wrap="wrap">
+              <Text weight="bold">Tags:</Text>
+              <Flex gap="1" align="center" wrap="wrap">
+                {tags.length === 0 && <Text color="gray">Sin tags</Text>}
+                {tags.map((tag) => (
+                  <Badge
+                    key={tag}
+                    color="gray"
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      marginRight: 4,
+                    }}
+                  >
+                    {tag}
+                    <button
+                      type="button"
+                      aria-label={`Eliminar tag ${tag}`}
+                      style={{
+                        marginLeft: 4,
+                        background: "none",
+                        border: "none",
+                        cursor: "pointer",
+                        color: "#888",
+                      }}
+                      onClick={() => handleRemoveTag(tag)}
+                      disabled={updating}
+                    >
+                      ×
+                    </button>
+                  </Badge>
+                ))}
+                <input
+                  type="text"
+                  value={tagInput}
+                  onChange={(e) => setTagInput(e.target.value)}
+                  onKeyDown={handleTagInputKeyDown}
+                  placeholder="Agregar tag"
+                  style={{
+                    minWidth: 80,
+                    border: "1px solid #ddd",
+                    borderRadius: 6,
+                    padding: "4px 8px",
+                  }}
+                  disabled={updating}
+                />
+                <AtlasButton
+                  variant="success"
+                  style={{ padding: "0 8px" }}
+                  onClick={handleAddTag}
+                  disabled={updating || !tagInput.trim()}
+                >
+                  +
+                </AtlasButton>
+              </Flex>
+            </Flex>
+            <AtlasButton
+              variant="success"
+              disabled={
+                updating ||
+                (currentStatus === c.status &&
+                  JSON.stringify(tags) === JSON.stringify(c.tags))
+              }
+              onClick={() =>
+                updateCase({
+                  variables: {
+                    id: c.id,
+                    data: { status: currentStatus, tags },
+                  },
+                })
+              }
+            >
+              Guardar
+            </AtlasButton>
+            <Text>
+              <b>Cliente:</b> {c.client?.user?.firstName}{" "}
+              {c.client?.user?.lastName} ({c.client?.user?.email})
+            </Text>
+            <Text>
+              <b>Profesional:</b> {c.professional?.user?.firstName}{" "}
+              {c.professional?.user?.lastName} ({c.professional?.user?.email})
+            </Text>
+            <Text>
+              <b>Servidor:</b> {c.server?.name}
+            </Text>
+            <Text>
+              <b>Creado:</b> {new Date(c.createdAt).toLocaleString()}
+            </Text>
+            <Text>
+              <b>Última actualización:</b>{" "}
+              {new Date(c.updatedAt).toLocaleString()}
+            </Text>
+            <AtlasButton variant="back" onClick={() => router.back()}>
+              Volver
+            </AtlasButton>
+          </Flex>
+        </Card>
+      </Box>
+    </main>
   );
 }
