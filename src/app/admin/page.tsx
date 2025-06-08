@@ -61,7 +61,7 @@ export default function AdminDashboard() {
 
       {/* Activos Stats */}
       <Grid columns={{ initial: "1", md: "3" }} gap="4" mb="6">
-        <Card>
+        <Card className="bg-gradient-to-b">
           <Flex direction="column" gap="2" p="4">
             <Text size="2" color="gray">
               Servidores Activos
@@ -71,7 +71,7 @@ export default function AdminDashboard() {
             </Heading>
           </Flex>
         </Card>
-        <Card>
+        <Card className="bg-gradient-to-b">
           <Flex direction="column" gap="2" p="4">
             <Text size="2" color="gray">
               Casos Activos
@@ -81,7 +81,7 @@ export default function AdminDashboard() {
             </Heading>
           </Flex>
         </Card>
-        <Card>
+        <Card className="bg-gradient-to-b">
           <Flex direction="column" gap="2" p="4">
             <Text size="2" color="gray">
               Clientes Totales
@@ -96,7 +96,7 @@ export default function AdminDashboard() {
       {/* Contenido Principal */}
       <Grid columns={{ initial: "1", md: "2" }} gap="6">
         {/* Casos Recientes */}
-        <Card>
+        <Card className="bg-gradient-to-b">
           <Box p="4">
             <Heading size="4" mb="4">
               Actividad Reciente
@@ -173,7 +173,7 @@ export default function AdminDashboard() {
         </Card>
 
         {/* Acciones Rápidas */}
-        <Card>
+        <Card className="bg-gradient-to-b">
           <Box p="4">
             <Heading size="4" mb="4">
               Acciones Rápidas
@@ -196,7 +196,7 @@ export default function AdminDashboard() {
         </Card>
 
         {/* Estado del Sistema */}
-        <Card>
+        <Card className="bg-gradient-to-b">
           <Box p="4">
             <Heading size="4" mb="4">
               Estado del Sistema
@@ -249,7 +249,7 @@ export default function AdminDashboard() {
         </Card>
 
         {/* Notifications (maqueta) */}
-        <Card>
+        <Card className="bg-gradient-to-b">
           <Box p="4">
             <Heading size="4" mb="4">
               Notificaciones

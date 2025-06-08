@@ -49,7 +49,7 @@ export default function LoginForm() {
         {isMobile && (
           <div className="min-h-screen flex items-center justify-center ">
             {/* Tarjeta de inicio de sesión para móviles */}
-            <Card className="p-6 bg-white dark:bg-gray-900 rounded-3xl shadow-2xl flex flex-col items-center border-none">
+            <Card className="bg-gradient-to-b p-6 bg-white dark:bg-gray-900 rounded-3xl shadow-2xl flex flex-col items-center border-none">
               <div className="flex flex-col items-center w-full mb-2 mt-2">
                 <AtlasLogo width={80} height={80} className="mb-3" />
                 <Heading size="6" className="text-center w-full mb-2">
@@ -122,7 +122,7 @@ export default function LoginForm() {
           <div className="min-h-screen flex items-center justify-center">
             <div className="w-full max-w-2xl">
               {/* Tarjeta de inicio de sesión para escritorio */}
-              <Card className="flex flex-col items-center p-0 bg-blue-200 dark:bg-gray-900 rounded-[2.5rem] shadow-2xl overflow-hidden border-none min-h-[600px]">
+              <Card className="bg-gradient-to-b flex flex-col items-center p-0 bg-blue-200 dark:bg-gray-900 rounded-[2.5rem] shadow-2xl overflow-hidden border-none min-h-[600px]">
                 {/* Fila superior: Logo y branding */}
                 <div className="flex flex-col justify-center items-center w-full py-12 bg-gradient-to-t from-blue-900 via-blue-700 to-white dark:from-blue-950 dark:via-blue-900 dark:to-gray-900">
                   <AtlasLogo width={140} height={140} className="mb-6" />
@@ -133,7 +133,7 @@ export default function LoginForm() {
                     Atlas
                   </Heading>
                   <Text
-                    size="4"
+                    size="6"
                     className="text-center text-blue-100 font-medium"
                   >
                     Orquestador Legal
@@ -143,7 +143,7 @@ export default function LoginForm() {
                 <div className="flex-1 flex flex-col justify-center bg-white items-center w-full px-8 py-12 rounded-b-[2.5rem]">
                   <div className="w-full max-w-md mx-auto">
                     <Heading
-                      size="7"
+                      size="6"
                       className="text-center w-full mb-4"
                       style={{ marginBottom: "1.5em" }}
                     >
@@ -157,7 +157,7 @@ export default function LoginForm() {
                     <form onSubmit={handleSubmit} className="w-full space-y-4">
                       <Flex direction="column" gap="2">
                         <label htmlFor="email">
-                          <Text size="3" weight="medium">
+                          <Text size="2" weight="medium">
                             Correo electrónico
                           </Text>
                         </label>
@@ -174,7 +174,7 @@ export default function LoginForm() {
                       </Flex>
                       <Flex direction="column" gap="2">
                         <label htmlFor="password">
-                          <Text size="3" weight="medium">
+                          <Text size="2" weight="medium">
                             Contraseña
                           </Text>
                         </label>

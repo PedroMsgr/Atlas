@@ -7,7 +7,14 @@ import { useState, useEffect, useRef } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_ME } from "@/graphql/queries/me.queries";
 import { UPDATE_ME } from "@/graphql/mutations/me.mutations";
-import { Heading, Text, TextField, Flex, Spinner } from "@radix-ui/themes";
+import {
+  Heading,
+  Text,
+  TextField,
+  Flex,
+  Spinner,
+  Card,
+} from "@radix-ui/themes";
 import { signOut } from "next-auth/react";
 import { AtlasButton } from "@/components/ui/AtlasButton";
 
@@ -133,7 +140,7 @@ export default function ProfileMobile() {
   }
 
   return (
-    <div className="w-full min-h-[calc(100vh-64px)] flex flex-col items-center justify-start pt-6 px-3 bg-gradient-to-b from-blue-200 to-blue-100">
+    <Card className="w-full min-h-[calc(100vh-64px)] flex flex-col items-center justify-start pt-6 px-3 bg-gradient-to-b from-blue-200 to-blue-100">
       {/* Avatar y encabezado */}
       <div className="flex flex-col items-center w-full mb-6">
         <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center text-2xl text-blue-600 border border-blue-200 shadow-sm mb-3">
@@ -292,6 +299,6 @@ export default function ProfileMobile() {
         )}
         <input type="submit" style={{ display: "none" }} />
       </form>
-    </div>
+    </Card>
   );
 }

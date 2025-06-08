@@ -8,13 +8,12 @@ import { useQuery, useMutation } from "@apollo/client";
 import { GET_ME } from "@/graphql/queries/me.queries";
 import { UPDATE_ME } from "@/graphql/mutations/me.mutations";
 import {
-  Box,
   Heading,
   Text,
-  Button,
   TextField,
   Flex,
   Spinner,
+  Card,
 } from "@radix-ui/themes";
 import { signOut } from "next-auth/react";
 import BanishTransition from "@/components/ui/BanishTransition";
@@ -148,7 +147,7 @@ export default function ProfileDesktop() {
 
   return (
     <BanishTransition show={true} key="desktop-profile" duration={0.4}>
-      <Box className="max-w-xl mx-auto p-8 bg-white rounded-lg shadow-lg mt-10">
+      <Card className="max-w-xl mx-auto p-8 bg-gradient-to-b rounded-lg shadow-lg mt-10">
         <Flex direction="column" align="center" gap="4">
           <div className="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center text-4xl text-gray-500 border mb-4">
             {user?.firstName ? user.firstName[0] : ""}
@@ -294,7 +293,7 @@ export default function ProfileDesktop() {
             <input type="submit" style={{ display: "none" }} />
           </form>
         </Flex>
-      </Box>
+      </Card>
     </BanishTransition>
   );
 }

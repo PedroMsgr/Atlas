@@ -128,11 +128,15 @@
 }
 
 .dark .bg-atlas-gradient {
-  background-image: linear-gradient(to bottom right, #111827, #172554);
+  background-image: linear-gradient(to bottom, #111827, #172554);
 }
 
-.bg-atlas-gradient-2 {
+.bg-atlas-gradient-hedaer {
   background-image: linear-gradient(to top , #3b82f6, #04016e);
+}
+
+.dark .bg-atlas-gradient-hedaer {
+  background-image: linear-gradient(to top, #172554, #0f172a);
 }
 
 .mobile-modal {
@@ -163,6 +167,12 @@
   gap: 0.25rem;
 }
 
+.bg-atlas-card {
+  background: #fff;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px 0 rgb(0 0 0 / 0.04);
+  border: 1px solid #dbeafe;
+}
 .dark .atlas-tabs-list {
   background: #18181b;
   border-color: #27272a;

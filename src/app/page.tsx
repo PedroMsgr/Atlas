@@ -67,7 +67,7 @@ export default function Home() {
               justify="center"
               className="flex-col md:flex-row md:gap-6 gap-4"
             >
-              <Card className="w-full md:w-[30%] p-6 mb-4 md:mb-0">
+              <Card className="bg-atlas-card w-full md:w-[30%] p-6 mb-4 md:mb-0">
                 <Flex direction="column" gap="3" align="start">
                   <Image
                     src="/file.svg"
@@ -82,7 +82,7 @@ export default function Home() {
                   </Text>
                 </Flex>
               </Card>
-              <Card className="w-full md:w-[30%] p-6 mb-4 md:mb-0">
+              <Card className="bg-atlas-card w-full md:w-[30%] p-6 mb-4 md:mb-0">
                 <Flex direction="column" gap="3" align="start">
                   <Image
                     src="/window.svg"
@@ -97,7 +97,7 @@ export default function Home() {
                   </Text>
                 </Flex>
               </Card>
-              <Card className="w-full md:w-[30%] p-6">
+              <Card className="bg-atlas-card w-full md:w-[30%] p-6">
                 <Flex direction="column" gap="3" align="start">
                   <AtlasLogo width={48} height={48} />
                   <Heading size="4">Portales personalizados</Heading>

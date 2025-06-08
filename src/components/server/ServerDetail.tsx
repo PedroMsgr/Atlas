@@ -231,7 +231,7 @@ export default function ServerDetail({ serverId }: ServerDetailProps) {
                     : server.orchestratorToken}
                 </div>
                 <AtlasButton
-                  variant="dashboard-secondary"
+                  variant="cancel"
                   className="mt-1 w-full"
                   onClick={() =>
                     handleCopyToClipboard(
@@ -253,7 +253,7 @@ export default function ServerDetail({ serverId }: ServerDetailProps) {
                   {tokensChanged ? newTokens.unitToken : server.unitToken}
                 </div>
                 <AtlasButton
-                  variant="dashboard-secondary"
+                  variant="cancel"
                   className="mt-1 w-full"
                   onClick={() =>
                     handleCopyToClipboard(

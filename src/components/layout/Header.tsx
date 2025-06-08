@@ -24,7 +24,7 @@ export default function Header() {
 
   return (
     <header>
-      <Box className="bg-atlas-gradient-2 text-white px-4 py-4 md:px-6 md:py-6">
+      <Box className="bg-atlas-gradient-hedaer text-white px-4 py-4 md:px-6 md:py-6">
         <div className="container mx-auto">
           <Flex align="center" justify="between" className="w-full">
             {/* Logo a la izquierda */}
