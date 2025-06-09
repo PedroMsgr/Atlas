@@ -18,23 +18,17 @@ import React from "react";
 interface BanishTransitionProps extends Omit<AnimatePresenceProps, "children"> {
   children: React.ReactNode;
   show: boolean; // Condición para mostrar/ocultar
-  /**
-   * Duración de la animación en segundos (por defecto: 1)
-   */
+
+  // Duración de la animación en segundos (por defecto: 1)
   duration?: number;
-  /**
-   * Customizar la animación con props de motion.div
-   */
+
+  //Customizar la animación con props de motion.div
   motionProps?: MotionProps;
-  /**
-   * Estilos adicionales para el contenedor
-   */
+
+  //Estilos adicionales para el contenedor
   className?: string;
 }
 
-/**
- * @function BanishTransition: animación fade out/fade condicional.
- */
 export default function BanishTransition({
   children,
   show,

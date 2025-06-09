@@ -1,7 +1,6 @@
 // Botón personalizado Atlas con variantes de color y estilos para toda la app.
 // Permite usar diferentes variantes (primary, success, delete, etc) y soporta asChild para integración flexible.
-// Las variantes definen colores, tamaños y estilos para distintos contextos de uso (acciones principales,
-// secundarias, dashboard, navegación, subida de archivos, etc).
+// Las variantes definen colores, tamaños y estilos para distintos contextos de uso (acciones principales, secundarias, dashboard, navegación, subida de archivos, etc).
 //
 // Variantes disponibles:
 //   - primary: Botón principal con gradiente azul, para acciones destacadas.
