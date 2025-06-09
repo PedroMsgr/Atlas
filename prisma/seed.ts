@@ -43,7 +43,10 @@ async function main() {
     prisma.image.deleteMany(),
     prisma.section.deleteMany(),
     prisma.article.deleteMany(),
+    prisma.legalStep.deleteMany(),
+    prisma.footerLink.deleteMany(),
   ]);
+  console.info("✅  Base de datos limpia");
 
   // Eliminar servidores y configuraciones en un orden que respete las dependencias
   await prisma.$transaction(async (tx) => {
@@ -63,7 +66,7 @@ async function main() {
   // Usuarios
   const admin = await prisma.user.create({
     data: {
-      email: "admin@atlasnode.com",
+      email: "pedrormsgr@gmail.com",
       password: bcrypt.hashSync("Admin2050!", 10),
       role: Role.admin,
       firstName: "Atlas",

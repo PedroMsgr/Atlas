@@ -114,4 +114,11 @@ export class UsersRepository {
     const totalPages = Math.ceil(total / pageSize) || 1;
     return { results, total, page, pageSize, totalPages };
   }
+
+  // Busca un usuario por su resetToken (para recuperación de contraseña)
+  async findByResetToken(token: string): Promise<User | null> {
+    return prisma.user.findFirst({
+      where: { resetToken: token },
+    });
+  }
 }

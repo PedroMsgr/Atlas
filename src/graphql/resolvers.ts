@@ -676,6 +676,22 @@ const resolvers = {
         };
       }
     }),
+    async requestPasswordReset(
+      _parent: unknown,
+      args: { email: string },
+      context: GraphQLContext
+    ) {
+      await context.authService.requestPasswordReset(args.email);
+      return true;
+    },
+    async resetPassword(
+      _parent: unknown,
+      args: { token: string; newPassword: string },
+      context: GraphQLContext
+    ) {
+      await context.authService.resetPassword(args.token, args.newPassword);
+      return true;
+    },
   },
 
   // TYPE-LEVEL RESOLVERS

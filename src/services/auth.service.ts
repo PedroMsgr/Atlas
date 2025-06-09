@@ -4,6 +4,8 @@
 
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import nodemailer from "nodemailer";
+import { v4 as uuidv4 } from "uuid";
 import { UsersRepository } from "@/db/repositories/users.repo";
 
 class AuthService {
@@ -214,6 +216,58 @@ class AuthService {
 
     const updated = await this.usersRepo.update(id, updateData);
     return updated;
+  }
+
+  /**
+   * Solicita recuperación de contraseña: genera token, guarda y envía email
+   */
+  async requestPasswordReset(email: string): Promise<boolean> {
+    const user = await this.usersRepo.findByEmail(email);
+    if (!user) return true; // No revelar si existe
+    const token = uuidv4();
+    const expiry = new Date(Date.now() + 1000 * 60 * 60); // 1 hora
+    await this.usersRepo.update(user.id, {
+      resetToken: token,
+      resetTokenExpiry: expiry,
+    });
+    const transporter = nodemailer.createTransport({
+      host: process.env.EMAIL_HOST,
+      port: Number(process.env.EMAIL_PORT),
+      secure: true,
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+    const resetUrl = `${process.env.NEXTAUTH_URL}/auth/reset-password?token=${token}`;
+    await transporter.sendMail({
+      from: process.env.EMAIL_FROM,
+      to: email,
+      subject: "Recupera tu contraseña - Atlas",
+      html: `<p>Hola,</p><p>Haz clic en el siguiente enlace para restablecer tu contraseña:</p><p><a href="${resetUrl}">${resetUrl}</a></p><p>Si no solicitaste este cambio, ignora este correo.</p>`,
+    });
+    return true;
+  }
+
+  /**
+   * Cambia la contraseña usando el token de recuperación
+   */
+  async resetPassword(token: string, newPassword: string): Promise<boolean> {
+    const user = await this.usersRepo.findByResetToken(token);
+    if (
+      !user ||
+      !user.resetTokenExpiry ||
+      new Date(user.resetTokenExpiry) < new Date()
+    ) {
+      throw new Error("Token inválido o expirado");
+    }
+    const hashed = await bcrypt.hash(newPassword, 10);
+    await this.usersRepo.update(user.id, {
+      password: hashed,
+      resetToken: null,
+      resetTokenExpiry: null,
+    });
+    return true;
   }
 }
 

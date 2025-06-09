@@ -106,7 +106,7 @@ export default function LoginForm() {
                     {loading ? "Iniciando sesión..." : "Iniciar sesión"}
                   </AtlasButton>
                   <Link
-                    href="#"
+                    href="/auth/forgot-password"
                     className="text-xs text-blue-600 hover:underline text-center"
                   >
                     ¿Olvidaste tu contraseña?
@@ -199,7 +199,7 @@ export default function LoginForm() {
                           {loading ? "Iniciando sesión..." : "Iniciar sesión"}
                         </AtlasButton>
                         <Link
-                          href="#"
+                          href="/auth/forgot-password"
                           className="text-xs text-blue-600 hover:underline text-center"
                         >
                           ¿Olvidaste tu contraseña?

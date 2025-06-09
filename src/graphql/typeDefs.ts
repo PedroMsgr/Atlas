@@ -543,6 +543,10 @@ const typeDefs = gql`
     # -- Usuario CRUD --
     deleteUser(id: ID!): Boolean!
     updateMe(data: UpdateMeInput!): UpdateMeResult!
+
+    # -- Recuperación de contraseña --
+    requestPasswordReset(email: String!): Boolean!
+    resetPassword(token: String!, newPassword: String!): Boolean!
   }
 
   # --------- Paginación de usuarios ---------
