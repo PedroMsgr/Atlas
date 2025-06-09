@@ -1,10 +1,12 @@
 "use client";
-import { useState } from "react";
+export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
+import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Box, Card, Heading, Text, Flex } from "@radix-ui/themes";
+import { Card, Heading, Text, Flex } from "@radix-ui/themes";
 import { AtlasButton } from "@/components/ui/AtlasButton";
 
-export default function ResetPasswordPage() {
+function ResetPasswordForm() {
   const router = useRouter();
   const params = useSearchParams();
   const token = params.get("token") || "";
@@ -122,5 +124,13 @@ export default function ResetPasswordPage() {
         )}
       </Card>
     </Flex>
+  );
+}
+
+export default function ResetPasswordPage() {
+  return (
+    <Suspense fallback={<div>Cargando...</div>}>
+      <ResetPasswordForm />
+    </Suspense>
   );
 }
