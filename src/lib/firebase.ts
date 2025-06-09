@@ -1,7 +1,7 @@
-// src/lib/firebase.ts
 import { initializeApp } from "firebase/app";
 import { getStorage } from "firebase/storage";
 
+// Configuración de Firebase para la aplicación Next.js
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY!,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN!,
@@ -11,5 +11,6 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID!,
 };
 
+// Inicializar la aplicación Firebase y exportar el Storage
 const app = initializeApp(firebaseConfig);
 export const storage = getStorage(app);

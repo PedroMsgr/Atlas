@@ -1,10 +1,12 @@
-import { NextRequest, NextResponse } from "next/server";
-import { UsersRepository } from "@/db/repositories/users.repo";
-import bcrypt from "bcryptjs";
+// API Route: /api/auth/reset-password
+// Recibe un token y una nueva contraseña, valida el token y actualiza la contraseña del usuario si es válido.
+// Limpia el token tras el uso y no revela información sensible.
 
-const usersRepo = new UsersRepository();
+import { NextRequest, NextResponse } from "next/server";
+import { authService } from "@/services/auth.service";
 
 export async function POST(req: NextRequest) {
+  // Procesa la solicitud de restablecimiento de contraseña
   const { token, password } = await req.json();
   console.log(`[RESET PASSWORD] Token recibido: ${token}`);
   if (!token || !password) {
@@ -14,37 +16,21 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // Buscar usuario por token
-  const user = await usersRepo.findByResetToken(token);
-  if (!user) {
-    console.log(`[RESET PASSWORD] Usuario no encontrado para token: ${token}`);
-  } else {
-    console.log(`[RESET PASSWORD] Usuario encontrado: ${user.email}`);
-  }
-  if (
-    !user ||
-    !user.resetTokenExpiry ||
-    new Date(user.resetTokenExpiry) < new Date()
-  ) {
-    console.log(
-      `[RESET PASSWORD] Token inválido o expirado para token: ${token}`
-    );
+  try {
+    const ok = await authService.resetPassword(token, password);
+    if (ok) {
+      return NextResponse.json({ success: true });
+    } else {
+      return NextResponse.json(
+        { success: false, message: "Token inválido o expirado" },
+        { status: 400 }
+      );
+    }
+  } catch (err) {
+    console.error(`[RESET PASSWORD] Error al cambiar contraseña:`, err);
     return NextResponse.json(
-      { success: false, message: "Token inválido o expirado" },
-      { status: 400 }
+      { success: false, message: "Error interno al procesar la solicitud" },
+      { status: 500 }
     );
   }
-
-  // Actualizar contraseña y limpiar token
-  const hashed = await bcrypt.hash(password, 10);
-  await usersRepo.update(user.id, {
-    password: hashed,
-    resetToken: null,
-    resetTokenExpiry: null,
-  });
-  console.log(
-    `[RESET PASSWORD] Contraseña cambiada correctamente para usuario: ${user.email}`
-  );
-
-  return NextResponse.json({ success: true });
 }

@@ -1,8 +1,14 @@
 // src/graphql/typeDefs.ts
-// Archivo principal de definición de tipos GraphQL (typeDefs)
-// Importa y exporta los typeDefs para el esquema GraphQL
+// Definición principal del esquema GraphQL para Atlas
+// Incluye tipos, queries y mutations agrupados y comentados para mayor claridad.
+//
+// Secciones:
+// 1. Tipos base y enums
+// 2. Tipos de usuario y autenticación
+// 3. Queries
+// 4. Mutations (incluyendo recuperación de contraseña)
 
-import gql from "graphql-tag";
+import { gql } from "graphql-tag";
 
 const typeDefs = gql`
   #########################
@@ -358,6 +364,14 @@ const typeDefs = gql`
     clientId: ID
     professionalId: ID
   }
+  # --------- Paginación de usuarios ---------
+  type UserPaginated {
+    results: [User!]!
+    total: Int!
+    page: Int!
+    pageSize: Int!
+    totalPages: Int!
+  }
 
   # Filtros para paginar y buscar casos
   input CaseFilters {
@@ -545,17 +559,10 @@ const typeDefs = gql`
     updateMe(data: UpdateMeInput!): UpdateMeResult!
 
     # -- Recuperación de contraseña --
+    # Solicita un email de recuperación de contraseña
     requestPasswordReset(email: String!): Boolean!
+    # Cambia la contraseña usando el token recibido por email
     resetPassword(token: String!, newPassword: String!): Boolean!
-  }
-
-  # --------- Paginación de usuarios ---------
-  type UserPaginated {
-    results: [User!]!
-    total: Int!
-    page: Int!
-    pageSize: Int!
-    totalPages: Int!
   }
 `;
 

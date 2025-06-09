@@ -1,11 +1,13 @@
-import { NextRequest, NextResponse } from "next/server";
-import nodemailer from "nodemailer";
-import { v4 as uuidv4 } from "uuid";
-import { UsersRepository } from "@/db/repositories/users.repo";
+// API Route: /api/auth/forgot-password
+// Recibe un email, genera un token de recuperación y envía un enlace por correo electrónico si el usuario existe.
+// No revela si el email existe para mayor seguridad.
+// Utiliza nodemailer y almacena el token y su expiración en la base de datos.
 
-const usersRepo = new UsersRepository();
+import { NextRequest, NextResponse } from "next/server";
+import { authService } from "@/services/auth.service";
 
 export async function POST(req: NextRequest) {
+  // Procesa la solicitud de recuperación de contraseña
   const { email } = await req.json();
   console.log(`[ForgotPassword] Solicitud recibida para email: ${email}`);
   if (!email) {
@@ -15,53 +17,15 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  console.log(`[FORGOT PASSWORD] Email recibido: ${email}`);
-
-  // Buscar usuario
-  const user = await usersRepo.findByEmail(email);
-  if (!user) {
-    // No revelar si existe o no
-    console.log(`[FORGOT PASSWORD] Usuario no encontrado para email: ${email}`);
-    return NextResponse.json({ success: true });
-  }
-
-  // Generar token y guardar en BD (campo resetToken y resetTokenExpiry)
-  const token = uuidv4();
-  const expiry = new Date(Date.now() + 1000 * 60 * 10); // 10 minutos
-  await usersRepo.update(user.id, {
-    resetToken: token,
-    resetTokenExpiry: expiry,
-  });
-  console.log(
-    `[FORGOT PASSWORD] Token generado: ${token} (expira: ${expiry.toISOString()}) para usuario: ${
-      user.email
-    }`
-  );
-
-  // Configurar transporte
-  const transporter = nodemailer.createTransport({
-    host: process.env.EMAIL_HOST,
-    port: Number(process.env.EMAIL_PORT),
-    secure: true,
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-  });
-
-  // Enviar email
-  const resetUrl = `${process.env.NEXTAUTH_URL}/auth/reset-password?token=${token}`;
   try {
-    await transporter.sendMail({
-      from: process.env.EMAIL_FROM,
-      to: email,
-      subject: "Recupera tu contraseña - Atlas",
-      html: `<p>Hola,</p><p>Haz clic en el siguiente enlace para restablecer tu contraseña:</p><p><a href="${resetUrl}">${resetUrl}</a></p><p>Si no solicitaste este cambio, ignora este correo.</p>`,
-    });
-    console.log(`[FORGOT PASSWORD] Email de recuperación enviado a: ${email}`);
+    await authService.requestPasswordReset(email);
+    // El método ya maneja la lógica de seguridad y envío de email
+    return NextResponse.json({ success: true });
   } catch (err) {
-    console.error(`[FORGOT PASSWORD] Error enviando email a ${email}:`, err);
+    console.error(`[FORGOT PASSWORD] Error en recuperación:`, err);
+    return NextResponse.json(
+      { success: false, message: "Error interno al procesar la solicitud" },
+      { status: 500 }
+    );
   }
-
-  return NextResponse.json({ success: true });
 }

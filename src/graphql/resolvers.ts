@@ -1,6 +1,14 @@
 // src/graphql/resolvers.ts
-// Resolvers principales del esquema GraphQL
-// Aquí se implementa la lógica de cada query y mutation, usando los servicios del contexto
+// Resolvers principales del esquema GraphQL para Atlas
+// Implementan la lógica de queries y mutations, usando los servicios del contexto.
+//
+// Seguridad:
+// - Los resolvers de recuperación de contraseña no revelan si el email existe.
+// - El token de recuperación es de un solo uso y tiene expiración.
+//
+// Secciones:
+// 1. Queries (ej: me)
+// 2. Mutations (incluyendo requestPasswordReset y resetPassword)
 
 import GraphQLJSON from "graphql-type-json";
 import { GraphQLContext } from "@/types/context.types";
@@ -281,6 +289,8 @@ const resolvers = {
         totalClients,
       };
     }),
+
+    // Devuelve los casos más recientes (por defecto 5)
     recentCases: requireAuth(async (_parent, args, context) => {
       const limit = args.limit || 5;
       return context.caseService.getRecentCases(limit);
@@ -676,22 +686,6 @@ const resolvers = {
         };
       }
     }),
-    async requestPasswordReset(
-      _parent: unknown,
-      args: { email: string },
-      context: GraphQLContext
-    ) {
-      await context.authService.requestPasswordReset(args.email);
-      return true;
-    },
-    async resetPassword(
-      _parent: unknown,
-      args: { token: string; newPassword: string },
-      context: GraphQLContext
-    ) {
-      await context.authService.resetPassword(args.token, args.newPassword);
-      return true;
-    },
   },
 
   // TYPE-LEVEL RESOLVERS
@@ -781,10 +775,6 @@ const resolvers = {
   Client: {
     server: (parent: any, _args: unknown, context: GraphQLContext) =>
       context.serverService.getServerById(parent.serverId),
-  },
-
-  Professional: {
-    // Eliminar el resolver de server, ya que Professional ya no tiene serverId
   },
 
   Chat: {

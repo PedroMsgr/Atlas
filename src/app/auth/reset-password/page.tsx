@@ -1,10 +1,19 @@
+// Página de restablecimiento de contraseña (reset password)
+// Permite al usuario establecer una nueva contraseña usando un token recibido por email.
+// Valida el token, muestra mensajes de error o éxito, y envía la nueva contraseña al endpoint /api/auth/reset-password.
+
 "use client";
+// uso de dynamic y fetchCache para evitar caché en esta página
+// Esto es necesario para que el token de restablecimiento funcione correctamente
+// debido a que es un proceso sensible y no debe ser cacheado.
 export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
+
 import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Card, Heading, Text, Flex } from "@radix-ui/themes";
 import { AtlasButton } from "@/components/ui/AtlasButton";
+import Layout from "@/components/layout/Layout";
 
 function ResetPasswordForm() {
   const router = useRouter();
@@ -47,6 +56,7 @@ function ResetPasswordForm() {
     }
   };
 
+  // Si no hay token, muestra un mensaje de error y un botón para solicitar un nuevo enlace
   if (!token) {
     return (
       <Flex
@@ -128,9 +138,12 @@ function ResetPasswordForm() {
 }
 
 export default function ResetPasswordPage() {
+  // Aplica el layout principal para mantener la coherencia visual
   return (
-    <Suspense fallback={<div>Cargando...</div>}>
-      <ResetPasswordForm />
-    </Suspense>
+    <Layout>
+      <Suspense fallback={<div>Cargando...</div>}>
+        <ResetPasswordForm />
+      </Suspense>
+    </Layout>
   );
 }

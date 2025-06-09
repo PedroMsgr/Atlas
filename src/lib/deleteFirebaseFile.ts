@@ -1,4 +1,3 @@
-// src/lib/deleteFirebaseFile.ts
 import { deleteObject, ref as storageRef } from "firebase/storage";
 import { storage } from "./firebase";
 
