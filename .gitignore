@@ -42,3 +42,6 @@ next-env.d.ts
 
 # Prisma generated types and client
 /src/generated/
+
+
+mermaid.mermaid

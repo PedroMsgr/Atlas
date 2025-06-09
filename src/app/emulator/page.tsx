@@ -9,17 +9,17 @@ import "../globals.css";
 export default function EmulatorPage() {
   const config = {
   "__typename": "UnitConfig",
-  "name": "Config Portal Accidentes 1",
+  "name": "Config Portal Accidentes 2",
   "pageTitle": "Abogados especialistas en Accidentes",
   "pageDescription": "Portal especializado en derecho accidentes.",
   "servicesDescription": "Servicios legales para casos de accidentes.",
-  "iconUrl": "",
+  "iconUrl": null,
   "footerInfo": "© 2025 Atlas Legal",
-  "bannerUrl": "https://firebasestorage.googleapis.com/v0/b/universo-legal-4dace.firebasestorage.app/o/images%2F1749379136788-erd.png?alt=media&token=98ca2710-2792-4796-9637-2ebdaab5ac20",
+  "bannerUrl": null,
   "sections": [
     {
       "__typename": "Section",
-      "id": "4c7c6419-78dd-4eb3-9789-1d42c955cf44",
+      "id": "ea4d33e7-9e39-430e-a902-f16e798d7c6c",
       "title": "Bienvenida",
       "body": "Bienvenido a nuestro portal.",
       "order": 1,
@@ -27,7 +27,7 @@ export default function EmulatorPage() {
     },
     {
       "__typename": "Section",
-      "id": "186d07d3-4ac0-4518-b41c-07798dcb31fd",
+      "id": "07c6b1ec-5810-4012-bacb-7de2fc9ead55",
       "title": "Guía Legal",
       "body": "Te guiamos paso a paso en tu proceso legal.",
       "order": 2,
@@ -35,7 +35,7 @@ export default function EmulatorPage() {
     },
     {
       "__typename": "Section",
-      "id": "abecf1ed-1051-4f10-bbcd-50dd8d7b56a1",
+      "id": "081cca1e-1753-4450-8873-bf2c391cfa65",
       "title": "Artículo Destacado",
       "body": "Contenido curado manualmente.",
       "order": 3,
@@ -43,7 +43,7 @@ export default function EmulatorPage() {
     },
     {
       "__typename": "Section",
-      "id": "76b8a05e-ccf2-4119-acac-95b8df820be8",
+      "id": "118a6701-82a6-43c6-87d8-52dea29723ff",
       "title": "Noticias",
       "body": "Noticias legales relevantes.",
       "order": 4,
@@ -53,47 +53,56 @@ export default function EmulatorPage() {
   "articles": [
     {
       "__typename": "Article",
-      "id": "314e1e78-2c1f-4a82-b93c-ed87171ca54d",
-      "title": "Guía rápida de Portal Accidentes 1",
+      "id": "5a04ae5a-b8e6-498d-8678-f6634b89ebdc",
+      "title": "Artículo destacado de Portal Accidentes 2",
+      "content": "Este es un artículo de ejemplo para la landing.",
+      "url": null,
+      "order": 1,
+      "publishedAt": "2025-06-08T01:22:23.362Z"
+    },
+    {
+      "__typename": "Article",
+      "id": "9174a7a2-03f0-42c3-8abe-1142ec6864a6",
+      "title": "Guía rápida de Portal Accidentes 2",
       "content": "Guía rápida para usuarios del portal.",
       "url": null,
       "order": 2,
-      "publishedAt": "2025-06-08T01:22:22.540Z"
+      "publishedAt": "2025-06-08T01:22:23.489Z"
     }
   ],
   "images": [],
   "legalSteps": [
     {
       "__typename": "LegalStep",
-      "id": "28527519-07b7-48d8-886b-dd9350ef8b03",
+      "id": "ad417d81-ef33-4031-bfe8-55c858fe0720",
       "title": "Evaluación inicial",
       "description": "Analizamos tu caso y te orientamos.",
       "order": 1
     },
     {
       "__typename": "LegalStep",
-      "id": "0c08cf57-1eda-462b-a075-b366f7bd07c8",
+      "id": "ad4ad451-5a99-4de1-b15d-a89bfcb92741",
       "title": "Revisión documental",
       "description": "Revisamos toda la documentación relevante.",
       "order": 2
     },
     {
       "__typename": "LegalStep",
-      "id": "d79f321d-dae3-4d05-b641-abc8937eab75",
+      "id": "0580aca5-32cb-407b-b5fe-b82277a947bc",
       "title": "Negociación",
       "description": "Negociamos con la parte contraria.",
       "order": 3
     },
     {
       "__typename": "LegalStep",
-      "id": "eced6fc5-5b04-4b16-99af-23629927089e",
+      "id": "79544a9a-423a-459a-b13f-c5c19b7d4057",
       "title": "Acción legal",
       "description": "Si es necesario, iniciamos acciones legales.",
       "order": 4
     },
     {
       "__typename": "LegalStep",
-      "id": "24cefce3-4111-4f0d-9a20-f732e1016fde",
+      "id": "e75df508-55ca-48e8-ae3e-347b5439fc3f",
       "title": "Resolución",
       "description": "Te acompañamos hasta la resolución del caso.",
       "order": 5
@@ -102,21 +111,21 @@ export default function EmulatorPage() {
   "footerLinks": [
     {
       "__typename": "FooterLink",
-      "id": "4884ef33-b9f6-4ac6-9ac1-2f050fa53497",
+      "id": "8b91c0fb-5d11-44aa-8697-c587ef17464c",
       "label": "Aviso Legal",
       "url": "/aviso-legal",
       "order": 1
     },
     {
       "__typename": "FooterLink",
-      "id": "c98b6295-d3f8-4e9f-bb98-9a8a72bdbfff",
+      "id": "7a1d115f-9860-4af7-b4f2-2f1826966af9",
       "label": "Política de Privacidad",
       "url": "/privacidad",
       "order": 2
     },
     {
       "__typename": "FooterLink",
-      "id": "1c7101c9-493c-4f30-86af-e536104c7ead",
+      "id": "dd556d3e-145e-4eb7-9327-e0c48a287564",
       "label": "Contacto",
       "url": "/contacto",
       "order": 3

@@ -28,7 +28,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 
   if (networkError) {
     console.error(`[Network error]: ${networkError}`);
-    // También manejamos errores de red como timeouts o servidor caído
+    // Error de red, por ejemplo, si el servidor GraphQL no está disponible
     if ((networkError as any).statusCode === 401) {
       if (typeof window !== "undefined") {
         window.location.href = "/auth/signin?error=SessionRequired";
@@ -40,6 +40,8 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 // Enlace HTTP para conectar con el servidor GraphQL
 const httpLink = new HttpLink({
   uri:
+    // Determina la URL del servidor GraphQL según el entorno
+    // En el servidor, usamos la variable de entorno NEXT_PUBLIC_GRAPHQL_URL
     typeof window === "undefined"
       ? process.env.NEXT_PUBLIC_GRAPHQL_URL ||
         "http://localhost:3000/api/graphql"
@@ -47,7 +49,8 @@ const httpLink = new HttpLink({
   credentials: "same-origin",
 });
 
-// Función para crear un cliente Apollo
+// Función para crear un cliente Apollo con los enlaces configurados
+// Esta función se puede usar tanto en el servidor como en el cliente
 export function createApolloClient() {
   return new ApolloClient({
     link: from([errorLink, httpLink]),

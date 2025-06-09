@@ -1,5 +1,5 @@
 import "./globals.css";
-import ClientProviders from "@/components/layout/ClientProviders";
+import ClientProviders from "@/components/ClientProviders";
 import { geistSans, geistMono } from "./fonts";
 
 export default function RootLayout({

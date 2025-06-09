@@ -1,7 +1,10 @@
 // Middleware de autenticación y autorización para rutas protegidas en Next.js.
-// Intercepta las peticiones a rutas sensibles y verifica el rol del usuario autenticado mediante el token JWT de next-auth.
-// Redirige a los usuarios no autorizados según la ruta y su rol, permitiendo solo el acceso a las rutas correspondientes a su perfil (admin, profesional, cliente, etc).
-// También personaliza la página de login y asegura que solo usuarios autenticados puedan acceder a las rutas protegidas.
+// Intercepta las peticiones a rutas sensibles y verifica el rol
+// del usuario autenticado mediante el token JWT de next-auth.
+// Redirige a los usuarios no autorizados según la ruta y su rol,
+// permitiendo solo el acceso a las rutas correspondientes a su perfil (admin, profesional, cliente, etc).
+// También personaliza la página de login y asegura que solo usuarios
+// autenticados puedan acceder a las rutas protegidas.
 
 import { withAuth } from "next-auth/middleware";
 import { NextResponse } from "next/server";
