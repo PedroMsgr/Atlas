@@ -11,38 +11,38 @@ type UpdateUserInput = Partial<CreateUserInput>;
 class UserService {
   private usersRepo = new UsersRepository();
 
-  async getUsers(role?: string | string[], search?: string) {
-    const validRoles = Object.values(Role);
+  // async getUsers(role?: string | string[], search?: string) {
+  //   const validRoles = Object.values(Role);
 
-    if (role !== undefined && role !== null) {
-      if (Array.isArray(role)) {
-        for (const r of role) {
-          if (!validRoles.includes(r as Role)) {
-            throw new Error(
-              `El valor de role '${r}' no es válido. Debe ser uno de: ${validRoles.join(
-                ", "
-              )}`
-            );
-          }
-        }
-        return this.usersRepo.findAll(
-          role.map((r) => r as Role),
-          search
-        );
-      } else {
-        if (!validRoles.includes(role as Role)) {
-          throw new Error(
-            `El valor de role '${role}' no es válido. Debe ser uno de: ${validRoles.join(
-              ", "
-            )}`
-          );
-        }
-        return this.usersRepo.findAll(role as Role, search);
-      }
-    }
+  //   if (role !== undefined && role !== null) {
+  //     if (Array.isArray(role)) {
+  //       for (const r of role) {
+  //         if (!validRoles.includes(r as Role)) {
+  //           throw new Error(
+  //             `El valor de role '${r}' no es válido. Debe ser uno de: ${validRoles.join(
+  //               ", "
+  //             )}`
+  //           );
+  //         }
+  //       }
+  //       return this.usersRepo.findAll(
+  //         role.map((r) => r as Role),
+  //         search
+  //       );
+  //     } else {
+  //       if (!validRoles.includes(role as Role)) {
+  //         throw new Error(
+  //           `El valor de role '${role}' no es válido. Debe ser uno de: ${validRoles.join(
+  //             ", "
+  //           )}`
+  //         );
+  //       }
+  //       return this.usersRepo.findAll(role as Role, search);
+  //     }
+  //   }
 
-    return this.usersRepo.findAll(undefined, search);
-  }
+  //   return this.usersRepo.findAll(undefined, search);
+  // }
 
   async getUserById(id: string) {
     return this.usersRepo.findById(id);
@@ -62,6 +62,50 @@ class UserService {
 
   async countClients() {
     return this.usersRepo.countClients();
+  }
+
+  async getUsersPaginated({
+    role,
+    search,
+    page = 1,
+    pageSize = 5,
+  }: {
+    role?: string | string[];
+    search?: string;
+    page?: number;
+    pageSize?: number;
+  }) {
+    const validRoles = Object.values(Role);
+    let parsedRole: Role | Role[] | undefined = undefined;
+    if (role !== undefined && role !== null) {
+      if (Array.isArray(role)) {
+        for (const r of role) {
+          if (!validRoles.includes(r as Role)) {
+            throw new Error(
+              `El valor de role '${r}' no es válido. Debe ser uno de: ${validRoles.join(
+                ", "
+              )}`
+            );
+          }
+        }
+        parsedRole = role.map((r) => r as Role);
+      } else {
+        if (!validRoles.includes(role as Role)) {
+          throw new Error(
+            `El valor de role '${role}' no es válido. Debe ser uno de: ${validRoles.join(
+              ", "
+            )}`
+          );
+        }
+        parsedRole = role as Role;
+      }
+    }
+    return this.usersRepo.findAllPaginated({
+      role: parsedRole,
+      search,
+      page,
+      pageSize,
+    });
   }
 }
 

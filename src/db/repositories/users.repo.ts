@@ -72,4 +72,46 @@ export class UsersRepository {
   async countClients(): Promise<number> {
     return prisma.user.count({ where: { role: "client" } });
   }
+
+  // Obtiene usuarios paginados, con filtros opcionales por rol y búsqueda textual
+  async findAllPaginated({
+    role,
+    search,
+    page = 1,
+    pageSize = 10,
+  }: {
+    role?: Role | Role[];
+    search?: string;
+    page?: number;
+    pageSize?: number;
+  }): Promise<{
+    results: User[];
+    total: number;
+    page: number;
+    pageSize: number;
+    totalPages: number;
+  }> {
+    const where: any = {};
+    if (role) {
+      if (Array.isArray(role)) {
+        where.role = { in: role };
+      } else {
+        where.role = role;
+      }
+    }
+    if (search && search.trim() !== "") {
+      where.OR = [
+        { firstName: { contains: search, mode: "insensitive" } },
+        { lastName: { contains: search, mode: "insensitive" } },
+        { email: { contains: search, mode: "insensitive" } },
+      ];
+    }
+    const skip = (page - 1) * pageSize;
+    const [results, total] = await Promise.all([
+      prisma.user.findMany({ where, skip, take: pageSize }),
+      prisma.user.count({ where }),
+    ]);
+    const totalPages = Math.ceil(total / pageSize) || 1;
+    return { results, total, page, pageSize, totalPages };
+  }
 }

@@ -141,21 +141,28 @@ export default function CaseListPro({ user }: { user: any }) {
           </Table.Body>
         </Table.Root>
       )}
-      <Flex mt="4" gap="2" align="center">
+      <Flex
+        mt="4"
+        gap="2"
+        align="center"
+        className="flex flex-col gap-2 sm:flex-row sm:items-center w-full"
+      >
         <AtlasButton
           variant="back"
           disabled={page === 1}
           onClick={() => setPage(page - 1)}
+          className="w-full sm:w-auto"
         >
           Anterior
         </AtlasButton>
-        <span>
+        <span className="w-full text-center sm:w-auto">
           Página {page} de {totalPages}
         </span>
         <AtlasButton
           variant="next"
           disabled={page === totalPages}
           onClick={() => setPage(page + 1)}
+          className="w-full sm:w-auto"
         >
           Siguiente
         </AtlasButton>

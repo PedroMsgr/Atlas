@@ -438,7 +438,12 @@ const typeDefs = gql`
     case(id: ID!): Case
 
     # Usuarios
-    users(role: [Role], search: String): [User!]!
+    users(
+      role: [Role]
+      search: String
+      page: Int
+      pageSize: Int
+    ): UserPaginated!
     me: User!
 
     # Dashboard
@@ -538,6 +543,15 @@ const typeDefs = gql`
     # -- Usuario CRUD --
     deleteUser(id: ID!): Boolean!
     updateMe(data: UpdateMeInput!): UpdateMeResult!
+  }
+
+  # --------- Paginación de usuarios ---------
+  type UserPaginated {
+    results: [User!]!
+    total: Int!
+    page: Int!
+    pageSize: Int!
+    totalPages: Int!
   }
 `;
 

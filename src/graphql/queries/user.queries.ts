@@ -5,14 +5,20 @@ import { gql } from "@apollo/client";
 
 // Obtiene todos los usuarios con filtros opcionales
 export const GET_USERS = gql`
-  query GetUsers($role: [Role], $search: String) {
-    users(role: $role, search: $search) {
-      id
-      firstName
-      lastName
-      email
-      isActive
-      role
+  query GetUsers($role: [Role], $search: String, $page: Int, $pageSize: Int) {
+    users(role: $role, search: $search, page: $page, pageSize: $pageSize) {
+      results {
+        id
+        firstName
+        lastName
+        email
+        isActive
+        role
+      }
+      total
+      page
+      pageSize
+      totalPages
     }
   }
 `;

@@ -57,6 +57,25 @@ export default function ConfigList() {
     );
   }, [configurations, search]);
 
+  // Estado para la paginación
+  const [page, setPage] = useState(1);
+  const pageSize = 10;
+  // Calcula el total de páginas según el filtro actual
+  const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
+
+  // Obtiene el subconjunto de configuraciones para la página actual
+  const paginated = useMemo(() => {
+    const start = (page - 1) * pageSize;
+    return filtered.slice(start, start + pageSize);
+  }, [filtered, page, pageSize]);
+
+  // Reinicia la página si los filtros cambian y la página actual queda fuera de rango
+  useMemo(() => {
+    if (page > totalPages) setPage(1);
+    // eslint desabilitado porque no se usa en el renderizado
+    // eslint-disable-next-line
+  }, [filtered, totalPages]);
+
   const handleRefresh = async () => {
     try {
       await refetch();
@@ -134,14 +153,14 @@ export default function ConfigList() {
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {filtered.length === 0 ? (
+            {paginated.length === 0 ? (
               <Table.Row>
                 <Table.Cell colSpan={4} align="center">
                   <Text color="gray">No hay resultados.</Text>
                 </Table.Cell>
               </Table.Row>
             ) : (
-              filtered.map((config: any) => {
+              paginated.map((config: any) => {
                 const servers = config.servers ?? [];
                 return (
                   <Table.Row
@@ -204,6 +223,33 @@ export default function ConfigList() {
           </Table.Body>
         </Table.Root>
       </Card>
+      {/* Pagination controls */}
+      <Flex
+        mt="4"
+        gap="2"
+        align="center"
+        className="flex flex-col gap-2 sm:flex-row sm:items-center w-full"
+      >
+        <AtlasButton
+          variant="back"
+          disabled={page === 1}
+          onClick={() => setPage(page - 1)}
+          className="w-full sm:w-auto"
+        >
+          Anterior
+        </AtlasButton>
+        <span className="w-full text-center sm:w-auto">
+          Página {page} de {totalPages}
+        </span>
+        <AtlasButton
+          variant="next"
+          disabled={page === totalPages}
+          onClick={() => setPage(page + 1)}
+          className="w-full sm:w-auto"
+        >
+          Siguiente
+        </AtlasButton>
+      </Flex>
     </Box>
   );
 }

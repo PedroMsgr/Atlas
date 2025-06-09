@@ -27,6 +27,9 @@ export default function ServerList() {
   const [constellation, setConstellation] = useState("all");
   const [config, setConfig] = useState("all");
   const [order, setOrder] = useState("name-az");
+  // Pagination state
+  const [page, setPage] = useState(1);
+  const pageSize = 10;
 
   const { data, loading, error, refetch } = useQuery<{
     servers: UnitServerListItem[];
@@ -110,6 +113,20 @@ export default function ServerList() {
     }
     return result;
   }, [servers, constellation, config, order, search]);
+  // Paginación
+  const totalPages = Math.max(1, Math.ceil(processed.length / pageSize));
+  const paginated = useMemo(() => {
+    // Calcula el índice de inicio para la página actual
+    const start = (page - 1) * pageSize;
+    // Devuelve solo los elementos de la página actual
+    return processed.slice(start, start + pageSize);
+  }, [processed, page, pageSize]);
+
+  // Reinicia la página si los filtros cambian y la página actual queda fuera de rango
+  useMemo(() => {
+    if (page > totalPages) setPage(1);
+    // eslint-disable-next-line
+  }, [processed, totalPages]);
 
   const handleRefresh = async () => {
     setIsRefreshing(true);
@@ -242,14 +259,14 @@ export default function ServerList() {
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {processed.length === 0 ? (
+            {paginated.length === 0 ? (
               <Table.Row>
                 <Table.Cell colSpan={7} align="center">
                   <Text color="gray">No hay resultados.</Text>
                 </Table.Cell>
               </Table.Row>
             ) : (
-              processed.map((server) => (
+              paginated.map((server) => (
                 <Table.Row
                   key={server.id}
                   className="hover:bg-gray-50 transition duration-150 cursor-pointer"
@@ -304,6 +321,33 @@ export default function ServerList() {
           </Table.Body>
         </Table.Root>
       </Card>
+      {/* Pagination controls */}
+      <Flex
+        mt="4"
+        gap="2"
+        align="center"
+        className="flex flex-col gap-2 sm:flex-row sm:items-center w-full"
+      >
+        <AtlasButton
+          variant="back"
+          disabled={page === 1}
+          onClick={() => setPage(page - 1)}
+          className="w-full sm:w-auto"
+        >
+          Anterior
+        </AtlasButton>
+        <span className="w-full text-center sm:w-auto">
+          Página {page} de {totalPages}
+        </span>
+        <AtlasButton
+          variant="next"
+          disabled={page === totalPages}
+          onClick={() => setPage(page + 1)}
+          className="w-full sm:w-auto"
+        >
+          Siguiente
+        </AtlasButton>
+      </Flex>
     </Box>
   );
 }

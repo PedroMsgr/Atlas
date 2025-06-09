@@ -232,9 +232,20 @@ const resolvers = {
     users: requireAuth(
       async (
         _parent: unknown,
-        args: { role?: string[]; search?: string },
+        args: {
+          role?: string[];
+          search?: string;
+          page?: number;
+          pageSize?: number;
+        },
         context: GraphQLContext
-      ) => context.userService.getUsers(args.role, args.search)
+      ) =>
+        context.userService.getUsersPaginated({
+          role: args.role,
+          search: args.search,
+          page: args.page,
+          pageSize: args.pageSize,
+        })
     ),
     me: requireAuth(async (_parent, _args, context) => {
       if (!context.user?.id) throw new Error("No autorizado");

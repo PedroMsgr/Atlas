@@ -16,8 +16,15 @@ import { AtlasButton } from "../ui/AtlasButton";
 export default function ProfessionalList() {
   const router = useRouter();
   const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
+  const pageSize = 5;
   const { data, loading, error, refetch } = useQuery(GET_USERS, {
-    variables: { role: [Role.PROFESSIONAL, Role.ADMIN] },
+    variables: {
+      role: [Role.PROFESSIONAL, Role.ADMIN],
+      search,
+      page,
+      pageSize,
+    },
     fetchPolicy: "cache-and-network",
   });
   const [deleteUser, { loading: deleting }] = useMutation(DELETE_USER, {
@@ -26,18 +33,9 @@ export default function ProfessionalList() {
     },
     onError: () => {},
   });
-  const users = data?.users || [];
-  // Filtro local por nombre o email
-  const filtered = useMemo(() => {
-    if (!search.trim()) return users;
-    return users.filter(
-      (u: any) =>
-        `${u.firstName} ${u.lastName}`
-          .toLowerCase()
-          .includes(search.trim().toLowerCase()) ||
-        (u.email || "").toLowerCase().includes(search.trim().toLowerCase())
-    );
-  }, [users, search]);
+  const users = data?.users?.results || [];
+  const total = data?.users?.total || 0;
+  const totalPages = data?.users?.totalPages || 1;
 
   return (
     <Box>
@@ -52,7 +50,10 @@ export default function ProfessionalList() {
             type="text"
             placeholder="Buscar por nombre o email..."
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => {
+              setSearch(e.target.value);
+              setPage(1);
+            }}
             className="w-full sm:w-auto"
             style={{
               minWidth: 220,
@@ -75,56 +76,84 @@ export default function ProfessionalList() {
         ) : error ? (
           <Text color="red">Error al cargar profesionales</Text>
         ) : (
-          <Table.Root
-            variant="surface"
-            className="border rounded-lg overflow-hidden"
-            style={{ marginTop: 16 }}
-          >
-            <Table.Header>
-              <Table.Row>
-                <Table.ColumnHeaderCell>Nombre</Table.ColumnHeaderCell>
-                <Table.ColumnHeaderCell>Email</Table.ColumnHeaderCell>
-                <Table.ColumnHeaderCell>Rol</Table.ColumnHeaderCell>
-                <Table.ColumnHeaderCell>Estado</Table.ColumnHeaderCell>
-                <Table.ColumnHeaderCell>Acciones</Table.ColumnHeaderCell>
-              </Table.Row>
-            </Table.Header>
-            <Table.Body>
-              {filtered.length === 0 ? (
+          <>
+            <Table.Root
+              variant="surface"
+              className="border rounded-lg overflow-hidden"
+              style={{ marginTop: 16 }}
+            >
+              <Table.Header>
                 <Table.Row>
-                  <Table.Cell colSpan={5} align="center">
-                    <Text color="gray">No hay resultados.</Text>
-                  </Table.Cell>
+                  <Table.ColumnHeaderCell>Nombre</Table.ColumnHeaderCell>
+                  <Table.ColumnHeaderCell>Email</Table.ColumnHeaderCell>
+                  <Table.ColumnHeaderCell>Rol</Table.ColumnHeaderCell>
+                  <Table.ColumnHeaderCell>Estado</Table.ColumnHeaderCell>
+                  <Table.ColumnHeaderCell>Acciones</Table.ColumnHeaderCell>
                 </Table.Row>
-              ) : (
-                filtered.map((u: any) => (
-                  <Table.Row key={u.id}>
-                    <Table.Cell>
-                      {u.firstName} {u.lastName}
-                    </Table.Cell>
-                    <Table.Cell>{u.email}</Table.Cell>
-                    <Table.Cell>{u.role}</Table.Cell>
-                    <Table.Cell>
-                      {u.isActive ? "Activo" : "Inactivo"}
-                    </Table.Cell>
-                    <Table.Cell>
-                      <DeleteButtonWithConfirm
-                        id={u.id}
-                        name={`${u.firstName} ${u.lastName}`}
-                        loading={deleting}
-                        onConfirm={() =>
-                          deleteUser({ variables: { id: u.id } })
-                        }
-                        title="¿Eliminar usuario?"
-                        description={`¿Estás seguro de que deseas eliminar al usuario "${u.firstName} ${u.lastName}"? Esta acción no se puede deshacer.`}
-                        ariaLabel={`Eliminar usuario ${u.firstName} ${u.lastName}`}
-                      />
+              </Table.Header>
+              <Table.Body>
+                {users.length === 0 ? (
+                  <Table.Row>
+                    <Table.Cell colSpan={5} align="center">
+                      <Text color="gray">No hay resultados.</Text>
                     </Table.Cell>
                   </Table.Row>
-                ))
-              )}
-            </Table.Body>
-          </Table.Root>
+                ) : (
+                  users.map((u: any) => (
+                    <Table.Row key={u.id}>
+                      <Table.Cell>
+                        {u.firstName} {u.lastName}
+                      </Table.Cell>
+                      <Table.Cell>{u.email}</Table.Cell>
+                      <Table.Cell>{u.role}</Table.Cell>
+                      <Table.Cell>
+                        {u.isActive ? "Activo" : "Inactivo"}
+                      </Table.Cell>
+                      <Table.Cell>
+                        <DeleteButtonWithConfirm
+                          id={u.id}
+                          name={`${u.firstName} ${u.lastName}`}
+                          loading={deleting}
+                          onConfirm={() =>
+                            deleteUser({ variables: { id: u.id } })
+                          }
+                          title="¿Eliminar usuario?"
+                          description={`¿Estás seguro de que deseas eliminar al usuario "${u.firstName} ${u.lastName}"? Esta acción no se puede deshacer.`}
+                          ariaLabel={`Eliminar usuario ${u.firstName} ${u.lastName}`}
+                        />
+                      </Table.Cell>
+                    </Table.Row>
+                  ))
+                )}
+              </Table.Body>
+            </Table.Root>
+            <Flex
+              mt="4"
+              gap="2"
+              align="center"
+              className="flex flex-col gap-2 sm:flex-row sm:items-center w-full"
+            >
+              <AtlasButton
+                variant="back"
+                disabled={page === 1}
+                onClick={() => setPage(page - 1)}
+                className="w-full sm:w-auto"
+              >
+                Anterior
+              </AtlasButton>
+              <span className="w-full text-center sm:w-auto">
+                Página {page} de {totalPages}
+              </span>
+              <AtlasButton
+                variant="next"
+                disabled={page === totalPages}
+                onClick={() => setPage(page + 1)}
+                className="w-full sm:w-auto"
+              >
+                Siguiente
+              </AtlasButton>
+            </Flex>
+          </>
         )}
       </Card>
     </Box>
