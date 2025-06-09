@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Box, Card, Heading, Text, Flex } from "@radix-ui/themes";
+import { Card, Heading, Text, Flex } from "@radix-ui/themes";
 import { AtlasButton } from "@/components/ui/AtlasButton";
 import { useRouter } from "next/navigation";
 

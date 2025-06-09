@@ -77,14 +77,12 @@ export default function ResetPasswordPage() {
         </Heading>
         {success ? (
           <>
-            <Text color="green">
-              Contraseña cambiada correctamente. Ahora puedes iniciar sesión.
-            </Text>
+            <Text color="green">¡Contraseña cambiada correctamente!</Text>
             <AtlasButton
               className="mt-4 w-full"
               onClick={() => router.push("/auth/signin")}
             >
-              Ir a iniciar sesión
+              Iniciar sesión
             </AtlasButton>
           </>
         ) : (
@@ -112,6 +110,13 @@ export default function ResetPasswordPage() {
             {error && <Text color="red">{error}</Text>}
             <AtlasButton type="submit" disabled={loading} className="w-full">
               {loading ? "Cambiando..." : "Cambiar contraseña"}
+            </AtlasButton>
+            <AtlasButton
+              variant="cancel"
+              className="w-full"
+              onClick={() => router.push("/auth/signin")}
+            >
+              Volver a iniciar sesión
             </AtlasButton>
           </form>
         )}
