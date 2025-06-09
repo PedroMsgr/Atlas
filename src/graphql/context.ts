@@ -40,7 +40,7 @@ export async function createContext({
               null,
           }
         : null,
-      // Servicios de dominio
+      // Integración de servicios de dominio
       caseService,
       serverService,
       configService,
@@ -51,6 +51,7 @@ export async function createContext({
     };
   } catch (error) {
     console.error("Error creating context:", error);
+    // En caso de error, retorna un contexto vacío
     return {
       prisma,
       session: null,

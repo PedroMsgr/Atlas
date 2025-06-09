@@ -23,6 +23,7 @@ declare module "next-auth" {
 
 export const authOptions: NextAuthOptions = {
   providers: [
+    // Proveedor de autenticación por credenciales de NextAuth
     CredentialsProvider({
       name: "Credentials",
       credentials: {
