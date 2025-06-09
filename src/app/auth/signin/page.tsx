@@ -9,7 +9,6 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Text } from "@radix-ui/themes";
 import LoginForm from "@/components/auth/LoginForm";
-import Layout from "@/components/layout/Layout";
 
 // Extender el tipo Session para incluir role
 interface UserWithRole {
@@ -64,9 +63,5 @@ export default function SignIn() {
     );
   }
 
-  return (
-    <Layout>
-      <LoginForm />
-    </Layout>
-  );
+  return <LoginForm />;
 }

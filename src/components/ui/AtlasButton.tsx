@@ -1,6 +1,7 @@
 // Botón personalizado Atlas con variantes de color y estilos para toda la app.
 // Permite usar diferentes variantes (primary, success, delete, etc) y soporta asChild para integración flexible.
-// Las variantes definen colores, tamaños y estilos para distintos contextos de uso (acciones principales, secundarias, dashboard, navegación, subida de archivos, etc).
+// Las variantes definen colores, tamaños y estilos para distintos contextos de uso (acciones principales,
+// secundarias, dashboard, navegación, subida de archivos, etc).
 //
 // Variantes disponibles:
 //   - primary: Botón principal con gradiente azul, para acciones destacadas.
@@ -41,7 +42,8 @@ export interface AtlasButtonProps
 
 const variantStyles: Record<AtlasButtonVariant, string> = {
   primary:
-    "bg-gradient-to-r from-blue-700 via-blue-600 to-blue-500 text-white hover:from-blue-800 hover:to-blue-600 focus:ring-blue-400 rounded-2xl py-2.5 px-5 text-base font-semibold shadow-md",
+    "bg-gradient-to-r from-blue-700 via-blue-600 to-blue-500 text-white hover:from-blue-800 " +
+    "hover:to-blue-600 focus:ring-blue-400 rounded-2xl py-2.5 px-5 text-base font-semibold shadow-md",
   success:
     "bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500 rounded-2xl py-2 px-4 text-sm font-medium",
   cancel:
@@ -62,7 +64,9 @@ const variantStyles: Record<AtlasButtonVariant, string> = {
 
 // Ajuste: padding y fuente base más compactos
 const baseStyles =
-  "inline-flex items-center justify-center transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none gap-2 min-w-[96px] max-w-full break-words whitespace-normal text-center";
+  "inline-flex items-center justify-center transition-colors focus:outline-none focus:ring-2 " +
+  "focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none gap-2 min-w-[96px] " +
+  "max-w-full break-words whitespace-normal text-center";
 
 export const AtlasButton = React.forwardRef<
   HTMLButtonElement,

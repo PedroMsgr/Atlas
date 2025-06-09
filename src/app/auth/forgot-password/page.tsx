@@ -7,7 +7,6 @@ import { useState, Suspense } from "react";
 import { Card, Heading, Text, Flex } from "@radix-ui/themes";
 import { AtlasButton } from "@/components/ui/AtlasButton";
 import { useRouter } from "next/navigation";
-import Layout from "@/components/layout/Layout";
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
@@ -41,55 +40,49 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <Layout>
-      <Suspense fallback={<div>Cargando...</div>}>
-        {/* Renderiza el formulario y mensajes de estado */}
-        <Flex
-          align="center"
-          justify="center"
-          className="min-h-screen bg-gradient-to-br from-gray-100 to-blue-100 dark:from-gray-900 dark:to-blue-950"
-        >
-          <Card className="w-full max-w-md p-8">
-            <Heading size="6" className="mb-4 text-center">
-              Recuperar contraseña
-            </Heading>
-            {sent ? (
-              <Text color="green">
-                Si el email existe, se ha enviado un enlace para restablecer la
-                contraseña.
-              </Text>
-            ) : (
-              <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                <label htmlFor="email">Correo electrónico</label>
-                <input
-                  id="email"
-                  type="email"
-                  required
-                  className="border rounded px-3 py-2"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  autoComplete="email"
-                />
-                {error && <Text color="red">{error}</Text>}
-                <AtlasButton
-                  type="submit"
-                  disabled={loading}
-                  className="w-full"
-                >
-                  {loading ? "Enviando..." : "Enviar enlace"}
-                </AtlasButton>
-                <AtlasButton
-                  variant="cancel"
-                  className="w-full"
-                  onClick={() => router.push("/auth/signin")}
-                >
-                  Volver a iniciar sesión
-                </AtlasButton>
-              </form>
-            )}
-          </Card>
-        </Flex>
-      </Suspense>
-    </Layout>
+    <Suspense fallback={<div>Cargando...</div>}>
+      {/* Renderiza el formulario y mensajes de estado */}
+      <Flex
+        align="center"
+        justify="center"
+        className="min-h-screen bg-gradient-to-br from-gray-100 to-blue-100 dark:from-gray-900 dark:to-blue-950"
+      >
+        <Card className="w-full max-w-md p-8">
+          <Heading size="6" className="mb-4 text-center">
+            Recuperar contraseña
+          </Heading>
+          {sent ? (
+            <Text color="green">
+              Si el email existe, se ha enviado un enlace para restablecer la
+              contraseña.
+            </Text>
+          ) : (
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+              <label htmlFor="email">Correo electrónico</label>
+              <input
+                id="email"
+                type="email"
+                required
+                className="border rounded px-3 py-2"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                autoComplete="email"
+              />
+              {error && <Text color="red">{error}</Text>}
+              <AtlasButton type="submit" disabled={loading} className="w-full">
+                {loading ? "Enviando..." : "Enviar enlace"}
+              </AtlasButton>
+              <AtlasButton
+                variant="cancel"
+                className="w-full"
+                onClick={() => router.push("/auth/signin")}
+              >
+                Volver a iniciar sesión
+              </AtlasButton>
+            </form>
+          )}
+        </Card>
+      </Flex>
+    </Suspense>
   );
 }

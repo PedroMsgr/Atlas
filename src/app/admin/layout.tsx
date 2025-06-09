@@ -46,10 +46,10 @@ export default function AdminLayout({
 
   return (
     <Layout>
-      <Flex className="min-h-screen">
+      <Flex className="min-h-screen ">
         {/* Sidebar responsivo y colapsable */}
         <Box
-          className={`fixed z-40 top-0 left-0 h-full bg-gray-50 border-r border-gray-200 p-4 transition-transform duration-200 flex flex-col justify-between
+          className={`fixed z-40 top-0 left-0 h-full bg-gradient-to-b from-white to-blue-100 border-r border-gray-200 p-4 transition-transform duration-200 flex flex-col justify-between
             w-64 ${
               sidebarOpen || (!isMobile && sidebarPinned)
                 ? "translate-x-0"

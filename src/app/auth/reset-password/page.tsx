@@ -13,7 +13,6 @@ import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Card, Heading, Text, Flex } from "@radix-ui/themes";
 import { AtlasButton } from "@/components/ui/AtlasButton";
-import Layout from "@/components/layout/Layout";
 
 function ResetPasswordForm() {
   const router = useRouter();
@@ -138,12 +137,10 @@ function ResetPasswordForm() {
 }
 
 export default function ResetPasswordPage() {
-  // Aplica el layout principal para mantener la coherencia visual
+  // Ya no es necesario envolver en <Layout>
   return (
-    <Layout>
-      <Suspense fallback={<div>Cargando...</div>}>
-        <ResetPasswordForm />
-      </Suspense>
-    </Layout>
+    <Suspense fallback={<div>Cargando...</div>}>
+      <ResetPasswordForm />
+    </Suspense>
   );
 }
