@@ -40,6 +40,9 @@ export default function ForgotPasswordPage() {
   };
 
   return (
+    // Suspense para manejar la carga de componentes con fallback que permiten
+    // que el usuario vea un mensaje mientras se carga el contenido
+    // Es importante para evitar que la UI se congele mientras se espera la respuesta del servidor
     <Suspense fallback={<div>Cargando...</div>}>
       {/* Renderiza el formulario y mensajes de estado */}
       <Flex
