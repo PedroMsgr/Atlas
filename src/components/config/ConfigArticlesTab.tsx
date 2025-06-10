@@ -21,9 +21,10 @@ export default function ConfigArticlesTab({
   handleEditArticle,
   handleDeleteArticle,
   loadingArticles,
+  handleReorderArticles,
 }: any) {
   // Handler para drag & drop
-  const handleDragEnd = (event: any) => {
+  const handleDragEnd = async (event: any) => {
     const { active, over } = event;
     if (!over || active.id === over.id) return;
     const oldIndex = form.articles.findIndex(
@@ -41,6 +42,9 @@ export default function ConfigArticlesTab({
       order: idx + 1,
     }));
     setForm((prev: any) => ({ ...prev, articles: reOrdered }));
+    if (typeof handleReorderArticles === "function") {
+      await handleReorderArticles(reOrdered);
+    }
   };
 
   return (

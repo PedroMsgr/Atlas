@@ -66,7 +66,7 @@ async function main() {
   // Usuarios
   const admin = await prisma.user.create({
     data: {
-      email: "pedrormsgr@gmail.com",
+      email: "admin@atlasnode.com",
       password: bcrypt.hashSync("Admin2050!", 10),
       role: Role.admin,
       firstName: "Atlas",

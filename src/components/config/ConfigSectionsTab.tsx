@@ -30,9 +30,10 @@ export default function ConfigSectionsTab({
   sectionImagePreview,
   handleFileSelectSection,
   handleRemoveImageSection,
+  handleReorderSections,
 }: any) {
   // Handler para drag & drop
-  const handleDragEnd = (event: any) => {
+  const handleDragEnd = async (event: any) => {
     const { active, over } = event;
     if (!over || active.id === over.id) return;
     const oldIndex = form.sections.findIndex(
@@ -50,6 +51,9 @@ export default function ConfigSectionsTab({
       order: idx + 1,
     }));
     setForm((prev: any) => ({ ...prev, sections: reOrdered }));
+    if (typeof handleReorderSections === "function") {
+      await handleReorderSections(reOrdered);
+    }
   };
 
   return (

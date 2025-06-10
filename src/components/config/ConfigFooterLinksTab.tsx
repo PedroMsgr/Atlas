@@ -20,9 +20,10 @@ export default function ConfigFooterLinksTab({
   handleEditFooterLink,
   handleDeleteFooterLink,
   loadingFooterLinks,
+  handleReorderFooterLinks,
 }: any) {
   // Handler para drag & drop
-  const handleDragEnd = (event: any) => {
+  const handleDragEnd = async (event: any) => {
     const { active, over } = event;
     if (!over || active.id === over.id) return;
     setFooterLinks((prev: any[]) => {
@@ -36,10 +37,15 @@ export default function ConfigFooterLinksTab({
       const newLinks = prev.slice();
       const moved = newLinks.splice(oldIndex, 1)[0];
       newLinks.splice(newIndex, 0, moved);
-      return newLinks.map((link: any, idx: number) => ({
+      const reOrdered = newLinks.map((link: any, idx: number) => ({
         ...link,
         order: idx + 1,
       }));
+      // Persist order
+      if (typeof handleReorderFooterLinks === "function") {
+        handleReorderFooterLinks(reOrdered);
+      }
+      return reOrdered;
     });
   };
 

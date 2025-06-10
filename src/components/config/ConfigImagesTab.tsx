@@ -15,9 +15,10 @@ export default function ImagesTab({
   loadingImages,
   handleAddImageGlobal,
   handleDeleteImageGlobal,
+  handleReorderImages,
 }: any) {
   // Handler para drag & drop
-  const handleDragEnd = (event: any) => {
+  const handleDragEnd = async (event: any) => {
     const { active, over } = event;
     if (!over || active.id === over.id) return;
     const oldIndex = form.images.findIndex(
@@ -36,6 +37,9 @@ export default function ImagesTab({
       order: idx + 1,
     }));
     setForm((prev: any) => ({ ...prev, images: reOrdered }));
+    if (typeof handleReorderImages === "function") {
+      await handleReorderImages(reOrdered);
+    }
   };
 
   return (

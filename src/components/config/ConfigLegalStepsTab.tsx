@@ -21,6 +21,7 @@ export default function ConfigLegalStepsTab({
   handleEditLegalStep,
   handleDeleteLegalStep,
   loadingLegalSteps,
+  handleReorderLegalSteps,
 }: any) {
   // Handler para drag & drop
   const handleDragEnd = (event: any) => {
@@ -35,8 +36,9 @@ export default function ConfigLegalStepsTab({
       );
       if (oldIndex === -1 || newIndex === -1) return prev;
       const newSteps = prev.slice();
-      const moved = newSteps.splice(oldIndex, 1)[0];
+      const [moved] = newSteps.splice(oldIndex, 1);
       newSteps.splice(newIndex, 0, moved);
+      // Reasignar orden localmente
       return newSteps.map((step: any, idx: number) => ({
         ...step,
         order: idx + 1,

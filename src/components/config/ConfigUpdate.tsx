@@ -397,6 +397,7 @@ export default function ConfigUpdate({ config, onSuccess }: ConfigUpdateProps) {
   };
 
   // Adaptar handleSubmit para subir imágenes solo al confirmar
+  const [submitting, setSubmitting] = useState(false);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.id) {
@@ -404,9 +405,9 @@ export default function ConfigUpdate({ config, onSuccess }: ConfigUpdateProps) {
       return;
     }
     if (!form.name || !form.pageTitle || !form.servicesDescription) return;
+    setSubmitting(true);
     let bannerUrl = form.bannerUrl;
     let iconUrl = form.iconUrl;
-    // Subir imágenes si hay archivos nuevos
     if (bannerFile) bannerUrl = await uploadImage(bannerFile);
     if (iconFile) iconUrl = await uploadImage(iconFile);
     const input = {
@@ -422,7 +423,6 @@ export default function ConfigUpdate({ config, onSuccess }: ConfigUpdateProps) {
       const { data } = await updateConfig({
         variables: { id: form.id, data: input },
       });
-      // Actualizar estado local tras guardar
       setForm((prev: any) => ({ ...prev, ...input }));
       if (bannerFile && bannerUrl) {
         setBannerPreview(bannerUrl);
@@ -432,9 +432,15 @@ export default function ConfigUpdate({ config, onSuccess }: ConfigUpdateProps) {
         setIconPreview(iconUrl);
         setIconFile(null);
       }
+      // Persistir orden SOLO aquí
+      await persistAllOrders();
       if (onSuccess) onSuccess();
+      // Redirigir a la lista de configuraciones
+      router.push("/admin/configs");
     } catch (err: any) {
       alert("Error al guardar la configuración.");
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -705,7 +711,115 @@ export default function ConfigUpdate({ config, onSuccess }: ConfigUpdateProps) {
     setEditingFooterLinkId(link.id);
   };
 
-  // Renderizado de tabs
+  // --- Persist order handlers for drag & drop ---
+  // Elimina la persistencia inmediata: solo actualiza el estado local
+  const handleReorderSections = (sections: any[]) => {
+    setForm((prev: any) => ({ ...prev, sections }));
+  };
+
+  const handleReorderArticles = (articles: any[]) => {
+    setForm((prev: any) => ({ ...prev, articles }));
+  };
+
+  const handleReorderImages = (images: any[]) => {
+    setForm((prev: any) => ({ ...prev, images }));
+  };
+
+  const handleReorderLegalSteps = (legalSteps: any[]) => {
+    setDraftLegalSteps(legalSteps);
+  };
+
+  const handleReorderFooterLinks = (footerLinks: any[]) => {
+    setDraftFooterLinks(footerLinks);
+  };
+
+  // --- Guardar cambios en el backend solo al pulsar "Actualizar Configuración" ---
+  const persistAllOrders = async () => {
+    // Secciones
+    for (const section of form.sections) {
+      if (section.id) {
+        const { id, __typename, images, ...sectionInput } = section;
+        await updateSection({
+          variables: {
+            id,
+            data: {
+              ...sectionInput,
+              order: section.order ?? 1,
+            },
+          },
+        });
+      }
+    }
+    // Artículos
+    for (const article of form.articles) {
+      if (article.id) {
+        const { id, __typename, ...articleInput } = article;
+        await updateArticle({
+          variables: {
+            id,
+            data: {
+              ...articleInput,
+              order: article.order ?? 1,
+            },
+          },
+        });
+      }
+    }
+    // Imágenes
+    for (const image of form.images) {
+      if (image.id) {
+        const { id, __typename, ...imageInput } = image;
+        await updateImage({
+          variables: {
+            id,
+            data: {
+              ...imageInput,
+              order: image.order ?? 1,
+            },
+          },
+        });
+      }
+    }
+    // Pasos legales
+    for (const step of draftLegalSteps) {
+      if (step.id) {
+        const { id, __typename, ...stepInput } = step;
+        await updateLegalStep({
+          variables: {
+            id,
+            data: {
+              ...stepInput,
+              order: step.order ?? 1,
+            },
+          },
+        });
+      }
+    }
+    // Footer links
+    for (const link of draftFooterLinks) {
+      if (link.id) {
+        const { id, __typename, ...linkInput } = link;
+        await updateFooterLink({
+          variables: {
+            id,
+            data: {
+              ...linkInput,
+              order: link.order ?? 1,
+            },
+          },
+        });
+      }
+    }
+    await Promise.all([
+      refetchSections(),
+      refetchArticles(),
+      refetchImages(),
+      refetchLegalSteps(),
+      refetchFooterLinks(),
+    ]);
+  };
+
+  // Pass reorder handlers to each tab
   return (
     <Box className="w-full">
       <Flex justify="end" align="center" className="mb-4 gap-2">
@@ -713,13 +827,14 @@ export default function ConfigUpdate({ config, onSuccess }: ConfigUpdateProps) {
           type="button"
           variant="cancel"
           onClick={() => router.push("/admin/configs")}
+          disabled={submitting}
         >
           Cancelar
         </AtlasButton>
         <AtlasButton
           type="button"
           variant="success"
-          disabled={updating}
+          disabled={updating || submitting}
           onClick={handleSubmit}
         >
           Actualizar Configuración
@@ -784,6 +899,8 @@ export default function ConfigUpdate({ config, onSuccess }: ConfigUpdateProps) {
             sectionImagePreview={sectionImagePreview}
             handleFileSelectSection={handleSectionImageSelect}
             handleRemoveImageSection={handleRemoveSectionImage}
+            handleReorderSections={handleReorderSections}
+            submitting={submitting}
           />
         </Tabs.Content>
 
@@ -801,6 +918,8 @@ export default function ConfigUpdate({ config, onSuccess }: ConfigUpdateProps) {
             handleEditArticle={handleEditArticle}
             handleDeleteArticle={handleDeleteArticle}
             loadingArticles={loadingArticles}
+            handleReorderArticles={handleReorderArticles}
+            submitting={submitting}
           />
         </Tabs.Content>
 
@@ -812,6 +931,8 @@ export default function ConfigUpdate({ config, onSuccess }: ConfigUpdateProps) {
             loadingImages={loadingImages}
             handleAddImageGlobal={handleAddImageGlobal}
             handleDeleteImageGlobal={handleDeleteImageGlobal}
+            handleReorderImages={handleReorderImages}
+            submitting={submitting}
           />
         </Tabs.Content>
 
@@ -829,6 +950,8 @@ export default function ConfigUpdate({ config, onSuccess }: ConfigUpdateProps) {
             handleEditLegalStep={handleEditLegalStepDraft}
             handleDeleteLegalStep={handleDeleteLegalStepDraft}
             loadingLegalSteps={loadingLegalSteps}
+            handleReorderLegalSteps={handleReorderLegalSteps}
+            submitting={submitting}
           />
         </Tabs.Content>
 
@@ -846,6 +969,8 @@ export default function ConfigUpdate({ config, onSuccess }: ConfigUpdateProps) {
             handleEditFooterLink={handleEditFooterLinkDraft}
             handleDeleteFooterLink={handleDeleteFooterLinkDraft}
             loadingFooterLinks={loadingFooterLinks}
+            handleReorderFooterLinks={handleReorderFooterLinks}
+            submitting={submitting}
           />
         </Tabs.Content>
       </Tabs.Root>
