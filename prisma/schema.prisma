@@ -66,7 +66,6 @@ model User {
   createdAt        DateTime       @default(now())
   updatedAt        DateTime       @updatedAt
   lastLoginAt      DateTime?
-  // Password reset fields
   resetToken       String?        @unique
   resetTokenExpiry DateTime?
   clients          Client[]
@@ -88,7 +87,7 @@ model Client {
   reports Report[]
 }
 
-/// Profesional (usuario con rol professional, vinculado a un servidor unitario)
+/// Profesional (usuario con rol professional
 model Professional {
   id     String @id @default(uuid())
   userId String
