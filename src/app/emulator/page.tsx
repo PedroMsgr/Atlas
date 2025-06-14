@@ -15,30 +15,14 @@ export default function EmulatorPage() {
   "servicesDescription": "Servicios legales para casos de laboral.",
   "iconUrl": "",
   "footerInfo": "© 2025 Atlas Legal",
-  "bannerUrl": "https://firebasestorage.googleapis.com/v0/b/universo-legal-4dace.firebasestorage.app/o/images%2F1749534719921-accidente.png?alt=media&token=f5bf8096-597c-460c-9eea-14d19a423d02",
+  "bannerUrl": "https://firebasestorage.googleapis.com/v0/b/universo-legal-4dace.firebasestorage.app/o/images%2F1749553985125-accidente.png?alt=media&token=8cdd5272-37ce-40ec-81ed-50532c3c8028",
   "sections": [
-    {
-      "__typename": "Section",
-      "id": "4fb890ff-d308-4de4-80fe-2d5801b50433",
-      "title": "Bienvenida",
-      "body": "Bienvenido a nuestro portal.",
-      "order": 1,
-      "images": []
-    },
     {
       "__typename": "Section",
       "id": "f1c36764-a6ce-4a03-a230-d19d9459627c",
       "title": "Guía Legal",
       "body": "Te guiamos paso a paso en tu proceso legal.",
-      "order": 2,
-      "images": []
-    },
-    {
-      "__typename": "Section",
-      "id": "2ae569e5-fe25-440e-ae31-1511f8dc24b4",
-      "title": "Artículo Destacado",
-      "body": "Contenido curado manualmente.",
-      "order": 3,
+      "order": 1,
       "images": []
     },
     {
@@ -46,11 +30,36 @@ export default function EmulatorPage() {
       "id": "6aaae54e-3b9c-4735-967d-fabc7f5f1797",
       "title": "Noticias",
       "body": "Noticias legales relevantes.",
+      "order": 2,
+      "images": []
+    },
+    {
+      "__typename": "Section",
+      "id": "4fb890ff-d308-4de4-80fe-2d5801b50433",
+      "title": "Bienvenida",
+      "body": "Bienvenido a nuestro portal.",
+      "order": 3,
+      "images": []
+    },
+    {
+      "__typename": "Section",
+      "id": "2ae569e5-fe25-440e-ae31-1511f8dc24b4",
+      "title": "Artículo Destacado",
+      "body": "Contenido curado manualmente.",
       "order": 4,
       "images": []
     }
   ],
   "articles": [
+    {
+      "__typename": "Article",
+      "id": "8166acc1-7d80-42fb-9d16-5b64453af01f",
+      "title": "Guía rápida de Portal Laboral 1",
+      "content": "Guía rápida para usuarios del portal.",
+      "url": null,
+      "order": 1,
+      "publishedAt": "2025-06-09T11:17:55.210Z"
+    },
     {
       "__typename": "Article",
       "id": "e02e2bc0-caa7-47f3-b075-450a6fbcb073",
@@ -59,38 +68,29 @@ export default function EmulatorPage() {
       "url": null,
       "order": 1,
       "publishedAt": "2025-06-09T11:17:55.092Z"
-    },
-    {
-      "__typename": "Article",
-      "id": "8166acc1-7d80-42fb-9d16-5b64453af01f",
-      "title": "Guía rápida de Portal Laboral 1",
-      "content": "Guía rápida para usuarios del portal.",
-      "url": null,
-      "order": 2,
-      "publishedAt": "2025-06-09T11:17:55.210Z"
     }
   ],
   "images": [],
   "legalSteps": [
     {
       "__typename": "LegalStep",
+      "id": "1a18584d-b7f8-416c-86cd-96eeccb3c7a1",
+      "title": "Negociación",
+      "description": "Negociamos con la parte contraria.",
+      "order": 1
+    },
+    {
+      "__typename": "LegalStep",
       "id": "356e5d1a-fcf5-4e3e-86f4-2dc642017461",
       "title": "Evaluación inicial",
       "description": "Analizamos tu caso y te orientamos.",
-      "order": 1
+      "order": 2
     },
     {
       "__typename": "LegalStep",
       "id": "b02cf4a0-7e63-4d51-8d69-580d8c20a92c",
       "title": "Revisión documental",
       "description": "Revisamos toda la documentación relevante.",
-      "order": 2
-    },
-    {
-      "__typename": "LegalStep",
-      "id": "1a18584d-b7f8-416c-86cd-96eeccb3c7a1",
-      "title": "Negociación",
-      "description": "Negociamos con la parte contraria.",
       "order": 3
     },
     {
